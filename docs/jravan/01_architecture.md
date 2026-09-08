@@ -1,7 +1,6 @@
 # Architecture
 
 ## 全体構成
-
 ```text
 Mac
   Browser / PWA
@@ -44,23 +43,22 @@ DuckDBへの書込を一か所に集約する。複数workerによる同一DBフ
 Review Packageだけを外部AIへ渡し、DBやファイルシステムへの直接権限を持たせない。
 
 ## 予定ディレクトリ
-既存構造を壊さず段階的に以下へ寄せる。
-
 ```text
 horse-man/
-  src/                         # 既存TypeScript CLI（当面維持）
-  test/                        # 既存テスト
+  .agents/                    # Codex設定/スキル
+  .devcontainer/              # Codex開発環境
   services/
-    core/                      # Python FastAPI/Core（Phase 0以降）
-    jvlink/                    # Windows/JV-Link adapter
+    core/                     # Python FastAPI/Core
+    jvlink/                   # Windows/JV-Link adapter
   apps/
-    web/                       # Web UI（Phase 4）
+    web/                      # Web UI（Phase 4）
   db/
     migrations/
-  rules/                       # 将来。原本からの正式移行までは作成のみ
-  records/                     # 既存記録
+  rules/                      # 構造化ルール。原本はルートで保持
+  tests/
   docs/jravan/
   scripts/
+  競馬予想ルール原本_v1.4.1.md
 ```
 
 Gitは空ディレクトリを保持しないため、実ディレクトリは各Phaseの実装開始時に作成する。

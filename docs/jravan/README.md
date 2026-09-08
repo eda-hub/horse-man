@@ -1,9 +1,8 @@
 # JRA-VAN local prediction system docs
 
-このディレクトリは、`horse-man` を JRA-VAN Data Lab 対応のローカル予想・記録・回顧システムへ拡張するための設計書である。
+このディレクトリは、`horse-man` を JRA-VAN Data Lab 対応のローカル予想・記録・回顧システムとして新規実装するための設計書である。
 
 ## 読む順番
-
 1. `00_project_plan.md` — 目的、範囲、全体計画
 2. `01_architecture.md` — Mac / Windows VM / Python / Web UI 構成
 3. `02_database_design.md` — DuckDBのER・テーブル方針
@@ -15,8 +14,7 @@
 9. `08_backup_recovery.md` — 自動バックアップと復旧
 10. `09_security.md` — Windows VM、Python、DB、ネットワーク
 11. `10_operations.md` — 開催日の自動ジョブ、障害復旧
-12. `11_existing_cli_migration.md` — 既存TypeScript CLIとの共存・移行
-13. `12_testing_quality.md` — テスト、バックテスト品質、過学習防止
-14. `phases/` — Codexに渡すフェーズ別実装計画
+12. `12_testing_quality.md` — テスト、バックテスト品質、過学習防止
+13. `phases/` — Codexに渡すフェーズ別実装計画
 
 `DECISIONS.md` は横断的な確定事項の正本とする。

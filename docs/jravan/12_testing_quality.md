@@ -28,4 +28,4 @@ AI出力schema validation、無効proposal拒否、DB直接書込不可をテス
 - 複数候補から都合の良いものだけ選ぶselection biasを記録
 
 ## CI
-既存 `npm run check` を維持。Python追加後はPython lint/type/testもCIへ追加するが、JV-Link実機依存テストはWindowsローカルintegration testとして分離する。
+Phase 0でPython lint/type/testを構築する。JV-Link実機依存テストは一般CIから分離し、Windows VM上のintegration testとして実行する。Web UI追加後はそのlint/type/testを追加する。

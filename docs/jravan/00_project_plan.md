@@ -11,6 +11,7 @@ JRA-VAN Data Labから取得したデータをローカルPCに蓄積し、Mac�
 - 実購入成績とシステム推奨の理論成績を分離する。
 - バックテストで未来情報を使わない。
 - 外部公開、自動投票、PAT/銀行情報の保存は行わない。
+- 旧CLIへの互換性は持たず、新システムとして実装する。
 
 ## 3. 利用環境
 - 操作端末: 個人Mac
@@ -19,8 +20,9 @@ JRA-VAN Data Labから取得したデータをローカルPCに蓄積し、Mac�
 - API: FastAPI
 - DB: DuckDB
 - Archive: Parquet
-- Web UI: TypeScript系を第一候補。既存Node.js資産を考慮してPhase 4で確定する。
+- Web UI: Phase 4で技術選定
 - AI: 外部APIをAdapter経由で必要時のみ使用
+- Codex: `.agents/` と `.devcontainer/` を利用
 
 ## 4. スコープ
 ### 対象

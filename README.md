@@ -1,56 +1,28 @@
 # horse-man
 
-`競馬予想ルール原本_v1.4.1.md`を判断の正本として、Codexによる予想、確率・馬券構造の監査、結果回顧、2週間サイクル集計をGit管理可能なJSONへ保存するローカルCLIです。
+JRA-VAN Data Lab を利用し、個人のMacからWeb UIで操作するローカル競馬予想・記録・回顧システムです。
 
-## セットアップ
+現在は実装前の設計フェーズです。競馬判断の正本は `競馬予想ルール原本_v1.4.1.md`、システム設計の正本は `DECISIONS.md` と `docs/jravan/` です。
 
-```bash
-npm install
-npm run build
-node dist/cli.js rules verify
-```
+## 目標
 
-Node.js 22以上を使用します。正式記録は既定で`records/`へ保存され、同一revisionの上書きは拒否されます。保存前には毎回ルール原本のSHA-256を検証します。
+- Windows 11 VM上のJV-LinkからJRA-VANデータを取得
+- DuckDB + Parquetへ蓄積
+- MacのブラウザからPRE / DAY / FINAL予想を確認
+- 最終オッズを予測して馬連・ワイド中心の買い目候補を生成
+- ユーザーが購入 / 見送りを判断
+- 見送りを含む全FINAL予想を保存・結果精算・回顧
+- AIは回顧、仮説生成、ルール改善候補の作成に使用
+- バックアップと結果記録を自動化
 
-## 基本フロー
+## 設計書
 
-入力JSONの契約は`src/schemas.ts`、動作する例は`test/fixtures.ts`を参照してください。
+`docs/jravan/README.md` から参照してください。
 
-```bash
-# レース情報、Core、Final、馬券戦略
-node dist/cli.js race import /tmp/dossier.json
-node dist/cli.js forecast save --race 2026-08-29_JRA_TKY_11 --stage core --input /tmp/core.json
-node dist/cli.js forecast save --race 2026-08-29_JRA_TKY_11 --stage final --input /tmp/final.json
-node dist/cli.js strategy save --race 2026-08-29_JRA_TKY_11 --input /tmp/strategy.json
+## 実装
 
-# 開催比較と単一レースレポート
-node dist/cli.js screen report --date 2026-08-29
-node dist/cli.js report race --race 2026-08-29_JRA_TKY_11
+Codexは `AGENTS.md` と `docs/jravan/phases/` を読み、Phase 0から順番に実装します。
 
-# WIN5分析、最終計画、回顧
-node dist/cli.js win5 analyze --date 2026-08-29 --max-points 64
-node dist/cli.js win5 save --input /tmp/win5-plan.json
-node dist/cli.js win5 review --input /tmp/win5-review.json
+`.agents/` と `.devcontainer/` はCodex利用のため維持します。
 
-# 結果、購入、回顧、検証サイクル
-node dist/cli.js result import /tmp/result.json
-node dist/cli.js purchase save --race 2026-08-29_JRA_TKY_11 --input /tmp/purchase.json
-node dist/cli.js review save --race 2026-08-29_JRA_TKY_11 --input /tmp/review.json
-node dist/cli.js cycle report --from 2026-08-16 --to 2026-08-29 --format markdown
-```
-
-`--records <path>`で記録先、`--rules <path>`で原本パスを変更できます。環境変数`HORSEMAN_DATA_DIR`、`HORSEMAN_RULES_FILE`も利用できます。
-
-## Codexスキル
-
-`.agents/skills/horse-racing-forecast/`に、公開Web情報の調査からCLI記録までを案内するプロジェクトスキルがあります。単一レース、開催全体、WIN5、回顧を必要時だけ読み分け、原本本文は複製せず直接参照します。
-
-公開情報のみを対象とし、主催者公式を優先します。システムは買い目提案と手動購入記録までを扱い、自動投票は行いません。
-
-## 検証
-
-```bash
-npm run check
-```
-
-format、lint、型検査、単体・統合テスト、ビルドをまとめて実行します。
+自動投票、PAT連携、銀行情報の保存、公開Webサービス化は対象外です。

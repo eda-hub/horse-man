@@ -1,6 +1,6 @@
 # Architecture Decision Record
 
-JRA-VANローカル予想システムに関する現時点の確定判断を記録する。
+JRA-VANローカル予想システムに関する確定判断を記録する。
 
 ## ADR-001 ローカル優先
 Macを操作端末、Windows 11 VMをJRA-VAN/JV-Link実行環境とする。Web UIはインターネットへ公開しない。
@@ -12,7 +12,7 @@ Macを操作端末、Windows 11 VMをJRA-VAN/JV-Link実行環境とする。Web 
 現役分析DBはDuckDB、長期アーカイブ/論理バックアップはParquetを基本とする。DuckDB書込は単一Writerに集約する。
 
 ## ADR-004 FINAL予想はImmutable
-FINAL確定時点のルールversion、feature version、data cutoff、利用オッズ、各馬score、買い目を後から上書きしない。
+FINAL確定時点のrule version、feature version、data cutoff、利用オッズ、各馬score、買い目を後から上書きしない。
 
 ## ADR-005 SKIPは正常な意思決定
 `BET` と `SKIP` を同格の最終判断として記録する。見送りでも推奨買い目を保存し、理論損益を後日計算する。
@@ -35,8 +35,8 @@ AI提案は `DRAFT -> BACKTESTED -> APPROVED/REJECTED` を経る。AIからrules
 ## ADR-011 バックアップは自動化
 日次論理バックアップ、週次VM保護、Mac側/Time Machineへの退避を基本とし、復元テストも運用に含める。
 
-## ADR-012 既存CLIを段階移行
-現行TypeScript CLIと記録形式を即時廃止しない。Python/JV-Link基盤を追加し、互換性テスト後に役割を整理する。
+## ADR-012 旧CLIを廃止
+利用されていないNode/TypeScript CLIと関連テスト・設定は削除し、新システムをクリーンな構成で実装する。`.agents/` と `.devcontainer/` はCodex利用のため保持する。
 
 ## ADR-013 時点再現性
 予想・判断には必ず `data_cutoff` と使用snapshotを紐づけ、過去時点の判断を再現できるようにする。
