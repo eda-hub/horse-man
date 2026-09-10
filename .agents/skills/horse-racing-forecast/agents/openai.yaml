@@ -1,7 +1,7 @@
 interface:
-  display_name: "競馬予想・検証"
-  short_description: "原本準拠で競馬予想、馬券構造監査、結果回顧と検証記録を支援します"
-  default_prompt: "Use $horse-racing-forecast to analyze a specified race and record a rules-compliant forecast."
+  display_name: "競馬予想システム開発"
+  short_description: "JRA-VANローカル予想システムを設計書に沿って段階実装します"
+  default_prompt: "Use $horse-racing-forecast to implement the requested horse-man phase according to AGENTS.md and docs/jravan/."
 
 policy:
   allow_implicit_invocation: true

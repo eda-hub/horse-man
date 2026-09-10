@@ -1,5 +1,32 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local settings / secrets
+.env
+.env.*
+!.env.example
+secrets/
+
+# Runtime data
+data/
+backup/
+logs/
+*.duckdb
+*.duckdb.wal
+*.parquet
+
+# Web UI (Phase 4+)
 node_modules/
 dist/
 coverage/
-.DS_Store
+
+# Temporary
 *.tmp
