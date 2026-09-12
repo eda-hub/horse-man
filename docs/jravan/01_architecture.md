@@ -72,7 +72,7 @@ services/
   jvlink/                     # Windows/JV-Link adapter
 apps/
   web/                        # Web UI
- db/
+db/
   migrations/
 tests/
 scripts/
