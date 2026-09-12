@@ -1,19 +1,34 @@
-# 競馬予想システム開発計画書 v0.1
+# 競馬予想システム開発計画書 v0.2
 
 ## 1. 目的
-JRA-VAN Data Labから取得したデータをローカルPCに蓄積し、Macの専用Web UIからレース予想、最終オッズ予測、買い目候補、購入/見送り判断、結果記録、回顧、ルール改善を一貫して行う。
+JRA-VAN Data Labから取得したデータをローカルPCに蓄積し、Macの専用Web UIからProduction基準予想、Shadow比較、最終オッズ予測、買い目候補、購入/見送り判断、結果記録、回顧、検証を一貫して行う。
 
 ## 2. 基本原則
-- 競馬予想ルール原本を判断の正本とする。
+- 競馬判断は `docs/manual/` の現行モジュールを正本とし、システム設計で独自ルールを再定義しない。
+- 現行releaseはmanifestから読み、必須モジュールの `manual_release` 一致を検証する。
+- ProductionとShadowを完全分離し、Shadowの結果を同一レースのProductionへ逆流させない。
+- `baseline_forecast_id` を基準予想の同一性キーとして保持する。
 - AIは予想本体ではなく、回顧・仮説・ルール改善支援に使用する。
-- FINAL予想は確定後に上書きしない。
+- FINAL予想は確定後に結果に合わせて上書きしない。
 - 購入しなかったレースも予想記録、仮想損益、回顧を必ず残す。
 - 実購入成績とシステム推奨の理論成績を分離する。
 - バックテストで未来情報を使わない。
 - 外部公開、自動投票、PAT/銀行情報の保存は行わない。
-- 旧CLIへの互換性は持たず、新システムとして実装する。
 
-## 3. 利用環境
+## 3. 現在のGit領域
+```text
+docs/manual/                 競馬予想ルール正本
+docs/yosou/jra_racing/       JRA重賞の長期記録
+docs/yosou/kaigai/           海外競馬記録
+docs/validation/             現行Shadow検証サイクル
+docs/jravan/                 システム設計
+.agents/                     Codex設定・スキル
+.devcontainer/               Codex開発環境
+```
+
+これらはPhase実装で勝手に再配置しない。
+
+## 4. 利用環境
 - 操作端末: 個人Mac
 - JRA-VAN実行: Parallels上のWindows 11 VM
 - JV-Link層: Python 3.14 + pywin32を第一候補
@@ -24,18 +39,20 @@ JRA-VAN Data Labから取得したデータをローカルPCに蓄積し、Mac�
 - AI: 外部APIをAdapter経由で必要時のみ使用
 - Codex: `.agents/` と `.devcontainer/` を利用
 
-## 4. スコープ
+## 5. スコープ
 ### 対象
 - JRA-VANデータ自動取得
 - レース/馬/血統/近走/騎手/調教師/調教/馬場/馬体重/オッズ
-- PRE / DAY / FINAL予想
-- ルール評価、統計特徴量、将来のML
+- PRE / DAY / FINALのデータ時点snapshot
+- Production基準予想・条件別補正
+- Shadow比較
+- ルール適用・特徴量・統計・将来のML
 - 最終オッズ予測
-- 馬連・ワイドを中心とした買い目生成
-- BET / SKIP判断
+- `docs/manual/30_betting.md` に従う市場評価・買い目生成
+- ユーザーBET / SKIP判断
 - 結果・払戻・仮想/実績精算
 - AI回顧
-- ルール提案・バックテスト・人間承認
+- 検証サイクル・バックテスト・人間承認
 - 自動バックアップ
 
 ### 非対象
@@ -45,15 +62,16 @@ JRA-VAN Data Labから取得したデータをローカルPCに蓄積し、Mac�
 - 多人数利用
 - クラウドDB常時運用
 
-## 5. 成功条件
+## 6. 成功条件
 - Macのブラウザだけで日常操作できる。
 - Windows VMのJV-Link更新が中断しても再開できる。
-- 過去FINAL予想を当時のデータで説明できる。
+- 過去Predictionを `manual_release`、module hash、data cutoffとともに再現・説明できる。
+- ProductionとShadowを同一 `baseline_forecast_id` で比較でき、逆流しない。
 - 見送りを含む全FINAL予想が自動で結果/回顧へつながる。
 - AIを停止しても予想・買い目・結果記録が動く。
 - DB障害時にバックアップから復元できる。
 
-## 6. 主要フェーズ
+## 7. 主要フェーズ
 0. Foundation
 1. JV-Link ingest
 2. Data expansion
@@ -64,15 +82,13 @@ JRA-VAN Data Labから取得したデータをローカルPCに蓄積し、Mac�
 7. AI review
 8. Backtest / Rule lifecycle
 
-## 7. 確定事項
-`DECISIONS.md` を参照。
-
 ## 8. 暫定事項
 - Web UIフレームワーク
 - Python依存管理ツールの最終選定
 - MLモデルの採用有無/種類
 - オッズ詳細保存頻度
 - AIモデルの使い分け
+- DBからGit上のJRA重賞Markdownへ自動同期する時期と方式
 
 ## 9. 実装ルール
-Codexには1フェーズずつ実装させる。各フェーズで受入条件、migration、テスト、rollback方法を確認してから次へ進む。
+Codexには1フェーズずつ実装させる。各フェーズでmigration、テスト、受入条件、rollback方法を確認してから次へ進む。`docs/manual/` の意味変更はJRA-VAN実装PRへ混在させない。

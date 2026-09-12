@@ -4,12 +4,11 @@
 - `core`: JRA基本データ
 - `market`: オッズ・馬体重・馬場等の時系列
 - `feature`: 予想用特徴量
-- `prediction`: 予想・買い目・購入判断・精算
-- `review`: 回顧・AI・ルール提案・バックテスト
+- `prediction`: Production/Shadow予想・買い目・購入判断・精算
+- `review`: 回顧・検証サイクル・AI・ルール提案・バックテスト
 - `ops`: job、watermark、backup、health
 
 ## ER概要
-
 ```text
 core.race 1---N core.runner N---1 core.horse
 core.runner 1---0..1 core.runner_result
@@ -19,9 +18,11 @@ core.runner 1---N market.weight_snapshot
 core.race 1---N market.odds_snapshot
 core.race 1---N prediction.prediction_run
 prediction.prediction_run 1---N prediction.runner_prediction
+prediction.prediction_run 1---N prediction.rule_application
 prediction.prediction_run 1---N prediction.bet_recommendation
-prediction.prediction_run 1---1 prediction.bet_decision
+prediction.prediction_run 1---0..1 prediction.bet_decision
 prediction.bet_recommendation 1---0..1 prediction.bet_settlement
+prediction.prediction_run N---0..1 review.validation_cycle
 prediction.prediction_run 1---N review.review_session
 review.review_session 1---N review.review_message
 review.review_session 1---N review.rule_proposal
@@ -38,17 +39,14 @@ review.rule_proposal 1---N review.backtest_run
 ### core.runner
 `race_id PK/FK, horse_id PK/FK, gate_no, horse_no, assigned_weight, jockey_code, jockey_name_snapshot, trainer_code, trainer_name_snapshot, owner_code, owner_name_snapshot, breeder_code, breeder_name_snapshot, entry_status`
 
-コード再利用リスクを考慮し、過去レースの名称はsnapshotも保持する。
-
 ### core.runner_result
 `race_id, horse_id, finish_position, finish_time_ms, corner1_position..corner4_position, last3f_ms, last3f_rank, confirmed_at`
 
 ### core.pedigree
 `horse_id, generation, position, ancestor_registration_no, ancestor_name, relationship`
-5代血統を検索可能な形で保持する。
 
 ### market.odds_snapshot
-`race_id, captured_at, bet_type, selection_key, odds, odds_min, odds_max, source, snapshot_kind`
+`odds_snapshot_id PK, race_id, captured_at, bet_type, selection_key, odds, odds_min, odds_max, source, snapshot_kind`
 
 ### market.weight_snapshot
 `race_id, horse_id, captured_at, horse_weight, weight_diff`
@@ -66,25 +64,50 @@ review.rule_proposal 1---N review.backtest_run
 頻出特徴量は列、実験的特徴量は`features_json`へ格納する。
 
 ### prediction.prediction_run
-`prediction_id, race_id, stage(PRE/DAY/FINAL), data_cutoff, rule_version, rule_hash, feature_version, engine_version, created_at, finalized_at, status`
-FINALはimmutable。
+最低限次を持つ。
+
+`prediction_id PK, race_id, baseline_forecast_id, forecast_kind(PRODUCTION/SHADOW), stage(PRE/DAY/FINAL), parent_prediction_id nullable, data_cutoff, manual_release, manual_manifest_hash, manual_module_hashes_json, feature_version, engine_version, validation_cycle_id nullable, created_at, finalized_at, status`
+
+- `baseline_forecast_id` は `docs/manual/00_core.md` 契約に従う。
+- ProductionとShadowを `forecast_kind` で明確に分離する。
+- Shadowは対応するProductionの `parent_prediction_id` を必須とする。
+- PRE/DAY/FINALはデータ時点であり、Ownerモジュールの意味を変更しない。
+- FINAL/固定済Productionはimmutable。
 
 ### prediction.runner_prediction
-`prediction_id, horse_id, mark, overall_score, ability_score, course_score, pedigree_score, pace_score, trend_score, win_probability, place_probability, confidence`
+`prediction_id, horse_id, mark, baseline_rank, overall_score, ability_score, suitability_score, pace_score, pedigree_score, win_probability, place_probability, top3_probability, prediction_confidence`
+
+### prediction.rule_application
+`prediction_id, horse_id nullable, module, rule_id, effect_type, input_snapshot, output_delta, evidence_json`
+Production/Shadowどちらで使われたルールかを `prediction_run` と合わせて追跡する。
 
 ### prediction.bet_recommendation
-推奨買い目。見送りでも削除しない。
+推奨候補。Production正式候補とShadow比較候補を区別する。見送りでも削除しない。
 
 ### prediction.bet_decision
-`BET` / `SKIP_ODDS` / `SKIP_RISK` / `SKIP_USER` / `SKIP_OTHER` と判断理由、判断時オッズsnapshotを保持。
+実ユーザー判断はProductionにのみ紐付ける。`BET / SKIP_ODDS / SKIP_RISK / SKIP_USER / SKIP_OTHER`、判断理由、判断時odds snapshot、ユーザー指定馬/券種/予算を保持する。
 
 ### prediction.bet_settlement
-理論精算と実購入精算を区別して集計可能にする。
+理論推奨、Shadow比較、実購入の精算種別を区別して集計可能にする。
+
+### review.validation_cycle
+`validation_cycle_id, cycle_no, manual_release, started_at, ended_at, status, target_rules_json, planned_sample_count, actual_sample_count`
+`docs/manual/50_review.md` の検証サイクルと対応させる。
+
+### review.review_session
+Prediction、結果、decision、validation cycleを紐付ける。
+
+## ルール版の再現性
+単一の `rule_version` だけでなく、`manual_release`、manifest hash、利用モジュールごとのhashを保存する。Git commit SHAも取得できる場合は併記する。
 
 ## 時点再現
 各snapshot、feature、predictionには取得/利用時刻を持たせる。バックテストは `available_at <= data_cutoff` を必須条件とする。
 
+## Git記録との関係
+`docs/yosou/jra_racing/` と `docs/validation/` は現行Git運用の正本/作業領域である。DB導入後の同期方式が正式決定するまで、DB保存を理由にこれらを削除・置換しない。
+
 ## データ重要度
-A: FINAL予想、判断、結果、回顧、rules version、重要snapshot — 原則削除不可
-B: feature、集計 — 再生成可能
-C: cache — 削除可
+A: Production FINAL、baseline ID、判断、結果、回顧、manual release/module hash、重要snapshot — 原則削除不可
+B: Shadow/検証データ — 検証ライフサイクルに従いDB保持方針を別途設定
+C: feature、集計 — 再生成可能
+D: cache — 削除可

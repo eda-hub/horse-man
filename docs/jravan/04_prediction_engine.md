@@ -1,55 +1,68 @@
 # Prediction engine design
 
-## パイプライン
+## 正本
+Prediction Engineは独自ルールを発明しない。競馬判断の正本は `docs/manual/` とし、現行release・Owner・決定権を実装へ写像する。
 
+## Productionパイプライン
 ```text
 JRA data
  -> normalized core/market
  -> feature generation
- -> common rules + race-specific rules
- -> ability / suitability / pace / pedigree / trend scores
- -> total evaluation
- -> marks ◎○▲☆△
- -> probability estimation
- -> odds forecast
- -> bet recommendation
+ -> docs/manual release verification
+ -> 00_core execution contract
+ -> 10_prediction Production baseline
+ -> 20_conditional formal adjustments (該当時)
+ -> Production baseline freeze / baseline_forecast_id
+ -> odds observation / final-odds forecast
+ -> 30_betting market evaluation / ticket candidates
  -> user BET / SKIP
 ```
 
-## AI非依存
-AIが停止していても、特徴量生成、rule評価、marks、確率、買い目候補、結果精算は動作すること。
+価格情報は市場評価・購入判断には使うが、`10_prediction` の能力順位・基準確率を価格だけで変更しない。
 
-## Rule形式
-ルールは将来YAML/JSONで構造化する。
-
-```yaml
-rule_id: STS_014
-scope:
-  race: セントウルS
-type: PLUS
-condition:
-  previous_distance_m: 1200
-weight: 2.0
-confidence: medium
-evidence:
-  sample_size: 68
+## Shadowパイプライン
+```text
+fixed Production
+ -> copy baseline context
+ -> 40_shadow / 51B / Experimental delta
+ -> shadow forecast
+ -> optional shadow ticket comparison
+ -> result comparison
 ```
+Shadowから同一レースのProductionへ書き戻さない。
 
-Rule typeは `PLUS / MINUS / EXCLUDE / REQUIRED / REFERENCE` を基本とする。
+## Result / Review
+結果確定後はProduction、Shadow、実購入を `50_review` の観点で比較し、同じ `baseline_forecast_id` で追跡する。
 
-## スコア
-単一指数だけにせず、最低でも `ability / suitability / pace / pedigree / trend` を保持する。総合scoreは説明可能な合成とする。
+## Rule実装方式
+`docs/manual/` を別YAMLへコピーして新しい正本を作らない。実行可能ロジックはPythonコード/設定として実装してよいが、各実装単位を `module + rule_id` に紐付ける。
 
-## Prediction stage
-- PRE: 枠、過去走、血統等
-- DAY: 馬場、天候、当日情報を追加
-- FINAL: 馬体重、取得オッズ、最終オッズ予測を反映
+各Predictionには次を保存する。
+- `manual_release`
+- `manual_manifest_hash`
+- 使用module hashes
+- rule IDs
+- engine version
+- feature version
+- data cutoff
 
-## 記録
-FINAL確定時に、各馬評価、適用rule IDs、feature_run_id、odds snapshot、engine version、rule hashを保存する。
+manifestと必須moduleの `manual_release` が一致しない場合はfail closedする。
+
+## スコアと確率
+内部特徴量や説明用scoreは保持してよいが、最終的な意味・優先順位は `10_prediction.md` を正とする。最低限、基礎能力/今回発揮能力、適性、展開、確率、予想確信度の説明を再現できること。
+
+## データ時点
+- PRE: 事前取得可能な非価格情報中心
+- DAY: 当日馬場・天候・関連レース実測等を追加
+- FINAL: 馬体重・直前非価格情報・市場情報を揃えた運用snapshot
+
+PRE/DAY/FINALは同一ルール体系の時点snapshotであり、チャットが変わっただけ、またはオッズだけが変わっただけでは `baseline_forecast_id` を再発行しない。
 
 ## 購入判断との分離
-予想と買う/買わないは別。SKIPでも推奨買い目と理論投資額は保持する。
+予想側は推奨候補・買い条件・見送り条件を提示する。ユーザーの購入馬、券種、予算は `30_betting` の二段階購入設計に従い、能力評価を変更せず指定条件内で購入設計を最適化する。
+
+## AI非依存
+AIが停止していてもProduction予想、Shadow比較、買い目候補、結果精算は動作すること。
 
 ## 評価指標
-Prediction Performance、Bet Performance、Decision Performanceを分離する。
+Prediction Performance、Market/Odds Forecast Performance、Bet Performance、Decision Performance、Shadow Validation Performanceを分離する。

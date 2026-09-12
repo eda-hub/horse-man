@@ -1,20 +1,25 @@
-# Phase 8 — Backtest / Rule lifecycle
+# Phase 8 — Backtest / Validation / Rule lifecycle
 
 ## 目的
-AIや人間が作ったルール改善候補を定量検証し、安全にversion管理する。
+AIや人間が作った改善候補を、Productionを汚さずShadow/バックテストで検証し、`docs/manual/50_review.md` の正式手順へ接続する。
 
 ## 対象
 - backtest runner
-- discovery / validation / holdout
-- proposal comparison
-- sample size / hit rate / return / drawdown
-- rule approval/reject UI
-- new rule version生成
-- rule deprecation/merge
+- data cutoff enforcement
+- validation cycle管理
+- Production vs Shadow comparison
+- sample size / hit rate / return / drawdown等
+- manualで定義された主KPIの集計
+- proposal status管理
+- Owner moduleへの変更候補diff生成
+- release/hash更新支援
 
 ## 受入条件
 - data_cutoff違反が検出される。
-- 旧/新ルールの同一期間比較ができる。
+- 同一 `baseline_forecast_id` でProduction/Shadow比較ができる。
+- manual release別の比較ができる。
 - AI提案を自動承認しない。
-- 採用時にrule versionとhashが更新される。
-- 過去FINAL予想のrule versionは変更されない。
+- 正式採用は人間承認後の別PRとしてのみ行える。
+- 採用時はOwner moduleとmanifestのrelease整合性を検査する。
+- 過去Productionのmanual release/hash/baseline IDは変更されない。
+- `docs/validation/` の現行サイクル運用と矛盾しない。
