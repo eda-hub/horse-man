@@ -56,10 +56,16 @@ Production + Shadow + 実購入 ──→ 50_review
 | 単一レースの事前予想 | `README`, `00_core`, `10_prediction` | 重賞・当日補正等なら `20_conditional` |
 | 資金・券種を含む購入案 | 上記 + `30_betting` | 検証比較を行う場合のみ `40_shadow` |
 | 今日の全レース選別 | `README`, `00_core`, `10_prediction`, `30_betting` | 条件該当レースのみ `20_conditional`; Shadow比較時のみ `40_shadow` |
-| 重賞予想 | `README`, `00_core`, `10_prediction`, `20_conditional` | 購入なら `30_betting`; 51B比較なら `40_shadow` |
+| JRA重賞予想 | `README`, `00_core`, `10_prediction`, `20_conditional`, `docs/yosou/jra_racing/README.md` | 当該重賞記録があれば参照。購入なら `30_betting`; 51B比較なら `40_shadow` |
 | レース後の回顧 | `README`, `00_core`, `50_review` | 元のProduction/買い目/Shadow記録を参照 |
 
 毎回すべてのモジュールを読む必要はない。**依頼に必要なモジュールだけ読む**。
+
+### JRA重賞の記録運用
+
+JRA重賞は原則として全レースを予想対象とし、「見送り」は購入判断として扱う。
+
+JRA重賞の保存・年度切替・チャット単位に関する詳細規約は `docs/yosou/jra_racing/README.md` を唯一のOwnerとする。
 
 ### 検証データの保存場所
 
@@ -105,6 +111,7 @@ Production + Shadow + 実購入 ──→ 50_review
 ## 8. GitHub運用
 
 - 現行ルールの参照は原則として `main` の `docs/manual/README.md` から開始する。
+- JRA重賞の記録運用は `docs/yosou/jra_racing/README.md` を正本とする。
 - 改訂は作業ブランチで行い、pull requestの差分レビュー後に `main` へ統合する。
 - 旧版確認はGitのcommit / PR / tagから行い、`old/`への複製保存はしない。
-- ルールの意味を変更しない構造整理では `manual_release` を維持できる。予想判断・閾値・決定権を変更する場合はリリース更新対象として `50_review.md` の更新規約に従う。
+- ルールの意味を変更しない構造整理・記録運用整理では `manual_release` を維持できる。予想判断・閾値・決定権を変更する場合はリリース更新対象として `50_review.md` の更新規約に従う。
