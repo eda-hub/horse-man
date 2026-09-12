@@ -56,10 +56,27 @@ Production + Shadow + 実購入 ──→ 50_review
 | 単一レースの事前予想 | `README`, `00_core`, `10_prediction` | 重賞・当日補正等なら `20_conditional` |
 | 資金・券種を含む購入案 | 上記 + `30_betting` | 検証比較を行う場合のみ `40_shadow` |
 | 今日の全レース選別 | `README`, `00_core`, `10_prediction`, `30_betting` | 条件該当レースのみ `20_conditional`; Shadow比較時のみ `40_shadow` |
-| 重賞予想 | `README`, `00_core`, `10_prediction`, `20_conditional` | 購入なら `30_betting`; 51B比較なら `40_shadow` |
+| JRA重賞予想 | `README`, `00_core`, `10_prediction`, `20_conditional`, `docs/yosou/jra_racing/README.md` | 同名レース記録があれば必ず参照。購入なら `30_betting`; 51B比較なら `40_shadow` |
 | レース後の回顧 | `README`, `00_core`, `50_review` | 元のProduction/買い目/Shadow記録を参照 |
 
 毎回すべてのモジュールを読む必要はない。**依頼に必要なモジュールだけ読む**。
+
+### JRA重賞の必須運用とレース記録
+
+JRA重賞は原則として**全レースを予想対象**とする。馬券を「見送り」と判断することはできるが、見送りは購入判断であり、重賞そのものの予想を省略する理由にはしない。
+
+JRA重賞の長期記録は `docs/yosou/jra_racing/` を使用し、詳細な保存・更新・年度切替規約は `docs/yosou/jra_racing/README.md` を正本とする。
+
+役割は次のように分離する。
+
+- `docs/manual/`：予想方法・判断基準・検証方法の正本
+- `docs/yosou/jra_racing/<race>.md`：その重賞に最新年度のルールを適用した予想・買い目・結果・回顧・継続傾向の正本
+- Git commit / pull request / tag：過年度状態のアーカイブ
+- チャット：当該年度・当該レースを処理する一時的な実行環境。長期記録の正本にはしない
+
+翌年の同一重賞では、前年チャットの継続を前提としない。新しいチャット等の実行環境から、`docs/manual/README.md` と必要モジュール、`docs/yosou/jra_racing/README.md`、当該重賞ファイルをGitHubから読み込み、当年のProductionを新規作成する。
+
+同一年・同一レースで複数チャットや複数モードを使う場合は、`00_core.md` の同一レース基準予想一意性と `baseline_forecast_id` 契約を優先する。**チャットが変わったこと自体を新しいProduction作成理由にしない。**
 
 ### 検証データの保存場所
 
@@ -96,6 +113,8 @@ Production + Shadow + 実購入 ──→ 50_review
 
 同じレースに既存のProduction基準予想IDがある場合、強い非価格情報による正式更新条件を満たさない限り、新しいProductionをゼロから作らない。
 
+JRA重賞では、同一年・同一レースの既存記録が `docs/yosou/jra_racing/` にある場合、その記録に保存された `baseline_forecast_id` をチャット履歴より優先して参照する。年度が変わった場合は別レース実行として新しいIDを発行し、前年IDを当年Productionへ流用しない。
+
 ## 7. ルール番号と履歴
 
 分割後も既存の `0.x`、`1〜51`、`E-xx` の番号を維持する。過去の予想・回顧から追跡できることを優先する。
@@ -105,6 +124,8 @@ Production + Shadow + 実購入 ──→ 50_review
 ## 8. GitHub運用
 
 - 現行ルールの参照は原則として `main` の `docs/manual/README.md` から開始する。
+- JRA重賞では続けて `docs/yosou/jra_racing/README.md` と当該レースファイルを確認する。
 - 改訂は作業ブランチで行い、pull requestの差分レビュー後に `main` へ統合する。
 - 旧版確認はGitのcommit / PR / tagから行い、`old/`への複製保存はしない。
-- ルールの意味を変更しない構造整理では `manual_release` を維持できる。予想判断・閾値・決定権を変更する場合はリリース更新対象として `50_review.md` の更新規約に従う。
+- 重賞の前年チャットを長期保存媒体として扱わない。翌年はGit上の最新ルールと当該レース記録から新しい実行環境を開始する。
+- ルールの意味を変更しない構造整理・記録運用整理では `manual_release` を維持できる。予想判断・閾値・決定権を変更する場合はリリース更新対象として `50_review.md` の更新規約に従う。
