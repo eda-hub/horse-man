@@ -1,6 +1,6 @@
 ---
 module: conditional
-manual_release: v1.5.5-HF1
+manual_release: v1.6.0
 manifest: docs/manual/README.md
 depends_on:
   - core
