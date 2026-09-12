@@ -14,13 +14,15 @@
 - FastAPI `/system/status`
 - prod/test DB分離
 - Python lint/type/test
+- `docs/manual/README.md` と各module front matterをread-onlyで検査するManual Contract Checkerの最小骨格
 
 ## 受入条件
 - Python lint/type/testが通る。
 - `/system/status` でService/DB OKを確認できる。
 - prod/test DBが分離される。
-- 競馬予想ルール原本を変更しない。
+- Manual Contract Checkerが現行releaseとmodule release一致/不一致を判定できる。
+- `docs/manual/`、`docs/yosou/`、`docs/validation/` を変更しない。
 - `.agents/` と `.devcontainer/` を維持する。
 
 ## 非対象
-JV-Link、血統、予想、AI、オッズ、Web UI本体。
+JV-Link、血統、予想ロジック、AI、オッズ、Web UI本体。
