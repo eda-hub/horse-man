@@ -1,6 +1,6 @@
 ---
 module: shadow
-manual_release: v1.6.0
+manual_release: v1.6.1
 manifest: docs/manual/README.md
 depends_on:
   - core
