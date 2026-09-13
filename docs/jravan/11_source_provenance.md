@@ -1,68 +1,64 @@
 # Source provenance and source-bias policy
 
-## 目的
+## 目的と適用範囲
 
-予想に使うデータの**正しさ・時点整合・出典系統**を管理し、特定サイトへの過度な依存や、同じ上流データを転載する複数サイトを「独立した複数根拠」と誤認することを防ぐ。
+予想システムに取り込むデータの**正しさ・時点整合・出典系統**を管理し、特定サイトへの過度な依存や、同じ上流データを転載する複数サイトを「独立した複数根拠」と誤認することを防ぐ。
 
-この文書は競馬判断ルールを変更しない。予想の意味・優先順位は `docs/manual/` を正とし、本書はデータ取得・出典・provenanceのシステム契約を定義する。
+本書は `DECISIONS.md` / `docs/jravan/` 配下の**将来ローカルシステム実装契約**であり、競馬判断ルールやChatGPT上の情報取得手順を定義しない。
+
+- 競馬判断・チャット予想の実行要件は `docs/manual/` を正本とする。
+- 本書はローカルシステム内のsource registry、provenance、fallback、conflict処理、監査方式だけを定義する。
+- 本書をChatGPT予想時の取得プレイブックとして読み込まない。
+- `docs/manual/` と意味が衝突する場合は `docs/manual/` を優先し、本書側を修正する。
 
 ## 基本原則
 
 1. **事実データは一次情報を優先する。** JRA-VAN/JV-LinkまたはJRA公式で取得可能な項目を、民間Webサイトの転載値で通常運用しない。
-2. **サイト数ではなく上流の独立性を数える。** 2〜3サイトで同じ値が表示されても、上流が同一JRAデータの転載である可能性がある場合は独立証拠として加算しない。
-3. **客観データと編集情報を分離する。** 馬柱、着順、時計、通過順、上がり、斤量、馬体重、オッズ等の客観値と、記者印、指数、寸評、調教評価、予想コメントを同じ種類の証拠として扱わない。
-4. **第三者の予想・印・独自指数をProduction能力評価へ逆輸入しない。** 使用する場合は研究・比較用Shadowまたは参考表示に限定し、`10_prediction` の基礎能力順位の根拠にはしない。
-5. **不足時のfallbackは明示する。** 一次情報が取れずWeb補助ソースを使用した場合、`source_class`, `origin_group`, `acquisition_method`, `observed_at` を残す。
-6. **不一致は多数決で解決しない。** authority、timestamp、対象race/horseの一致、revisionを確認し、一次情報を優先する。
+2. **サイト数ではなく上流の独立性を数える。** 複数サイトで同じ値が表示されても、同一の上流データなら独立証拠として加算しない。
+3. **客観データと編集情報を分離する。** 馬柱、着順、時計、通過順、上がり、斤量、馬体重、オッズ等の客観値と、記者印、指数、寸評、調教評価、予想コメントを同種のデータとして扱わない。
+4. **fallbackを通常経路へ昇格させない。** 一次情報が取れず補助ソースを使った場合は、出典と取得方法を保存する。
+5. **不一致は多数決で解決しない。** authority、timestamp、race/horse key、revisionを確認し、解消しなければconflictとして保持する。
+6. **競馬判断のOwnerを侵食しない。** Productionへ渡すfeature/evidenceは `docs/manual/` のOwner境界に従い、実装側が独自の評価ルールを追加しない。
 
-## 情報種別ごとの優先順位
+## 情報種別ごとのシステム取得優先順位
 
-| データ種別 | Primary | Secondary / cross-check | Web fallbackの扱い |
+| データ種別 | Primary | Secondary / cross-check | 障害時fallback |
 |---|---|---|---|
-| 出走馬、枠、馬番、斤量、騎手、取消・変更 | JRA-VAN / JRA | 相互照合 | netkeiba等は障害時の確認のみ |
-| 当日馬体重・増減 | JV-Link速報WH (`0B11`) | JRA公式 | 動的GUIは緊急fallback。静的HTML空欄を未発表判定に使わない |
+| 出走馬、枠、馬番、斤量、騎手、取消・変更 | JRA-VAN / JRA | 相互照合 | Web aggregatorは確認用途のみ |
+| 当日馬体重・増減 | JV-Link速報WH (`0B11`) | JRA公式 | 補助Webは障害調査時のみ |
 | 当日馬場・天候・発走時刻 | JRA-VAN / JRA | 公式発表の相互照合 | 民間サイトは補助 |
-| 速報・確定オッズ | JRA-VAN / JRA | 相互照合 | netkeiba等は緊急fallback。オッズは能力順位に使わない |
-| 過去成績、時計、着差、通過順、上がり | JRA-VAN / JRA | JBIS等でspot check | netkeiba/競馬ラボ等は取得補助。第三者指数は別扱い |
-| 血統・5代系統 | JRA-VAN BLDN | JBIS等の血統DB | netkeibaは補助。系統分類・インブリード判定は内部derived featureとして再計算 |
-| 調教時計 | JRA-VAN SLOP/WOOD | 公式/信頼できる原データ | メディアの「A/B/C」「絶好」等の主観評価は別フィールド |
+| 速報・確定オッズ | JRA-VAN / JRA | 相互照合 | 補助Webは緊急fallback |
+| 過去成績、時計、着差、通過順、上がり | JRA-VAN / JRA | JBIS等でspot check | Web aggregatorは取得補助 |
+| 血統・5代系統 | JRA-VAN BLDN | JBIS等の血統DB | Webは補助。系統分類は内部再計算 |
+| 調教時計 | JRA-VAN SLOP/WOOD | 公式/信頼できる原データ | メディア主観評価は別field |
 | 厩舎・騎手・馬主・生産者 | JRA-VAN master / JRA | JBIS等 | 民間サイトは表記確認のみ |
-| 天気予報 | 公的/専門気象provider | 別の気象provider | 競馬サイトの天気表示を一次予報にしない |
-| 陣営コメント・取材情報 | 発言元が明確な媒体 | 複数媒体で原文確認 | コメントは発言内容以上へ拡大解釈しない |
+| 天気予報 | 公的/専門気象provider | 別の気象provider | 競馬サイト表示を一次予報にしない |
+| 陣営コメント・取材情報 | 発言元が明確な媒体 | 原文のcross-check | 出典不明転載を独立情報としない |
+
+この表は**ローカルシステムの取得設計**であり、チャット実行時にJV-Link等が利用可能であることを意味しない。
 
 ## Source class / origin group
 
-最低限、sourceを次の概念で分類する。
-
 ### source_class
+
+最低限、次を区別する。
+
 - `OFFICIAL_JRA_VAN`: JRA-VAN/JV-Link
 - `OFFICIAL_JRA`: JRA公式Web/公式発表
 - `BREEDING_DB`: JBIS等の血統・生産系DB
 - `WEATHER_PROVIDER`: 気象provider
 - `MEDIA_ORIGINAL`: 独自取材・コメント・記事
-- `WEB_AGGREGATOR`: netkeiba、競馬ラボ等の馬柱・集約表示
+- `WEB_AGGREGATOR`: 馬柱・集約表示サイト
 - `INTERNAL_DERIVED`: 当システムが一次データから計算したfeature
 
 ### origin_group
+
 `origin_group` は「独立した上流か」を判定するためのグループであり、サイト名と同義ではない。
 
-例：
-- JRA公式とJRA-VANは別取得経路として照合できるが、同じ競走事実を扱う場合は“2票”の多数決には使わない。
-- netkeibaと競馬ラボに同一の着順・時計があるだけでは独立観測2件と数えない。
-- 独自取材コメントは、原発言者・取材媒体が異なる場合だけ独立情報として扱える。
-
-上流が不明なWebデータは `origin_group=UNKNOWN_AGGREGATED` とし、独立性を仮定しない。
-
-## Chat予想時の暫定運用
-
-ローカルJRA-VANシステムが未稼働、またはチャットから直接予想する場合も同じ原則を適用する。
-
-1. まずJRA公式/JRA一次情報を探す。
-2. JRA公式で動的値を取得できない場合、ブラウザGUI取得を含むWeb fallbackを使用してよい。
-3. Web fallbackで得た馬体重・オッズ・馬柱は `WEB_FALLBACK` とみなし、可能な限り別系統の一次/準一次情報でspot checkする。
-4. netkeibaの馬柱、競馬ラボの馬柱、Umanity等を同時に参照しても、それだけで根拠の独立性が増したとは扱わない。
-5. 予想本文では第三者の「指数順位」「印」「AI予想」を自分の能力評価根拠として引用しない。引用する場合は市場・世評比較と明示する。
-6. 発走前FINALでは、使用したcritical sourceの一覧とreadinessを保存可能な形にする。
+- JRA公式とJRA-VANを照合に使っても、同じ競走事実を単純な“2票”として多数決しない。
+- 複数Web aggregatorに同一の着順・時計があっても、それだけで独立観測を増やさない。
+- 独自取材コメントは、原発言者・取材経路が独立している場合に限り独立情報として扱う。
+- 上流が不明なWebデータは `origin_group=UNKNOWN_AGGREGATED` とし、独立性を仮定しない。
 
 ## Derived data
 
@@ -70,7 +66,7 @@
 
 - `sire line`, `dam-sire line`, `Northern Dancer xN` 等は血統rawから再計算する。
 - `last3f_rank`, `pace_position_band`, `course_repeatability` 等もraw resultから再計算可能にする。
-- Webサイト独自の血統分類・脚質ラベルをそのまま内部正本にしない。
+- Webサイト固有の血統分類・脚質ラベルをそのまま内部正本にしない。
 
 Derived featureには `derived_from` と使用したsource recordを追跡できるようにする。
 
@@ -78,23 +74,17 @@ Derived featureには `derived_from` と使用したsource recordを追跡でき
 
 同じfieldに複数sourceで不一致がある場合は次の順で処理する。
 
-1. race/horse/date/record keyの取り違えがないか確認。
-2. source timestamp / captured_at / provider revisionを確認。
-3. JRA-VAN/JRAの最新公式値を優先。
-4. 公式同士で解消しない場合は値を推測せずconflictとして保存。
+1. race/horse/date/record keyの取り違えがないか確認する。
+2. source timestamp / captured_at / provider revisionを確認する。
+3. JRA-VAN/JRAの最新公式値を優先する。
+4. 公式同士で解消しない場合は値を推測せずconflictとして保存する。
 5. conflictがFINAL必須項目なら `data_readiness=DEGRADED` とする。
 
-## 予想への利用禁止・制限
+## Production境界の実装監査
 
-Production基準能力を作る際、次を直接の加点・減点材料にしない。
+実装は `docs/manual/` のOwner境界を守る。特に、第三者の予想印・AI予想・出所不明の独自指数・民間サイトの総合順位等を、実装都合でProduction基準能力のevidenceへ混入させない。
 
-- netkeiba等の予想印・AI印
-- 民間サイトの総合ランキング
-- 出所不明の独自指数
-- 人気順位そのもの
-- 「複数サイトが推している」という集団評価
-
-これらは市場期待・世評・Shadow研究として別保存することはできるが、能力評価へ逆流させない。
+これらを研究・比較表示として保持する場合も、Productionへの入力経路と物理的に分離し、`prediction.rule_application` 等から侵入していないことをテスト可能にする。
 
 ## 監査指標
 
@@ -104,8 +94,8 @@ Production基準能力を作る際、次を直接の加点・減点材料にし�
 - Web fallback利用率
 - `UNKNOWN_AGGREGATED` 利用率
 - source conflict件数
-- fallbackによって印・確率が変わったレース数
+- fallbackによって使用dataが変わった件数
 - 同じorigin_groupを複数独立根拠として数えた違反件数
-- 第三者指数/予想がProduction evidenceへ混入した件数（0件が目標）
+- `docs/manual/` で許可されていない第三者評価がProduction evidenceへ混入した件数（0件目標）
 
 この監査は予想的中率とは別に評価し、データ出典品質の問題を予想ロジックの良否と混同しない。

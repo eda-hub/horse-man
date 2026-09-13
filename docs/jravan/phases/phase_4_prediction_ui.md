@@ -31,4 +31,4 @@ MacのブラウザからProduction予想、条件別補正、Shadow比較を混�
 - 馬体重の `first_observed_at`, `captured_at`, source, `EVENT/POLL/CATCH_UP/FALLBACK` の取得経路、取得済み頭数/対象頭数を確認できる。
 - `PARTIAL` の場合は欠損馬番を表示できる。
 - `data_readiness=DEGRADED` の場合は欠損項目と最終成功時刻・最終試行時刻を明示し、READYと同じ見た目でFINAL確定しない。
-- 外部GUIまたはJRA一次情報上で確認できても内部Adapterで取得できていない場合は `SOURCE_ERROR` と表示できる。
+- `SOURCE_ERROR` の判定自体はingest/readiness層で行い、UIはその状態・根拠・最終試行時刻を表示する。UIが外部サイトを独自に照合して障害判定しない。
