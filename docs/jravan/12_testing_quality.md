@@ -18,6 +18,21 @@
 - duplicate ingest idempotency
 - migration forward test
 
+## Source provenance / source bias
+`docs/jravan/11_source_provenance.md` の契約をテストする。
+
+- JRA-VAN/JRAで取得可能な客観fieldが通常運用で `WEB_AGGREGATOR` の値だけに置換されないこと。
+- 同一 `origin_group` に属する複数サイトの一致を「独立した複数証拠」としてカウントしないこと。
+- `source_id`, `source_class`, `origin_group`, `first_observed_at/captured_at`, `acquisition_method` をcritical dataで追跡できること。
+- derived featureから元raw provenanceへ遡れること。
+- provider間で値が不一致の場合、多数決で上書きせずconflictを保持できること。
+- 馬体重・オッズ等のWeb fallback利用時にfallbackであることが識別できること。
+- netkeiba等の予想印、独自総合順位、AI予想、出所不明指数がProduction `rule_application.evidence_json` に入らないこと。
+- 血統系統・インブリード・脚質等を外部サイト固有ラベルだけに依存せずraw dataから再計算できること。
+- sourceを1つ停止したfixtureでも、authority順のfallbackが想定どおり動作すること。
+
+回帰テストでは、サイト数の増加そのものを品質向上とみなさず、**Primary coverage / Web fallback率 / UNKNOWN_AGGREGATED率 / conflict件数**を別指標として確認する。
+
 ## 時点再現
 固定レースfixtureで `data_cutoff` 後の馬体重、結果、actual final odds等が予想featureへ混入しないことをテストする。
 
@@ -34,7 +49,7 @@
 `docs/manual/50_review.md` のサイクル状態とDBのvalidation cycleを対応させる。サイクル終了後に過去Productionを書き換えない。
 
 ## Backup
-Export -> fresh DuckDB import -> row count / key history / baseline ID / manual hash確認を自動化する。
+Export -> fresh DuckDB import -> row count / key history / baseline ID / manual hash確認を自動化する。critical provenanceも復元対象に含める。
 
 ## AI
 AI出力schema validation、無効proposal拒否、DB/ルール直接書込不可をテストする。AI応答内容そのものは厳密固定しない。
@@ -44,6 +59,7 @@ AI出力schema validation、無効proposal拒否、DB/ルール直接書込不�
 - sample sizeを表示
 - 回収率だけでなく的中率、分散、ドローダウン等も確認
 - 複数候補から都合の良いものだけ選ぶselection biasを記録
+- 同じ上流データを複数sourceとして扱うsource-count biasを防ぐ
 - manualの正式検証KPIと統計研究用KPIを混同しない
 
 ## CI
