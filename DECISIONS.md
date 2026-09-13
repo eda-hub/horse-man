@@ -55,3 +55,6 @@ Production基準予想を固定してからShadow比較を作る。Shadow、51B�
 
 ## ADR-018 Git上の競馬記録領域を尊重する
 JRA重賞の長期記録は `docs/yosou/jra_racing/`、進行中Shadow検証は `docs/validation/` の現行運用を尊重する。将来DBへ構造化する際も、明示的な移行決定まではこれらを勝手に置換しない。
+
+## ADR-019 当日馬体重は発表Eventで捕捉する
+当日馬体重はFINAL直前のWeb取得に依存せず、開催中の `JVWatchEvent` で `JVEvtWeight` を監視し、発表event受信時に `JVRTOpen(0B11, event key)` で取得・永続化する。Event取り逃し・Core Service再起動に備えて `0B11` のrace/day catch-upと未取得時のみの低頻度pollingを併設する。T-20は馬体重の取得開始時刻ではなく、保存済み当日WHと現在の出走構成のcoverageを検証する時刻とする。T-20より前に取得した完全な当日公式WHを、取得時刻だけを理由にSTALE扱いしない。
