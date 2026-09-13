@@ -12,6 +12,7 @@ JRA data
  -> 00_core execution contract
  -> 10_prediction Production baseline
  -> 20_conditional formal adjustments (該当時)
+ -> live body-weight/event ingest
  -> FINAL readiness check (T-20以降)
  -> Production baseline freeze / baseline_forecast_id
  -> odds observation / final-odds forecast
@@ -47,7 +48,7 @@ Shadowから同一レースのProductionへ書き戻さない。
 - feature version
 - data cutoff
 - `data_readiness`
-- 必須当日データごとの source timestamp / freshness / missing reason
+- 必須当日データごとの observed/captured timestamp、source、acquisition method、freshness、coverage、missing reason
 
 manifestと必須moduleの `manual_release` が一致しない場合はfail closedする。
 
@@ -57,9 +58,11 @@ manifestと必須moduleの `manual_release` が一致しない場合はfail clos
 ## データ時点
 - PRE: 事前取得可能な非価格情報中心
 - DAY: 当日馬場・天候・関連レース実測等を追加
-- FINAL: 発走20分前以降の馬体重・直前非価格情報・市場情報を揃えた運用snapshot
+- FINAL: T-20以降にreadinessを再検証し、発表後に保存済みの当日公式馬体重、直前非価格情報、市場情報を揃えた運用snapshot
 
-FINALの必須非価格情報は、当日馬体重と増減、最新馬場・天候、取消/競走除外、騎手・斤量・発走時刻等の変更eventとする。必須項目が欠ける場合は推測で補完せず `data_readiness=DEGRADED` とし、欠損をPredictionへ保存する。
+FINALの必須非価格情報は、当日馬体重と増減、最新馬場・天候、取消/競走除外、騎手・斤量・発走時刻等の変更eventとする。馬体重は通常T-20より前に発表・取得されるため、**T-20以降の新規取得を必須条件にしない**。現在の出走対象馬すべてについて同一レースの当日公式WHが揃っていれば、T-20より前の取得snapshotでもFINALに利用できる。
+
+馬体重readinessは `PENDING / READY / PARTIAL / MISSING / STALE / SOURCE_ERROR` を区別し、`READY` 以外でFINALへ進む場合は原則 `data_readiness=DEGRADED` とする。`STALE` は前日・別レース・旧出走構成など現在レースへ適用できない場合に限り、単なる取得時刻の古さでは判定しない。
 
 `DEGRADED` の場合でも予想継続は可能だが、欠損が馬体重・馬場等の今回発揮能力に影響しうる情報なら予想確信度の上限を下げ、購入確信度も別途下げる。後からデータが取得できても固定済みFINALを結果に合わせて上書きせず、取得遅延eventとして回顧に残す。
 

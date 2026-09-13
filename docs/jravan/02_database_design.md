@@ -49,7 +49,15 @@ review.rule_proposal 1---N review.backtest_run
 `odds_snapshot_id PK, race_id, captured_at, bet_type, selection_key, odds, odds_min, odds_max, source, snapshot_kind`
 
 ### market.weight_snapshot
-`race_id, horse_id, captured_at, horse_weight, weight_diff`
+`weight_snapshot_id PK, race_id, horse_id, horse_no, horse_weight, weight_diff, first_observed_at, captured_at, provider_timestamp nullable, source, acquisition_method, record_hash`
+
+- `first_observed_at`: 当該WHをシステムが最初に確認した時刻。Event受信・catch-upのどちらでも必須。
+- `captured_at`: 当該snapshotをDBへ保存した時刻。
+- `provider_timestamp`: provider recordに時刻が有効値として存在する場合だけ保存し、空・0等をシステム時刻で捏造しない。
+- `acquisition_method`: `EVENT / POLL / CATCH_UP / FALLBACK`。
+- `record_hash`: provider recordのrevision識別とidempotent ingestに使用する。同一record再取得で重複行を増やさず、provider側の訂正があれば別revisionとして保存する。
+
+馬体重readinessはsnapshot単体の `captured_at` だけでは決めず、現在の `core.runner.entry_status` に対するcoverage、race/date整合、取得障害情報と組み合わせて判定する。
 
 ### market.race_condition_snapshot
 `race_id, captured_at, weather_code, turf_condition, dirt_condition`
@@ -101,7 +109,7 @@ Prediction、結果、decision、validation cycleを紐付ける。
 単一の `rule_version` だけでなく、`manual_release`、manifest hash、利用モジュールごとのhashを保存する。Git commit SHAも取得できる場合は併記する。
 
 ## 時点再現
-各snapshot、feature、predictionには取得/利用時刻を持たせる。バックテストは `available_at <= data_cutoff` を必須条件とする。
+各snapshot、feature、predictionには取得/利用時刻を持たせる。バックテストは `available_at <= data_cutoff` を必須条件とする。馬体重の `available_at` は原則 `first_observed_at` を使用し、provider timestampが欠損していても結果後の情報を事前利用したことにならないようにする。
 
 ## Git記録との関係
 `docs/yosou/jra_racing/` と `docs/validation/` は現行Git運用の正本/作業領域である。DB導入後の同期方式が正式決定するまで、DB保存を理由にこれらを削除・置換しない。
