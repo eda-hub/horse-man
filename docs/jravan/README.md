@@ -27,7 +27,8 @@
 9. `08_backup_recovery.md` — 自動バックアップと復旧
 10. `09_security.md` — Windows VM、Python、DB、ネットワーク
 11. `10_operations.md` — 開催日の自動ジョブ、障害復旧
-12. `12_testing_quality.md` — テスト、バックテスト品質、過学習防止
-13. `phases/` — Codexに渡すフェーズ別実装計画
+12. `11_source_provenance.md` — 情報種別ごとの一次取得元、fallback、出典独立性、source bias対策
+13. `12_testing_quality.md` — テスト、バックテスト品質、過学習・source bias防止
+14. `phases/` — Codexに渡すフェーズ別実装計画
 
 `DECISIONS.md` は横断的な確定事項の正本とする。競馬判断の意味に矛盾がある場合、`docs/manual/` を優先し、システム設計側を修正する。
