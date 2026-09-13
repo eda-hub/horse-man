@@ -14,7 +14,8 @@ description: horse-manのJRA-VAN競馬予想システムを、現行のモジュ
 4. 実装対象Phaseの `docs/jravan/phases/phase_*.md` を読む。
 5. 実装対象が予想ロジックに関係する場合だけ、必要なOwnerモジュールを読む。
 6. JRA重賞記録に関係する場合は `docs/yosou/jra_racing/README.md`、Shadow検証に関係する場合は `docs/validation/` の現行サイクルを確認する。
-7. Phaseの受入条件を満たす最小実装を行う。
+7. JRA当日・FINAL予想または当日データ取得を実装・検証する場合は、`docs/manual/README.md` の「JRA当日馬体重取得契約」を必須実行契約として確認し、取得実装は ADR-019、`docs/jravan/03_jravan_mapping.md`、`docs/jravan/10_operations.md` に従う。
+8. Phaseの受入条件を満たす最小実装を行う。
 
 ## ルール境界
 - Productionの基本方向は `00_core → 10_prediction → 20_conditional → 30_betting`。
@@ -23,6 +24,7 @@ description: horse-manのJRA-VAN競馬予想システムを、現行のモジュ
 - 必須モジュール間の `manual_release` が一致しなければ処理を停止する。
 - `baseline_forecast_id` を予想の同一性キーとして保持する。
 - PRE / DAY / FINALはデータ時点のsnapshotであり、上記Owner境界を置き換えない。
+- JRAの当日・FINAL予想では、馬体重取得を任意の補助確認へ落とさず、`docs/manual/README.md` の取得契約に従って取得試行・coverage・readinessを処理する。
 
 ## 共通制約
 - Phaseを跨いで先回り実装しない。
@@ -36,6 +38,7 @@ description: horse-manのJRA-VAN競馬予想システムを、現行のモジュ
 - AIにDB/OS/ルールの直接変更権限を与えない。
 - PAT、自動投票、銀行情報保存を実装しない。
 - `data_cutoff` より未来の情報をバックテスト/予想へ混入させない。
+- 当日馬体重が取得できない場合に前走馬体重・調教後馬体重を当日値として補完しない。
 
 ## 完了時
 - テストを追加・実行する。
