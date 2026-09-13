@@ -14,6 +14,7 @@
 - 確定オッズ
 - 速報オッズの最小取得
 - FINAL用data freshness / readiness
+- source registry / data provenance
 
 ## 受入条件
 - 予想対象レースの主要データが1つのrace_idで結合できる。
@@ -21,6 +22,11 @@
 - 取消/変更前の値が消えない。
 - 5代血統から指定系統内包を検索できる。
 - storage使用量をsystem statusで確認できる。
+- `docs/jravan/11_source_provenance.md` に従い、critical dataで `source_class`, `origin_group`, acquisition method, observed/captured時刻を追跡できる。
+- 同じ上流データを転載する複数Webサイトを独立証拠として数えない。
+- 血統系統・インブリード等のderived featureをraw pedigreeから内部再計算でき、元provenanceへ遡れる。
+- Web aggregatorの予想印・独自総合指数・AI予想をProduction基準能力featureへ混入させない。
+- JRA-VAN/JRA一次データとWeb fallbackの不一致を上書き多数決せずconflictとして保持できる。
 - `JVWatchEvent` の `JVEvtWeight` を受信し、返却keyから `JVRTOpen(0B11, key)` を実行して当日馬体重・増減を保存できる。
 - Eventを取り逃した状態、またはCore Service再起動後でも、`0B11` のrace-key / day-key catch-upで既発表の馬体重を復旧できる。
 - 馬体重snapshotに `first_observed_at`, `captured_at`, nullableなprovider timestamp, source, acquisition methodを保存できる。
