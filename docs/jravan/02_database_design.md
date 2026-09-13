@@ -6,7 +6,7 @@
 - `feature`: 予想用特徴量
 - `prediction`: Production/Shadow予想・買い目・購入判断・精算
 - `review`: 回顧・検証サイクル・AI・ルール提案・バックテスト
-- `ops`: job、watermark、backup、health
+- `ops`: job、watermark、backup、health、source provenance
 
 ## ER概要
 ```text
@@ -16,6 +16,8 @@ core.horse 1---N core.pedigree
 core.race 1---N market.race_condition_snapshot
 core.runner 1---N market.weight_snapshot
 core.race 1---N market.odds_snapshot
+ops.source_registry 1---N ops.data_provenance
+core/market records 1---N ops.data_provenance
 core.race 1---N prediction.prediction_run
 prediction.prediction_run 1---N prediction.runner_prediction
 prediction.prediction_run 1---N prediction.rule_application
@@ -65,11 +67,29 @@ review.rule_proposal 1---N review.backtest_run
 ### market.race_event
 取消、騎手変更、発走時刻変更等をeventとして保持する。
 
+### ops.source_registry
+`source_id PK, source_name, source_class, origin_group, authority_level, domains_json, is_primary, enabled, notes`
+
+- `source_class`: `OFFICIAL_JRA_VAN / OFFICIAL_JRA / BREEDING_DB / WEATHER_PROVIDER / MEDIA_ORIGINAL / WEB_AGGREGATOR / INTERNAL_DERIVED` 等。
+- `origin_group`: 独立した上流情報かを判定するためのグループ。サイト名が違っても同一上流とみなす場合は同じgroupへ寄せる。
+- `authority_level`: データ種別ごとの優先順位を実装するための補助属性。単純な全用途共通順位として使わず `docs/jravan/11_source_provenance.md` のdomain別policyと組み合わせる。
+
+### ops.data_provenance
+`provenance_id PK, entity_type, entity_key, field_name, source_id FK, source_record_key, source_timestamp nullable, first_observed_at, captured_at, acquisition_method, upstream_origin nullable, is_derived, derived_from_json nullable, record_hash nullable, conflict_status`
+
+客観データ・snapshot・derived featureについて、必要な粒度で「どのsource recordから来たか」を追跡する。
+
+- `entity_type/entity_key`: `race`, `runner`, `horse`, `result`, `weight_snapshot`, `odds_snapshot`, `pedigree`, `workout`, `feature` 等を対象とする。
+- `field_name`: field単位でsourceが異なるケースを追跡するために使う。
+- `is_derived=true` の場合は `derived_from_json` に元record/provenance IDを保持する。
+- 同じ値が複数Webサイトに存在しても、同一 `origin_group` なら独立した複数証拠として数えない。
+- provider間で値が不一致の場合は上書き多数決をせず `conflict_status` を残す。
+
 ### feature.feature_run
 `feature_run_id, race_id, data_cutoff, feature_version, created_at`
 
 ### feature.runner_feature
-頻出特徴量は列、実験的特徴量は`features_json`へ格納する。
+頻出特徴量は列、実験的特徴量は`features_json`へ格納する。血統系統、インブリード、脚質分類、近走集計等のderived featureは、可能な限りraw dataから内部再計算し、`ops.data_provenance` で元データへ遡れること。
 
 ### prediction.prediction_run
 最低限次を持つ。
@@ -87,7 +107,7 @@ review.rule_proposal 1---N review.backtest_run
 
 ### prediction.rule_application
 `prediction_id, horse_id nullable, module, rule_id, effect_type, input_snapshot, output_delta, evidence_json`
-Production/Shadowどちらで使われたルールかを `prediction_run` と合わせて追跡する。
+Production/Shadowどちらで使われたルールかを `prediction_run` と合わせて追跡する。`evidence_json` には可能な範囲で使用したprovenance IDまたはsource record keyを持たせ、第三者の予想印・独自ランキングがProduction evidenceへ混入していないことを監査可能にする。
 
 ### prediction.bet_recommendation
 推奨候補。Production正式候補とShadow比較候補を区別する。見送りでも削除しない。
@@ -105,6 +125,14 @@ Production/Shadowどちらで使われたルールかを `prediction_run` と合
 ### review.review_session
 Prediction、結果、decision、validation cycleを紐付ける。
 
+## Source provenance
+データ取得元・fallback・独立性の契約は `docs/jravan/11_source_provenance.md` を正とする。
+
+- JRA-VAN/JRAで取得可能な客観事実は一次情報を通常経路とする。
+- Web aggregatorは障害時fallbackまたはcross-checkとして明示的に扱う。
+- 同じJRA由来事実を複数サイトが転載していても独立観測件数を増やさない。
+- 民間サイトの予想印・総合指数・AI予想をProduction基準能力のevidenceとして保存しない。
+
 ## ルール版の再現性
 単一の `rule_version` だけでなく、`manual_release`、manifest hash、利用モジュールごとのhashを保存する。Git commit SHAも取得できる場合は併記する。
 
@@ -115,7 +143,7 @@ Prediction、結果、decision、validation cycleを紐付ける。
 `docs/yosou/jra_racing/` と `docs/validation/` は現行Git運用の正本/作業領域である。DB導入後の同期方式が正式決定するまで、DB保存を理由にこれらを削除・置換しない。
 
 ## データ重要度
-A: Production FINAL、baseline ID、判断、結果、回顧、manual release/module hash、重要snapshot — 原則削除不可
+A: Production FINAL、baseline ID、判断、結果、回顧、manual release/module hash、重要snapshot、critical provenance — 原則削除不可
 B: Shadow/検証データ — 検証ライフサイクルに従いDB保持方針を別途設定
-C: feature、集計 — 再生成可能
+C: feature、集計 — 再生成可能。ただし再生成に必要なraw provenanceは保持する
 D: cache — 削除可
