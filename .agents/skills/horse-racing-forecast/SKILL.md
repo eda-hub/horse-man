@@ -7,6 +7,15 @@ description: horse-manのJRA-VAN競馬予想システムを、現行のモジュ
 
 競馬判断の正本は `docs/manual/`、システム設計の正本は `DECISIONS.md` と `docs/jravan/` とする。ルールの入口は必ず `docs/manual/README.md`。
 
+## 責務境界
+
+このSkillは**将来のローカルシステムのコード実装・検証専用**とする。ChatGPT上でその場のレース情報をWeb等から取得して予想する処理とは混合しない。
+
+- `docs/manual/` はチャット予想を含む競馬判断・実行要件を定義するが、JV-Link API、イベント監視、DB、polling等の実装方法を定義しない。
+- `DECISIONS.md` と `docs/jravan/` はローカルシステムの実装方法を定義するが、ChatGPTが現在利用できる取得経路を表すものではない。
+- `JVEvtWeight`, `0B11`, `JVWatchEvent`, DuckDB、catch-up等は**ローカルシステム実装の語彙**であり、チャット予想の取得元として扱わない。
+- チャット側のWeb取得障害を理由に、将来システムの設計をその場しのぎで変更しない。逆に、将来システムの設計があることを理由にチャット側で取得済みとみなさない。
+
 ## 実装開始時
 1. ルートの `AGENTS.md` を読む。
 2. `docs/manual/README.md` を読み、現行 `manual_release` とOwner構造を確認する。
@@ -14,7 +23,7 @@ description: horse-manのJRA-VAN競馬予想システムを、現行のモジュ
 4. 実装対象Phaseの `docs/jravan/phases/phase_*.md` を読む。
 5. 実装対象が予想ロジックに関係する場合だけ、必要なOwnerモジュールを読む。
 6. JRA重賞記録に関係する場合は `docs/yosou/jra_racing/README.md`、Shadow検証に関係する場合は `docs/validation/` の現行サイクルを確認する。
-7. JRA当日・FINAL予想または当日データ取得を実装・検証する場合は、`docs/manual/README.md` の「JRA当日馬体重取得契約」を必須実行契約として確認し、取得実装は ADR-019、`docs/jravan/03_jravan_mapping.md`、`docs/jravan/10_operations.md` に従う。
+7. 当日馬体重取得を実装する場合は、`docs/manual/README.md` は「当日馬体重取得が必要」という機能要件としてのみ参照し、具体実装は ADR-019、`docs/jravan/03_jravan_mapping.md`、`docs/jravan/10_operations.md`、対象Phaseの受入条件に従う。
 8. Phaseの受入条件を満たす最小実装を行う。
 
 ## ルール境界
@@ -24,9 +33,7 @@ description: horse-manのJRA-VAN競馬予想システムを、現行のモジュ
 - 必須モジュール間の `manual_release` が一致しなければ処理を停止する。
 - `baseline_forecast_id` を予想の同一性キーとして保持する。
 - PRE / DAY / FINALはデータ時点のsnapshotであり、上記Owner境界を置き換えない。
-- JRAの当日・FINAL予想では、馬体重取得を任意の補助確認へ落とさず、`docs/manual/README.md` の取得契約に従って取得試行・coverage・readinessを処理する。
-- チャット/Web実行で検索結果・静的HTML・検索キャッシュしか取得できず、ライブページ状態を検証できない場合は `MISSING` ではなく実行環境側の `SOURCE_ERROR` として扱う。検索キャッシュ上の空欄を当日未発表の証拠にしない。
-- ライブ値が必要な当日取得テストでは、利用可能ならJavaScript描画後のページを読めるライブブラウザ経路、またはローカルJV-Link/保存済み `0B11` を検索キャッシュより優先する。
+- ローカルシステムの馬体重取得・coverage・readinessは `docs/jravan/` の設計契約に従う。
 
 ## 共通制約
 - Phaseを跨いで先回り実装しない。
