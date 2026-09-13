@@ -25,6 +25,8 @@ description: horse-manのJRA-VAN競馬予想システムを、現行のモジュ
 - `baseline_forecast_id` を予想の同一性キーとして保持する。
 - PRE / DAY / FINALはデータ時点のsnapshotであり、上記Owner境界を置き換えない。
 - JRAの当日・FINAL予想では、馬体重取得を任意の補助確認へ落とさず、`docs/manual/README.md` の取得契約に従って取得試行・coverage・readinessを処理する。
+- チャット/Web実行で検索結果・静的HTML・検索キャッシュしか取得できず、ライブページ状態を検証できない場合は `MISSING` ではなく実行環境側の `SOURCE_ERROR` として扱う。検索キャッシュ上の空欄を当日未発表の証拠にしない。
+- ライブ値が必要な当日取得テストでは、利用可能ならJavaScript描画後のページを読めるライブブラウザ経路、またはローカルJV-Link/保存済み `0B11` を検索キャッシュより優先する。
 
 ## 共通制約
 - Phaseを跨いで先回り実装しない。
