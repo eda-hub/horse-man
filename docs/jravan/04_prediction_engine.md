@@ -12,6 +12,7 @@ JRA data
  -> 00_core execution contract
  -> 10_prediction Production baseline
  -> 20_conditional formal adjustments (該当時)
+ -> FINAL readiness check (T-20以降)
  -> Production baseline freeze / baseline_forecast_id
  -> odds observation / final-odds forecast
  -> 30_betting market evaluation / ticket candidates
@@ -45,6 +46,8 @@ Shadowから同一レースのProductionへ書き戻さない。
 - engine version
 - feature version
 - data cutoff
+- `data_readiness`
+- 必須当日データごとの source timestamp / freshness / missing reason
 
 manifestと必須moduleの `manual_release` が一致しない場合はfail closedする。
 
@@ -54,7 +57,11 @@ manifestと必須moduleの `manual_release` が一致しない場合はfail clos
 ## データ時点
 - PRE: 事前取得可能な非価格情報中心
 - DAY: 当日馬場・天候・関連レース実測等を追加
-- FINAL: 馬体重・直前非価格情報・市場情報を揃えた運用snapshot
+- FINAL: 発走20分前以降の馬体重・直前非価格情報・市場情報を揃えた運用snapshot
+
+FINALの必須非価格情報は、当日馬体重と増減、最新馬場・天候、取消/競走除外、騎手・斤量・発走時刻等の変更eventとする。必須項目が欠ける場合は推測で補完せず `data_readiness=DEGRADED` とし、欠損をPredictionへ保存する。
+
+`DEGRADED` の場合でも予想継続は可能だが、欠損が馬体重・馬場等の今回発揮能力に影響しうる情報なら予想確信度の上限を下げ、購入確信度も別途下げる。後からデータが取得できても固定済みFINALを結果に合わせて上書きせず、取得遅延eventとして回顧に残す。
 
 PRE/DAY/FINALは同一ルール体系の時点snapshotであり、チャットが変わっただけ、またはオッズだけが変わっただけでは `baseline_forecast_id` を再発行しない。
 
@@ -65,4 +72,4 @@ PRE/DAY/FINALは同一ルール体系の時点snapshotであり、チャット�
 AIが停止していてもProduction予想、Shadow比較、買い目候補、結果精算は動作すること。
 
 ## 評価指標
-Prediction Performance、Market/Odds Forecast Performance、Bet Performance、Decision Performance、Shadow Validation Performanceを分離する。
+Prediction Performance、Market/Odds Forecast Performance、Bet Performance、Decision Performance、Shadow Validation Performanceを分離する。加えてFINAL data readinessを記録し、`READY` と `DEGRADED` の予想精度・購入成績を分離して比較できるようにする。
