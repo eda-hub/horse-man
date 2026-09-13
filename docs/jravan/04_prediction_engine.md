@@ -76,3 +76,68 @@ AIが停止していてもProduction予想、Shadow比較、買い目候補、�
 
 ## 評価指標
 Prediction Performance、Market/Odds Forecast Performance、Bet Performance、Decision Performance、Shadow Validation Performanceを分離する。加えてFINAL data readinessを記録し、`READY` と `DEGRADED` の予想精度・購入成績を分離して比較できるようにする。
+
+## 今後の検討事項 — コース要求 × 馬個体適性の構造化
+
+現行manualの `10_prediction.md` と `40_shadow.md` にある E-09「馬個体適性プロファイル」および E-04「位置取り主導権」を前提に、重複ルールを増やさず、コース物理特性・ペース形状と馬個体の再現性を構造化featureとして扱うことを検討する。
+
+基本形は次とする。
+
+```text
+Race Course Demand Profile
+        ×
+Horse Aptitude Profile
+        ↓
+Course-Demand Fit
+```
+
+### コース側で追加・明示を検討するfeature
+
+既存E-09で定義済みの直線長、急坂/平坦、コーナー半径・角度、3〜4角の上下り、小回り、スタートから最初のコーナーまでの距離、直線入口の加速要求、トップスピード持続要求は再定義しない。そのうえで、次を追加候補とする。
+
+- スタート位置の環境差（客席前 / 向正面など）
+- スタート地点の路面と本走路面の組み合わせ（芝スタート→ダート等）
+- ワンターン / 4コーナー / それ以上のコーナー構成
+- 道中の坂回数・位置・勾配と、最終直線坂の有無・強度
+- コーナーの連続性、きつさ、大小
+- 区間ごとの要求加速・巡航・減速耐性
+
+### ペース形状feature
+
+平均ペースだけでなく、「どの区間で速くなるか」を別featureとして扱うことを検討する。
+
+- 澱みない一定巡航型
+- 前半高速→後半減速型
+- 前半緩み→残1000〜800m付近からロングスパート型
+- 前半緩み→直線入口以降の瞬発力型
+
+同じ平均ペースでも要求能力が異なるため、過去走のレースラップ、コーナー順位、上がり3F等から、その馬が各pace shapeで能力を維持・発揮できたかを推定する。
+
+### 馬側で検討する適性feature
+
+- `early_position_gain`: 発馬後から最初のコーナーまでに希望位置を取れる能力
+- `high_cruise_fit`: 高速巡航への適性
+- `front_loaded_pace_fit`: 前半高負荷型への適性
+- `midrace_acceleration_fit`: 道中からのペースアップへの適性
+- `late_sprint_fit`: 終盤だけの瞬発力勝負への適性
+- `uphill_fit`: 坂での能力維持
+- `multi_slope_fit`: 複数回の坂越えへの適性
+- `tight_turn_fit`: 小さくきついコーナーへの適性
+- `one_turn_fit`: ワンターン適性
+- `multi_turn_fit`: コーナー4つ以上の適性
+- `long_straight_sustain_fit`: 長い直線で脚を持続する適性
+- `short_straight_acceleration_fit`: 短い直線で素早く加速する適性
+
+### 血統の扱い
+
+血統は `10_prediction.md` の既存方針どおり、適性を断定するfeatureではなく事前仮説として使用する。坂、持続力、瞬発力、距離等の適性仮説を作る補助情報には使えるが、当該馬自身の実走と矛盾する場合は実走を優先する。
+
+### 実装・検証方針
+
+- 既存E-09 / E-04をOwnerとして扱い、新しい競馬判断ルールを別系統で増殖させない。
+- 初期段階ではProductionへ直接昇格させず、Shadow / 比較featureとして前向き検証する。
+- 加点表の単純合算ではなく、レース側の要求と馬側の適性のinteractionとして扱う。
+- 未経験条件は弱点と断定せず、不確実性として保持する。
+- 同じ根拠をコース適性・位置取り・持続力等で二重計上しない。
+- 実装時は `feature.runner_feature` / `features_json` に保持し、feature versionと元データprovenanceを追跡可能にする。
+- 十分なデータが揃った後は、表形式featureとの相性を踏まえ、CatBoost / LightGBM等のLearning-to-Rankを比較候補とする。ただしProductionの最終的な意味・優先順位は引き続き `docs/manual/` を正とする。
