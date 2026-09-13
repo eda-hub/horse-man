@@ -21,8 +21,14 @@
 - 取消/変更前の値が消えない。
 - 5代血統から指定系統内包を検索できる。
 - storage使用量をsystem statusで確認できる。
-- 速報WHから当日馬体重・増減・source timestampを保存できる。
-- 発走20分前以降の馬体重snapshotが取得できたかをrace単位で判定できる。
-- 馬体重、馬場、取消/変更eventの欠損を `READY / STALE / MISSING / SOURCE_ERROR` で区別できる。
-- 外部GUIに値が表示されているのにAdapter/Parserで取得できないケースを `SOURCE_ERROR` として検知できる。
+- `JVWatchEvent` の `JVEvtWeight` を受信し、返却keyから `JVRTOpen(0B11, key)` を実行して当日馬体重・増減を保存できる。
+- Eventを取り逃した状態、またはCore Service再起動後でも、`0B11` のrace-key / day-key catch-upで既発表の馬体重を復旧できる。
+- 馬体重snapshotに `first_observed_at`, `captured_at`, nullableなprovider timestamp, source, acquisition methodを保存できる。
+- T-20では新規取得時刻ではなく、現在の出走対象馬に対する当日WHのcoverageをrace単位で再検証できる。
+- T-20より前に取得済みの完全な当日公式WHを、取得時刻だけを理由にSTALE扱いしない。
+- 馬体重readinessを `PENDING / READY / PARTIAL / MISSING / STALE / SOURCE_ERROR` で区別できる。
+- 取消・競走除外をcoverage母数から正しく除外できる。
+- 通常時の約1時間前発表だけをハードコードせず、夏季等の発表タイミング差でもEvent監視とT-75〜T-20のfallback pollingで取得できる。
+- 外部GUIまたはJRA一次情報に値が表示されている、あるいは `JVEvtWeight` 受信済みなのにAdapter/Parserで取得できないケースを `SOURCE_ERROR` として検知できる。
+- JRA-VAN公式動作確認ツールで同一 `0B11` が取得できる場合、provider未発表ではなく内部Adapter/Parser側障害として切り分けられる。
 - 前走馬体重や静的HTMLの空欄を当日馬体重として代用しない。
