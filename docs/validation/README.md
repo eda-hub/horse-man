@@ -55,8 +55,33 @@ Production予想確信度は `A / B / C / D` の4段階を使用する。購入�
 - E-10：比較用補助分析
 - E-11 / E-12：Production買い目固定後のShadow比較買い目
 - E-08：予測最終オッズ精度（購入判断への影響を含む）
+- U-01（第2サイクル仮称）：能力未知度 / latent-upside事前検証
 - v1.6.0購入運用の非劣化確認
 - v1.6.1の予想確信度・固定仮想資金・KPI運用
+
+## U-01 能力未知度 / latent-upside 事前検証
+
+本項は第2サイクルだけの前向き検証運用であり、正式なProductionルールではない。恒久設計候補は `docs/jravan/13_ability_uncertainty_review.md` を参照する。
+
+2026-09-16以降、本サイクルでProduction最終予想を保存する対象レースでは、Productionの順位・印・確率を固定した後、結果確認前かつ発走前に全出走馬を軽量スキャンする。目的は、無印馬について「中心能力が低い」と「中心能力の推定幅が大きい」を分離して事前保存することである。
+
+最低限、候補馬について次を保存する。
+
+- Productionの印・基準順位
+- `evidence_coverage`: LOW / MEDIUM / HIGH
+- `ability_uncertainty`: LOW / MEDIUM / HIGH
+- `upside_evidence`: NONE / WEAK / MODERATE / STRONG
+- 上振れ根拠の要約
+- `latent_upside_candidate`: true / false
+- 候補なら想定役割：2着圏 / 3着圏 / 上位全般
+
+候補抽出では**人気・単勝オッズ・組み合わせオッズを使用しない**。まず非価格情報だけで候補を固定し、その後に市場価格を記録する場合も、候補選定の根拠へ逆流させない。これにより「潜在上振れ候補は実際に高オッズになりやすいか」自体を結果と独立して観察できる。
+
+Productionの正式印・正式買い目はU-01だけを理由に変更しない。比較買い目を作る場合は、買い目点数の無制限な膨張を避けるため、事前証拠が最も強い `primary latent-upside candidate` 1頭を上限として、Productionの中心軸を変えず相手列へ追加したShadow構造を保存する。オッズ不足を理由に候補自体を消さない。
+
+回顧では、無印好走馬を発走前snapshotだけから `SIGNAL_MISSED / UNCERTAINTY_UNDERMODELED / RATIONAL_EXCLUSION / POST_HOC_ONLY` に分類する。結果後に候補を新設して適格化しない。
+
+本検証の開始根拠・前開催からの仮説は `records/2026-09-16_latent_upside_precheck.md` に保存する。前開催の事例は仮説生成にだけ使用し、U-01の前向き成績には算入しない。
 
 ## 前向き検証レースの事前固定
 
