@@ -205,3 +205,34 @@ provenance = user evidence + verified race record/video note
 競馬予想に必要な情報だけを保存し、ユーザーの個人情報・決済情報・Wallet関連情報等をevidence recordへ混入させない。
 
 情報源の記録に必要なのは媒体・発言元・URL・観察種別等であり、予想に不要な個人属性を保存しない。
+
+## 12. 過去蓄積知見の一括取り込み — BACKFILL_SEED
+
+U-02開始前からユーザーが蓄積していた、コース・距離・枠・血統・脚質・馬場・騎手・厩舎等の条件別知見は、通常のレース固有evidenceとは別に `BACKFILL_SEED` として保存する。
+
+候補field:
+
+```text
+seed_id
+received_at
+scope
+claim_group_raw
+information_theme[]
+upstream_source nullable
+source_origin_status
+precheck_status
+unresolved_terms[]
+```
+
+BACKFILL_SEEDには次の制約を置く。
+
+1. 過去レースへ遡って成功・失敗を採点しない。
+2. 元ソース・対象期間・母集団が不明なら `UNKNOWN / UNVERIFIED` を維持する。
+3. 同一claim group内の複数主張を、利用時に原子的claimへ分解する。
+4. 今後該当レースで実際に使う場合だけ、発走前に通常の `user_evidence_id` を発行する。
+5. 略号・表記が曖昧な場合は原文を保持し、推測正規化しない。
+6. BACKFILL_SEEDの存在自体をProduction加点理由にしない。
+
+将来の検証では、特に血統・枠・騎手・厩舎heuristicについて、人気・事前能力・クラス・馬場・開催時期・使用コース・頭数等の交絡を可能な範囲で分離する。
+
+これにより、過去知見を捨てずに保持しつつ、結果既知データへの後付け最適化を防ぎ、前向きに再現性を評価できる。
