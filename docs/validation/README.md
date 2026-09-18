@@ -111,8 +111,11 @@ Productionの正式印・正式買い目はU-01だけを理由に変更しない
 - `trainer_general_signal`: POSITIVE / NEUTRAL / NEGATIVE / UNKNOWN
 - `jockey_horse_signal`: POSITIVE / NEUTRAL / NEGATIVE / UNKNOWN
 - `trainer_jockey_signal`: POSITIVE / NEUTRAL / NEGATIVE / UNKNOWN
+- `jockey_evidence_coverage`: LOW / MEDIUM / HIGH
+- `trainer_evidence_coverage`: LOW / MEDIUM / HIGH
 - 各シグナルの証拠強度: WEAK / MODERATE / STRONG
 - `horse_direct_evidence_alignment`: SUPPORT / CONFLICT / NONE
+- `context_connection`: 今回の展開・位置取り・仕上げ・ローテとの接続理由
 - `shadow_direction`: UP / HOLD / DOWN
 
 `shadow_direction` は成分を固定重みで合算した点数ではない。今回の展開・位置取り・仕上げ・ローテとの接続を文章で確認したうえで、診断上の方向だけを保存する。
