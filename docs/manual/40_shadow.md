@@ -29,6 +29,19 @@ Production固定後にだけ起動する比較系。結果が良く見えても�
 
 51Aの情報源ポリシー・直接事実収集カテゴリは `20_conditional.md` を参照する。ここでは集団傾向をProductionから分離して比較する51Bだけを所有する。
 
+### Shadow共通入力再利用契約 — 優先度A
+
+Shadowは独立した**判断系**であり、独立した**再取得系**ではない。
+
+- Production / 51Aが取得済みの過去走、血統、枠、騎手、厩舎、コース、当日情報は、同一の `race_evidence_bundle` を参照する。
+- 51B、E-09、E-10、E-04、E-07等が同じ事実を必要とする場合、原則として再検索・再取得・再正規化しない。
+- Shadow固有の仮説に必要な事実がbundleに存在しない場合だけ追加取得する。
+- 追加取得した事実はShadow専用コピーへ閉じ込めず、provenance付きで共通bundleへ追加し、同一レース内の後続Shadowが再利用できるようにする。ただしShadowの**解釈・補正結果**はProductionへ戻さない。
+- `static_evidence_snapshot` は事前予想から最終予想まで再利用し、Shadow開始時に取り直さない。`dynamic_evidence_snapshot` はProduction側で同時点へ更新済みのものを使う。
+- 複数のShadowルールが独立して必要とする追加事実は、実行環境が対応する場合は並列取得してよい。各Shadowの差分計算はProduction固定後に行う。
+
+これにより、Production/Shadow分離を保ったまま、取得I/Oだけを共有する。
+
 ## 51-3. 過去傾向の対象期間
 
 原則として過去5〜10年程度を確認する。
