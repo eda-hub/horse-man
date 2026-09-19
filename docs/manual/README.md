@@ -57,8 +57,9 @@ Production + Shadow + 実購入 ──→ 50_review
 | 発走当日・最終予想 | `README`, `00_core`, `10_prediction` + 本節の当日馬体重取得契約 | 重賞・当日補正等なら `20_conditional`; 購入案なら `30_betting` |
 | 資金・券種を含む購入案 | 上記 + `30_betting` | 検証比較を行う場合のみ `40_shadow` |
 | 今日の全レース選別 | `README`, `00_core`, `10_prediction`, `30_betting` | 条件該当レースのみ `20_conditional`; Shadow比較時のみ `40_shadow` |
-| JRA重賞予想 | `README`, `00_core`, `10_prediction`, `20_conditional`, `docs/yosou/jra_racing/README.md` | 当該重賞記録があれば参照。購入なら `30_betting`; 51B比較なら `40_shadow` |
-| レース後の回顧 | `README`, `00_core`, `50_review` | 元のProduction/買い目/Shadow記録を参照 |
+| JRA重賞予想 | `README`, `00_core`, `10_prediction`, `20_conditional`, `docs/yosou/README.md`, `docs/yosou/jra_racing/README.md` | 当該重賞記録があれば参照。購入なら `30_betting`; 51B比較なら `40_shadow` |
+| 海外重賞予想 | `README`, `00_core`, `10_prediction`, `20_conditional`, `docs/yosou/README.md`, `docs/yosou/kaigai/README.md` | 当該重賞記録があれば参照。購入なら `30_betting`; 51B比較なら `40_shadow` |
+| レース後の回顧 | `README`, `00_core`, `50_review` | 元のProduction/買い目/Shadow記録を参照。重賞は `docs/yosou/README.md` も読み、正式回顧は `docs/validation/`、レース固有傾向と翌年課題は `docs/yosou/` へ分離する |
 
 毎回すべてのモジュールを読む必要はない。**依頼に必要なモジュールだけ読む**。
 
@@ -125,15 +126,19 @@ JRAの発走当日予想、直前予想、最終予想では、**当日馬体重
 
 この原則は特定のサービス名に依存せず、今後取得手段が変わっても適用する。
 
-### JRA重賞の記録運用
+### 重賞の年次予想ノート運用
 
 JRA重賞は原則として全レースを予想対象とし、「見送り」は購入判断として扱う。
 
-JRA重賞の保存・年度切替・チャット単位に関する詳細規約は `docs/yosou/jra_racing/README.md` を唯一のOwnerとする。
+JRA・海外を含む重賞の `docs/yosou/` 保存境界は `docs/yosou/README.md` を唯一の共通Ownerとする。JRA固有の補足は `docs/yosou/jra_racing/README.md`、海外固有の補足は `docs/yosou/kaigai/README.md` に置く。
 
-### 検証データの保存場所
+重賞の結果確定後は、**Production / Shadowの正式回顧、KPI、エラー分類、実購入、反実仮想、非劣化判定等を `docs/validation/` に保存し、`docs/yosou/` へ重複保存しない。** `docs/yosou/<区分>/<race>.md` には、過去傾向から見た当年予想・結果の照合、傾向の継続 / 弱化 / 新規候補 / 例外、翌年に向けたレース固有の予想課題だけを残す。
 
-進行中の検証サイクルで生成するShadow比較結果・検証集計は、ルール定義とは分離して `docs/validation/` に保存する。`docs/validation/` は**現行サイクル専用の一時領域**であり、ルールの正本ではない。サイクル終了時に必要な昇格・降格判断を `50_review.md` の手順で確定した後、当該サイクルの検証ファイルは削除し、過去状態はGit commit / pull request / tagから参照する。
+### 検証データ・正式回顧の保存場所
+
+進行中の検証サイクルで生成するProduction / Shadowの結果後評価、実購入記録、エラー分類、KPI、比較差分・集計は、ルール定義とは分離して `docs/validation/` に保存する。`docs/validation/` は**現行サイクル専用の一時領域**であり、ルールの正本ではない。サイクル終了時に必要な昇格・降格判断を `50_review.md` の手順で確定した後、当該サイクルの検証ファイルは削除し、過去状態はGit commit / pull request / tagから参照する。
+
+重賞の `docs/yosou/` は検証データの保存先ではない。正式回顧をvalidationへ保存した後、翌年用のレース固有知識だけを抽出して更新する。
 
 ## 5. 編集時の読み込み規約
 
@@ -177,7 +182,7 @@ JRA当日・最終予想では、取得できた場合はさらに当日馬体�
 ## 8. GitHub運用
 
 - 現行ルールの参照は原則として `main` の `docs/manual/README.md` から開始する。
-- JRA重賞の記録運用は `docs/yosou/jra_racing/README.md` を正本とする。
+- 重賞の年次予想ノート運用は `docs/yosou/README.md` を共通正本とし、JRA / 海外の区分別READMEはその補足とする。
 - 改訂は作業ブランチで行い、pull requestの差分レビュー後に `main` へ統合する。
 - ただしチャットでの事前予想・最終予想そのものは改訂作業ではないため、記録目的のGit書き込みを行わない。予想記録・検証記録の永続化は原則として回顧時にまとめる。
 - 旧版確認はGitのcommit / PR / tagから行い、`old/`への複製保存はしない。
