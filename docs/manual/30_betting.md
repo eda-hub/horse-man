@@ -1380,7 +1380,7 @@ cut_labels:
   - POINT_LIMIT_CUT
   - STRATEGIC_CUT
 
-user_purchase_state: NOT_CONFIRMED / CONFIRMED
+user_purchase_state: RECOMMENDED / INTENDED / PURCHASE_CONFIRMED
 ```
 
 高い勝率を持つ馬の除外は、それ自体では違反としない。`POINT_LIMIT_CUT` / `STRATEGIC_CUT` の場合に、**当時の勝率差、カバー勝率差、全体点数、点数交換先、主要シナリオ**が発走前記録で追えるかを回顧する。記録がない場合は結果から理由を作らず「根拠未確認」とする。
