@@ -159,6 +159,13 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 - 買い目を固定した場合は、購入確信度、使用価格・取得時刻、固定買い目、最大馬依存率、購入前監査後判断
 - 適用Shadowの完了 / 未完了状態
 
+`snapshot_id` は次の形式を使う。
+
+- 個別レース：`<baseline_forecast_id>-SNN`（例：`20260921-HAN-10-P001-S01`）
+- 全体選別：`YYYYMMDD-WHOLE-SNN`
+
+同じProduction系列の後続snapshotはS番号を増やし、`previous_snapshot_ref` に直前の `snapshot_id` を入れる。baselineの正式更新でP連番が変わった場合も、変更元snapshotを `previous_snapshot_ref` で保持する。
+
 全体選別は対象全レースを1回のsnapshotへまとめてよく、個別最終では当該レースだけを追記してよい。これにより、予想速度への影響を最小化する。
 
 snapshot永続化がGitHub障害・時間制約等で発走前に完了しない場合は、予想回答自体を発走に遅らせない。チャットへ同じ正式内容を送信し、`PRE_RACE_SNAPSHOT_PERSIST_FAILED` を明示する。そのsnapshotはGit永続化を結果後に後付けして「発走前永続化済み」と扱わず、KPI適格性は各Ownerの条件に従って判定する。
