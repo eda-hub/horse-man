@@ -197,6 +197,18 @@ P/A/Bは同じ `race_evidence_bundle` と情報締切を使い、A/Bのために
 
 結果後の後知恵を防ぐため、KPIごとに**発走前に保存されていた項目だけ**を使用する。結果後に欠けた値を再構成して適格化しない。
 
+### 2026-09-21以降の発走前永続化要件
+
+2026-09-21以降に新規固定する対象は、`docs/manual/00_core.md` の発走前不変snapshot契約に従い、`docs/validation/snapshots/YYYY-MM-DD.md` へ発走前に最小snapshotを保存する。
+
+- Production予想精度KPI：Production必須項目が発走前Git snapshotに存在すること
+- 購入・ROI KPI：Production適格に加え、買い/見送り、使用価格・時刻、固定10,000円案、購入前監査後判断が発走前Git snapshotに存在すること
+- 各Shadow：当該Shadowの必須比較内容が発走前Git snapshotに存在すること
+
+Git snapshot保存失敗は、**該当するKPIだけ** `PRE_RACE_SNAPSHOT_PERSIST_FAILED` で不適格とする。ユーザーへの予想回答を止める理由にはせず、Shadow失敗でProductionまで除外しない。
+
+2026-09-20以前には遡及適用しない。
+
 ### 予想精度KPIの適格条件
 
 正式な予想精度サンプルには、発走前に最低限次を固定する。
@@ -284,7 +296,10 @@ Gitへの永続記録は結果確定後の回顧時に行う。発走前はチ�
 
 ## 保存形式
 
+- 発走前不変snapshot：`snapshots/YYYY-MM-DD.md`
 - サイクル集計：`cycle_02.md`
-- 必要な日別・レース別記録：`records/YYYY-MM-DD.md` または `records/<race-id>.md`
+- 必要な日別・レース別回顧：`records/YYYY-MM-DD.md` または `records/<race-id>.md`
+
+`snapshots/` は**発走前の事実証跡だけ**をappend-onlyで保存する。結果、払戻、結果後評価、エラー分類は書かない。正式回顧は `records/` を正本とする。
 
 同一内容を `40_shadow.md` や `docs/yosou/` の個別重賞ファイルへ重複保存しない。**正式回顧の詳細はvalidation側へ保持する。** `docs/yosou/` には、過去傾向から見た当年予想・結果の照合、傾向更新、翌年予想課題だけを抽出して残す。保存境界は `docs/yosou/README.md` と `docs/manual/50_review.md` 0.7.1.2 を参照する。
