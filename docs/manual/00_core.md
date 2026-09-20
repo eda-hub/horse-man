@@ -165,6 +165,43 @@ snapshot永続化がGitHub障害・時間制約等で発走前に完了しない
 
 結果後の正式回顧・払戻・エラー分類・KPI集計は従来どおり `docs/validation/records/` へ保存する。発走前snapshotと回顧recordは役割を分離し、結果から発走前内容を作り直さない。
 
+##### 1.1 正式状態遷移とHARD STOP
+
+発走前の各出力は、次の正式状態を区別する。
+
+- `INITIAL_PRODUCTION_FIXED`
+- `DYNAMIC_INFO_UPDATED`
+- `FINAL_PRODUCTION_FIXED`
+- `BETTING_AUDIT_COMPLETE`
+- `BETTING_FIXED`
+- `SHADOW_COMPLETE / SHADOW_PARTIAL`
+- `USER_PURCHASE_STATE_RECORDED`
+
+次工程の必須条件が不足している場合、ユーザーへの情報提供自体を止めるのではなく、**正式状態だけを次へ進めない**。
+
+主なHARD STOP：
+
+- 同一レースに既存Productionがあるのに参照できない：`BASELINE_LOOKUP_FAILED`。新しい正式Productionへ無言で置換しない。
+- `baseline_forecast_id` がない：正式KPI適格Productionとして固定しない。
+- 順位・確率・確信度を変更したのに非価格理由・証拠強度・情報時刻がない：`UNJUSTIFIED_PRODUCTION_CHANGE`。旧Productionを正式状態として維持する。
+- Production買い目の購入前監査が完了していない：`BETTING_AUDIT_INCOMPLETE`。参考買い目に留め、`BETTING_FIXED` と呼ばない。
+- 実購入完了のユーザー発言が確認できない：実購入帳簿へ算入しない。
+- 回顧時に事前対象件数と取り込み件数が一致しない：`REVIEW_SCOPE_MISMATCH`。回顧完了扱いにしない。
+
+FAIL-SOFT：
+
+- 当日馬体重等の取得不能は不足を明示し、確信度へ反映してProductionを完了してよい。
+- Shadow未完了はProductionを維持し、当該Shadowだけ `SHADOW_PARTIAL / INELIGIBLE` とする。
+- 発走前Git snapshot保存失敗は予想回答を遅らせず `PRE_RACE_SNAPSHOT_PERSIST_FAILED` とし、該当KPIだけ不適格とする。
+
+正式出力ラベルは状態に合わせる。
+
+- `FINAL_PRODUCTION_FIXED` 未到達：**暫定分析**
+- `FINAL_PRODUCTION_FIXED` 到達：**Production最終予想**
+- `BETTING_AUDIT_COMPLETE` 未到達：**参考買い目**
+- `BETTING_FIXED` 到達：**Production確定買い目**
+- 購入完了確認後のみ：**実購入**
+
 ##### 2. race_evidence_bundleを一度作り、使い回す
 
 同一レースで取得した事実データは、概念上の共通入力 `race_evidence_bundle` として扱う。
