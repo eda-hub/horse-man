@@ -575,9 +575,9 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 
 初期Production、最終Production、買い目等により、同一 `race_id` へ複数snapshotが存在することは正常である。snapshot履歴では `race_id` の重複をエラーにせず、次を検査する。
 
-- `snapshot_id` が一意である。
-- `previous_snapshot_ref` がある場合、同一 `race_id` の既存する先行snapshotへ解決できる。
-- 同一IDの複数実体、参照欠落、別レース参照、循環等があれば証跡不整合として記録する。
+- `snapshot_id` はsnapshotエントリ単位で一意である。`WHOLE_DAY` の1エントリが複数race行を含むことは重複ではない。
+- `previous_snapshot_ref` がある場合、対象 `race_id` を含む既存の先行snapshotエントリへ解決できる。
+- 同一IDの別エントリ、参照欠落、対象raceを含まない参照、循環等があれば証跡不整合として記録する。
 
 各scopeレースの発走前証跡状態を、少なくとも次のいずれかへ分類する。
 
