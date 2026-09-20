@@ -125,11 +125,89 @@ Production基準予想を固定した時点で、同一レースを識別でき�
 
 ChatGPT上の予想では、予想ロジックを変更せず、取得・再利用・記録の実行方法だけを最適化する。
 
-##### 1. 発走前固定とGit永続化を分離する
+##### 1. 分析途中と正式snapshot永続化を分離する
 
-本ルール中の「保存」「固定」は、チャット予想では原則として**発走前の時刻付き回答で内容を追跡可能にすること**を意味する。事前予想、最終予想、Shadow比較、買い目確定の途中で、記録だけを目的としたGitHubのbranch作成、commit、pull request、レースファイル・検証台帳更新を行わない。
+事前予想・最終予想・買い目を**考えている途中**では、記録目的のGitHub branch作成、commit、pull request、検証台帳更新を行わない。取得ログ、思考過程、未確定順位、未監査買い目は保存対象にしない。
 
-Gitへの長期保存は原則として結果確定後の回顧で行い、発走前チャットsnapshotから事前状態を復元したうえで、結果・回顧とまとめて永続化する。結果から事前予想を作り直してはならない。
+一方、ProductionまたはProduction買い目を正式固定した時点では、後日の回顧で発走前記録を失わないため、**ユーザーへのチャット送信直前に最小の不変snapshotをGitへ永続化する。**
+
+保存順序は原則として、
+
+**分析・監査完了 → 正式内容FIXED → 発走前snapshot永続化 → 同内容をチャット送信**
+
+とする。
+
+保存先は `docs/validation/snapshots/YYYY-MM-DD.md` とし、同一日のsnapshotをappend-onlyで追記する。旧snapshotを上書き・削除して現在値だけにしない。正式更新が必要な場合は新しい `baseline_forecast_id` またはrevisionを持つ新snapshotを追記し、`previous_snapshot_ref` で直前snapshotを参照する。
+
+最低限、snapshotは次を保持する。
+
+- `snapshot_id`
+- `snapshot_type`: WHOLE_DAY / INITIAL_PRODUCTION / FINAL_PRODUCTION / BETTING_FIXED / SHADOW
+- race_id / 日付 / 競馬場 / R
+- `baseline_forecast_id`
+- `manual_release`
+- `fixed_at_jst`
+- `information_cutoff_jst`
+- `previous_snapshot_ref`（更新時）
+- Production順位・印・勝率 / 連対率 / 3着内率
+- 予想確信度
+- 選別区分・購入優先度（該当時）
+- 当日馬体重取得状態
+- `production_status`: NEW / REUSED / UPDATED
+- 初期→最終変更がある場合の変更対象・非価格理由・証拠強度・情報時刻
+- 市場を能力順位へ使用していないことの状態
+- 買い目を固定した場合は、購入確信度、使用価格・取得時刻、固定買い目、最大馬依存率、購入前監査後判断
+- 適用Shadowの完了 / 未完了状態
+
+`snapshot_id` は次の形式を使う。
+
+- 個別レース：`<baseline_forecast_id>-SNN`（例：`20260921-HAN-10-P001-S01`）
+- 全体選別：`YYYYMMDD-WHOLE-SNN`
+
+同じProduction系列の後続snapshotはS番号を増やし、`previous_snapshot_ref` に直前の `snapshot_id` を入れる。baselineの正式更新でP連番が変わった場合も、変更元snapshotを `previous_snapshot_ref` で保持する。
+
+全体選別は対象全レースを1回のsnapshotへまとめてよく、個別最終では当該レースだけを追記してよい。これにより、予想速度への影響を最小化する。
+
+snapshot永続化がGitHub障害・時間制約等で発走前に完了しない場合は、予想回答自体を発走に遅らせない。チャットへ同じ正式内容を送信し、`PRE_RACE_SNAPSHOT_PERSIST_FAILED` を明示する。そのsnapshotはGit永続化を結果後に後付けして「発走前永続化済み」と扱わず、KPI適格性は各Ownerの条件に従って判定する。
+
+結果後の正式回顧・払戻・エラー分類・KPI集計は従来どおり `docs/validation/records/` へ保存する。発走前snapshotと回顧recordは役割を分離し、結果から発走前内容を作り直さない。
+
+##### 1.1 正式状態遷移とHARD STOP
+
+発走前の各出力は、次の正式状態を区別する。
+
+- `INITIAL_PRODUCTION_FIXED`
+- `DYNAMIC_INFO_UPDATED`
+- `FINAL_PRODUCTION_FIXED`
+- `BETTING_AUDIT_COMPLETE`
+- `BETTING_FIXED`
+- `SHADOW_COMPLETE / SHADOW_PARTIAL`
+- `USER_PURCHASE_STATE_RECORDED`
+
+次工程の必須条件が不足している場合、ユーザーへの情報提供自体を止めるのではなく、**正式状態だけを次へ進めない**。
+
+主なHARD STOP：
+
+- 同一レースに既存Productionがあるのに参照できない：`BASELINE_LOOKUP_FAILED`。新しい正式Productionへ無言で置換しない。
+- `baseline_forecast_id` がない：正式KPI適格Productionとして固定しない。
+- 順位・確率・確信度を変更したのに非価格理由・証拠強度・情報時刻がない：`UNJUSTIFIED_PRODUCTION_CHANGE`。旧Productionを正式状態として維持する。
+- Production買い目の購入前監査が完了していない：`BETTING_AUDIT_INCOMPLETE`。参考買い目に留め、`BETTING_FIXED` と呼ばない。
+- 実購入完了のユーザー発言が確認できない：実購入帳簿へ算入しない。
+- 回顧時に事前対象件数と取り込み件数が一致しない：`REVIEW_SCOPE_MISMATCH`。回顧完了扱いにしない。
+
+FAIL-SOFT：
+
+- 当日馬体重等の取得不能は不足を明示し、確信度へ反映してProductionを完了してよい。
+- Shadow未完了はProductionを維持し、当該Shadowだけ `SHADOW_PARTIAL / INELIGIBLE` とする。
+- 発走前Git snapshot保存失敗は予想回答を遅らせず `PRE_RACE_SNAPSHOT_PERSIST_FAILED` とし、該当KPIだけ不適格とする。
+
+正式出力ラベルは状態に合わせる。
+
+- `FINAL_PRODUCTION_FIXED` 未到達：**暫定分析**
+- `FINAL_PRODUCTION_FIXED` 到達：**Production最終予想**
+- `BETTING_AUDIT_COMPLETE` 未到達：**参考買い目**
+- `BETTING_FIXED` 到達：**Production確定買い目**
+- 購入完了確認後のみ：**実購入**
 
 ##### 2. race_evidence_bundleを一度作り、使い回す
 
