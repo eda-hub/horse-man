@@ -870,7 +870,7 @@ PR #34による発走前最小snapshot保存、HARD STOP、購入状態分離は
 | O | WIN5判断後に通常Productionが更新 | WIN5判断時点の参照だけで監査。後の18%等を遡及適用しない |
 | P | 高勝率馬の戦略的切り | 50-5の当時の比較記録で評価。除外そのものを一律違反にしない。記録欠落なら根拠未確認 |
 | Q | 過去対象と9/21以降対象が混在 | 保存契約を時期別に適用。古い対象に新契約を遡及適用しない |
-| R | 購入意思のみ／購入明細の金額不一致 | 意思だけなら実購入非計上。明細不一致を推測修復せず保留 |
+| R | `RECOMMENDED` / `INTENDED` のみ、または購入明細の金額不一致 | `PURCHASE_CONFIRMED` 以外は実購入非計上。明細不一致を推測修復せず、実購入KPIを保留または不適格判定 |
 
 ### 23.6 効果測定・終了承認案
 
@@ -895,8 +895,8 @@ PR #34による発走前最小snapshot保存、HARD STOP、購入状態分離は
 - `docs/manual/00_core.md`：正規参照先、保存前再取得、同一ID再送、ID衝突、保存後読戻し、最大1回再試行、Shadow工程分離を実装。
 - `docs/validation/snapshots/README.md`：保存・再送・競合・読戻し・引継ぎ票を具体化。
 - `docs/manual/50_review.md` / `docs/validation/README.md`：旧契約を9/20以前へ限定。scope台帳を1レース1行とし、snapshot履歴は同一race_id複数を許容してsnapshot_id/参照関係を検査。証跡欠測と回顧完了を分離し、購入明細合計も判定対象化。
-- `docs/manual/30_betting.md`：50-1〜50-8のWIN5監査記入例を追加。
-- `docs/validation/records/2026-09-20.md`：WIN2を時系列で再監査し、後続確率による違反確定を撤回して未確認へ訂正。
+- `docs/manual/30_betting.md`：50-1〜50-8のWIN5監査記入例を追加し、購入状態は正式な `RECOMMENDED / INTENDED / PURCHASE_CONFIRMED` に統一。
+- `docs/validation/records/2026-09-20.md`：WIN2を時系列で再監査し、後続確率による違反確定を撤回して未確認へ訂正。WIN3も「1頭固定は結果上不的中」「固定根拠未確認」「展開過小評価は検証仮説」へ分離。
 - `docs/validation/operation_acceptance_2026-09-21.md`：実レースと分離した受入試験を保存。実装branchの保存・読戻しはPASS、異常系はTABLETOP_PASS。
 - `manual_release` はv1.6.1を維持するが、運用証跡に `manual_ref_commit` と `contract_effective_date` を追加した。
 - 残作業はP2のみ。PRマージ後の実レースで `main` 保存・読戻し、別実行コンテキスト再取得、時間負荷、scope整合を前向きに測定する。
