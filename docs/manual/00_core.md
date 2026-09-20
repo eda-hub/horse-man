@@ -210,7 +210,7 @@ snapshot永続化がGitHub障害・時間制約等で発走前に完了しない
 - 順位・確率・確信度を変更したのに非価格理由・証拠強度・情報時刻がない：`UNJUSTIFIED_PRODUCTION_CHANGE`。旧Productionを正式状態として維持する。
 - Production買い目の購入前監査が完了していない：`BETTING_AUDIT_INCOMPLETE`。参考買い目に留め、`BETTING_FIXED` と呼ばない。
 - 実購入完了のユーザー発言が確認できない：実購入帳簿へ算入しない。
-- 回顧時に `prediction_scope_count`、対象 `race_id` 集合、重複、snapshot参照先のいずれかが一致しない：`REVIEW_SCOPE_MISMATCH`。件数一致だけでは完了扱いにしない。
+- 回顧完了条件は `50_review.md` 0.14.1 に従う。scope台帳の不整合・必要な判定の未完了は停止対象とし、正常なsnapshot履歴の複数存在や、判定済みの証跡欠測とは区別する。
 
 FAIL-SOFT：
 
