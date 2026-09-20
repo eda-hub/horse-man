@@ -31,6 +31,13 @@
 
 既存snapshotを編集して現在値だけにしない。正式更新では新しいsnapshotを追記し、前snapshotを参照する。
 
+`snapshot_id` は `00_core.md` の正本定義に従う。
+
+- 個別レース：`<baseline_forecast_id>-SNN`
+- 全体選別：`YYYYMMDD-WHOLE-SNN`
+
+後続snapshotは `previous_snapshot_ref` で直前snapshotを参照する。
+
 ## 4. 最低項目
 
 ### Production
