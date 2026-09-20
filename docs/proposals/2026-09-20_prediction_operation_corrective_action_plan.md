@@ -316,15 +316,20 @@ KPIはレース単位で一括して「適格 / 不適格」としない。
 
 ### 10.1 独立判定
 
-| KPI | 主な必須条件 | 他KPI欠落の影響 |
+現行の正式Production予想精度KPIは、validation READMEで定義された必須条件一式を維持する。順位だけ、確率だけを切り出して正式適格化する変更は本企画では行わない。
+
+そのうえで、**Production / Betting / 各Shadowを相互に巻き込んで一括除外しない**ことを徹底する。
+
+| KPI系統 | 主な必須条件 | 他KPI欠落の影響 |
 |---|---|---|
-| Production順位KPI | baseline ID、順位、確信度等 | Shadow欠落では除外しない |
-| Production確率KPI | 上記＋確率 | Betting欠落では除外しない |
-| Betting ROI | Production適格＋買い判定＋価格＋固定10,000円案 | Shadow欠落では除外しない |
+| Production予想精度 | 現行validation READMEの必須条件一式：baseline ID、レース・時刻、順位・印・確率、予想確信度、当日馬体重取得状態等 | Betting / Shadow欠落では除外しない |
+| Betting ROI | Production適格＋買い/見送り判定＋使用価格・時刻＋固定10,000円案等 | Shadow欠落では除外しない |
 | 51B | 発走前51B固定 | Productionが適格でも51B欠落なら51Bだけ除外 |
 | E-09 | 発走前E-09固定 | 同上 |
 | E-11/E-12 | Production買い目固定後の発走前比較案 | Production ROIとは別 |
 | E-13 | P/A/Bの同一入力・発走前固定 | E-13欠落はProductionを落とさない |
+
+順位捕捉、確率校正、買い目接続等は**原因診断の内訳**として分けて見るが、現行の正式適格条件を分割・緩和しない。
 
 ### 10.2 判定履歴
 
