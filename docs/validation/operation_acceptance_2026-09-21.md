@@ -70,11 +70,26 @@
   - 競合未解決なら保存成功としない。
 - 判定: **TABLETOP_PASS**
 
-## 6. scope集合 — 机上試験
+## 6. scope台帳とsnapshot履歴 — 机上試験
 
-- test_id: `OA-20260921-06`
-- 入力: `prediction_scope_count=16`、recordも16行だが、race_id Aが2回、race_id Bが欠落。
-- 期待: 件数一致でも集合不一致・重複1件として `REVIEW_SCOPE_MISMATCH`。
+- test_id: `OA-20260921-06A`
+- 入力: `prediction_scope_count=16`、scope台帳も16行だが、race_id Aが2回、race_id Bが欠落。
+- 期待: scope台帳は1レース1行のため、件数一致でも集合不一致・scope台帳重複1件として `REVIEW_SCOPE_MISMATCH`。
+- 判定: **TABLETOP_PASS**
+
+- test_id: `OA-20260921-06B`
+- 入力: 同一race_id Aに INITIAL_PRODUCTION / FINAL_PRODUCTION / BETTING_FIXED の3snapshotがあり、snapshot_idはすべて異なり、`previous_snapshot_ref` が同一レースの先行snapshotへつながる。
+- 期待: 同一race_idの複数snapshotは正常履歴として許容し、race_id重複エラーにしない。
+- 判定: **TABLETOP_PASS**
+
+- test_id: `OA-20260921-06C`
+- 入力: 同一 `snapshot_id` の複数実体、または `previous_snapshot_ref` が欠落・別race_idを参照。
+- 期待: snapshot履歴の証跡不整合として分類し、該当KPIの適格性を判定する。scope台帳のrace_id重複とは混同しない。
+- 判定: **TABLETOP_PASS**
+
+- test_id: `OA-20260921-06D`
+- 入力: scope内1Rで `PRE_RACE_SNAPSHOT_PERSIST_FAILED`。Git snapshotは存在しないが、失敗理由とチャット側の発走前内容を確認できる。
+- 期待: Git永続化必須KPIは不適格としつつ、欠測理由・代替証跡・各KPI適格性を確定できれば回顧全体は `REVIEW_COMPLETED` にできる。
 - 判定: **TABLETOP_PASS**
 
 ## 7. Production / Shadow順序 — 机上試験
@@ -119,4 +134,4 @@
 - 保存開始〜読戻し確認までの所要時間
 - 再試行数
 - 別チャットからのbaseline / snapshot再取得
-- 回顧時のrace_id集合・重複・snapshot参照・実購入明細合計
+- 回顧時のscope台帳race_id集合・scope台帳重複・snapshot_id一意性・previous_snapshot_ref・証跡欠測判定・実購入明細合計
