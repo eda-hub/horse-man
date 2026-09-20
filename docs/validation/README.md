@@ -277,7 +277,7 @@ Git snapshot保存失敗は、**該当するKPIだけ** `PRE_RACE_SNAPSHOT_PERSI
 1. 発走前に予想・選別したレース総数を `prediction_scope_count` として確定し、同時に期待する `race_id` 集合を固定する。
 2. 日別record内の**scope台帳は1レース1行**とし、scope台帳の `race_id` は一意であることを確認する。件数が同じでも「1R重複＋別1R欠落」は `REVIEW_SCOPE_MISMATCH` とする。
 3. `snapshots/` は初期予想・最終予想・買い目等の履歴を保持するため、**同じ `race_id` の複数snapshotを正常系として許容する**。snapshot履歴では `race_id` の重複数をエラー条件にしない。
-4. snapshot履歴は `snapshot_id` の一意性と参照関係を検査する。同一 `snapshot_id` の複数実体を許容せず、`previous_snapshot_ref` がある場合は同一 `race_id` の既存する先行snapshotを参照していることを確認する。欠落・別レース参照・循環等は証跡不整合として記録する。
+4. snapshot履歴は**snapshotエントリ単位**で `snapshot_id` の一意性と参照関係を検査する。`WHOLE_DAY` の1エントリが複数race行を含むことは重複ではない。同一 `snapshot_id` の別エントリを許容せず、`previous_snapshot_ref` がある場合は対象 `race_id` を含む既存の先行snapshotエントリへ解決できることを確認する。欠落・対象raceを含まない参照・循環等は証跡不整合として記録する。
 5. 各scopeレースについて、発走前証跡を `GIT_SNAPSHOT_VERIFIED / PERSIST_FAILED / SNAPSHOT_REFERENCE_INVALID / DETAIL_UNAVAILABLE` のいずれかへ分類し、チャット等の代替証跡の有無とKPI別適格性を別欄で判定する。
 6. **証跡取得成功と回顧完了を分離する。** `GIT_SNAPSHOT_VERIFIED` では正規参照先からの読戻し一致を要求する。一方、`PERSIST_FAILED` 等でGit証跡が欠けても、欠測理由・利用できた代替証跡・KPI別の適格/不適格判定が全scopeレースで確定していれば、その欠測だけを理由に回顧全体を未完了のままにしない。
 7. 個別最終予想、購入候補、見送りを含め、scope台帳の全レースに回顧recordが存在することを確認する。scope台帳自体の件数・集合が未確定なら `REVIEW_SCOPE_MISMATCH` とし、回顧を完了扱いにしない。
