@@ -563,14 +563,38 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 
 `PRE_RACE_SNAPSHOT_PERSIST_FAILED` が発生した場合、予想回答は有効なユーザー向け出力として扱えるが、**Git永続化を必須とする当該KPIについては不適格**とする。Shadow保存失敗だけでProductionを不適格にしないなど、KPI別独立判定は維持する。
 
-回顧では、snapshotの件数・`race_id`・`baseline_forecast_id`・snapshot参照先を最初に取り込む。完了判定は件数だけでなく、次をすべて満たすことを要求する。
+回顧では、**scope台帳**と**snapshot履歴**を別の検査単位として扱う。
 
-- `prediction_scope_count` と対象 `race_id` の**集合**が一致する。
-- 対象 `race_id` の重複が0件である。
-- 各recordが参照する発走前 `snapshot_id` / baselineが正規参照先で読戻せる。
-- 実購入を計上する場合、購入明細の金額合計が記録した実購入総額と一致する。不一致を推測補完しない。
+### scope台帳
 
-いずれかが不一致なら `REVIEW_SCOPE_MISMATCH` または該当する未確認状態とし、`REVIEW_COMPLETED` として扱わない。
+- `prediction_scope_count` と期待する `race_id` 集合を固定する。
+- scope台帳は1レース1行とし、scope台帳内の `race_id` は一意とする。
+- scope台帳の件数・集合が不一致、または「1R重複＋別1R欠落」がある場合は `REVIEW_SCOPE_MISMATCH` とし、scope確定まで `REVIEW_COMPLETED` にしない。
+
+### snapshot履歴と証跡判定
+
+初期Production、最終Production、買い目等により、同一 `race_id` へ複数snapshotが存在することは正常である。snapshot履歴では `race_id` の重複をエラーにせず、次を検査する。
+
+- `snapshot_id` が一意である。
+- `previous_snapshot_ref` がある場合、同一 `race_id` の既存する先行snapshotへ解決できる。
+- 同一IDの複数実体、参照欠落、別レース参照、循環等があれば証跡不整合として記録する。
+
+各scopeレースの発走前証跡状態を、少なくとも次のいずれかへ分類する。
+
+- `GIT_SNAPSHOT_VERIFIED`：正規参照先から対象snapshotを読戻し、ID・主要内容を確認できた。
+- `PERSIST_FAILED`：発走前Git保存失敗が記録されている。後付け保存で適格化しない。
+- `SNAPSHOT_REFERENCE_INVALID`：snapshotはあるがID重複・参照欠落等で正しい履歴として確認できない。
+- `DETAIL_UNAVAILABLE`：必要な発走前詳細を確認できない。
+
+**証跡取得成功と回顧完了は同義にしない。** `PERSIST_FAILED`、`SNAPSHOT_REFERENCE_INVALID`、`DETAIL_UNAVAILABLE` であっても、欠測・不整合の理由、利用可能な代替証跡、Production / Betting / 各ShadowのKPI別適格性を推測なしで判定し、scope台帳の全レースに回顧recordを残した場合は、その欠測だけを理由に `REVIEW_COMPLETED` を妨げない。
+
+逆に、次は回顧完了を止める。
+
+- scope台帳の件数・集合が未確定。
+- 証跡状態またはKPI別適格性が未判定のscopeレースが残る。
+- 実購入を計上するのに、購入明細の金額合計と記録した実購入総額が一致せず、状態を未確定のままにしている。
+
+実購入明細の不一致は推測補完せず、実購入KPIを不適格または保留と判定できれば、他の回顧項目まで永久に未完了にはしない。
 
 ### 0.14.2 2026-09-20以前の既存記録
 
