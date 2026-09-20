@@ -139,6 +139,18 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 
 保存先は `docs/validation/snapshots/YYYY-MM-DD.md` とし、同一日のsnapshotをappend-onlyで追記する。旧snapshotを上書き・削除して現在値だけにしない。正式更新が必要な場合は新しい `baseline_forecast_id` またはrevisionを持つ新snapshotを追記し、`previous_snapshot_ref` で直前snapshotを参照する。
 
+**正規参照先はリポジトリ既定ブランチの `main` とする。** 発走前snapshotを一時作業branchだけへ保存して成功扱いにしない。権限・保護ルール等により `main` へ発走前保存できない場合は、別branchへの退避で代替せず `PRE_RACE_SNAPSHOT_PERSIST_FAILED` とする。
+
+保存完了は書込要求の成功だけで判定しない。次を同一保存処理の完了条件とする。
+
+1. 書込直前に正規参照先の対象日ファイルを再取得する。
+2. 同じ `snapshot_id` がなければ、取得した最新内容を保持したまま末尾へ追記する。
+3. 同一 `snapshot_id`・同一内容が既にある場合は再追記せず、その既存snapshotを成功として再利用する。
+4. 同一 `snapshot_id` で内容が異なる場合は `SNAPSHOT_ID_CONFLICT` としてHARD STOPし、上書きしない。訂正は新snapshotとして作る。
+5. 保存後に正規参照先から読戻し、`snapshot_id` と主要内容の一致を確認する。保存commit SHAはチャット側の引継ぎ参照へ保持する。
+6. 競合等で書込に失敗した場合は最新内容を再取得して他の追記を保持したうえで、時間に余裕がある場合に限り**最大1回**だけ再試行する。force更新・古い全体内容への置換は行わない。
+7. 読戻し不一致、権限不足、競合未解決、時間切れは保存成功とみなさず、発走前回答を遅らせないfail-softへ移る。
+
 最低限、snapshotは次を保持する。
 
 - `snapshot_id`
@@ -146,6 +158,8 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 - race_id / 日付 / 競馬場 / R
 - `baseline_forecast_id`
 - `manual_release`
+- `manual_ref_commit`：今回の実行で参照したmanualのcommit SHA
+- `contract_effective_date`：適用した保存契約の開始日
 - `fixed_at_jst`
 - `information_cutoff_jst`
 - `previous_snapshot_ref`（更新時）
@@ -179,10 +193,13 @@ snapshot永続化がGitHub障害・時間制約等で発走前に完了しない
 - `INITIAL_PRODUCTION_FIXED`
 - `DYNAMIC_INFO_UPDATED`
 - `FINAL_PRODUCTION_FIXED`
+- `PREDICTION_SHADOW_COMPLETE / PREDICTION_SHADOW_PARTIAL`
 - `BETTING_AUDIT_COMPLETE`
 - `BETTING_FIXED`
-- `SHADOW_COMPLETE / SHADOW_PARTIAL`
+- `BETTING_SHADOW_COMPLETE / BETTING_SHADOW_PARTIAL`
 - `USER_PURCHASE_STATE_RECORDED`
+
+状態名は実行順序を置き換えない。予想Shadowは `FINAL_PRODUCTION_FIXED` 後・Production買い目前、買い目Shadowは `BETTING_FIXED` 後にのみ固定する。
 
 次工程の必須条件が不足している場合、ユーザーへの情報提供自体を止めるのではなく、**正式状態だけを次へ進めない**。
 
@@ -193,7 +210,7 @@ snapshot永続化がGitHub障害・時間制約等で発走前に完了しない
 - 順位・確率・確信度を変更したのに非価格理由・証拠強度・情報時刻がない：`UNJUSTIFIED_PRODUCTION_CHANGE`。旧Productionを正式状態として維持する。
 - Production買い目の購入前監査が完了していない：`BETTING_AUDIT_INCOMPLETE`。参考買い目に留め、`BETTING_FIXED` と呼ばない。
 - 実購入完了のユーザー発言が確認できない：実購入帳簿へ算入しない。
-- 回顧時に事前対象件数と取り込み件数が一致しない：`REVIEW_SCOPE_MISMATCH`。回顧完了扱いにしない。
+- 回顧時に `prediction_scope_count`、対象 `race_id` 集合、重複、snapshot参照先のいずれかが一致しない：`REVIEW_SCOPE_MISMATCH`。件数一致だけでは完了扱いにしない。
 
 FAIL-SOFT：
 
