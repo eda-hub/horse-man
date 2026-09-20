@@ -176,6 +176,9 @@ JRA・海外を含む重賞の `docs/yosou/` 保存境界は `docs/yosou/README.
 モジュール間では、少なくとも次を同一レースの共通キーとして扱う。
 
 - `baseline_forecast_id`（基準予想ID）
+- `manual_release`
+- `manual_ref_commit`（実行時に参照したmanualのcommit SHA）
+- `contract_effective_date`（適用した運用契約の開始日）
 - レースID / 開催日 / 競馬場 / R
 - 情報取得時刻
 - Production基準順位・確率・予想確信度

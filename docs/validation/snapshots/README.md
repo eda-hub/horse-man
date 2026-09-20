@@ -21,7 +21,7 @@
 
 全体選別は対象全レースを1回のsnapshotへまとめてよい。個別最終・買い目更新は当該レースだけを追記してよい。
 
-## 3. 保存先
+## 3. 保存先と正規参照先
 
 日別に、
 
@@ -29,7 +29,11 @@
 
 へappend-onlyで保存する。
 
+正規参照先はリポジトリ既定ブランチの `main` とする。一時作業branchだけに保存されたsnapshotは、後続チャットが正規参照先から再取得できないため保存成功と扱わない。branch保護・権限等により `main` へ保存できない場合は `PRE_RACE_SNAPSHOT_PERSIST_FAILED` としてfail-softする。
+
 既存snapshotを編集して現在値だけにしない。正式更新では新しいsnapshotを追記し、前snapshotを参照する。
+
+保存前には対象日ファイルの最新内容を再取得し、他の実行コンテキストによる追記を保持する。保存後は `main` から読戻して `snapshot_id` と主要内容の一致を確認する。書込APIの成功応答だけでは保存完了としない。
 
 `snapshot_id` は `00_core.md` の正本定義に従う。
 
@@ -47,6 +51,8 @@
 - race_id
 - baseline_forecast_id
 - manual_release
+- manual_ref_commit
+- contract_effective_date
 - fixed_at_jst
 - information_cutoff_jst
 - previous_snapshot_ref
@@ -89,11 +95,20 @@
 - 未確認を見送り・非該当へ置換する
 - Shadow欠落を理由にProduction snapshotを無効化する
 
-## 6. 保存失敗
+## 6. 保存・再送・競合・読戻し
 
-発走前にGit保存できない場合は、予想回答を発走に遅らせない。
+保存処理は次で判定する。
 
-チャットには正式内容とともに `PRE_RACE_SNAPSHOT_PERSIST_FAILED` を明示する。
+1. `main` の対象日ファイルを取得する。
+2. 同じ `snapshot_id` がなければ末尾へ追記する。
+3. 同じID・同じ内容があれば重複追記せず既存snapshotを再利用する。
+4. 同じID・異なる内容があれば `SNAPSHOT_ID_CONFLICT` とし、上書きしない。
+5. 保存後に `main` から読戻し、IDと主要内容が一致した場合だけ成功とする。
+6. 競合等では最新内容を取り直し、他の追記を保持して最大1回だけ再試行する。force更新は禁止する。
+
+発走前に保存・読戻しまで完了できない場合は、予想回答を発走に遅らせない。
+
+チャットには正式内容とともに `PRE_RACE_SNAPSHOT_PERSIST_FAILED` を明示する。読戻し不一致は `PRE_RACE_SNAPSHOT_READBACK_FAILED`、同一ID衝突は `SNAPSHOT_ID_CONFLICT` を併記してよい。
 
 結果後に同じ内容をGitへ追加しても「発走前Git保存済み」にはならない。KPI適格性は `docs/validation/README.md` の要件で独立判定する。
 
@@ -105,3 +120,19 @@
 - `docs/yosou/`：重賞等の翌年用レース固有知識
 
 本ディレクトリを結果後回顧の保存先として使用しない。
+
+
+## 8. 別チャット・別モデルへの引継ぎ
+
+引継ぎ時は会話要約だけに依存せず、少なくとも次を短い引継ぎ票として渡す。
+
+- repository: `eda-hub/horse-man`
+- manual_ref_commit
+- 対象race_id
+- baseline_forecast_id
+- 最新snapshot_id
+- snapshot保存commit SHA
+- 未完了工程
+- 発生中のHARD STOP / FAIL-SOFT状態
+
+後続実行は正規参照先からsnapshotを再取得してから継続する。取得不能時に基準予想・買い目・Shadowを記憶から再生成しない。

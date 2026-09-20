@@ -1331,4 +1331,58 @@ WIN5では人気薄勝利を拾うと高配当へつながりやすいが、
 
 ※ WIN5関連の全項目は当面実戦検証中。
 
+### WIN5監査記入例 — 50-1〜50-8の実行証跡
+
+これは新しい選択ルールではなく、既存50-1〜50-8を発走前に追跡可能にするための記入例である。結果後に数値や切り理由を補完しない。
+
+```text
+WIN5_FIXED
+decision_at_jst: YYYY-MM-DD HH:MM
+manual_ref_commit: <commit SHA>
+source_baseline:
+  WIN1: <baseline_forecast_id / snapshot_id>
+  WIN2: <baseline_forecast_id / snapshot_id>
+  WIN3: <baseline_forecast_id / snapshot_id>
+  WIN4: <baseline_forecast_id / snapshot_id>
+  WIN5: <baseline_forecast_id / snapshot_id>
+
+race: WIN1
+win_probability_order:
+  - horse: A
+    win_probability: 0.30
+    decision: SELECT
+  - horse: B
+    win_probability: 0.20
+    decision: SELECT
+  - horse: C
+    win_probability: 0.12
+    decision: POINT_LIMIT_CUT
+    cut_reason: <点数交換の理由>
+cover_probability:
+  one_horse: 0.30
+  two_horses: 0.50
+  three_horses: 0.62
+fixed_failure_probability: 0.70
+main_reversal_scenario: <固定馬が負ける主要シナリオ>
+points_tradeoff: <Cを追加する場合に他レースの何頭を削るか>
+
+# WIN2〜WIN5も同じ形式
+
+portfolio:
+  selection_counts: [2, 3, 1, 4, 4]
+  total_points: 96
+  estimated_total_cover_probability: <発走前計算値 / UNAVAILABLE>
+  high_uncertainty_races: [WINx]
+  final_decision: BUY / PASS
+
+cut_labels:
+  - OUT_OF_RATING
+  - POINT_LIMIT_CUT
+  - STRATEGIC_CUT
+
+user_purchase_state: RECOMMENDED / INTENDED / PURCHASE_CONFIRMED
+```
+
+高い勝率を持つ馬の除外は、それ自体では違反としない。`POINT_LIMIT_CUT` / `STRATEGIC_CUT` の場合に、**当時の勝率差、カバー勝率差、全体点数、点数交換先、主要シナリオ**が発走前記録で追えるかを回顧する。記録がない場合は結果から理由を作らず「根拠未確認」とする。
+
 ---

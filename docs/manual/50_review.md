@@ -69,7 +69,7 @@ v1.4.0で確立した予想生成の基本骨格を基礎とし、第1サイク�
 1. `docs/validation/` を作成する。
 2. `README.md` に対象サイクル、基準ルール版、開始日、対象検証ルールを記載する。
 3. `cycle_XX.md` にサイクル全体の集計欄を用意する。
-4. ChatGPT上の予想では予想中に `records/` を更新せず、結果後の回顧時に必要な日別またはレース別記録を追加する。
+4. ChatGPT上の予想では分析途中に `records/` を更新しない。2026-09-20以前は当時のチャット事前snapshot契約を適用し、2026-09-21以降に新規固定する対象は0.14.1と `00_core.md` に従って正式FIXED snapshotだけを発走前に `snapshots/` へ永続化する。結果後の正式回顧は `records/` へ追加する。
 
 ### サイクル中
 
@@ -91,22 +91,25 @@ v1.4.0で確立した予想生成の基本骨格を基礎とし、第1サイク�
 
 この削除はデータ破棄ではなく、現行ツリーを「現在必要な情報だけ」に保つための運用である。
 
-## 0.7.1.1 チャット予想の事前snapshot復元と一括永続化
+## 0.7.1.1 2026-09-20以前のチャット事前snapshot契約 — 履歴
 
-ChatGPT上で実行した予想は、事前予想・最終予想・Shadow比較・買い目確定の途中で記録目的のGitHub書き込みを行わない。発走前の時刻付きチャット回答をpre-race snapshotとし、Gitへの永続化は結果確定後の回顧時にまとめる。
+本項は2026-09-20以前に固定した対象へ適用した旧契約の履歴である。2026-09-21以降に新規固定する対象には適用せず、0.14.1と `00_core.md` の発走前Git snapshot契約を優先する。
 
-回顧は次の順序を固定する。
+旧契約では、事前予想・最終予想・Shadow比較・買い目確定の途中で記録目的のGitHub書き込みを行わず、発走前の時刻付きチャット回答をpre-race snapshotとして、Gitへの永続化は結果確定後の回顧時にまとめていた。
 
-1. 対象レースと `baseline_forecast_id` を特定する。
+2026-09-20以前の回顧は次の順序を使用する。
+
+1. 対象レースと、当時存在していれば `baseline_forecast_id` を特定する。
 2. 発走時刻より前のチャット履歴だけから、Production順位・確率・予想確信度・主要シナリオ・Shadow差分・市場評価・買い目・ユーザー提供情報の採否を抽出する。
 3. 抽出内容を `review_input_snapshot` として先に固定し、結果を見た後で解釈を変更しない。
 4. その後に確定結果、払戻、レース内容を確認して通常の回顧を行う。
-5. Production / Shadowの結果後評価、KPI、エラー分類、実購入、反実仮想、非劣化判定等を `docs/validation/` の当該レコードへ一括保存する。
-6. 対象が重賞なら `docs/yosou/README.md` に従い、validationの回顧を再掲せず、当該重賞ファイルへ「過去傾向から見た当年予想・結果の照合」「傾向更新」「翌年予想課題」だけを反映する。
+5. Production / Shadowの結果後評価、KPI、エラー分類、実購入、反実仮想、非劣化判定等を `docs/validation/` の当該レコードへ保存する。
+6. 対象が重賞なら `docs/yosou/README.md` に従い、validationの回顧を再掲せず、当該重賞ファイルへ翌年用のレース固有知識だけを反映する。
 
-発走前チャット履歴を参照できない場合は、結果から事前予想を再構成しない。`PRE_RACE_SNAPSHOT_UNAVAILABLE` として扱い、そのレースは前向きProduction/Shadow比較、U-02、予想精度KPIの正式サンプルから除外する。
+発走前チャット履歴を参照できない場合は、結果から事前予想を再構成しない。必要な発走前情報を確認できないKPIは不適格または未確認として扱う。
 
 同一レースの事前予想と最終予想で共通する静的情報は `static_evidence_snapshot` として同一入力とみなし、回顧でも重複レコードへ展開しない。時点依存情報は各 `dynamic_evidence_snapshot` の取得時刻を保って比較する。
+
 
 ## 0.7.1.2 重賞回顧の `validation / yosou` 分離
 
@@ -560,7 +563,38 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 
 `PRE_RACE_SNAPSHOT_PERSIST_FAILED` が発生した場合、予想回答は有効なユーザー向け出力として扱えるが、**Git永続化を必須とする当該KPIについては不適格**とする。Shadow保存失敗だけでProductionを不適格にしないなど、KPI別独立判定は維持する。
 
-回顧では、snapshotの件数・race_id・baseline_forecast_idを最初に取り込み、`prediction_scope_count` と照合する。scope不一致のまま `REVIEW_COMPLETED` として扱わない。
+回顧では、**scope台帳**と**snapshot履歴**を別の検査単位として扱う。
+
+### scope台帳
+
+- `prediction_scope_count` と期待する `race_id` 集合を固定する。
+- scope台帳は1レース1行とし、scope台帳内の `race_id` は一意とする。
+- scope台帳の件数・集合が不一致、または「1R重複＋別1R欠落」がある場合は `REVIEW_SCOPE_MISMATCH` とし、scope確定まで `REVIEW_COMPLETED` にしない。
+
+### snapshot履歴と証跡判定
+
+初期Production、最終Production、買い目等により、同一 `race_id` へ複数snapshotが存在することは正常である。snapshot履歴では `race_id` の重複をエラーにせず、次を検査する。
+
+- `snapshot_id` はsnapshotエントリ単位で一意である。`WHOLE_DAY` の1エントリが複数race行を含むことは重複ではない。
+- `previous_snapshot_ref` がある場合、対象 `race_id` を含む既存の先行snapshotエントリへ解決できる。
+- 同一IDの別エントリ、参照欠落、対象raceを含まない参照、循環等があれば証跡不整合として記録する。
+
+各scopeレースの発走前証跡状態を、少なくとも次のいずれかへ分類する。
+
+- `GIT_SNAPSHOT_VERIFIED`：正規参照先から対象snapshotを読戻し、ID・主要内容を確認できた。
+- `PERSIST_FAILED`：発走前Git保存失敗が記録されている。後付け保存で適格化しない。
+- `SNAPSHOT_REFERENCE_INVALID`：snapshotはあるがID重複・参照欠落等で正しい履歴として確認できない。
+- `DETAIL_UNAVAILABLE`：必要な発走前詳細を確認できない。
+
+**証跡取得成功と回顧完了は同義にしない。** `PERSIST_FAILED`、`SNAPSHOT_REFERENCE_INVALID`、`DETAIL_UNAVAILABLE` であっても、欠測・不整合の理由、利用可能な代替証跡、Production / Betting / 各ShadowのKPI別適格性を推測なしで判定し、scope台帳の全レースに回顧recordを残した場合は、その欠測だけを理由に `REVIEW_COMPLETED` を妨げない。
+
+逆に、次は回顧完了を止める。
+
+- scope台帳の件数・集合が未確定。
+- 証跡状態またはKPI別適格性が未判定のscopeレースが残る。
+- 実購入を計上するのに、購入明細の金額合計と記録した実購入総額が一致せず、状態を未確定のままにしている。
+
+実購入明細の不一致は推測補完せず、実購入KPIを不適格または保留と判定できれば、他の回顧項目まで永久に未完了にはしない。
 
 ### 0.14.2 2026-09-20以前の既存記録
 
