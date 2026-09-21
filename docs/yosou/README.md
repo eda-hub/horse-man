@@ -51,7 +51,7 @@
 
 重賞の結果確定後は、次の順序で処理する。
 
-1. `docs/manual/50_review.md` に従い、発走前チャットsnapshotを結果を見る前の状態として固定する。
+1. `docs/manual/README.md` と `docs/manual/00_core.md` の現行契約に従い、発走前に正式固定・永続化された最小snapshotを参照する。チャット回答だけを別のsnapshot正本として再定義しない。
 2. 結果・払戻・レース内容を確認する。
 3. **正式な回顧・検証を `docs/validation/` に保存する。**
 4. その後、当該 `docs/yosou/<区分>/<race>.md` を更新する。
@@ -92,6 +92,6 @@ yosouの過去傾向はレース固有コンテキストであり、共通Produc
 
 標準フローは、
 
-**発走前はチャットsnapshot → 結果後はvalidationで正式回顧 → yosouで過去傾向との照合と翌年課題だけ更新**
+**発走前snapshotの固定・永続化はmanual契約に従う → 結果後はvalidationで正式回顧 → yosouで過去傾向との照合と翌年課題だけ更新**
 
 とする。
