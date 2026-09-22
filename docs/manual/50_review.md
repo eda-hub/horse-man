@@ -561,7 +561,7 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 
 発走前Git snapshotに存在しないID・順位・確率・変更理由・買い目・Shadowを、結果後に追加して「発走前保存済み」と扱ってはならない。
 
-`PRE_RACE_SNAPSHOT_PERSIST_FAILED` が発生した場合、予想回答は有効なユーザー向け出力として扱えるが、**Git永続化を必須とする当該KPIについては不適格**とする。Shadow保存失敗だけでProductionを不適格にしないなど、KPI別独立判定は維持する。
+`PERSIST_WRITE_FAILED` に対応して `PRE_RACE_SNAPSHOT_PERSIST_FAILED` が発生した場合、予想回答は有効なユーザー向け出力として扱えるが、**Git永続化を必須とする当該KPIについては不適格**とする。未試行・実行不能・成否不明はこのコードへ変換しない。Shadow側の保存問題だけでProductionを不適格にしないなど、KPI別独立判定は維持する。
 
 回顧では、**scope台帳**と**snapshot履歴**を別の検査単位として扱う。
 
