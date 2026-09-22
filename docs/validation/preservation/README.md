@@ -7,7 +7,7 @@
 日別 `YYYY-MM-DD.md` にappend-onlyで保存する。
 
 - `TIMING_UNVERIFIED`：対象レースの発走予定時刻を外部根拠で確認できない。
-- `LATE_PRESERVATION`：保存開始時点ですでに発走予定時刻以後、または本体読戻し完了が発走予定時刻以後。
+- `LATE_PRESERVATION`：**書込要求送信前の時点ですでに発走予定時刻以後**。
 
 これらを `docs/validation/snapshots/` へ保存して正常な発走前証跡として扱わない。
 
@@ -31,7 +31,7 @@
 
 `TIMING_UNVERIFIED` の後で発走予定時刻を確認できた場合：
 
-1. **まだ発走前**：preservationはそのまま残し、新しいsnapshot_idで通常snapshotを作成する。通常snapshotに `previous_preservation_ref` を付け、通常snapshot自身の読戻し完了が発走前であることを確認する。
+1. **新しいsnapshot書込要求を送る直前がまだ発走前**：preservationはそのまま残し、新しいsnapshot_idで `SNAPSHOT_CANDIDATE` を作成する。通常snapshotに `previous_preservation_ref` を付け、最終時刻適格性はpersistence receiptで判定する。
 2. **すでに発走後**：preservationのまま維持する。通常snapshotへ移さない。
 3. **最後まで時刻未確認**：TIMING_UNVERIFIEDのまま維持する。
 
