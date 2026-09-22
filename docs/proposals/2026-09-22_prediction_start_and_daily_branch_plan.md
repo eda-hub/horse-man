@@ -51,6 +51,14 @@
 
 レビュー指摘に対する静的確認は `docs/validation/operation_acceptance_2026-09-22_pr38.md` に追記した。
 
+### 追加レビュー後の是正
+
+追加レビュー3点を反映した。
+
+- snapshot保存先は書込要求前の時刻だけで事前ルーティングし、本文は `SNAPSHOT_CANDIDATE` とする。読戻し後の `PRE_RACE_ELIGIBLE / READBACK_AFTER_POST_INELIGIBLE` はpersistence receipt側だけで確定する。
+- receipt自身の保存状態を本体と分離し、決定的receipt ID、書込前確認、タイムアウト時の同一ID読戻し、明示失敗時の最大1回再試行、読戻し失敗、引継ぎを追加した。receipt未確認ではKPI証跡完了としない。
+- `00_core.md` から日次branch探索・main移行手順へ明示的に接続し、移行先branchが既存の場合は再作成・ref更新・resetを禁止して既存記録を保持する分岐を追加した。
+
 ## 3. 要件
 
 | ID | 決定事項 | 実装要件 |
