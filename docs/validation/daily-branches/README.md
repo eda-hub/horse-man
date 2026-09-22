@@ -17,13 +17,17 @@
 
 1. `baseline_forecast_id` を第一キー、なければ `race_id`・開催日・競馬場・Rを補助キーとして、`main` の `docs/validation/snapshots/`、`docs/validation/records/`、関連する予想記録を確認する。
 2. 対象作業日の `prediction/YYYY-MM-DD` が**存在しない場合だけ**、現在の `main` に対象予想が存在するなら、その時点の最新 `main` commitを基点として日次ブランチを作成する。
-3. 対象日次ブランチが**すでに存在する場合は再作成・ref更新・resetを行わない**。まず既存branchのsnapshot / preservation / recordsを読取り、対象 `baseline_forecast_id` がすでに存在するか確認する。
-4. 既存日次ブランチに対象IDが存在する場合は、その記録を正として再利用する。main側の同一IDを重複追加しない。
-5. 既存日次ブランチに対象IDがなく、main側に導入前記録が存在する場合は、既存branchの他記録を保持したまま**対象IDに必要な記録だけ**を移行する。ファイル全体をmain版で置換せず、append-only・ID競合規則に従う。
-6. 現在の `main` にはなくGit履歴だけに対象予想が存在する場合、対象記録が確認できる最新のmain系commitを移行元として特定する。記録内容・ID・時刻を推測で復元しない。
-7. 日次ブランチ側に対象予想が保持されていることを読戻し、`baseline_forecast_id` と主要内容の一致を確認してから継続する。
-8. 移行後の更新・snapshot・回顧は日次ブランチへ保存し、`main` へ直接追記しない。
-9. 移行元commit、working_branch、対象ID、既存branchを再利用したかを日次ブランチの引継ぎ情報へ保持する。
+3. 対象日次ブランチが**すでに存在する場合は再作成・ref更新・resetを行わない**。まず既存branchとmain側の両方から、対象 `baseline_forecast_id` に属する全snapshotの `snapshot_id`、`previous_snapshot_ref`、主要内容を列挙する。
+4. baselineが存在することだけで移行完了としない。branch側とmain側の**snapshot ID集合と参照履歴を比較**する。
+5. 同じ `snapshot_id` が両方に存在し主要内容も一致する場合は重複追加しない。同じIDで内容が異なる場合は `SNAPSHOT_ID_CONFLICT` としてHARD STOPし、どちらかを上書きしない。
+6. branch側にS01があり、main側に同じbaselineのS02・S03等の後続snapshotがある場合は、`previous_snapshot_ref` が解決できる順序で不足snapshotだけを古い順にappend-only移行する。S01が存在することを理由にS02以降を捨てない。
+7. main側の後続snapshotが参照する `previous_snapshot_ref` がbranch側・移行対象集合のどちらにも解決できない場合は `SNAPSHOT_HISTORY_GAP` としてHARD STOPし、参照を推測補完しない。
+8. branch側にmainより新しいsnapshotがある場合も削除・巻戻ししない。main側にだけ存在するsnapshotを補完した後、両側の履歴が分岐して一意な直列履歴を作れない場合は `SNAPSHOT_HISTORY_DIVERGED` としてHARD STOPする。
+9. snapshotに対応する既存のpreservation・persistence receipt・recordsがmain側にあり、対象snapshotの証跡として必要な場合は、それぞれのID・参照関係を同じ方法で照合し、不足分だけを保持して移行する。結果後情報を発走前証跡へ変換しない。
+10. 現在の `main` にはなくGit履歴だけに対象予想が存在する場合、対象記録が確認できる最新のmain系commitを移行元として特定し、同じsnapshot ID・参照履歴照合を行う。記録内容・ID・時刻を推測で復元しない。
+11. 移行後、日次ブランチから対象baselineの全snapshotを再取得し、`snapshot_id` 集合、`previous_snapshot_ref`、主要内容が移行対象を欠落なく保持していることを確認してから継続する。
+12. 移行後の更新・snapshot・回顧は日次ブランチへ保存し、`main` へ直接追記しない。
+13. 移行元commit、working_branch、対象baseline、移行したsnapshot ID一覧、既存branchを再利用したかを日次ブランチの引継ぎ情報へ保持する。
 
 導入前のmain記録そのものを削除・書換えしない。移行は今後の書込先を切り替える処理であり、過去の保存場所を遡及的に変更する処理ではない。
 
@@ -60,6 +64,8 @@
 - snapshot / preservation の保存commit SHA
 - migration_source_commit（導入前main記録を移行した場合）
 - migration_target_reused: true / false
+- migrated_snapshot_ids（導入前main記録を移行した場合）
+- snapshot_history_status: COMPLETE / GAP / DIVERGED / CONFLICT
 - receipt_id / receipt path / receipt_persist_status
 - 未完了工程
 - HARD STOP / FAIL-SOFT状態
