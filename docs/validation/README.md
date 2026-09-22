@@ -207,7 +207,7 @@ P/A/Bは同じ `race_evidence_bundle` と情報締切を使い、A/Bのために
 
 本体保存状態は、`PERSIST_NOT_ATTEMPTED` / `PERSIST_UNAVAILABLE` / `PERSIST_REQUESTED_UNKNOWN` / `PERSIST_WRITE_FAILED` / `PERSISTED_READBACK_UNVERIFIED` / `PERSIST_READBACK_FAILED` / `PERSIST_VERIFIED` を区別する。receipt保存状態は、`RECEIPT_NOT_ATTEMPTED` / `RECEIPT_UNAVAILABLE` / `RECEIPT_REQUESTED_UNKNOWN` / `RECEIPT_WRITE_FAILED` / `RECEIPT_READBACK_FAILED` / `RECEIPT_VERIFIED` を別に管理する。
 
-前向きKPIへ算入できるのは、本体が `PERSIST_VERIFIED`、receiptが `RECEIPT_VERIFIED`、かつreceipt上の `timing_eligibility=PRE_RACE_ELIGIBLE` の全てを満たす場合に限る。本体の `timing_route=SNAPSHOT_CANDIDATE` だけでは適格としない。
+前向きKPIへ算入できるのは、本体が `PERSIST_VERIFIED`、receiptが `RECEIPT_VERIFIED`、かつreceipt上の `timing_eligibility=PRE_RACE_ELIGIBLE` の全てを満たす場合に限る。本体の `timing_route=SNAPSHOT_CANDIDATE` だけでは適格としない。receiptが `READBACK_PENDING` の間は時刻適格性を未判定とし、発走予定時刻との比較や前向きKPI適格化を行わない。
 
 `TIMING_UNVERIFIED` / `LATE_PRESERVATION` は `docs/validation/preservation/` に保全し、通常snapshotや前向きKPIへ算入しない。snapshot候補のreceiptが `READBACK_AFTER_POST_INELIGIBLE` の場合も前向きKPIへ算入しない。
 
