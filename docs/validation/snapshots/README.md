@@ -118,8 +118,11 @@ receipt自身の書込確認は、同じ日次ブランチから `receipt_id` �
 
 `SNAPSHOT_CANDIDATE` は発走前KPI適格を意味しない。snapshot本体の読戻し後、`persistence-receipts/` 側でのみ最終時刻適格性を判定する。
 
-- 読戻し完了が発走予定時刻より前：`PRE_RACE_ELIGIBLE`
-- 読戻し完了が発走予定時刻以後：`READBACK_AFTER_POST_INELIGIBLE`
+- 読戻し未完了・失敗・成否不明：`READBACK_PENDING`
+- 読戻し成功時刻が発走予定時刻より前：`PRE_RACE_ELIGIBLE`
+- 読戻し成功時刻が発走予定時刻以後：`READBACK_AFTER_POST_INELIGIBLE`
+
+`READBACK_PENDING` の間は `persist_verified_at_jst=null` とし、発走予定時刻との比較を実施しない。読戻し成功が確認できるまで前向きKPIへ適格化しない。
 
 例えば15:29:59に本体書込、15:30:01に読戻し、15:30発走なら、本体は不変の `SNAPSHOT_CANDIDATE` のまま残し、receiptだけを `READBACK_AFTER_POST_INELIGIBLE` とする。本体を訂正しない。
 
@@ -146,7 +149,7 @@ preservationを後から通常snapshotへ名前変更・移動して発走前証
 4. 同じ本体IDがなければ、FIXED済み内容だけを末尾へ追記する。
 5. 同じID・同じ内容があれば重複追記せず既存本体を再利用する。同じID・異なる内容は `SNAPSHOT_ID_CONFLICT` とし、上書きしない。
 6. 本体保存後に同じ日次作業ブランチから読戻す。
-7. 読戻し結果と時刻から、最終 `timing_eligibility` を算出し、別ファイルの `persistence_receipt` を追記する。本体へは書き戻さない。
+7. 読戻しが未完了ならreceiptへ `timing_eligibility=READBACK_PENDING` を記録できる。読戻し成功後にのみ実測時刻を比較し、同じreceipt系列の次revisionへ最終 `timing_eligibility` を追記する。本体へは書き戻さない。
 8. 本体の競合等では最新内容を取り直し、他の追記を保持して最大1回だけ再試行する。force更新は禁止する。
 9. 本体書込タイムアウト等で成否が不明な場合は `PERSIST_REQUESTED_UNKNOWN` とし、同一本体IDを読戻して解決する。
 10. receipt保存は `docs/validation/persistence-receipts/README.md` の独立した保存・復旧契約に従う。
