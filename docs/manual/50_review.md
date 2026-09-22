@@ -581,15 +581,19 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 
 各scopeレースの発走前証跡状態を、少なくとも次のいずれかへ分類する。
 
-- `GIT_SNAPSHOT_VERIFIED`：記録された `working_branch` から対象snapshotを読戻し、ID・主要内容と保存時刻を確認できた。
-- `PERSIST_NOT_ATTEMPTED`：正式FIXED後に保存要求自体が行われていない。GitHub障害・保存失敗とは分ける。
-- `PERSIST_REQUESTED_UNKNOWN`：保存要求済みだが成否不明。まず同一IDを読戻し、重複追記しない。
-- `PERSIST_FAILED`：実際の書込失敗、または発走前までに読戻し確認へ到達できなかったことが記録されている。後付け保存で適格化しない。
+- `GIT_SNAPSHOT_VERIFIED`：記録された `working_branch` から対象snapshot本体を読戻し、ID・主要内容を確認でき、対応するpersistence receiptでも発走前確認を追跡できる。
+- `PERSIST_NOT_ATTEMPTED`：正式FIXED後に保存要求自体が行われていない。保存失敗ではない。
+- `PERSIST_UNAVAILABLE`：保存手段・権限・対象branchが利用できず書込要求自体を送れていない。保存失敗ではない。
+- `PERSIST_REQUESTED_UNKNOWN`：保存要求済みだが成否不明。まず同一IDを読戻し、重複追記しない。保存失敗とは確定しない。
+- `PERSIST_WRITE_FAILED`：実際に送信した書込要求が明示的に失敗した。
 - `PERSISTED_READBACK_UNVERIFIED`：書込成功応答はあるが読戻し未確認。
+- `PERSIST_READBACK_FAILED`：書込成功後の読戻しが失敗または不一致。
+- `TIMING_UNVERIFIED`：固定内容はpreservationに保全したが発走予定時刻を確認できず、通常snapshotへ適格化していない。
+- `LATE_PRESERVATION`：固定内容はpreservationに保全したが、保存開始または読戻し完了が発走予定時刻以後。
 - `SNAPSHOT_REFERENCE_INVALID`：snapshotはあるがID重複・参照欠落等で正しい履歴として確認できない。
 - `DETAIL_UNAVAILABLE`：必要な発走前詳細を確認できない。
 
-**証跡取得成功と回顧完了は同義にしない。** `PERSIST_NOT_ATTEMPTED`、`PERSIST_REQUESTED_UNKNOWN`、`PERSIST_FAILED`、`PERSISTED_READBACK_UNVERIFIED`、`SNAPSHOT_REFERENCE_INVALID`、`DETAIL_UNAVAILABLE` であっても、欠測・不整合の理由、利用可能な代替証跡、Production / Betting / 各ShadowのKPI別適格性を推測なしで判定し、scope台帳の全レースに回顧recordを残した場合は、その欠測だけを理由に `REVIEW_COMPLETED` を妨げない。保存未試行を保存失敗へ、回答後保存を発走後保存へ、成否不明を失敗確定へ置換しない。
+**証跡取得成功と回顧完了は同義にしない。** `PERSIST_NOT_ATTEMPTED`、`PERSIST_UNAVAILABLE`、`PERSIST_REQUESTED_UNKNOWN`、`PERSIST_WRITE_FAILED`、`PERSISTED_READBACK_UNVERIFIED`、`PERSIST_READBACK_FAILED`、`TIMING_UNVERIFIED`、`LATE_PRESERVATION`、`SNAPSHOT_REFERENCE_INVALID`、`DETAIL_UNAVAILABLE` であっても、欠測・不整合の理由、利用可能な代替証跡、Production / Betting / 各ShadowのKPI別適格性を推測なしで判定し、scope台帳の全レースに回顧recordを残した場合は、その欠測だけを理由に `REVIEW_COMPLETED` を妨げない。保存未試行・実行不能・成否不明を保存失敗へ、回答後保存を発走後保存へ置換しない。preservationを後から通常snapshotへ移して適格化しない。
 
 逆に、次は回顧完了を止める。
 
