@@ -35,7 +35,7 @@
 
 既存snapshotを編集して現在値だけにしない。正式更新では新しいsnapshotを追記し、前snapshotを参照する。
 
-保存前には**同じ日次作業ブランチ**の対象日ファイルの最新内容を再取得し、他の実行コンテキストによる追記を保持する。保存後は同じブランチから読戻して `snapshot_id` と主要内容の一致を確認する。書込APIの成功応答だけでは保存完了としない。
+保存前には**同じ日次作業ブランチ**の対象日ファイルの最新内容を再取得し、他の実行コンテキストによる追記を保持する。snapshot本体はFIXED時点の内容だけを不変で保存し、保存後に確定する読戻し時刻・保存状態・commit SHAは本体へ追記しない。保存確認証跡は `docs/validation/persistence-receipts/YYYY-MM-DD.md` の別エントリへ追記する。
 
 `snapshot_id` は `00_core.md` の正本定義に従う。
 
@@ -57,13 +57,11 @@
 - contract_effective_date
 - task_started_at_jst
 - scheduled_post_time_jst と出所
-- current_time_jst
 - fixed_at_jst
-- persist_requested_at_jst
-- persist_verified_at_jst
-- persist_status
 - working_branch
 - information_cutoff_jst
+- timing_eligibility: PRE_RACE_ELIGIBLE
+- previous_preservation_ref（時刻未確認から発走前に復旧した場合）
 - previous_snapshot_ref
 - production_status: NEW / REUSED / UPDATED
 - 順位・印
@@ -95,6 +93,30 @@
 - 完了した場合だけ発走前比較内容
 - 未完了理由が発走前に判明していればその理由
 
+## 4.1 保存確認証跡はsnapshot本体と分離する
+
+snapshot本体には、保存後にしか確定しない次の値を書かない。
+
+- `persist_verified_at_jst`
+- 最終 `persist_status`
+- snapshot保存commit SHA
+- 読戻し結果
+
+これらは本体の読戻し後、`docs/validation/persistence-receipts/YYYY-MM-DD.md` に `persistence_receipt` としてappend-only追記する。receiptは `artifact_id=snapshot_id` で本体を参照し、本体を更新しない。
+
+receipt自身の書込確認は、同じ日次ブランチから `receipt_id` の存在を確認するだけとし、その確認結果をreceiptへ再度書き戻さない。
+
+## 4.2 時刻未判定・発走後の固定内容は通常snapshotへ入れない
+
+通常snapshotは、発走予定時刻が外部根拠で確認済みで、**snapshot本体の読戻し完了が発走予定時刻より前**の場合だけ作成する。
+
+- 発走時刻未確認：`docs/validation/preservation/YYYY-MM-DD.md` へ `TIMING_UNVERIFIED` として保全する。
+- 保存開始時点で発走後、または読戻し完了が発走後：同じpreservationへ `LATE_PRESERVATION` として保全する。
+- preservation後に発走予定時刻を確認でき、まだ発走前なら、通常snapshotを新しい `snapshot_id` で作成し、`previous_preservation_ref` で保全IDを参照する。
+- 復旧時点で発走後、または時刻未確認のままなら、通常snapshotへ移さず前向きKPIへ算入しない。
+
+preservationを後から通常snapshotへ名前変更・移動して発走前証跡に見せることは禁止する。
+
 ## 5. 禁止事項
 
 - 結果後に発走前snapshotを新規作成して適格化する
@@ -108,27 +130,43 @@
 
 保存処理は次で判定する。
 
-1. 当該 `prediction/YYYY-MM-DD` の対象日ファイルを取得する。
-2. 同じ `snapshot_id` がなければ末尾へ追記する。
-3. 同じID・同じ内容があれば重複追記せず既存snapshotを再利用する。
-4. 同じID・異なる内容があれば `SNAPSHOT_ID_CONFLICT` とし、上書きしない。
-5. 保存後に**同じ日次作業ブランチ**から読戻し、IDと主要内容が一致した場合だけ `PERSIST_VERIFIED` とする。
-6. 競合等では最新内容を取り直し、他の追記を保持して最大1回だけ再試行する。force更新は禁止する。
-7. タイムアウト等で書込成否が不明な場合は `PERSIST_REQUESTED_UNKNOWN` とし、同一IDの読戻しで解決する。
+1. 発走予定時刻を確認し、通常snapshotかpreservationかを先に決定する。
+2. 対象の日次作業ブランチ・対象ファイルを取得する。
+3. 同じ本体IDがなければ、FIXED済み内容だけを末尾へ追記する。
+4. 同じID・同じ内容があれば重複追記せず既存本体を再利用する。同じID・異なる内容は `SNAPSHOT_ID_CONFLICT` とし、上書きしない。
+5. 本体保存後に同じ日次作業ブランチから読戻す。
+6. 読戻し結果が確定したら、別ファイルの `persistence_receipt` を追記する。
+7. 競合等では最新内容を取り直し、他の追記を保持して最大1回だけ再試行する。force更新は禁止する。
+8. タイムアウト等で書込成否が不明な場合は `PERSIST_REQUESTED_UNKNOWN` とし、同一本体IDを読戻して解決する。
 
-保存状態は、`PERSIST_NOT_ATTEMPTED` / `PERSIST_REQUESTED_UNKNOWN` / `PERSIST_WRITE_FAILED` / `PERSISTED_READBACK_UNVERIFIED` / `PERSIST_READBACK_FAILED` / `PERSIST_VERIFIED` を区別する。FIXED後に保存呼出し自体を行っていない `PERSIST_NOT_ATTEMPTED` を保存失敗やGitHub障害と表現しない。
+保存状態は、`PERSIST_NOT_ATTEMPTED` / `PERSIST_UNAVAILABLE` / `PERSIST_REQUESTED_UNKNOWN` / `PERSIST_WRITE_FAILED` / `PERSISTED_READBACK_UNVERIFIED` / `PERSIST_READBACK_FAILED` / `PERSIST_VERIFIED` を区別する。
+
+- `PERSIST_NOT_ATTEMPTED`：保存工程漏れ。保存失敗ではない。
+- `PERSIST_UNAVAILABLE`：書込要求を送る手段・権限・branchがなく、要求自体を送れていない。保存失敗ではない。
+- `PERSIST_REQUESTED_UNKNOWN`：要求済みだが成否不明。保存失敗ではない。
+- `PERSIST_WRITE_FAILED`：送信した書込要求が明示的に失敗した。
+- `PERSISTED_READBACK_UNVERIFIED`：書込成功、読戻し未実施。
+- `PERSIST_READBACK_FAILED`：書込成功後の読戻しが失敗または不一致。
+- `PERSIST_VERIFIED`：読戻しで本体一致を確認した。
 
 見送り、正式投資額0円、ProductionのREUSED、短い回答指定でも、正式FIXEDした内容は回答前保存ゲートの対象とする。
 
 発走前に保存・読戻しまで完了できない場合は、予想回答を発走に遅らせない。
 
-チャットには正式内容とともに実際の保存状態を明示する。実際の書込失敗または発走前までに `PERSIST_VERIFIED` へ到達できない場合は `PRE_RACE_SNAPSHOT_PERSIST_FAILED` を使用し、読戻し不一致は `PRE_RACE_SNAPSHOT_READBACK_FAILED`、同一ID衝突は `SNAPSHOT_ID_CONFLICT` を併記してよい。未試行に失敗コードを付けない。
+チャットには正式内容とともに実際の保存状態を明示する。
+
+- `PRE_RACE_SNAPSHOT_PERSIST_FAILED` は `PERSIST_WRITE_FAILED` の場合だけ使用する。
+- `PRE_RACE_SNAPSHOT_READBACK_FAILED` は `PERSIST_READBACK_FAILED` の場合だけ使用する。
+- `PERSIST_NOT_ATTEMPTED`、`PERSIST_UNAVAILABLE`、`PERSIST_REQUESTED_UNKNOWN`、`PERSISTED_READBACK_UNVERIFIED` に保存失敗コードを付けない。
+- 発走前までに `PERSIST_VERIFIED` へ到達できなかった事実はKPI不適格・未判定の根拠にはなるが、保存失敗コードの根拠にはしない。
 
 結果後に同じ内容をGitへ追加しても「発走前Git保存済み」にはならない。KPI適格性は `docs/validation/README.md` の要件で独立判定する。
 
 ## 7. 役割分離
 
-- `snapshots/`：発走前の不変証跡
+- `snapshots/`：発走前適格の不変固定内容
+- `persistence-receipts/`：snapshot / preservation本体の保存確認証跡
+- `preservation/`：時刻未確認・発走後等の固定内容保全。前向きKPIには使わない
 - `records/`：結果後の正式回顧・KPI・実購入・エラー分類
 - `cycle_02.md`：サイクル集計
 - `docs/yosou/`：重賞等の翌年用レース固有知識
