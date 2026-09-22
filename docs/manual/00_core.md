@@ -279,7 +279,7 @@ FAIL-SOFT：
 
 - 当日馬体重等の取得不能は不足を明示し、確信度へ反映してProductionを完了してよい。
 - Shadow未完了はProductionを維持し、当該Shadowだけ `SHADOW_PARTIAL / INELIGIBLE` とする。
-- 発走前Git snapshot保存失敗は予想回答を遅らせず `PRE_RACE_SNAPSHOT_PERSIST_FAILED` とし、該当KPIだけ不適格とする。
+- 実際に送信した発走前snapshotの書込要求が明示的に失敗した `PERSIST_WRITE_FAILED` は、予想回答を遅らせず `PRE_RACE_SNAPSHOT_PERSIST_FAILED` とし、該当KPIだけ不適格とする。未試行・実行不能・成否不明にはこのコードを使わない。
 
 正式出力ラベルは状態に合わせる。
 
