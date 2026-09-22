@@ -581,13 +581,15 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 
 各scopeレースの発走前証跡状態を、少なくとも次のいずれかへ分類する。
 
-- `GIT_SNAPSHOT_VERIFIED`：記録された `working_branch` から対象snapshot本体を読戻し、ID・主要内容を確認でき、対応するpersistence receiptでも発走前確認を追跡できる。
+- `GIT_SNAPSHOT_VERIFIED`：対象snapshot本体が `PERSIST_VERIFIED`、対応receiptが `RECEIPT_VERIFIED`、receiptの `timing_eligibility=PRE_RACE_ELIGIBLE` であることを確認できる。
 - `PERSIST_NOT_ATTEMPTED`：正式FIXED後に保存要求自体が行われていない。保存失敗ではない。
 - `PERSIST_UNAVAILABLE`：保存手段・権限・対象branchが利用できず書込要求自体を送れていない。保存失敗ではない。
 - `PERSIST_REQUESTED_UNKNOWN`：保存要求済みだが成否不明。まず同一IDを読戻し、重複追記しない。保存失敗とは確定しない。
 - `PERSIST_WRITE_FAILED`：実際に送信した書込要求が明示的に失敗した。
 - `PERSISTED_READBACK_UNVERIFIED`：書込成功応答はあるが読戻し未確認。
 - `PERSIST_READBACK_FAILED`：書込成功後の読戻しが失敗または不一致。
+- `RECEIPT_NOT_ATTEMPTED / RECEIPT_UNAVAILABLE / RECEIPT_REQUESTED_UNKNOWN / RECEIPT_WRITE_FAILED / RECEIPT_READBACK_FAILED`：本体状態とは別のreceipt未完了状態。いずれも `GIT_SNAPSHOT_VERIFIED` としない。
+- `READBACK_AFTER_POST_INELIGIBLE`：snapshot本体は候補経路へ保存されたが、本体読戻し完了が発走予定時刻以後。
 - `TIMING_UNVERIFIED`：固定内容はpreservationに保全したが発走予定時刻を確認できず、通常snapshotへ適格化していない。
 - `LATE_PRESERVATION`：固定内容はpreservationに保全したが、保存開始または読戻し完了が発走予定時刻以後。
 - `SNAPSHOT_REFERENCE_INVALID`：snapshotはあるがID重複・参照欠落等で正しい履歴として確認できない。
