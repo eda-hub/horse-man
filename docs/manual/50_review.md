@@ -596,7 +596,7 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 - `SNAPSHOT_REFERENCE_INVALID`：snapshotはあるがID重複・参照欠落等で正しい履歴として確認できない。
 - `DETAIL_UNAVAILABLE`：必要な発走前詳細を確認できない。
 
-**証跡取得成功と回顧完了は同義にしない。** `PERSIST_NOT_ATTEMPTED`、`PERSIST_UNAVAILABLE`、`PERSIST_REQUESTED_UNKNOWN`、`PERSIST_WRITE_FAILED`、`PERSISTED_READBACK_UNVERIFIED`、`PERSIST_READBACK_FAILED`、`TIMING_UNVERIFIED`、`LATE_PRESERVATION`、`SNAPSHOT_REFERENCE_INVALID`、`DETAIL_UNAVAILABLE` であっても、欠測・不整合の理由、利用可能な代替証跡、Production / Betting / 各ShadowのKPI別適格性を推測なしで判定し、scope台帳の全レースに回顧recordを残した場合は、その欠測だけを理由に `REVIEW_COMPLETED` を妨げない。保存未試行・実行不能・成否不明を保存失敗へ、回答後保存を発走後保存へ置換しない。preservationを後から通常snapshotへ移して適格化しない。
+**証跡取得成功と回顧完了は同義にしない。** `PERSIST_NOT_ATTEMPTED`、`PERSIST_UNAVAILABLE`、`PERSIST_REQUESTED_UNKNOWN`、`PERSIST_WRITE_FAILED`、`PERSISTED_READBACK_UNVERIFIED`、`PERSIST_READBACK_FAILED`、`READBACK_PENDING`、`TIMING_UNVERIFIED`、`LATE_PRESERVATION`、`SNAPSHOT_REFERENCE_INVALID`、`DETAIL_UNAVAILABLE` であっても、欠測・不整合の理由、利用可能な代替証跡、Production / Betting / 各ShadowのKPI別適格性を推測なしで判定し、scope台帳の全レースに回顧recordを残した場合は、その欠測だけを理由に `REVIEW_COMPLETED` を妨げない。保存未試行・実行不能・成否不明を保存失敗へ、回答後保存を発走後保存へ置換しない。preservationを後から通常snapshotへ移して適格化しない。
 
 逆に、次は回顧完了を止める。
 
