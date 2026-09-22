@@ -11,6 +11,30 @@
 - 日付変更だけを理由に、進行中の予想・回顧を新しい日次ブランチへ移さない。
 - 予想関連の書込みを `main` へ直接行わない。
 
+## 導入前のmain記録を初回移行する
+
+本契約導入前に `main` へ直接保存された進行中の予想には `working_branch` が存在しない。この場合、既存予想を捨てて新しいProductionを作り直さず、次の順序で初回移行する。
+
+1. `baseline_forecast_id` を第一キー、なければ `race_id`・開催日・競馬場・Rを補助キーとして、`main` の `docs/validation/snapshots/`、`docs/validation/records/`、関連する予想記録を確認する。
+2. 現在の `main` に対象予想が存在する場合、その時点の最新 `main` commitを基点として対象作業日の `prediction/YYYY-MM-DD` を作成する。
+3. 現在の `main` にはなくGit履歴だけに対象予想が存在する場合、対象記録が確認できる最新のmain系commitを移行元として特定する。記録内容・ID・時刻を推測で復元しない。
+4. 日次ブランチ側に対象予想が保持されていることを読戻し、`baseline_forecast_id` と主要内容の一致を確認してから継続する。
+5. 移行後の更新・snapshot・回顧は日次ブランチへ保存し、`main` へ直接追記しない。
+6. 移行元commit、working_branch、対象IDを日次ブランチの引継ぎ情報へ保持する。
+
+導入前のmain記録そのものを削除・書換えしない。移行は今後の書込先を切り替える処理であり、過去の保存場所を遡及的に変更する処理ではない。
+
+## 引継ぎ票がない場合の所属ブランチ探索
+
+引継ぎ票が欠落していても、記憶から予想を再生成せず次の順序で探索する。
+
+1. `baseline_forecast_id` に日付が含まれる場合、そのJST日付の `prediction/YYYY-MM-DD` を第一候補にする。含まれない場合はrace_id・開催日から候補日を決める。
+2. 第一候補ブランチの `snapshots/`、`preservation/`、`persistence-receipts/`、`records/` から `baseline_forecast_id` / `race_id` を照合する。
+3. 見つからない場合は、近接日の `prediction/*` ブランチを列挙し、同じIDを検索する。ブランチ名だけで所属を確定しない。
+4. 日次ブランチで見つからない場合は `main` の現行内容とGit履歴を検索し、導入前main記録かを確認する。該当する場合は上記「導入前のmain記録を初回移行する」に従う。
+5. 1つのIDが複数の作業ブランチに存在し、正本を一意に決められない場合は `PREDICTION_BRANCH_AMBIGUOUS` としてHARD STOPし、どちらかを推測で選ばない。
+6. どのブランチ・main履歴にも見つからない場合は `PREDICTION_BRANCH_NOT_FOUND` とし、新しい正式Productionで無言置換しない。
+
 ## 参照境界
 
 - 正式ルール: `main` の `docs/manual/README.md` から参照する。
@@ -30,11 +54,12 @@
 - manual_release / manual_ref_commit
 - persist_status
 - persist_requested_at_jst / persist_verified_at_jst
-- snapshot保存commit SHA
+- snapshot / preservation の保存commit SHA
+- migration_source_commit（導入前main記録を移行した場合）
 - 未完了工程
 - HARD STOP / FAIL-SOFT状態
 
-後続実行は、引継ぎ票のbranchとIDを読戻してから継続する。記憶だけでProduction・買い目・Shadowを再生成しない。
+後続実行は、引継ぎ票がある場合はそのbranchとIDを読戻してから継続する。引継ぎ票がない場合は本書の「所属ブランチ探索」に従う。どちらの場合も記憶だけでProduction・買い目・Shadowを再生成しない。
 
 ## マージ
 
