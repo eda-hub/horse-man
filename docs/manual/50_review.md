@@ -561,7 +561,7 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 
 発走前Git snapshotに存在しないID・順位・確率・変更理由・買い目・Shadowを、結果後に追加して「発走前保存済み」と扱ってはならない。
 
-`PRE_RACE_SNAPSHOT_PERSIST_FAILED` が発生した場合、予想回答は有効なユーザー向け出力として扱えるが、**Git永続化を必須とする当該KPIについては不適格**とする。Shadow保存失敗だけでProductionを不適格にしないなど、KPI別独立判定は維持する。
+`PERSIST_WRITE_FAILED` に対応して `PRE_RACE_SNAPSHOT_PERSIST_FAILED` が発生した場合、予想回答は有効なユーザー向け出力として扱えるが、**Git永続化を必須とする当該KPIについては不適格**とする。未試行・実行不能・成否不明はこのコードへ変換しない。Shadow側の保存問題だけでProductionを不適格にしないなど、KPI別独立判定は維持する。
 
 回顧では、**scope台帳**と**snapshot履歴**を別の検査単位として扱う。
 
@@ -581,12 +581,22 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 
 各scopeレースの発走前証跡状態を、少なくとも次のいずれかへ分類する。
 
-- `GIT_SNAPSHOT_VERIFIED`：正規参照先から対象snapshotを読戻し、ID・主要内容を確認できた。
-- `PERSIST_FAILED`：発走前Git保存失敗が記録されている。後付け保存で適格化しない。
+- `GIT_SNAPSHOT_VERIFIED`：対象snapshot本体が `PERSIST_VERIFIED`、対応receiptが `RECEIPT_VERIFIED`、receiptの `timing_eligibility=PRE_RACE_ELIGIBLE` であることを確認できる。
+- `PERSIST_NOT_ATTEMPTED`：正式FIXED後に保存要求自体が行われていない。保存失敗ではない。
+- `PERSIST_UNAVAILABLE`：保存手段・権限・対象branchが利用できず書込要求自体を送れていない。保存失敗ではない。
+- `PERSIST_REQUESTED_UNKNOWN`：保存要求済みだが成否不明。まず同一IDを読戻し、重複追記しない。保存失敗とは確定しない。
+- `PERSIST_WRITE_FAILED`：実際に送信した書込要求が明示的に失敗した。
+- `PERSISTED_READBACK_UNVERIFIED`：書込成功応答はあるが読戻し未確認。
+- `PERSIST_READBACK_FAILED`：書込成功後の読戻しが失敗または不一致。
+- `RECEIPT_NOT_ATTEMPTED / RECEIPT_UNAVAILABLE / RECEIPT_REQUESTED_UNKNOWN / RECEIPT_WRITE_FAILED / RECEIPT_READBACK_FAILED`：本体状態とは別のreceipt未完了状態。いずれも `GIT_SNAPSHOT_VERIFIED` としない。
+- `READBACK_PENDING`：snapshot本体の読戻しが未完了・失敗・成否不明で、`persist_verified_at_jst` が確定していない。時刻比較を行わずKPI適格性は保留する。
+- `READBACK_AFTER_POST_INELIGIBLE`：snapshot本体は候補経路へ保存され、読戻し成功時刻が発走予定時刻以後。
+- `TIMING_UNVERIFIED`：固定内容はpreservationに保全したが発走予定時刻を確認できず、通常snapshotへ適格化していない。
+- `LATE_PRESERVATION`：固定内容を書き込む要求を送る前の時点ですでに発走予定時刻以後だったため、preservationに保全した。
 - `SNAPSHOT_REFERENCE_INVALID`：snapshotはあるがID重複・参照欠落等で正しい履歴として確認できない。
 - `DETAIL_UNAVAILABLE`：必要な発走前詳細を確認できない。
 
-**証跡取得成功と回顧完了は同義にしない。** `PERSIST_FAILED`、`SNAPSHOT_REFERENCE_INVALID`、`DETAIL_UNAVAILABLE` であっても、欠測・不整合の理由、利用可能な代替証跡、Production / Betting / 各ShadowのKPI別適格性を推測なしで判定し、scope台帳の全レースに回顧recordを残した場合は、その欠測だけを理由に `REVIEW_COMPLETED` を妨げない。
+**証跡取得成功と回顧完了は同義にしない。** `PERSIST_NOT_ATTEMPTED`、`PERSIST_UNAVAILABLE`、`PERSIST_REQUESTED_UNKNOWN`、`PERSIST_WRITE_FAILED`、`PERSISTED_READBACK_UNVERIFIED`、`PERSIST_READBACK_FAILED`、`READBACK_PENDING`、`TIMING_UNVERIFIED`、`LATE_PRESERVATION`、`SNAPSHOT_REFERENCE_INVALID`、`DETAIL_UNAVAILABLE` であっても、欠測・不整合の理由、利用可能な代替証跡、Production / Betting / 各ShadowのKPI別適格性を推測なしで判定し、scope台帳の全レースに回顧recordを残した場合は、その欠測だけを理由に `REVIEW_COMPLETED` を妨げない。保存未試行・実行不能・成否不明を保存失敗へ、回答後保存を発走後保存へ置換しない。preservationを後から通常snapshotへ移して適格化しない。
 
 逆に、次は回顧完了を止める。
 

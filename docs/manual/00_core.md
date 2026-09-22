@@ -127,7 +127,9 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 
 ##### 1. 分析途中と正式snapshot永続化を分離する
 
-事前予想・最終予想・買い目を**考えている途中**では、記録目的のGitHub branch作成、commit、pull request、検証台帳更新を行わない。取得ログ、思考過程、未確定順位、未監査買い目は保存対象にしない。
+事前予想・最終予想・買い目を**考えている途中**では、commit、pull request、検証台帳更新を行わない。取得ログ、思考過程、未確定順位、未監査買い目は保存対象にしない。
+
+ただし、その日の最初のチャット予想では、JSTの作業日をキーに日次作業ブランチ `prediction/YYYY-MM-DD` の存在確認を行い、存在しなければ `main` の最新commitから**1回だけ作成する**。これは分析内容の保存ではなく、後続の正式snapshotを安全に永続化する保存先の準備である。同日の別レース・別チャット・再開では同じブランチを再利用し、重複作成しない。ブランチ作成・取得に失敗した場合も `main` への直接書込みへフォールバックしない。
 
 一方、ProductionまたはProduction買い目を正式固定した時点では、後日の回顧で発走前記録を失わないため、**ユーザーへのチャット送信直前に最小の不変snapshotをGitへ永続化する。**
 
@@ -139,17 +141,87 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 
 保存先は `docs/validation/snapshots/YYYY-MM-DD.md` とし、同一日のsnapshotをappend-onlyで追記する。旧snapshotを上書き・削除して現在値だけにしない。正式更新が必要な場合は新しい `baseline_forecast_id` またはrevisionを持つ新snapshotを追記し、`previous_snapshot_ref` で直前snapshotを参照する。
 
-**正規参照先はリポジトリ既定ブランチの `main` とする。** 発走前snapshotを一時作業branchだけへ保存して成功扱いにしない。権限・保護ルール等により `main` へ発走前保存できない場合は、別branchへの退避で代替せず `PRE_RACE_SNAPSHOT_PERSIST_FAILED` とする。
+**正式ルールの正規参照先は `main`、予想・snapshot・回顧の書込先は当該作業日の `prediction/YYYY-MM-DD` とする。** 日次作業ブランチはJSTの初回作業日で決め、同じ予想の更新・別チャットでの継続・翌日の回顧でも元の予想が属する日次ブランチを再利用する。日付が変わったことだけを理由に予想履歴を別ブランチへ移さない。予想関連の書込みを `main` へ直接行うことは禁止する。日次ブランチへ保存できない場合は `main` へフォールバックせず、保存状態を正確に記録してfail-softする。
 
-保存完了は書込要求の成功だけで判定しない。次を同一保存処理の完了条件とする。
+### 時刻の責務と保存判定
 
-1. 書込直前に正規参照先の対象日ファイルを再取得する。
-2. 同じ `snapshot_id` がなければ、取得した最新内容を保持したまま末尾へ追記する。
-3. 同一 `snapshot_id`・同一内容が既にある場合は再追記せず、その既存snapshotを成功として再利用する。
-4. 同一 `snapshot_id` で内容が異なる場合は `SNAPSHOT_ID_CONFLICT` としてHARD STOPし、上書きしない。訂正は新snapshotとして作る。
-5. 保存後に正規参照先から読戻し、`snapshot_id` と主要内容の一致を確認する。保存commit SHAはチャット側の引継ぎ参照へ保持する。
-6. 競合等で書込に失敗した場合は最新内容を再取得して他の追記を保持したうえで、時間に余裕がある場合に限り**最大1回**だけ再試行する。force更新・古い全体内容への置換は行わない。
-7. 読戻し不一致、権限不足、競合未解決、時間切れは保存成功とみなさず、発走前回答を遅らせないfail-softへ移る。
+予想開始時刻・発走予定時刻・現在時刻・正式固定時刻・保存確認時刻を別フィールドとして扱い、相互に流用しない。
+
+- `task_started_at_jst`：チャットまたはタスクの開始時刻。発走判定には使用しない。
+- `scheduled_post_time_jst`：対象レースの発走予定時刻。対象レースに対応する外部根拠から取得する。
+- `current_time_jst`：保存判定時の現在時刻。
+- `fixed_at_jst`：正式内容をFIXEDした時刻。
+- `persist_requested_at_jst` / `persist_verified_at_jst`：書込要求時刻と読戻し確認時刻。
+
+発走予定時刻を取得できない場合は `POST_TIME_UNVERIFIED` とし、タスク開始時刻や推測値で補完しない。時刻未判定でも、すでにFIXEDした内容の保全工程自体を省略しない。発走前証跡としての適格性と、固定内容を失わないための永続化は別判定とする。
+
+保存先の**事前ルーティング**と、読戻し後の**最終時刻適格性判定**を分離する。snapshot本体へ最終適格性を書かない。
+
+書込要求を送る直前に、確認済みの `scheduled_post_time_jst` と `current_time_jst` だけで保存先を決める。
+
+- 発走予定時刻を確認でき、書込要求送信前の現在時刻が発走予定時刻より前：`SNAPSHOT_CANDIDATE` として `docs/validation/snapshots/YYYY-MM-DD.md` へ保存する。
+- 発走予定時刻が未確認：`TIMING_UNVERIFIED` として `docs/validation/preservation/YYYY-MM-DD.md` へ保存する。
+- 書込要求送信前の時点ですでに発走予定時刻以後：`LATE_PRESERVATION` として `docs/validation/preservation/YYYY-MM-DD.md` へ保存する。
+
+snapshot本体の保存先を決める時点では、まだ存在しない `persist_verified_at_jst` を条件に使わない。snapshot本体には `timing_route: SNAPSHOT_CANDIDATE` だけを記録し、`PRE_RACE_ELIGIBLE` 等の最終判定は記録しない。
+
+persistence receipt側で時刻適格性を管理する。snapshot候補の本体読戻しが完了するまでは判定を保留する。
+
+- 本体読戻し未完了・失敗・成否不明で `persist_verified_at_jst=null`：`READBACK_PENDING`
+- 読戻し成功後、`persist_verified_at_jst < scheduled_post_time_jst`：`PRE_RACE_ELIGIBLE`
+- 読戻し成功後、`persist_verified_at_jst >= scheduled_post_time_jst`：`READBACK_AFTER_POST_INELIGIBLE`
+- 発走予定時刻が確認できないpreservation：`TIMING_UNVERIFIED`
+- 書込要求送信前から発走後だったpreservation：`LATE_PRESERVATION`
+
+`READBACK_PENDING` の間は、発走予定時刻が確認済みでも時刻比較を実施せず、`PRE_RACE_ELIGIBLE` / `READBACK_AFTER_POST_INELIGIBLE` のどちらにも推測で分類しない。
+
+例えば15:29:59にsnapshot本体を書込み、15:30:01に読戻し、15:30発走の場合、本体は `SNAPSHOT_CANDIDATE` のまま変更せず、receiptへ `READBACK_AFTER_POST_INELIGIBLE` を記録する。本文を訂正・上書きしない。
+
+時刻未確認から復旧した場合は次のように分岐する。
+
+1. 発走予定時刻を確認でき、**新しい書込要求を送る直前**がまだ発走前である：preservationを上書きせず、通常snapshotへ新しい `snapshot_id` で保存し、`previous_preservation_ref` で先行保全IDを参照する。最終適格性は新snapshotのreceiptで判定する。
+2. 発走予定時刻を確認した時点ですでに発走後：preservationのまま維持し、通常snapshotへ移さない。
+3. 発走予定時刻を最後まで確認できない：`TIMING_UNVERIFIED` のまま維持し、正常な発走前証跡へ遡及適格化しない。
+
+保存状態は少なくとも次を区別する。
+
+- `PERSIST_NOT_ATTEMPTED`：FIXED後に書込要求をまだ行っていない。保存失敗とは呼ばない。
+- `PERSIST_UNAVAILABLE`：書込要求を実行する手段・権限・対象branchが利用できず、**書込要求自体を送れていない**。保存失敗とは呼ばない。
+- `PERSIST_REQUESTED_UNKNOWN`：書込要求済みだがタイムアウト等で成否不明。同一IDを読戻して解決する。保存失敗とは確定しない。
+- `PERSIST_WRITE_FAILED`：実際に送信した書込要求が、API・Git等から明示的な失敗応答を返した。
+- `PERSISTED_READBACK_UNVERIFIED`：書込成功応答はあるが読戻し未実施。
+- `PERSIST_READBACK_FAILED`：書込成功後に読戻しを試行したが対象ID不在・内容不一致・取得失敗となった。書込失敗とは別状態とする。
+- `PERSIST_VERIFIED`：同じ日次ブランチから読戻し、IDと主要内容の一致を確認した。
+
+対外コードは原因と1対1で対応させる。
+
+- `PRE_RACE_SNAPSHOT_PERSIST_FAILED`：**`PERSIST_WRITE_FAILED` の場合だけ**使用する。
+- `PRE_RACE_SNAPSHOT_READBACK_FAILED`：`PERSIST_READBACK_FAILED` の場合だけ使用する。
+- `PERSIST_NOT_ATTEMPTED` / `PERSIST_UNAVAILABLE` / `PERSIST_REQUESTED_UNKNOWN` / `PERSISTED_READBACK_UNVERIFIED` には `PRE_RACE_SNAPSHOT_PERSIST_FAILED` を付けない。実際の状態名と影響をそのまま報告する。
+
+「発走前までに `PERSIST_VERIFIED` へ到達できなかった」ことはKPI適格性の判定条件であり、保存失敗コードの発生条件ではない。工程漏れ・実行不能・成否不明をGitHub保存失敗へ言い換えてはならない。
+
+固定内容と保存確認証跡を分離する。snapshot本体はFIXED時点の内容だけを持つ不変データとし、保存後に確定する情報で同じ `snapshot_id` の本文を更新しない。
+
+日次ブランチの特定、導入前main記録の移行、引継ぎ票欠落時の所属ブランチ探索は `docs/validation/daily-branches/README.md` を実行手順のOwnerとする。既存Productionを再利用・継続するときは、snapshot保存前に必ず同手順で `working_branch` を確定する。
+
+保存処理は次の順序とする。
+
+1. 書込直前に当該日次作業ブランチの対象ファイルを再取得する。
+2. snapshot本体またはpreservation本体を、FIXED時点で確定済みの内容だけでappend-only追記する。
+3. 同一ID・同一内容が既にある場合は再追記せず既存本体を再利用する。同一ID・異なる内容は `SNAPSHOT_ID_CONFLICT` として上書きしない。
+4. 本体保存後に**同じ日次作業ブランチ**から読戻し、IDと主要内容の一致を確認する。
+5. 本体保存要求後、`docs/validation/persistence-receipts/YYYY-MM-DD.md` へ状態を `persistence_receipt` として追記できる。読戻し未完了なら `persist_verified_at_jst=null`、`timing_eligibility=READBACK_PENDING` とし、適格性を確定しない。
+6. 本体読戻しが成功して状態が進んだ場合は、既存receiptを上書きせず同じreceipt系列の次revisionを追記し、実測 `persist_verified_at_jst` に基づく最終 `timing_eligibility` を記録する。
+7. receiptには少なくとも `receipt_id`、`receipt_series_id`、`previous_receipt_ref`（後続revision）、`artifact_type`、`artifact_id`、`working_branch`、`artifact_path`、`persist_requested_at_jst`、`persist_verified_at_jst`、`artifact_persist_status`、保存commit SHA、読戻し結果、`timing_eligibility` を記録する。
+8. **本体保存状態とreceipt保存状態を別に管理する。** 本体が `PERSIST_VERIFIED` でも、receiptが確認できるまでは `receipt_persist_status=RECEIPT_VERIFIED` ではないため、KPI証跡完了扱いにしない。
+9. receipt書込前に同日receiptファイルを再取得し、同じ `receipt_id` を確認する。同一ID・同一内容があれば再利用し、同一ID・異内容は `RECEIPT_ID_CONFLICT` として上書きしない。
+10. receipt書込タイムアウトは `RECEIPT_REQUESTED_UNKNOWN` とし、再書込の前に同一 `receipt_id` を読戻す。存在すれば重複追記しない。
+11. receipt書込が明示的に失敗した場合は `RECEIPT_WRITE_FAILED` とし、最新receiptファイルを再取得して他の追記を保持したうえで、時間に余裕がある場合に限り最大1回だけ再試行する。force更新しない。
+12. receipt書込成功後は同じ日次作業ブランチから `receipt_id` の存在と主要内容を確認し、確認できた場合だけ `RECEIPT_VERIFIED` とする。receipt本文へ確認結果を書き戻さず、確認receiptも作らない。
+13. `RECEIPT_NOT_ATTEMPTED` / `RECEIPT_UNAVAILABLE` / `RECEIPT_REQUESTED_UNKNOWN` / `RECEIPT_WRITE_FAILED` / `RECEIPT_READBACK_FAILED` は未完了状態として、引継ぎ票に `receipt_id`、対象artifact、状態、未完了工程を保持する。
+14. 競合等で本体書込が明示的に失敗した場合は最新内容を再取得し、時間に余裕がある場合に限り最大1回再試行する。force更新・古い全体内容への置換は行わない。
+15. 正式内容をFIXED済みなら回答前に、本体保存状態とreceipt保存状態をそれぞれ明示し、発走を越えて回答を遅らせないfail-softへ移る。
 
 最低限、snapshotは次を保持する。
 
@@ -160,8 +232,13 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 - `manual_release`
 - `manual_ref_commit`：今回の実行で参照したmanualのcommit SHA
 - `contract_effective_date`：適用した保存契約の開始日
+- `task_started_at_jst`
+- `scheduled_post_time_jst` と出所
 - `fixed_at_jst`
+- `working_branch`
 - `information_cutoff_jst`
+- `timing_route`: SNAPSHOT_CANDIDATE（通常snapshotのみ。最終適格性はreceipt側で判定）
+- `previous_preservation_ref`（時刻未確認から発走前に復旧して通常snapshotを作る場合）
 - `previous_snapshot_ref`（更新時）
 - Production順位・印・勝率 / 連対率 / 3着内率
 - 予想確信度
@@ -182,7 +259,15 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 
 全体選別は対象全レースを1回のsnapshotへまとめてよく、個別最終では当該レースだけを追記してよい。これにより、予想速度への影響を最小化する。
 
-snapshot永続化がGitHub障害・時間制約等で発走前に完了しない場合は、予想回答自体を発走に遅らせない。チャットへ同じ正式内容を送信し、`PRE_RACE_SNAPSHOT_PERSIST_FAILED` を明示する。そのsnapshotはGit永続化を結果後に後付けして「発走前永続化済み」と扱わず、KPI適格性は各Ownerの条件に従って判定する。
+正式内容FIXED後は、見送り・投資額0円・既存ProductionのREUSED・短い回答指定でも、回答前に保存要求と読戻し確認を行う。回答しようとした時点で `PERSIST_NOT_ATTEMPTED` なら保存工程へ戻す。
+
+発走前までに `PERSIST_VERIFIED` へ到達しない場合でも、予想回答自体を発走に遅らせない。チャットには同じ正式内容と**実際の状態名**を送る。
+
+- `PERSIST_WRITE_FAILED` の場合だけ `PRE_RACE_SNAPSHOT_PERSIST_FAILED` を付ける。
+- `PERSIST_READBACK_FAILED` の場合だけ `PRE_RACE_SNAPSHOT_READBACK_FAILED` を付ける。
+- `PERSIST_NOT_ATTEMPTED` / `PERSIST_UNAVAILABLE` / `PERSIST_REQUESTED_UNKNOWN` / `PERSISTED_READBACK_UNVERIFIED` は失敗コードへ変換せず、その状態名と未完了工程を報告する。
+
+タイムアウトで成否不明なら同一IDを読戻して解決し、結果後に後付けした記録を「発走前永続化済み」と扱わない。時刻未確認・発走後の固定内容はpreservationへ保全し、通常snapshotや前向きKPIへ混入させない。
 
 結果後の正式回顧・払戻・エラー分類・KPI集計は従来どおり `docs/validation/records/` へ保存する。発走前snapshotと回顧recordは役割を分離し、結果から発走前内容を作り直さない。
 
@@ -216,7 +301,7 @@ FAIL-SOFT：
 
 - 当日馬体重等の取得不能は不足を明示し、確信度へ反映してProductionを完了してよい。
 - Shadow未完了はProductionを維持し、当該Shadowだけ `SHADOW_PARTIAL / INELIGIBLE` とする。
-- 発走前Git snapshot保存失敗は予想回答を遅らせず `PRE_RACE_SNAPSHOT_PERSIST_FAILED` とし、該当KPIだけ不適格とする。
+- 実際に送信した発走前snapshotの書込要求が明示的に失敗した `PERSIST_WRITE_FAILED` は、予想回答を遅らせず `PRE_RACE_SNAPSHOT_PERSIST_FAILED` とし、該当KPIだけ不適格とする。未試行・実行不能・成否不明にはこのコードを使わない。
 
 正式出力ラベルは状態に合わせる。
 
