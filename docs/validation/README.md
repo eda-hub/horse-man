@@ -209,7 +209,7 @@ P/A/Bは同じ `race_evidence_bundle` と情報締切を使い、A/Bのために
 
 前向きKPIへ算入できるのは、本体が `PERSIST_VERIFIED`、receiptが `RECEIPT_VERIFIED`、かつreceipt上の `timing_eligibility=PRE_RACE_ELIGIBLE` の全てを満たす場合に限る。本体の `timing_route=SNAPSHOT_CANDIDATE` だけでは適格としない。
 
-`TIMING_UNVERIFIED` / `LATE_PRESERVATION` は `docs/validation/preservation/` に保全し、通常snapshotや前向きKPIへ算入しない。
+`TIMING_UNVERIFIED` / `LATE_PRESERVATION` は `docs/validation/preservation/` に保全し、通常snapshotや前向きKPIへ算入しない。snapshot候補のreceiptが `READBACK_AFTER_POST_INELIGIBLE` の場合も前向きKPIへ算入しない。
 
 書込失敗・読戻し未完了・成否不明・実行不能は、**該当するKPIだけ**不適格または未判定として扱い、Shadow側の問題でProductionまで除外しない。保存未試行・実行不能・成否不明を `PRE_RACE_SNAPSHOT_PERSIST_FAILED` と記録しない。ユーザーへの予想回答を止める理由にはしない。
 
