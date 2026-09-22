@@ -79,6 +79,20 @@
    - `00_core.md` から `docs/validation/daily-branches/README.md` をOwnerとして明示参照する。
    - 移行先日次branchが既存なら再作成・ref更新・resetを禁止し、既存記録を保持して対象IDだけを必要に応じて移行する。
 
+## 今回の追加指摘への是正
+
+8. **読戻し未完了時の時刻適格性**
+   - `READBACK_PENDING` を追加した。
+   - `persist_verified_at_jst=null` の間は発走予定時刻との比較を禁止し、KPI適格性を未判定とする。
+   - 読戻し成功時だけ実測確認時刻を比較し、同じreceipt系列の新revisionへ `PRE_RACE_ELIGIBLE` または `READBACK_AFTER_POST_INELIGIBLE` を記録する。
+   - 読戻し失敗・未実施・成否不明から適格性を推測しない。
+
+9. **同一baselineの後続snapshot移行**
+   - 移行先にbaselineが存在するだけでは完了としない。
+   - branch/main双方の `snapshot_id` 集合と `previous_snapshot_ref` を比較する。
+   - branchにS01、mainにS01/S02があるケースではS02を不足分としてappend-only移行する。
+   - 参照欠落は `SNAPSHOT_HISTORY_GAP`、履歴分岐は `SNAPSHOT_HISTORY_DIVERGED`、同一ID異内容は `SNAPSHOT_ID_CONFLICT` として停止する。
+
 ## 実運用で未実施の確認
 
 PR #38計画の58ケースすべてを実レースで実行したものではない。特に以下は実運用または安全な模擬実行での追加確認対象とする。
