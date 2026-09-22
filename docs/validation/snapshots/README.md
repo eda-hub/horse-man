@@ -104,7 +104,7 @@ snapshot本体には、保存後にしか確定しない次の値を書かない
 
 これらは本体の読戻し後、`docs/validation/persistence-receipts/YYYY-MM-DD.md` に `persistence_receipt` としてappend-only追記する。receiptは `artifact_id=snapshot_id` で本体を参照し、本体を更新しない。
 
-receipt自身の書込確認は、同じ日次ブランチから `receipt_id` の存在を確認するだけとし、その確認結果をreceiptへ再度書き戻さない。
+receipt自身の書込確認は、同じ日次ブランチから `receipt_id` と主要内容の一致を確認する。確認結果をreceiptへ再度書き戻さない。書込失敗・タイムアウト・競合・限定再試行・引継ぎは `docs/validation/persistence-receipts/README.md` の契約に従う。
 
 ## 4.2 保存先の事前判断と最終時刻適格性を分離する
 
