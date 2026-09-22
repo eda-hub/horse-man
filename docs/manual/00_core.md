@@ -165,12 +165,15 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 
 snapshot本体の保存先を決める時点では、まだ存在しない `persist_verified_at_jst` を条件に使わない。snapshot本体には `timing_route: SNAPSHOT_CANDIDATE` だけを記録し、`PRE_RACE_ELIGIBLE` 等の最終判定は記録しない。
 
-本体読戻し後、persistence receipt側で最終判定する。
+persistence receipt側で時刻適格性を管理する。snapshot候補の本体読戻しが完了するまでは判定を保留する。
 
-- `persist_verified_at_jst < scheduled_post_time_jst`：`PRE_RACE_ELIGIBLE`
-- `persist_verified_at_jst >= scheduled_post_time_jst`：`READBACK_AFTER_POST_INELIGIBLE`
+- 本体読戻し未完了・失敗・成否不明で `persist_verified_at_jst=null`：`READBACK_PENDING`
+- 読戻し成功後、`persist_verified_at_jst < scheduled_post_time_jst`：`PRE_RACE_ELIGIBLE`
+- 読戻し成功後、`persist_verified_at_jst >= scheduled_post_time_jst`：`READBACK_AFTER_POST_INELIGIBLE`
 - 発走予定時刻が確認できないpreservation：`TIMING_UNVERIFIED`
 - 書込要求送信前から発走後だったpreservation：`LATE_PRESERVATION`
+
+`READBACK_PENDING` の間は、発走予定時刻が確認済みでも時刻比較を実施せず、`PRE_RACE_ELIGIBLE` / `READBACK_AFTER_POST_INELIGIBLE` のどちらにも推測で分類しない。
 
 例えば15:29:59にsnapshot本体を書込み、15:30:01に読戻し、15:30発走の場合、本体は `SNAPSHOT_CANDIDATE` のまま変更せず、receiptへ `READBACK_AFTER_POST_INELIGIBLE` を記録する。本文を訂正・上書きしない。
 
@@ -208,16 +211,17 @@ snapshot本体の保存先を決める時点では、まだ存在しない `pers
 2. snapshot本体またはpreservation本体を、FIXED時点で確定済みの内容だけでappend-only追記する。
 3. 同一ID・同一内容が既にある場合は再追記せず既存本体を再利用する。同一ID・異なる内容は `SNAPSHOT_ID_CONFLICT` として上書きしない。
 4. 本体保存後に**同じ日次作業ブランチ**から読戻し、IDと主要内容の一致を確認する。
-5. 読戻し結果が確定した後、`docs/validation/persistence-receipts/YYYY-MM-DD.md` へ別エントリの `persistence_receipt` を追記する。receiptは本体IDを参照し、本体を変更しない。
-6. receiptには少なくとも `receipt_id`、`artifact_type`、`artifact_id`、`working_branch`、`artifact_path`、`persist_requested_at_jst`、`persist_verified_at_jst`、`artifact_persist_status`、保存commit SHA、読戻し結果、`timing_eligibility` を記録する。
-7. **本体保存状態とreceipt保存状態を別に管理する。** 本体が `PERSIST_VERIFIED` でも、receiptが確認できるまでは `receipt_persist_status=RECEIPT_VERIFIED` ではないため、KPI証跡完了扱いにしない。
-8. receipt書込前に同日receiptファイルを再取得し、同じ `receipt_id` を確認する。同一ID・同一内容があれば再利用し、同一ID・異内容は `RECEIPT_ID_CONFLICT` として上書きしない。
-9. receipt書込タイムアウトは `RECEIPT_REQUESTED_UNKNOWN` とし、再書込の前に同一 `receipt_id` を読戻す。存在すれば重複追記しない。
-10. receipt書込が明示的に失敗した場合は `RECEIPT_WRITE_FAILED` とし、最新receiptファイルを再取得して他の追記を保持したうえで、時間に余裕がある場合に限り最大1回だけ再試行する。force更新しない。
-11. receipt書込成功後は同じ日次作業ブランチから `receipt_id` の存在と主要内容を確認し、確認できた場合だけ `RECEIPT_VERIFIED` とする。receipt本文へ確認結果を書き戻さず、確認receiptも作らない。
-12. `RECEIPT_NOT_ATTEMPTED` / `RECEIPT_UNAVAILABLE` / `RECEIPT_REQUESTED_UNKNOWN` / `RECEIPT_WRITE_FAILED` / `RECEIPT_READBACK_FAILED` は未完了状態として、引継ぎ票に `receipt_id`、対象artifact、状態、未完了工程を保持する。
-13. 競合等で本体書込が明示的に失敗した場合は最新内容を再取得し、時間に余裕がある場合に限り最大1回再試行する。force更新・古い全体内容への置換は行わない。
-14. 正式内容をFIXED済みなら回答前に、本体保存状態とreceipt保存状態をそれぞれ明示し、発走を越えて回答を遅らせないfail-softへ移る。
+5. 本体保存要求後、`docs/validation/persistence-receipts/YYYY-MM-DD.md` へ状態を `persistence_receipt` として追記できる。読戻し未完了なら `persist_verified_at_jst=null`、`timing_eligibility=READBACK_PENDING` とし、適格性を確定しない。
+6. 本体読戻しが成功して状態が進んだ場合は、既存receiptを上書きせず同じreceipt系列の次revisionを追記し、実測 `persist_verified_at_jst` に基づく最終 `timing_eligibility` を記録する。
+7. receiptには少なくとも `receipt_id`、`receipt_series_id`、`previous_receipt_ref`（後続revision）、`artifact_type`、`artifact_id`、`working_branch`、`artifact_path`、`persist_requested_at_jst`、`persist_verified_at_jst`、`artifact_persist_status`、保存commit SHA、読戻し結果、`timing_eligibility` を記録する。
+8. **本体保存状態とreceipt保存状態を別に管理する。** 本体が `PERSIST_VERIFIED` でも、receiptが確認できるまでは `receipt_persist_status=RECEIPT_VERIFIED` ではないため、KPI証跡完了扱いにしない。
+9. receipt書込前に同日receiptファイルを再取得し、同じ `receipt_id` を確認する。同一ID・同一内容があれば再利用し、同一ID・異内容は `RECEIPT_ID_CONFLICT` として上書きしない。
+10. receipt書込タイムアウトは `RECEIPT_REQUESTED_UNKNOWN` とし、再書込の前に同一 `receipt_id` を読戻す。存在すれば重複追記しない。
+11. receipt書込が明示的に失敗した場合は `RECEIPT_WRITE_FAILED` とし、最新receiptファイルを再取得して他の追記を保持したうえで、時間に余裕がある場合に限り最大1回だけ再試行する。force更新しない。
+12. receipt書込成功後は同じ日次作業ブランチから `receipt_id` の存在と主要内容を確認し、確認できた場合だけ `RECEIPT_VERIFIED` とする。receipt本文へ確認結果を書き戻さず、確認receiptも作らない。
+13. `RECEIPT_NOT_ATTEMPTED` / `RECEIPT_UNAVAILABLE` / `RECEIPT_REQUESTED_UNKNOWN` / `RECEIPT_WRITE_FAILED` / `RECEIPT_READBACK_FAILED` は未完了状態として、引継ぎ票に `receipt_id`、対象artifact、状態、未完了工程を保持する。
+14. 競合等で本体書込が明示的に失敗した場合は最新内容を再取得し、時間に余裕がある場合に限り最大1回再試行する。force更新・古い全体内容への置換は行わない。
+15. 正式内容をFIXED済みなら回答前に、本体保存状態とreceipt保存状態をそれぞれ明示し、発走を越えて回答を遅らせないfail-softへ移る。
 
 最低限、snapshotは次を保持する。
 
