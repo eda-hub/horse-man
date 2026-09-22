@@ -5,22 +5,27 @@
 ## 原則
 
 - 本体を保存後の情報で更新しない。
-- 本体の読戻し結果が確定してから、日別 `YYYY-MM-DD.md` へ `persistence_receipt` をappend-only追記する。
+- 本体保存要求後、保存・読戻し状態を日別 `YYYY-MM-DD.md` へ `persistence_receipt` としてappend-only追記する。読戻し未完了でも状態を隠さず記録できる。
 - receiptは本体の適格性を後から変更するための文書ではなく、保存工程の事実を追跡する証跡である。
 - receiptが後日作成されても、本体の発走前適格性を遡及して作らない。
 
-## receipt ID
+## receipt IDと状態遷移
 
-`receipt_id` はartifactごとに決定的に生成し、再試行・別チャットでも同じIDを使う。
+receiptはartifactごとの系列として管理し、既存receiptを上書きしない。
 
-- snapshot: `<snapshot_id>-R01`
-- preservation: `<preservation_id>-R01`
+- `receipt_series_id`: snapshotなら `<snapshot_id>-R`、preservationなら `<preservation_id>-R`
+- `receipt_id`: `<artifact_id>-RNN`（例: `...-R01`, `...-R02`）
+- `previous_receipt_ref`: R02以降で直前receiptを参照する
 
-同じartifactの保存確認をやり直すために新しいreceipt IDを乱発しない。内容訂正が必要な場合は既存receiptを上書きせず、原因を明記した新revisionを別IDとして追加する。
+同じreceiptエントリの書込再試行・タイムアウト確認では**同じ `receipt_id`**を使う。読戻し未完了のR01を後から成功状態へ書き換えず、状態が進んだ場合はR02のような新しいreceiptを追記し、`previous_receipt_ref` で連結する。
+
+これにより、`READBACK_PENDING` → `PRE_RACE_ELIGIBLE` / `READBACK_AFTER_POST_INELIGIBLE` の遷移を、不変receiptの上書きなしで記録する。
 
 ## 最低項目
 
 - `receipt_id`
+- `receipt_series_id`
+- `previous_receipt_ref`（R02以降）
 - `artifact_type`: SNAPSHOT / PRESERVATION
 - `artifact_id`: snapshot_id または preservation_id
 - `working_branch`
@@ -31,7 +36,20 @@
 - 本体保存commit SHA（取得できた場合）
 - 本体読戻し結果
 - `scheduled_post_time_jst` と出所
-- `timing_eligibility`: PRE_RACE_ELIGIBLE / READBACK_AFTER_POST_INELIGIBLE / TIMING_UNVERIFIED / LATE_PRESERVATION
+- `timing_eligibility`: READBACK_PENDING / PRE_RACE_ELIGIBLE / READBACK_AFTER_POST_INELIGIBLE / TIMING_UNVERIFIED / LATE_PRESERVATION
+
+## 時刻適格性の判定保留
+
+snapshot候補で本体読戻しが完了していない場合は、`timing_eligibility=READBACK_PENDING` とする。
+
+- `persist_verified_at_jst=null`
+- `timing_eligibility=READBACK_PENDING`
+- 発走予定時刻が確認済みでも、読戻し成功時刻が存在しない間は発走時刻との比較を行わない。
+- `READBACK_PENDING` を `PRE_RACE_ELIGIBLE` または `READBACK_AFTER_POST_INELIGIBLE` と推測変換しない。
+- 本体読戻しが成功した時点で、その実測 `persist_verified_at_jst` と `scheduled_post_time_jst` を比較し、新しいreceipt revisionへ最終 `timing_eligibility` を記録する。
+- 読戻し失敗・未実施・成否不明のままなら `READBACK_PENDING` を維持し、前向きKPIへ適格化しない。
+
+preservationの `TIMING_UNVERIFIED` / `LATE_PRESERVATION` は保存先事前ルーティングの状態であり、snapshot候補の `READBACK_PENDING` とは混同しない。
 
 ## 状態と失敗コード
 
@@ -57,13 +75,13 @@ receiptが `RECEIPT_VERIFIED` になるまで、`artifact_persist_status=PERSIST
 ## receiptの保存・復旧
 
 1. receipt書込前に、同じ日次作業ブランチの当日receiptファイルを再取得する。
-2. 同じ `receipt_id` がすでに存在し、主要内容も一致する場合は重複追記せず、そのreceiptを再利用して `RECEIPT_VERIFIED` とする。
+2. 同じ `receipt_id` がすでに存在し、主要内容も一致する場合は重複追記せず、そのreceiptを再利用する。receiptファイル上の存在確認ができた場合のreceipt保存状態は `RECEIPT_VERIFIED` とするが、artifactの読戻し完了や時刻適格性まで意味しない。
 3. 同じ `receipt_id` で主要内容が異なる場合は `RECEIPT_ID_CONFLICT` とし、既存receiptを上書きしない。
 4. receipt書込要求がタイムアウトした場合は `RECEIPT_REQUESTED_UNKNOWN` とする。**再書込の前に必ず同じ `receipt_id` を読戻す。** 存在すれば重複追記しない。
 5. receipt書込が明示的に失敗した場合は `RECEIPT_WRITE_FAILED` とし、最新receiptファイルを再取得して他の追記を保持したうえで、時間に余裕がある場合だけ**最大1回**再試行する。force更新は禁止する。
 6. receipt書込成功後は同じ日次作業ブランチから `receipt_id` と主要内容を確認する。確認できなければ `RECEIPT_READBACK_FAILED` とする。
 7. receipt未保存・成否不明・失敗・読戻し失敗のまま回答する場合は、本体状態とは別に `receipt_persist_status` を明示し、引継ぎ票へ `receipt_id`、artifact ID、receipt path、状態、未完了工程を保持する。
-8. 後続チャットはreceiptを新規生成する前に同一 `receipt_id` を検索し、既存receiptを再利用できるか確認する。結果確認後にreceiptを作成して発走前適格性を遡及させてはならない。
+8. 後続チャットは新しいreceipt revisionを生成する前に、同じ `receipt_series_id` の最新receiptを検索する。同一revisionの再送なら同じ `receipt_id` を再利用し、状態が進んだ場合だけ次のRNNを追記する。結果確認後にreceiptを作成して発走前適格性を遡及させてはならない。
 
 ## receipt自身の確認
 
