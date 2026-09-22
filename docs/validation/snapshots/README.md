@@ -176,7 +176,7 @@ preservationを後から通常snapshotへ名前変更・移動して発走前証
 
 ## 7. 役割分離
 
-- `snapshots/`：発走前適格の不変固定内容
+- `snapshots/`：発走前に書込要求を開始した不変snapshot候補。最終適格性はreceiptで判定
 - `persistence-receipts/`：snapshot / preservation本体の保存確認証跡
 - `preservation/`：時刻未確認・発走後等の固定内容保全。前向きKPIには使わない
 - `records/`：結果後の正式回顧・KPI・実購入・エラー分類
@@ -197,10 +197,13 @@ preservationを後から通常snapshotへ名前変更・移動して発走前証
 - 最新snapshot_id
 - working_branch
 - snapshot path
-- persist_status
+- artifact_persist_status
 - persist_requested_at_jst / persist_verified_at_jst
 - snapshot保存commit SHA
+- receipt_id / receipt path
+- receipt_persist_status
+- timing_eligibility（receiptが存在する場合）
 - 未完了工程
 - 発生中のHARD STOP / FAIL-SOFT状態
 
-後続実行は引継ぎ票の `working_branch` からsnapshotを再取得してから継続する。取得不能時に基準予想・買い目・Shadowを記憶から再生成しない。正式ルール自体はその時点の `main` のmanualを参照し、既存予想に記録済みの `manual_ref_commit` も保持する。
+後続実行は、引継ぎ票があればその `working_branch` から本体とreceiptを再取得してから継続する。引継ぎ票がない場合は `docs/validation/daily-branches/README.md` の所属ブランチ探索を実行する。取得不能時に基準予想・買い目・Shadowを記憶から再生成しない。正式ルール自体はその時点の `main` のmanualを参照し、既存予想に記録済みの `manual_ref_commit` も保持する。
