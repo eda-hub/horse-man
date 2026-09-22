@@ -581,12 +581,15 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 
 各scopeレースの発走前証跡状態を、少なくとも次のいずれかへ分類する。
 
-- `GIT_SNAPSHOT_VERIFIED`：正規参照先から対象snapshotを読戻し、ID・主要内容を確認できた。
-- `PERSIST_FAILED`：発走前Git保存失敗が記録されている。後付け保存で適格化しない。
+- `GIT_SNAPSHOT_VERIFIED`：記録された `working_branch` から対象snapshotを読戻し、ID・主要内容と保存時刻を確認できた。
+- `PERSIST_NOT_ATTEMPTED`：正式FIXED後に保存要求自体が行われていない。GitHub障害・保存失敗とは分ける。
+- `PERSIST_REQUESTED_UNKNOWN`：保存要求済みだが成否不明。まず同一IDを読戻し、重複追記しない。
+- `PERSIST_FAILED`：実際の書込失敗、または発走前までに読戻し確認へ到達できなかったことが記録されている。後付け保存で適格化しない。
+- `PERSISTED_READBACK_UNVERIFIED`：書込成功応答はあるが読戻し未確認。
 - `SNAPSHOT_REFERENCE_INVALID`：snapshotはあるがID重複・参照欠落等で正しい履歴として確認できない。
 - `DETAIL_UNAVAILABLE`：必要な発走前詳細を確認できない。
 
-**証跡取得成功と回顧完了は同義にしない。** `PERSIST_FAILED`、`SNAPSHOT_REFERENCE_INVALID`、`DETAIL_UNAVAILABLE` であっても、欠測・不整合の理由、利用可能な代替証跡、Production / Betting / 各ShadowのKPI別適格性を推測なしで判定し、scope台帳の全レースに回顧recordを残した場合は、その欠測だけを理由に `REVIEW_COMPLETED` を妨げない。
+**証跡取得成功と回顧完了は同義にしない。** `PERSIST_NOT_ATTEMPTED`、`PERSIST_REQUESTED_UNKNOWN`、`PERSIST_FAILED`、`PERSISTED_READBACK_UNVERIFIED`、`SNAPSHOT_REFERENCE_INVALID`、`DETAIL_UNAVAILABLE` であっても、欠測・不整合の理由、利用可能な代替証跡、Production / Betting / 各ShadowのKPI別適格性を推測なしで判定し、scope台帳の全レースに回顧recordを残した場合は、その欠測だけを理由に `REVIEW_COMPLETED` を妨げない。保存未試行を保存失敗へ、回答後保存を発走後保存へ、成否不明を失敗確定へ置換しない。
 
 逆に、次は回顧完了を止める。
 
