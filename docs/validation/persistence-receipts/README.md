@@ -9,6 +9,15 @@
 - receiptは本体の適格性を後から変更するための文書ではなく、保存工程の事実を追跡する証跡である。
 - receiptが後日作成されても、本体の発走前適格性を遡及して作らない。
 
+## receipt ID
+
+`receipt_id` はartifactごとに決定的に生成し、再試行・別チャットでも同じIDを使う。
+
+- snapshot: `<snapshot_id>-R01`
+- preservation: `<preservation_id>-R01`
+
+同じartifactの保存確認をやり直すために新しいreceipt IDを乱発しない。内容訂正が必要な場合は既存receiptを上書きせず、原因を明記した新revisionを別IDとして追加する。
+
 ## 最低項目
 
 - `receipt_id`
