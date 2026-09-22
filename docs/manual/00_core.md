@@ -155,18 +155,29 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 
 発走予定時刻を取得できない場合は `POST_TIME_UNVERIFIED` とし、タスク開始時刻や推測値で補完しない。時刻未判定でも、すでにFIXEDした内容の保全工程自体を省略しない。発走前証跡としての適格性と、固定内容を失わないための永続化は別判定とする。
 
-通常の `docs/validation/snapshots/YYYY-MM-DD.md` へ保存できるのは、**対象レースの発走予定時刻が外部根拠で確認済みで、snapshot本体の読戻し完了時刻がその発走予定時刻より前である場合だけ**とする。
+保存先の**事前ルーティング**と、読戻し後の**最終時刻適格性判定**を分離する。snapshot本体へ最終適格性を書かない。
 
-- 発走予定時刻が未確認：`TIMING_UNVERIFIED`
-- 保存開始時点ですでに発走予定時刻以後、または読戻し完了が発走予定時刻以後：`LATE_PRESERVATION`
-- 発走予定時刻確認済みかつ読戻し完了が発走前：`PRE_RACE_ELIGIBLE`
+書込要求を送る直前に、確認済みの `scheduled_post_time_jst` と `current_time_jst` だけで保存先を決める。
 
-`TIMING_UNVERIFIED` と `LATE_PRESERVATION` は通常snapshotへ書かず、`docs/validation/preservation/YYYY-MM-DD.md` へ不変の固定内容として保全する。これらを前向きKPIの発走前snapshotとして扱わない。
+- 発走予定時刻を確認でき、書込要求送信前の現在時刻が発走予定時刻より前：`SNAPSHOT_CANDIDATE` として `docs/validation/snapshots/YYYY-MM-DD.md` へ保存する。
+- 発走予定時刻が未確認：`TIMING_UNVERIFIED` として `docs/validation/preservation/YYYY-MM-DD.md` へ保存する。
+- 書込要求送信前の時点ですでに発走予定時刻以後：`LATE_PRESERVATION` として `docs/validation/preservation/YYYY-MM-DD.md` へ保存する。
+
+snapshot本体の保存先を決める時点では、まだ存在しない `persist_verified_at_jst` を条件に使わない。snapshot本体には `timing_route: SNAPSHOT_CANDIDATE` だけを記録し、`PRE_RACE_ELIGIBLE` 等の最終判定は記録しない。
+
+本体読戻し後、persistence receipt側で最終判定する。
+
+- `persist_verified_at_jst < scheduled_post_time_jst`：`PRE_RACE_ELIGIBLE`
+- `persist_verified_at_jst >= scheduled_post_time_jst`：`READBACK_AFTER_POST_INELIGIBLE`
+- 発走予定時刻が確認できないpreservation：`TIMING_UNVERIFIED`
+- 書込要求送信前から発走後だったpreservation：`LATE_PRESERVATION`
+
+例えば15:29:59にsnapshot本体を書込み、15:30:01に読戻し、15:30発走の場合、本体は `SNAPSHOT_CANDIDATE` のまま変更せず、receiptへ `READBACK_AFTER_POST_INELIGIBLE` を記録する。本文を訂正・上書きしない。
 
 時刻未確認から復旧した場合は次のように分岐する。
 
-1. 発走予定時刻を確認でき、現在も発走前である：preservationを上書きせず、通常snapshotへ**新しいsnapshot_id**で保存し、`previous_preservation_ref` で先行保全IDを参照する。通常snapshotの読戻し完了が発走前であることを改めて確認する。
-2. 発走予定時刻を確認した時点ですでに発走後、または読戻し完了が発走後：preservationのまま維持し、通常snapshotへ移さない。
+1. 発走予定時刻を確認でき、**新しい書込要求を送る直前**がまだ発走前である：preservationを上書きせず、通常snapshotへ新しい `snapshot_id` で保存し、`previous_preservation_ref` で先行保全IDを参照する。最終適格性は新snapshotのreceiptで判定する。
+2. 発走予定時刻を確認した時点ですでに発走後：preservationのまま維持し、通常snapshotへ移さない。
 3. 発走予定時刻を最後まで確認できない：`TIMING_UNVERIFIED` のまま維持し、正常な発走前証跡へ遡及適格化しない。
 
 保存状態は少なくとも次を区別する。
@@ -189,6 +200,8 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 
 固定内容と保存確認証跡を分離する。snapshot本体はFIXED時点の内容だけを持つ不変データとし、保存後に確定する情報で同じ `snapshot_id` の本文を更新しない。
 
+日次ブランチの特定、導入前main記録の移行、引継ぎ票欠落時の所属ブランチ探索は `docs/validation/daily-branches/README.md` を実行手順のOwnerとする。既存Productionを再利用・継続するときは、snapshot保存前に必ず同手順で `working_branch` を確定する。
+
 保存処理は次の順序とする。
 
 1. 書込直前に当該日次作業ブランチの対象ファイルを再取得する。
@@ -196,10 +209,15 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 3. 同一ID・同一内容が既にある場合は再追記せず既存本体を再利用する。同一ID・異なる内容は `SNAPSHOT_ID_CONFLICT` として上書きしない。
 4. 本体保存後に**同じ日次作業ブランチ**から読戻し、IDと主要内容の一致を確認する。
 5. 読戻し結果が確定した後、`docs/validation/persistence-receipts/YYYY-MM-DD.md` へ別エントリの `persistence_receipt` を追記する。receiptは本体IDを参照し、本体を変更しない。
-6. receiptには少なくとも `receipt_id`、`artifact_type`、`artifact_id`、`working_branch`、`artifact_path`、`persist_requested_at_jst`、`persist_verified_at_jst`、`persist_status`、保存commit SHA、読戻し結果を記録する。
-7. receipt自身はappend-onlyで、同一 `receipt_id` の上書きを禁止する。receiptの書込後確認は同じIDの存在確認だけで行い、確認結果を書き戻して再帰的なreceiptを作らない。
-8. 競合等で本体書込が明示的に失敗した場合は最新内容を再取得し、時間に余裕がある場合に限り最大1回再試行する。force更新・古い全体内容への置換は行わない。
-9. 正式内容をFIXED済みなら回答前に実際の保存状態を明示し、発走を越えて回答を遅らせないfail-softへ移る。
+6. receiptには少なくとも `receipt_id`、`artifact_type`、`artifact_id`、`working_branch`、`artifact_path`、`persist_requested_at_jst`、`persist_verified_at_jst`、`artifact_persist_status`、保存commit SHA、読戻し結果、`timing_eligibility` を記録する。
+7. **本体保存状態とreceipt保存状態を別に管理する。** 本体が `PERSIST_VERIFIED` でも、receiptが確認できるまでは `receipt_persist_status=RECEIPT_VERIFIED` ではないため、KPI証跡完了扱いにしない。
+8. receipt書込前に同日receiptファイルを再取得し、同じ `receipt_id` を確認する。同一ID・同一内容があれば再利用し、同一ID・異内容は `RECEIPT_ID_CONFLICT` として上書きしない。
+9. receipt書込タイムアウトは `RECEIPT_REQUESTED_UNKNOWN` とし、再書込の前に同一 `receipt_id` を読戻す。存在すれば重複追記しない。
+10. receipt書込が明示的に失敗した場合は `RECEIPT_WRITE_FAILED` とし、最新receiptファイルを再取得して他の追記を保持したうえで、時間に余裕がある場合に限り最大1回だけ再試行する。force更新しない。
+11. receipt書込成功後は同じ日次作業ブランチから `receipt_id` の存在と主要内容を確認し、確認できた場合だけ `RECEIPT_VERIFIED` とする。receipt本文へ確認結果を書き戻さず、確認receiptも作らない。
+12. `RECEIPT_NOT_ATTEMPTED` / `RECEIPT_UNAVAILABLE` / `RECEIPT_REQUESTED_UNKNOWN` / `RECEIPT_WRITE_FAILED` / `RECEIPT_READBACK_FAILED` は未完了状態として、引継ぎ票に `receipt_id`、対象artifact、状態、未完了工程を保持する。
+13. 競合等で本体書込が明示的に失敗した場合は最新内容を再取得し、時間に余裕がある場合に限り最大1回再試行する。force更新・古い全体内容への置換は行わない。
+14. 正式内容をFIXED済みなら回答前に、本体保存状態とreceipt保存状態をそれぞれ明示し、発走を越えて回答を遅らせないfail-softへ移る。
 
 最低限、snapshotは次を保持する。
 
@@ -215,7 +233,7 @@ ChatGPT上の予想では、予想ロジックを変更せず、取得・再利�
 - `fixed_at_jst`
 - `working_branch`
 - `information_cutoff_jst`
-- `timing_eligibility`: PRE_RACE_ELIGIBLE（通常snapshotのみ）
+- `timing_route`: SNAPSHOT_CANDIDATE（通常snapshotのみ。最終適格性はreceipt側で判定）
 - `previous_preservation_ref`（時刻未確認から発走前に復旧して通常snapshotを作る場合）
 - `previous_snapshot_ref`（更新時）
 - Production順位・印・勝率 / 連対率 / 3着内率
