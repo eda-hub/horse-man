@@ -591,7 +591,7 @@ E-13は終盤追加パイロットのため、既存必須Shadow完了後に実�
 - `RECEIPT_NOT_ATTEMPTED / RECEIPT_UNAVAILABLE / RECEIPT_REQUESTED_UNKNOWN / RECEIPT_WRITE_FAILED / RECEIPT_READBACK_FAILED`：本体状態とは別のreceipt未完了状態。いずれも `GIT_SNAPSHOT_VERIFIED` としない。
 - `READBACK_AFTER_POST_INELIGIBLE`：snapshot本体は候補経路へ保存されたが、本体読戻し完了が発走予定時刻以後。
 - `TIMING_UNVERIFIED`：固定内容はpreservationに保全したが発走予定時刻を確認できず、通常snapshotへ適格化していない。
-- `LATE_PRESERVATION`：固定内容はpreservationに保全したが、保存開始または読戻し完了が発走予定時刻以後。
+- `LATE_PRESERVATION`：固定内容を書き込む要求を送る前の時点ですでに発走予定時刻以後だったため、preservationに保全した。
 - `SNAPSHOT_REFERENCE_INVALID`：snapshotはあるがID重複・参照欠落等で正しい履歴として確認できない。
 - `DETAIL_UNAVAILABLE`：必要な発走前詳細を確認できない。
 
