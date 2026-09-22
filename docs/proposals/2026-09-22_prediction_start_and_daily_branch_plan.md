@@ -58,6 +58,8 @@
 - snapshot保存先は書込要求前の時刻だけで事前ルーティングし、本文は `SNAPSHOT_CANDIDATE` とする。読戻し後の `PRE_RACE_ELIGIBLE / READBACK_AFTER_POST_INELIGIBLE` はpersistence receipt側だけで確定する。
 - receipt自身の保存状態を本体と分離し、決定的receipt ID、書込前確認、タイムアウト時の同一ID読戻し、明示失敗時の最大1回再試行、読戻し失敗、引継ぎを追加した。receipt未確認ではKPI証跡完了としない。
 - `00_core.md` から日次branch探索・main移行手順へ明示的に接続し、移行先branchが既存の場合は再作成・ref更新・resetを禁止して既存記録を保持する分岐を追加した。
+- 読戻し未完了時は `READBACK_PENDING` とし、`persist_verified_at_jst=null` の間は時刻比較・前向きKPI適格化を禁止した。状態確定はreceiptの新revisionへappend-onlyで記録する。
+- main移行はbaseline存在確認だけで終了せず、snapshot ID集合と `previous_snapshot_ref` を照合し、不足する後続snapshotを依存順に差分移行するよう変更した。
 
 ## 3. 要件
 
