@@ -205,9 +205,11 @@ P/A/Bは同じ `race_evidence_bundle` と情報締切を使い、A/Bのために
 - 購入・ROI KPI：Production適格に加え、買い/見送り、使用価格・時刻、固定10,000円案、購入前監査後判断が発走前Git snapshotに存在すること
 - 各Shadow：当該Shadowの必須比較内容が発走前Git snapshotに存在すること
 
-Git snapshotの状態は、`PERSIST_NOT_ATTEMPTED` / `PERSIST_REQUESTED_UNKNOWN` / `PERSIST_WRITE_FAILED` / `PERSISTED_READBACK_UNVERIFIED` / `PERSIST_READBACK_FAILED` / `PERSIST_VERIFIED` を区別する。前向きKPIへ算入できるのは、対象の正式固定内容が発走前に `PERSIST_VERIFIED` まで確認できた場合に限る。
+Git保存状態は、`PERSIST_NOT_ATTEMPTED` / `PERSIST_UNAVAILABLE` / `PERSIST_REQUESTED_UNKNOWN` / `PERSIST_WRITE_FAILED` / `PERSISTED_READBACK_UNVERIFIED` / `PERSIST_READBACK_FAILED` / `PERSIST_VERIFIED` を区別する。前向きKPIへ算入できるのは、対象の通常snapshot本体が発走前に読戻し確認され、persistence receiptからその事実を追跡できる場合に限る。
 
-実際の書込失敗・読戻し未完了・成否不明は、**該当するKPIだけ**不適格または未判定として扱い、Shadow側の問題でProductionまで除外しない。保存未試行をGitHub障害と記録せず、工程漏れとして区別する。ユーザーへの予想回答を止める理由にはしない。
+`TIMING_UNVERIFIED` / `LATE_PRESERVATION` は `docs/validation/preservation/` に保全し、通常snapshotや前向きKPIへ算入しない。
+
+書込失敗・読戻し未完了・成否不明・実行不能は、**該当するKPIだけ**不適格または未判定として扱い、Shadow側の問題でProductionまで除外しない。保存未試行・実行不能・成否不明を `PRE_RACE_SNAPSHOT_PERSIST_FAILED` と記録しない。ユーザーへの予想回答を止める理由にはしない。
 
 2026-09-20以前には遡及適用しない。
 
@@ -215,7 +217,7 @@ Git snapshotの状態は、`PERSIST_NOT_ATTEMPTED` / `PERSIST_REQUESTED_UNKNOWN`
 
 2026-09-22以降のチャット予想記録は、JSTの初回作業日に作成した `prediction/YYYY-MM-DD` を書込先とする。同日の別レース・別チャットは同じブランチへ追記し、翌日の回顧・補正確認も元予想が属するブランチを使用する。正式ルールの参照元は引き続き `main` とする。
 
-前向き証跡の検証時は、`working_branch`・`snapshot_id`・保存commit SHA・`persist_status`・保存要求/読戻し時刻を合わせて確認する。後日のマージ時刻を発走前保存時刻として扱わない。
+前向き証跡の検証時は、snapshot本体と `persistence-receipts/` を分けて確認する。本体側の `working_branch`・`snapshot_id`・FIXED内容と、receipt側の保存commit SHA・`persist_status`・保存要求/読戻し時刻を対応付ける。後日のマージ時刻を発走前保存時刻として扱わない。
 
 ### 予想精度KPIの適格条件
 
