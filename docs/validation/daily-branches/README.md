@@ -16,11 +16,14 @@
 本契約導入前に `main` へ直接保存された進行中の予想には `working_branch` が存在しない。この場合、既存予想を捨てて新しいProductionを作り直さず、次の順序で初回移行する。
 
 1. `baseline_forecast_id` を第一キー、なければ `race_id`・開催日・競馬場・Rを補助キーとして、`main` の `docs/validation/snapshots/`、`docs/validation/records/`、関連する予想記録を確認する。
-2. 現在の `main` に対象予想が存在する場合、その時点の最新 `main` commitを基点として対象作業日の `prediction/YYYY-MM-DD` を作成する。
-3. 現在の `main` にはなくGit履歴だけに対象予想が存在する場合、対象記録が確認できる最新のmain系commitを移行元として特定する。記録内容・ID・時刻を推測で復元しない。
-4. 日次ブランチ側に対象予想が保持されていることを読戻し、`baseline_forecast_id` と主要内容の一致を確認してから継続する。
-5. 移行後の更新・snapshot・回顧は日次ブランチへ保存し、`main` へ直接追記しない。
-6. 移行元commit、working_branch、対象IDを日次ブランチの引継ぎ情報へ保持する。
+2. 対象作業日の `prediction/YYYY-MM-DD` が**存在しない場合だけ**、現在の `main` に対象予想が存在するなら、その時点の最新 `main` commitを基点として日次ブランチを作成する。
+3. 対象日次ブランチが**すでに存在する場合は再作成・ref更新・resetを行わない**。まず既存branchのsnapshot / preservation / recordsを読取り、対象 `baseline_forecast_id` がすでに存在するか確認する。
+4. 既存日次ブランチに対象IDが存在する場合は、その記録を正として再利用する。main側の同一IDを重複追加しない。
+5. 既存日次ブランチに対象IDがなく、main側に導入前記録が存在する場合は、既存branchの他記録を保持したまま**対象IDに必要な記録だけ**を移行する。ファイル全体をmain版で置換せず、append-only・ID競合規則に従う。
+6. 現在の `main` にはなくGit履歴だけに対象予想が存在する場合、対象記録が確認できる最新のmain系commitを移行元として特定する。記録内容・ID・時刻を推測で復元しない。
+7. 日次ブランチ側に対象予想が保持されていることを読戻し、`baseline_forecast_id` と主要内容の一致を確認してから継続する。
+8. 移行後の更新・snapshot・回顧は日次ブランチへ保存し、`main` へ直接追記しない。
+9. 移行元commit、working_branch、対象ID、既存branchを再利用したかを日次ブランチの引継ぎ情報へ保持する。
 
 導入前のmain記録そのものを削除・書換えしない。移行は今後の書込先を切り替える処理であり、過去の保存場所を遡及的に変更する処理ではない。
 
@@ -56,6 +59,8 @@
 - persist_requested_at_jst / persist_verified_at_jst
 - snapshot / preservation の保存commit SHA
 - migration_source_commit（導入前main記録を移行した場合）
+- migration_target_reused: true / false
+- receipt_id / receipt path / receipt_persist_status
 - 未完了工程
 - HARD STOP / FAIL-SOFT状態
 
