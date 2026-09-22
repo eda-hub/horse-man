@@ -60,7 +60,7 @@
 - fixed_at_jst
 - working_branch
 - information_cutoff_jst
-- timing_eligibility: PRE_RACE_ELIGIBLE
+- timing_route: SNAPSHOT_CANDIDATE
 - previous_preservation_ref（時刻未確認から発走前に復旧した場合）
 - previous_snapshot_ref
 - production_status: NEW / REUSED / UPDATED
@@ -106,14 +106,24 @@ snapshot本体には、保存後にしか確定しない次の値を書かない
 
 receipt自身の書込確認は、同じ日次ブランチから `receipt_id` の存在を確認するだけとし、その確認結果をreceiptへ再度書き戻さない。
 
-## 4.2 時刻未判定・発走後の固定内容は通常snapshotへ入れない
+## 4.2 保存先の事前判断と最終時刻適格性を分離する
 
-通常snapshotは、発走予定時刻が外部根拠で確認済みで、**snapshot本体の読戻し完了が発走予定時刻より前**の場合だけ作成する。
+通常snapshotへの保存可否を、保存後にしか確定しない読戻し時刻で事前判定しない。
 
-- 発走時刻未確認：`docs/validation/preservation/YYYY-MM-DD.md` へ `TIMING_UNVERIFIED` として保全する。
-- 保存開始時点で発走後、または読戻し完了が発走後：同じpreservationへ `LATE_PRESERVATION` として保全する。
-- preservation後に発走予定時刻を確認でき、まだ発走前なら、通常snapshotを新しい `snapshot_id` で作成し、`previous_preservation_ref` で保全IDを参照する。
-- 復旧時点で発走後、または時刻未確認のままなら、通常snapshotへ移さず前向きKPIへ算入しない。
+書込要求を送る直前に次だけで保存先を決める。
+
+- 発走予定時刻確認済み、かつ現在時刻が発走予定時刻より前：`snapshots/YYYY-MM-DD.md` へ `timing_route: SNAPSHOT_CANDIDATE` として保存する。
+- 発走時刻未確認：`preservation/YYYY-MM-DD.md` へ `TIMING_UNVERIFIED` として保全する。
+- 書込要求送信前から発走予定時刻以後：`preservation/YYYY-MM-DD.md` へ `LATE_PRESERVATION` として保全する。
+
+`SNAPSHOT_CANDIDATE` は発走前KPI適格を意味しない。snapshot本体の読戻し後、`persistence-receipts/` 側でのみ最終時刻適格性を判定する。
+
+- 読戻し完了が発走予定時刻より前：`PRE_RACE_ELIGIBLE`
+- 読戻し完了が発走予定時刻以後：`READBACK_AFTER_POST_INELIGIBLE`
+
+例えば15:29:59に本体書込、15:30:01に読戻し、15:30発走なら、本体は不変の `SNAPSHOT_CANDIDATE` のまま残し、receiptだけを `READBACK_AFTER_POST_INELIGIBLE` とする。本体を訂正しない。
+
+preservation後に発走予定時刻を確認でき、**新しい書込要求の直前がまだ発走前**なら、新しい `snapshot_id` の `SNAPSHOT_CANDIDATE` を作り、`previous_preservation_ref` で保全IDを参照する。最終適格性はそのsnapshotのreceiptで判定する。
 
 preservationを後から通常snapshotへ名前変更・移動して発走前証跡に見せることは禁止する。
 
@@ -130,14 +140,16 @@ preservationを後から通常snapshotへ名前変更・移動して発走前証
 
 保存処理は次で判定する。
 
-1. 発走予定時刻を確認し、通常snapshotかpreservationかを先に決定する。
-2. 対象の日次作業ブランチ・対象ファイルを取得する。
-3. 同じ本体IDがなければ、FIXED済み内容だけを末尾へ追記する。
-4. 同じID・同じ内容があれば重複追記せず既存本体を再利用する。同じID・異なる内容は `SNAPSHOT_ID_CONFLICT` とし、上書きしない。
-5. 本体保存後に同じ日次作業ブランチから読戻す。
-6. 読戻し結果が確定したら、別ファイルの `persistence_receipt` を追記する。
-7. 競合等では最新内容を取り直し、他の追記を保持して最大1回だけ再試行する。force更新は禁止する。
-8. タイムアウト等で書込成否が不明な場合は `PERSIST_REQUESTED_UNKNOWN` とし、同一本体IDを読戻して解決する。
+1. `docs/validation/daily-branches/README.md` に従って `working_branch` を確定する。引継ぎ票がない場合や導入前main記録は、同READMEの探索・移行手順を先に実施する。
+2. 書込要求送信前の発走予定時刻と現在時刻だけで、`SNAPSHOT_CANDIDATE` かpreservationかを決定する。
+3. 対象の日次作業ブランチ・対象ファイルを取得する。
+4. 同じ本体IDがなければ、FIXED済み内容だけを末尾へ追記する。
+5. 同じID・同じ内容があれば重複追記せず既存本体を再利用する。同じID・異なる内容は `SNAPSHOT_ID_CONFLICT` とし、上書きしない。
+6. 本体保存後に同じ日次作業ブランチから読戻す。
+7. 読戻し結果と時刻から、最終 `timing_eligibility` を算出し、別ファイルの `persistence_receipt` を追記する。本体へは書き戻さない。
+8. 本体の競合等では最新内容を取り直し、他の追記を保持して最大1回だけ再試行する。force更新は禁止する。
+9. 本体書込タイムアウト等で成否が不明な場合は `PERSIST_REQUESTED_UNKNOWN` とし、同一本体IDを読戻して解決する。
+10. receipt保存は `docs/validation/persistence-receipts/README.md` の独立した保存・復旧契約に従う。
 
 保存状態は、`PERSIST_NOT_ATTEMPTED` / `PERSIST_UNAVAILABLE` / `PERSIST_REQUESTED_UNKNOWN` / `PERSIST_WRITE_FAILED` / `PERSISTED_READBACK_UNVERIFIED` / `PERSIST_READBACK_FAILED` / `PERSIST_VERIFIED` を区別する。
 
