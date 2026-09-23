@@ -5,6 +5,7 @@
 1. 競馬判断の正本は `docs/manual/`。チャット予想では `eda-hub/horse-man` を直接指定し、必ず `main` の `docs/manual/README.md` から読み、必要なOwnerモジュールだけ参照する。owner未記載を利用者への確認待ち理由にしない。
 1a. 計画書、未マージPR、将来コード、Shadow検証案を現行Productionルールとして使わない。チャット予想はREADMEから辿れる現行Productionだけを使用する。
 1b. 予想・snapshot・回顧の書込みは `docs/manual/00_core.md` の日次作業ブランチ `prediction/YYYY-MM-DD` 契約に従い、`main` へ直接コミットしない。
+1c. 利用者との会話では、E系 / U系を含む内部検証ID・ルールIDを表示しない。追跡に必要なIDは内部記録だけで保持し、説明は内容を表す平易な日本語で行う。回答は依頼に必要な結論・根拠・判断材料に絞り、依頼されていない内部処理や記録項目を列挙しない。
 2. 現行ルール版は `docs/manual/README.md` の `現行リリース` を正とする。2026-09-13時点は `v1.6.1`。
 3. 必須モジュール間で `manual_release` が一致しない場合、予想ロジック実装・予想実行・ルール編集を進めない。
 4. システム設計の正本は `DECISIONS.md` と `docs/jravan/`。実装は `docs/jravan/phases/` の順に1フェーズずつ進める。
