@@ -4,15 +4,19 @@
 
 ## 初回snapshotに含める台帳
 
-- cycle_id: cycle_03
+- cycle_id / race_date_jst: 対象レースごとの所属と公式開催日（50_review 0.12.3）。実行日・branch日付で代用しない
 - manual_release / manual_ref_commit / contract_effective_date: 実行時の参照値
 - scope_revision / previous_snapshot_ref / working_branch / 依頼参照: 実行時の値
 - initial_scope / validation_candidates / purchase_candidates / selected_final_scope: race_id集合
 - 出力先: snapshots/YYYY-MM-DD.md（時刻未確認・発走後は既存preservation契約）
 
-| race_id | baseline_forecast_id | 検証候補 | 購入候補 | 選定理由・時刻 | 現在の買い/見送り | 初回/最新snapshot | 元branch |
+| race_id | baseline_forecast_id | 検証候補 | 購入候補 | 選定理由・時刻 | 現在の買い/見送り | initial_snapshot_ref / latest_snapshot_ref | 元branch |
 |---|---|---|---|---|---|---|---|
 | 実行時に記入 | 同左 | true/false | true/false | 根拠・JST | 判定 | 参照 | prediction/YYYY-MM-DD |
+
+初回参照例（Owner: core 0.0.12）：今回本体S01にR1の初回Productionを収録し、`previous_snapshot_ref=null`、`initial_snapshot_ref={snapshot_id:S01,race_id:R1}`、`latest_snapshot_ref={snapshot_id:S01,race_id:R1}` とする。履歴の自己参照は禁止し、同一本体内の内容参照は許可する。後続S02にR1の最終内容を収録した場合は履歴と初回参照がS01、最新内容参照がS02。保存後情報をS01へ書き戻さない。
+
+再開時は元branchの台帳snapshotを取得し、両内容参照をrace_id・baseline・実内容まで照合する。receiptも別に確認する。前日予想・翌日回顧でもrace_date_jstとcycle_idを引き継ぎ、日別からサイクル集計まで実行する。
 
 ### 項目別取得・比較の引継ぎ
 
