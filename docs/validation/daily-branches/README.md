@@ -78,6 +78,10 @@
 - migrated_snapshot_ids（導入前main記録を移行した場合）
 - snapshot_history_status: COMPLETE / GAP / DIVERGED / CONFLICT
 - receipt_id / receipt path / receipt_persist_status
+- race単位のcycle_id / race_date_jst（対象レースの公式開催日）/ 初回scope・候補台帳のsnapshot参照 / 追加選定revision
+- initial_snapshot_ref / latest_snapshot_ref（core 0.0.12の内容参照。履歴参照とは別）
+- validation_candidates / purchase_candidates / selected_final_scope
+- 項目別の取得引継ぎ参照（00_core 0.0.12）と未実施段階
 - 未完了工程
 - HARD STOP / FAIL-SOFT状態
 
@@ -86,3 +90,8 @@
 ## マージ
 
 回顧・必要記録が完了した後に通常のPRレビューで `main` へ反映する。マージ済みかどうかと、発走前に日次ブランチへ保存済みだったかは別の事実として扱う。後日のマージ時刻を発走前保存時刻として扱わない。
+
+
+## 第3サイクルの集計引継ぎ
+
+候補台帳・取得引継ぎは元branchの正式snapshotから回収する。前日予想で作成したbranchも翌日以降の最終・回顧で維持する。branchの日付は初回作業日であり、サイクル適用は `50_review` 0.12.3の開催日・cycle_idで判定する。初回scopeを最終件数へ縮めず、候補降格後も選定履歴を保持する。日別recordとcycle_03の集計revisionは `50_review` 0.14.3に従い、双方を読戻す。PR統合前には最新mainの他日record・集計を照合し、日付×KPI×race_idで再計算する。別日のscope・集計を古い全体内容で消さない。

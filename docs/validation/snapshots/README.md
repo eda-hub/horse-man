@@ -210,3 +210,8 @@ preservationを後から通常snapshotへ名前変更・移動して発走前証
 - 発生中のHARD STOP / FAIL-SOFT状態
 
 後続実行は、引継ぎ票があればその `working_branch` から本体とreceiptを再取得してから継続する。引継ぎ票がない場合は `docs/validation/daily-branches/README.md` の所属ブランチ探索を実行する。取得不能時に基準予想・買い目・Shadowを記憶から再生成しない。正式ルール自体はその時点の `main` のmanualを参照し、既存予想に記録済みの `manual_ref_commit` も保持する。
+
+
+## 第3サイクルの候補台帳・取得引継ぎ
+
+`00_core` 0.0.12をOwnerとし、正式なWHOLE_DAY/個別snapshotに `cycle_id`、初回scope、検証/購入フラグ、選定理由・時刻・履歴、未取得項目の取得予定段階・出所・範囲を含める。[記録テンプレート](../templates/cycle03_execution.md) を使用する。候補台帳だけを結果後に新設して事前選定を装わない。買い目にはticket_purposeを持たせ、検証用だけの案を正式ROIへ混ぜない。
