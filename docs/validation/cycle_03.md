@@ -215,4 +215,6 @@ kpis: 各日別kpisのキーごとにtarget_ids/eligible_ids/ineligible_ids/pend
 betting: 上記4集合に加え、適格レースのstake_yen/return_yenの合計。適格0件ならnull
 ```
 
-JSON欄を作る際は `python3 scripts/check_cycle03.py --require-data --print-summary` の出力を確認して貼り付ける。出力は日別データの転記案であり、そのまま証拠の合格とはしない。\n\nJSON欄の保存後は `python3 scripts/check_cycle03.py --require-data` を通し、全予定日分を記録した終了時は `--require-complete` を併用する。対象がない日も空集合の日別台帳を残す。差があれば日別の証拠と区分を確認し、古い合計へ加算せず集計を作り直す。この照合は集合・金額の整合だけを検査するため、発走前時刻、公式結果、snapshot/receiptの真正性は人が別に読戻す。
+JSON欄を作る際は `python3 scripts/check_cycle03.py --require-data --print-summary` の出力を確認して貼り付ける。出力は日別データの転記案であり、そのまま証拠の合格とはしない。
+
+JSON欄の保存後は `python3 scripts/check_cycle03.py --require-data` を通し、全予定日分を記録した終了時は `--require-complete` を併用する。対象がない日も空集合の日別台帳を残す。差があれば日別の証拠と区分を確認し、古い合計へ加算せず集計を作り直す。この照合は集合・金額の整合だけを検査するため、発走前時刻、公式結果、snapshot/receiptの真正性は人が別に読戻す。
