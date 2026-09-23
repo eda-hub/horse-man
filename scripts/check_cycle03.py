@@ -120,7 +120,7 @@ def summarize(days):
     return {"cycle_id": "cycle_03", "recorded_dates": sorted(days), "kpis": totals}
 
 
-def run(records_dir: Path, cycle_file: Path, require_data: bool, require_complete: bool):
+def run(records_dir: Path, cycle_file: Path, require_data: bool, require_complete: bool, print_summary: bool = False):
     days = {}
     for path in sorted(records_dir.glob("*.md")):
         day = block(path, DAY_TAG)
@@ -141,9 +141,12 @@ def run(records_dir: Path, cycle_file: Path, require_data: bool, require_complet
     all_races = [race for day in days.values() for race in day["initial_scope"]]
     if len(all_races) != len(set(all_races)):
         raise ValueError("the same race is in more than one day ledger")
+    expected = summarize(days)
+    if print_summary:
+        print(f"```{SUMMARY_TAG}\n{json.dumps(expected, ensure_ascii=False, indent=2)}\n```")
+        return
     if summary is None:
         raise ValueError("day ledgers exist but cycle summary block is missing")
-    expected = summarize(days)
     if summary != expected:
         raise ValueError("cycle summary differs from day ledgers; recalculate instead of adding old totals")
     if require_complete and set(days) != EXPECTED_DATES:
@@ -159,9 +162,11 @@ def main():
     parser.add_argument("--cycle-file", type=Path, default=Path("docs/validation/cycle_03.md"))
     parser.add_argument("--require-data", action="store_true")
     parser.add_argument("--require-complete", action="store_true")
+    parser.add_argument("--print-summary", action="store_true",
+                        help="print the calculated fenced JSON block for review and inclusion in the cycle file")
     args = parser.parse_args()
     try:
-        run(args.records_dir, args.cycle_file, args.require_data, args.require_complete)
+        run(args.records_dir, args.cycle_file, args.require_data, args.require_complete, args.print_summary)
     except (ValueError, OSError) as exc:
         print(f"INVALID: {exc}", file=sys.stderr)
         return 1
