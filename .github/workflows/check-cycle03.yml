@@ -1,0 +1,15 @@
+name: 第3サイクル台帳の照合
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  cycle-ledger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 日別記録と集計の照合
+        run: |
+          python3 -m unittest discover -s scripts -p 'test_*.py'
+          python3 scripts/check_cycle03.py
