@@ -88,3 +88,32 @@ receiptが `RECEIPT_VERIFIED` になるまで、`artifact_persist_status=PERSIST
 receipt書込後は同じ日次作業ブランチから `receipt_id` と主要内容の一致を確認する。確認結果を同じreceiptへ追記せず、receiptの確認receiptも作成しない。
 
 receiptの確認に失敗した場合は `RECEIPT_READBACK_FAILED` とし、成功扱いにしない。
+
+
+## 機械監査用receiptレコード
+
+前向きKPIや `betting-evidence-v1` のmachine gateで使用するreceiptは、
+日別Markdown内に次の**独立した構造化レコード**として保存する。
+
+```persistence-receipt-v1
+{
+  "receipt_id": "20260926-NAK-01-P001-S01-R02",
+  "artifact_id": "20260926-NAK-01-P001-S01",
+  "artifact_path": "docs/validation/snapshots/2026-09-26.md",
+  "artifact_persist_status": "PERSIST_VERIFIED",
+  "receipt_persist_status": "RECEIPT_VERIFIED",
+  "persist_verified_at_jst": "2026-09-26T09:51:00+09:00",
+  "scheduled_post_time_jst": "2026-09-26T10:10:00+09:00",
+  "timing_eligibility": "PRE_RACE_ELIGIBLE"
+}
+```
+
+checkerは `receipt_id` が一致する**1レコードだけ**を読み、
+そのレコード内の `artifact_id`、`artifact_path`、保存状態、時刻適格性を照合し、`persist_verified_at_jst < scheduled_post_time_jst` もchecker自身で確認する。
+別receiptレコードに書かれた `PRE_RACE_ELIGIBLE` を根拠として流用しない。
+
+machine-eligibleにするreceiptでは、
+`artifact_persist_status=PERSIST_VERIFIED`、
+`receipt_persist_status=RECEIPT_VERIFIED`、
+`timing_eligibility=PRE_RACE_ELIGIBLE`
+をすべて同一レコード内に持つ。

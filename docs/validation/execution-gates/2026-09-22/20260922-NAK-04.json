@@ -1,0 +1,182 @@
+{
+  "schema_version": "prediction-compliance-v1",
+  "race_id": "20260922-NAK-04",
+  "race_date_jst": "2026-09-22",
+  "mode": "REPLAY",
+  "working_branch": "prediction/2026-09-22",
+  "manual_release": "v1.6.1",
+  "manual_ref_commit": "063b23d444938730fe7ad8cb93e9574751e51ec7",
+  "scheduled_post_time_jst": "2026-09-22T11:20:00+09:00",
+  "timing_route": "LATE_PRESERVATION",
+  "production": {
+    "baseline_forecast_id": "20260922-NAK-04-P001",
+    "marks": {
+      "honmei": 4,
+      "taikou": 7,
+      "tanana": 3,
+      "delta": 6
+    },
+    "confidence": "C",
+    "reuse_status": "REUSED",
+    "source_snapshot_path": "docs/validation/snapshots/2026-09-22.md",
+    "source_snapshot_state": "HISTORICAL_PRE_RACE_SOURCE_WITHOUT_CURRENT_RECEIPT"
+  },
+  "kpi_eligibility": {
+    "production": "INELIGIBLE",
+    "betting": "INELIGIBLE",
+    "shadow": "INELIGIBLE"
+  },
+  "shadow_items": [
+    {
+      "item_id": "E-04",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-09",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-10",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "U-01",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "U-01Q",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "U-02",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-08",
+      "state": "NOT_RECONSTRUCTED_POST_RACE",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-11",
+      "state": "PENDING_RULE_CONFLICT",
+      "kpi_eligibility": "PENDING"
+    },
+    {
+      "item_id": "E-12",
+      "state": "REPLAY_REFERENCE_ONLY",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-13",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    }
+  ],
+  "review": {
+    "status": "COMPLETE",
+    "reviewed_at_jst": "2026-09-23T18:26:36+09:00",
+    "result_sources": [
+      {
+        "url": "https://sports.yahoo.co.jp/keiba/race/result/2606040704",
+        "retrieved_at_jst": "2026-09-23T18:26:36+09:00"
+      }
+    ],
+    "result": {
+      "top3": [
+        4,
+        7,
+        3
+      ],
+      "production_mark_positions": {
+        "3": 3,
+        "4": 1,
+        "6": 5,
+        "7": 2
+      }
+    },
+    "error_classification": {
+      "primary": "NONE",
+      "secondary": []
+    },
+    "counterfactual_check": "SAME",
+    "layer_assessment": {
+      "prediction": "PASS",
+      "price": "UNDETERMINED",
+      "betting": "NOT_APPLICABLE"
+    },
+    "kpis": {
+      "production": {
+        "eligibility": "INELIGIBLE",
+        "evidence_state": "HISTORICAL_PRE_RACE_SOURCE_WITHOUT_CURRENT_RECEIPT"
+      },
+      "betting": {
+        "eligibility": "INELIGIBLE",
+        "evidence_state": "REPLAY_REFERENCE_ONLY"
+      },
+      "shadow": {
+        "eligibility": "INELIGIBLE",
+        "evidence_state": "REPLAY_REFERENCE_ONLY"
+      }
+    },
+    "non_degradation": {
+      "protect": [
+        "Production印の役割分離",
+        "見送りと反実仮想買い目の別帳簿"
+      ],
+      "retest": [
+        "予想確信度Cでも上位構造が明瞭な場合の購入閾値"
+      ],
+      "improve": []
+    },
+    "summary": "◎4-○7-▲3が1-2-3着を完全捕捉。正式見送り0円。参考反実仮想10,000円案は馬連4-7とワイド4-7が的中し39,600円相当だが正式KPIへ算入しない。",
+    "formal_kpi_aggregation": "NOT_APPLICABLE",
+    "live_cycle_success": "NOT_APPLICABLE"
+  },
+  "betting": {
+    "status": "SKIP",
+    "audit_status": "PASS",
+    "counterfactual_plan": {
+      "total_stake_yen": 10000,
+      "tickets": [
+        {
+          "type": "QUINELLA",
+          "horses": [
+            4,
+            7
+          ],
+          "amount_yen": 4000
+        },
+        {
+          "type": "WIDE",
+          "horses": [
+            4,
+            7
+          ],
+          "amount_yen": 4000
+        },
+        {
+          "type": "QUINELLA",
+          "horses": [
+            4,
+            3
+          ],
+          "amount_yen": 1000
+        },
+        {
+          "type": "QUINELLA",
+          "horses": [
+            4,
+            6
+          ],
+          "amount_yen": 1000
+        }
+      ]
+    }
+  }
+}

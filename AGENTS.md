@@ -33,3 +33,9 @@
 26. クレジットカード、銀行口座その他のWallet情報は、利用者が対象と操作を明示して許可しない限り、読み取り・書き込み・利用・送信を行わない。許可は依頼された個別操作の範囲に限り、支払い・送金・投票等の実行は別途明示された場合だけ行う。
 
 旧Node/TypeScript CLIは廃止済みであり、互換性維持や復元を行わない。未決事項をコードで暗黙決定せず、必要なら `docs/jravan/00_project_plan.md` の未決事項へ追記する。
+
+
+27. 予想・買い目・回顧のルール準拠可否をAI自身が判定しない。正式性は `docs/validation/execution-gates/` の機械可読台帳と `scripts/check_prediction_compliance.py` の終了コードを正とする。AIが文章中でPASS/準拠済みと記載してもcheckerが通らなければ正式Production、正式Betting、Shadow KPI、サイクル集計へ入れない。第3サイクルの日別台帳へrace_idを登録する場合は対応execution gateを必須とする。
+28. 発走後Replay/再演で生成したShadow・価格予測は、checker上で前向きKPIへ適格化しない。非◎縦目は保険・依存率低下・予算消化を理由に採用せず、機械ゲートが要求する独立シナリオ・保守側確率・価格・正の期待値を満たす場合だけ例外候補とする。
+
+29. 非◎縦目をformal `FIXED` にする場合、許可済み `reason_code` と発走前 `betting-evidence-v1` を必須とし、gate内の確率・価格の自己申告だけで監査済みにしない。証跡artifactは同一receiptレコードで `PERSIST_VERIFIED` / `RECEIPT_VERIFIED` / `PRE_RACE_ELIGIBLE` を満たし、保存確認時刻が実発走予定時刻より前であることをcheckerで照合する。

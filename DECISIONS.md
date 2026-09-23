@@ -58,3 +58,11 @@ JRA重賞の長期記録は `docs/yosou/jra_racing/`、進行中Shadow検証は 
 
 ## ADR-019 当日馬体重は発表Eventで捕捉する
 当日馬体重はFINAL直前のWeb取得に依存せず、開催中の `JVWatchEvent` で `JVEvtWeight` を監視し、発表event受信時に `JVRTOpen(0B11, event key)` で取得・永続化する。Event取り逃し・Core Service再起動に備えて `0B11` のrace/day catch-upと未取得時のみの低頻度pollingを併設する。T-20は馬体重の取得開始時刻ではなく、保存済み当日WHと現在の出走構成のcoverageを検証する時刻とする。T-20より前に取得した完全な当日公式WHを、取得時刻だけを理由にSTALE扱いしない。
+
+
+## ADR-020 予想実行の正式性は機械ゲートで確定する
+チャットAI、Codex、その他の生成系は予想・買い目・回顧の準拠可否を自己申告しない。各race executionは `docs/validation/execution-gates/YYYY-MM-DD/<race_id>.json` に機械可読状態を持ち、`scripts/check_prediction_compliance.py` が現行manual release、日次branch、発走前証跡、receipt、KPI適格性、買い目構造、Replay境界、回顧必須項目を決定的に検査する。checker不合格の出力はチャットに表示されても正式Production/Betting/Shadow KPI/サイクル集計へ登録しない。日別cycle ledgerとの対応もCIで照合し、execution gate省略を成功扱いにしない。
+
+
+## ADR-021 買い目数値根拠とreceiptは発走前構造化証跡で確定する
+非◎縦目の例外理由はallowlist方式とし、現行は `INDEPENDENT_POSITIVE_EV` のみを許可する。価格・保守側成立確率・EVはgate JSON内の相互整合だけでは正式監査済みとせず、発走前に保存した `betting-evidence-v1` と完全一致させる。証跡artifact自身のreceiptは `persistence-receipt-v1` の独立レコードとして保存し、同じ `receipt_id` レコード内のartifact ID/path、保存状態、`PRE_RACE_ELIGIBLE`、保存確認時刻と発走予定時刻をcheckerが照合する。発走後Replayで新規算出した価格・確率は前向き数値証跡へ昇格させない。

@@ -1,15 +1,19 @@
-name: 第3サイクル台帳の照合
+name: 予想実行と第3サイクル台帳の機械監査
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [main]
+    branches:
+      - main
+      - 'prediction/**'
 jobs:
   cycle-ledger:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: 回帰テスト
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: 予想実行コンプライアンスゲート
+        run: python3 scripts/check_prediction_compliance.py
       - name: 日別記録と集計の照合
-        run: |
-          python3 -m unittest discover -s scripts -p 'test_*.py'
-          python3 scripts/check_cycle03.py
+        run: python3 scripts/check_cycle03.py

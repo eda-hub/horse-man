@@ -1,0 +1,141 @@
+{
+  "schema_version": "prediction-compliance-v1",
+  "race_id": "20260922-NAK-12",
+  "race_date_jst": "2026-09-22",
+  "mode": "REPLAY",
+  "working_branch": "prediction/2026-09-22",
+  "manual_release": "v1.6.1",
+  "manual_ref_commit": "063b23d444938730fe7ad8cb93e9574751e51ec7",
+  "scheduled_post_time_jst": "2026-09-22T16:10:00+09:00",
+  "timing_route": "LATE_PRESERVATION",
+  "production": {
+    "baseline_forecast_id": "20260922-NAK-12-P001",
+    "marks": {
+      "honmei": 3
+    },
+    "confidence": "C",
+    "reuse_status": "REUSED",
+    "source_snapshot_path": "docs/validation/snapshots/2026-09-22.md",
+    "source_snapshot_state": "HISTORICAL_PRE_RACE_SOURCE_WITHOUT_CURRENT_RECEIPT"
+  },
+  "kpi_eligibility": {
+    "production": "INELIGIBLE",
+    "betting": "INELIGIBLE",
+    "shadow": "INELIGIBLE"
+  },
+  "shadow_items": [
+    {
+      "item_id": "E-04",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-09",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-10",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "U-01",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "U-01Q",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "U-02",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-08",
+      "state": "NOT_RECONSTRUCTED_POST_RACE",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-11",
+      "state": "PENDING_RULE_CONFLICT",
+      "kpi_eligibility": "PENDING"
+    },
+    {
+      "item_id": "E-12",
+      "state": "REPLAY_REFERENCE_ONLY",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-13",
+      "state": "DETAIL_UNAVAILABLE_FOR_FORWARD_KPI",
+      "kpi_eligibility": "INELIGIBLE"
+    }
+  ],
+  "review": {
+    "status": "COMPLETE",
+    "reviewed_at_jst": "2026-09-23T18:26:36+09:00",
+    "result_sources": [
+      {
+        "url": "https://sports.yahoo.co.jp/keiba/race/result/2606040712",
+        "retrieved_at_jst": "2026-09-23T18:26:36+09:00"
+      }
+    ],
+    "result": {
+      "top3": [
+        13,
+        12,
+        15
+      ],
+      "production_mark_positions": {
+        "3": 5
+      }
+    },
+    "error_classification": {
+      "primary": "UNDETERMINED",
+      "secondary": []
+    },
+    "counterfactual_check": "SAME",
+    "layer_assessment": {
+      "prediction": "FAIL",
+      "price": "UNDETERMINED",
+      "betting": "NOT_APPLICABLE"
+    },
+    "kpis": {
+      "production": {
+        "eligibility": "INELIGIBLE",
+        "evidence_state": "HISTORICAL_PRE_RACE_SOURCE_WITHOUT_CURRENT_RECEIPT"
+      },
+      "betting": {
+        "eligibility": "INELIGIBLE",
+        "evidence_state": "REPLAY_REFERENCE_ONLY"
+      },
+      "shadow": {
+        "eligibility": "INELIGIBLE",
+        "evidence_state": "REPLAY_REFERENCE_ONLY"
+      }
+    },
+    "non_degradation": {
+      "protect": [
+        "相手を能力根拠なしで価格から追加しない",
+        "情報不足時の正式見送り"
+      ],
+      "retest": [
+        "相手候補をProduction固定前に確定する情報取得工程",
+        "単独◎で終わるレースの候補生成"
+      ],
+      "improve": []
+    },
+    "summary": "◎3は5着で、上位は13-12-15。正式見送り0円。相手候補不足のため買い目を作らなかった判断と、予想中心馬の失敗を分離する。",
+    "formal_kpi_aggregation": "NOT_APPLICABLE",
+    "live_cycle_success": "NOT_APPLICABLE"
+  },
+  "betting": {
+    "status": "SKIP",
+    "audit_status": "PASS",
+    "reason": "opponents not sufficiently fixed in Production; formal stake 0"
+  }
+}
