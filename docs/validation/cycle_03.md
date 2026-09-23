@@ -203,16 +203,3 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
 | 2026-10-12 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 
 第2の未確定値は [総括残件](../proposals/2026-09-22_cycle02_summary_cycle03_handoff.md) と受入記録の引継ぎ台帳で管理し、第3へ混ぜない。
-
-### 集計の機械照合欄
-
-実レースの日別記録が作られた後に限り、本節の末尾に `cycle03-summary-v1` のJSONコード欄を1つ置く。書式は `docs/validation/templates/cycle03_execution.md` の日別欄と対応し、次の形で日別の集合を重複なく合算する。日別欄が存在しない現時点では作らない。
-
-```text
-cycle_id: cycle_03
-recorded_dates: 実際に日別台帳を保存した日付の配列
-kpis: 各日別kpisのキーごとにtarget_ids/eligible_ids/ineligible_ids/pending_idsを一意集合で合算
-betting: 上記4集合に加え、適格レースのstake_yen/return_yenの合計。適格0件ならnull
-```
-
-JSON欄の保存後は `python3 scripts/check_cycle03.py --require-data` を通し、全予定日分を記録した終了時は `--require-complete` を併用する。対象がない日も空集合の日別台帳を残す。差があれば日別の証拠と区分を確認し、古い合計へ加算せず集計を作り直す。この照合は集合・金額の整合だけを検査するため、発走前時刻、公式結果、snapshot/receiptの真正性は人が別に読戻す。
