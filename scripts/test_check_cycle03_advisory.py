@@ -133,6 +133,21 @@ baseline_forecast_id: base-a
             pairs(inspect(day(), snapshot, "", "")),
         )
 
+    def test_probability_table_without_description_is_detected(self):
+        snapshot = """## race-a baseline artifact
+snapshot_type: INITIAL_PRODUCTION
+race_id: race-a
+snapshot_id: initial-a
+baseline_forecast_id: base-a
+| 馬 | 勝率 | 連対率 | 3着内率 |
+|---|---:|---:|---:|
+| Horse A | 16% | 30% | 42% |
+"""
+        self.assertNotIn(
+            ("PROBABILITY_EVIDENCE_MISSING", "race-a"),
+            pairs(inspect(day(), snapshot, "", "")),
+        )
+
     def test_percent_symbol_without_number_is_not_probability_evidence(self):
         snapshot = """## race-a 初回予想
 snapshot_type: INITIAL
