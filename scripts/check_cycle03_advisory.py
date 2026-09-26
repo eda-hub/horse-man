@@ -58,6 +58,25 @@ def valid(value):
     )
 
 
+def section_stage(section: str):
+    snapshot_type = field(section, "snapshot_type")
+    if snapshot_type:
+        normalized = snapshot_type.strip().upper()
+        if normalized == "INITIAL":
+            return "initial"
+        if normalized == "FINAL":
+            return "final"
+
+    heading = section.splitlines()[0].lower() if section.splitlines() else ""
+    has_initial = "初回" in heading or re.search(r"\\binitial\\b", heading)
+    has_final = "最終" in heading or re.search(r"\\bfinal\\b", heading)
+    if has_initial and not has_final:
+        return "initial"
+    if has_final and not has_initial:
+        return "final"
+    return None
+
+
 def race_sections(text: str):
     result = {}
     for section in sections(text):
@@ -65,6 +84,10 @@ def race_sections(text: str):
         if race_id:
             result.setdefault(race_id, []).append(section)
     return result
+
+
+def stage_sections(blocks, stage):
+    return [block for block in blocks if section_stage(block) == stage]
 
 
 def receipt_statuses(text: str):
@@ -83,15 +106,48 @@ def receipt_statuses(text: str):
 
 
 def has_probability_evidence(section: str):
-    lines = [
-        line
-        for line in section.splitlines()
-        if "勝率" in line or "推定確率" in line
-    ]
-    return any(
-        "%" in line and "UNAVAILABLE" not in line.upper()
-        for line in lines
+    labels = ("推定確率", "勝率", "連対率", "3着内率")
+    missing_markers = (
+        "UNAVAILABLE",
+        "UNRECORDED",
+        "MISSING",
+        "未取得",
+        "未保存",
+        "不明",
+        "判定不能",
     )
+    numeric_percent = re.compile(
+        r"(?<![\\d.])(?:100(?:\\.0+)?|\\d{1,2}(?:\\.\\d+)?)\\s*%"
+    )
+    lines = section.splitlines()
+
+    for index, line in enumerate(lines):
+        if not any(label in line for label in labels):
+            continue
+
+        upper = line.upper()
+        if (
+            not any(marker in upper or marker in line for marker in missing_markers)
+            and numeric_percent.search(line)
+        ):
+            return True
+
+        for child in lines[index + 1:index + 16]:
+            stripped = child.strip()
+            if not stripped:
+                continue
+            if stripped.startswith("#"):
+                break
+            if re.match(r"^-\\s+[^0-9|][^:]*:\\s*$", stripped):
+                break
+            if any(marker in child.upper() or marker in child for marker in missing_markers):
+                continue
+            if stripped.startswith("|") and numeric_percent.search(child):
+                return True
+            if re.match(r"^-\\s+(?:\\d+\\s+)?[^:]+:\\s*.*$", stripped) and numeric_percent.search(child):
+                return True
+
+    return False
 
 
 def add_warning(items, code, message, race_id=None):
@@ -111,11 +167,11 @@ def inspect(day, snapshot_text: str, receipt_text: str, preservation_text: str):
     receipts = receipt_statuses(receipt_text)
 
     for race_id in sorted(initial):
-        race_blocks = snap_by_race.get(race_id, []) + preserve_by_race.get(race_id, [])
+        initial_blocks = stage_sections(snap_by_race.get(race_id, []), "initial")
 
         baseline_ok = any(
             valid(field(block, "baseline_forecast_id"))
-            for block in race_blocks
+            for block in initial_blocks
         )
         if not baseline_ok:
             add_warning(
@@ -127,7 +183,7 @@ def inspect(day, snapshot_text: str, receipt_text: str, preservation_text: str):
 
         probability_ok = any(
             has_probability_evidence(block)
-            for block in race_blocks
+            for block in initial_blocks
         )
         if not probability_ok:
             add_warning(
@@ -160,8 +216,9 @@ def inspect(day, snapshot_text: str, receipt_text: str, preservation_text: str):
         )
 
     for race_id in sorted(completed):
+        final_blocks = stage_sections(snap_by_race.get(race_id, []), "final")
         artifact_ids = []
-        for block in snap_by_race.get(race_id, []):
+        for block in final_blocks:
             snapshot_id = field(block, "snapshot_id")
             if valid(snapshot_id):
                 artifact_ids.append(snapshot_id)
