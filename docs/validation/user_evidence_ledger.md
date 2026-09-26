@@ -31,7 +31,7 @@
 
 | 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-01 | 2026-09-26 pre-race chat | シリウスS | 差し有利 | INTERPRETATION | USER_ACCUMULATED_MEMO | CONFLICT | NOT_USED | pace | NOT_APPLICABLE | NEUTRAL | NOT_USED | 勝ち馬11・3着12は中団寄りから伸びた一方、2着9は前方で残り、2026年単年では一律の差し有利とは判定しない |
 | 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-02 | 2026-09-26 pre-race chat | シリウスS | 関西馬優勢 | INTERPRETATION | USER_ACCUMULATED_MEMO | PARTIAL | NOT_USED | condition_fit | NOT_APPLICABLE | NEUTRAL | NOT_USED | 16頭中13頭が栗東で識別力が低く、勝ち馬11は美浦。所属単独の有効性は確認できない |
-| 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-03 | 2026-09-26 pre-race chat | シリウスS | 前走4角4番手以内かつ1着の成績が良い | INTERPRETATION | USER_ACCUMULATED_MEMO | PARTIAL | NOT_USED | condition_fit | NOT_APPLICABLE | NEGATIVE | NOT_USED | 事前該当として確認した6・3は5着・11着で、2026年単年は支持しない |
+| 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-03 | 2026-09-26 pre-race chat | シリウスS | 前走4角4番手以内かつ1着の成績が良い | INTERPRETATION | USER_ACCUMULATED_MEMO | PARTIAL | NOT_USED | condition_fit | NOT_APPLICABLE | NEGATIVE | NOT_USED | 発走前に6を該当扱いしたのは事実誤認。6の直前走はマーキュリーC3着で、勝利は2走前。明確に確認した該当例3・14は2026年本番で馬券外。過去阪神開催6回では1-5-2-7・複勝53.3%のため仮説自体は継続検証 |
 | 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-04 | 2026-09-26 pre-race chat | シリウスS | 前走上がり1位または2位で連対した馬の成績が良い | INTERPRETATION | USER_ACCUMULATED_MEMO | UNVERIFIED | NOT_USED | condition_fit | UNVERIFIABLE | UNRESOLVED | NOT_USED | 発走前に全頭同一定義での照合を完了しておらず、結果後に該当馬を作らない |
 | 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-05 | 2026-09-26 pre-race chat | シリウスS | 前走1700〜2000m組が優勢 | INTERPRETATION | USER_ACCUMULATED_MEMO | PARTIAL | NOT_USED | condition_fit | NOT_APPLICABLE | POSITIVE | NOT_USED | 2026年上位3頭11・9・12はいずれも前走1700〜1800m。単年支持として保持し過去母数は別途再集計 |
 | 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-06 | 2026-09-26 pre-race chat | シリウスS | 前走着差0.9秒以内だと成績が良い | INTERPRETATION | USER_ACCUMULATED_MEMO | PARTIAL | NOT_USED | condition_fit | NOT_APPLICABLE | NEGATIVE | NOT_USED | 勝ち馬11の前走は1.1秒差、2着9も前走大敗で厳格な0.9秒閾値外。2026年は強い反例 |
@@ -74,3 +74,14 @@
 - 悪化傾向: source取り違え、解釈飛躍、重複、観測タイミングを調査
 
 Productionの正式な重み変更はこの台帳から自動実行せず、`50_review.md` の昇格基準に従って別審査する。
+
+
+## 2026-09-26 シリウスS 過去傾向追加検証
+
+- 差し有利: 過去10年は差し6勝だが複勝率は先行31.7% > 差し26.1%、追込5.9%。「差し一辺倒」ではなく脚質を細分化する。
+- 関西馬優勢: 美浦複勝23.5%（4/17）、栗東19.8%（26/131）。出走構成を補正すると単独優位を確認できない。
+- 前走4角4番手以内＋1着: 阪神開催6回で1-5-2-7、複勝53.3%。方向性は支持。ただし2026年発走前の6該当認識は誤り。
+- 前走上がり1/2位: 1位複勝37.5%、2位35.0%で支持。「かつ連対」の複合母数は未確定。
+- 前走1700〜2000m: 過去10年10勝、3着内28/30で強く支持。条件が広いため単独の選別力は別評価。
+- 前走0.9秒以内: 負け馬では0.9秒以内複勝25.0%、1.0〜1.9秒8.3%。ただし2026年上位2頭が条件外のため足切りには使用しない。
+- 正式Productionへの自動昇格: なし。サイクル終了審査まで補助仮説として保持。
