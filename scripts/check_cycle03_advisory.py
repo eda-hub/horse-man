@@ -141,6 +141,7 @@ def inspect(day, snapshot_text: str, receipt_text: str, preservation_text: str):
         race_blocks = snap_by_race.get(race_id, []) + preserve_by_race.get(race_id, [])
         if not any(
             valid(field(block, "candidate_class"))
+            or valid(field(block, "候補区分"))
             for block in race_blocks
         ):
             add_warning(
