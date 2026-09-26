@@ -194,7 +194,7 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
 
 | 日付 | 日別record commit / 集計revision | 初回 / 選定 / 最終完了 / 回顧の集合参照 | 運用KPI | 性能KPI | 照合状態 |
 |---|---|---|---|---|---|
-| 2026-09-26 | `775adb5b8ba746f52bae997657a6736f3ee754ca` / R02 | initial 24 / selected 11 / final 8 / reviewed 24 | 最終完了8/11。strict Production証跡3/24、Betting 0/2、Shadow 0/11。手動救済あり | 日次正式Betting ROIは不適格。実購入は3,500円→2,490円（別帳簿） | REVIEW_COMPLETED / AGGREGATION_R02 |
+| 2026-09-26 | `34b0034008228819ccfbc3181f3bf4e3e717e037` / R03 | initial 24 / selected 11 / final 8 / reviewed 24 | 最終完了8/11。strict Production証跡3/24、Betting 0/2、Shadow 0/11。手動救済あり | 日次正式Betting ROIは不適格。実購入は3,500円→2,490円（別帳簿） | REVIEW_COMPLETED / AGGREGATION_R03 |
 | 2026-09-27 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-03 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-04 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
