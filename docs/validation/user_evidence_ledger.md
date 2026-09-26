@@ -29,28 +29,38 @@
 | race / baseline | user_evidence_id | pre_race_chat_ref | 対象 | claim | evidence_type | upstream_source | precheck | production_usage | influence_area | factual_validity | predictive_relevance | contribution | notes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 
+| 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-01 | 2026-09-26 pre-race chat | シリウスS | 差し有利 | INTERPRETATION | USER_ACCUMULATED_MEMO | CONFLICT | NOT_USED | pace | NOT_APPLICABLE | NEUTRAL | NOT_USED | 勝ち馬11・3着12は中団寄りから伸びた一方、2着9は前方で残り、2026年単年では一律の差し有利とは判定しない |
+| 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-02 | 2026-09-26 pre-race chat | シリウスS | 関西馬優勢 | INTERPRETATION | USER_ACCUMULATED_MEMO | PARTIAL | NOT_USED | condition_fit | NOT_APPLICABLE | NEUTRAL | NOT_USED | 16頭中13頭が栗東で識別力が低く、勝ち馬11は美浦。所属単独の有効性は確認できない |
+| 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-03 | 2026-09-26 pre-race chat | シリウスS | 前走4角4番手以内かつ1着の成績が良い | INTERPRETATION | USER_ACCUMULATED_MEMO | PARTIAL | NOT_USED | condition_fit | NOT_APPLICABLE | NEGATIVE | NOT_USED | 事前該当として確認した6・3は5着・11着で、2026年単年は支持しない |
+| 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-04 | 2026-09-26 pre-race chat | シリウスS | 前走上がり1位または2位で連対した馬の成績が良い | INTERPRETATION | USER_ACCUMULATED_MEMO | UNVERIFIED | NOT_USED | condition_fit | UNVERIFIABLE | UNRESOLVED | NOT_USED | 発走前に全頭同一定義での照合を完了しておらず、結果後に該当馬を作らない |
+| 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-05 | 2026-09-26 pre-race chat | シリウスS | 前走1700〜2000m組が優勢 | INTERPRETATION | USER_ACCUMULATED_MEMO | PARTIAL | NOT_USED | condition_fit | NOT_APPLICABLE | POSITIVE | NOT_USED | 2026年上位3頭11・9・12はいずれも前走1700〜1800m。単年支持として保持し過去母数は別途再集計 |
+| 20260926-HAN-11 / MISSING_IN_INITIAL_SNAPSHOT | 20260926-SIRIUS-06 | 2026-09-26 pre-race chat | シリウスS | 前走着差0.9秒以内だと成績が良い | INTERPRETATION | USER_ACCUMULATED_MEMO | PARTIAL | NOT_USED | condition_fit | NOT_APPLICABLE | NEGATIVE | NOT_USED | 勝ち馬11の前走は1.1秒差、2着9も前走大敗で厳格な0.9秒閾値外。2026年は強い反例 |
+
 ## 集計
 
 | 指標 | 現在値 |
 |---|---:|
 | BACKFILL_SEED claim group | 40 |
-| 前向き登録情報件数 | 0 |
+| 前向き登録情報件数 | 6 |
 | PRE_RACE_SNAPSHOT_UNAVAILABLE race | 0 |
 | FACT | 0 |
 | OBSERVATION | 0 |
 | COMMENT | 0 |
-| INTERPRETATION | 0 |
+| INTERPRETATION | 6 |
 | FORECAST | 0 |
 | VERIFIED | 0 |
-| PARTIAL | 0 |
-| UNVERIFIED | 0 |
-| CONFLICT | 0 |
+| PARTIAL | 4 |
+| UNVERIFIED | 1 |
+| CONFLICT | 1 |
 | factual CONFIRMED | 0 |
 | factual REFUTED | 0 |
-| predictive POSITIVE | 0 |
-| predictive NEGATIVE | 0 |
+| predictive POSITIVE | 1 |
+| predictive NEGATIVE | 2 |
 | contribution HELPFUL | 0 |
 | contribution HARMFUL | 0 |
+| predictive NEUTRAL | 2 |
+| predictive UNRESOLVED | 1 |
+| contribution NOT_USED | 6 |
 
 率を出す場合は分母を必ず併記し、少数サンプルの高率・低率だけで評価を変えない。
 
