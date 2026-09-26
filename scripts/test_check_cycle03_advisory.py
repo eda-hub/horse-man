@@ -69,6 +69,18 @@ timing_eligibility: LATE_PRESERVATION
         self.assertIn(("LATE_PRESERVATION", "race-a"), pairs)
         self.assertIn(("PRE_RACE_RECEIPT_MISSING", "race-a"), pairs)
 
+    def test_japanese_candidate_class_is_accepted(self):
+        snapshot = """## race-a final
+race_id: race-a
+snapshot_id: snap-a
+baseline_forecast_id: base-a
+候補区分: validation_only
+推定確率（勝率/連対率/3着内率）: 20% / 35% / 50%
+"""
+        warnings = inspect(day(), snapshot, "", "")
+        pairs = {(item["code"], item["race_id"]) for item in warnings}
+        self.assertNotIn(("CANDIDATE_CLASS_MISSING", "race-a"), pairs)
+
     def test_shadow_ineligible_is_reported(self):
         warnings = inspect(day(), "", "", "")
         pairs = {(item["code"], item["race_id"]) for item in warnings}
