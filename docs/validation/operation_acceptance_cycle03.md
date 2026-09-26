@@ -177,3 +177,33 @@
 - 以後の最終予想では、発走前時刻を確認した直後に元branchと保存先を確定し、正式FIX後は回答前にsnapshot/receiptを実行する。
 - selected_final_scope の未実施差集合を各最終予想時に確認し、発走済みを後から候補外へ変更しない。
 - 9/27以降は通常依頼だけで同じ経路が成立することをLIVE再試験し、利用者から保存督促を受けた実行は無介入成功へ算入しない。
+
+
+## 2026-09-26 LIVE回顧・集計
+
+### 実測
+- initial_scope: 24R
+- selected_final_scope: 11R
+- final_completed_scope: 8R
+- final_missing_scope: 3R（中山12R・阪神8R・阪神12R）
+- reviewed_scope: 24R
+- unreviewed_scope: 0R
+- strict Production GIT_SNAPSHOT_VERIFIED: 3R（阪神10R・中山11R・阪神11R）
+- formal Betting KPI eligible: 0R / target 2R
+- inclusive Shadow KPI eligible: 0R / target 11R
+- 日次正式Betting ROI / 日次上位5ROI / 選別リフト: 証跡・固定案不足により不適格
+- 実購入は別帳簿で 3,500円投資 / 2,490円払戻。
+
+### 保存・照合
+- 日次回顧 final revision: `docs/validation/records/2026-09-26.md` R03
+- 日次回顧 commit: `34b0034008228819ccfbc3181f3bf4e3e717e037`
+- cycle集計 commit: `5fe08fe88f0db97aec949363936014b10ee766a1`
+- machine reconciliation: initial=24 / reviewed=24 / final_completed=8、Production/Betting/Shadowのtarget集合がeligible/ineligible/pendingへ相互排他的に分割され、cycle summaryと一致。
+- シリウスS年次ノート結果照合: `d72f248babf820d3080fe4da3480ec211aab27da`
+
+### 判定
+- 回顧scope・欠測・KPI別適格性の確定: 完了。
+- 日別→cycle集計接続: 完了。
+- 正常一巡成功: 不合格。発走前保存漏れ、最終未実施、receipt欠落、必須Shadow不足、利用者介入が存在する。
+- 欠測を結果後に補完して適格化していない。
+- 9/27以降は保存/receipt、selected_final_scope差集合、必須Shadowを通常依頼内で無介入完了できるか再試験する。
