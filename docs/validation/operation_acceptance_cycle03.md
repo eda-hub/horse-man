@@ -141,3 +141,69 @@
 ## セルフレビュー
 
 対象集合のOwnerをcoreへ一本化し、初回24R/最終5Rを正常として確認。検証用のみ・見送りの正式ROI混入、未依頼と工程漏れの混同、旧「全重賞」指定による最終対象拡大、第2限定の継続漏れ、日別だけの完了、結果後の適格化を重点確認した。Production判断・数値閾値・過去snapshot/receipt/record・第2のKPI値は変更していない。
+
+
+## 2026-09-26 LIVE運用障害
+
+### 事象
+- 日次初回選別の selected_final_scope は11R（購入候補5R＋検証候補6R、重複なし）。
+- 阪神6R・中山7R・阪神7R・中山8Rは発走前にチャット上で最終予想をFIXしたが、日次branchへのsnapshot保存・receipt読戻し工程を実行しなかった。
+- 利用者指摘後の発走後に `docs/validation/preservation/2026-09-26.md` へ LATE_PRESERVATION として保全した。発走前snapshotへ遡及適格化しない。
+- 阪神8Rは初回購入候補だったが、13:55発走までに個別最終予想自体が実行されていない。
+- 中山7R・中山8Rでは元チャット回答の馬場表記と後日確認した当日ページの馬場状態に不整合があり、結果後にProductionへ補正せず取得・時刻整合上の障害として保持する。
+
+### 証跡
+- 遅延保全本体 commit: `4991b36c0ca572c8363191593f34bc14f1005352`
+- 遅延保全receipt最終 commit: `08b785dff07cf3a553acf7436e77d377992e77cc`
+- 対象 preservation:
+  - 20260926-HAN-06-LATE-P01
+  - 20260926-NAK-07-LATE-P01
+  - 20260926-HAN-07-LATE-P01
+  - 20260926-NAK-08-LATE-P01
+
+### KPI・ゲートへの影響
+- 上記4Rは発走前保存成立率の適格分子へ算入しない。
+- 上記4Rは手動救済を要したため、終端までの無介入成立率の成功分子へ算入しない。
+- 阪神8Rは selected_final_scope 内の最終未実施として扱い、正常な候補外省略へ変換しない。
+- 2026-09-26はP0正常一巡の成功日ではない。
+- G1は「9/27後に2開催日連続でP0工程を追加督促なく完了」が条件のため、9/26障害により9/27時点でのG1合格は不可。後続開催日で連続成功証跡を再度蓄積する。
+- Production/Shadow性能KPIは、各レースで発走前適格証拠が成立した項目だけを独立集計し、LATE_PRESERVATIONから適格値を補完しない。
+
+### 原因
+- 最終予想回答の完了条件として「FIX→snapshot書込→読戻し→receipt確認→回答」を実行時に強制できず、チャット回答を先に完了させた。
+- 初回候補台帳から selected_final_scope を終日追跡し、未実施レースを発走前に検出する運用も機能しなかった。
+
+### 是正・再試験
+- 以後の最終予想では、発走前時刻を確認した直後に元branchと保存先を確定し、正式FIX後は回答前にsnapshot/receiptを実行する。
+- selected_final_scope の未実施差集合を各最終予想時に確認し、発走済みを後から候補外へ変更しない。
+- 9/27以降は通常依頼だけで同じ経路が成立することをLIVE再試験し、利用者から保存督促を受けた実行は無介入成功へ算入しない。
+
+
+## 2026-09-26 LIVE回顧・集計
+
+### 実測
+- initial_scope: 24R
+- selected_final_scope: 11R
+- final_completed_scope: 8R
+- final_missing_scope: 3R（中山12R・阪神8R・阪神12R）
+- reviewed_scope: 24R
+- unreviewed_scope: 0R
+- strict Production GIT_SNAPSHOT_VERIFIED: 3R（阪神10R・中山11R・阪神11R）
+- formal Betting KPI eligible: 0R / target 2R
+- inclusive Shadow KPI eligible: 0R / target 11R
+- 日次正式Betting ROI / 日次上位5ROI / 選別リフト: 証跡・固定案不足により不適格
+- 実購入は別帳簿で 3,500円投資 / 2,490円払戻。
+
+### 保存・照合
+- 日次回顧 final revision: `docs/validation/records/2026-09-26.md` R03
+- 日次回顧 commit: `34b0034008228819ccfbc3181f3bf4e3e717e037`
+- cycle集計 commit: `5fe08fe88f0db97aec949363936014b10ee766a1`
+- machine reconciliation: initial=24 / reviewed=24 / final_completed=8、Production/Betting/Shadowのtarget集合がeligible/ineligible/pendingへ相互排他的に分割され、cycle summaryと一致。
+- シリウスS年次ノート結果照合: `d72f248babf820d3080fe4da3480ec211aab27da`
+
+### 判定
+- 回顧scope・欠測・KPI別適格性の確定: 完了。
+- 日別→cycle集計接続: 完了。
+- 正常一巡成功: 不合格。発走前保存漏れ、最終未実施、receipt欠落、必須Shadow不足、利用者介入が存在する。
+- 欠測を結果後に補完して適格化していない。
+- 9/27以降は保存/receipt、selected_final_scope差集合、必須Shadowを通常依頼内で無介入完了できるか再試験する。
