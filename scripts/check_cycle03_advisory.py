@@ -58,6 +58,25 @@ def valid(value):
     )
 
 
+def section_stage(section: str):
+    snapshot_type = field(section, "snapshot_type")
+    if snapshot_type:
+        normalized = snapshot_type.strip().upper()
+        if normalized in {"INITIAL", "INITIAL_PRODUCTION"}:
+            return "initial"
+        if normalized in {"FINAL", "FINAL_PRODUCTION"}:
+            return "final"
+
+    heading = section.splitlines()[0].lower() if section.splitlines() else ""
+    has_initial = "初回" in heading or re.search(r"\binitial\b", heading)
+    has_final = "最終" in heading or re.search(r"\bfinal\b", heading)
+    if has_initial and not has_final:
+        return "initial"
+    if has_final and not has_initial:
+        return "final"
+    return None
+
+
 def race_sections(text: str):
     result = {}
     for section in sections(text):
@@ -65,6 +84,10 @@ def race_sections(text: str):
         if race_id:
             result.setdefault(race_id, []).append(section)
     return result
+
+
+def stage_sections(blocks, stage):
+    return [block for block in blocks if section_stage(block) == stage]
 
 
 def receipt_statuses(text: str):
@@ -83,15 +106,138 @@ def receipt_statuses(text: str):
 
 
 def has_probability_evidence(section: str):
-    lines = [
-        line
-        for line in section.splitlines()
-        if "勝率" in line or "推定確率" in line
-    ]
-    return any(
-        "%" in line and "UNAVAILABLE" not in line.upper()
-        for line in lines
+    labels = ("推定確率", "勝率", "連対率", "3着内率")
+    missing_markers = (
+        "UNAVAILABLE",
+        "UNRECORDED",
+        "MISSING",
+        "未取得",
+        "未保存",
+        "不明",
+        "判定不能",
     )
+    unrelated_ratio_labels = (
+        "依存率",
+        "予算",
+        "配分",
+        "投資",
+        "回収率",
+        "ROI",
+        "割合",
+        "比率",
+    )
+    numeric_percent = re.compile(
+        r"(?<![\d.])(?:100(?:\.0+)?|\d{1,2}(?:\.\d+)?)\s*%"
+    )
+    lines = section.splitlines()
+
+    def is_missing(line):
+        upper = line.upper()
+        return any(marker in upper or marker in line for marker in missing_markers)
+
+    def percentages(line):
+        return numeric_percent.findall(line)
+
+    # A formal probability table is valid evidence on its own; it does not
+    # require a preceding "推定確率" description line.
+    for index, line in enumerate(lines):
+        header = line.strip()
+        if not header.startswith("|"):
+            continue
+        if not all(label in header for label in ("勝率", "連対率", "3着内率")):
+            continue
+
+        separator_index = index + 1
+        if separator_index >= len(lines):
+            continue
+        separator = lines[separator_index].strip()
+        if not separator.startswith("|"):
+            continue
+        separator_cells = [cell.strip() for cell in separator.strip("|").split("|")]
+        if not separator_cells or not all(
+            re.fullmatch(r":?-{3,}:?", cell) for cell in separator_cells
+        ):
+            continue
+
+        for row in lines[separator_index + 1:]:
+            stripped = row.strip()
+            if not stripped:
+                break
+            if not stripped.startswith("|"):
+                break
+            if is_missing(stripped):
+                continue
+            if len(percentages(stripped)) >= 3:
+                return True
+
+    for index, line in enumerate(lines):
+        if not any(label in line for label in labels):
+            continue
+        if is_missing(line):
+            continue
+        if percentages(line):
+            return True
+
+        following = lines[index + 1:]
+        first_index = None
+        for offset, child in enumerate(following):
+            if child.strip():
+                first_index = offset
+                break
+        if first_index is None:
+            continue
+
+        first = following[first_index].strip()
+        if first.startswith("#"):
+            continue
+
+        if first.startswith("|"):
+            table_lines = []
+            for child in following[first_index:]:
+                stripped = child.strip()
+                if not stripped:
+                    break
+                if not stripped.startswith("|"):
+                    break
+                table_lines.append(stripped)
+
+            if not table_lines:
+                continue
+
+            header = table_lines[0]
+            if not any(label in header for label in labels):
+                continue
+
+            for row in table_lines[1:]:
+                normalized = row.replace("|", "").replace(":", "").replace("-", "").strip()
+                if not normalized:
+                    continue
+                if is_missing(row):
+                    continue
+                if percentages(row):
+                    return True
+            continue
+
+        if first.startswith("-"):
+            for child in following[first_index:]:
+                stripped = child.strip()
+                if not stripped:
+                    break
+                if not stripped.startswith("-"):
+                    break
+                if any(label in stripped for label in unrelated_ratio_labels):
+                    break
+                if is_missing(stripped):
+                    continue
+                values = percentages(stripped)
+                if values and (
+                    any(label in stripped for label in labels)
+                    or len(values) >= 3
+                ):
+                    return True
+            continue
+
+    return False
 
 
 def add_warning(items, code, message, race_id=None):
@@ -111,11 +257,11 @@ def inspect(day, snapshot_text: str, receipt_text: str, preservation_text: str):
     receipts = receipt_statuses(receipt_text)
 
     for race_id in sorted(initial):
-        race_blocks = snap_by_race.get(race_id, []) + preserve_by_race.get(race_id, [])
+        initial_blocks = stage_sections(snap_by_race.get(race_id, []), "initial")
 
         baseline_ok = any(
             valid(field(block, "baseline_forecast_id"))
-            for block in race_blocks
+            for block in initial_blocks
         )
         if not baseline_ok:
             add_warning(
@@ -127,7 +273,7 @@ def inspect(day, snapshot_text: str, receipt_text: str, preservation_text: str):
 
         probability_ok = any(
             has_probability_evidence(block)
-            for block in race_blocks
+            for block in initial_blocks
         )
         if not probability_ok:
             add_warning(
@@ -160,8 +306,9 @@ def inspect(day, snapshot_text: str, receipt_text: str, preservation_text: str):
         )
 
     for race_id in sorted(completed):
+        final_blocks = stage_sections(snap_by_race.get(race_id, []), "final")
         artifact_ids = []
-        for block in snap_by_race.get(race_id, []):
+        for block in final_blocks:
             snapshot_id = field(block, "snapshot_id")
             if valid(snapshot_id):
                 artifact_ids.append(snapshot_id)
