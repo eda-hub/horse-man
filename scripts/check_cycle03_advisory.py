@@ -68,8 +68,8 @@ def section_stage(section: str):
             return "final"
 
     heading = section.splitlines()[0].lower() if section.splitlines() else ""
-    has_initial = "初回" in heading or re.search(r"\\binitial\\b", heading)
-    has_final = "最終" in heading or re.search(r"\\bfinal\\b", heading)
+    has_initial = "初回" in heading or re.search(r"\binitial\b", heading)
+    has_final = "最終" in heading or re.search(r"\bfinal\b", heading)
     if has_initial and not has_final:
         return "initial"
     if has_final and not has_initial:
@@ -117,7 +117,7 @@ def has_probability_evidence(section: str):
         "判定不能",
     )
     numeric_percent = re.compile(
-        r"(?<![\\d.])(?:100(?:\\.0+)?|\\d{1,2}(?:\\.\\d+)?)\\s*%"
+        r"(?<![\d.])(?:100(?:\.0+)?|\d{1,2}(?:\.\d+)?)\s*%"
     )
     lines = section.splitlines()
 
@@ -138,13 +138,13 @@ def has_probability_evidence(section: str):
                 continue
             if stripped.startswith("#"):
                 break
-            if re.match(r"^-\\s+[^0-9|][^:]*:\\s*$", stripped):
+            if re.match(r"^-\s+[^0-9|][^:]*:\s*$", stripped):
                 break
             if any(marker in child.upper() or marker in child for marker in missing_markers):
                 continue
             if stripped.startswith("|") and numeric_percent.search(child):
                 return True
-            if re.match(r"^-\\s+(?:\\d+\\s+)?[^:]+:\\s*.*$", stripped) and numeric_percent.search(child):
+            if re.match(r"^-\s+(?:\d+\s+)?[^:]+:\s*.*$", stripped) and numeric_percent.search(child):
                 return True
 
     return False
