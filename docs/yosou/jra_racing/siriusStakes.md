@@ -107,6 +107,6 @@
 |---|---|---|---|---|
 | S-001 | JRA公式出馬表・レース情報 | 2026年開催条件・出走情報 | 2026-09-26 | 発走前確認 |
 | S-002 | `docs/validation/snapshots/2026-09-26.md` | 2026年発走前Productionの正本 | 2026-09-26 | snapshot参照 |
-| S-004 | `docs/validation/records/2026-09-26.md` @ `775adb5b8ba746f52bae997657a6736f3ee754ca` | 2026年正式回顧・検証 | 2026-09-26 | 確定commit参照 |
+| S-004 | `docs/validation/records/2026-09-26.md` @ `34b0034008228819ccfbc3181f3bf4e3e717e037` | 2026年正式回顧・検証 | 2026-09-26 | 確定commit参照 |
 | S-003 | ユーザー個人メモ | T-001〜T-006の事前仮説 | 2026-09-26 | 発走前受領 |
-- 正式回顧：`docs/validation/records/2026-09-26.md`、commit `775adb5b8ba746f52bae997657a6736f3ee754ca`。
+- 正式回顧：`docs/validation/records/2026-09-26.md`、commit `34b0034008228819ccfbc3181f3bf4e3e717e037`。
