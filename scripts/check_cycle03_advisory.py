@@ -99,7 +99,13 @@ def receipt_statuses(text: str):
         result.setdefault(artifact_id, []).append(
             {
                 "receipt": field(section, "receipt_persist_status"),
-                "timing": field(section, "timing_eligibility")def has_probability_evidence(section: str):
+                "timing": field(section, "timing_eligibility"),
+            }
+        )
+    return result
+
+
+def has_probability_evidence(section: str):
     labels = ("推定確率", "勝率", "連対率", "3着内率")
     missing_markers = (
         "UNAVAILABLE",
@@ -125,7 +131,7 @@ def receipt_statuses(text: str):
     )
     lines = section.splitlines()
 
-    def missing(line):
+    def is_missing(line):
         upper = line.upper()
         return any(marker in upper or marker in line for marker in missing_markers)
 
@@ -135,30 +141,30 @@ def receipt_statuses(text: str):
     for index, line in enumerate(lines):
         if not any(label in line for label in labels):
             continue
-
-        if missing(line):
+        if is_missing(line):
             continue
-
         if percentages(line):
             return True
 
         following = lines[index + 1:]
-        first = None
-        for child in following:
+        first_index = None
+        for offset, child in enumerate(following):
             if child.strip():
-                first = child.strip()
+                first_index = offset
                 break
-        if first is None or first.startswith("#"):
+        if first_index is None:
+            continue
+
+        first = following[first_index].strip()
+        if first.startswith("#"):
             continue
 
         if first.startswith("|"):
             table_lines = []
-            for child in following:
+            for child in following[first_index:]:
                 stripped = child.strip()
                 if not stripped:
-                    if table_lines:
-                        break
-                    continue
+                    break
                 if not stripped.startswith("|"):
                     break
                 table_lines.append(stripped)
@@ -171,32 +177,33 @@ def receipt_statuses(text: str):
                 continue
 
             for row in table_lines[1:]:
-                if re.fullmatch(r"\|?\s*:?-+.*", row):
+                normalized = row.replace("|", "").replace(":", "").replace("-", "").strip()
+                if not normalized:
                     continue
-                if missing(row):
+                if is_missing(row):
                     continue
                 if percentages(row):
                     return True
             continue
 
         if first.startswith("-"):
-            for child in following:
+            for child in following[first_index:]:
                 stripped = child.strip()
                 if not stripped:
-                    continue
+                    break
                 if not stripped.startswith("-"):
                     break
                 if any(label in stripped for label in unrelated_ratio_labels):
                     break
-                if missing(stripped):
+                if is_missing(stripped):
                     continue
                 values = percentages(stripped)
-                if len(values) >= 2:
+                if values and (
+                    any(label in stripped for label in labels)
+                    or len(values) >= 2
+                ):
                     return True
             continue
-
-    return False
-                return True
 
     return False
 
