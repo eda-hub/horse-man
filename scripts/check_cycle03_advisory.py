@@ -200,7 +200,7 @@ def has_probability_evidence(section: str):
                 values = percentages(stripped)
                 if values and (
                     any(label in stripped for label in labels)
-                    or len(values) >= 2
+                    or len(values) >= 3
                 ):
                     return True
             continue
