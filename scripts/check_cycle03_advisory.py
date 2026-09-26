@@ -138,6 +138,38 @@ def has_probability_evidence(section: str):
     def percentages(line):
         return numeric_percent.findall(line)
 
+    # A formal probability table is valid evidence on its own; it does not
+    # require a preceding "推定確率" description line.
+    for index, line in enumerate(lines):
+        header = line.strip()
+        if not header.startswith("|"):
+            continue
+        if not all(label in header for label in ("勝率", "連対率", "3着内率")):
+            continue
+
+        separator_index = index + 1
+        if separator_index >= len(lines):
+            continue
+        separator = lines[separator_index].strip()
+        if not separator.startswith("|"):
+            continue
+        separator_cells = [cell.strip() for cell in separator.strip("|").split("|")]
+        if not separator_cells or not all(
+            re.fullmatch(r":?-{3,}:?", cell) for cell in separator_cells
+        ):
+            continue
+
+        for row in lines[separator_index + 1:]:
+            stripped = row.strip()
+            if not stripped:
+                break
+            if not stripped.startswith("|"):
+                break
+            if is_missing(stripped):
+                continue
+            if len(percentages(stripped)) >= 3:
+                return True
+
     for index, line in enumerate(lines):
         if not any(label in line for label in labels):
             continue
