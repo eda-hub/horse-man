@@ -146,6 +146,74 @@ baseline_forecast_id: base-a
             pairs(inspect(day(), snapshot, "", "")),
         )
 
+    def test_production_snapshot_types_are_recognized(self):
+        snapshot = """## race-a baseline artifact
+snapshot_type: INITIAL_PRODUCTION
+race_id: race-a
+snapshot_id: initial-a
+baseline_forecast_id: base-a
+推定確率（勝率/連対率/3着内率）: 20% / 35% / 50%
+
+## race-a updated artifact
+snapshot_type: FINAL_PRODUCTION
+race_id: race-a
+snapshot_id: final-a
+candidate_class: validation_only
+"""
+        receipt = """## persistence_receipt
+artifact_id: final-a
+receipt_persist_status: RECEIPT_VERIFIED
+timing_eligibility: PRE_RACE_ELIGIBLE
+"""
+        found = pairs(inspect(day(), snapshot, receipt, ""))
+        self.assertNotIn(("BASELINE_ID_MISSING", "race-a"), found)
+        self.assertNotIn(("PROBABILITY_EVIDENCE_MISSING", "race-a"), found)
+        self.assertNotIn(("PRE_RACE_RECEIPT_MISSING", "race-a"), found)
+
+    def test_unrelated_dependency_ratio_does_not_count_as_probability(self):
+        snapshot = """## race-a baseline artifact
+snapshot_type: INITIAL_PRODUCTION
+race_id: race-a
+snapshot_id: initial-a
+baseline_forecast_id: base-a
+勝率: 未取得
+最大馬依存率: 75%
+"""
+        self.assertIn(
+            ("PROBABILITY_EVIDENCE_MISSING", "race-a"),
+            pairs(inspect(day(), snapshot, "", "")),
+        )
+
+    def test_unrelated_budget_table_does_not_count_as_probability(self):
+        snapshot = """## race-a baseline artifact
+snapshot_type: INITIAL_PRODUCTION
+race_id: race-a
+snapshot_id: initial-a
+baseline_forecast_id: base-a
+推定確率:
+| 券種 | 予算配分 |
+|---|---:|
+| ワイド | 75% |
+"""
+        self.assertIn(
+            ("PROBABILITY_EVIDENCE_MISSING", "race-a"),
+            pairs(inspect(day(), snapshot, "", "")),
+        )
+
+    def test_unrelated_dependency_bullet_does_not_count_as_probability(self):
+        snapshot = """## race-a baseline artifact
+snapshot_type: INITIAL_PRODUCTION
+race_id: race-a
+snapshot_id: initial-a
+baseline_forecast_id: base-a
+推定確率:
+- 最大馬依存率: 75%
+"""
+        self.assertIn(
+            ("PROBABILITY_EVIDENCE_MISSING", "race-a"),
+            pairs(inspect(day(), snapshot, "", "")),
+        )
+
     def test_late_preservation_is_explicitly_reported(self):
         preservation = """## race-a preservation
 race_id: race-a
