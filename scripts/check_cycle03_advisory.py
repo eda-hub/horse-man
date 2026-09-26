@@ -62,9 +62,9 @@ def section_stage(section: str):
     snapshot_type = field(section, "snapshot_type")
     if snapshot_type:
         normalized = snapshot_type.strip().upper()
-        if normalized == "INITIAL":
+        if normalized in {"INITIAL", "INITIAL_PRODUCTION"}:
             return "initial"
-        if normalized == "FINAL":
+        if normalized in {"FINAL", "FINAL_PRODUCTION"}:
             return "final"
 
     heading = section.splitlines()[0].lower() if section.splitlines() else ""
@@ -99,13 +99,7 @@ def receipt_statuses(text: str):
         result.setdefault(artifact_id, []).append(
             {
                 "receipt": field(section, "receipt_persist_status"),
-                "timing": field(section, "timing_eligibility"),
-            }
-        )
-    return result
-
-
-def has_probability_evidence(section: str):
+                "timing": field(section, "timing_eligibility")def has_probability_evidence(section: str):
     labels = ("推定確率", "勝率", "連対率", "3着内率")
     missing_markers = (
         "UNAVAILABLE",
@@ -116,35 +110,92 @@ def has_probability_evidence(section: str):
         "不明",
         "判定不能",
     )
+    unrelated_ratio_labels = (
+        "依存率",
+        "予算",
+        "配分",
+        "投資",
+        "回収率",
+        "ROI",
+        "割合",
+        "比率",
+    )
     numeric_percent = re.compile(
         r"(?<![\d.])(?:100(?:\.0+)?|\d{1,2}(?:\.\d+)?)\s*%"
     )
     lines = section.splitlines()
 
+    def missing(line):
+        upper = line.upper()
+        return any(marker in upper or marker in line for marker in missing_markers)
+
+    def percentages(line):
+        return numeric_percent.findall(line)
+
     for index, line in enumerate(lines):
         if not any(label in line for label in labels):
             continue
 
-        upper = line.upper()
-        if (
-            not any(marker in upper or marker in line for marker in missing_markers)
-            and numeric_percent.search(line)
-        ):
+        if missing(line):
+            continue
+
+        if percentages(line):
             return True
 
-        for child in lines[index + 1:index + 16]:
-            stripped = child.strip()
-            if not stripped:
-                continue
-            if stripped.startswith("#"):
+        following = lines[index + 1:]
+        first = None
+        for child in following:
+            if child.strip():
+                first = child.strip()
                 break
-            if re.match(r"^-\s+[^0-9|][^:]*:\s*$", stripped):
-                break
-            if any(marker in child.upper() or marker in child for marker in missing_markers):
+        if first is None or first.startswith("#"):
+            continue
+
+        if first.startswith("|"):
+            table_lines = []
+            for child in following:
+                stripped = child.strip()
+                if not stripped:
+                    if table_lines:
+                        break
+                    continue
+                if not stripped.startswith("|"):
+                    break
+                table_lines.append(stripped)
+
+            if not table_lines:
                 continue
-            if stripped.startswith("|") and numeric_percent.search(child):
-                return True
-            if re.match(r"^-\s+(?:\d+\s+)?[^:]+:\s*.*$", stripped) and numeric_percent.search(child):
+
+            header = table_lines[0]
+            if not any(label in header for label in labels):
+                continue
+
+            for row in table_lines[1:]:
+                if re.fullmatch(r"\|?\s*:?-+.*", row):
+                    continue
+                if missing(row):
+                    continue
+                if percentages(row):
+                    return True
+            continue
+
+        if first.startswith("-"):
+            for child in following:
+                stripped = child.strip()
+                if not stripped:
+                    continue
+                if not stripped.startswith("-"):
+                    break
+                if any(label in stripped for label in unrelated_ratio_labels):
+                    break
+                if missing(stripped):
+                    continue
+                values = percentages(stripped)
+                if len(values) >= 2:
+                    return True
+            continue
+
+    return False
                 return True
 
     return False
