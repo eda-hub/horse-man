@@ -100,7 +100,7 @@
 |---|---|---|---|---|
 | S-001 | JRA公式出馬表・レース情報 | 2026年開催条件・出走情報 | 2026-09-26 | 発走前確認 |
 | S-002 | `docs/validation/snapshots/2026-09-26.md` | 2026年発走前Productionの正本 | 2026-09-26 | snapshot参照 |
-| S-004 | `docs/validation/records/2026-09-26.md` @ `34b0034008228819ccfbc3181f3bf4e3e717e037` | 2026年正式回顧・検証 | 2026-09-26 | 確定commit参照 |
+| S-004 | `docs/validation/records/2026-09-26.md` @ `4d3e73967da49f4a0d89dede61580a3b0841fa14` | 2026年正式回顧・検証 | 2026-09-26 | 確定commit参照 |
 | S-003 | ユーザー個人メモ | T-001〜T-006の事前仮説 | 2026-09-26 | 発走前受領 |
 
 | S-005 | https://www.keibalab.jp/db/race/202609260911/past.html | 2016〜2025年の所属別・過去10年基本集計 | 2026-09-26 | 再調査済み |
@@ -110,4 +110,4 @@
 | S-009 | https://ichigeki-kaisyuu.com/シリウスステークス2025予想　過去データ消去法と/ | 阪神開催6回の前走4角4番手以内＋1着集計 | 2026-09-26 | 再調査済み |
 | S-010 | https://www.titanic-online.com/g3/sirius_stake2025/ | 前走着差別集計 | 2026-09-26 | 再調査済み |
 | S-011 | https://race.netkeiba.com/race/shutuba_past.html?race_id=202609040811 | 2026年出走馬の直前走確認・6ギュルヴィ誤認訂正 | 2026-09-26 | 再調査済み |
-- 正式回顧：`docs/validation/records/2026-09-26.md`、commit `34b0034008228819ccfbc3181f3bf4e3e717e037`。
+- 正式回顧：`docs/validation/records/2026-09-26.md`、commit `4d3e73967da49f4a0d89dede61580a3b0841fa14`。
