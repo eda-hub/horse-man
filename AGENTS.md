@@ -39,3 +39,4 @@
 28. 発走後Replay/再演で生成したShadow・価格予測は、checker上で前向きKPIへ適格化しない。非◎縦目は保険・依存率低下・予算消化を理由に採用せず、機械ゲートが要求する独立シナリオ・保守側確率・価格・正の期待値を満たす場合だけ例外候補とする。
 
 29. 非◎縦目をformal `FIXED` にする場合、許可済み `reason_code` と発走前 `betting-evidence-v1` を必須とし、gate内の確率・価格の自己申告だけで監査済みにしない。証跡artifactは同一receiptレコードで `PERSIST_VERIFIED` / `RECEIPT_VERIFIED` / `PRE_RACE_ELIGIBLE` を満たし、保存確認時刻が実発走予定時刻より前であることをcheckerで照合する。
+30. 予想依頼を受けたら、予約タスクを含めて予想作成前に `docs/validation/persistence-intents/README.md` の事前宣言を日次作業ブランチへ保存・読戻しする。予想snapshotとreceiptを保存・読戻しした直後に `scripts/verify_prediction_persistence.py` で宣言範囲、同一artifact、発走前確認時刻を照合する。未完了なら発走前に再保存を試み、予想回答を遅らせず実際の保存状態を伝える。Actions成功を保存完了の代わりにしない。
