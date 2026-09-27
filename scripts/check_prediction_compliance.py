@@ -41,7 +41,8 @@ def segment(path, ident):
     return s[max(0,i-300):min(len(s),i+3000)]
 
 def exact_record(path, tag, id_key, ident, label):
-    matches=[o for o in blocks(path,tag) if isinstance(o,dict) and o.get(id_key)==ident]
+    records=receipt_records(path) if tag==RECEIPT_RECORD_TAG else list(blocks(path,tag))
+    matches=[o for o in records if isinstance(o,dict) and o.get(id_key)==ident]
     if len(matches)!=1:
         raise ComplianceError(f'{label}: expected exactly one {tag} record for {ident}, found {len(matches)}')
     return matches[0]
@@ -275,6 +276,29 @@ def blocks(path,tag):
     s=path.read_text(encoding='utf-8')
     for raw in re.findall(r'^\x60\x60\x60'+re.escape(tag)+r'\s*\n(.*?)\n\x60\x60\x60\s*$',s,re.M|re.S): yield json.loads(raw)
 
+def receipt_records(path):
+    """Read both the original Markdown receipts and later structured receipts."""
+    content=path.read_text(encoding='utf-8')
+    structured={}
+    for record in blocks(path,RECEIPT_RECORD_TAG):
+        ident=req(record,'receipt_id',str(path))
+        if ident in structured: raise ComplianceError(f'{path}: duplicate structured receipt: {ident}')
+        structured[ident]=record
+    plain={}
+    for match in re.finditer(r'^## persistence_receipt\s*\n(.*?)(?=^## |\Z)',content,re.M|re.S):
+        body=re.sub(r'^\x60\x60\x60[^\n]*\n.*?^\x60\x60\x60\s*$', '',match.group(1),flags=re.M|re.S)
+        fields=dict(re.findall(r'^([a-z_]+):\s*(.*?)\s*$',body,re.M))
+        ident=fields.get('receipt_id')
+        if not ident: raise ComplianceError(f'{path}: plain receipt has no receipt_id')
+        if ident in plain: raise ComplianceError(f'{path}: duplicate plain receipt: {ident}')
+        plain[ident]=fields
+    for ident,record in structured.items():
+        if ident in plain:
+            for key in set(record)&set(plain[ident]):
+                if str(record[key])!=plain[ident][key]:
+                    raise ComplianceError(f'{path}: structured/plain receipt {ident}/{key} mismatch')
+    return list(structured.values())+[record for ident,record in plain.items() if ident not in structured]
+
 def cycle_links(root,gates):
     rd=root/'docs/validation/records'
     if not rd.exists(): return []
@@ -315,6 +339,16 @@ def snapshot_links(root,gates):
                 if entry not in missing: missing.append(entry)
     return missing
 
+def coverage_summary(gates, missing):
+    dates={}
+    for date,_ in gates:
+        dates.setdefault(date,{'gates':0,'missing_links':0})['gates']+=1
+    for item in missing:
+        match=re.search(r'/(\d{4}-\d{2}-\d{2})\.md:',item)
+        if match:
+            dates.setdefault(match.group(1),{'gates':0,'missing_links':0})['missing_links']+=1
+    return dates
+
 def run(root, audit=False):
     gd=root/'docs/validation/execution-gates'; gates={}; aliases={}
     for path in sorted(gd.glob('*/*.json')) if gd.exists() else []:
@@ -336,6 +370,9 @@ def run(root, audit=False):
             raise ComplianceError(f'snapshot race alias overlaps another gate: {alias}')
     snapshot_gate_keys={**gates,**{alias:gates[key] for alias,key in aliases.items()}}
     missing=snapshot_links(root,snapshot_gate_keys)+cycle_links(root,gates)
+    summary=coverage_summary(gates,missing)
+    for date,counts in sorted(summary.items()):
+        print(f'COVERAGE {date}: gates={counts["gates"]} missing_links={counts["missing_links"]}')
     if missing:
         if not audit: raise ComplianceError('\n'.join(missing))
         print(f'AUDIT_INCOMPLETE: {len(gates)} gate(s) validated; {len(missing)} missing links')

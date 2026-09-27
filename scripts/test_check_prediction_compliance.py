@@ -2,7 +2,7 @@ import json, tempfile, unittest
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).parent))
-from check_prediction_compliance import ComplianceError, run
+from check_prediction_compliance import ComplianceError, coverage_summary, run
 
 README='# manual\n- **現行リリース**: `v1.6.1`\n'
 
@@ -141,6 +141,28 @@ class T(unittest.TestCase):
     g['production']['evidence_ref']={'artifact_path':artifact_rel,'artifact_id':artifact_id,'receipt_path':receipt_rel,'receipt_id':rid,'timing_eligibility':'PRE_RACE_ELIGIBLE','persist_verified_at_jst':'2026-09-26T10:11:00+09:00'}
     self.put(r,g)
     with self.assertRaisesRegex(ComplianceError,'verified at/after post time'): run(r)
+
+  def test_original_plain_markdown_receipt_is_checked(self):
+    r=self.root(); g=gate()
+    g['kpi_eligibility']['production']='ELIGIBLE'
+    artifact='docs/validation/snapshots/2026-09-26.md'; aid='20260926-NAK-01-P001-S01'
+    receipt='docs/validation/persistence-receipts/2026-09-26.md'; rid=aid+'-R02'
+    write(r,artifact,'snapshot_id: '+aid+'\n')
+    record=receipt_record(rid,aid,artifact)
+    write(r,receipt,'## persistence_receipt\n\n'+'\n'.join(f'{k}: {v}' for k,v in record.items())+'\n')
+    g['production']['evidence_ref']={'artifact_path':artifact,'artifact_id':aid,
+        'receipt_path':receipt,'receipt_id':rid,'timing_eligibility':'PRE_RACE_ELIGIBLE',
+        'persist_verified_at_jst':'2026-09-26T10:00:00+09:00'}
+    self.put(r,g); run(r)
+
+  def test_conflicting_plain_and_structured_receipt_rejected(self):
+    r=self.root(); rid='receipt-1'
+    good=receipt_record(rid,'artifact-1','snapshot.md')
+    bad=dict(good,artifact_id='artifact-2')
+    p=write_receipts(r,'receipts.md',[good])
+    p.write_text('## persistence_receipt\n\n'+'\n'.join(f'{k}: {v}' for k,v in bad.items())+'\n\n'+p.read_text(),encoding='utf-8')
+    from check_prediction_compliance import receipt_records
+    with self.assertRaisesRegex(ComplianceError,'structured/plain receipt'): receipt_records(p)
   def test_user_budget_requires_separate_validation_plan(self):
     r=self.root(); g=gate()
     g['betting']={
@@ -239,5 +261,14 @@ class T(unittest.TestCase):
     write(r,'docs/validation/records/2026-09-26.md',body)
     with self.assertRaisesRegex(ComplianceError,'missing execution gate'): run(r)
     self.assertEqual(len(run(r,audit=True)),1)
+
+  def test_coverage_summary_follows_dates_in_files(self):
+    r=self.root()
+    g=gate(race='20261004-NAK-01',date='2026-10-04'); self.put(r,g)
+    write(r,'docs/validation/snapshots/2026-10-04.md',
+          'snapshot_id: 20261004-NAK-02-P001-S01\n')
+    missing=run(r,audit=True)
+    self.assertEqual(coverage_summary({(g['race_date_jst'],g['race_id']):g},missing),
+                     {'2026-10-04':{'gates':1,'missing_links':1}})
 
 if __name__=='__main__': unittest.main()
