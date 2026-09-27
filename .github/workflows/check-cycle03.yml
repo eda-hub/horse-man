@@ -23,5 +23,15 @@ jobs:
             cat /tmp/cycle03-audit.txt
             echo '~~~'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: 予想保存の事前宣言とreceiptを監査
+        run: |
+          set -o pipefail
+          python3 scripts/verify_prediction_persistence.py --audit | tee /tmp/persistence-audit.txt
+          {
+            echo '### 予想保存の事前宣言とreceipt'
+            echo '~~~text'
+            cat /tmp/persistence-audit.txt
+            echo '~~~'
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: 日別記録と集計の照合
         run: python3 scripts/check_cycle03.py
