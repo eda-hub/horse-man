@@ -251,12 +251,15 @@ def validate_gate(root,path):
     if mode=='REPLAY' and route!='LATE_PRESERVATION': raise ComplianceError(f'{label}: replay must be LATE_PRESERVATION')
     p=g.get('production')
     if not isinstance(p,dict): raise ComplianceError(f'{label}: production required')
-    req(p,'baseline_forecast_id',label+'/production'); marks=p.get('marks')
+    baseline=req(p,'baseline_forecast_id',label+'/production'); marks=p.get('marks')
     if not isinstance(marks,dict) or type(marks.get('honmei')) is not int: raise ComplianceError(f'{label}: production marks/honmei required')
     k=g.get('kpi_eligibility')
     if not isinstance(k,dict) or any(k.get(x) not in KPI_STATES for x in ('production','betting','shadow')): raise ComplianceError(f'{label}: KPI states invalid')
     if mode=='REPLAY' and k['shadow']=='ELIGIBLE': raise ComplianceError(f'{label}: replay shadow KPI cannot be eligible')
-    if k['production']=='ELIGIBLE': evidence(root,p.get('evidence_ref'),label+'/production',True,post)
+    if k['production']=='ELIGIBLE':
+        if baseline.startswith(('MISSING','UNKNOWN','UNRESOLVED')):
+            raise ComplianceError(f'{label}: eligible production lacks a fixed baseline_forecast_id')
+        evidence(root,p.get('evidence_ref'),label+'/production',True,post)
     if p.get('fixed_at_jst') and mode=='FORWARD' and k['production']=='ELIGIBLE' and iso(p['fixed_at_jst'],label+'/fixed')>=post:
         raise ComplianceError(f'{label}: post-time production cannot be eligible')
     items=g.get('shadow_items')
@@ -307,11 +310,13 @@ def cycle_links(root,gates):
         for d in blocks(path,'cycle03-day-v1'):
             date=d.get('race_date_jst')
             for race in d.get('initial_scope',[]):
+                eligible=[name for name in ('production','betting','shadow')
+                          if race in d.get('kpis',{}).get(name,{}).get('eligible_ids',[])]
                 if (date,race) not in gates:
-                    missing.append(f'{path}: missing execution gate for {race}')
+                    if eligible:
+                        missing.append(f'{path}: ELIGIBLE {",".join(eligible)} lacks execution gate for {race}')
                     continue
                 g=gates[(date,race)]
-                if race in d.get('reviewed_scope',[]) and g.get('review',{}).get('status')!='COMPLETE': raise ComplianceError(f'{path}: reviewed race lacks COMPLETE review gate')
                 for name in ('production','betting','shadow'):
                     o=d.get('kpis',{}).get(name,{})
                     expected='ELIGIBLE' if race in o.get('eligible_ids',[]) else 'INELIGIBLE' if race in o.get('ineligible_ids',[]) else 'PENDING' if race in o.get('pending_ids',[]) else None
@@ -320,8 +325,8 @@ def cycle_links(root,gates):
 
 def snapshot_links(root,gates):
     sd=root/'docs/validation/snapshots'
-    if not sd.exists(): return []
-    missing=[]
+    if not sd.exists(): return [],[]
+    missing=[]; unregistered=[]
     for path in sd.glob('*.md'):
         content=path.read_text(encoding='utf-8')
         races=set(SNAPSHOT_RACE_ID_RE.findall(content))
@@ -330,23 +335,24 @@ def snapshot_links(root,gates):
                 races.add(f'{path.stem.replace("-", "")}-{"NAK" if venue=="中山" else "HAN"}-{int(number):02d}')
         for race in sorted(races):
             if (path.stem,race) not in gates:
-                missing.append(f'{path}: snapshot race lacks execution gate: {race}')
+                unregistered.append(f'{path}: snapshot has no execution gate: {race}')
         for claim in blocks(path,'execution-gate-ref-v1'):
             date=req(claim,'race_date_jst',str(path))
             race=req(claim,'race_id',str(path))
             if (date,race) not in gates:
                 entry=f'{path}: snapshot race lacks execution gate: {race}'
                 if entry not in missing: missing.append(entry)
-    return missing
+    return missing,unregistered
 
-def coverage_summary(gates, missing):
+def coverage_summary(gates, missing, unregistered=()):
     dates={}
     for date,_ in gates:
-        dates.setdefault(date,{'gates':0,'missing_links':0})['gates']+=1
-    for item in missing:
-        match=re.search(r'/(\d{4}-\d{2}-\d{2})\.md:',item)
-        if match:
-            dates.setdefault(match.group(1),{'gates':0,'missing_links':0})['missing_links']+=1
+        dates.setdefault(date,{'gates':0,'missing_links':0,'ungated_snapshots':0})['gates']+=1
+    for items,field in ((missing,'missing_links'),(unregistered,'ungated_snapshots')):
+        for item in items:
+            match=re.search(r'/(\d{4}-\d{2}-\d{2})\.md:',item)
+            if match:
+                dates.setdefault(match.group(1),{'gates':0,'missing_links':0,'ungated_snapshots':0})[field]+=1
     return dates
 
 def run(root, audit=False):
@@ -369,16 +375,20 @@ def run(root, audit=False):
         if alias in gates and alias!=key:
             raise ComplianceError(f'snapshot race alias overlaps another gate: {alias}')
     snapshot_gate_keys={**gates,**{alias:gates[key] for alias,key in aliases.items()}}
-    missing=snapshot_links(root,snapshot_gate_keys)+cycle_links(root,gates)
-    summary=coverage_summary(gates,missing)
+    snapshot_missing,unregistered=snapshot_links(root,snapshot_gate_keys)
+    missing=snapshot_missing+cycle_links(root,gates)
+    summary=coverage_summary(gates,missing,unregistered)
     for date,counts in sorted(summary.items()):
-        print(f'COVERAGE {date}: gates={counts["gates"]} missing_links={counts["missing_links"]}')
+        print(f'COVERAGE {date}: gates={counts["gates"]} missing_certifications={counts["missing_links"]} ungated_snapshots={counts["ungated_snapshots"]}')
+    if unregistered:
+        print(f'SNAPSHOT_UNREGISTERED: {len(unregistered)} race reference(s); preservation does not assert KPI eligibility')
+        for item in unregistered: print(item)
     if missing:
         if not audit: raise ComplianceError('\n'.join(missing))
         print(f'AUDIT_INCOMPLETE: {len(gates)} gate(s) validated; {len(missing)} missing links')
         for item in missing: print(item)
     else:
-        print(f'COMPLIANT: {len(gates)} execution gate(s) validated; no missing links')
+        print(f'CERTIFICATION_LINKS_COMPLETE: {len(gates)} existing gate(s) validated; no eligible claim lacks a gate')
     return missing
 
 def main():

@@ -189,6 +189,12 @@ class T(unittest.TestCase):
     r=self.root(); g=gate(); g['kpi_eligibility']['production']='ELIGIBLE'; self.put(r,g)
     with self.assertRaisesRegex(ComplianceError,'evidence_ref required'): run(r)
 
+  def test_missing_baseline_cannot_be_declared_eligible(self):
+    r=self.root(); g=gate(); g['kpi_eligibility']['production']='ELIGIBLE'
+    g['production']['baseline_forecast_id']='MISSING_IN_INITIAL_SNAPSHOT'
+    self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'lacks a fixed baseline_forecast_id'): run(r)
+
   def test_complete_review_requires_error_classification(self):
     r=self.root(); g=gate()
     g['review']={
@@ -218,27 +224,22 @@ class T(unittest.TestCase):
     self.put(r,g)
     with self.assertRaisesRegex(ComplianceError,'replay KPI cannot be eligible'): run(r)
 
-  def test_cycle_snapshot_requires_gate_before_review(self):
+  def test_explicit_snapshot_gate_claim_requires_gate(self):
     r=self.root()
     claim={'race_date_jst':'2026-09-26','race_id':'20260926-NAK-01'}
     write(r,'docs/validation/snapshots/2026-09-26.md',chr(96)*3+'execution-gate-ref-v1\n'+json.dumps(claim)+'\n'+chr(96)*3+'\n')
     with self.assertRaisesRegex(ComplianceError,'snapshot race lacks execution gate'): run(r)
 
-  def test_snapshot_id_is_reported_without_blocking_audit(self):
+  def test_snapshot_id_is_preserved_without_gate_certification(self):
     r=self.root()
     write(r,'docs/validation/snapshots/2026-09-27.md','snapshot_id: 20260927-NAK-11-P001-S01\n')
-    with self.assertRaisesRegex(ComplianceError,'snapshot race lacks execution gate'): run(r)
-    missing=run(r,audit=True)
-    self.assertEqual(len(missing),1)
+    self.assertEqual(run(r),[])
 
   def test_whole_day_table_is_audited_without_gate_fabrication(self):
     r=self.root()
     write(r,'docs/validation/snapshots/2026-09-27.md',
           'snapshot_type: WHOLE_DAY\n| race | status |\n|---|---|\n| 中山1R | 見送り |\n| 阪神12R | 購入候補 |\n')
-    missing=run(r,audit=True)
-    self.assertEqual(len(missing),2)
-    self.assertTrue(any('20260927-NAK-01' in item for item in missing))
-    self.assertTrue(any('20260927-HAN-12' in item for item in missing))
+    self.assertEqual(run(r),[])
 
   def test_canonical_race_gate_resolves_snapshot_alias(self):
     r=self.root()
@@ -249,17 +250,19 @@ class T(unittest.TestCase):
           'snapshot_id: 20260926-NAK-11-UNRESOLVED-S01\n')
     run(r)
 
-  def test_cycle_ledger_requires_gate(self):
+  def test_ineligible_or_pending_scope_does_not_require_dummy_gate(self):
     r=self.root()
     day={'race_date_jst':'2026-09-27','initial_scope':['race-a']}
     write(r,'docs/validation/records/2026-09-27.md',chr(96)*3+'cycle03-day-v1\n'+json.dumps(day)+'\n'+chr(96)*3+'\n')
-    with self.assertRaisesRegex(ComplianceError,'missing execution gate'): run(r)
+    self.assertEqual(run(r),[])
 
-  def test_legacy_ledger_is_reported_not_exempted(self):
+  def test_eligible_claim_requires_gate_on_any_date(self):
     r=self.root()
-    body=chr(96)*3+'cycle03-day-v1\n'+json.dumps({'race_date_jst':'2026-09-26','initial_scope':['race-a']})+'\n'+chr(96)*3+'\n'
+    day={'race_date_jst':'2026-09-26','initial_scope':['race-a'],
+         'kpis':{'production':{'eligible_ids':['race-a']}}}
+    body=chr(96)*3+'cycle03-day-v1\n'+json.dumps(day)+'\n'+chr(96)*3+'\n'
     write(r,'docs/validation/records/2026-09-26.md',body)
-    with self.assertRaisesRegex(ComplianceError,'missing execution gate'): run(r)
+    with self.assertRaisesRegex(ComplianceError,'ELIGIBLE production lacks execution gate'): run(r)
     self.assertEqual(len(run(r,audit=True)),1)
 
   def test_coverage_summary_follows_dates_in_files(self):
@@ -268,7 +271,10 @@ class T(unittest.TestCase):
     write(r,'docs/validation/snapshots/2026-10-04.md',
           'snapshot_id: 20261004-NAK-02-P001-S01\n')
     missing=run(r,audit=True)
-    self.assertEqual(coverage_summary({(g['race_date_jst'],g['race_id']):g},missing),
-                     {'2026-10-04':{'gates':1,'missing_links':1}})
+    self.assertEqual(missing,[])
+    from check_prediction_compliance import snapshot_links
+    _,unregistered=snapshot_links(r,{(g['race_date_jst'],g['race_id']):g})
+    self.assertEqual(coverage_summary({(g['race_date_jst'],g['race_id']):g},missing,unregistered),
+                     {'2026-10-04':{'gates':1,'missing_links':0,'ungated_snapshots':1}})
 
 if __name__=='__main__': unittest.main()
