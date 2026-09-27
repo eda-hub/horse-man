@@ -1,0 +1,32 @@
+{
+  "schema_version": "prediction-compliance-v1",
+  "race_id": "20260927-HAN-08",
+  "race_date_jst": "2026-09-27",
+  "mode": "FORWARD",
+  "working_branch": "prediction/2026-09-27",
+  "manual_release": "v1.6.1",
+  "manual_ref_commit": "d7972bf1310b469daf2c5af3d5f43769f482b4c8",
+  "scheduled_post_time_jst": "2026-09-27T13:40:00+09:00",
+  "timing_route": "SNAPSHOT_CANDIDATE",
+  "production": {
+    "baseline_forecast_id": "20260927-HAN-08-RERUN-P01",
+    "marks": {"honmei": 10, "taikou": 2, "tanana": 12},
+    "fixed_at_jst": "2026-09-27T13:27:33+09:00",
+    "evidence_ref": {
+      "artifact_path": "docs/validation/snapshots/2026-09-27.md",
+      "artifact_id": "20260927-HAN-08-FINAL-S01",
+      "receipt_path": "docs/validation/persistence-receipts/2026-09-27.md",
+      "receipt_id": "20260927-HAN-08-FINAL-S01-R02",
+      "timing_eligibility": "PRE_RACE_ELIGIBLE",
+      "persist_verified_at_jst": "2026-09-27T13:28:28+09:00"
+    }
+  },
+  "kpi_eligibility": {"production": "ELIGIBLE", "betting": "INELIGIBLE", "shadow": "PENDING"},
+  "shadow_items": [{"item_id": "E-11", "state": "PENDING_RULE_CONFLICT", "kpi_eligibility": "PENDING"}],
+  "betting": {
+    "status": "BLOCKED",
+    "source_betting_status": "FIXED",
+    "certification_blockers": ["non-anchor pair 2-12 has no structured independent-EV evidence", "ticket type decisions are not structured in source snapshot"]
+  },
+  "review": {"status": "NOT_STARTED"}
+}
