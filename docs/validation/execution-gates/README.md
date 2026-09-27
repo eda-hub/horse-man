@@ -18,6 +18,7 @@
 - `COVERAGE YYYY-MM-DD: gates=N missing_links=M` は、保存済みのゲート件数と、その日の日別台帳・snapshotから見つかったゲート未接続の参照件数を表す。同一レースが両方に記録されていれば未接続は2件となる。日付はファイルから読み取り、特定日の例外は設けない。
 - 発走後に作ったReplay Shadowは、結果を入力へ直接使っていなくても `ELIGIBLE` にできない。
 - KPIを `ELIGIBLE` にするには、参照artifactとreceiptが実在し、receipt近傍に `PRE_RACE_ELIGIBLE` が存在することをcheckerが確認する。
+- 既存の `## persistence_receipt` 形式と `persistence-receipt-v1` JSON形式の両方を同一レコードとして照合する。両形式が同じreceipt_idで矛盾する場合は拒否する。receiptの形式差だけを理由に、発走前保存済みの予想を見落とさない。
 - E-11はv1.6.1の確信度尺度矛盾が解消されるまで `PENDING_RULE_CONFLICT` 以外を許可しない。
 - 買い目は採用前の `natural_candidates` を必ず保持する。採用しなかった候補には `rejected_candidates.reason` を要求する。
 - ◎を含まない馬連・ワイド・馬単は例外扱い。保険、依存率低下、予算消化では通さない。独立シナリオ、保守側成立確率、価格、`EV > 1.0` を機械確認する。

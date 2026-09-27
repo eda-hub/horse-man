@@ -41,7 +41,8 @@ def segment(path, ident):
     return s[max(0,i-300):min(len(s),i+3000)]
 
 def exact_record(path, tag, id_key, ident, label):
-    matches=[o for o in blocks(path,tag) if isinstance(o,dict) and o.get(id_key)==ident]
+    records=receipt_records(path) if tag==RECEIPT_RECORD_TAG else list(blocks(path,tag))
+    matches=[o for o in records if isinstance(o,dict) and o.get(id_key)==ident]
     if len(matches)!=1:
         raise ComplianceError(f'{label}: expected exactly one {tag} record for {ident}, found {len(matches)}')
     return matches[0]
@@ -274,6 +275,29 @@ def validate_gate(root,path):
 def blocks(path,tag):
     s=path.read_text(encoding='utf-8')
     for raw in re.findall(r'^\x60\x60\x60'+re.escape(tag)+r'\s*\n(.*?)\n\x60\x60\x60\s*$',s,re.M|re.S): yield json.loads(raw)
+
+def receipt_records(path):
+    """Read both the original Markdown receipts and later structured receipts."""
+    content=path.read_text(encoding='utf-8')
+    structured={}
+    for record in blocks(path,RECEIPT_RECORD_TAG):
+        ident=req(record,'receipt_id',str(path))
+        if ident in structured: raise ComplianceError(f'{path}: duplicate structured receipt: {ident}')
+        structured[ident]=record
+    plain={}
+    for match in re.finditer(r'^## persistence_receipt\s*\n(.*?)(?=^## |\Z)',content,re.M|re.S):
+        body=re.sub(r'^\x60\x60\x60[^\n]*\n.*?^\x60\x60\x60\s*$', '',match.group(1),flags=re.M|re.S)
+        fields=dict(re.findall(r'^([a-z_]+):\s*(.*?)\s*$',body,re.M))
+        ident=fields.get('receipt_id')
+        if not ident: raise ComplianceError(f'{path}: plain receipt has no receipt_id')
+        if ident in plain: raise ComplianceError(f'{path}: duplicate plain receipt: {ident}')
+        plain[ident]=fields
+    for ident,record in structured.items():
+        if ident in plain:
+            for key in set(record)&set(plain[ident]):
+                if str(record[key])!=plain[ident][key]:
+                    raise ComplianceError(f'{path}: structured/plain receipt {ident}/{key} mismatch')
+    return list(structured.values())+[record for ident,record in plain.items() if ident not in structured]
 
 def cycle_links(root,gates):
     rd=root/'docs/validation/records'
