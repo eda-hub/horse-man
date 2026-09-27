@@ -2,7 +2,7 @@ import json, tempfile, unittest
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).parent))
-from check_prediction_compliance import ComplianceError, run
+from check_prediction_compliance import ComplianceError, coverage_summary, run
 
 README='# manual\n- **現行リリース**: `v1.6.1`\n'
 
@@ -239,5 +239,14 @@ class T(unittest.TestCase):
     write(r,'docs/validation/records/2026-09-26.md',body)
     with self.assertRaisesRegex(ComplianceError,'missing execution gate'): run(r)
     self.assertEqual(len(run(r,audit=True)),1)
+
+  def test_coverage_summary_follows_dates_in_files(self):
+    r=self.root()
+    g=gate(race='20261004-NAK-01',date='2026-10-04'); self.put(r,g)
+    write(r,'docs/validation/snapshots/2026-10-04.md',
+          'snapshot_id: 20261004-NAK-02-P001-S01\n')
+    missing=run(r,audit=True)
+    self.assertEqual(coverage_summary({(g['race_date_jst'],g['race_id']):g},missing),
+                     {'2026-10-04':{'gates':1,'missing_links':1}})
 
 if __name__=='__main__': unittest.main()
