@@ -1,6 +1,7 @@
-import json, tempfile, unittest
+import hashlib, json, tempfile, unittest
 from pathlib import Path
 import sys
+from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).parent))
 from check_prediction_compliance import ComplianceError, run
 
@@ -198,12 +199,30 @@ class T(unittest.TestCase):
 
   def test_cycle_snapshot_requires_gate_before_review(self):
     r=self.root()
-    write(r,'docs/validation/snapshots/2026-09-26.md','race_id: 20260926-NAK-01\n')
+    claim={'race_date_jst':'2026-09-26','race_id':'20260926-NAK-01'}
+    write(r,'docs/validation/snapshots/2026-09-26.md',chr(96)*3+'execution-gate-ref-v1\n'+json.dumps(claim)+'\n'+chr(96)*3+'\n')
     with self.assertRaisesRegex(ComplianceError,'snapshot race lacks execution gate'): run(r)
 
+  def test_snapshot_id_in_prose_does_not_claim_formal_gate(self):
+    r=self.root()
+    write(r,'docs/validation/snapshots/2026-09-27.md','snapshot_id: 20260927-NAK-11-P001-S01\n')
+    run(r)
+
   def test_cycle_ledger_requires_gate(self):
-    r=self.root(); day={'cycle_id':'cycle_03','race_date_jst':'2026-09-26','initial_scope':['race-a'],'validation_candidates':[],'purchase_candidates':[],'final_completed_scope':[],'reviewed_scope':[],'unreviewed_scope':['race-a'],'kpis':{'production':{'target_ids':['race-a'],'eligible_ids':[],'ineligible_ids':[],'pending_ids':['race-a'],'evidence_refs':{},'stake_yen':None,'return_yen':None},'betting':{'target_ids':[],'eligible_ids':[],'ineligible_ids':[],'pending_ids':[],'evidence_refs':{},'stake_yen':None,'return_yen':None},'shadow':{'target_ids':[],'eligible_ids':[],'ineligible_ids':[],'pending_ids':[],'evidence_refs':{},'stake_yen':None,'return_yen':None}}}
-    write(r,'docs/validation/records/2026-09-26.md','```cycle03-day-v1\n'+json.dumps(day)+'\n```\n')
+    r=self.root()
+    day={'race_date_jst':'2026-09-27','initial_scope':['race-a']}
+    write(r,'docs/validation/records/2026-09-27.md',chr(96)*3+'cycle03-day-v1\n'+json.dumps(day)+'\n'+chr(96)*3+'\n')
     with self.assertRaisesRegex(ComplianceError,'missing execution gate'): run(r)
+
+  def test_legacy_ledger_must_remain_byte_identical(self):
+    r=self.root()
+    body=chr(96)*3+'cycle03-day-v1\n'+json.dumps({'race_date_jst':'2026-09-26','initial_scope':['race-a']})+'\n'+chr(96)*3+'\n'
+    path=write(r,'docs/validation/records/2026-09-26.md',body)
+    data=path.read_bytes()
+    sha=hashlib.sha1(f'blob {len(data)}\0'.encode()+data).hexdigest()
+    with patch.dict('check_prediction_compliance.LEGACY_UNGATED_LEDGERS',{'2026-09-26':sha}):
+      run(r)
+      path.write_text(body+'modified\n',encoding='utf-8')
+      with self.assertRaisesRegex(ComplianceError,'frozen legacy ledger changed'): run(r)
 
 if __name__=='__main__': unittest.main()

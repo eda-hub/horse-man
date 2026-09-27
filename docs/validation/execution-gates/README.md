@@ -7,6 +7,14 @@
 - AIが `PASS` と書いても準拠扱いにしない。
 - `scripts/check_prediction_compliance.py` が終了コード0を返した場合だけ、当該execution gateを機械的に準拠とする。
 - 第3サイクルの日別machine ledgerへrace_idを載せる場合、対応するexecution gate JSONを必須とする。
+- ただし2026-09-26の日別台帳はゲート導入前に作られた固定済み履歴であり、現行checkerに記録済みGit blob SHAを固定して移行待ちとする。終了コード0はこの日のゲート準拠を意味しない。台帳の内容が変われば監査は失敗し、ゲート移行が必要となる。
+- snapshot本文中のID文字列はゲート登録ではない。正式ゲートとの接続を主張する場合だけ、同じsnapshotに次の構造化参照を置き、対象JSONを機械確認する。
+
+```execution-gate-ref-v1
+{"race_date_jst":"2026-09-27","race_id":"20260927-NAK-11"}
+```
+
+- ゲート未登録の予想は、snapshotとreceiptが保存済みでも、checkerによる正式性の認証を得たことにはならない。
 - 発走後に作ったReplay Shadowは、結果を入力へ直接使っていなくても `ELIGIBLE` にできない。
 - KPIを `ELIGIBLE` にするには、参照artifactとreceiptが実在し、receipt近傍に `PRE_RACE_ELIGIBLE` が存在することをcheckerが確認する。
 - E-11はv1.6.1の確信度尺度矛盾が解消されるまで `PENDING_RULE_CONFLICT` 以外を許可しない。
