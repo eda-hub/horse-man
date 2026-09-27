@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, hashlib, json, re, sys
+import argparse, json, re, sys
 from datetime import datetime
 from pathlib import Path
 
@@ -12,8 +12,8 @@ BETTING_EVIDENCE_SCHEMA = 'betting-evidence-v1'
 RECEIPT_RECORD_TAG = 'persistence-receipt-v1'
 KPI_STATES = {'ELIGIBLE','INELIGIBLE','PENDING','NOT_APPLICABLE'}
 KNOWN_CONFLICTS = {'E-11'}
-# The pre-enrollment day ledger is frozen. A revision must be migrated to gates.
-LEGACY_UNGATED_LEDGERS = {'2026-09-26': '9caeaf512a4d3f852521e16d669cc43e240a28bb'}
+SNAPSHOT_RACE_ID_RE = re.compile(r'^snapshot_id:\s*(\d{8}-[A-Z]{3}-\d{2})-', re.M)
+WHOLE_DAY_RACE_RE = re.compile(r'^\|\s*(中山|阪神)\s*(\d{1,2})R\b', re.M)
 
 class ComplianceError(ValueError): pass
 
@@ -275,56 +275,80 @@ def blocks(path,tag):
     s=path.read_text(encoding='utf-8')
     for raw in re.findall(r'^\x60\x60\x60'+re.escape(tag)+r'\s*\n(.*?)\n\x60\x60\x60\s*$',s,re.M|re.S): yield json.loads(raw)
 
-def legacy_ledger(path, date):
-    expected=LEGACY_UNGATED_LEDGERS.get(date)
-    if not expected: return False
-    data=path.read_bytes()
-    actual=hashlib.sha1(f'blob {len(data)}\0'.encode()+data).hexdigest()
-    if actual!=expected:
-        raise ComplianceError(f'{path}: frozen legacy ledger changed; migrate execution gates')
-    return True
-
 def cycle_links(root,gates):
     rd=root/'docs/validation/records'
-    if not rd.exists(): return
+    if not rd.exists(): return []
+    missing=[]
     for path in rd.glob('*.md'):
         for d in blocks(path,'cycle03-day-v1'):
             date=d.get('race_date_jst')
-            if legacy_ledger(path,date): continue
             for race in d.get('initial_scope',[]):
-                if (date,race) not in gates: raise ComplianceError(f'{path}: missing execution gate for {race}')
+                if (date,race) not in gates:
+                    missing.append(f'{path}: missing execution gate for {race}')
+                    continue
                 g=gates[(date,race)]
                 if race in d.get('reviewed_scope',[]) and g.get('review',{}).get('status')!='COMPLETE': raise ComplianceError(f'{path}: reviewed race lacks COMPLETE review gate')
                 for name in ('production','betting','shadow'):
                     o=d.get('kpis',{}).get(name,{})
                     expected='ELIGIBLE' if race in o.get('eligible_ids',[]) else 'INELIGIBLE' if race in o.get('ineligible_ids',[]) else 'PENDING' if race in o.get('pending_ids',[]) else None
                     if expected and g['kpi_eligibility'][name]!=expected: raise ComplianceError(f'{path}: {race}/{name} gate state mismatch')
+    return missing
 
 def snapshot_links(root,gates):
     sd=root/'docs/validation/snapshots'
-    if not sd.exists(): return
+    if not sd.exists(): return []
+    missing=[]
     for path in sd.glob('*.md'):
-        # Only a structured claim registers a snapshot with an execution gate.
-        # Raw text also contains snapshot IDs and references to other races.
+        content=path.read_text(encoding='utf-8')
+        races=set(SNAPSHOT_RACE_ID_RE.findall(content))
+        if 'snapshot_type: WHOLE_DAY' in content:
+            for venue, number in WHOLE_DAY_RACE_RE.findall(content):
+                races.add(f'{path.stem.replace("-", "")}-{"NAK" if venue=="中山" else "HAN"}-{int(number):02d}')
+        for race in sorted(races):
+            if (path.stem,race) not in gates:
+                missing.append(f'{path}: snapshot race lacks execution gate: {race}')
         for claim in blocks(path,'execution-gate-ref-v1'):
             date=req(claim,'race_date_jst',str(path))
             race=req(claim,'race_id',str(path))
             if (date,race) not in gates:
-                raise ComplianceError(f'{path}: snapshot race lacks execution gate: {race}')
+                entry=f'{path}: snapshot race lacks execution gate: {race}'
+                if entry not in missing: missing.append(entry)
+    return missing
 
-def run(root):
-    gd=root/'docs/validation/execution-gates'; gates={}
+def run(root, audit=False):
+    gd=root/'docs/validation/execution-gates'; gates={}; aliases={}
     for path in sorted(gd.glob('*/*.json')) if gd.exists() else []:
         g=validate_gate(root,path); key=(g['race_date_jst'],g['race_id'])
         if key in gates: raise ComplianceError(f'duplicate gate: {key}')
         gates[key]=g
-    snapshot_links(root,gates)
-    cycle_links(root,gates)
-    print(f'COMPLIANT: {len(gates)} execution gate(s) validated; legacy 2026-09-26 ledger is not gate-certified')
+        race_aliases=g.get('snapshot_race_ids',[])
+        if not isinstance(race_aliases,list):
+            raise ComplianceError(f'{path}: snapshot_race_ids must be a list')
+        for alias in race_aliases:
+            if not isinstance(alias,str) or not re.fullmatch(re.escape(g['race_date_jst'].replace('-',''))+r'-[A-Z]{3}-\d{2}',alias):
+                raise ComplianceError(f'{path}: invalid snapshot race alias: {alias}')
+            alias_key=(g['race_date_jst'],alias)
+            if alias_key in aliases and aliases[alias_key]!=key:
+                raise ComplianceError(f'{path}: duplicate snapshot race alias: {alias}')
+            aliases[alias_key]=key
+    for alias,key in aliases.items():
+        if alias in gates and alias!=key:
+            raise ComplianceError(f'snapshot race alias overlaps another gate: {alias}')
+    snapshot_gate_keys={**gates,**{alias:gates[key] for alias,key in aliases.items()}}
+    missing=snapshot_links(root,snapshot_gate_keys)+cycle_links(root,gates)
+    if missing:
+        if not audit: raise ComplianceError('\n'.join(missing))
+        print(f'AUDIT_INCOMPLETE: {len(gates)} gate(s) validated; {len(missing)} missing links')
+        for item in missing: print(item)
+    else:
+        print(f'COMPLIANT: {len(gates)} execution gate(s) validated; no missing links')
+    return missing
 
 def main():
-    ap=argparse.ArgumentParser(); ap.add_argument('--root',type=Path,default=Path('.')); a=ap.parse_args()
-    try: run(a.root)
+    ap=argparse.ArgumentParser(); ap.add_argument('--root',type=Path,default=Path('.'))
+    ap.add_argument('--audit',action='store_true',help='report missing coverage without blocking record persistence')
+    a=ap.parse_args()
+    try: run(a.root,audit=a.audit)
     except (ComplianceError,OSError,json.JSONDecodeError) as e:
         print(f'NON_COMPLIANT: {e}',file=sys.stderr); return 1
     return 0

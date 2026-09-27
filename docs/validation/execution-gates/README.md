@@ -5,16 +5,16 @@
 ## 原則
 
 - AIが `PASS` と書いても準拠扱いにしない。
-- `scripts/check_prediction_compliance.py` が終了コード0を返した場合だけ、当該execution gateを機械的に準拠とする。
+- `scripts/check_prediction_compliance.py` の通常実行は、欠落を含む全件の厳格な照合である。終了コード0の場合だけ、照合対象の実行ゲートと日別台帳の参照が揃っている。
 - 第3サイクルの日別machine ledgerへrace_idを載せる場合、対応するexecution gate JSONを必須とする。
-- ただし2026-09-26の日別台帳はゲート導入前に作られた固定済み履歴であり、現行checkerに記録済みGit blob SHAを固定して移行待ちとする。終了コード0はこの日のゲート準拠を意味しない。台帳の内容が変われば監査は失敗し、ゲート移行が必要となる。
-- snapshot本文中のID文字列はゲート登録ではない。正式ゲートとの接続を主張する場合だけ、同じsnapshotに次の構造化参照を置き、対象JSONを機械確認する。
+- 2026-09-26の既存日別台帳も監査対象から除外しない。必要なゲートが欠けている事実を監査結果へ残し、結果後の推測値で補わない。
+- snapshotの `snapshot_id` から読み取れるレースと、明示的な構造化参照を監査する。予想本文に登場する他レースのIDは対象へ混ぜない。
 
 ```execution-gate-ref-v1
 {"race_date_jst":"2026-09-27","race_id":"20260927-NAK-11"}
 ```
 
-- ゲート未登録の予想は、snapshotとreceiptが保存済みでも、checkerによる正式性の認証を得たことにはならない。
+- GitHub Actionsは `--audit` で欠落一覧を報告する。これは書込後の監査であり、予想とreceiptの保存を止める判定ではない。終了コード0でも `AUDIT_INCOMPLETE` があれば、該当レースはゲート認証済みではない。正式KPIへ登録する前に通常の厳格照合を通す。
 - 発走後に作ったReplay Shadowは、結果を入力へ直接使っていなくても `ELIGIBLE` にできない。
 - KPIを `ELIGIBLE` にするには、参照artifactとreceiptが実在し、receipt近傍に `PRE_RACE_ELIGIBLE` が存在することをcheckerが確認する。
 - E-11はv1.6.1の確信度尺度矛盾が解消されるまで `PENDING_RULE_CONFLICT` 以外を許可しない。
@@ -29,6 +29,8 @@
 ## 保存先
 
 `docs/validation/execution-gates/YYYY-MM-DD/<race_id>.json`
+
+日別台帳のrace_idがJRA形式（例: `202606040811`）で、snapshot_idに日付・競馬場・Rの短い形式（例: `20260926-NAK-11`）を使う場合は、同じgate JSONへ `"snapshot_race_ids": ["20260926-NAK-11"]` を置く。checkerは両方を同一レースとして照合する。別日や重複した別レースへの割当は拒否する。
 
 ## 最小例
 
@@ -75,6 +77,7 @@
 
 ```bash
 python3 -m unittest discover -s scripts -p 'test_*.py'
+python3 scripts/check_prediction_compliance.py --audit
 python3 scripts/check_prediction_compliance.py
 python3 scripts/check_cycle03.py
 ```
