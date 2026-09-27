@@ -154,6 +154,14 @@ preservationを後から通常snapshotへ名前変更・移動して発走前証
 9. 本体書込タイムアウト等で成否が不明な場合は `PERSIST_REQUESTED_UNKNOWN` とし、同一本体IDを読戻して解決する。
 10. receipt保存は `docs/validation/persistence-receipts/README.md` の独立した保存・復旧契約に従う。
 
+### 既存ブランチ・ファイルと書込拒否
+
+- 当日ブランチが存在する場合は再利用する。ファイルが存在する場合は、同ブランチの最新内容とblob SHAを取得し、既存内容を保持した追記として更新する。既存ファイルに新規作成APIを送って失敗した場合は、更新APIに切り替えて同一内容を保存する。
+- 更新の競合は新しいblob SHAを取得し、`snapshot_id` の重複・内容一致を照合して一度だけ再試行する。既存のスプリンターズSを含む別セクションを削除しない。
+- 実行環境の安全性審査が書込要求を拒否した場合は、その拒否理由・拒否対象・送信前か送信後かを記録する。単なるファイル競合と混同しない。許可された別の安全な保存経路があれば同一内容を保存・読戻しする。審査をすり抜けるために同一の禁止操作を別APIへ付け替えない。
+- GitHubへ保存できないまま発走する場合も、FIXED済みの全レース内容と候補・買い目を発走前回答に出し、未保存範囲をレース単位で特定する。後で復旧できた原文は実際の保存時刻で保全し、9:30保存済みなどと遡及表示しない。
+- Actionsの成否はこの保存手順の開始条件にしない。保存とreceiptの読戻しを先に行い、監査で見つかった不足は別の修正対象として残す。
+
 保存状態は、`PERSIST_NOT_ATTEMPTED` / `PERSIST_UNAVAILABLE` / `PERSIST_REQUESTED_UNKNOWN` / `PERSIST_WRITE_FAILED` / `PERSISTED_READBACK_UNVERIFIED` / `PERSIST_READBACK_FAILED` / `PERSIST_VERIFIED` を区別する。
 
 - `PERSIST_NOT_ATTEMPTED`：保存工程漏れ。保存失敗ではない。
