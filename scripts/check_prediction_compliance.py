@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, json, re, sys
+import argparse, hashlib, json, re, sys
 from datetime import datetime
 from pathlib import Path
 
@@ -12,8 +12,8 @@ BETTING_EVIDENCE_SCHEMA = 'betting-evidence-v1'
 RECEIPT_RECORD_TAG = 'persistence-receipt-v1'
 KPI_STATES = {'ELIGIBLE','INELIGIBLE','PENDING','NOT_APPLICABLE'}
 KNOWN_CONFLICTS = {'E-11'}
-CYCLE03_DATES = {'2026-09-26','2026-09-27','2026-10-03','2026-10-04','2026-10-10','2026-10-11','2026-10-12'}
-RACE_ID_RE = re.compile(r'\b\d{8}-[A-Z]{3}-\d{2}\b')
+# The pre-enrollment day ledger is frozen. A revision must be migrated to gates.
+LEGACY_UNGATED_LEDGERS = {'2026-09-26': '9caeaf512a4d3f852521e16d669cc43e240a28bb'}
 
 class ComplianceError(ValueError): pass
 
@@ -275,12 +275,22 @@ def blocks(path,tag):
     s=path.read_text(encoding='utf-8')
     for raw in re.findall(r'^\x60\x60\x60'+re.escape(tag)+r'\s*\n(.*?)\n\x60\x60\x60\s*$',s,re.M|re.S): yield json.loads(raw)
 
+def legacy_ledger(path, date):
+    expected=LEGACY_UNGATED_LEDGERS.get(date)
+    if not expected: return False
+    data=path.read_bytes()
+    actual=hashlib.sha1(f'blob {len(data)}\0'.encode()+data).hexdigest()
+    if actual!=expected:
+        raise ComplianceError(f'{path}: frozen legacy ledger changed; migrate execution gates')
+    return True
+
 def cycle_links(root,gates):
     rd=root/'docs/validation/records'
     if not rd.exists(): return
     for path in rd.glob('*.md'):
         for d in blocks(path,'cycle03-day-v1'):
             date=d.get('race_date_jst')
+            if legacy_ledger(path,date): continue
             for race in d.get('initial_scope',[]):
                 if (date,race) not in gates: raise ComplianceError(f'{path}: missing execution gate for {race}')
                 g=gates[(date,race)]
@@ -294,10 +304,13 @@ def snapshot_links(root,gates):
     sd=root/'docs/validation/snapshots'
     if not sd.exists(): return
     for path in sd.glob('*.md'):
-        date=path.stem
-        if date not in CYCLE03_DATES: continue
-        for race in set(RACE_ID_RE.findall(path.read_text(encoding='utf-8'))):
-            if (date,race) not in gates: raise ComplianceError(f'{path}: snapshot race lacks execution gate: {race}')
+        # Only a structured claim registers a snapshot with an execution gate.
+        # Raw text also contains snapshot IDs and references to other races.
+        for claim in blocks(path,'execution-gate-ref-v1'):
+            date=req(claim,'race_date_jst',str(path))
+            race=req(claim,'race_id',str(path))
+            if (date,race) not in gates:
+                raise ComplianceError(f'{path}: snapshot race lacks execution gate: {race}')
 
 def run(root):
     gd=root/'docs/validation/execution-gates'; gates={}
@@ -307,7 +320,7 @@ def run(root):
         gates[key]=g
     snapshot_links(root,gates)
     cycle_links(root,gates)
-    print(f'COMPLIANT: {len(gates)} execution gate(s) validated')
+    print(f'COMPLIANT: {len(gates)} execution gate(s) validated; legacy 2026-09-26 ledger is not gate-certified')
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--root',type=Path,default=Path('.')); a=ap.parse_args()
