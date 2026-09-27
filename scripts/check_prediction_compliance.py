@@ -315,6 +315,16 @@ def snapshot_links(root,gates):
                 if entry not in missing: missing.append(entry)
     return missing
 
+def coverage_summary(gates, missing):
+    dates={}
+    for date,_ in gates:
+        dates.setdefault(date,{'gates':0,'missing_links':0})['gates']+=1
+    for item in missing:
+        match=re.search(r'/(\d{4}-\d{2}-\d{2})\.md:',item)
+        if match:
+            dates.setdefault(match.group(1),{'gates':0,'missing_links':0})['missing_links']+=1
+    return dates
+
 def run(root, audit=False):
     gd=root/'docs/validation/execution-gates'; gates={}; aliases={}
     for path in sorted(gd.glob('*/*.json')) if gd.exists() else []:
@@ -336,6 +346,9 @@ def run(root, audit=False):
             raise ComplianceError(f'snapshot race alias overlaps another gate: {alias}')
     snapshot_gate_keys={**gates,**{alias:gates[key] for alias,key in aliases.items()}}
     missing=snapshot_links(root,snapshot_gate_keys)+cycle_links(root,gates)
+    summary=coverage_summary(gates,missing)
+    for date,counts in sorted(summary.items()):
+        print(f'COVERAGE {date}: gates={counts["gates"]} missing_links={counts["missing_links"]}')
     if missing:
         if not audit: raise ComplianceError('\n'.join(missing))
         print(f'AUDIT_INCOMPLETE: {len(gates)} gate(s) validated; {len(missing)} missing links')
