@@ -41,7 +41,7 @@ export async function POST(req:Request){try{
  if(r.state.revision!==command.revision)return json({error:"記録が更新されています。再読み込みしてもう一度お試しください"},409);
  const state:State={...r.state,revision:r.state.revision+1,at:new Date().toISOString()};
  if(command.action==="candidate"){
-  if(r.state.decision)throw new Error("INPUT:判断記録があるレースの候補を変更できません");if(command.verify===undefined||command.purchase===undefined)throw new Error("INPUT:候補を指定してください");state.verify=command.verify;state.purchase=command.purchase;
+  if(command.verify===undefined||command.purchase===undefined)throw new Error("INPUT:候補を指定してください");state.verify=command.verify;state.purchase=command.purchase;
  }else if(command.action==="decision"){
   if(!command.decision)throw new Error("INPUT:判断を選んでください");
   if(command.decision==="BET"&&!canBet(r))throw new Error("INPUT:購入候補・発走前の最終予想・買い目が必要です");
