@@ -40,3 +40,6 @@
 
 29. 非◎縦目をformal `FIXED` にする場合、許可済み `reason_code` と発走前 `betting-evidence-v1` を必須とし、gate内の確率・価格の自己申告だけで監査済みにしない。証跡artifactは同一receiptレコードで `PERSIST_VERIFIED` / `RECEIPT_VERIFIED` / `PRE_RACE_ELIGIBLE` を満たし、保存確認時刻が実発走予定時刻より前であることをcheckerで照合する。
 30. 予想依頼を受けたら、予約タスクを含めて予想作成前に `docs/validation/persistence-intents/README.md` の事前宣言を日次作業ブランチへ保存・読戻しする。予想snapshotとreceiptを保存・読戻しした直後に `scripts/verify_prediction_persistence.py` で宣言範囲、同一artifact、発走前確認時刻を照合する。未完了なら発走前に再保存を試み、予想回答を遅らせず実際の保存状態を伝える。Actions成功を保存完了の代わりにしない。
+
+31. `kpi_contract=betting-kpi-split-v1` の日別台帳では、`betting` は発走前FIXの追跡性、`betting_rules` は購入ルール遵守、`betting_evidence` はGit保存品質として独立判定する。27のexecution gate認証は購入ルール・保存品質・Production・Shadowへ適用し、性能には `fixed-plan-source-v1` の原文・時刻・同一買い目照合を適用する。旧契約の台帳を暗黙に新方式と解釈しない。未確認出所は保留にし、固定済み仮想買い目の精算値を消さない。監査違反券だけを結果後に除外してROIを変更しない。
+32. ChatGPT最終予想タスクは標準テンプレートの事前宣言と `--task-complete --intent-id --fixed-content-sha256` を省略しない。宣言は予想作成前に保存・読戻しし、FIX時点のsectionハッシュと読戻し内容の一致を確認する。機械確認成功後のみ保存完了と回答する。過去の宣言欠落を発走前宣言として後から生成しない。

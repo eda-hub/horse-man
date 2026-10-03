@@ -286,12 +286,14 @@ ChatGPTの通常チャット、予約タスク、別チャット再開のいず�
 1レースごとに次の順序を固定する。
 
 1. 元の日次branchと最新snapshot/preservation/receiptを取得する。
+   予想本文の作成前に `persistence-intents/README.md` の宣言を保存・読戻しする。宣言欠落の過去予想を後から発走前宣言にしない。
 2. Production / BettingをFIXする。
+   scopeブロックを含むFIX済みsectionのSHA-256を保存前に保持する。
 3. **次のレース処理やユーザー向け完了回答へ進む前に**、当該レースの本体を保存する。
 4. 同じbranchからread-backし、artifact ID、race_id、印、固定買い目、金額合計、主要判断がFIX内容と一致することを確認する。
 5. 本体read-back後、persistence receiptを**必須で**保存する。「追記できる」任意工程として扱わない。
 6. 同じbranchからreceiptをread-backし、artifact参照、保存commit、timing eligibility、状態が一致することを確認する。
-7. 本体とreceiptの両方が確認できた場合だけ、そのartifactを \`TASK_PERSISTENCE_COMPLETE\` とする。
+7. 本体とreceiptの両方の読戻し後、`verify_prediction_persistence.py --date DATE --snapshot-id ID --intent-id INTENT --task-complete --fixed-content-sha256 HASH` を実行する。宣言・scope・FIX内容・発走前receiptの照合成功時だけ、そのartifactを `TASK_PERSISTENCE_COMPLETE` とする。発走後保全を発走前完了と混同しない。
 8. 複数レースを1タスクで処理する場合、各レースをこのゲートまで完了してから次レースへ進む。複数レース分を最後にまとめて保存しない。
 
 書込・読戻しの再試行:

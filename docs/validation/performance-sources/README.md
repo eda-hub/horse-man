@@ -1,0 +1,22 @@
+# 固定仮想買い目の性能認証
+
+Git保存品質と独立に、発走前に送信・保存された固定買い目を追跡する。
+性能適格には日別台帳のsource_pathで実在するJSON証跡を指定する。
+
+`fixed-plan-source-v1` は以下を必須とする。
+
+- schema_version、race_id、working_branch、verification_status=VERIFIED
+- source_type: GIT_PRE_RACE_SNAPSHOT または CHAT_PRE_RACE_FIXED
+- source_ref: 完全commit SHAのGitHub blob URL、またはChatGPT会話URLとmessage_id
+- source_sent_at_jst、scheduled_post_time_jst、result_checked_at_jst（全てtimezone付き、送信は発走・結果確認の両方より前）
+- original_path、original_sha256: 確認した原文から抽出したrace_id・source_sent_at_jst・ticketsのJSONとSHA-256
+- snapshot_path、snapshot_id、tickets_sha256: 保全済み固定買い目と全券種・順序・馬番・金額が一致すること
+- verified_by、verification_note: 原文の所在・送信時刻を誰が何から確認したか
+
+source_ref・原文は実際に確認してから記録する。checkerは保存された確認結果の整合を検査するもので、外部チャットの真正性を自動証明するものではない。架空URL、自己申告時刻だけ、結果後の買い目再構成を認証に使わない。
+
+日別台帳はkpi_contract=betting-kpi-split-v1とする。bettingの適格evidence_refsにsource_type、source_ref、source_path、working_branchを置く。未確認レースはpending_idsへ残し、元の出所主張をfixed_plan_settlement.racesのclaimed_sourceへ保存する。fixed_plan_settlementには同じ全対象のsnapshot_path、snapshot_id、stake_yen、return_yen、source_verificationを置き、全対象の精算合計を保持する。
+
+betting_rulesとbetting_evidenceは同じ対象集合で必須。購入ルールは既存execution gateのbetting判定と照合する。保存品質の適格evidence_refsはartifact_path、artifact_id、receipt_path、receipt_id、working_branch、snapshot_id、persist_verified_at_jst、timing_eligibilityを持ち、同一artifact・時刻・receiptをcheckerで照合する。ルール遵守と性能の適格性を混ぜず、監査違反券だけを精算から削除しない。
+
+旧契約の日別台帳は従来の厳格証跡条件のまま扱う。新方式へ移行した日だけ新契約を適用する。

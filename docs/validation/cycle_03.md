@@ -196,7 +196,7 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
 |---|---|---|---|---|---|
 | 2026-09-26 | `4d3e73967da49f4a0d89dede61580a3b0841fa14` / R04 | initial 24 / selected 11 / final 8 / reviewed 24 | 最終完了8/11。strict Production証跡3/24、Betting 0/2、Shadow 0/11。手動救済あり | 日次正式Betting ROIは不適格。実購入は3,500円→2,490円（別帳簿） | REVIEW_COMPLETED / AGGREGATION_R04 |
 | 2026-09-27 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
-| 2026-10-03 | `46ae9b50c0fe83ba32d130be86ac77f360a9ec62` / R03 | initial 24 / selected 5 / final 5 / reviewed 24 | 最終完了5/5。Production保存証跡0/24、Betting保存証跡0/5、Shadow保存証跡0/5。保存復旧介入3プロンプト・4R | Betting性能5/5、50,000円→60,050円（ROI 120.1%）。保存証跡の不備は性能値と分離 | REVIEW_COMPLETED / AGGREGATION_R02 |
+| 2026-10-03 | 元記録 `46ae9b50c0fe83ba32d130be86ac77f360a9ec62` / R04（本PR） | initial 24 / selected 5 / final 5 / reviewed 24 | 最終完了5/5。Production保存証跡0/24、Betting保存証跡0/5、Shadow保存証跡0/5。保存復旧介入3プロンプト・4R | 仮想精算50,000円→60,050円（ROI 120.1%）を保持。性能認証は保留5/5、購入ルール不適格5/5、保存証跡不適格5/5 | REVIEW_COMPLETED / AGGREGATION_R04 |
 | 2026-10-04 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-10 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-11 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
@@ -238,22 +238,40 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
         "202606040810",
         "202609040811"
       ],
-      "eligible_ids": [
+      "eligible_ids": [],
+      "ineligible_ids": [
+        "202606040810",
+        "202609040811"
+      ],
+      "pending_ids": [
         "2026-10-03-KYOTO-06",
         "2026-10-03-KYOTO-08",
         "2026-10-03-KYOTO-09",
         "2026-10-03-TOKYO-09",
         "2026-10-03-TOKYO-11"
       ],
-      "ineligible_ids": [
-        "202606040810",
-        "202609040811"
-      ],
-      "pending_ids": [],
-      "stake_yen": 50000,
-      "return_yen": 60050
+      "stake_yen": null,
+      "return_yen": null
     },
     "betting_evidence": {
+      "target_ids": [
+        "2026-10-03-KYOTO-06",
+        "2026-10-03-KYOTO-08",
+        "2026-10-03-KYOTO-09",
+        "2026-10-03-TOKYO-09",
+        "2026-10-03-TOKYO-11"
+      ],
+      "eligible_ids": [],
+      "ineligible_ids": [
+        "2026-10-03-KYOTO-06",
+        "2026-10-03-KYOTO-08",
+        "2026-10-03-KYOTO-09",
+        "2026-10-03-TOKYO-09",
+        "2026-10-03-TOKYO-11"
+      ],
+      "pending_ids": []
+    },
+    "betting_rules": {
       "target_ids": [
         "2026-10-03-KYOTO-06",
         "2026-10-03-KYOTO-08",
@@ -416,6 +434,17 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
       ],
       "pending_ids": []
     }
+  },
+  "fixed_plan_settlement": {
+    "stake_yen": 50000,
+    "return_yen": 60050,
+    "race_ids": [
+      "2026-10-03-KYOTO-06",
+      "2026-10-03-KYOTO-08",
+      "2026-10-03-KYOTO-09",
+      "2026-10-03-TOKYO-09",
+      "2026-10-03-TOKYO-11"
+    ]
   }
 }
 ```
@@ -423,3 +452,4 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
 JSON欄を作る際は `python3 scripts/check_cycle03.py --require-data --print-summary` の出力を確認して貼り付ける。出力は日別データの転記案であり、そのまま証拠の合格とはしない。
 
 JSON欄の保存後は `python3 scripts/check_cycle03.py --require-data` を通し、全予定日分を記録した終了時は `--require-complete` を併用する。対象がない日も空集合の日別台帳を残す。差があれば日別の証拠と区分を確認し、古い合計へ加算せず集計を作り直す。この照合は集合・金額の整合だけを検査するため、発走前時刻、公式結果、snapshot/receiptの真正性は人が別に読戻す。
+
