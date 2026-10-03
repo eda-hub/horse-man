@@ -17,7 +17,8 @@ EXPECTED_DATES = {
     "2026-09-26", "2026-09-27", "2026-10-03", "2026-10-04",
     "2026-10-10", "2026-10-11", "2026-10-12",
 }
-KPI_NAMES = {"production", "betting", "shadow"}
+REQUIRED_KPI_NAMES = {"production", "betting", "shadow"}
+ALLOWED_KPI_NAMES = {"production", "betting", "betting_evidence", "shadow"}
 
 
 def block(path: Path, tag: str):
@@ -68,10 +69,13 @@ def validate_day(day, path):
     if reviewed & unreviewed or reviewed | unreviewed != initial:
         raise ValueError(f"{label}: reviewed and unreviewed must partition initial_scope")
     kpis = day.get("kpis")
-    if not isinstance(kpis, dict) or not KPI_NAMES <= set(kpis) or any(
-        not (name in KPI_NAMES or name.startswith("shadow_")) for name in kpis
+    if not isinstance(kpis, dict) or not REQUIRED_KPI_NAMES <= set(kpis) or any(
+        not (name in ALLOWED_KPI_NAMES or name.startswith("shadow_")) for name in kpis
     ):
-        raise ValueError(f"{label}: kpis must include production, betting, shadow; additional shadow_* items are allowed")
+        raise ValueError(
+            f"{label}: kpis must include production, betting, shadow; "
+            "betting_evidence and additional shadow_* items are allowed"
+        )
     for name, kpi in kpis.items():
         if not isinstance(kpi, dict):
             raise ValueError(f"{label}: {name} must be an object")
@@ -81,8 +85,8 @@ def validate_day(day, path):
         pending = ids(kpi, "pending_ids", f"{label}/{name}")
         if not scope <= initial:
             raise ValueError(f"{label}/{name}: target IDs outside initial_scope")
-        if name == "betting" and not scope <= purchase:
-            raise ValueError(f"{label}/{name}: official ROI targets must be purchase candidates")
+        if name in {"betting", "betting_evidence"} and not scope <= purchase:
+            raise ValueError(f"{label}/{name}: betting targets must be purchase candidates")
         if any(a & b for a, b in ((eligible, ineligible), (eligible, pending), (ineligible, pending))):
             raise ValueError(f"{label}/{name}: eligibility sets overlap")
         if scope != eligible | ineligible | pending:
@@ -91,13 +95,19 @@ def validate_day(day, path):
         if not isinstance(refs, dict) or set(refs) != eligible:
             raise ValueError(f"{label}/{name}: every eligible race needs exactly one evidence reference")
         for race_id, ref in refs.items():
-            if not isinstance(ref, dict) or any(not isinstance(ref.get(key), str) or not ref[key]
+            if not isinstance(ref, dict):
+                raise ValueError(f"{label}/{name}/{race_id}: incomplete evidence reference")
+            if name == "betting":
+                if any(not isinstance(ref.get(key), str) or not ref[key]
+                    for key in ("source_type", "source_ref", "working_branch")):
+                    raise ValueError(f"{label}/{name}/{race_id}: incomplete betting performance source")
+            elif any(not isinstance(ref.get(key), str) or not ref[key]
                 for key in ("snapshot_id", "receipt_id", "working_branch")):
                 raise ValueError(f"{label}/{name}/{race_id}: incomplete evidence reference")
         stake = money(kpi.get("stake_yen"), f"{label}/{name}/stake_yen")
         returned = money(kpi.get("return_yen"), f"{label}/{name}/return_yen")
         if name != "betting" and (stake is not None or returned is not None):
-            raise ValueError(f"{label}/{name}: money belongs only to official betting")
+            raise ValueError(f"{label}/{name}: money belongs only to betting performance")
         if name == "betting" and ((stake is None) != (returned is None)):
             raise ValueError(f"{label}/{name}: stake and return must be both measured or both null")
         if name == "betting" and eligible and (stake is None or stake != 10000 * len(eligible)):
