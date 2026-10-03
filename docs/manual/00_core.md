@@ -221,7 +221,7 @@ persistence receipt側で時刻適格性を管理する。snapshot候補の本�
 2. snapshot本体またはpreservation本体を、FIXED時点で確定済みの内容だけでappend-only追記する。
 3. 同一ID・同一内容が既にある場合は再追記せず既存本体を再利用する。同一ID・異なる内容は `SNAPSHOT_ID_CONFLICT` として上書きしない。
 4. 本体保存後に**同じ日次作業ブランチ**から読戻し、IDと主要内容の一致を確認する。
-5. 本体保存要求後、`docs/validation/persistence-receipts/YYYY-MM-DD.md` へ状態を `persistence_receipt` として追記できる。読戻し未完了なら `persist_verified_at_jst=null`、`timing_eligibility=READBACK_PENDING` とし、適格性を確定しない。
+5. 本体保存要求後、`docs/validation/persistence-receipts/YYYY-MM-DD.md` へ状態を `persistence_receipt` として**必ず追記する**。ChatGPT実行タスクではreceipt保存を任意工程として扱わない。読戻し未完了なら `persist_verified_at_jst=null`、`timing_eligibility=READBACK_PENDING` とし、適格性を確定しない。
 6. 本体読戻しが成功して状態が進んだ場合は、既存receiptを上書きせず同じreceipt系列の次revisionを追記し、実測 `persist_verified_at_jst` に基づく最終 `timing_eligibility` を記録する。
 7. receiptには少なくとも `receipt_id`、`receipt_series_id`、`previous_receipt_ref`（後続revision）、`artifact_type`、`artifact_id`、`working_branch`、`artifact_path`、`persist_requested_at_jst`、`persist_verified_at_jst`、`artifact_persist_status`、保存commit SHA、読戻し結果、`timing_eligibility` を記録する。
 8. **本体保存状態とreceipt保存状態を別に管理する。** 本体が `PERSIST_VERIFIED` でも、receiptが確認できるまでは `receipt_persist_status=RECEIPT_VERIFIED` ではないため、KPI証跡完了扱いにしない。
@@ -270,6 +270,50 @@ persistence receipt側で時刻適格性を管理する。snapshot候補の本�
 全体選別は対象全レースを1回のsnapshotへまとめてよく、個別最終では当該レースだけを追記してよい。これにより、予想速度への影響を最小化する。
 
 正式内容FIXED後は、見送り・投資額0円・既存ProductionのREUSED・短い回答指定でも、回答前に保存要求と読戻し確認を行う。回答しようとした時点で `PERSIST_NOT_ATTEMPTED` なら保存工程へ戻す。
+
+
+#### ChatGPT実行タスクの完了ゲート
+
+ChatGPTの通常チャット、予約タスク、別チャット再開のいずれでも、最終予想・固定仮想買い目を生成しただけではタスク完了としない。**内容FIXEDと永続化完了を別状態として管理し、保存確認までを同一タスクの必須工程とする。**
+
+対象:
+- 個別レースの最終予想
+- 固定仮想買い目を伴う依頼
+- 開催全体選別後の個別最終
+- ユーザーが「書き込んで」「記録して」と明示した予想
+- ChatGPTの予約タスクから起動した同種処理
+
+1レースごとに次の順序を固定する。
+
+1. 元の日次branchと最新snapshot/preservation/receiptを取得する。
+   予想本文の作成前に `persistence-intents/README.md` の宣言を保存・読戻しする。宣言欠落の過去予想を後から発走前宣言にしない。
+2. Production / BettingをFIXする。
+   scopeブロックを含むFIX済みsectionのSHA-256を保存前に保持する。
+3. **次のレース処理やユーザー向け完了回答へ進む前に**、当該レースの本体を保存する。
+4. 同じbranchからread-backし、artifact ID、race_id、印、固定買い目、金額合計、主要判断がFIX内容と一致することを確認する。
+5. 本体read-back後、persistence receiptを**必須で**保存する。「追記できる」任意工程として扱わない。
+6. 同じbranchからreceiptをread-backし、artifact参照、保存commit、timing eligibility、状態が一致することを確認する。
+7. 本体とreceiptの両方の読戻し後、`verify_prediction_persistence.py --date DATE --snapshot-id ID --intent-id INTENT --task-complete --fixed-content-sha256 HASH` を実行する。宣言・scope・FIX内容・発走前receiptの照合成功時だけ、そのartifactを `TASK_PERSISTENCE_COMPLETE` とする。発走後保全を発走前完了と混同しない。
+8. 複数レースを1タスクで処理する場合、各レースをこのゲートまで完了してから次レースへ進む。複数レース分を最後にまとめて保存しない。
+
+書込・読戻しの再試行:
+- 本体またはreceiptの書込が明示的に失敗した場合、**直前にFIXした内容を変更せず**最新対象ファイルを再取得し、他の追記を保持したまま再度appendする。
+- stale SHA / conflict / 内容不一致の場合も、最新内容を再取得して同じartifact内容で再試行する。
+- 読戻しでartifact不在・内容不一致の場合は、最新内容を取得して同じartifactを書き直し、再度read-backする。
+- 同一ID・同一内容が既に存在する場合は重複追記せず、その既存artifactをread-back対象として再利用する。
+- 同一ID・異内容は上書きせずCONFLICTとして停止する。
+- 無制限再試行は禁止する。原則として再取得を挟んだ再試行を2回まで行い、それでも完了せず発走が迫る場合はfail-softへ移る。
+
+ChatGPTのユーザー向け状態表示:
+- 本体・receiptともread-back済み: \`TASK_PERSISTENCE_COMPLETE\`
+- 予想/買い目はFIX済みだが保存工程が一部未完了: \`TASK_PERSISTENCE_INCOMPLETE\`
+- \`TASK_PERSISTENCE_INCOMPLETE\` の状態で「保存済み」「完了」「記録完了」と回答してはならない。
+- 発走前回答を優先してfail-softした場合も、予想内容と未完了保存工程を分けて表示する。
+- 発走後に再開した場合は結果を混入させず、発走前にFIX済みと追跡できる同一内容だけをpreservation/LATE_PERSIST経路へ保全する。
+
+**ChatGPTタスクの完了条件は「予想回答を生成したこと」ではなく、「必要な本体とreceiptを同一branchからread-backして一致確認したこと」である。**
+
+予約タスクや将来の自動実行用プロンプトは \`docs/validation/templates/chatgpt_prediction_task.md\` を使用し、この完了ゲートを省略しない。
 
 発走前までに `PERSIST_VERIFIED` へ到達しない場合でも、予想回答自体を発走に遅らせない。チャットには同じ正式内容と**実際の状態名**を送る。
 

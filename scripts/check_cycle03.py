@@ -10,6 +10,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from check_betting_performance import CONTRACT, SOURCE_TYPES
 
 DAY_TAG = "cycle03-day-v1"
 SUMMARY_TAG = "cycle03-summary-v1"
@@ -17,7 +18,8 @@ EXPECTED_DATES = {
     "2026-09-26", "2026-09-27", "2026-10-03", "2026-10-04",
     "2026-10-10", "2026-10-11", "2026-10-12",
 }
-KPI_NAMES = {"production", "betting", "shadow"}
+REQUIRED_KPI_NAMES = {"production", "betting", "shadow"}
+ALLOWED_KPI_NAMES = {"production", "betting", "betting_evidence", "betting_rules", "shadow"}
 
 
 def block(path: Path, tag: str):
@@ -68,10 +70,19 @@ def validate_day(day, path):
     if reviewed & unreviewed or reviewed | unreviewed != initial:
         raise ValueError(f"{label}: reviewed and unreviewed must partition initial_scope")
     kpis = day.get("kpis")
-    if not isinstance(kpis, dict) or not KPI_NAMES <= set(kpis) or any(
-        not (name in KPI_NAMES or name.startswith("shadow_")) for name in kpis
+    contract = day.get('kpi_contract')
+    if contract not in (None, CONTRACT):
+        raise ValueError(f'{label}: unknown KPI contract')
+    split = contract == CONTRACT
+    if split and (not isinstance(kpis, dict) or not {'betting_evidence', 'betting_rules'} <= set(kpis)):
+        raise ValueError(f'{label}: split contract requires betting_evidence and betting_rules')
+    if not isinstance(kpis, dict) or not REQUIRED_KPI_NAMES <= set(kpis) or any(
+        not (name in ALLOWED_KPI_NAMES or name.startswith("shadow_")) for name in kpis
     ):
-        raise ValueError(f"{label}: kpis must include production, betting, shadow; additional shadow_* items are allowed")
+        raise ValueError(
+            f"{label}: kpis must include production, betting, shadow; "
+            "betting_evidence and additional shadow_* items are allowed"
+        )
     for name, kpi in kpis.items():
         if not isinstance(kpi, dict):
             raise ValueError(f"{label}: {name} must be an object")
@@ -81,8 +92,8 @@ def validate_day(day, path):
         pending = ids(kpi, "pending_ids", f"{label}/{name}")
         if not scope <= initial:
             raise ValueError(f"{label}/{name}: target IDs outside initial_scope")
-        if name == "betting" and not scope <= purchase:
-            raise ValueError(f"{label}/{name}: official ROI targets must be purchase candidates")
+        if name in {"betting", "betting_evidence", "betting_rules"} and not scope <= purchase:
+            raise ValueError(f"{label}/{name}: betting targets must be purchase candidates")
         if any(a & b for a, b in ((eligible, ineligible), (eligible, pending), (ineligible, pending))):
             raise ValueError(f"{label}/{name}: eligibility sets overlap")
         if scope != eligible | ineligible | pending:
@@ -91,19 +102,49 @@ def validate_day(day, path):
         if not isinstance(refs, dict) or set(refs) != eligible:
             raise ValueError(f"{label}/{name}: every eligible race needs exactly one evidence reference")
         for race_id, ref in refs.items():
-            if not isinstance(ref, dict) or any(not isinstance(ref.get(key), str) or not ref[key]
+            if not isinstance(ref, dict):
+                raise ValueError(f"{label}/{name}/{race_id}: incomplete evidence reference")
+            if name == "betting":
+                keys = ('source_type', 'source_ref', 'source_path', 'working_branch') if split else ('snapshot_id', 'receipt_id', 'working_branch')
+                if any(not isinstance(ref.get(key), str) or not ref[key] for key in keys):
+                    raise ValueError(f"{label}/{name}/{race_id}: incomplete betting performance source")
+                if split and ref['source_type'] not in SOURCE_TYPES:
+                    raise ValueError(f'{label}/{name}/{race_id}: unknown performance source type')
+            elif any(not isinstance(ref.get(key), str) or not ref[key]
                 for key in ("snapshot_id", "receipt_id", "working_branch")):
                 raise ValueError(f"{label}/{name}/{race_id}: incomplete evidence reference")
         stake = money(kpi.get("stake_yen"), f"{label}/{name}/stake_yen")
         returned = money(kpi.get("return_yen"), f"{label}/{name}/return_yen")
         if name != "betting" and (stake is not None or returned is not None):
-            raise ValueError(f"{label}/{name}: money belongs only to official betting")
+            raise ValueError(f"{label}/{name}: money belongs only to betting performance")
         if name == "betting" and ((stake is None) != (returned is None)):
             raise ValueError(f"{label}/{name}: stake and return must be both measured or both null")
         if name == "betting" and eligible and (stake is None or stake != 10000 * len(eligible)):
             raise ValueError(f"{label}/{name}: eligible official betting requires 10,000 yen per race")
         if name == "betting" and not eligible and (stake is not None or returned is not None):
             raise ValueError(f"{label}/{name}: do not replace unmeasured ROI with zero")
+    if split:
+        targets = set(kpis['betting']['target_ids'])
+        if any(set(kpis[name]['target_ids']) != targets for name in ('betting_evidence', 'betting_rules')):
+            raise ValueError(f'{label}: split betting target sets differ')
+        settlement = day.get('fixed_plan_settlement')
+        if not isinstance(settlement, dict) or set(settlement.get('races', {})) != targets:
+            raise ValueError(f'{label}: settlement must cover every fixed plan')
+        races = settlement['races']
+        for race, item in races.items():
+            if any(type(item.get(key)) is not int or item[key] < 0 for key in ('stake_yen', 'return_yen')):
+                raise ValueError(f'{label}/{race}: settlement amounts required')
+            if not item.get('snapshot_id') or not item.get('snapshot_path') or item.get('source_verification') not in {'VERIFIED', 'PENDING', 'INELIGIBLE'}:
+                raise ValueError(f'{label}/{race}: settlement source status required')
+            expected = 'VERIFIED' if race in kpis['betting']['eligible_ids'] else 'PENDING' if race in kpis['betting']['pending_ids'] else 'INELIGIBLE'
+            if item['source_verification'] != expected:
+                raise ValueError(f'{label}/{race}: settlement source/KPI state mismatch')
+        for key in ('stake_yen', 'return_yen'):
+            if settlement.get(key) != sum(item[key] for item in races.values()):
+                raise ValueError(f'{label}: settlement total {key} mismatch')
+            measured = sum(races[race][key] for race in kpis['betting']['eligible_ids']) if kpis['betting']['eligible_ids'] else None
+            if kpis['betting'].get(key) != measured:
+                raise ValueError(f'{label}: verified performance money mismatch')
     return date
 
 
@@ -117,7 +158,14 @@ def summarize(days):
             measured = [day["kpis"][name] for day in days.values() if day["kpis"][name]["eligible_ids"]]
             totals[name]["stake_yen"] = sum(k["stake_yen"] for k in measured) if measured else None
             totals[name]["return_yen"] = sum(k["return_yen"] for k in measured) if measured else None
-    return {"cycle_id": "cycle_03", "recorded_dates": sorted(days), "kpis": totals}
+    summary = {"cycle_id": "cycle_03", "recorded_dates": sorted(days), "kpis": totals}
+    settlements = [day['fixed_plan_settlement'] for day in days.values() if day.get('kpi_contract') == CONTRACT]
+    if settlements:
+        summary['fixed_plan_settlement'] = {
+            'stake_yen': sum(s['stake_yen'] for s in settlements),
+            'return_yen': sum(s['return_yen'] for s in settlements),
+            'race_ids': sorted(r for s in settlements for r in s['races'])}
+    return summary
 
 
 def run(records_dir: Path, cycle_file: Path, require_data: bool, require_complete: bool, print_summary: bool = False):

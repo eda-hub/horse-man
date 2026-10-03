@@ -6,6 +6,7 @@ that was never created. This tool does not create evidence or infer eligibility.
 """
 
 import argparse
+import hashlib
 from datetime import datetime
 import json
 import re
@@ -93,7 +94,11 @@ def main():
     parser.add_argument('--intent-id',help='unique name for the attempt')
     parser.add_argument('--deadline-jst',help='earliest scheduled post time for this attempt')
     parser.add_argument('--race-id',action='append',default=[],help='one expected race ID; repeat for all races')
+    parser.add_argument('--task-complete',action='store_true',help='require saved intent and exact fixed-content hash before declaring task complete')
+    parser.add_argument('--fixed-content-sha256',help='hash of the FIXED snapshot section before writing')
     args=parser.parse_args()
+    if args.task_complete and (not args.snapshot_id or args.prepare or args.audit):
+        parser.error('--task-complete requires direct --snapshot-id verification')
     if (args.audit and (args.prepare or args.snapshot_id)) or (not args.audit and not args.prepare and not args.snapshot_id):
         parser.error('choose --audit, --prepare with --snapshot-id, or direct --snapshot-id')
     if (args.prepare or args.snapshot_id) and not args.date:
@@ -123,16 +128,42 @@ def main():
             print(f'INTENT_PREPARED {path}; commit and read back before prediction work')
             return 0
         if args.snapshot_id:
+            if args.task_complete:
+                if not args.intent_id or not re.fullmatch(r'[a-zA-Z0-9_-]+',args.intent_id):
+                    raise ComplianceError('task completion requires --intent-id')
+                intent_path=args.root/'docs/validation/persistence-intents'/args.date/f'{args.intent_id}.json'
+                intent=json.loads(intent_path.read_text(encoding='utf-8'))
+                if intent.get('snapshot_id')!=args.snapshot_id:
+                    raise ComplianceError('task completion intent/snapshot mismatch')
+                check_intent(args.root,intent_path)
+                section=snapshot_section((args.root/'docs/validation/snapshots'/f'{args.date}.md').read_text(encoding='utf-8'),args.snapshot_id)
+                digest=hashlib.sha256(section.encode('utf-8')).hexdigest()
+                if not args.fixed_content_sha256 or digest!=args.fixed_content_sha256:
+                    raise ComplianceError('task completion fixed/readback content hash mismatch')
             receipt=verify(args.root,args.date,args.snapshot_id)
-            print(f'PERSISTENCE_VERIFIED {args.snapshot_id} receipt={receipt}')
+            state='TASK_PERSISTENCE_COMPLETE' if args.task_complete else 'PERSISTENCE_VERIFIED'
+            print(f'{state} {args.snapshot_id} receipt={receipt}')
             return 0
         directory=args.root/'docs/validation/persistence-intents'
         paths=sorted(directory.glob('*/*.json')) if directory.exists() else []
         if args.date: paths=[p for p in paths if p.parent.name==args.date]
+        failed=0
+        declared=set()
+        for path in paths:
+            try:
+                item=json.loads(path.read_text(encoding='utf-8'))
+                declared.add((path.parent.name,item.get('snapshot_id')))
+            except (OSError,ValueError):
+                pass
+        snapshots=args.root/'docs/validation/snapshots'
+        for snapshot in sorted(snapshots.glob('*.md')):
+            if args.date and snapshot.stem!=args.date: continue
+            for ident in re.findall(r'^snapshot_id:\s*(\S+)\s*$',snapshot.read_text(encoding='utf-8'),re.M):
+                if (snapshot.stem,ident) not in declared:
+                    failed+=1
+                    print(f'PERSISTENCE_INCOMPLETE {snapshot}: {ident}: NO_INTENT; historical omission, not retroactively prepared')
         if not paths:
             print('NO_INTENTS: no declared prediction attempts; audit cannot establish completeness')
-            return 0
-        failed=0
         for path in paths:
             try: print(f'PERSISTENCE_VERIFIED {path} receipt={check_intent(args.root,path)}')
             except (ComplianceError,OSError,ValueError) as exc:

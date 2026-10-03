@@ -62,21 +62,27 @@ scope台帳自体は1レース1行。上表のKPI詳細はrace_id×KPIで複数�
 
 ### 日別記録の機械照合欄
 
-日別recordの末尾に以下を置く。日付・レースIDは実際の値へ置換し、対象がない日は配列を空にする。回顧が未実施でも `unreviewed_scope` に残し、測定待ちは `pending_ids` として記録する。各KPIの対象は適格・不適格・保留に漏れなく分ける。各Shadow項目は必要に応じて別の `shadow_*` キーに分け、単一の集計へ混ぜない。
+日別recordの末尾に以下を置く。日付・レースIDは実際の値へ置換し、対象がない日は配列を空にする。回顧が未実施でも `unreviewed_scope` に残し、測定待ちは `pending_ids` として記録する。各KPIの対象は適格・不適格・保留に漏れなく分ける。`betting` は固定仮想買い目の性能、`betting_evidence` はGit保存証跡として分離する。各Shadow項目は必要に応じて別の `shadow_*` キーに分け、単一の集計へ混ぜない。
 
 ```cycle03-day-v1
 {
   "cycle_id": "cycle_03", "race_date_jst": "2026-09-26",
+  "kpi_contract": "betting-kpi-split-v1",
   "initial_scope": [], "validation_candidates": [], "purchase_candidates": [],
   "final_completed_scope": [], "reviewed_scope": [], "unreviewed_scope": [],
   "kpis": {
     "production": {"target_ids": [], "eligible_ids": [], "ineligible_ids": [], "pending_ids": [], "evidence_refs": {}, "stake_yen": null, "return_yen": null},
     "betting": {"target_ids": [], "eligible_ids": [], "ineligible_ids": [], "pending_ids": [], "evidence_refs": {}, "stake_yen": null, "return_yen": null},
+    "betting_evidence": {"target_ids": [], "eligible_ids": [], "ineligible_ids": [], "pending_ids": [], "evidence_refs": {}, "stake_yen": null, "return_yen": null},
+    "betting_rules": {"target_ids": [], "eligible_ids": [], "ineligible_ids": [], "pending_ids": [], "evidence_refs": {}, "stake_yen": null, "return_yen": null},
     "shadow": {"target_ids": [], "eligible_ids": [], "ineligible_ids": [], "pending_ids": [], "evidence_refs": {}, "stake_yen": null, "return_yen": null}
-  }
+  },
+  "fixed_plan_settlement": {"stake_yen": 0, "return_yen": 0, "races": {}}
 }
 ```
 
-適格レースの `evidence_refs` はレースIDをキーにして `snapshot_id`、`receipt_id`、`working_branch` の実在値を記す。正式購入の適格1レースにつき投資額は10,000円、払戻額は実測値とする。未計測の額は `null` とし、0円と混同しない。コード欄は照合補助であり、発走前固定や保存読戻しの証明にはならない。出所・時刻・欠測理由は上の表にも残す。
+`betting` の適格レースは `evidence_refs` に `source_type`、`source_ref`、`working_branch` を記し、結果確認前にFIXされた買い目の追跡元を示す。Git snapshot/receiptが揃う場合は追加で参照してよい。`production`、`betting_evidence`、`shadow` の適格レースは従来どおり `snapshot_id`、`receipt_id`、`working_branch` の実在値を記す。Betting性能の適格1レースにつき投資額は10,000円、払戻額は実測値とする。未計測の額は `null` とし、0円と混同しない。コード欄は照合補助であり、発走前固定や保存読戻しの証明にはならない。出所・時刻・欠測理由は上の表にも残す。
 
 日別記録をサイクルへ反映したら `python3 scripts/check_cycle03.py --require-data` を実行し、`docs/validation/cycle_03.md` の集計欄との一致を確認する。全予定日の記録（対象なしの日を含む）を入れた終了確認には `--require-complete` を追加する。これは記録の網羅確認であり、全KPIの成功や証拠の真正性を宣言しない。
+
+新方式は3つのBetting判定を同じ対象集合で必須にする。性能の適格参照にはsource_pathも必須とし、[発走前FIX証跡契約](../performance-sources/README.md) の実在原文・時刻・内容を照合する。fixed_plan_settlement.racesは全対象にsnapshot_path、snapshot_id、stake_yen、return_yen、source_verificationを置く。認証が保留でも全券の仮想精算を保持し、eligibleの金額合計だけを認証済み性能へ反映する。旧方式はkpi_contractなしの従来契約として保持し、混在サイクルでも精算総額と認証金額を分ける。

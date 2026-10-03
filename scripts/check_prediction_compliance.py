@@ -309,18 +309,42 @@ def cycle_links(root,gates):
     for path in rd.glob('*.md'):
         for d in blocks(path,'cycle03-day-v1'):
             date=d.get('race_date_jst')
+            from check_betting_performance import CONTRACT, validate_source, snapshot_tickets
+            split=d.get('kpi_contract')==CONTRACT
+            if split:
+                from check_cycle03 import validate_day
+                validate_day(d,path)
+                for race,ref in d['kpis']['betting']['evidence_refs'].items():
+                    source=validate_source(root,ref,race)
+                    settlement=d['fixed_plan_settlement']['races'][race]
+                    if any(source[key]!=settlement[key] for key in ('snapshot_path','snapshot_id')):
+                        raise ComplianceError(f'{path}: {race} performance/settlement artifact mismatch')
+                for race,item in d['fixed_plan_settlement']['races'].items():
+                    tickets=snapshot_tickets(root,item['snapshot_path'],item['snapshot_id'])
+                    if item['stake_yen']!=sum(t['stake_yen'] for t in tickets):
+                        raise ComplianceError(f'{path}: {race} settlement differs from fixed tickets')
+            names=('production','betting_rules','betting_evidence','shadow') if split else ('production','betting','shadow')
             for race in d.get('initial_scope',[]):
-                eligible=[name for name in ('production','betting','shadow')
+                eligible=[name for name in names
                           if race in d.get('kpis',{}).get(name,{}).get('eligible_ids',[])]
                 if (date,race) not in gates:
                     if eligible:
                         missing.append(f'{path}: ELIGIBLE {",".join(eligible)} lacks execution gate for {race}')
                     continue
                 g=gates[(date,race)]
-                for name in ('production','betting','shadow'):
+                for name in names:
                     o=d.get('kpis',{}).get(name,{})
                     expected='ELIGIBLE' if race in o.get('eligible_ids',[]) else 'INELIGIBLE' if race in o.get('ineligible_ids',[]) else 'PENDING' if race in o.get('pending_ids',[]) else None
-                    if expected and g['kpi_eligibility'][name]!=expected: raise ComplianceError(f'{path}: {race}/{name} gate state mismatch')
+                    if name=='betting_evidence':
+                        if expected=='ELIGIBLE':
+                            ref=o['evidence_refs'][race]
+                            settlement=d['fixed_plan_settlement']['races'][race]
+                            if ref.get('artifact_id')!=settlement['snapshot_id'] or ref.get('artifact_path')!=settlement['snapshot_path']:
+                                raise ComplianceError(f'{path}: {race} storage/settlement artifact mismatch')
+                            evidence(root,ref,f'{path}/{race}/{name}',True,iso(g['scheduled_post_time_jst'],str(path)))
+                        continue
+                    gate_name='betting' if name=='betting_rules' else name
+                    if expected and g['kpi_eligibility'][gate_name]!=expected: raise ComplianceError(f'{path}: {race}/{name} gate state mismatch')
     return missing
 
 def snapshot_links(root,gates):
@@ -396,7 +420,7 @@ def main():
     ap.add_argument('--audit',action='store_true',help='report missing coverage without blocking record persistence')
     a=ap.parse_args()
     try: run(a.root,audit=a.audit)
-    except (ComplianceError,OSError,json.JSONDecodeError) as e:
+    except (ValueError,OSError) as e:
         print(f'NON_COMPLIANT: {e}',file=sys.stderr); return 1
     return 0
 
