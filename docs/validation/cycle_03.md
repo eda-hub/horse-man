@@ -190,13 +190,13 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
 
 ## 9. 実績（計画と分離）
 
-9/26のLIVE実績に加え、10/3の東京・京都開催を日別recordから集計した。運用合格と性能KPI適格性は分離し、不適格・未実施を分母から消さない。以後の日付は未実施のまま保持する。
+9/26のLIVE実績に加え、10/3の東京・京都開催を日別recordから集計した。Bettingは固定仮想買い目の性能KPIと保存証跡KPIを分離し、保存不備だけで追跡可能な仮想成績を0件扱いにしない。運用合格と性能KPI適格性は分離し、不適格・未実施を分母から消さない。以後の日付は未実施のまま保持する。
 
 | 日付 | 日別record commit / 集計revision | 初回 / 選定 / 最終完了 / 回顧の集合参照 | 運用KPI | 性能KPI | 照合状態 |
 |---|---|---|---|---|---|
 | 2026-09-26 | `4d3e73967da49f4a0d89dede61580a3b0841fa14` / R04 | initial 24 / selected 11 / final 8 / reviewed 24 | 最終完了8/11。strict Production証跡3/24、Betting 0/2、Shadow 0/11。手動救済あり | 日次正式Betting ROIは不適格。実購入は3,500円→2,490円（別帳簿） | REVIEW_COMPLETED / AGGREGATION_R04 |
 | 2026-09-27 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
-| 2026-10-03 | `3de68aeca4f69fee230401ea09a265d381cc864e` / R02 | initial 24 / selected 5 / final 5 / reviewed 24 | 最終完了5/5。strict Production 0/24、Betting 0/5、Shadow 0/5。保存復旧介入3プロンプト・4R | 正式Betting ROIは証跡不適格。参考仮想50,000円→60,050円（ROI 120.1%） | REVIEW_COMPLETED / AGGREGATION_R01 |
+| 2026-10-03 | `46ae9b50c0fe83ba32d130be86ac77f360a9ec62` / R03 | initial 24 / selected 5 / final 5 / reviewed 24 | 最終完了5/5。Production保存証跡0/24、Betting保存証跡0/5、Shadow保存証跡0/5。保存復旧介入3プロンプト・4R | Betting性能5/5、50,000円→60,050円（ROI 120.1%）。保存証跡の不備は性能値と分離 | REVIEW_COMPLETED / AGGREGATION_R02 |
 | 2026-10-04 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-10 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-11 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
@@ -238,19 +238,38 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
         "202606040810",
         "202609040811"
       ],
+      "eligible_ids": [
+        "2026-10-03-KYOTO-06",
+        "2026-10-03-KYOTO-08",
+        "2026-10-03-KYOTO-09",
+        "2026-10-03-TOKYO-09",
+        "2026-10-03-TOKYO-11"
+      ],
+      "ineligible_ids": [
+        "202606040810",
+        "202609040811"
+      ],
+      "pending_ids": [],
+      "stake_yen": 50000,
+      "return_yen": 60050
+    },
+    "betting_evidence": {
+      "target_ids": [
+        "2026-10-03-KYOTO-06",
+        "2026-10-03-KYOTO-08",
+        "2026-10-03-KYOTO-09",
+        "2026-10-03-TOKYO-09",
+        "2026-10-03-TOKYO-11"
+      ],
       "eligible_ids": [],
       "ineligible_ids": [
         "2026-10-03-KYOTO-06",
         "2026-10-03-KYOTO-08",
         "2026-10-03-KYOTO-09",
         "2026-10-03-TOKYO-09",
-        "2026-10-03-TOKYO-11",
-        "202606040810",
-        "202609040811"
+        "2026-10-03-TOKYO-11"
       ],
-      "pending_ids": [],
-      "stake_yen": null,
-      "return_yen": null
+      "pending_ids": []
     },
     "production": {
       "target_ids": [
