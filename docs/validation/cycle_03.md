@@ -620,7 +620,7 @@ JSON欄の保存後は `python3 scripts/check_cycle03.py --require-data` を通�
 
 記録日2026-10-05 JST。海外レースは国内予定168R・当日初回24Rと別枠管理。本節は同日同race_id同KPIのARC-R01を1回だけ計上し、再実行では置換する。国内24RはR03でscope監査・機械集計まで完了し、最終未完了10Rを失敗として保持する。海外別枠は国内集計へ混入させない。10/10以降を含むサイクル全体は継続する。
 
-- 日別正本：[2026-10-04 record](https://github.com/eda-hub/horse-man/blob/c7372a22f5d0d7f71e22b235ae4e2a607b5aa062/docs/validation/records/2026-10-04.md)、海外revision ARC-R01（国内R02保持）。
+- 日別正本：[2026-10-04 record](records/2026-10-04.md)、国内R03・海外revision ARC-R01。
 - 再計算証拠：[全頭属性・路線・海外別枠台帳](https://github.com/eda-hub/horse-man/blob/938612dc19137c0f92502ebf7b3c1da022af417f/docs/validation/records/2026-10-04_arc-trend-evidence.json)。
 - 年次観測値照合：[全4観点・過去82頭と当年16頭](https://github.com/eda-hub/horse-man/blob/98d5a2b40ca770df44e4ab2fddb55ca6e1d4fb42/docs/yosou/kaigai/prixDeLArcDeTriomphe.md)。
 - 発走前正本：[凱旋門賞snapshot固定commit](https://github.com/eda-hub/horse-man/blob/d523e920c404581bcd5ed02601509efc76cf80ec/docs/validation/snapshots/2026-10-04.md)。結果後変更なし。
