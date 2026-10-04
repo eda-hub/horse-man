@@ -197,7 +197,7 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
 | 2026-09-26 | `4d3e73967da49f4a0d89dede61580a3b0841fa14` / R04 | initial 24 / selected 11 / final 8 / reviewed 24 | 最終完了8/11。strict Production証跡3/24、Betting 0/2、Shadow 0/11。手動救済あり | 日次正式Betting ROIは不適格。実購入は3,500円→2,490円（別帳簿） | REVIEW_COMPLETED / AGGREGATION_R04 |
 | 2026-09-27 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-03 | 元記録 `46ae9b50c0fe83ba32d130be86ac77f360a9ec62` / R04（本PR） | initial 24 / selected 5 / final 5 / reviewed 24 | 最終完了5/5。Production保存証跡0/24、Betting保存証跡0/5、Shadow保存証跡0/5。保存復旧介入3プロンプト・4R | 仮想精算50,000円→60,050円（ROI 120.1%）を保持。性能認証は保留5/5、購入ルール不適格5/5、保存証跡不適格5/5 | REVIEW_COMPLETED / AGGREGATION_R04 |
-| 2026-10-04 | 本PR日別record R03 / AGGREGATION_R05 | initial 24 / selected 15 / final 5 / reviewed 24。最終未完了10Rを明示 | Production保存証跡5/24適格・19/24不適格。最終完了5/15。Betting性能は購入候補12R中、固定済み5R保留・未固定7R不適格。Betting証跡0/12、Shadow0/15 | 固定仮想は固定済み5Rのみ50,000円→41,000円（ROI82.0%）。実購入12,000円→8,200円（ROI68.3%）。未完了候補を事後0円見送りへ変換しない | REVIEW_COMPLETED_WITH_FINAL_EXECUTION_GAPS / AGGREGATION_R05 |
+| 2026-10-04 | 本PR日別record R03 / AGGREGATION_R05 | initial 24 / selected 15 / final 5 / reviewed 24。最終未完了10Rを明示 | Production正式KPI 0/24適格・24/24不適格（うち再取得5Rは発走前保存・receipt検証済みだがexecution gate/certification欠落）。最終完了5/15。Betting性能は購入候補12R中、固定済み5R保留・未固定7R不適格。Betting証跡0/12、Shadow0/15 | 固定仮想は固定済み5Rのみ50,000円→41,000円（ROI82.0%）。実購入12,000円→8,200円（ROI68.3%）。未完了候補を事後0円見送りへ変換しない | REVIEW_COMPLETED_WITH_FINAL_EXECUTION_GAPS / AGGREGATION_R05 |
 | 2026-10-10 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-11 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-12 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
@@ -438,11 +438,6 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
         "202609040812"
       ],
       "eligible_ids": [
-        "2026-10-04-KYOTO-02",
-        "2026-10-04-KYOTO-03",
-        "2026-10-04-KYOTO-05",
-        "2026-10-04-TOKYO-03",
-        "2026-10-04-TOKYO-06",
         "202606040811",
         "202609040810",
         "202609040811"
@@ -473,7 +468,10 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
         "2026-10-03-TOKYO-11",
         "2026-10-03-TOKYO-12",
         "2026-10-04-KYOTO-01",
+        "2026-10-04-KYOTO-02",
+        "2026-10-04-KYOTO-03",
         "2026-10-04-KYOTO-04",
+        "2026-10-04-KYOTO-05",
         "2026-10-04-KYOTO-06",
         "2026-10-04-KYOTO-07",
         "2026-10-04-KYOTO-08",
@@ -483,8 +481,10 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
         "2026-10-04-KYOTO-12",
         "2026-10-04-TOKYO-01",
         "2026-10-04-TOKYO-02",
+        "2026-10-04-TOKYO-03",
         "2026-10-04-TOKYO-04",
         "2026-10-04-TOKYO-05",
+        "2026-10-04-TOKYO-06",
         "2026-10-04-TOKYO-07",
         "2026-10-04-TOKYO-08",
         "2026-10-04-TOKYO-09",

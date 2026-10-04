@@ -134,11 +134,19 @@ def validate_day(day, path):
         for race, item in races.items():
             if any(type(item.get(key)) is not int or item[key] < 0 for key in ('stake_yen', 'return_yen')):
                 raise ValueError(f'{label}/{race}: settlement amounts required')
-            if not item.get('snapshot_id') or not item.get('snapshot_path') or item.get('source_verification') not in {'VERIFIED', 'PENDING', 'INELIGIBLE'}:
+            if item.get('source_verification') not in {'VERIFIED', 'PENDING', 'INELIGIBLE'}:
                 raise ValueError(f'{label}/{race}: settlement source status required')
             expected = 'VERIFIED' if race in kpis['betting']['eligible_ids'] else 'PENDING' if race in kpis['betting']['pending_ids'] else 'INELIGIBLE'
             if item['source_verification'] != expected:
                 raise ValueError(f'{label}/{race}: settlement source/KPI state mismatch')
+            missing_plan = item.get('missing_fixed_plan') is True
+            if missing_plan:
+                if expected != 'INELIGIBLE' or item['stake_yen'] != 0 or item['return_yen'] != 0:
+                    raise ValueError(f'{label}/{race}: missing fixed plan must be an ineligible zero-money bookkeeping entry')
+                if item.get('snapshot_id') is not None or item.get('snapshot_path') is not None:
+                    raise ValueError(f'{label}/{race}: missing fixed plan must not invent a snapshot')
+            elif not item.get('snapshot_id') or not item.get('snapshot_path'):
+                raise ValueError(f'{label}/{race}: fixed plan snapshot required')
         for key in ('stake_yen', 'return_yen'):
             if settlement.get(key) != sum(item[key] for item in races.values()):
                 raise ValueError(f'{label}: settlement total {key} mismatch')
