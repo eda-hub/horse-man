@@ -453,3 +453,33 @@ JSON欄を作る際は `python3 scripts/check_cycle03.py --require-data --print-
 
 JSON欄の保存後は `python3 scripts/check_cycle03.py --require-data` を通し、全予定日分を記録した終了時は `--require-complete` を併用する。対象がない日も空集合の日別台帳を残す。差があれば日別の証拠と区分を確認し、古い合計へ加算せず集計を作り直す。この照合は集合・金額の整合だけを検査するため、発走前時刻、公式結果、snapshot/receiptの真正性は人が別に読戻す。
 
+## 凱旋門賞・海外別枠の回顧集計（2026-10-04／ARC-R01）
+
+記録日2026-10-05 JST。海外レースは国内予定168R・当日初回24Rと別枠管理。本節は同日同race_id同KPIのARC-R01を1回だけ計上し、再実行では置換する。国内の旧集計JSONと既存購入5R金額は変更しない。国内全scopeとサイクル全体の `CYCLE_AGGREGATION_PENDING` は継続する。
+
+- 日別正本：[2026-10-04 record](https://github.com/eda-hub/horse-man/blob/c7372a22f5d0d7f71e22b235ae4e2a607b5aa062/docs/validation/records/2026-10-04.md)、海外revision ARC-R01（国内R02保持）。
+- 再計算証拠：[全頭属性・路線・海外別枠台帳](https://github.com/eda-hub/horse-man/blob/938612dc19137c0f92502ebf7b3c1da022af417f/docs/validation/records/2026-10-04_arc-trend-evidence.json)。
+- 年次観測値照合：[全4観点・過去82頭と当年16頭](https://github.com/eda-hub/horse-man/blob/98d5a2b40ca770df44e4ab2fddb55ca6e1d4fb42/docs/yosou/kaigai/prixDeLArcDeTriomphe.md)。
+- 発走前正本：[凱旋門賞snapshot固定commit](https://github.com/eda-hub/horse-man/blob/d523e920c404581bcd5ed02601509efc76cf80ec/docs/validation/snapshots/2026-10-04.md)。結果後変更なし。
+
+| 項目 | 海外別枠ARC-R01 |
+|---|---|
+| race_id | 2026-10-04-LCH-05（ローカルID） |
+| 引継ぎ予想／最終候補／購入済み／回顧済み | 各{2026-10-04-LCH-05}。scope差0 |
+| production対象／適格／不適格／保留 | 1／0／0／1。元宣言・基準ID・FIX時刻・全頭確率欠測 |
+| betting性能対象／適格／不適格／保留 | 1／0／0／1。固定券精算済み、正式性能適格は未認証 |
+| betting_evidence対象／適格／不適格／保留 | 1／0／0／1。本体・receipt発走前読戻し成功、元宣言等は欠測 |
+| shadow対象／適格／不適格／保留 | 0／0／0／0。未提供、依頼・必須適用詳細は要確認 |
+| 元固定仮想 | 単勝9=4,000円・14=3,500円・11=2,500円。10,000円→0円、-10,000円、ROI0% |
+| 訂正後実購入 | 馬連1-9=1,200円・1-14=1,000円・1-11=800円。3,000円→0円、-3,000円、ROI0% |
+| 購入申告／依存率 | 22:31:22 JST本人購入済み。◎依存100%。撤回済み単勝3,000円案を加算しない |
+| 介入 | 発走前買い目訂正1、回顧による予想変更0 |
+| 回顧 | 完了（相手選定漏れ・個別無印理由欠落、因果は保留） |
+| 傾向照合 | 過去全82頭・当年16頭、全4T-ID→4Q-ID。原観点は方向なし運用項目。補助集計差を記録 |
+| 海外別枠集計 | OVERSEAS_SUBLEDGER_RECONCILED。各KPI対象=適格∪不適格∪保留、相互排他。国内へ混入しない |
+
+本人購入済み国内5R＋海外1Rの参考合計は15,000円→8,200円、損益-6,800円、ROI54.67%。固定仮想参考合計は60,000円→41,000円、-19,000円、ROI68.33%。この参考合計は国内正式KPI／旧cycle JSONの置換値ではない。日別ARC-R01と同じ金額・対象ID・revision・保留理由を照合する。
+
+元非◎単勝案の例外未提示による購入ルール違反、価格・同時成立確率・元FIX／宣言欠測は保存成功で解消しない。保存証跡と性能を分け、追跡可能な固定券損失を除外しない。Shadow適用詳細、公式天候・現地Going原文計測、全馬位置取り・映像因果、全履歴同場実績、正式KPI認証は残件。1Rから共通ルールの正式昇格は行わない。
+
+回顧と海外独立集計を完了したこと、正式適格認証・正常一巡成功・国内全24R／サイクル全体完了は別に扱う。main統合時は最新mainの日付×KPI×race_idを再確認し、日次branchの古いサイクル全体を上書きしない。
