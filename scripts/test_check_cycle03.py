@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from check_cycle03 import run, summarize
+from check_cycle03 import run, summarize, validate_day
 
 
 def example(date, race):
@@ -65,6 +65,47 @@ class LedgerChecks(unittest.TestCase):
             run(root / "records", root / "cycle_03.md", False, False)
             with self.assertRaisesRegex(ValueError, "no cycle 03"):
                 run(root / "records", root / "cycle_03.md", True, False)
+
+    def test_split_contract_can_record_missing_fixed_plan(self):
+        day = example("2026-10-04", "race-a")
+        empty = {"target_ids": ["race-a"], "eligible_ids": [], "ineligible_ids": ["race-a"],
+                 "pending_ids": [], "evidence_refs": {}, "stake_yen": None, "return_yen": None}
+        day["purchase_candidates"] = ["race-a"]
+        day["kpi_contract"] = "betting-kpi-split-v1"
+        day["kpis"]["betting"] = dict(empty)
+        day["kpis"]["betting_evidence"] = dict(empty)
+        day["kpis"]["betting_rules"] = dict(empty)
+        day["fixed_plan_settlement"] = {
+            "stake_yen": 0, "return_yen": 0,
+            "races": {"race-a": {
+                "snapshot_path": None, "snapshot_id": None,
+                "stake_yen": 0, "return_yen": 0,
+                "source_verification": "INELIGIBLE",
+                "missing_fixed_plan": True
+            }}
+        }
+        validate_day(day, Path("2026-10-04.md"))
+
+    def test_missing_fixed_plan_cannot_invent_money_or_snapshot(self):
+        day = example("2026-10-04", "race-a")
+        empty = {"target_ids": ["race-a"], "eligible_ids": [], "ineligible_ids": ["race-a"],
+                 "pending_ids": [], "evidence_refs": {}, "stake_yen": None, "return_yen": None}
+        day["purchase_candidates"] = ["race-a"]
+        day["kpi_contract"] = "betting-kpi-split-v1"
+        day["kpis"]["betting"] = dict(empty)
+        day["kpis"]["betting_evidence"] = dict(empty)
+        day["kpis"]["betting_rules"] = dict(empty)
+        day["fixed_plan_settlement"] = {
+            "stake_yen": 10000, "return_yen": 0,
+            "races": {"race-a": {
+                "snapshot_path": "invented.md", "snapshot_id": "invented",
+                "stake_yen": 10000, "return_yen": 0,
+                "source_verification": "INELIGIBLE",
+                "missing_fixed_plan": True
+            }}
+        }
+        with self.assertRaisesRegex(ValueError, "missing fixed plan"):
+            validate_day(day, Path("2026-10-04.md"))
 
 
 if __name__ == "__main__":

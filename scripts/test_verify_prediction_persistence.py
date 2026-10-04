@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0,str(Path(__file__).parent))
 
 from check_prediction_compliance import ComplianceError
-from verify_prediction_persistence import check_intent, verify
+from verify_prediction_persistence import check_intent, verify, declared_intent_paths
 
 
 DATE='2026-10-04'
@@ -72,6 +72,11 @@ class PersistenceTest(unittest.TestCase):
     def test_direct_verification_works_without_intent(self):
         self.snapshot(); self.receipt()
         self.assertEqual(verify(self.root,DATE,SNAP),SNAP+'-R02')
+
+    def test_failed_attempts_are_excluded_from_active_audit(self):
+        failed=write(self.root,'docs/validation/persistence-intents/failed-attempts/legacy.json','{}')
+        self.assertNotIn(failed,declared_intent_paths(self.root/'docs/validation/persistence-intents'))
+        self.assertIn(self.path,declared_intent_paths(self.root/'docs/validation/persistence-intents'))
 
 
 if __name__=='__main__': unittest.main()

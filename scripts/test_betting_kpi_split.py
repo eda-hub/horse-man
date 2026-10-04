@@ -44,6 +44,19 @@ class PerformanceSources(unittest.TestCase):
         self.write('source.json', json.dumps(self.source))
         return validate_source(self.root, self.ref, self.race)
 
+
+    def test_snapshot_tickets_reads_virtual_bullet_plan_only(self):
+        self.write('snap.md',
+                   '## final\nsnapshot_id: snap-a\n'
+                   '### 検証用仮想購入（正式帳簿）\n'
+                   '- 馬連 1-2: 6,000円\n'
+                   '- 複勝 3: 4,000円\n'
+                   '### 実購入提案\n'
+                   '- 馬連 1-2: 500円\n')
+        tickets = snapshot_tickets(self.root, 'snap.md', 'snap-a')
+        self.assertEqual(sum(x['stake_yen'] for x in tickets), 10000)
+        self.assertEqual(len(tickets), 2)
+
     def test_chat_fixed_plan_does_not_require_git_receipt(self):
         self.verify()
 

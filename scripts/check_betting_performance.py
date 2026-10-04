@@ -33,9 +33,22 @@ def snapshot_tickets(root, relative, snapshot_id):
              'ワイド': 'WIDE', '馬単': 'EXACTA', '三連複': 'TRIO', '三連単': 'TRIFECTA'}
     tickets = []
     for kind, horses, amount in re.findall(
-        r'^\|\s*(単勝|複勝|馬連|ワイド|馬単|三連複|三連単)\s*\|\s*([\d-]+)\s*\|\s*([\d,]+)円\s*\|', matches[0], re.M):
+        r'^\|\s*(単勝|複勝|馬連|ワイド|馬単|三連複|三連単)\s*\|\s*([\d-]+)\s*\|\s*([\d,]+)円\s*\|',
+        matches[0], re.M):
         tickets.append({'type': kinds[kind], 'horses': [int(x) for x in horses.split('-')],
                         'stake_yen': int(amount.replace(',', ''))})
+    if not tickets:
+        virtual = re.search(
+            r'^###\s+検証用仮想購入（正式帳簿）\s*$\n(.*?)(?=^###\s|\Z)',
+            matches[0], re.M | re.S)
+        if virtual:
+            for kind, horses, amount in re.findall(
+                    r'^-\s*(単勝|複勝|馬連|ワイド|馬単|3連複|三連複|3連単|三連単)\s+([\d-]+)\s*[:：]\s*([\d,]+)円\s*$',
+                    virtual.group(1), re.M):
+                normalized = {'3連複': '三連複', '3連単': '三連単'}.get(kind, kind)
+                tickets.append({'type': kinds[normalized],
+                                'horses': [int(x) for x in horses.split('-')],
+                                'stake_yen': int(amount.replace(',', ''))})
     if not tickets:
         raise ValueError('fixed tickets missing')
     return tickets

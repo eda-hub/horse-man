@@ -84,6 +84,13 @@ def check_intent(root, path):
     return verify(root,date,snapshot_id,deadline,races)
 
 
+def declared_intent_paths(directory):
+    """Return active intent JSON files; failed-attempt payloads are audit history only."""
+    if not directory.exists():
+        return []
+    return sorted(p for p in directory.glob('*/*.json') if p.parent.name != 'failed-attempts')
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root',type=Path,default=Path('.'))
@@ -145,7 +152,7 @@ def main():
             print(f'{state} {args.snapshot_id} receipt={receipt}')
             return 0
         directory=args.root/'docs/validation/persistence-intents'
-        paths=sorted(directory.glob('*/*.json')) if directory.exists() else []
+        paths=declared_intent_paths(directory)
         if args.date: paths=[p for p in paths if p.parent.name==args.date]
         failed=0
         declared=set()

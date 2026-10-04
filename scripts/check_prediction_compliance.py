@@ -320,6 +320,8 @@ def cycle_links(root,gates):
                     if any(source[key]!=settlement[key] for key in ('snapshot_path','snapshot_id')):
                         raise ComplianceError(f'{path}: {race} performance/settlement artifact mismatch')
                 for race,item in d['fixed_plan_settlement']['races'].items():
+                    if item.get('missing_fixed_plan') is True:
+                        continue
                     tickets=snapshot_tickets(root,item['snapshot_path'],item['snapshot_id'])
                     if item['stake_yen']!=sum(t['stake_yen'] for t in tickets):
                         raise ComplianceError(f'{path}: {race} settlement differs from fixed tickets')
