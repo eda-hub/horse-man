@@ -315,6 +315,6 @@ T-014／T-015の例外を「本競走の複数年連対」まで広げる案は�
 - S-006：[2026全馬5走](https://sports.yahoo.co.jp/keiba/race/denma/2605040211?detail=1)／[戦数](https://sports.yahoo.co.jp/keiba/race/achievement/all/2605040211)／[重賞実績](https://sports.yahoo.co.jp/keiba/race/achievement/grade/2605040211)。当年条件値。
 - S-007：[ホウオウ全戦績](https://sports.yahoo.co.jp/keiba/directory/horse/2020103941/)／[レディネス全戦績](https://sports.yahoo.co.jp/keiba/directory/horse/2022104416/)。5走以前を含む勝利歴と反例。
 - S-008：[2026札幌全16頭](https://sports.yahoo.co.jp/keiba/race/result/2601010811)／[2026安田全17頭](https://sports.yahoo.co.jp/keiba/race/result/2605030211/)／[2025しらさぎ全14頭](https://sports.yahoo.co.jp/keiba/race/result/2509030611/)。上がり順位の再計算。
-- [正式回顧・固定案精算・改善候補](https://github.com/eda-hub/horse-man/blob/d5a5545eaaa2da6d630e0519fc6b1fdde39d4e91/docs/validation/records/2026-10-04.md)。確定commitへ読戻し済み。
+- [正式回顧・固定案精算・改善候補](https://github.com/eda-hub/horse-man/blob/001dae0320b4e4025279f0df32500e395169a100/docs/validation/records/2026-10-04.md)。確定commitへ読戻し済み。
 - [固定FINAL snapshot](https://github.com/eda-hub/horse-man/blob/eb39d0518405bd306c976d58963cafddce510a19/docs/validation/snapshots/2026-10-04.md)。結果後に印・確率・固定買い目を変更しない。
 - フォーマット：[JRA重賞運用](README.md)、共通境界：[重賞ノート運用](../README.md)、判断Owner：[manual](../../manual/README.md)。
