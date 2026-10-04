@@ -157,7 +157,7 @@ JRAのコース紹介では、序盤約400mは平坦、その後に上り、3コ
 
 2着は1着から1と1/4馬身、3着は2着からクビ。着差は先着馬からの差。15・16ゲートが2・3着だが着順のみで進路や外差しの効果を断定しない。払戻・予想照合・収支はvalidationへ記録し本ノートで再台帳化しない。
 
-Racing Postの事後レポート（S-014）では、メイショウタバルとベイシティローラーが前方を形成し、ベイシティローラーが直線で先頭へ出た後、後方待機のダリズが外から進出して残り約100ヤードで差し切ったと報じられている。ダイヤモンドネックレスも外から伸びた。Canalturf（S-015）も同様の流れを伝える。これによりゲート15・16の2、3着が単なる着順事実だけではなく、少なくとも当年は大外枠からも上位進出が可能だった事例と確認できる。ただし全馬通過順・区間ラップ・進路損を網羅していないため、外枠有利／不利の因果効果には昇格しない。
+France Galop公式回顧（S-016）では、ダリズは後方待機から直線で外へ、ゲート15のベイシティローラーは外を前進して好位を確保してから内へ寄せ、ゲート16のダイヤモンドネックレスも徐々に位置を上げたと説明している。陣営コメントではペースが速くなかったとの認識も示された。Racing Post（S-014）も、メイショウタバルとベイシティローラーの前方形成とダリズの外からの差し切りを報告。これによりゲート15・16の2、3着が単なる着順事実だけではなく、少なくとも当年は大外枠からも上位進出が可能だった事例と確認できる。ただし全馬通過順・区間ラップ・進路損を網羅していないため、外枠有利／不利の因果効果には昇格しない。
 
 ## 6. 当年結果との照合
 
@@ -218,6 +218,7 @@ Racing Postの事後レポート（S-014）では、メイショウタバルと�
 | S-013 | [JRA-VAN当年結果](https://world.jra-van.jp/race/arc/2026/result/) | JRA結果と順位・価格・払戻を照合、天候・Going欄は空白 |
 | S-014 | [Racing Post・2026凱旋門賞レポート](https://www.racingpost.com/news/reports/sensational-daryz-repeats-arc-win-to-make-history-for-francis-graffard-at-longchamp-aGLRa8o325c5/) | ダリズの後方待機から外進出、ベイシティローラー／メイショウタバルの前方形成、直線の攻防を事後確認 |
 | S-015 | [Canalturf・2026凱旋門賞結果回顧](https://www.canalturf.com/infos-hippiques/64214_quinte-pmu-qatar-prix-de-l-arc-de-triomphe-a-longchamp-le-04-10-2026-daryz-magnifique-conserve-son-titre.html) | 上位3頭・2:27.110と前方形成／外からの進出を補助照合 |
+| S-016 | [France Galop・2026凱旋門賞公式回顧](https://www.france-galop.com/en/content/qatar-prix-de-larc-de-triomphe-french-trained-daryz-makes-history) | ダリズの後方待機→外進出、ゲート15・16組の位置取り対応、陣営のペース認識を事後確認 |
 
 - ノート構成：[海外重賞README](README.md)、[共通README](../README.md)。
 - 正式予想ルール：[manual README](../../manual/README.md)。
