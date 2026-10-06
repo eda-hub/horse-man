@@ -56,9 +56,44 @@ def gate(date='2026-09-26',race='20260926-NAK-01',mode='FORWARD'):
       'betting':{'status':'NOT_REQUIRED'},'review':{'status':'NOT_STARTED'}
     }
 
+def next_gate(date='2026-10-13',race='20261013-TOK-01',mode='FORWARD'):
+    ranking=[5,2,6,4,1,3]
+    probabilities=[
+      {'horse_no':5,'win_probability':0.22,'top2_probability':0.39,'top3_probability':0.53},
+      {'horse_no':2,'win_probability':0.18,'top2_probability':0.34,'top3_probability':0.49},
+      {'horse_no':6,'win_probability':0.14,'top2_probability':0.29,'top3_probability':0.43},
+    ]
+    evidence_items=[
+      {'horse_no':horse,'factor':'ability','fact':f'test fact {horse}','source_ref':'test-source',
+       'observed_at_jst':f'{date}T09:40:00+09:00','direction':'plus','strength':'medium'}
+      for horse in ranking[:3]
+    ]
+    return {
+      'schema_version':'prediction-compliance-v2','race_id':race,'race_date_jst':date,'mode':mode,
+      'working_branch':f'prediction/{date}','manual_release':'v1.7.0','manual_ref_commit':'b'*40,
+      'scheduled_post_time_jst':f'{date}T10:10:00+09:00',
+      'timing_route':'SNAPSHOT_CANDIDATE' if mode=='FORWARD' else 'LATE_PRESERVATION',
+      'production':{
+        'baseline_forecast_id':race+'-P001',
+        'ranking':ranking,
+        'marks':{'honmei':5,'taikou':2,'tanana':6,'renka':[4,1,3]},
+        'probabilities':probabilities,
+        'prediction_confidence':'B',
+        'evidence_items':evidence_items,
+        'fixed_at_jst':f'{date}T09:55:00+09:00'
+      },
+      'kpi_eligibility':{'production':'INELIGIBLE','shadow':'INELIGIBLE'},
+      'shadow_items':[],
+      'review':{'status':'NOT_STARTED'}
+    }
+
 class T(unittest.TestCase):
   def root(self):
     t=tempfile.TemporaryDirectory(); self.addCleanup(t.cleanup); r=Path(t.name); write(r,'docs/manual/README.md',README); return r
+  def root_next(self):
+    t=tempfile.TemporaryDirectory(); self.addCleanup(t.cleanup); r=Path(t.name)
+    write(r,'docs/manual/README.md','# manual\n- **現行リリース**: `v1.7.0`\n')
+    return r
   def put(self,r,g):
     write(r,f"docs/validation/execution-gates/{g['race_date_jst']}/{g['race_id']}.json",json.dumps(g,ensure_ascii=False))
   def test_replay_shadow_eligible_rejected(self):
@@ -276,5 +311,76 @@ class T(unittest.TestCase):
     _,unregistered=snapshot_links(r,{(g['race_date_jst'],g['race_id']):g})
     self.assertEqual(coverage_summary({(g['race_date_jst'],g['race_id']):g},missing,unregistered),
                      {'2026-10-04':{'gates':1,'missing_links':0,'ungated_snapshots':1}})
+
+  def test_legacy_gate_remains_valid_after_manual_release_advances(self):
+    r=self.root_next(); g=gate(); self.put(r,g); run(r)
+
+  def test_legacy_schema_rejected_for_next_effective_date(self):
+    r=self.root_next(); g=gate(date='2026-10-13',race='20261013-TOK-01'); self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'legacy contract is not valid'): run(r)
+
+  def test_next_schema_rejected_before_effective_date(self):
+    r=self.root(); g=next_gate(date='2026-10-12',race='20261012-TOK-01'); self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'next contract is not valid before'): run(r)
+
+  def test_next_gate_does_not_require_betting(self):
+    r=self.root_next(); g=next_gate(); self.put(r,g); run(r)
+
+  def test_next_gate_ignores_optional_legacy_betting_kpi(self):
+    r=self.root_next(); g=next_gate()
+    g['kpi_eligibility']['betting']='ELIGIBLE'
+    g['betting']={'status':'FIXED'}
+    self.put(r,g); run(r)
+
+  def test_next_gate_requires_top3_evidence(self):
+    r=self.root_next(); g=next_gate()
+    g['production']['evidence_items']=g['production']['evidence_items'][:2]
+    self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'top3 ranking horses require evidence'): run(r)
+
+  def test_next_gate_marks_must_follow_ranking(self):
+    r=self.root_next(); g=next_gate()
+    g['production']['marks']['honmei']=2
+    self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'marks must follow production ranking'): run(r)
+
+  def test_next_gate_probability_order_is_validated(self):
+    r=self.root_next(); g=next_gate()
+    g['production']['probabilities'][0]['win_probability']=0.6
+    self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'probability order'): run(r)
+
+  def test_next_gate_evidence_must_be_pre_race(self):
+    r=self.root_next(); g=next_gate()
+    g['production']['evidence_items'][0]['observed_at_jst']='2026-10-13T10:11:00+09:00'
+    self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'evidence observed at/after post time'): run(r)
+
+  def test_next_replay_cannot_claim_production_eligible(self):
+    r=self.root_next(); g=next_gate(mode='REPLAY')
+    g['kpi_eligibility']['production']='ELIGIBLE'
+    self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'replay production/shadow KPI cannot be eligible'): run(r)
+
+  def test_unknown_contract_is_rejected(self):
+    r=self.root_next(); g=next_gate(); g['manual_release']='v9.9.9'; self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'unsupported manual_release/schema combination'): run(r)
+
+  def test_next_eligible_production_requires_verified_receipt(self):
+    r=self.root_next(); g=next_gate(); g['kpi_eligibility']['production']='ELIGIBLE'; self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'evidence_ref required'): run(r)
+
+  def test_next_complete_review_needs_prediction_layer_not_betting(self):
+    r=self.root_next(); g=next_gate()
+    g['review']={
+      'status':'COMPLETE',
+      'result_sources':[{'url':'https://example.invalid','retrieved_at_jst':'2026-10-13T11:00:00+09:00'}],
+      'result':{'top3':[5,2,6]},
+      'error_classification':{'primary':'NONE','secondary':[]},
+      'layer_assessment':{'prediction':'PASS'},
+      'non_degradation':{'protect':[],'retest':[],'improve':[]},
+      'kpis':{'production':{'eligibility':'INELIGIBLE'}}
+    }
+    self.put(r,g); run(r)
 
 if __name__=='__main__': unittest.main()
