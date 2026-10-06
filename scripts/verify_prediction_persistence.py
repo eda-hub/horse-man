@@ -15,6 +15,8 @@ from pathlib import Path
 
 from check_prediction_compliance import ComplianceError, iso, receipt_records
 
+PREDICTION_SNAPSHOT_SCHEMA = 'prediction-snapshot-v2'
+
 
 def snapshot_section(content, snapshot_id):
     sections = re.split(r'(?=^##\s+)', content, flags=re.M)
@@ -30,29 +32,108 @@ def field(section, key):
     return match.group(1).strip() if match else None
 
 
-def verify(root, date, snapshot_id, deadline=None, expected_races=()):
-    path = root/'docs/validation/snapshots'/f'{date}.md'
-    if not path.is_file(): raise ComplianceError(f'{snapshot_id}: snapshot file missing: {path}')
-    section = snapshot_section(path.read_text(encoding='utf-8'),snapshot_id)
-    if field(section,'working_branch') != f'prediction/{date}':
+def _relative(root, path):
+    try:
+        return str(path.relative_to(root))
+    except ValueError as exc:
+        raise ComplianceError(f'{path}: artifact must be under repository root') from exc
+
+
+def resolve_snapshot(root, date, snapshot_id, declared_artifact_path=None):
+    candidates=[]
+
+    if declared_artifact_path:
+        declared=root/declared_artifact_path
+        if not declared.is_file():
+            raise ComplianceError(f'{snapshot_id}: snapshot file missing: {declared}')
+        paths=[declared]
+    else:
+        paths=[]
+        legacy=root/'docs/validation/snapshots'/f'{date}.md'
+        if legacy.is_file():
+            paths.append(legacy)
+        json_dir=root/'docs/validation/snapshots'/date
+        if json_dir.exists():
+            paths.extend(sorted(json_dir.rglob('*.json')))
+
+    for path in paths:
+        rel=_relative(root,path)
+        if path.suffix=='.md':
+            content=path.read_text(encoding='utf-8')
+            try:
+                section=snapshot_section(content,snapshot_id)
+            except ComplianceError:
+                if declared_artifact_path:
+                    raise
+                continue
+            scope_blocks=re.findall(r'^```prediction-scope-v1\s*\n(.*?)\n```\s*$',section,re.M|re.S)
+            scope=None
+            if scope_blocks:
+                if len(scope_blocks)!=1:
+                    raise ComplianceError(f'{snapshot_id}: expected one prediction-scope-v1 block')
+                scope=json.loads(scope_blocks[0]).get('race_ids')
+            candidates.append({
+                'kind':'markdown','path':path,'artifact_path':rel,'snapshot_id':snapshot_id,
+                'working_branch':field(section,'working_branch'),
+                'scheduled_post_time_jst':field(section,'scheduled_post_time_jst'),
+                'race_ids':scope,'hash_bytes':section.encode('utf-8'),
+            })
+            continue
+
+        if path.suffix=='.json':
+            try:
+                data=json.loads(path.read_text(encoding='utf-8'))
+            except json.JSONDecodeError as exc:
+                if declared_artifact_path:
+                    raise ComplianceError(f'{snapshot_id}: invalid JSON snapshot: {path}') from exc
+                continue
+            if data.get('schema_version')!=PREDICTION_SNAPSHOT_SCHEMA or data.get('snapshot_id')!=snapshot_id:
+                if declared_artifact_path:
+                    raise ComplianceError(f'{snapshot_id}: declared JSON artifact does not match {PREDICTION_SNAPSHOT_SCHEMA}')
+                continue
+            race_id=data.get('race_id')
+            if not isinstance(race_id,str) or not race_id:
+                raise ComplianceError(f'{snapshot_id}: JSON snapshot race_id required')
+            candidates.append({
+                'kind':'json','path':path,'artifact_path':rel,'snapshot_id':snapshot_id,
+                'working_branch':data.get('working_branch'),
+                'scheduled_post_time_jst':data.get('scheduled_post_time_jst'),
+                'race_ids':[race_id],'hash_bytes':path.read_bytes(),'data':data,
+            })
+
+    if not candidates:
+        default=root/'docs/validation/snapshots'/f'{date}.md'
+        raise ComplianceError(
+            f'{snapshot_id}: snapshot file missing: {default} or JSON snapshot under docs/validation/snapshots/{date}/'
+        )
+    if len(candidates)!=1:
+        raise ComplianceError(f'{snapshot_id}: expected one snapshot artifact, found {len(candidates)}')
+    return candidates[0]
+
+
+def snapshot_digest(snapshot):
+    return hashlib.sha256(snapshot['hash_bytes']).hexdigest()
+
+
+def verify(root, date, snapshot_id, deadline=None, expected_races=(), expected_artifact_path=None):
+    snapshot=resolve_snapshot(root,date,snapshot_id,expected_artifact_path)
+    if snapshot.get('working_branch') != f'prediction/{date}':
         raise ComplianceError(f'{snapshot_id}: wrong working branch')
     if expected_races:
-        # A structured scope block prevents another section's race IDs from
-        # accidentally satisfying an all-race prediction intent.
-        blocks = re.findall(r'^```prediction-scope-v1\s*\n(.*?)\n```\s*$',section,re.M|re.S)
-        if len(blocks)!=1: raise ComplianceError(f'{snapshot_id}: prediction-scope-v1 required')
-        scope=json.loads(blocks[0])
-        if set(scope.get('race_ids',[])) != set(expected_races) or len(scope.get('race_ids',[]))!=len(expected_races):
+        scope=snapshot.get('race_ids')
+        if not isinstance(scope,list):
+            raise ComplianceError(f'{snapshot_id}: prediction scope required')
+        if set(scope) != set(expected_races) or len(scope)!=len(expected_races):
             raise ComplianceError(f'{snapshot_id}: predicted race scope differs from intent')
     receipts=root/'docs/validation/persistence-receipts'/f'{date}.md'
     if not receipts.is_file(): raise ComplianceError(f'{snapshot_id}: receipt file missing: {receipts}')
     candidates=[r for r in receipt_records(receipts) if r.get('artifact_id')==snapshot_id]
-    eligible=[r for r in candidates if r.get('artifact_path')==str(path.relative_to(root))
+    eligible=[r for r in candidates if r.get('artifact_path')==snapshot['artifact_path']
               and r.get('artifact_persist_status')=='PERSIST_VERIFIED'
               and r.get('receipt_persist_status')=='RECEIPT_VERIFIED'
               and r.get('timing_eligibility')=='PRE_RACE_ELIGIBLE']
     if not eligible: raise ComplianceError(f'{snapshot_id}: verified pre-race receipt missing')
-    post=iso(deadline or field(section,'scheduled_post_time_jst') or
+    post=iso(deadline or snapshot.get('scheduled_post_time_jst') or
              eligible[-1].get('scheduled_post_time_jst'),f'{snapshot_id}/deadline')
     for receipt in eligible:
         verified=iso(receipt.get('persist_verified_at_jst'),f'{snapshot_id}/persist_verified_at_jst')
@@ -62,7 +143,6 @@ def verify(root, date, snapshot_id, deadline=None, expected_races=()):
         if receipt_time and verified<limit and iso(receipt_time,f'{snapshot_id}/receipt_verified_at_jst')<limit:
             return receipt['receipt_id']
     raise ComplianceError(f'{snapshot_id}: receipt readback time missing or at/after deadline')
-
 
 def check_intent(root, path):
     intent=json.loads(path.read_text(encoding='utf-8'))
