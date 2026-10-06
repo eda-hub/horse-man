@@ -66,3 +66,34 @@ JRA重賞の長期記録は `docs/yosou/jra_racing/`、進行中Shadow検証は 
 
 ## ADR-021 買い目数値根拠とreceiptは発走前構造化証跡で確定する
 非◎縦目の例外理由はallowlist方式とし、現行は `INDEPENDENT_POSITIVE_EV` のみを許可する。価格・保守側成立確率・EVはgate JSON内の相互整合だけでは正式監査済みとせず、発走前に保存した `betting-evidence-v1` と完全一致させる。証跡artifact自身のreceiptは `persistence-receipt-v1` の独立レコードとして保存し、同じ `receipt_id` レコード内のartifact ID/path、保存状態、`PRE_RACE_ELIGIBLE`、保存確認時刻と発走予定時刻をcheckerが照合する。発走後Replayで新規算出した価格・確率は前向き数値証跡へ昇格させない。
+
+## ADR-022 次期Prediction中心契約への責任範囲変更（発効条件付き）
+
+**発効条件**: 第3検証サイクル終了審査を完了し、mainの `docs/manual/README.md` が `manual_release=v1.7.0` へ正式切替された時点。発効前はADR-004/005/010/016/020/021のv1.6.1契約を維持する。
+
+次期horse-manの中核責任を「発走前Predictionの順位・確率・印・根拠の固定、結果結合、回顧、ルール改善」に限定する。新規の実購入状態・購入金額・実購入券種・実購入ROIは正式台帳の必須機能から外す。過去に記録済みの購入・BET/SKIP・仮想精算履歴は削除せず、当時のmanual releaseとgate schemaでread-only検証する。
+
+固定ルールによる仮想収益検証はProduction固定後の任意market validation sidecarとし、Prediction KPIの対象・適格性・回顧完了条件へ混入させない。
+
+本ADR発効時、以下を部分的にsupersedeする。
+
+- ADR-004: FINAL immutableは維持するが、次期FINALの必須内容から買い目候補を外し、順位・確率・印・根拠を中心とする。
+- ADR-005: BET/SKIPを最終判断とする契約を終了し、低確信レースもPredictionとして固定・回顧する。
+- ADR-010: PAT非連携は維持するが、手動購入記録をシステム対象とする部分を終了する。
+- ADR-016: Production / Shadow完全分離は維持し、正式買い目前提の表現を市場sidecarへ置換する。
+- ADR-020: 機械ゲートによる正式性判定は維持し、v1.7.0ではBettingを必須KPIから外す。
+- ADR-021: v1.6.1以前のBetting evidence契約として履歴保持し、v1.7.0標準Predictionの必須契約から外す。
+
+### 次期印・根拠
+
+Production順位を正本とし、印は順位から決定的に導出する。4位以下にも勝利可能性を認め、勝率・確率レンジ・シナリオで表現する。人気・妙味を理由にProduction順位・印を変更しない。
+
+Production上位馬には追跡可能な根拠を保持し、少なくとも事実、出所、観測時刻、評価方向、証拠強度を再現できることを要求する。
+
+### 次期機械監査
+
+- v1.6.1: `prediction-compliance-v1`
+- v1.7.0: `prediction-compliance-v2`
+
+既存schemaの意味を上書きしない。checkerはrelease/schemaの組み合わせでvalidatorを選択し、未知の組み合わせを拒否する。
+
