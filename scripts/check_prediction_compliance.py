@@ -298,7 +298,7 @@ def probability_item(item,label):
         raise ComplianceError(f'{label}: probability order must be win <= top2 <= top3')
     return horse
 
-def evidence_item(item,label,post):
+def evidence_item(item,label,cutoff):
     if not isinstance(item,dict): raise ComplianceError(f'{label}: evidence object required')
     horse=item.get('horse_no')
     if type(horse) is not int or horse<=0: raise ComplianceError(f'{label}: horse_no must be positive int')
@@ -309,7 +309,7 @@ def evidence_item(item,label,post):
     if item.get('strength') not in {'strong','medium','weak'}:
         raise ComplianceError(f'{label}: invalid strength')
     observed=iso(item.get('observed_at_jst'),label+'/observed_at_jst')
-    if observed>=post: raise ComplianceError(f'{label}: evidence observed at/after post time')
+    if observed>cutoff: raise ComplianceError(f'{label}: evidence observed after data_cutoff')
     return horse
 
 def review_v2(rv, gate, mode, label):
@@ -359,9 +359,13 @@ def validate_gate_v2(root,path,g):
     if mode not in {'FORWARD','REPLAY'}: raise ComplianceError(f'{label}: invalid mode')
     if g.get('working_branch')!=f'prediction/{date}': raise ComplianceError(f'{label}: wrong working_branch')
     if g.get('manual_release')!=NEXT_RELEASE: raise ComplianceError(f'{label}: next manual_release mismatch')
+    if release(root)!=NEXT_RELEASE:
+        raise ComplianceError(f'{label}: next contract requires current manual release {NEXT_RELEASE}')
     if not re.fullmatch(r'[0-9a-f]{40}',req(g,'manual_ref_commit',label)):
         raise ComplianceError(f'{label}: full manual commit SHA required')
     post=iso(g.get('scheduled_post_time_jst'),label+'/post')
+    cutoff=iso(g.get('data_cutoff'),label+'/data_cutoff')
+    if cutoff>=post: raise ComplianceError(f'{label}: data_cutoff must be before post time')
     route=req(g,'timing_route',label)
     if mode=='REPLAY' and route!='LATE_PRESERVATION':
         raise ComplianceError(f'{label}: replay must be LATE_PRESERVATION')
@@ -403,7 +407,7 @@ def validate_gate_v2(root,path,g):
         raise ComplianceError(f'{label}: production evidence_items required')
     evidence_horses=set()
     for i,item in enumerate(evidence_items):
-        evidence_horses.add(evidence_item(item,f'{label}/production/evidence_items[{i}]',post))
+        evidence_horses.add(evidence_item(item,f'{label}/production/evidence_items[{i}]',cutoff))
     if not set(ranking[:3]).issubset(evidence_horses):
         raise ComplianceError(f'{label}: top3 ranking horses require evidence')
 
