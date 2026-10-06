@@ -90,3 +90,14 @@
 ```bash
 python3 scripts/check_prediction_cycle.py
 ```
+
+
+## execution gateとの照合
+
+`production.eligible_ids` または `shadow.eligible_ids` にrace_idを登録する場合、同日・同race_idの `prediction-compliance-v2` execution gateを必須とする。
+
+- gateが存在しないELIGIBLEは不正。
+- 日別台帳のELIGIBLE / INELIGIBLE / PENDINGとgateの `kpi_eligibility` が一致しない場合は不正。
+- Production ELIGIBLEでは、gateが参照する `prediction-snapshot-v2` の内容とgate内の順位・印・確率・根拠・baseline ID等が完全一致しなければならない。
+- Shadow ELIGIBLEでは、少なくとも1件のELIGIBLEなShadow evidence itemと発走前receiptを要求する。
+- 非ELIGIBLEでgate自体が存在しないレースに、内容のないダミーgateを作る必要はない。
