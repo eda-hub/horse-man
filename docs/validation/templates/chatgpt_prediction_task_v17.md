@@ -52,11 +52,15 @@
 
 ## 保存
 
-1. 予想作成前の保存宣言を現行のpersistence契約に従って作成する。
-2. 発走前にProduction snapshotとreceiptを保存・読戻しする。
-3. `prediction-compliance-v2` gateを作成する。
-4. checkerで適格性を確認する。
-5. 保存・監査が未完了でも予想内容を結果後に捏造・補完しない。
+1. 予想作成前に `prediction-persistence-intent-v1` を作り、race_id、snapshot_id、deadline、v2 JSONの `artifact_path` を固定する。
+2. Production snapshotは原則 `docs/validation/snapshots/YYYY-MM-DD/SNAPSHOT_ID.json` へ保存する。
+3. JSONには少なくとも `schema_version=prediction-snapshot-v2`、snapshot_id、race_id、working_branch、scheduled_post_time_jst、manual release/commit、baseline ID、data_cutoff、順位、印、確率、確信度、根拠、fixed_atを持たせる。
+4. FIX内容のJSONファイルbytesからSHA-256を保持し、snapshot保存・読戻し、同一artifactのreceipt保存・読戻し後に `--task-complete --fixed-content-sha256` で一致確認する。
+5. `prediction-compliance-v2` gateを作成し、snapshot内容とgate内容を完全照合する。
+6. persistence auditとcompliance auditの両方で未宣言snapshot・未登録gateがないことを確認する。
+7. 保存・監査が未完了でも予想内容を結果後に捏造・補完しない。
+
+旧Markdown snapshotはv1.6.1履歴互換のため継続して読めるが、新規v1.7.0 Productionの標準形式にはしない。
 
 ## 回顧
 
