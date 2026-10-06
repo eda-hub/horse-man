@@ -37,6 +37,7 @@ checkerは `manual_release + schema_version` の組み合わせで検証契約�
 - `data_cutoff`: Predictionで利用可能な情報時点。発走予定時刻より前であること
 - `evidence_items`: 少なくとも上位3頭について、根拠事実・出所・観測時刻・方向・強度を保持。観測時刻はdata_cutoffを越えない
 - `evidence_ref`: Production KPIをELIGIBLEとする場合の発走前snapshot/receipt参照
+- `prediction-snapshot-v2` JSONは `working_branch` と `scheduled_post_time_jst` を含み、persistence intentの `artifact_path`・race scope・receipt・SHA-256読戻し検証を通過すること
 - Productionを `ELIGIBLE` にするsnapshotはJSONの `prediction-snapshot-v2` とし、gateの `baseline_forecast_id / ranking / marks / probabilities / prediction_confidence / evidence_items / data_cutoff / fixed_at_jst / manual release・commit` と完全一致すること
 
 印は順位から導出する。4位以下にも勝利可能性は認め、確率・レンジ・シナリオで表現する。勝利可能性があることだけを理由に3位以内へ順位を操作しない。
