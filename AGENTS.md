@@ -43,3 +43,21 @@
 
 31. `kpi_contract=betting-kpi-split-v1` の日別台帳では、`betting` は発走前FIXの追跡性、`betting_rules` は購入ルール遵守、`betting_evidence` はGit保存品質として独立判定する。27のexecution gate認証は購入ルール・保存品質・Production・Shadowへ適用し、性能には `fixed-plan-source-v1` の原文・時刻・同一買い目照合を適用する。旧契約の台帳を暗黙に新方式と解釈しない。未確認出所は保留にし、固定済み仮想買い目の精算値を消さない。監査違反券だけを結果後に除外してROIを変更しない。
 32. ChatGPT最終予想タスクは標準テンプレートの事前宣言と `--task-complete --intent-id --fixed-content-sha256` を省略しない。宣言は予想作成前に保存・読戻しし、FIX時点のsectionハッシュと読戻し内容の一致を確認する。機械確認成功後のみ保存完了と回答する。過去の宣言欠落を発走前宣言として後から生成しない。
+
+## 次期Prediction中心契約（発効条件付き）
+
+この節は、mainの `docs/manual/README.md` の現行リリースが **`v1.7.0` へ正式切替された場合だけ**、上記v1.6.1固有の購入・Betting指示を置換して適用する。第3検証サイクル中およびmainがv1.6.1の間は発効しない。
+
+1. FINAL予想、順位、確率、印、主要根拠、結果、回顧を履歴保存する。新規の実購入有無・券種・金額・払戻・実購入ROIは正式台帳の必須記録にしない。
+2. 「見送り」は購入判断ではなく、必要に応じて予想確信度D等の低予測可能性として表現する。低確信レースもPrediction回顧から除外しない。
+3. 仮想精算は任意の市場検証sidecarとし、全レースの必須工程にしない。sidecar未実行でもPrediction KPI・回顧を完了できる。
+4. Production順位を先に決め、印は順位から導出する。4位以下にも勝利可能性を認め、確率・レンジ・シナリオで表現する。
+5. Production上位馬は、少なくとも事実・出所・観測時刻・評価方向・証拠強度を持つ根拠で説明できるようにする。
+6. 新しい弱い単発情報だけで大幅な順位変更を行わない。強い新情報または複数の独立根拠がある場合は理由・時刻を保存して変更できる。
+7. 重賞も通常レースと同じ基本Productionを先に固定する。重賞固有の過去集団傾向は固定後のShadow比較とし、同一レースのProductionへ逆流させない。
+8. execution gateは `manual_release + schema_version` で契約を選択する。v1.6.1の過去記録は `prediction-compliance-v1` の旧契約で検証し、v1.7.0は `prediction-compliance-v2` を使用する。
+9. v1.7.0のPrediction正式性は実購入・Betting情報なしで判定できる。市場検証sidecarの状態をProduction適格性へ混入させない。
+10. 近5走相手レベル、開催傾向、新馬専用評価、条件別統計等の新規featureはdata cutoff/provenanceを保持し、原則Shadow前向き検証後に別PRでProduction昇格を判断する。
+11. 旧Betting・実購入・仮想精算記録は削除・新契約へ変換せずread-only履歴として保持する。
+12. JRA-VANコード実装は引き続き `docs/jravan/phases/README.md` のPhase順・独立PR契約に従う。
+
