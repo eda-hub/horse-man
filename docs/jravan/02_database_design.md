@@ -4,7 +4,7 @@
 - `core`: JRA基本データ
 - `market`: オッズ・馬体重・馬場等の時系列
 - `feature`: 予想用特徴量
-- `prediction`: Production/Shadow予想・買い目・購入判断・精算
+- `prediction`: Production/Shadow予想・根拠・任意の市場検証sidecar
 - `review`: 回顧・検証サイクル・AI・ルール提案・バックテスト
 - `ops`: job、watermark、backup、health、source provenance
 
@@ -20,10 +20,12 @@ ops.source_registry 1---N ops.data_provenance
 core/market records 1---N ops.data_provenance
 core.race 1---N prediction.prediction_run
 prediction.prediction_run 1---N prediction.runner_prediction
+prediction.prediction_run 1---N prediction.prediction_evidence
 prediction.prediction_run 1---N prediction.rule_application
-prediction.prediction_run 1---N prediction.bet_recommendation
-prediction.prediction_run 1---0..1 prediction.bet_decision
-prediction.bet_recommendation 1---0..1 prediction.bet_settlement
+prediction.prediction_run 1---0..N prediction.market_validation_run
+feature.feature_run 1---N feature.opponent_strength_snapshot
+feature.feature_run 1---N feature.meeting_trend_snapshot
+feature.feature_run 1---N feature.condition_stat_snapshot
 prediction.prediction_run N---0..1 review.validation_cycle
 prediction.prediction_run 1---N review.review_session
 review.review_session 1---N review.review_message
@@ -91,6 +93,29 @@ review.rule_proposal 1---N review.backtest_run
 ### feature.runner_feature
 頻出特徴量は列、実験的特徴量は`features_json`へ格納する。血統系統、インブリード、脚質分類、近走集計等のderived featureは、可能な限りraw dataから内部再計算し、`ops.data_provenance` で元データへ遡れること。
 
+### feature.opponent_strength_snapshot
+直近最大5走の相手レベルを予想時点で再現する。
+
+`opponent_strength_id PK, feature_run_id, race_id, horse_id, source_race_id, lookback_index, as_of, race_class, field_size, finish_position, margin, pace_context_json, compared_runners_json, subsequent_results_cutoff, strength_features_json, provenance_json`
+
+- `as_of` と `subsequent_results_cutoff` は予想時点を越えてはならない。
+- 対戦相手の「その後の成績」は `as_of` までに確定した結果だけを使う。
+- 後日再計算する場合も元の `data_cutoff` を固定し、未来情報で過去Predictionを再評価しない。
+
+### feature.meeting_trend_snapshot
+開催期間中の傾向を、長期コース傾向・当日傾向・単一レース展開と分離して保持する。
+
+`meeting_trend_id PK, feature_run_id, meeting_id, meeting_day, racecourse, surface, distance_bucket nullable, data_cutoff, sample_count, gate_stats_json, running_style_stats_json, corner_position_stats_json, pace_stats_json, path_stats_json, track_condition, confidence, provenance_json`
+
+小標本の印象をProductionへ直結させず、初期はShadow featureとして利用する。
+
+### feature.condition_stat_snapshot
+新馬・未勝利・条件クラス・性別条件等を任意集計できる統計snapshot。
+
+`condition_stat_id PK, feature_run_id, entity_type, entity_id, racecourse nullable, surface nullable, distance_bucket nullable, class nullable, age_condition nullable, sex_condition nullable, race_type nullable, period_start, period_end, data_cutoff, starts, wins, top2, top3, metrics_json, provenance_json`
+
+`entity_type` は `SIRE / DAM_SIRE / TRAINER / JOCKEY / COURSE / OTHER` 等を想定する。新馬戦では種牡馬・厩舎等の統計を使えるが、小標本や市場期待未補正の単純勝率だけで強いProduction加点を行わない。
+
 ### prediction.prediction_run
 最低限次を持つ。
 
@@ -103,20 +128,34 @@ review.rule_proposal 1---N review.backtest_run
 - FINAL/固定済Productionはimmutable。
 
 ### prediction.runner_prediction
-`prediction_id, horse_id, mark, baseline_rank, overall_score, ability_score, suitability_score, pace_score, pedigree_score, win_probability, place_probability, top3_probability, prediction_confidence`
+`prediction_id, horse_id, mark, baseline_rank, overall_score, ability_score, suitability_score, pace_score, pedigree_score, win_probability, top2_probability, top3_probability, probability_low nullable, probability_high nullable, prediction_confidence`
+
+印は `baseline_rank` から導出する。4位以下にも勝利可能性を認め、確率・レンジ・シナリオは印とは別列で保持する。
+
+### prediction.prediction_evidence
+`evidence_id PK, prediction_id, horse_id, factor, fact, source_ref, observed_at, direction, strength, applies_to, provenance_id nullable, notes nullable`
+
+- 少なくともProduction上位馬について、順位・確率を説明できる根拠を保持する。
+- `observed_at <= prediction_run.data_cutoff` を必須とする。
+- 同一原因を血統・展開・適性等へ二重計上しないよう、`provenance_id` と `applies_to` で追跡する。
 
 ### prediction.rule_application
 `prediction_id, horse_id nullable, module, rule_id, effect_type, input_snapshot, output_delta, evidence_json`
 Production/Shadowどちらで使われたルールかを `prediction_run` と合わせて追跡する。`evidence_json` には可能な範囲で使用したprovenance IDまたはsource record keyを持たせ、第三者の予想印・独自ランキングがProduction evidenceへ混入していないことを監査可能にする。
 
-### prediction.bet_recommendation
-推奨候補。Production正式候補とShadow比較候補を区別する。見送りでも削除しない。
+### prediction.market_validation_run
+任意の市場・仮想収益検証sidecar。
 
-### prediction.bet_decision
-実ユーザー判断はProductionにのみ紐付ける。`BET / SKIP_ODDS / SKIP_RISK / SKIP_USER / SKIP_OTHER`、判断理由、判断時odds snapshot、ユーザー指定馬/券種/予算を保持する。
+`market_validation_id PK, prediction_id, method_version, observed_odds_snapshot_id nullable, predicted_final_odds_snapshot_id nullable, data_cutoff, fixed_at, status, metrics_json, created_at`
 
-### prediction.bet_settlement
-理論推奨、Shadow比較、実購入の精算種別を区別して集計可能にする。
+- Production固定後にのみ作成する。
+- 実購入の有無・予算・財布事情を入力にしない。
+- Prediction KPIの完了条件にしない。
+- 固定ルールによる仮想検証を行う場合だけ、券種・selection・仮想stake・結果を `metrics_json` または将来の専用子テーブルへ保持する。
+
+### 旧Bettingテーブルの互換
+
+既に存在する `prediction.bet_recommendation / bet_decision / bet_settlement` 相当の履歴を移行で削除しない。次期schemaでは新規Productionの必須書込先にせず、旧manual releaseのread-only履歴として参照する。旧実購入・BET/SKIP・仮想精算を次期Prediction KPIへ自動混入しない。
 
 ### review.validation_cycle
 `validation_cycle_id, cycle_no, manual_release, started_at, ended_at, status, target_rules_json, planned_sample_count, actual_sample_count`
@@ -143,7 +182,7 @@ Prediction、結果、decision、validation cycleを紐付ける。
 `docs/yosou/jra_racing/` と `docs/validation/` は現行Git運用の正本/作業領域である。DB導入後の同期方式が正式決定するまで、DB保存を理由にこれらを削除・置換しない。
 
 ## データ重要度
-A: Production FINAL、baseline ID、判断、結果、回顧、manual release/module hash、重要snapshot、critical provenance — 原則削除不可
+A: Production FINAL、baseline ID、順位・確率・根拠、結果、回顧、manual release/module hash、重要snapshot、critical provenance — 原則削除不可
 B: Shadow/検証データ — 検証ライフサイクルに従いDB保持方針を別途設定
 C: feature、集計 — 再生成可能。ただし再生成に必要なraw provenanceは保持する
 D: cache — 削除可
