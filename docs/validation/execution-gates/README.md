@@ -9,9 +9,21 @@ checkerは `manual_release + schema_version` の組み合わせで検証契約�
 | manual release | gate schema | 用途 |
 |---|---|---|
 | `v1.6.1` | `prediction-compliance-v1` | 第3サイクルまでの旧契約。Betting監査を含む |
-| `v1.7.0` | `prediction-compliance-v2` | 次期Prediction中心契約。2026-10-13以降に有効化予定 |
+| `v1.7.0` | `prediction-compliance-v2` | 次期Prediction中心契約。2026-10-13は最短開始可能日であり、自動切替日ではない |
 
 `prediction-compliance-v1` の意味は変更しない。mainの現行releaseが将来更新されても、過去のv1 gateは旧validatorで検証する。未知のrelease/schema組み合わせはfail closedとする。
+
+### 正式切替状態
+
+`docs/validation/execution-gates/contract-state.json` を次期契約の切替状態の正本とする。
+
+- `earliest_race_date=2026-10-13` はv2を開始できる最短日であり、v1をその日に自動失効させない。
+- `status=PENDING` の間は、10月13日以降でも現行 `v1.6.1` gateを継続できる。
+- 正式切替時はmanual releaseを `v1.7.0` へ変更する同じ変更で `status=ACTIVE`、`effective_race_date`、`activated_at_jst` を固定する。
+- ACTIVE後は `effective_race_date` 以前のv1履歴を引き続き検証し、同日以降の新規v1 gateを拒否する。
+- v2 gateは `earliest_race_date` と `effective_race_date` の両方を満たす場合だけ認証する。
+- manual releaseとcontract-stateが矛盾する場合はfail closedする。
+
 
 `prediction-compliance-v2` は実購入・BettingをProduction正式性の必須入力にしない。Production、適用Shadow、発走前証跡、data cutoff相当の時点性、結果後回顧を監査する。市場・仮想収益検証を行う場合は任意sidecarとして別契約に分離する。
 
@@ -25,6 +37,7 @@ checkerは `manual_release + schema_version` の組み合わせで検証契約�
 - `data_cutoff`: Predictionで利用可能な情報時点。発走予定時刻より前であること
 - `evidence_items`: 少なくとも上位3頭について、根拠事実・出所・観測時刻・方向・強度を保持。観測時刻はdata_cutoffを越えない
 - `evidence_ref`: Production KPIをELIGIBLEとする場合の発走前snapshot/receipt参照
+- Productionを `ELIGIBLE` にするsnapshotはJSONの `prediction-snapshot-v2` とし、gateの `baseline_forecast_id / ranking / marks / probabilities / prediction_confidence / evidence_items / data_cutoff / fixed_at_jst / manual release・commit` と完全一致すること
 
 印は順位から導出する。4位以下にも勝利可能性は認め、確率・レンジ・シナリオで表現する。勝利可能性があることだけを理由に3位以内へ順位を操作しない。
 
@@ -112,7 +125,7 @@ checkerは `manual_release + schema_version` の組み合わせで検証契約�
 - GitHub Actionsは `--audit` で欠落一覧を報告する。これは書込後の監査であり、予想とreceiptの保存を止める判定ではない。終了コード0でも `AUDIT_INCOMPLETE` があれば、該当レースはゲート認証済みではない。正式KPIへ登録する前に通常の厳格照合を通す。
 - `COVERAGE YYYY-MM-DD: gates=N missing_certifications=M ungated_snapshots=K` は、保存済みゲート件数、正式適格を主張しているのに証跡がない件数、ゲート未登録のsnapshot参照数を表す。未登録のsnapshotは予想記録として保持されるが、KPI適格の認証ではない。日付はファイルから読み取り、特定日の例外は設けない。
 - 発走後に作ったReplay Shadowは、結果を入力へ直接使っていなくても `ELIGIBLE` にできない。
-- KPIを `ELIGIBLE` にするには、参照artifactとreceiptが実在し、receipt近傍に `PRE_RACE_ELIGIBLE` が存在することをcheckerが確認する。
+- KPIを `ELIGIBLE` にするには、参照artifactとreceiptが実在し、receipt近傍に `PRE_RACE_ELIGIBLE` が存在することをcheckerが確認する。v2 Productionでは存在確認だけでなく、構造化snapshot内容とgate内容の完全一致を確認する。v2日別台帳のProduction/Shadow `ELIGIBLE` は対応するexecution gateの存在・同一適格状態も必須とする。
 - 既存の `## persistence_receipt` 形式と `persistence-receipt-v1` JSON形式の両方を同一レコードとして照合する。両形式が同じreceipt_idで矛盾する場合は拒否する。receiptの形式差だけを理由に、発走前保存済みの予想を見落とさない。
 - E-11はv1.6.1の確信度尺度矛盾が解消されるまで `PENDING_RULE_CONFLICT` 以外を許可しない。
 - 買い目は採用前の `natural_candidates` を必ず保持する。採用しなかった候補には `rejected_candidates.reason` を要求する。
