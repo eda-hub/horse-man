@@ -9,7 +9,7 @@
 - `docs/manual/00_core.md`: 実行契約、Production/Shadow境界、`baseline_forecast_id`
 - `docs/manual/10_prediction.md`: Production基準予想
 - `docs/manual/20_conditional.md`: Production条件別補正・重賞51A
-- `docs/manual/30_betting.md`: 市場評価・買い目・ユーザー購入条件
+- `docs/manual/30_betting.md`: v1.6.1までの市場・Betting Owner。次期契約では任意市場検証へ縮小予定
 - `docs/manual/40_shadow.md`: Shadow比較
 - `docs/manual/50_review.md`: 回顧・検証・ルール変更管理
 - `docs/yosou/jra_racing/README.md`: JRA重賞の長期記録運用
@@ -29,6 +29,7 @@
 11. `10_operations.md` — 開催日の自動ジョブ、障害復旧
 12. `11_source_provenance.md` — 情報種別ごとの一次取得元、fallback、出典独立性、source bias対策
 13. `12_testing_quality.md` — テスト、バックテスト品質、過学習・source bias防止
-14. `phases/` — Codexに渡すフェーズ別実装計画
+14. `15_prediction_feature_expansion.md` — 相手レベル、開催傾向、新馬、条件別統計のfeature契約
+15. `phases/` — Codexに渡すフェーズ別実装計画
 
 `DECISIONS.md` は横断的な確定事項の正本とする。競馬判断の意味に矛盾がある場合、`docs/manual/` を優先し、システム設計側を修正する。
