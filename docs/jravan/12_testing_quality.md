@@ -8,7 +8,7 @@
 
 ## Production / Shadow分離
 - Shadowは固定済Productionなしでは生成できない
-- ShadowからProduction順位・確率・正式買い目を更新できない
+- ShadowからProduction順位・確率・印・根拠を更新できない
 - 同一 `baseline_forecast_id` で比較できる
 - オッズ更新だけではProduction baseline IDを更新しない
 
@@ -36,14 +36,30 @@
 ## 時点再現
 固定レースfixtureで `data_cutoff` 後の馬体重、結果、actual final odds等が予想featureへ混入しないことをテストする。
 
+特に相手レベルfeatureでは、過去対戦相手の「その後の成績」を使用する場合でもPrediction `data_cutoff` より後の結果が混入しないことを専用fixtureで検証する。開催傾向も当該Prediction時点までに終了・確定したレースだけを集計対象とする。
+
 ## Prediction regression
 `docs/yosou/jra_racing/` の代表重賞をfixture元として、rule ID適用、主要feature、Production/Shadow生成過程が意図せず変わらないか確認する。予想結果そのものを永遠に固定するのではなく、manual release / engine version変更を明示する。
 
-## Betting
-価格情報でProduction基準能力順位が変わらないこと、ユーザー指定馬/券種/予算が購入設計だけに作用することをテストする。
+## Prediction evidence / marks
+- Production順位と印が決定的に一致すること。
+- 4位以下の勝利可能性が印昇格ではなく確率・レンジ・シナリオとして保持されること。
+- 上位馬にfact/source/time/direction/strengthを持つ根拠が存在すること。
+- 弱い単発情報だけで大幅順位変更しないこと。
+- 根拠のobserved_atがdata_cutoff/発走時刻を越えないこと。
 
-## Settlement
-的中、不的中、返還、同着、取消等をテストする。理論推奨、Shadow比較、実購入を混同しない。
+## Execution gate互換
+- `v1.6.1 + prediction-compliance-v1` のfixtureが旧契約で継続PASSすること。
+- `v1.7.0 + prediction-compliance-v2` はBetting情報なしでPrediction正式性を判定できること。
+- release/schemaの未知・不正な組み合わせをfail closedすること。
+- 次期release有効化後も旧gateを新schemaへ暗黙変換しないこと。
+- REPLAYを前向きKPIへ昇格できないこと。
+
+## Market validation
+価格情報でProduction基準能力順位・確率・印が変わらないことをテストする。任意市場sidecarが未実行でもPrediction KPIが完了できることを確認する。
+
+## Result / review preparation
+的中、不的中、返還、同着、取消等をテストする。ProductionとShadowを混同せず、任意市場sidecarがPrediction結果結合の必須依存にならないことを確認する。
 
 ## Validation cycle
 `docs/manual/50_review.md` のサイクル状態とDBのvalidation cycleを対応させる。サイクル終了後に過去Productionを書き換えない。
@@ -57,7 +73,7 @@ AI出力schema validation、無効proposal拒否、DB/ルール直接書込不�
 ## バックテスト品質
 - data cutoffを強制
 - sample sizeを表示
-- 回収率だけでなく的中率、分散、ドローダウン等も確認
+- Predictionでは順位指標・確率校正・Brier Score等を確認し、任意市場sidecarでは回収率・分散・ドローダウン等を別系列で確認
 - 複数候補から都合の良いものだけ選ぶselection biasを記録
 - 同じ上流データを複数sourceとして扱うsource-count biasを防ぐ
 - manualの正式検証KPIと統計研究用KPIを混同しない
