@@ -111,6 +111,8 @@ def add_next_production_snapshot(root,g,snapshot_overrides=None):
       'schema_version':'prediction-snapshot-v2',
       'snapshot_id':snapshot_id,
       'race_id':g['race_id'],
+      'working_branch':g['working_branch'],
+      'scheduled_post_time_jst':g['scheduled_post_time_jst'],
       'manual_release':g['manual_release'],
       'manual_ref_commit':g['manual_ref_commit'],
       'baseline_forecast_id':production['baseline_forecast_id'],
@@ -323,6 +325,23 @@ class T(unittest.TestCase):
     r=self.root()
     write(r,'docs/validation/snapshots/2026-09-27.md','snapshot_id: 20260927-NAK-11-P001-S01\n')
     self.assertEqual(run(r),[])
+
+  def test_v2_json_snapshot_is_audited_without_gate(self):
+    r=self.root_next()
+    snapshot_id='20261013-TOK-01-P001-S01'
+    snapshot={
+      'schema_version':'prediction-snapshot-v2',
+      'snapshot_id':snapshot_id,
+      'race_id':'20261013-TOK-01',
+      'working_branch':'prediction/2026-10-13',
+      'scheduled_post_time_jst':'2026-10-13T10:10:00+09:00'
+    }
+    write(r,f'docs/validation/snapshots/2026-10-13/{snapshot_id}.json',json.dumps(snapshot))
+    from check_prediction_compliance import snapshot_links
+    missing,unregistered=snapshot_links(r,{})
+    self.assertEqual(missing,[])
+    self.assertEqual(len(unregistered),1)
+    self.assertIn('snapshot has no execution gate: 20261013-TOK-01',unregistered[0])
 
   def test_whole_day_table_is_audited_without_gate_fabrication(self):
     r=self.root()
