@@ -22,7 +22,8 @@ checkerは `manual_release + schema_version` の組み合わせで検証契約�
 - `marks.renka`: 4位以下を順位順に保持する任意配列
 - `probabilities`: 少なくとも上位3頭の勝率・連対相当・3着内率
 - `prediction_confidence`: `A / B / C / D`
-- `evidence_items`: 少なくとも上位3頭について、根拠事実・出所・観測時刻・方向・強度を保持
+- `data_cutoff`: Predictionで利用可能な情報時点。発走予定時刻より前であること
+- `evidence_items`: 少なくとも上位3頭について、根拠事実・出所・観測時刻・方向・強度を保持。観測時刻はdata_cutoffを越えない
 - `evidence_ref`: Production KPIをELIGIBLEとする場合の発走前snapshot/receipt参照
 
 印は順位から導出する。4位以下にも勝利可能性は認め、確率・レンジ・シナリオで表現する。勝利可能性があることだけを理由に3位以内へ順位を操作しない。
@@ -39,6 +40,7 @@ checkerは `manual_release + schema_version` の組み合わせで検証契約�
   "manual_release": "v1.7.0",
   "manual_ref_commit": "40文字のcommit SHA",
   "scheduled_post_time_jst": "2026-10-13T10:10:00+09:00",
+  "data_cutoff": "2026-10-13T09:50:00+09:00",
   "timing_route": "SNAPSHOT_CANDIDATE",
   "production": {
     "baseline_forecast_id": "20261013-TOK-01-P001",
