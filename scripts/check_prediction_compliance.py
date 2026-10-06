@@ -372,6 +372,8 @@ def prediction_snapshot(root,ref,production,gate,label,post):
     expected={
         'snapshot_id':ref.get('artifact_id'),
         'race_id':gate.get('race_id'),
+        'working_branch':gate.get('working_branch'),
+        'scheduled_post_time_jst':gate.get('scheduled_post_time_jst'),
         'manual_release':gate.get('manual_release'),
         'manual_ref_commit':gate.get('manual_ref_commit'),
         'baseline_forecast_id':production.get('baseline_forecast_id'),
@@ -645,6 +647,21 @@ def snapshot_links(root,gates):
             if (date,race) not in gates:
                 entry=f'{path}: snapshot race lacks execution gate: {race}'
                 if entry not in missing: missing.append(entry)
+    for path in sorted(sd.glob('*/*.json')):
+        date=path.parent.name
+        try:
+            data=json.loads(path.read_text(encoding='utf-8'))
+        except json.JSONDecodeError:
+            continue
+        if data.get('schema_version')!=PREDICTION_SNAPSHOT_SCHEMA:
+            continue
+        race=data.get('race_id')
+        snapshot_id=data.get('snapshot_id')
+        if not isinstance(race,str) or not race or not isinstance(snapshot_id,str) or not snapshot_id:
+            unregistered.append(f'{path}: invalid v2 snapshot identity')
+            continue
+        if (date,race) not in gates:
+            unregistered.append(f'{path}: snapshot has no execution gate: {race}')
     return missing,unregistered
 
 def coverage_summary(gates, missing, unregistered=()):
@@ -653,7 +670,7 @@ def coverage_summary(gates, missing, unregistered=()):
         dates.setdefault(date,{'gates':0,'missing_links':0,'ungated_snapshots':0})['gates']+=1
     for items,field in ((missing,'missing_links'),(unregistered,'ungated_snapshots')):
         for item in items:
-            match=re.search(r'/(\d{4}-\d{2}-\d{2})\.md:',item)
+            match=re.search(r'/(\d{4}-\d{2}-\d{2})(?:\.md|/)',item)
             if match:
                 dates.setdefault(match.group(1),{'gates':0,'missing_links':0,'ungated_snapshots':0})[field]+=1
     return dates
