@@ -24,14 +24,12 @@ service start
  -> FINAL readiness gate
  -> Production FINAL snapshot固定
  -> 必要時Shadow比較生成
- -> observed odds取得 / predicted final odds更新
- -> 30_betting市場評価 / 推奨候補
- -> ユーザー購入条件入力
- -> BET or SKIP
+ -> 必要時observed odds取得 / predicted final odds更新
+ -> optional market validation sidecar
  -> 結果/払戻取得
- -> Production theoretical settlement
- -> Shadow comparison settlement
- -> actual settlement（購入記録がある場合）
+ -> Production / Shadow result join
+ -> Prediction KPI材料生成
+ -> optional market validation settlement
  -> Review Package生成
  -> backup
 ```
@@ -55,7 +53,7 @@ service start
 
 ブラウザGUIでJavaScriptにより描画される値が静的HTML取得で欠落する場合があるため、静的HTMLで空欄だから「未発表」と判定してはならない。
 
-必須項目が取得できない場合は値を推測せず、`data_readiness=DEGRADED` として欠損項目、最終成功時刻、取得失敗時刻、source、acquisition methodを保存する。DEGRADED状態でFINALを確定する場合は、予想確信度・購入確信度を下げ、回顧で予想ロジック失敗とデータ取得失敗を分離する。
+必須項目が取得できない場合は値を推測せず、`data_readiness=DEGRADED` として欠損項目、最終成功時刻、取得失敗時刻、source、acquisition methodを保存する。DEGRADED状態でFINALを確定する場合は、欠損の影響に応じて予想確信度を下げ、回顧で予想ロジック失敗とデータ取得失敗を分離する。
 
 ## 馬体重取得ジョブ
 ### Primary: event-driven
@@ -98,7 +96,7 @@ T-20時点で当日馬体重が完全でない場合、次の順に切り分け�
 非開催日は低頻度。開催日は発走時刻を基準に必要なjobだけ増やす。全レース全券種を常時高頻度取得しない。馬体重は開催中のEvent監視を基本にし、予想対象レースで未取得の場合だけ上記fallback cadenceを適用する。馬場・変更event等の時点依存情報はT-20前後で優先更新する。
 
 ## 再実行性
-すべてのingest/settlement jobはidempotentにする。PC停止後もwatermarkから不足分を再開できること。Eventを取り逃してもcatch-upで復旧でき、固定済みProductionを再実行で上書きしない。
+すべてのingest/result join/任意market validation settlement jobはidempotentにする。PC停止後もwatermarkから不足分を再開できること。Eventを取り逃してもcatch-upで復旧でき、固定済みProductionを再実行で上書きしない。任意sidecarの再実行もProduction順位・確率・印を変更しない。
 
 ## Git記録との関係
 JRA重賞の長期記録は `docs/yosou/jra_racing/`、進行中Shadow検証は `docs/validation/` の現行運用を尊重する。DBからGitへの自動同期は方式決定まで実装せず、まずexport可能な境界を作る。
