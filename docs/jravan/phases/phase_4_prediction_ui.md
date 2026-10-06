@@ -7,11 +7,13 @@ MacのブラウザからProduction予想、条件別補正、Shadow比較を混�
 - レース一覧 / race detail
 - `manual_release` / module整合性表示
 - `baseline_forecast_id`
-- Production順位・印・確率・予想確信度・根拠
+- Production順位・印・確率・予想確信度・構造化根拠
+- 初回→最終の順位・確率・根拠差分
 - 条件別補正
 - PRE/DAY/FINAL snapshot切替
 - FINAL snapshot確定
 - Shadow比較専用表示
+- 任意市場検証sidecar表示（実装時のみ）
 - User Note
 - data freshness/status
 - FINAL data readiness panel
@@ -22,6 +24,8 @@ MacのブラウザからProduction予想、条件別補正、Shadow比較を混�
 - MacからWindows VMへローカル接続できる。
 - Internetへ公開されない。
 - ProductionとShadowが視覚的・操作的に明確に分離される。
+- 実購入・BET/SKIP・予算入力がなくてもPredictionの全操作を完了できる。
+- 4位以下の勝利可能性を印だけで否定せず、確率・レンジ・根拠を確認できる。
 - FINAL確定前後の状態が明確。
 - オッズ更新だけでProduction baselineを作り直す操作にならない。
 - manual release不整合がUI上で警告され、予想実行を停止できる。
