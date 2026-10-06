@@ -4,7 +4,9 @@ import re
 import sys
 from pathlib import Path
 
-RELEASE = "v1.7.0"
+from check_prediction_compliance import NEXT_RELEASE, NEXT_SCHEMA, ComplianceError, validate_gate
+
+RELEASE = NEXT_RELEASE
 TAG = "prediction-day-v2"
 KPI_STATES = ("eligible_ids", "ineligible_ids", "pending_ids")
 
@@ -51,7 +53,59 @@ def validate_kpi(kpi, target_scope, label):
         )
 
 
-def validate_day(record, path):
+def load_next_gates(root):
+    gate_dir = root / "docs/validation/execution-gates"
+    gates = {}
+    if not gate_dir.exists():
+        return gates
+    for path in sorted(gate_dir.glob("*/*.json")):
+        try:
+            raw = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise CycleValidationError(f"{path}: invalid gate JSON") from exc
+        if raw.get("manual_release") != RELEASE or raw.get("schema_version") != NEXT_SCHEMA:
+            continue
+        try:
+            gate = validate_gate(root, path)
+        except ComplianceError as exc:
+            raise CycleValidationError(str(exc)) from exc
+        key = (gate["race_date_jst"], gate["race_id"])
+        if key in gates:
+            raise CycleValidationError(f"duplicate next-contract gate: {key}")
+        gates[key] = gate
+    return gates
+
+
+def expected_state(kpi, race):
+    if race in kpi.get("eligible_ids", []):
+        return "ELIGIBLE"
+    if race in kpi.get("ineligible_ids", []):
+        return "INELIGIBLE"
+    if race in kpi.get("pending_ids", []):
+        return "PENDING"
+    return None
+
+
+def validate_gate_links(record, path, gates):
+    race_date = record["race_date_jst"]
+    for layer in ("production", "shadow"):
+        kpi = record["kpis"][layer]
+        for race in kpi.get("target_ids", []):
+            expected = expected_state(kpi, race)
+            gate = gates.get((race_date, race))
+            if gate is None:
+                if expected == "ELIGIBLE":
+                    raise CycleValidationError(
+                        f"{path}: ELIGIBLE {layer} lacks execution gate for {race}"
+                    )
+                continue
+            actual = gate.get("kpi_eligibility", {}).get(layer)
+            if actual != expected:
+                raise CycleValidationError(
+                    f"{path}: {race}/{layer} gate state mismatch: ledger={expected} gate={actual}"
+                )
+
+def validate_day(record, path, gates=None):
     if not isinstance(record, dict):
         raise CycleValidationError(f"{path}: record object required")
     if record.get("manual_release") != RELEASE:
@@ -80,11 +134,14 @@ def validate_day(record, path):
     market = record.get("market_validation")
     if market is not None:
         validate_kpi(market, initial, f"{path}/market_validation")
+    if gates is not None:
+        validate_gate_links(record, path, gates)
     return record
 
 
 def run(root=Path(".")):
     records_dir = root / "docs/validation/records"
+    gates = load_next_gates(root)
     count = 0
     seen = set()
     if records_dir.exists():
@@ -93,7 +150,7 @@ def run(root=Path(".")):
                 key = (record.get("race_date_jst"), record.get("cycle_id"))
                 if key in seen:
                     raise CycleValidationError(f"{path}: duplicate day/cycle record: {key}")
-                validate_day(record, path)
+                validate_day(record, path, gates)
                 seen.add(key)
                 count += 1
     print(f"PREDICTION_CYCLE_V2_OK: {count} day record(s) validated")
