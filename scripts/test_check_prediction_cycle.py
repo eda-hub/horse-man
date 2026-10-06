@@ -203,7 +203,7 @@ class PredictionCycleV2Test(unittest.TestCase):
     def test_kpi_partitions_cannot_overlap(self):
         root = self.root()
         obj = record()
-        obj["kpis"]["production"]["ineligible_ids"].append("r1")
+        obj["kpis"]["production"]["ineligible_ids"].append("r3")
         save(root, obj)
         with self.assertRaisesRegex(CycleValidationError, "partitions overlap"):
             run(root)
