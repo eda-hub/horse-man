@@ -161,7 +161,12 @@ def check_intent(root, path):
         raise ComplianceError(f'{path}: required_race_ids must be unique and nonempty')
     deadline=intent.get('deadline_jst')
     iso(deadline,f'{path}/deadline_jst')
-    return verify(root,date,snapshot_id,deadline,races)
+    artifact_path=intent.get('artifact_path')
+    if artifact_path is not None:
+        artifact=Path(artifact_path)
+        if artifact.is_absolute() or '..' in artifact.parts or not str(artifact).startswith('docs/validation/snapshots/'):
+            raise ComplianceError(f'{path}: invalid artifact_path')
+    return verify(root,date,snapshot_id,deadline,races,artifact_path)
 
 
 def declared_intent_paths(directory):
@@ -181,6 +186,7 @@ def main():
     parser.add_argument('--intent-id',help='unique name for the attempt')
     parser.add_argument('--deadline-jst',help='earliest scheduled post time for this attempt')
     parser.add_argument('--race-id',action='append',default=[],help='one expected race ID; repeat for all races')
+    parser.add_argument('--artifact-path',help='repository-relative snapshot artifact path')
     parser.add_argument('--task-complete',action='store_true',help='require saved intent and exact fixed-content hash before declaring task complete')
     parser.add_argument('--fixed-content-sha256',help='hash of the FIXED snapshot section before writing')
     args=parser.parse_args()
@@ -205,6 +211,11 @@ def main():
                     'race_date_jst':args.date,'working_branch':f'prediction/{args.date}',
                     'snapshot_id':args.snapshot_id,'required_race_ids':args.race_id,
                     'deadline_jst':args.deadline_jst}
+            if args.artifact_path:
+                artifact=Path(args.artifact_path)
+                if artifact.is_absolute() or '..' in artifact.parts or not str(artifact).startswith('docs/validation/snapshots/'):
+                    raise ComplianceError('artifact_path must be a repository-relative snapshot path')
+                intent['artifact_path']=str(artifact)
             path=args.root/'docs/validation/persistence-intents'/args.date/f'{args.intent_id}.json'
             path.parent.mkdir(parents=True,exist_ok=True)
             content=json.dumps(intent,ensure_ascii=False,indent=2)+'\n'
@@ -223,11 +234,11 @@ def main():
                 if intent.get('snapshot_id')!=args.snapshot_id:
                     raise ComplianceError('task completion intent/snapshot mismatch')
                 check_intent(args.root,intent_path)
-                section=snapshot_section((args.root/'docs/validation/snapshots'/f'{args.date}.md').read_text(encoding='utf-8'),args.snapshot_id)
-                digest=hashlib.sha256(section.encode('utf-8')).hexdigest()
+                snapshot=resolve_snapshot(args.root,args.date,args.snapshot_id,intent.get('artifact_path'))
+                digest=snapshot_digest(snapshot)
                 if not args.fixed_content_sha256 or digest!=args.fixed_content_sha256:
                     raise ComplianceError('task completion fixed/readback content hash mismatch')
-            receipt=verify(args.root,args.date,args.snapshot_id)
+            receipt=verify(args.root,args.date,args.snapshot_id,expected_artifact_path=args.artifact_path)
             state='TASK_PERSISTENCE_COMPLETE' if args.task_complete else 'PERSISTENCE_VERIFIED'
             print(f'{state} {args.snapshot_id} receipt={receipt}')
             return 0
@@ -249,6 +260,23 @@ def main():
                 if (snapshot.stem,ident) not in declared:
                     failed+=1
                     print(f'PERSISTENCE_INCOMPLETE {snapshot}: {ident}: NO_INTENT; historical omission, not retroactively prepared')
+        for snapshot in sorted(snapshots.glob('*/*.json')):
+            date=snapshot.parent.name
+            if args.date and date!=args.date: continue
+            try:
+                data=json.loads(snapshot.read_text(encoding='utf-8'))
+            except json.JSONDecodeError:
+                continue
+            if data.get('schema_version')!=PREDICTION_SNAPSHOT_SCHEMA:
+                continue
+            ident=data.get('snapshot_id')
+            if not isinstance(ident,str) or not ident:
+                failed+=1
+                print(f'PERSISTENCE_INCOMPLETE {snapshot}: snapshot_id missing')
+                continue
+            if (date,ident) not in declared:
+                failed+=1
+                print(f'PERSISTENCE_INCOMPLETE {snapshot}: {ident}: NO_INTENT; v2 snapshot is not covered by a prior declaration')
         if not paths:
             print('NO_INTENTS: no declared prediction attempts; audit cannot establish completeness')
         for path in paths:
