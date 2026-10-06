@@ -620,7 +620,8 @@ Production / Shadow分離、FINAL immutable、時点再現性、機械監査そ�
 - 次期execution gate schema / sample
 - 日別record・cycle ledgerとの認証リンク
 - 必要に応じて `scripts/verify_prediction_persistence.py` とそのテスト
-- Betting KPI checkerは旧契約用または任意sidecar用として責任範囲を分離する
+- `scripts/check_cycle03.py` / `test_check_cycle03.py` は第3サイクル旧契約の履歴checkerとして意味を変更せず保持し、次サイクル契約へ流用しない
+- `scripts/check_betting_performance.py` / `test_betting_kpi_split.py` は旧契約または任意市場sidecar用として責任範囲を明示し、次期Prediction適格性の必須checkerにしない
 
 #### 次期gateの原則
 
@@ -638,7 +639,9 @@ checkerは少なくとも `schema_version + manual_release` で検証契約をdi
 
 - `v1.6.1 + prediction-compliance-v1`: 現行のBetting要件を含む旧validatorで検証する。
 - 次期release + 次期gate schema: Prediction中心の新validatorで検証する。
-- 現在の `docs/manual/README.md` が次期releaseになった後でも、過去gateの `manual_release=v1.6.1` を理由なく失敗させない。
+- **現行運用のFORWARD記録**はrepoの現行manual releaseとの一致を要求する。
+- **履歴監査**はgate自身の `manual_release + schema_version` で旧validatorを選択し、repoの現行manual releaseが次期版であることだけを理由に旧gateを失敗させない。
+- 旧validatorの契約意味はコード・fixtureで凍結し、現在のmanual本文を新仕様として読み替えて旧記録へ適用しない。
 - 旧gateを新schemaへ自動変換しない。
 - 旧recordに不足していた証跡を新releaseの規則で後付けして適格化しない。
 - 未知のrelease/schema組み合わせはfail closedとする。
@@ -1006,6 +1009,7 @@ checkerテストだけでなく、validation templateのsampleを用いたend-to
 1. 第3サイクルは `v1.6.1` のまま2026-10-12まで完走する。
 2. 並行して本計画と次期仕様候補だけを整備する。
 3. 第3サイクル終了審査で変更理由を実測と対応付ける。
-4. Prediction Coreの簡素化を最初の正式変更PRとする。
-5. 新規featureは1つずつShadow検証する。
-6. 精度・再現性・説明可能性の改善を確認してからProductionへ昇格する。
+4. Stage 2の次期契約切替PRでmanual・上位契約・validation・gate/checker・Phase文書を原子的に整合し、新releaseを有効化する。
+5. その後は既存JRA-VAN Phase 3→8の順にコード実装を独立PRで進める。
+6. 新規featureは1つずつShadow検証する。
+7. 精度・再現性・説明可能性の改善を確認してからProductionへ昇格する。
