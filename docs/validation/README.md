@@ -11,6 +11,20 @@
 - **第2サイクル**: 終了審査・正式KPI未確定。[cycle_02.md](cycle_02.md) と当時の記録を維持する。
 - **整理**: 履歴固定・終了審査後、参照のないサイクル固有データだけを整理する。運用README・継続Owner・現行テンプレート・次期計画の一括削除は禁止。
 
+## 次期v1.7.0検証契約（発効条件付き）
+
+この節は、第3検証サイクル終了審査後にmainのmanual releaseが `v1.7.0` へ正式切替された場合だけ適用する。それまでは本書上部の第3サイクルv1.6.1契約を正とする。
+
+- 標準検証の中心をProduction順位・確率・印・根拠・結果・回顧へ変更する。
+- 実購入、ユーザー予算、BET/SKIP、実購入ROIをPrediction KPIの必須項目から外す。
+- 固定ルール仮想収益は任意market validation sidecarへ分離する。
+- 低確信レースもPrediction回顧の対象から除外しない。
+- execution gateは `prediction-compliance-v2` を使用し、Productionと適用Shadowを独立判定する。
+- v1.6.1以前の `prediction-compliance-v1`、Betting KPI、固定仮想資金、実購入記録は旧契約の履歴として保持し、新KPIへ自動混入しない。
+- 次期記録書式は [次期検証サイクルテンプレート](templates/next_cycle_execution_v17.md)、チャットPredictionは [次期予想タスクテンプレート](templates/chatgpt_prediction_task_v17.md) を使用する。
+- 近5走相手レベル、開催傾向、新馬専用評価、条件別統計は原則としてProduction固定後のShadow前向き比較から開始する。
+
+
 ## 第2サイクルの総括と第3サイクルの開始準備 — 2026-09-22
 
 - [第2サイクル総括・繰越台帳](../proposals/2026-09-22_cycle02_summary_cycle03_handoff.md)
