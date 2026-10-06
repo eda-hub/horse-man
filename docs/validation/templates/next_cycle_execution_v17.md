@@ -52,3 +52,41 @@
 - 初回・最終・回顧のrace_idを照合
 - 発走後に順位・確率・根拠を新設して適格化しない
 - 実購入情報なしで日別Prediction集計が完了する
+
+
+## 機械可読日別台帳
+
+日別recordでは次の `prediction-day-v2` を1日・1cycleにつき1ブロック保存する。表とJSONが矛盾する場合は修正し、結果後に対象race_idを都合よく削除しない。
+
+```prediction-day-v2
+{
+  "race_date_jst": "2026-10-17",
+  "cycle_id": "cycle_04",
+  "manual_release": "v1.7.0",
+  "initial_scope": ["race-1", "race-2"],
+  "final_scope": ["race-1"],
+  "reviewed_scope": ["race-1", "race-2"],
+  "kpis": {
+    "production": {
+      "target_ids": ["race-1", "race-2"],
+      "eligible_ids": ["race-1"],
+      "ineligible_ids": [],
+      "pending_ids": ["race-2"]
+    },
+    "shadow": {
+      "target_ids": ["race-1"],
+      "eligible_ids": [],
+      "ineligible_ids": [],
+      "pending_ids": ["race-1"]
+    }
+  }
+}
+```
+
+`market_validation` はsidecarを実行した日だけ追加する。Production / Shadowの対象集合や適格性とは独立して分類する。
+
+機械照合:
+
+```bash
+python3 scripts/check_prediction_cycle.py
+```
