@@ -18,8 +18,8 @@ Windows 11 VM
     |- Conditional Adjustment Engine
     |- Shadow Engine
     |- Odds Forecast Engine
-    |- Bet Engine
-    |- Settlement Engine
+    |- Market Validation Engine (optional)
+    |- Result Join / KPI Engine
     |- Review Package Builder
     |- AI Adapter
     |- Backup Engine
@@ -34,7 +34,7 @@ Windows 11 VM
 ## 競馬ルールとの境界
 `Manual Contract Resolver` は `docs/manual/README.md` と必要なOwnerモジュールから、`manual_release`、モジュールhash、ルールID、Production/Shadow権限を読み取る。MarkdownをDB用ルールへ勝手に再解釈せず、実装済みのルールロジックとrule IDの対応を検証する。
 
-価格情報はOdds/Bet層で扱い、`10_prediction` の基準能力順位へ逆流させない。ShadowはProduction固定後にだけ実行する。
+価格情報はOdds/Market Validation層で扱い、`10_prediction` の基準能力順位・確率・印へ逆流させない。ShadowはProduction固定後にだけ実行する。実購入・ユーザー予算はCore ServiceのPrediction必須入力にしない。
 
 ## 責務分離
 ### JV-Link Adapter
@@ -44,7 +44,7 @@ COM/JV-Link固有仕様を内部に閉じ込める。下流はJV-Link型では�
 DuckDBへの書込を一か所に集約する。複数workerによる同一DBファイルへの書込を避ける。
 
 ### Web UI
-表示とユーザー意思決定に専念する。OSコマンドやJV-Linkを直接呼ばない。
+Prediction・根拠・結果・回顧・任意市場検証の表示と操作に専念する。OSコマンドやJV-Linkを直接呼ばない。実購入操作やPAT連携を提供しない。
 
 ### AI Adapter
 Review Packageだけを外部AIへ渡し、DBやファイルシステムへの直接権限を持たせない。
