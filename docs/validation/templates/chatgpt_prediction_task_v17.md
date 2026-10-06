@@ -8,7 +8,7 @@
 
 ## 発走前に必須の出力
 
-- race_id / race_date / scheduled_post_time
+- race_id / race_date / scheduled_post_time / data_cutoff
 - manual_release / manual_ref_commit
 - baseline_forecast_id
 - Production順位
@@ -28,7 +28,7 @@
 - factor
 - fact
 - source_ref
-- observed_at_jst
+- observed_at_jst（data_cutoff以下）
 - direction: plus / neutral / minus / uncertain
 - strength: strong / medium / weak
 
