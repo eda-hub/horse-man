@@ -7,7 +7,10 @@ LEGACY_SCHEMA = 'prediction-compliance-v1'
 NEXT_SCHEMA = 'prediction-compliance-v2'
 LEGACY_RELEASE = 'v1.6.1'
 NEXT_RELEASE = 'v1.7.0'
-NEXT_EFFECTIVE_DATE = '2026-10-13'
+NEXT_EARLIEST_DATE = '2026-10-13'
+CONTRACT_STATE_SCHEMA = 'prediction-contract-state-v1'
+PREDICTION_SNAPSHOT_SCHEMA = 'prediction-snapshot-v2'
+CONTRACT_STATE_PATH = Path('docs/validation/execution-gates/contract-state.json')
 SCHEMA = LEGACY_SCHEMA
 SUPPORTED_RELEASE = LEGACY_RELEASE
 SUPPORTED_CONTRACTS = {
@@ -43,6 +46,51 @@ def release(root):
     m=re.search(r'現行リリース[^\x60\n]*\x60([^\x60]+)\x60',s)
     if not m: raise ComplianceError(f'{p}: release not found')
     return m.group(1)
+
+def contract_state(root):
+    path=root/CONTRACT_STATE_PATH
+    current=release(root)
+    if not path.is_file():
+        if current==LEGACY_RELEASE:
+            return {
+                'schema_version':CONTRACT_STATE_SCHEMA,
+                'next_release':NEXT_RELEASE,
+                'next_gate_schema':NEXT_SCHEMA,
+                'status':'PENDING',
+                'earliest_race_date':NEXT_EARLIEST_DATE,
+                'effective_race_date':None,
+                'activated_at_jst':None,
+            }
+        raise ComplianceError(f'{path}: contract state required for {current}')
+    try:
+        data=json.loads(path.read_text(encoding='utf-8'))
+    except json.JSONDecodeError as exc:
+        raise ComplianceError(f'{path}: invalid JSON') from exc
+    if data.get('schema_version')!=CONTRACT_STATE_SCHEMA:
+        raise ComplianceError(f'{path}: schema mismatch')
+    if data.get('next_release')!=NEXT_RELEASE or data.get('next_gate_schema')!=NEXT_SCHEMA:
+        raise ComplianceError(f'{path}: next contract mismatch')
+    if data.get('earliest_race_date')!=NEXT_EARLIEST_DATE:
+        raise ComplianceError(f'{path}: earliest_race_date must be {NEXT_EARLIEST_DATE}')
+    status=data.get('status')
+    if status not in {'PENDING','ACTIVE'}:
+        raise ComplianceError(f'{path}: status must be PENDING or ACTIVE')
+    effective=data.get('effective_race_date')
+    activated=data.get('activated_at_jst')
+    if status=='PENDING':
+        if effective is not None or activated is not None:
+            raise ComplianceError(f'{path}: PENDING state cannot have activation values')
+        if current!=LEGACY_RELEASE:
+            raise ComplianceError(f'{path}: PENDING state requires current manual release {LEGACY_RELEASE}')
+    else:
+        if current!=NEXT_RELEASE:
+            raise ComplianceError(f'{path}: ACTIVE state requires current manual release {NEXT_RELEASE}')
+        if not isinstance(effective,str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',effective):
+            raise ComplianceError(f'{path}: ACTIVE effective_race_date required')
+        if effective<NEXT_EARLIEST_DATE:
+            raise ComplianceError(f'{path}: effective_race_date cannot precede {NEXT_EARLIEST_DATE}')
+        iso(activated,f'{path}/activated_at_jst')
+    return data
 
 def segment(path, ident):
     s=path.read_text(encoding='utf-8'); i=s.find(ident)
@@ -253,8 +301,9 @@ def validate_gate_v1(root,path,g):
     if mode not in {'FORWARD','REPLAY'}: raise ComplianceError(f'{label}: invalid mode')
     if g.get('working_branch')!=f'prediction/{date}': raise ComplianceError(f'{label}: wrong working_branch')
     if g.get('manual_release')!=LEGACY_RELEASE: raise ComplianceError(f'{label}: legacy manual_release mismatch')
-    if date >= NEXT_EFFECTIVE_DATE:
-        raise ComplianceError(f'{label}: legacy contract is not valid on/after {NEXT_EFFECTIVE_DATE}')
+    state=contract_state(root)
+    if state['status']=='ACTIVE' and date>=state['effective_race_date']:
+        raise ComplianceError(f"{label}: legacy contract is not valid on/after active cutover {state['effective_race_date']}")
     if not re.fullmatch(r'[0-9a-f]{40}',req(g,'manual_ref_commit',label)): raise ComplianceError(f'{label}: full manual commit SHA required')
     post=iso(g.get('scheduled_post_time_jst'),label+'/post'); route=req(g,'timing_route',label)
     if mode=='REPLAY' and route!='LATE_PRESERVATION': raise ComplianceError(f'{label}: replay must be LATE_PRESERVATION')
@@ -312,6 +361,33 @@ def evidence_item(item,label,cutoff):
     if observed>cutoff: raise ComplianceError(f'{label}: evidence observed after data_cutoff')
     return horse
 
+def prediction_snapshot(root,ref,production,gate,label,post):
+    ap=evidence(root,ref,label,True,post)
+    try:
+        data=json.loads(ap.read_text(encoding='utf-8'))
+    except json.JSONDecodeError as exc:
+        raise ComplianceError(f'{label}: prediction snapshot must be JSON') from exc
+    if not isinstance(data,dict) or data.get('schema_version')!=PREDICTION_SNAPSHOT_SCHEMA:
+        raise ComplianceError(f'{label}: prediction snapshot schema mismatch')
+    expected={
+        'snapshot_id':ref.get('artifact_id'),
+        'race_id':gate.get('race_id'),
+        'manual_release':gate.get('manual_release'),
+        'manual_ref_commit':gate.get('manual_ref_commit'),
+        'baseline_forecast_id':production.get('baseline_forecast_id'),
+        'data_cutoff':gate.get('data_cutoff'),
+        'ranking':production.get('ranking'),
+        'marks':production.get('marks'),
+        'probabilities':production.get('probabilities'),
+        'prediction_confidence':production.get('prediction_confidence'),
+        'evidence_items':production.get('evidence_items'),
+        'fixed_at_jst':production.get('fixed_at_jst'),
+    }
+    for key_name,value in expected.items():
+        if data.get(key_name)!=value:
+            raise ComplianceError(f'{label}: snapshot {key_name} mismatch')
+    return data
+
 def review_v2(rv, gate, mode, label):
     if not isinstance(rv,dict): raise ComplianceError(f'{label}: review object required')
     st=req(rv,'status',label)
@@ -354,13 +430,16 @@ def validate_gate_v2(root,path,g):
     label=str(path)
     if g.get('schema_version')!=NEXT_SCHEMA: raise ComplianceError(f'{label}: schema mismatch')
     date=req(g,'race_date_jst',label); race_id=req(g,'race_id',label); mode=req(g,'mode',label)
-    if date < NEXT_EFFECTIVE_DATE:
-        raise ComplianceError(f'{label}: next contract is not valid before {NEXT_EFFECTIVE_DATE}')
+    if date < NEXT_EARLIEST_DATE:
+        raise ComplianceError(f'{label}: next contract cannot start before {NEXT_EARLIEST_DATE}')
+    state=contract_state(root)
+    if state['status']!='ACTIVE':
+        raise ComplianceError(f'{label}: next contract cutover is not active')
+    if date<state['effective_race_date']:
+        raise ComplianceError(f"{label}: next contract is not effective before {state['effective_race_date']}")
     if mode not in {'FORWARD','REPLAY'}: raise ComplianceError(f'{label}: invalid mode')
     if g.get('working_branch')!=f'prediction/{date}': raise ComplianceError(f'{label}: wrong working_branch')
     if g.get('manual_release')!=NEXT_RELEASE: raise ComplianceError(f'{label}: next manual_release mismatch')
-    if release(root)!=NEXT_RELEASE:
-        raise ComplianceError(f'{label}: next contract requires current manual release {NEXT_RELEASE}')
     if not re.fullmatch(r'[0-9a-f]{40}',req(g,'manual_ref_commit',label)):
         raise ComplianceError(f'{label}: full manual commit SHA required')
     post=iso(g.get('scheduled_post_time_jst'),label+'/post')
@@ -417,19 +496,26 @@ def validate_gate_v2(root,path,g):
     if mode=='REPLAY' and any(kpi.get(name)=='ELIGIBLE' for name in ('production','shadow')):
         raise ComplianceError(f'{label}: replay production/shadow KPI cannot be eligible')
     if kpi['production']=='ELIGIBLE':
-        evidence(root,production.get('evidence_ref'),label+'/production',True,post)
+        prediction_snapshot(root,production.get('evidence_ref'),production,g,label+'/production',post)
         fixed=iso(production.get('fixed_at_jst'),label+'/production/fixed_at_jst')
         if fixed>=post: raise ComplianceError(f'{label}: post-time production cannot be eligible')
 
     items=g.get('shadow_items',[])
     if not isinstance(items,list): raise ComplianceError(f'{label}: shadow_items must be a list')
+    eligible_shadow_items=0
     for i,item in enumerate(items):
         il=f'{label}/shadow[{i}]'
         req(item,'item_id',il)
         eligibility=item.get('kpi_eligibility','NOT_APPLICABLE')
         if eligibility not in KPI_STATES: raise ComplianceError(f'{il}: invalid KPI state')
         if mode=='REPLAY' and eligibility=='ELIGIBLE': raise ComplianceError(f'{il}: replay shadow cannot be eligible')
-        if eligibility=='ELIGIBLE': evidence(root,item.get('evidence_ref'),il,True,post)
+        if eligibility=='ELIGIBLE':
+            eligible_shadow_items+=1
+            evidence(root,item.get('evidence_ref'),il,True,post)
+    if kpi['shadow']=='ELIGIBLE' and eligible_shadow_items==0:
+        raise ComplianceError(f'{label}: ELIGIBLE shadow KPI requires eligible shadow evidence item')
+    if kpi['shadow']!='ELIGIBLE' and eligible_shadow_items:
+        raise ComplianceError(f'{label}: eligible shadow item requires ELIGIBLE shadow KPI')
 
     review_v2(g.get('review',{'status':'NOT_STARTED'}),g,mode,label+'/review')
     return g
@@ -518,6 +604,25 @@ def cycle_links(root,gates):
                         continue
                     gate_name='betting' if name=='betting_rules' else name
                     if expected and g['kpi_eligibility'][gate_name]!=expected: raise ComplianceError(f'{path}: {race}/{name} gate state mismatch')
+    for path in rd.glob('*.md'):
+        for d in blocks(path,'prediction-day-v2'):
+            date=d.get('race_date_jst')
+            kpis=d.get('kpis',{})
+            for gate_name in ('production','shadow'):
+                obj=kpis.get(gate_name,{})
+                target=obj.get('target_ids',[])
+                for race in target:
+                    expected='ELIGIBLE' if race in obj.get('eligible_ids',[]) else 'INELIGIBLE' if race in obj.get('ineligible_ids',[]) else 'PENDING' if race in obj.get('pending_ids',[]) else None
+                    gate=gates.get((date,race))
+                    if gate is None:
+                        if expected=='ELIGIBLE':
+                            missing.append(f'{path}: ELIGIBLE {gate_name} lacks execution gate for {race}')
+                        continue
+                    if gate.get('manual_release')!=NEXT_RELEASE or gate.get('schema_version')!=NEXT_SCHEMA:
+                        raise ComplianceError(f'{path}: {race}/{gate_name} does not reference next-contract gate')
+                    actual=gate.get('kpi_eligibility',{}).get(gate_name)
+                    if expected and actual!=expected:
+                        raise ComplianceError(f'{path}: {race}/{gate_name} gate state mismatch: ledger={expected} gate={actual}')
     return missing
 
 def snapshot_links(root,gates):
