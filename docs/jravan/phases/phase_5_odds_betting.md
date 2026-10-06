@@ -1,27 +1,26 @@
-# Phase 5 — Odds forecast / Betting decision
+# Phase 5 — Odds forecast / Market validation
 
 ## 目的
-Production基準予想を変えずに最終オッズを予測し、`docs/manual/30_betting.md` に従う市場評価・推奨候補・ユーザー購入条件・BET/SKIP判断を実装する。
+Production基準予想を変えずに最終オッズを予測し、市場との乖離・価格予測精度・任意の固定ルール仮想検証を実装する。実購入・ユーザー予算・BET/SKIPは本Phaseの必須責務にしない。
 
 ## 対象
 - observed / predicted final / actual final odds分離
 - 初期統計型Odds Forecast
 - range予測
 - Market Evaluation
-- rule-defined ticket candidate generation
-- EV/価格評価
-- ユーザー指定馬/券種/予算/リスク入力
-- 指定条件内の最終購入設計
-- BET / SKIP decision
-- skip reason
-- decision時snapshot
+- Market Evaluation
+- 価格予測誤差評価
+- optional fixed-rule virtual validation
+- market validation snapshot
+- method_version / data_cutoff / fixed_at
 
 ## 受入条件
 - predicted final oddsを市場評価に使用できる。
 - 価格情報だけでProduction基準順位・基準確率が変わらない。
-- 見送りでも推奨候補が残る。
-- ユーザー指定条件が能力評価へ逆流しない。
-- decision時のオッズが固定保存される。
+- 市場検証を実行しなくてもPrediction KPIが完了できる。
+- 市場検証が能力評価へ逆流しない。
+- sidecar実行時のオッズ・method version・fixed_atが固定保存される。
 - オッズ更新だけで `baseline_forecast_id` が変わらない。
 - 予想対象のみ詳細snapshotを残す保存レベルが機能する。
-- PAT連携を行わない。
+- 実購入・PAT連携を行わない。
+- 仮想検証は結果後に券種・selection・stakeを変更しない。
