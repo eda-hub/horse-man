@@ -97,3 +97,5 @@ Production上位馬には追跡可能な根拠を保持し、少なくとも事�
 
 既存schemaの意味を上書きしない。checkerはrelease/schemaの組み合わせでvalidatorを選択し、未知の組み合わせを拒否する。
 
+切替日は固定日だけで決めない。`contract-state.json` の `PENDING / ACTIVE` と `effective_race_date` を正式切替状態として使用し、2026-10-13はv2の最短開始可能日としてのみ扱う。ProductionをELIGIBLE認証する場合は `prediction-snapshot-v2` とgateの予想内容を完全照合し、日別Prediction台帳のELIGIBLE宣言も対応gateの存在・状態と照合する。
+
