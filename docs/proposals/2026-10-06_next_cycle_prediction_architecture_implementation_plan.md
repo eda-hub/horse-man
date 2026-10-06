@@ -82,7 +82,11 @@ Production順位
 - 重賞Productionを通常レースと同一骨格へ統一
 - 重賞過去傾向をProduction固定後の比較層へ限定
 - Betting前提のmanual / validation / WebUI / JRA-VAN設計の再構成
+- `AGENTS.md` と `DECISIONS.md` の購入・見送り・仮想精算・監査契約を次期責任範囲へ整合
+- execution gateの次期schema、`scripts/check_prediction_compliance.py`、関連テストを次期契約へ対応
 - 次期manual releaseへの更新
+
+**切替の原子性**：次期manual releaseを有効化するPRでは、manualだけを先行更新しない。少なくともmanual、validationテンプレート、execution gate schema/説明、checker、checkerテスト、`AGENTS.md`、`DECISIONS.md` の次期契約を同じ切替単位で整合させる。これらのいずれかが未対応なら新releaseを現行Productionとして有効化しない。
 
 ### 4.3 次期サイクル以降にShadow検証するもの
 
@@ -124,13 +128,28 @@ Production順位
 
 ### 5.3 仮想馬券検証
 
-仮想馬券はPrediction Performanceと分離した補助検証とする。
+仮想馬券はPrediction Performanceと分離した**任意の市場検証sidecar**として残す。次期標準予想・回顧の必須工程にはしない。
 
 - 実購入とは接続しない。
 - ユーザーの予算・財布事情を入力としない。
 - Production予想を結果後に変更して仮想券を組み替えない。
 - 固定ルールを前向きに適用する場合だけ性能評価へ利用する。
-- 将来不要と判断した場合にPrediction層へ影響せず削除できる疎結合構造にする。
+- 「見送り相当のレースだから必ず仮想精算する」という必須契約は次期仕様では廃止する。
+- sidecarを実行しないレースでもPrediction KPIと回顧を完全に成立させる。
+- 将来sidecar自体を削除してもPrediction層へ影響しない疎結合構造にする。
+
+### 5.4 実購入履歴と既存記録の扱い
+
+次期仕様では、**新しい実購入履歴をhorse-manの正式台帳へ記録する機能を廃止する**。実購入の有無、券種、金額、払戻、実購入ROIをPredictionの入力・完了条件・KPIにしない。
+
+一方、過去サイクルで既に保存された実購入・BET/SKIP・仮想精算記録は削除・変換しない。
+
+- 旧記録は旧契約の履歴としてread-onlyで参照可能にする。
+- 旧記録を次期Prediction KPIへ自動混入しない。
+- 一般的なUser Noteへ利用者が購入メモを書いた場合も、システムはそれを実購入台帳として解釈・集計しない。
+- 旧契約の監査・再現では、その記録当時のmanual release / gate schema / KPI contractを使用する。
+
+この変更により、現行 `AGENTS.md` の購入／見送り履歴、見送りを含む仮想精算、Betting gate必須化と、`DECISIONS.md` のBET/SKIP・手動購入記録・Betting監査に関する決定は次期仕様と衝突する。正式切替時に13.8の方針で同時更新する。
 
 ## 6. 変更2: ☆印廃止
 
@@ -155,10 +174,14 @@ Production順位
 
 - 人気薄だから☆を付ける処理を廃止する。
 - 妙味・価格は印へ混ぜない。
-- 合理的な勝利候補なら▲以内へ置く。
-- △は順位付きの下位候補とする。
+- **印はProduction順位に従って付与し、印の意味に合わせるために順位を操作しない。**
+- 合理的な勝利シナリオを持つ馬が4頭以上いる混戦でも、4位以下は順位どおり△1以降とする。
+- 4位以下の勝利可能性は、勝率、確率レンジ、不確実性、勝利シナリオ等の独立項目で表現し、「勝てる可能性があるから▲へ昇格」という処理をしない。
+- △は順位付きの下位候補であり、「勝利可能性なし」を意味しない。
 - 過去の☆は変更しない。
 - サイクル横断比較では印記号だけでなくProduction順位を正本として扱う。
+
+既存の☆廃止proposalに「勝てる主要候補なら▲までに置く」等の表現が残る場合は、正式実装前に本原則へ合わせて修正する。
 
 ## 7. 変更3: 根拠を必須にする予想契約
 
@@ -532,7 +555,33 @@ Prediction Performanceを主軸へ変更する。
 
 実購入ROIは削除する。
 
-仮想収益検証を残す場合はPrediction KPIとは別系列にする。
+仮想収益検証は任意sidecarのKPIとしてPrediction KPIとは別系列にする。
+
+### 13.8 `AGENTS.md` / `DECISIONS.md`
+
+正式切替PRでリポジトリ全体の上位契約も同時に更新する。
+
+`AGENTS.md` は少なくとも次を見直す。
+
+- FINAL予想と結果・回顧の履歴保存は維持する。
+- 「買い目候補、ユーザーの購入/見送り判断」を新規必須履歴から外す。
+- 「見送りレースも仮想精算」を「低確信レースもPrediction回顧から除外しない」へ置換する。
+- execution gateの必須対象を次期Prediction / Shadow契約へ更新する。
+- Betting固有のgate、evidence、KPI契約を次期標準予想の必須条件から外す。
+- 旧releaseのrecordを旧契約で検証・保持する互換方針を追加する。
+
+`DECISIONS.md` は過去ADRを書き換えて履歴を消すのではなく、**次期契約を定める新しいADRを追加し、旧ADRのどの部分をsupersedeするかを明示する**。
+
+少なくとも以下を対象にする。
+
+- ADR-004: FINAL immutableのうち買い目候補必須部分
+- ADR-005: BET / SKIPを同格最終判断とする契約
+- ADR-010: 手動購入記録までをシステム対象とする契約
+- ADR-016: Production / Shadow分離のうち正式買い目前提表現
+- ADR-020: 機械ゲートのBetting必須項目
+- ADR-021: Betting evidence / receipt契約
+
+Production / Shadow分離、FINAL immutable、時点再現性、機械監査そのものは廃止せず、次期Prediction中心契約へ再定義する。
 
 ## 14. validation変更対象
 
@@ -558,6 +607,56 @@ Prediction Performanceを主軸へ変更する。
 ### 14.3 `docs/validation/README.md`
 
 新規Shadow候補を登録し、Productionへ逆流しないことを明記する。
+
+### 14.4 execution gate / checker / 監査互換
+
+現行 `scripts/check_prediction_compliance.py` は `SUPPORTED_RELEASE = 'v1.6.1'`、`schema_version=prediction-compliance-v1` を前提とし、Productionに加えてBetting/Shadow KPI、Betting object、reviewの `prediction / price / betting` layerを要求する。このままmanual releaseだけを更新すると新releaseの正式保存・監査が成立しないため、正式切替の必須変更対象とする。
+
+対象:
+
+- `scripts/check_prediction_compliance.py`
+- `scripts/test_check_prediction_compliance.py`
+- `docs/validation/execution-gates/README.md`
+- 次期execution gate schema / sample
+- 日別record・cycle ledgerとの認証リンク
+- 必要に応じて `scripts/verify_prediction_persistence.py` とそのテスト
+- Betting KPI checkerは旧契約用または任意sidecar用として責任範囲を分離する
+
+#### 次期gateの原則
+
+- 次期Prediction標準契約では `production` を必須、適用対象の `shadow` を独立判定する。
+- Betting / actual purchaseは標準Prediction gateの必須フィールド・必須KPIにしない。
+- 任意の市場検証sidecarを実行した場合のみ、そのsidecar固有schema / KPIを別契約で検証する。
+- reviewの必須layerからBettingを外し、Prediction中心の回顧が単独で完了できるようにする。
+- snapshot / receipt / pre-race timing / data cutoff / manual_ref_commit等の時点証跡は維持する。
+
+#### 旧契約互換
+
+**既存 `prediction-compliance-v1` の意味を新仕様に上書きしない。**
+
+checkerは少なくとも `schema_version + manual_release` で検証契約をdispatchできる構造へ変更する。
+
+- `v1.6.1 + prediction-compliance-v1`: 現行のBetting要件を含む旧validatorで検証する。
+- 次期release + 次期gate schema: Prediction中心の新validatorで検証する。
+- 現在の `docs/manual/README.md` が次期releaseになった後でも、過去gateの `manual_release=v1.6.1` を理由なく失敗させない。
+- 旧gateを新schemaへ自動変換しない。
+- 旧recordに不足していた証跡を新releaseの規則で後付けして適格化しない。
+- 未知のrelease/schema組み合わせはfail closedとする。
+
+次期schemaの具体的なversion名は実装PRで確定するが、既存 `prediction-compliance-v1` を再利用して意味だけ変更することは禁止する。
+
+#### release切替ゲート
+
+次期manual releaseを現行化する前に以下をすべて満たす。
+
+1. 新旧両validatorのテストが通る。
+2. v1.6.1 fixtureが旧契約のままPASSする。
+3. 次期fixtureがBetting情報なしでPrediction正式性を検証できる。
+4. 次期fixtureへ旧Betting項目を入れてもPrediction必須契約へ逆流しない。
+5. release/schema不一致・未知version・未来情報・発走後保存を拒否する。
+6. validation templateとgate schemaが同じ必須項目を要求する。
+7. CI / 実行手順が新checkerを呼び出す。
+8. manual、validation、checkerのいずれかだけが先行した状態でmainへ切り替わらない。
 
 ## 15. 重賞・海外テンプレート変更対象
 
@@ -632,26 +731,46 @@ Prediction Performanceを主軸へ変更する。
 
 名称は既存schemaとの重複確認後に確定する。
 
-## 17. 実装フェーズ
+## 17. 本計画の作業段階と既存JRA-VAN Phaseの対応
 
-### Phase 0: 第3サイクル中の準備
+本節の「作業段階」は変更管理上の順序であり、`docs/jravan/phases/README.md` の正式な実装Phaseを置き換えない。コード実装は既存Phase 3→4→5→6→7→8の依存順と「各Phaseを独立PRにする」契約を維持する。
+
+### 17.1 対応表
+
+| 本計画の作業段階 | 内容 | 既存JRA-VAN Phase | 実装上の扱い |
+|---|---|---|---|
+| Stage 0 | 第3サイクル中の計画・設計準備 | Phase外 | proposalのみ。Productionを変更しない |
+| Stage 1 | 第3サイクル終了審査 | Phase外 | validation / review上の変更管理。実装変更と別PR |
+| Stage 2 | 次期仕様・契約の原子切替 | Phase 3〜8の前提 | manual、AGENTS、ADR、validation、gate/checker、phase文書を整合。新release有効化条件 |
+| Stage 3 | Prediction / feature / Shadow engine | **Phase 3** | 根拠構造、☆廃止、共通Production、新規feature受け皿 |
+| Stage 4 | Prediction Web UI | **Phase 4** | 次期Production表示、根拠、Shadow差分。購入UIを要求しない |
+| Stage 5 | Odds / Market validation | **Phase 5** | 「Betting decision」から市場評価・任意仮想検証へphase文書を先に改訂してから実装 |
+| Stage 6 | Result / Review preparation / Automation | **Phase 6** | 実購入settlement必須を外し、全Productionの結果結合を中心化 |
+| Stage 7 | AI review | **Phase 7** | 次期根拠・誤差分類を用いた回顧支援。自動昇格は禁止 |
+| Stage 8 | Backtest / Rule lifecycle | **Phase 8** | data cutoff、旧新release比較、Shadow昇格判定 |
+| Stage 9 | 新規予想featureの前向き検証 | 主にPhase 3 + Phase 8 | feature生成はPhase 3、効果判定と昇格はPhase 8。1機能ずつ独立PR |
+
+### 17.2 Stage 0: 第3サイクル中の準備
 
 対象:
+
 - 本計画書
 - ☆廃止proposal更新
 - 第3サイクル終了審査項目登録
 - 次期feature / DB設計案
 
 完了条件:
+
 - Production v1.6.1へ影響する変更がない。
 - 未マージproposalをProduction根拠として参照しない。
 - 第3サイクルの既存KPI・対象集合・固定成果物を変更しない。
 
-### Phase 1: 第3サイクル終了審査
+### 17.3 Stage 1: 第3サイクル終了審査
 
 2026-10-12開催分までを現行契約で閉じた後に実施する。
 
 評価項目:
+
 - Betting工程に要した処理量と予想工程への影響
 - 最終予想未完了との関係
 - ☆印の実用価値
@@ -661,52 +780,79 @@ Prediction Performanceを主軸へ変更する。
 - 新規案の次サイクル採否
 
 完了条件:
+
 - 終了審査と正式変更を同じPRで混在させない。
 - 未検証項目を効果ありとして昇格させない。
 
-### Phase 2: Prediction Core簡素化
+### 17.4 Stage 2: 次期仕様・監査契約の原子切替
 
-実施:
-- 実購入責任削除
-- ☆廃止
-- 根拠必須化
-- 共通Productionフロー
-- 重賞過去傾向分離
-- manual release更新
+コードPhaseへ進む前に、次期仕様の正本と監査経路を揃える。
 
-完了条件:
-- 通常レースと重賞で同じ基本Prediction契約が動く。
-- 印がProduction順位と矛盾しない。
-- 全上位評価に追跡可能な根拠がある。
-- 実購入情報なしで予想→結果→回顧が完結する。
+同じ切替単位で最低限整合するもの:
 
-### Phase 3: UI / validation / JRA-VAN整合
-
-実施:
-- validation template更新
-- WebUI簡素化
-- odds設計更新
-- settlement設計更新
-- DB schema更新
-- migration方針追加
+- `docs/manual/`
+- `AGENTS.md`
+- `DECISIONS.md` のsuperseding ADR
+- `docs/validation/` の次期テンプレート
+- execution gate次期schema
+- `scripts/check_prediction_compliance.py`
+- checker関連テスト
+- `docs/jravan/phases/phase_3_rule_engine.md`
+- `phase_4_prediction_ui.md`
+- `phase_5_odds_betting.md`
+- `phase_6_settlement_automation.md`
 
 完了条件:
-- manual、validation、WebUI、DBの用語が一致する。
-- 廃止した実購入状態を新規画面・新規schemaが要求しない。
-- 過去データは読取可能なまま保持する。
 
-### Phase 4: 新規Shadow検証
+- 新releaseの保存・監査がBetting情報なしで成立する。
+- v1.6.1記録を旧契約で引き続き検証できる。
+- 新旧schemaのdispatchがテストされる。
+- Phase 3〜6の目的・受入条件が次期仕様と矛盾しない。
+- manualだけ、checkerだけ、phase文書だけの片側切替を行わない。
 
-順序を分けて導入する。
+### 17.5 Stage 3以降: 既存Phase順でコード実装
+
+仕様切替後のコード変更は `docs/jravan/phases/README.md` を正とし、Phase 3から順に独立PRで進める。
+
+依存順序:
+
+```text
+Stage 2 契約切替
+  ↓
+Phase 3 Feature / Production / Shadow engine
+  ↓
+Phase 4 Prediction Web UI
+  ↓
+Phase 5 Odds / Market validation
+  ↓
+Phase 6 Result / Review preparation / Automation
+  ↓
+Phase 7 AI review
+  ↓
+Phase 8 Backtest / Rule lifecycle
+```
+
+Phase 5・6は現行文書が購入判断・実購入settlementを前提としているため、Stage 2でphase文書の目的と受入条件を改訂した後にコード実装へ進む。Phase 3・4も印体系・根拠出力・新release整合を受入条件へ反映する。
+
+### 17.6 新規Shadow検証
+
+次の順序を基本とし、一度に複数をProductionへ昇格させない。
 
 1. 近5走相手レベル
 2. 開催期間傾向
 3. 新馬専用評価
 4. 条件別統計feature拡張
 
-複数featureを同時にProductionへ昇格させない。
+各featureについて、
+
+- Phase 3で取得・feature生成・Shadow出力を実装
+- Phase 8でdata cutoff、前向き比較、非劣化、追加価値を検証
+- 正式昇格は別のmanual変更PR
+
+とする。
 
 完了条件:
+
 - 各featureの単独追加価値を比較可能。
 - data cutoffが検証可能。
 - 取得不能時に既存Productionが継続可能。
@@ -718,6 +864,7 @@ Prediction Performanceを主軸へ変更する。
 
 - manual release一致
 - Owner / depends_on / produces整合
+- `AGENTS.md` / `DECISIONS.md` / manual / validation / JRA-VAN phase文書の責任範囲一致
 - 廃止用語の参照残り検索
 - 実購入前提のリンク切れ確認
 - ☆参照残り確認
@@ -759,6 +906,26 @@ Prediction Performanceを主軸へ変更する。
 - 旧Betting recordを消さない
 - 新版KPIへ旧実購入記録を自動混入しない
 - 旧サイクルを新ルールで再採点しない
+- `v1.6.1 + prediction-compliance-v1` の既存fixtureが旧validatorでPASSする
+- 次期releaseへ切り替えたmain上でも旧gateを旧契約で検証できる
+
+### 18.5 機械監査
+
+最低限以下のcheckerテストを追加する。
+
+- 現行v1.6.1正常gate → PASS
+- 現行v1.6.1でBetting必須項目欠落 → 旧契約どおりFAIL
+- 次期release正常gate（実購入・Bettingなし） → PASS
+- 次期releaseでProduction必須根拠欠落 → FAIL
+- 次期releaseで任意市場sidecarなし → Prediction適格性へ影響しない
+- schema / manual_releaseの不正な組み合わせ → FAIL
+- 未知schema / 未知release → FAIL
+- 発走後保存を前向き証跡として宣言 → FAIL
+- REPLAYを前向きKPIへ昇格 → FAIL
+- 旧gateを新validatorへ暗黙変換しない
+- current manual releaseが次期版でも、履歴監査モードではv1.6.1 gateを検証可能
+
+checkerテストだけでなく、validation templateのsampleを用いたend-to-end検証を1件以上行う。
 
 ## 19. 受入条件
 
@@ -776,6 +943,11 @@ Prediction Performanceを主軸へ変更する。
 10. 過去snapshot、回顧、旧☆、旧Betting recordを遡及変更しない。
 11. manual、validation、JRA-VAN設計、WebUIで責任範囲が一致する。
 12. 変更理由・受入条件・検証結果を日本語PRで追跡できる。
+13. 次期manual releaseへ切り替えた時点で、対応するexecution gate / checker / validation templateが同時に利用可能である。
+14. 新release切替後もv1.6.1の過去記録を旧契約のまま機械検証できる。
+15. 次期Predictionの正式性判定は実購入・Betting情報がなくても完了できる。
+16. `AGENTS.md` と `DECISIONS.md` が次期責任範囲と矛盾しない。
+17. JRA-VANのコード実装は既存Phase 3→8の順序と独立PR契約を維持する。
 
 ## 20. ロールバック
 
@@ -793,26 +965,31 @@ Prediction Performanceを主軸へ変更する。
 
 ## 21. 実装PRの分割方針
 
-1つの巨大PRにせず、原則として次へ分割する。
+コード実装は1つの巨大PRにせず、既存JRA-VAN Phase単位の独立PRを維持する。ただし、**次期releaseを有効化する契約切替だけは、manualと監査が一時的に不整合にならないよう原子的な1 PRにまとめる。**
 
-1. 第3サイクル終了審査
-2. Prediction Core / manual変更
-3. validation・テンプレート変更
-4. JRA-VAN設計・DB変更
-5. WebUI変更
-6. 近5走相手レベルShadow
-7. 開催傾向Shadow
-8. 新馬Shadow
-9. 条件別統計基盤
+推奨順:
 
-各PRは前段の受入条件を満たしてから次へ進む。
+1. 第3サイクル終了審査PR
+2. **次期契約切替PR**  
+   manual / AGENTS / superseding ADR / validation template / execution gate schema / checker / checker tests / Phase 3〜6文書を同時整合し、次期manual releaseを有効化
+3. Phase 3: Feature / Production / Shadow engine PR
+4. Phase 4: Prediction Web UI PR
+5. Phase 5: Odds / Market validation PR
+6. Phase 6: Result / Review preparation / Automation PR
+7. Phase 7: AI review PR
+8. Phase 8: Backtest / Rule lifecycle PR
+9. 近5走相手レベルShadow PR
+10. 開催傾向Shadow PR
+11. 新馬Shadow PR
+12. 条件別統計基盤PR
+
+次期契約切替PRは「複数機能をまとめて実装するPR」ではなく、**同一releaseの仕様・保存形式・監査器を一致させるための不可分な契約変更**とする。Phase 3以降の実装コードはそこへ混在させず、各Phaseの受入条件を満たしてから次へ進む。
 
 ## 22. 未決事項
 
 正式実装前に以下を決める。
 
 - `30_betting.md` を改名するか、互換性のため名称を維持するか
-- 仮想収益検証を次期標準工程に残すか、完全任意にするか
 - △を最大3頭固定とするか、レース構造に応じた可変数とするか
 - 相手レベルの初期算定方法をルールベースにするか、feature値のみ保持するか
 - 開催傾向の最低サンプル条件
