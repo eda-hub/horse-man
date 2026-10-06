@@ -72,6 +72,7 @@ def next_gate(date='2026-10-13',race='20261013-TOK-01',mode='FORWARD'):
       'schema_version':'prediction-compliance-v2','race_id':race,'race_date_jst':date,'mode':mode,
       'working_branch':f'prediction/{date}','manual_release':'v1.7.0','manual_ref_commit':'b'*40,
       'scheduled_post_time_jst':f'{date}T10:10:00+09:00',
+      'data_cutoff':f'{date}T09:50:00+09:00',
       'timing_route':'SNAPSHOT_CANDIDATE' if mode=='FORWARD' else 'LATE_PRESERVATION',
       'production':{
         'baseline_forecast_id':race+'-P001',
@@ -323,6 +324,10 @@ class T(unittest.TestCase):
     r=self.root(); g=next_gate(date='2026-10-12',race='20261012-TOK-01'); self.put(r,g)
     with self.assertRaisesRegex(ComplianceError,'next contract is not valid before'): run(r)
 
+  def test_next_contract_requires_current_manual_release(self):
+    r=self.root(); g=next_gate(); self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'requires current manual release'): run(r)
+
   def test_next_gate_does_not_require_betting(self):
     r=self.root_next(); g=next_gate(); self.put(r,g); run(r)
 
@@ -352,9 +357,13 @@ class T(unittest.TestCase):
 
   def test_next_gate_evidence_must_be_pre_race(self):
     r=self.root_next(); g=next_gate()
-    g['production']['evidence_items'][0]['observed_at_jst']='2026-10-13T10:11:00+09:00'
+    g['production']['evidence_items'][0]['observed_at_jst']='2026-10-13T09:51:00+09:00'
     self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'evidence observed at/after post time'): run(r)
+    with self.assertRaisesRegex(ComplianceError,'evidence observed after data_cutoff'): run(r)
+
+  def test_next_data_cutoff_must_be_pre_race(self):
+    r=self.root_next(); g=next_gate(); g['data_cutoff']='2026-10-13T10:10:00+09:00'; self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'data_cutoff must be before post time'): run(r)
 
   def test_next_replay_cannot_claim_production_eligible(self):
     r=self.root_next(); g=next_gate(mode='REPLAY')
