@@ -3,8 +3,17 @@ import argparse, json, re, sys
 from datetime import datetime
 from pathlib import Path
 
-SCHEMA = 'prediction-compliance-v1'
-SUPPORTED_RELEASE = 'v1.6.1'
+LEGACY_SCHEMA = 'prediction-compliance-v1'
+NEXT_SCHEMA = 'prediction-compliance-v2'
+LEGACY_RELEASE = 'v1.6.1'
+NEXT_RELEASE = 'v1.7.0'
+NEXT_EFFECTIVE_DATE = '2026-10-13'
+SCHEMA = LEGACY_SCHEMA
+SUPPORTED_RELEASE = LEGACY_RELEASE
+SUPPORTED_CONTRACTS = {
+    (LEGACY_RELEASE, LEGACY_SCHEMA),
+    (NEXT_RELEASE, NEXT_SCHEMA),
+}
 PAIR_TYPES = {'QUINELLA','WIDE','EXACTA'}
 ALL_BET_TYPES = {'WIN','PLACE','QUINELLA','WIDE','EXACTA','TRIO','TRIFECTA'}
 VERTICAL_REASON_CODES = {'INDEPENDENT_POSITIVE_EV'}
@@ -197,7 +206,7 @@ def betting(root, b, marks, label, scheduled_post, race_id):
         if plan.get('total_stake_yen')!=vtotal: raise ComplianceError(f'{label}: validation_stake_plan total mismatch')
         if vtotal!=10000: raise ComplianceError(f'{label}: separate validation stake must be 10000')
 
-def review(rv, gate, mode, label):
+def review_v1(rv, gate, mode, label):
     if not isinstance(rv,dict): raise ComplianceError(f'{label}: review object required')
     st=req(rv,'status',label)
     if st=='NOT_STARTED': return
@@ -237,15 +246,15 @@ def review(rv, gate, mode, label):
         if e=='ELIGIBLE' and o.get('evidence_state')!='PRE_RACE_ELIGIBLE': raise ComplianceError(f'{label}/{name}: eligible KPI lacks pre-race evidence')
         if mode=='REPLAY' and e=='ELIGIBLE': raise ComplianceError(f'{label}/{name}: replay KPI cannot be eligible')
 
-def validate_gate(root,path):
-    g=json.loads(path.read_text(encoding='utf-8')); label=str(path)
-    if g.get('schema_version')!=SCHEMA: raise ComplianceError(f'{label}: schema mismatch')
+def validate_gate_v1(root,path,g):
+    label=str(path)
+    if g.get('schema_version')!=LEGACY_SCHEMA: raise ComplianceError(f'{label}: schema mismatch')
     date=req(g,'race_date_jst',label); race_id=req(g,'race_id',label); mode=req(g,'mode',label)
     if mode not in {'FORWARD','REPLAY'}: raise ComplianceError(f'{label}: invalid mode')
     if g.get('working_branch')!=f'prediction/{date}': raise ComplianceError(f'{label}: wrong working_branch')
-    rel=release(root)
-    if rel!=SUPPORTED_RELEASE: raise ComplianceError(f'{label}: checker supports {SUPPORTED_RELEASE}, manual is {rel}')
-    if g.get('manual_release')!=rel: raise ComplianceError(f'{label}: manual_release mismatch')
+    if g.get('manual_release')!=LEGACY_RELEASE: raise ComplianceError(f'{label}: legacy manual_release mismatch')
+    if date >= NEXT_EFFECTIVE_DATE:
+        raise ComplianceError(f'{label}: legacy contract is not valid on/after {NEXT_EFFECTIVE_DATE}')
     if not re.fullmatch(r'[0-9a-f]{40}',req(g,'manual_ref_commit',label)): raise ComplianceError(f'{label}: full manual commit SHA required')
     post=iso(g.get('scheduled_post_time_jst'),label+'/post'); route=req(g,'timing_route',label)
     if mode=='REPLAY' and route!='LATE_PRESERVATION': raise ComplianceError(f'{label}: replay must be LATE_PRESERVATION')
@@ -272,8 +281,166 @@ def validate_gate(root,path):
         if mode=='REPLAY' and elig=='ELIGIBLE': raise ComplianceError(f'{il}: replay shadow cannot be eligible')
         if elig=='ELIGIBLE': evidence(root,x.get('evidence_ref'),il,True,post)
     betting(root,g.get('betting',{}),marks,label+'/betting',post,race_id)
-    review(g.get('review',{'status':'NOT_STARTED'}),g,mode,label+'/review')
+    review_v1(g.get('review',{'status':'NOT_STARTED'}),g,mode,label+'/review')
     return g
+
+def probability_item(item,label):
+    if not isinstance(item,dict): raise ComplianceError(f'{label}: probability object required')
+    horse=item.get('horse_no')
+    if type(horse) is not int or horse<=0: raise ComplianceError(f'{label}: horse_no must be positive int')
+    values=[]
+    for key_name in ('win_probability','top2_probability','top3_probability'):
+        value=item.get(key_name)
+        if not isinstance(value,(int,float)) or not 0<=value<=1:
+            raise ComplianceError(f'{label}: {key_name} must be within 0..1')
+        values.append(value)
+    if not values[0] <= values[1] <= values[2]:
+        raise ComplianceError(f'{label}: probability order must be win <= top2 <= top3')
+    return horse
+
+def evidence_item(item,label,post):
+    if not isinstance(item,dict): raise ComplianceError(f'{label}: evidence object required')
+    horse=item.get('horse_no')
+    if type(horse) is not int or horse<=0: raise ComplianceError(f'{label}: horse_no must be positive int')
+    for key_name in ('factor','fact','source_ref'):
+        req(item,key_name,label)
+    if item.get('direction') not in {'plus','neutral','minus','uncertain'}:
+        raise ComplianceError(f'{label}: invalid direction')
+    if item.get('strength') not in {'strong','medium','weak'}:
+        raise ComplianceError(f'{label}: invalid strength')
+    observed=iso(item.get('observed_at_jst'),label+'/observed_at_jst')
+    if observed>=post: raise ComplianceError(f'{label}: evidence observed at/after post time')
+    return horse
+
+def review_v2(rv, gate, mode, label):
+    if not isinstance(rv,dict): raise ComplianceError(f'{label}: review object required')
+    st=req(rv,'status',label)
+    if st=='NOT_STARTED': return
+    if st!='COMPLETE': raise ComplianceError(f'{label}: invalid review status')
+    src=rv.get('result_sources')
+    if not isinstance(src,list) or not src: raise ComplianceError(f'{label}: result_sources required')
+    post=iso(gate['scheduled_post_time_jst'],label+'/post')
+    for i,item in enumerate(src):
+        req(item,'url',f'{label}/source[{i}]')
+        if iso(item.get('retrieved_at_jst'),f'{label}/source[{i}]')<post:
+            raise ComplianceError(f'{label}: result retrieved before post time')
+    result=rv.get('result')
+    if not isinstance(result,dict) or not isinstance(result.get('top3'),list) or len(result.get('top3'))!=3 or any(type(x) is not int or x<=0 for x in result.get('top3',[])):
+        raise ComplianceError(f'{label}: result.top3 required')
+    ec=rv.get('error_classification')
+    if not isinstance(ec,dict): raise ComplianceError(f'{label}: error_classification required')
+    req(ec,'primary',label+'/error_classification')
+    secondary=ec.get('secondary',[])
+    if not isinstance(secondary,list) or any(not isinstance(x,str) or not x for x in secondary):
+        raise ComplianceError(f'{label}: invalid secondary error classification')
+    la=rv.get('layer_assessment')
+    if not isinstance(la,dict) or 'prediction' not in la:
+        raise ComplianceError(f'{label}: layer_assessment.prediction required')
+    allowed_layers={'PASS','FAIL','PARTIAL','NOT_APPLICABLE','UNDETERMINED'}
+    if any(v not in allowed_layers for v in la.values()):
+        raise ComplianceError(f'{label}: invalid layer_assessment')
+    nd=rv.get('non_degradation')
+    if not isinstance(nd,dict) or any(not isinstance(nd.get(k),list) for k in ('protect','retest','improve')):
+        raise ComplianceError(f'{label}: non_degradation protect/retest/improve required')
+    kpis=rv.get('kpis')
+    if not isinstance(kpis,dict) or not kpis: raise ComplianceError(f'{label}: kpis required')
+    for name,obj in kpis.items():
+        eligibility=req(obj,'eligibility',label+'/'+name)
+        if eligibility not in KPI_STATES: raise ComplianceError(f'{label}/{name}: invalid eligibility')
+        if mode=='REPLAY' and eligibility=='ELIGIBLE':
+            raise ComplianceError(f'{label}/{name}: replay KPI cannot be eligible')
+
+def validate_gate_v2(root,path,g):
+    label=str(path)
+    if g.get('schema_version')!=NEXT_SCHEMA: raise ComplianceError(f'{label}: schema mismatch')
+    date=req(g,'race_date_jst',label); race_id=req(g,'race_id',label); mode=req(g,'mode',label)
+    if date < NEXT_EFFECTIVE_DATE:
+        raise ComplianceError(f'{label}: next contract is not valid before {NEXT_EFFECTIVE_DATE}')
+    if mode not in {'FORWARD','REPLAY'}: raise ComplianceError(f'{label}: invalid mode')
+    if g.get('working_branch')!=f'prediction/{date}': raise ComplianceError(f'{label}: wrong working_branch')
+    if g.get('manual_release')!=NEXT_RELEASE: raise ComplianceError(f'{label}: next manual_release mismatch')
+    if not re.fullmatch(r'[0-9a-f]{40}',req(g,'manual_ref_commit',label)):
+        raise ComplianceError(f'{label}: full manual commit SHA required')
+    post=iso(g.get('scheduled_post_time_jst'),label+'/post')
+    route=req(g,'timing_route',label)
+    if mode=='REPLAY' and route!='LATE_PRESERVATION':
+        raise ComplianceError(f'{label}: replay must be LATE_PRESERVATION')
+
+    production=g.get('production')
+    if not isinstance(production,dict): raise ComplianceError(f'{label}: production required')
+    baseline=req(production,'baseline_forecast_id',label+'/production')
+    if baseline.startswith(('MISSING','UNKNOWN','UNRESOLVED')):
+        raise ComplianceError(f'{label}: production lacks a fixed baseline_forecast_id')
+    ranking=production.get('ranking')
+    if not isinstance(ranking,list) or len(ranking)<3 or any(type(x) is not int or x<=0 for x in ranking) or len(set(ranking))!=len(ranking):
+        raise ComplianceError(f'{label}: production ranking must contain at least 3 unique positive horse numbers')
+    marks=production.get('marks')
+    if not isinstance(marks,dict): raise ComplianceError(f'{label}: production marks required')
+    expected=(marks.get('honmei'),marks.get('taikou'),marks.get('tanana'))
+    if expected!=tuple(ranking[:3]):
+        raise ComplianceError(f'{label}: marks must follow production ranking')
+    renka=marks.get('renka',[])
+    if not isinstance(renka,list) or any(type(x) is not int or x<=0 for x in renka):
+        raise ComplianceError(f'{label}: renka must be a horse number list')
+    if renka and renka!=ranking[3:3+len(renka)]:
+        raise ComplianceError(f'{label}: renka must follow production ranking')
+    if production.get('prediction_confidence') not in {'A','B','C','D'}:
+        raise ComplianceError(f'{label}: prediction_confidence must be A/B/C/D')
+
+    probabilities=production.get('probabilities')
+    if not isinstance(probabilities,list) or not probabilities:
+        raise ComplianceError(f'{label}: production probabilities required')
+    probability_horses=set()
+    for i,item in enumerate(probabilities):
+        horse=probability_item(item,f'{label}/production/probabilities[{i}]')
+        if horse in probability_horses: raise ComplianceError(f'{label}: duplicate probability horse {horse}')
+        probability_horses.add(horse)
+    if not set(ranking[:3]).issubset(probability_horses):
+        raise ComplianceError(f'{label}: top3 ranking horses require probabilities')
+
+    evidence_items=production.get('evidence_items')
+    if not isinstance(evidence_items,list) or not evidence_items:
+        raise ComplianceError(f'{label}: production evidence_items required')
+    evidence_horses=set()
+    for i,item in enumerate(evidence_items):
+        evidence_horses.add(evidence_item(item,f'{label}/production/evidence_items[{i}]',post))
+    if not set(ranking[:3]).issubset(evidence_horses):
+        raise ComplianceError(f'{label}: top3 ranking horses require evidence')
+
+    kpi=g.get('kpi_eligibility')
+    if not isinstance(kpi,dict) or any(kpi.get(name) not in KPI_STATES for name in ('production','shadow')):
+        raise ComplianceError(f'{label}: production/shadow KPI states invalid')
+    if mode=='REPLAY' and any(kpi.get(name)=='ELIGIBLE' for name in ('production','shadow')):
+        raise ComplianceError(f'{label}: replay production/shadow KPI cannot be eligible')
+    if kpi['production']=='ELIGIBLE':
+        evidence(root,production.get('evidence_ref'),label+'/production',True,post)
+        fixed=iso(production.get('fixed_at_jst'),label+'/production/fixed_at_jst')
+        if fixed>=post: raise ComplianceError(f'{label}: post-time production cannot be eligible')
+
+    items=g.get('shadow_items',[])
+    if not isinstance(items,list): raise ComplianceError(f'{label}: shadow_items must be a list')
+    for i,item in enumerate(items):
+        il=f'{label}/shadow[{i}]'
+        req(item,'item_id',il)
+        eligibility=item.get('kpi_eligibility','NOT_APPLICABLE')
+        if eligibility not in KPI_STATES: raise ComplianceError(f'{il}: invalid KPI state')
+        if mode=='REPLAY' and eligibility=='ELIGIBLE': raise ComplianceError(f'{il}: replay shadow cannot be eligible')
+        if eligibility=='ELIGIBLE': evidence(root,item.get('evidence_ref'),il,True,post)
+
+    review_v2(g.get('review',{'status':'NOT_STARTED'}),g,mode,label+'/review')
+    return g
+
+def validate_gate(root,path):
+    try:
+        g=json.loads(path.read_text(encoding='utf-8'))
+    except json.JSONDecodeError as exc:
+        raise ComplianceError(f'{path}: invalid JSON') from exc
+    contract=(g.get('manual_release'),g.get('schema_version'))
+    if contract not in SUPPORTED_CONTRACTS:
+        raise ComplianceError(f'{path}: unsupported manual_release/schema combination: {contract}')
+    if contract==(LEGACY_RELEASE,LEGACY_SCHEMA):
+        return validate_gate_v1(root,path,g)
+    return validate_gate_v2(root,path,g)
 
 def blocks(path,tag):
     s=path.read_text(encoding='utf-8')
@@ -362,7 +529,8 @@ def snapshot_links(root,gates):
         for race in sorted(races):
             if (path.stem,race) not in gates:
                 unregistered.append(f'{path}: snapshot has no execution gate: {race}')
-        for claim in blocks(path,'execution-gate-ref-v1'):
+        claims=list(blocks(path,'execution-gate-ref-v1'))+list(blocks(path,'execution-gate-ref-v2'))
+        for claim in claims:
             date=req(claim,'race_date_jst',str(path))
             race=req(claim,'race_id',str(path))
             if (date,race) not in gates:
