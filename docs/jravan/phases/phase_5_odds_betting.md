@@ -8,7 +8,6 @@ Production基準予想を変えずに最終オッズを予測し、市場との�
 - 初期統計型Odds Forecast
 - range予測
 - Market Evaluation
-- Market Evaluation
 - 価格予測誤差評価
 - optional fixed-rule virtual validation
 - market validation snapshot
