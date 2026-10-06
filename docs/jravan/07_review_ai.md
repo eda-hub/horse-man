@@ -8,12 +8,12 @@
 - Shadowとの差分説明
 - 外れ/的中の偶然性分析
 - オッズ予測評価
-- 推奨候補・実購入・BET/SKIP判断の分離評価
+- Prediction順位・確率・根拠変更の整合性評価
 - エラー分類候補
 - 検証仮説・ルール改善候補の提案
 - 重複/陳腐化したルールの整理候補
 
-AIはProductionのmarks・確率・買い目を決定する必須本体ではない。
+AIはProductionのmarks・確率・順位を決定する必須本体ではない。
 
 ## Review Package
 Python側で必要最小限を構造化してAIへ渡す。
@@ -24,14 +24,13 @@ Python側で必要最小限を構造化してAIへ渡す。
 - 条件別補正
 - Shadow比較（存在時）
 - observed / predicted final / actual final odds
-- 推奨買い目候補
-- user decisionと実購入
+- 初回→最終の順位・確率・根拠差分
 - 結果/払戻
-- 理論/実損益
+- 任意市場検証sidecar（存在時のみ）
 - validation cycle context
 
 ## 全FINALを回顧対象
-購入/見送り、的中/外れに関係なくReview Packageを自動生成する。AI API呼出は初期版ではWeb UIの「AI回顧開始」で実行し、不要な費用を避ける。
+予想確信度や的中/外れに関係なく、全FINAL PredictionについてReview Packageを生成できるようにする。AI API呼出は初期版ではWeb UIの「AI回顧開始」で実行し、不要な費用を避ける。
 
 ## Rule Proposal
 AI提案は少なくとも `ADD / MODIFY / MERGE / DEPRECATE` を扱う。ただし状態は `50_review` の検証ライフサイクルへ合わせ、**昇格 / 継続検証 / 棄却 / 判断保留**を表現できるようにする。
@@ -39,7 +38,7 @@ AI提案は少なくとも `ADD / MODIFY / MERGE / DEPRECATE` を扱う。ただ
 AI出力はPydantic schemaでValidationし、提案DBへ保存するだけ。`docs/manual/` のOwnerモジュールへ反映する場合は、人間承認後の別PRとする。
 
 ## 検証サイクル
-`docs/manual/50_review.md` の現行サイクル定義、固定仮想資金、主KPIを実装時の正とする。数値をJRA-VAN設計書側へ重複定義しない。
+`docs/manual/50_review.md` の現行サイクル定義と主Prediction KPIを実装時の正とする。任意市場sidecarのKPIもmanual側の契約に従い、数値をJRA-VAN設計書側へ重複定義しない。
 
 ## 過学習防止
 時系列holdout等の統計検証を追加してよいが、manualの正式検証プロトコルを置換しない。AIが多数候補を生成した場合のselection biasも記録する。
