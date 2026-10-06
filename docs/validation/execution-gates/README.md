@@ -1,5 +1,98 @@
 # Execution Compliance Gate
 
+このディレクトリは、チャットやAIの自己申告ではなく、機械判定で予想・回顧・適用Shadowのルール準拠状態を確定するための実行台帳を置く。
+
+## 契約version
+
+checkerは `manual_release + schema_version` の組み合わせで検証契約を選択する。
+
+| manual release | gate schema | 用途 |
+|---|---|---|
+| `v1.6.1` | `prediction-compliance-v1` | 第3サイクルまでの旧契約。Betting監査を含む |
+| `v1.7.0` | `prediction-compliance-v2` | 次期Prediction中心契約。2026-10-13以降に有効化予定 |
+
+`prediction-compliance-v1` の意味は変更しない。mainの現行releaseが将来更新されても、過去のv1 gateは旧validatorで検証する。未知のrelease/schema組み合わせはfail closedとする。
+
+`prediction-compliance-v2` は実購入・BettingをProduction正式性の必須入力にしない。Production、適用Shadow、発走前証跡、data cutoff相当の時点性、結果後回顧を監査する。市場・仮想収益検証を行う場合は任意sidecarとして別契約に分離する。
+
+### v2 Production必須構造
+
+- `ranking`: Production順位。3頭以上、馬番重複不可
+- `marks.honmei / taikou / tanana`: ranking 1〜3位と完全一致
+- `marks.renka`: 4位以下を順位順に保持する任意配列
+- `probabilities`: 少なくとも上位3頭の勝率・連対相当・3着内率
+- `prediction_confidence`: `A / B / C / D`
+- `evidence_items`: 少なくとも上位3頭について、根拠事実・出所・観測時刻・方向・強度を保持
+- `evidence_ref`: Production KPIをELIGIBLEとする場合の発走前snapshot/receipt参照
+
+印は順位から導出する。4位以下にも勝利可能性は認め、確率・レンジ・シナリオで表現する。勝利可能性があることだけを理由に3位以内へ順位を操作しない。
+
+### v2 最小例
+
+```json
+{
+  "schema_version": "prediction-compliance-v2",
+  "race_id": "20261013-TOK-01",
+  "race_date_jst": "2026-10-13",
+  "mode": "FORWARD",
+  "working_branch": "prediction/2026-10-13",
+  "manual_release": "v1.7.0",
+  "manual_ref_commit": "40文字のcommit SHA",
+  "scheduled_post_time_jst": "2026-10-13T10:10:00+09:00",
+  "timing_route": "SNAPSHOT_CANDIDATE",
+  "production": {
+    "baseline_forecast_id": "20261013-TOK-01-P001",
+    "ranking": [5, 2, 6, 4, 1, 3],
+    "marks": {"honmei": 5, "taikou": 2, "tanana": 6, "renka": [4, 1, 3]},
+    "probabilities": [
+      {"horse_no": 5, "win_probability": 0.22, "top2_probability": 0.39, "top3_probability": 0.53},
+      {"horse_no": 2, "win_probability": 0.18, "top2_probability": 0.34, "top3_probability": 0.49},
+      {"horse_no": 6, "win_probability": 0.14, "top2_probability": 0.29, "top3_probability": 0.43}
+    ],
+    "prediction_confidence": "B",
+    "evidence_items": [
+      {
+        "horse_no": 5,
+        "factor": "ability",
+        "fact": "確認済み事実",
+        "source_ref": "source-or-provenance-id",
+        "observed_at_jst": "2026-10-13T09:40:00+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 2,
+        "factor": "recent_form",
+        "fact": "確認済み事実",
+        "source_ref": "source-or-provenance-id",
+        "observed_at_jst": "2026-10-13T09:40:00+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 6,
+        "factor": "opponent_strength",
+        "fact": "確認済み事実",
+        "source_ref": "source-or-provenance-id",
+        "observed_at_jst": "2026-10-13T09:40:00+09:00",
+        "direction": "neutral",
+        "strength": "weak"
+      }
+    ],
+    "fixed_at_jst": "2026-10-13T09:55:00+09:00"
+  },
+  "kpi_eligibility": {
+    "production": "INELIGIBLE",
+    "shadow": "INELIGIBLE"
+  },
+  "shadow_items": [],
+  "review": {"status": "NOT_STARTED"}
+}
+```
+
+以下のv1節は、`v1.6.1 + prediction-compliance-v1` の履歴契約として保持する。
+
+
 このディレクトリは、チャットやAIの自己申告ではなく、機械判定で予想・買い目・回顧のルール準拠状態を確定するための実行台帳を置く。
 
 ## 原則
