@@ -14,13 +14,13 @@ JRA data
  -> 20_conditional formal adjustments (該当時)
  -> live body-weight/event ingest
  -> FINAL readiness check (T-20以降)
+ -> 根拠・確率・Production順位の整合
  -> Production baseline freeze / baseline_forecast_id
- -> odds observation / final-odds forecast
- -> 30_betting market evaluation / ticket candidates
- -> user BET / SKIP
+ -> optional odds observation / final-odds forecast
+ -> optional market validation sidecar
 ```
 
-価格情報は市場評価・購入判断には使うが、`10_prediction` の能力順位・基準確率を価格だけで変更しない。
+価格情報は市場分析には使えるが、`10_prediction` の能力順位・基準確率・印を価格だけで変更しない。実購入、券種、予算、BET/SKIPはPrediction pipelineの入力・完了条件にしない。
 
 ## Shadowパイプライン
 ```text
@@ -28,13 +28,12 @@ fixed Production
  -> copy baseline context
  -> 40_shadow / 51B / Experimental delta
  -> shadow forecast
- -> optional shadow ticket comparison
  -> result comparison
 ```
 Shadowから同一レースのProductionへ書き戻さない。
 
 ## Result / Review
-結果確定後はProduction、Shadow、実購入を `50_review` の観点で比較し、同じ `baseline_forecast_id` で追跡する。
+結果確定後はProductionと適用Shadowを `50_review` の観点で比較し、同じ `baseline_forecast_id` で追跡する。任意の市場検証sidecarが存在する場合もPrediction KPIとは別系列で評価する。
 
 ## Rule実装方式
 `docs/manual/` を別YAMLへコピーして新しい正本を作らない。実行可能ロジックはPythonコード/設定として実装してよいが、各実装単位を `module + rule_id` に紐付ける。
@@ -53,7 +52,7 @@ Shadowから同一レースのProductionへ書き戻さない。
 manifestと必須moduleの `manual_release` が一致しない場合はfail closedする。
 
 ## スコアと確率
-内部特徴量や説明用scoreは保持してよいが、最終的な意味・優先順位は `10_prediction.md` を正とする。最低限、基礎能力/今回発揮能力、適性、展開、確率、予想確信度の説明を再現できること。
+内部特徴量や説明用scoreは保持してよいが、最終的な意味・優先順位は `10_prediction.md` を正とする。最低限、基礎能力/今回発揮能力、近走・相手レベル、適性、展開、確率、予想確信度と、それぞれの主要根拠を再現できること。印はProduction順位から導出し、印を成立させるために順位を操作しない。
 
 ## データ時点
 - PRE: 事前取得可能な非価格情報中心
@@ -64,18 +63,28 @@ FINALの必須非価格情報は、当日馬体重と増減、最新馬場・天
 
 馬体重readinessは `PENDING / READY / PARTIAL / MISSING / STALE / SOURCE_ERROR` を区別し、`READY` 以外でFINALへ進む場合は原則 `data_readiness=DEGRADED` とする。`STALE` は前日・別レース・旧出走構成など現在レースへ適用できない場合に限り、単なる取得時刻の古さでは判定しない。
 
-`DEGRADED` の場合でも予想継続は可能だが、欠損が馬体重・馬場等の今回発揮能力に影響しうる情報なら予想確信度の上限を下げ、購入確信度も別途下げる。後からデータが取得できても固定済みFINALを結果に合わせて上書きせず、取得遅延eventとして回顧に残す。
+`DEGRADED` の場合でも予想継続は可能だが、欠損が馬体重・馬場等の今回発揮能力に影響しうる情報なら予想確信度の上限を下げる。後からデータが取得できても固定済みFINALを結果に合わせて上書きせず、取得遅延eventとして回顧に残す。
 
 PRE/DAY/FINALは同一ルール体系の時点snapshotであり、チャットが変わっただけ、またはオッズだけが変わっただけでは `baseline_forecast_id` を再発行しない。
 
-## 購入判断との分離
-予想側は推奨候補・買い条件・見送り条件を提示する。ユーザーの購入馬、券種、予算は `30_betting` の二段階購入設計に従い、能力評価を変更せず指定条件内で購入設計を最適化する。
+## 市場検証との分離
+Prediction Engineは順位・確率・印・根拠を固定するところまでを責務とする。オッズ予測や固定ルールによる仮想収益検証はProduction固定後の任意sidecarとし、sidecar未実行でもPredictionと回顧を完了できるようにする。
 
 ## AI非依存
-AIが停止していてもProduction予想、Shadow比較、買い目候補、結果精算は動作すること。
+AIが停止していてもProduction予想、Shadow比較、結果結合、Prediction KPI集計は動作すること。
 
 ## 評価指標
-Prediction Performance、Market/Odds Forecast Performance、Bet Performance、Decision Performance、Shadow Validation Performanceを分離する。加えてFINAL data readinessを記録し、`READY` と `DEGRADED` の予想精度・購入成績を分離して比較できるようにする。
+Prediction Performance、Market/Odds Forecast Performance、Shadow Validation Performanceを分離する。Market/Oddsは任意sidecarとして扱う。加えてFINAL data readinessを記録し、`READY` と `DEGRADED` の予想精度を分離して比較できるようにする。
+
+## 次期追加featureの境界
+以下は同時にProductionへ昇格させず、取得・feature生成と効果判定を分離する。
+
+- 直近最大5走の相手レベル
+- 開催期間傾向
+- 新馬専用の種牡馬・厩舎・騎手・調教等
+- 競馬場×距離×クラス×年齢/性別条件統計
+
+各featureは `data_cutoff` とprovenanceを保持し、初期はShadowとして前向き比較する。
 
 ## 今後の検討事項 — コース要求 × 馬個体適性の構造化
 
