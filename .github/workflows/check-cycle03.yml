@@ -33,5 +33,30 @@ jobs:
             cat /tmp/persistence-audit.txt
             echo '~~~'
           } >> "$GITHUB_STEP_SUMMARY"
-      - name: 日別記録と集計の照合
+      - name: 現行manual releaseを判定
+        id: manual
+        shell: bash
+        run: |
+          release="$(python3 - <<'PY'
+          import re
+          from pathlib import Path
+          text = Path('docs/manual/README.md').read_text(encoding='utf-8')
+          match = re.search(r'現行リリース[^\x60\n]*\x60([^\x60]+)\x60', text)
+          if not match:
+              raise SystemExit('manual release not found')
+          print(match.group(1))
+          PY
+          )"
+          echo "release=$release" >> "$GITHUB_OUTPUT"
+          echo "manual_release=$release" >> "$GITHUB_STEP_SUMMARY"
+      - name: 第3サイクル日別記録と集計の照合
+        if: steps.manual.outputs.release == 'v1.6.1'
         run: python3 scripts/check_cycle03.py
+      - name: 次期Prediction日別台帳の照合
+        if: steps.manual.outputs.release == 'v1.7.0'
+        run: python3 scripts/check_prediction_cycle.py
+      - name: 未対応manual releaseを拒否
+        if: steps.manual.outputs.release != 'v1.6.1' && steps.manual.outputs.release != 'v1.7.0'
+        run: |
+          echo "未対応manual release: ${{ steps.manual.outputs.release }}" >&2
+          exit 1
