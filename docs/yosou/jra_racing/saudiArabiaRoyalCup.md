@@ -72,7 +72,7 @@
 - 出走馬自身は当レース出走時の所属厩舎を基準とする。全94頭とも日本の所属厩舎からの出走で、欧州調教馬自身は0頭。外国産馬も生産国を調教国へ置換しない。フードマン自身は日本調教、父Kingmanと母父Dark Angelは英国調教であり、血統条件と本人の条件を区別する。
 - 天候の雨・小雨と、馬場の稍重・重・不良は別条件。道悪は2016（曇・稍重）、2017（曇・稍重）、2020（雨・不良）、2024（小雨・稍重）の44頭。雨は2020・2024・2025（小雨・良）の25頭。2025年を道悪に含めず、2016・2017年を雨と扱わない。
 - 当時所属は当レースの出馬表から取得。現在の所属を使わない。全94頭の着順・馬番・人気・斤量・上がりはJRAの各年結果と一致した。誕生日・生産者・履歴は各馬プロフィール、5代血統表は各馬の血統表、祖先の調教国・調教師・ND父系は下表に確認先を残した。
-- 祖先調教国はND牡祖先115名称中109名称を確認し、6名称は未確認として下表に残す。未確認を非欧州とみなさない。5代内保有は確認済み欧州型祖先があれば該当、なければ未確認祖先の有無を点検する。全94頭では該当92頭・非該当2頭で、非該当2頭に未確認ND祖先はなく、馬単位判定の欠測は0頭。父・母父限定も該当22頭・非該当72頭で欠測0頭。他の照合項目も欠測はない。公表資料の前走上がり1位群は40頭、本台帳の同タイム最速を含む全頭再集計では41頭（5-7-7-22）。公表資料側の除外仕様は未確認のため、母数を40頭へ合わせるために馬を除かず本台帳を正本とする。出走馬自身の欧州調教ND、基本窓の旧斤量期の道悪、追込×母父ディープ、キャリア1戦×乗替×NFなど、対象0頭の群は「対象なし」。元メモ作成時の期間は不明のままであり、今回の期間で成立しても元の集計期間を復元できたとは言わない。
+- 祖先調教国はND牡祖先115名称中109名称を公開資料で確認し、残る6名称は2026-10-08のユーザー提示の調教国を採用した。公開資料による独立確認とユーザー提示を区別して下表に記録する。Antheus・Northern Park・Van Nistelrooyは欧州型に該当、A Native Danzig・Dancing Count・Sword Danceは非該当。5代内保有は該当祖先が1頭でもあれば該当とする。全94頭では該当92頭・非該当2頭、馬単位判定の欠測は0頭。父・母父限定も該当22頭・非該当72頭で欠測0頭。他の照合項目も欠測はない。公表資料の前走上がり1位群は40頭、本台帳の同タイム最速を含む全頭再集計では41頭（5-7-7-22）。公表資料側の除外仕様は未確認のため、母数を40頭へ合わせるために馬を除かず本台帳を正本とする。出走馬自身の欧州調教ND、基本窓の旧斤量期の道悪、追込×母父ディープ、キャリア1戦×乗替×NFなど、対象0頭の群は「対象なし」。元メモ作成時の期間は不明のままであり、今回の期間で成立しても元の集計期間を復元できたとは言わない。
 
 ### 照合結果の読み方
 
@@ -326,7 +326,7 @@
 
 ### 全出走馬の照合台帳
 
-各年の結果出典は第9章。馬名リンクは誕生日・生産者・実出走履歴の出典。「所属」は当該レース出馬表の所属、「替」は前走からの騎手変更。「前走」リンクは全頭上がり順位の復元元。血統リンクは5代血統表の出典。祖先経路の「父→母→父」は出走馬から父、その母、その父へたどる意味である。同祖先が複数セルに現れる場合は全経路を残す。 欧州調教ND経路は調教国確認済みの該当祖先を列挙し、未確認のND祖先名も別記する。祖先名の網羅確認と馬単位の保有判定を区別する。
+各年の結果出典は第9章。馬名リンクは誕生日・生産者・実出走履歴の出典。「所属」は当該レース出馬表の所属、「替」は前走からの騎手変更。「前走」リンクは全頭上がり順位の復元元。血統リンクは5代血統表の出典。祖先経路の「父→母→父」は出走馬から父、その母、その父へたどる意味である。同祖先が複数セルに現れる場合は全経路を残す。 欧州調教ND経路は公開資料またはユーザー提示で判定した該当祖先を列挙する。ユーザー提示による6名称は下の分類表で由来を区別する。
 
 上位馬だけではなく全94頭を記録し、全ての該当馬・非該当馬を以下のフィールドから再抽出できる。2026年の結果は含まない。
 
@@ -445,7 +445,7 @@
 | 2017 | [シュバルツボンバー](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015104811) | [2017/07/09](https://sports.yahoo.co.jp/keiba/race/result/1707030401) | 中京／未勝利／1600m | 1 | 2 | 4/9 | 34.3／1 | -0.4 | なし | なし | なし | Alzao：父→父→母→父（4代）、Lyphard：父→父→母→父→父（5代）、Nureyev：父→母→父→母→父（5代）、The Minstrel：母→母→父（3代） |
 | 2017 | [ダブルシャープ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015100887) | [2017/09/02](https://sports.yahoo.co.jp/keiba/race/result/1701020511) | 札幌／札幌2／1800m | 3 | 7 | 4/14 | 35.3／1 | +0.0 | なし | 母→母→父→父（4代） | 父→母→母→父（4代） | ベーカバド：父（1代）、Cape Cross：父→父（2代）、Green Desert：父→父→父（3代）、Nijinsky：母→母→父→父（4代） |
 | 2017 | [コスモインザハート](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015106379) | [2017/09/02](https://sports.yahoo.co.jp/keiba/race/result/1701020511) | 札幌／札幌2／1800m | 5 | 8 | 4/14 | 36.5／8 | +0.3 | 母→父→父（3代） | なし | 母→母→母→父（4代） | Lyphard：父→母→母→父（4代）、Barathea：母→父（2代）、Sadler's Wells：母→父→父（3代）、Danehill：母→母→父（3代） |
-| 2017 | [ルッジェーロ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015104347) | [2017/09/09](https://sports.yahoo.co.jp/keiba/race/result/1706040109) | 中山／アスタ／1600m | 3 | 2 | 4/8 | 33.4／1 | +0.1 | なし | なし | なし | Lyphard：父→母→母→父（4代）、Green Desert：母→父→母→父（4代）（調教未確認：Northern Park） |
+| 2017 | [ルッジェーロ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015104347) | [2017/09/09](https://sports.yahoo.co.jp/keiba/race/result/1706040109) | 中山／アスタ／1600m | 3 | 2 | 4/8 | 33.4／1 | +0.1 | なし | なし | なし |Lyphard：父→母→母→父（4代）、Green Desert：母→父→母→父（4代）、Northern Park：母→母→父（3代） |
 | 2017 | [ソイルトゥザソウル](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015100904) | [2017/09/09](https://sports.yahoo.co.jp/keiba/race/result/1706040109) | 中山／アスタ／1600m | 2 | 6 | 4/8 | 33.6／2 | +0.1 | 母→父→父→父（4代） | 父→母→父→父→父（5代）、母→母→父→父（4代） | なし | ダンシングブレーヴ：父→父→父（3代）、Lyphard：父→父→父→父（4代）、テンビー：父→母→父（3代）、Caerleon：父→母→父→父（4代）、Nijinsky：父→母→父→父→父（5代）、Singspiel：母→父（2代）、In The Wings：母→父→父（3代）、Sadler's Wells：母→父→父→父（4代）、Caerleon：母→母→父（3代）、Nijinsky：母→母→父→父（4代） |
 | 2017 | [ボウルズ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015104205) | [2017/09/18](https://sports.yahoo.co.jp/keiba/race/result/1709040505) | 阪神／新馬／1600m | 1 | 2 | 8/9 | 33.5／1 | -0.0 | なし | なし | なし | Nureyev：父→父→父→母→父（5代）、Nureyev：母→母→母→父（4代） |
 | 2017 | [エングローサー](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015102491) | [2017/08/27](https://sports.yahoo.co.jp/keiba/race/result/1704021011) | 新潟／新潟2／1600m | 4 | 11 | 9/15 | 33.1／4 | +0.8 | 母→母→父（3代） | なし | なし | スリルシヨー：父→母→母→父（4代）、Northern Baby：父→母→母→父→父（5代）、Sadler's Wells：母→母→父（3代） |
@@ -453,16 +453,16 @@
 | 2017 | [バイオレントブロー](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015103930) | [2017/06/24](https://sports.yahoo.co.jp/keiba/race/result/1709030701) | 阪神／未勝利／1600m | 1 | 2 | 3/8 | 34.3／2 | -0.0 | なし | 母→父→母→父（4代） | なし | Nureyev：父→母→父（3代）、Nijinsky：母→父→母→父（4代） |
 | 2017 | [メイショウドウドウ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015103357) | [2017/09/17](https://sports.yahoo.co.jp/keiba/race/result/1709040403) | 阪神／未勝利／1200m | 1 | 4 | 13/15 | 34.0／1 | -0.0 | なし | なし | なし | コマンダーインチーフ：母→父（2代）、Dancing Brave：母→父→父（3代）、Lyphard：母→父→父→父（4代）、Zilzal：母→母→父（3代）、Nureyev：母→母→父→父（4代） |
 | 2017 | [ハクサンフエロ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015103654) | [2017/09/09](https://sports.yahoo.co.jp/keiba/race/result/1706040102) | 中山／未勝利／1600m | 1 | 1 | 1/12 | 35.0／5 | -0.3 | 母→母→父→父（4代） | 母→父→母→父→父（5代） | なし | ホワイトマズル：父→父（2代）、Dancing Brave：父→父→父（3代）、Lyphard：父→父→父→父（4代）、Caerleon：母→父→母→父（4代）、Nijinsky：母→父→母→父→父（5代）、Barathea：母→母→父（3代）、Sadler's Wells：母→母→父→父（4代）、The Minstrel：母→母→母→母→父（5代） |
-| 2017 | [メルムサール](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015102492) | [2017/09/17](https://sports.yahoo.co.jp/keiba/race/result/1706040402) | 中山／未勝利／1600m | 1 | 8 | 5/16 | 35.7／4 | -0.0 | なし | 母→父→母→父（4代） | なし | ヨハネスブルグ：父（1代）、Storm Bird：父→父→父→父（4代）、Nijinsky：母→父→母→父（4代）（調教未確認：Dancing Count） |
+| 2017 | [メルムサール](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015102492) | [2017/09/17](https://sports.yahoo.co.jp/keiba/race/result/1706040402) | 中山／未勝利／1600m | 1 | 8 | 5/16 | 35.7／4 | -0.0 | なし | 母→父→母→父（4代） | なし | ヨハネスブルグ：父（1代）、Storm Bird：父→父→父→父（4代）、Nijinsky：母→父→母→父（4代） |
 | 2017 | [スワーヴエドワード](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015104854) | [2017/06/25](https://sports.yahoo.co.jp/keiba/race/result/1705030805) | 東京／新馬／1800m | 1 | 1 | 5/12 | 34.6／2 | -0.2 | なし | 母→父→母→父（4代） | なし | Nureyev：父→父→父→母→父（5代）、Nijinsky：母→父→母→父（4代）、Danehill：母→母→父（3代）、Alzao：母→母→母→父（4代）、Lyphard：母→母→母→父→父（5代） |
 | 2017 | [スターリバー](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2015106310) | [2017/08/12](https://sports.yahoo.co.jp/keiba/race/result/1701010510) | 札幌／コスモ／1800m | 11 | 3 | 3/11 | 39.6／11 | +3.3 | なし | なし | なし | ノーザンテースト：父→母→母→父（4代）、ノーザンテースト：母→母→母→父（4代） |
-| 2018 | [グランアレグリア](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2016104532) | [2018/06/03](https://sports.yahoo.co.jp/keiba/race/result/1805030205) | 東京／新馬／1600m | 1 | 1 | 2/15 | 33.5／1 | -0.3 | なし | 母→父→母→母→父（5代）、母→母→父→父→父（5代） | なし | Alzao：父→母→父（3代）、Lyphard：父→母→父→父（4代）、Nijinsky：母→父→母→母→父（5代）、Nijinsky：母→母→父→父→父（5代）（調教未確認：Sword Dance） |
+| 2018 | [グランアレグリア](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2016104532) | [2018/06/03](https://sports.yahoo.co.jp/keiba/race/result/1805030205) | 東京／新馬／1600m | 1 | 1 | 2/15 | 33.5／1 | -0.3 | なし | 母→父→母→母→父（5代）、母→母→父→父→父（5代） | なし | Alzao：父→母→父（3代）、Lyphard：父→母→父→父（4代）、Nijinsky：母→父→母→母→父（5代）、Nijinsky：母→母→父→父→父（5代） |
 | 2018 | [ドゴール](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2016103631) | [2018/09/01](https://sports.yahoo.co.jp/keiba/race/result/1804021105) | 新潟／新馬／1400m | 1 | 4 | 7/17 | 35.2／1 | -0.4 | なし | 父→母→父→父（4代）、母→母→母→母→父（5代） | なし | Nijinsky：父→母→父→父（4代）、Nijinsky：母→母→母→母→父（5代） |
 | 2018 | [アマーティ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2016104713) | [2018/08/12](https://sports.yahoo.co.jp/keiba/race/result/1804020605) | 新潟／新馬／1600m | 1 | 3 | 8/17 | 33.3／1 | -0.2 | なし | なし | なし | Nureyev：父→父→父→母→父（5代）、Last Tycoon：父→父→母→父（4代）、Try My Best：父→父→母→父→父（5代）、ノーザンテースト：父→母→母→父（4代） |
 | 2018 | [ドラウプニル](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2016104429) | [2018/09/08](https://sports.yahoo.co.jp/keiba/race/result/1806040109) | 中山／アスタ／1600m | 2 | 2 | 5/8 | 33.9／2 | +0.2 | なし | なし | なし | Nureyev：父→父→父→母→父（5代）、Last Tycoon：父→父→母→父（4代）、Try My Best：父→父→母→父→父（5代）、ノーザンテースト：父→母→母→父（4代）、Alzao：母→母→父（3代）、Lyphard：母→母→父→父（4代） |
 | 2018 | [シャドウエンペラー](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2016110011) | [2018/09/08](https://sports.yahoo.co.jp/keiba/race/result/1809040105) | 阪神／新馬／1600m | 1 | 2 | 3/9 | 34.7／1 | -0.0 | 母→母→父→父→父（5代） | なし | なし | Lyphard：父→父→母→母→父（5代）、Singspiel：母→母→父（3代）、In The Wings：母→母→父→父（4代）、Sadler's Wells：母→母→父→父→父（5代）、Shaadi：母→母→母→父（4代） |
 | 2018 | [トーラスジェミニ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2016106518) | [2018/09/08](https://sports.yahoo.co.jp/keiba/race/result/1806040109) | 中山／アスタ／1600m | 5 | 7 | 3/8 | 35.1／4 | +0.8 | なし | なし | なし | Nureyev：父→父→母→父（4代） |
-| 2018 | [セグレドスペリオル](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2016104691) | [2018/09/09](https://sports.yahoo.co.jp/keiba/race/result/1809040202) | 阪神／未勝利／1600m | 1 | 2 | 6/9 | 35.0／1 | -0.5 | なし | なし | なし | Alzao：父→父→母→父（4代）、Lyphard：父→父→母→父→父（5代）、ノーザンテースト：父→母→父（3代）（調教未確認：A Native Danzig） |
+| 2018 | [セグレドスペリオル](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2016104691) | [2018/09/09](https://sports.yahoo.co.jp/keiba/race/result/1809040202) | 阪神／未勝利／1600m | 1 | 2 | 6/9 | 35.0／1 | -0.5 | なし | なし | なし | Alzao：父→父→母→父（4代）、Lyphard：父→父→母→父→父（5代）、ノーザンテースト：父→母→父（3代） |
 | 2018 | [サムシングジャスト](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2016109023) | [2018/08/04](https://sports.yahoo.co.jp/keiba/race/result/1804020305) | 新潟／新馬／1600m | 1 | 3 | 3/11 | 33.5／3 | -0.1 | なし | 母→父→母→父→父（5代） | なし | Caerleon：母→父→母→父（4代）、Nijinsky：母→父→母→父→父（5代）、Storm Bird：母→母→父→父（4代） |
 | 2019 | [サリオス](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2017105327) | [2019/06/02](https://sports.yahoo.co.jp/keiba/race/result/1905030205) | 東京／新馬／1600m | 1 | 2 | 5/8 | 33.1／1 | -0.3 | なし | 母→父→父→父（4代） | なし | Lyphard：父→母→母→父（4代）、Lomitas：母→父（2代）、Niniski：母→父→父（3代）、Nijinsky：母→父→父→父（4代）、Tiger Hill：母→母→父（3代）、Danehill：母→母→父→父（4代） |
 | 2019 | [クラヴァシュドール](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2017100404) | [2019/09/07](https://sports.yahoo.co.jp/keiba/race/result/1909040105) | 阪神／新馬／1600m | 1 | 1 | 4/11 | 33.1／1 | -0.2 | なし | なし | なし | Lyphard：父→母→母→父（4代）、Giant's Causeway：母→父（2代）、Storm Bird：母→父→父→父（4代）、Storm Bird：母→母→父→母→父（5代） |
@@ -502,9 +502,9 @@
 | 2023 | [ゴンバデカーブース](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021104825) | [2023/06/10](https://sports.yahoo.co.jp/keiba/race/result/2305030305) | 東京／新馬／1600m | 1 | 2 | 1/12 | 34.7／3 | -0.3 | なし | なし | なし | Giant's Causeway：父→父（2代）、Storm Bird：父→父→父→父（4代）、Storm Bird：父→母→父→父（4代）、Alzao：母→父→母→父（4代）、Lyphard：母→父→母→父→父（5代）、Nureyev：母→母→父→母→父（5代）、Lyphard：母→母→母→母→父（5代） |
 | 2023 | [ボンドガール](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021107179) | [2023/06/04](https://sports.yahoo.co.jp/keiba/race/result/2305030205) | 東京／新馬／1600m | 1 | 2 | 3/11 | 33.0／1 | -0.1 | なし | なし | なし | ノーザンテースト：父→母→父（3代）、Dayjur：母→父→母→父（4代）、Lomitas：母→母→母→父（4代）、Niniski：母→母→母→父→父（5代） |
 | 2023 | [シュトラウス](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021105744) | [2023/06/03](https://sports.yahoo.co.jp/keiba/race/result/2305030105) | 東京／新馬／1600m | 1 | 1 | 1/9 | 34.5／1 | -1.5 | 父→母→父→父（4代） | なし | なし | ノーザンテースト：父→父→母→母→父（5代）、カーネギー：父→母→父（3代）、Sadler's Wells：父→母→父→父（4代）、モガミ：父→母→母→父（4代）、Lyphard：父→母→母→父→父（5代） |
-| 2023 | [レーヴジーニアル](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021105295) | [2023/08/06](https://sports.yahoo.co.jp/keiba/race/result/2301010601) | 札幌／未勝利／1500m | 1 | 2 | 1/14 | 38.6／3 | -0.1 | 父→母→父→父（4代） | なし | なし | ノーザンテースト：父→父→母→母→父（5代）、カーネギー：父→母→父（3代）、Sadler's Wells：父→母→父→父（4代）、モガミ：父→母→母→父（4代）、Lyphard：父→母→母→父→父（5代）、ノーザンテースト：母→父→母→母→父（5代）（調教未確認：Dancing Count） |
-| 2023 | [エコロマーズ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021102016) | [2023/09/09](https://sports.yahoo.co.jp/keiba/race/result/2306040109) | 中山／アスタ／1600m | 5 | 2 | 4/8 | 34.6／3 | +1.2 | なし | 父→母→母→父→父（5代） | なし | Alzao：父→父→母→父（4代）、Lyphard：父→父→母→父→父（5代）、Niniski：父→母→母→父（4代）、Nijinsky：父→母→母→父→父（5代）、Storm Bird：母→母→父→父→父（5代）（調教未確認：Van Nistelrooy） |
-| 2023 | [ウインアクトゥール](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021107085) | [2023/09/03](https://sports.yahoo.co.jp/keiba/race/result/2304030802) | 新潟／未勝利／2000m | 1 | 2 | 2/13 | 36.2／3 | -0.1 | なし | なし | なし | ノーザンテースト：父→父→母→母→父（5代）、Fabulous Dancer：母→父→母→母→父（5代）、Fabulous Dancer：母→母→母→父（4代）（調教未確認：Antheus） |
+| 2023 | [レーヴジーニアル](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021105295) | [2023/08/06](https://sports.yahoo.co.jp/keiba/race/result/2301010601) | 札幌／未勝利／1500m | 1 | 2 | 1/14 | 38.6／3 | -0.1 | 父→母→父→父（4代） | なし | なし | ノーザンテースト：父→父→母→母→父（5代）、カーネギー：父→母→父（3代）、Sadler's Wells：父→母→父→父（4代）、モガミ：父→母→母→父（4代）、Lyphard：父→母→母→父→父（5代）、ノーザンテースト：母→父→母→母→父（5代） |
+| 2023 | [エコロマーズ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021102016) | [2023/09/09](https://sports.yahoo.co.jp/keiba/race/result/2306040109) | 中山／アスタ／1600m | 5 | 2 | 4/8 | 34.6／3 | +1.2 | なし | 父→母→母→父→父（5代） | なし |Alzao：父→父→母→父（4代）、Lyphard：父→父→母→父→父（5代）、Niniski：父→母→母→父（4代）、Nijinsky：父→母→母→父→父（5代）、Storm Bird：母→母→父→父→父（5代）、Van Nistelrooy：母→母→父（3代） |
+| 2023 | [ウインアクトゥール](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021107085) | [2023/09/03](https://sports.yahoo.co.jp/keiba/race/result/2304030802) | 新潟／未勝利／2000m | 1 | 2 | 2/13 | 36.2／3 | -0.1 | なし | なし | なし |ノーザンテースト：父→父→母→母→父（5代）、Fabulous Dancer：母→父→母→母→父（5代）、Fabulous Dancer：母→母→母→父（4代）、Antheus：母→父→母→父（4代） |
 | 2023 | [マイネルブリックス](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021106816) | [2023/08/20](https://sports.yahoo.co.jp/keiba/race/result/2304030402) | 新潟／未勝利／1800m | 1 | 4 | 4/9 | 35.0／1 | -0.1 | なし | なし | なし | Giant's Causeway：父→父（2代）、Storm Bird：父→父→父→父（4代）、Storm Bird：父→母→父→父（4代）、ノーザンテースト：母→母→父→母→父（5代） |
 | 2023 | [ハッピーサプライズ](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021106395) | [2023/09/23](https://sports.yahoo.co.jp/keiba/race/result/2306040609) | 中山／カンナ／1200m | 9 | 10 | 10/10 | 35.3／3 | +1.2 | なし | なし | なし | Last Tycoon：母→母→母→母→父（5代） |
 | 2023 | [マリンバンカー](https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021103129) | [2023/09/17](https://sports.yahoo.co.jp/keiba/race/result/2306040404) | 中山／新馬／1200m | 1 | 11 | 1/16 | 34.7／2 | -0.3 | なし | なし | なし | Giant's Causeway：父→父（2代）、Storm Bird：父→父→父→父（4代）、ヨハネスブルグ：母→父（2代）、Storm Bird：母→父→父→父→父（5代） |
@@ -528,15 +528,15 @@
 
 調教国は現役時の所属厩舎の拠点であり、生産国・種牡馬供用国とは別。馬名リンクはND父系の確認先、調教師リンクは調教国の確認先。欧州で調教された履歴がある牡祖先を該当とし、複数国を経た場合は確認できた欧州拠点を含めて表示する。単に欧州の競走へ遠征した馬は該当にしない。下表の国一覧は全生涯の滞在国を網羅したものではない。
 
-調教国未確認6名称を非該当にせず記録した。ただし、これらを持つ出走馬には他の確認済み欧州型ND祖先があり、全94頭の5代内保有／父・母父限定の馬単位判定に判定不能は残らない。確認済み該当祖先の経路と未確認名は上の全頭台帳から追跡できる。
+従来未確認だった6名称は2026-10-08のユーザー提示の調教国で補完した。調教師名および調教国の公開資料による独立確認は未実施なので、その由来を確認先欄に明記する。新たに欧州型とした3名称を持つ出走馬は別の該当祖先も既に持ち、6名称はいずれも対象94頭の父・母父ではない。このため5代内保有92/94頭、父・母父限定22/94頭、雨・道悪の集計値は変わらない。追加の該当祖先経路は全頭台帳へ反映した。
 
 | ND牡祖先・父系確認先 | 調教国／確認できた拠点 | 欧州該当 | 調教師・調教国確認先 | ND父系の父 |
 |---|---|---|---|---|
-| [A Native Danzig](https://jse.jpn.org/jrasrch.cgi?key=A+Native+Danzig&kind=father) | 未確認 | 判定不能 | 調教師・所属国の確認資料不足 | Danzig |
+| [A Native Danzig](https://jse.jpn.org/jrasrch.cgi?key=A+Native+Danzig&kind=father) | 米 | 非該当 | ユーザー提示の調教国（2026-10-08、調教師名の独立確認は未実施） | Danzig |
 | [Acclamation](https://jse.jpn.org/jrasrch.cgi?key=Acclamation&kind=father) | 英 | 該当 | [Barry Hills](https://www.turf-times.de/pferde/acclamation-gb-1999) | Royal Applause |
 | [Ajdal](https://jse.jpn.org/jrasrch.cgi?key=Ajdal&kind=father) | 英 | 該当 | [Michael Stoute](https://en.wikipedia.org/wiki/Ajdal) | Northern Dancer |
 | [Alzao](https://jse.jpn.org/jrasrch.cgi?key=Alzao&kind=father) | 仏 | 該当 | [Francois Boutin](https://en.wikipedia.org/wiki/Alzao) | Lyphard |
-| [Antheus](https://jse.jpn.org/jrasrch.cgi?key=Antheus&kind=father) | 未確認 | 判定不能 | 調教師・所属国の確認資料不足 | Northern Dancer |
+| [Antheus](https://jse.jpn.org/jrasrch.cgi?key=Antheus&kind=father) | 仏 | 該当 | ユーザー提示の調教国（2026-10-08、調教師名の独立確認は未実施） | Northern Dancer |
 | [Authorized](https://jse.jpn.org/jrasrch.cgi?key=Authorized&kind=father) | 英 | 該当 | [Peter Chapple-Hyam](https://en.wikipedia.org/wiki/Authorized_%28horse%29) | Montjeu |
 | [Awesome Again](https://jse.jpn.org/jrasrch.cgi?key=Awesome+Again&kind=father) | 米 | 非該当 | [David Hofmans (1997) Patrick B. Byrne (1998)](https://en.wikipedia.org/wiki/Awesome_Again) | Deputy Minister |
 | [Barathea](https://jse.jpn.org/jrasrch.cgi?key=Barathea&kind=father) | 英 | 該当 | [Luca Cumani](https://en.wikipedia.org/wiki/Barathea_%28horse%29) | Sadler's Wells |
@@ -546,7 +546,7 @@
 | [Chief's Crown](https://jse.jpn.org/jrasrch.cgi?key=Chief%27s+Crown&kind=father) | 米 | 非該当 | [Roger Laurin](https://en.wikipedia.org/wiki/Chief%27s_Crown) | Danzig |
 | [Dance Spell](https://jse.jpn.org/jrasrch.cgi?key=Dance+Spell&kind=father) | 米 | 非該当 | [James W. Maloney](https://en.wikipedia.org/wiki/Dance_Spell) | Northern Dancer |
 | [Dancing Brave](https://jse.jpn.org/jrasrch.cgi?key=Dancing+Brave&kind=father) | 英 | 該当 | [Guy Harwood](https://en.wikipedia.org/wiki/Dancing_Brave) | Lyphard |
-| [Dancing Count](https://jse.jpn.org/jrasrch.cgi?key=Dancing+Count&kind=father) | 未確認 | 判定不能 | 調教師・所属国の確認資料不足 | Northern Dancer |
+| [Dancing Count](https://jse.jpn.org/jrasrch.cgi?key=Dancing+Count&kind=father) | 米 | 非該当 | ユーザー提示の調教国（2026-10-08、調教師名の独立確認は未実施） | Northern Dancer |
 | [Danehill](https://jse.jpn.org/jrasrch.cgi?key=Danehill&kind=father) | 英 | 該当 | [Jeremy Tree](https://en.wikipedia.org/wiki/Danehill_%28horse%29) | Danzig |
 | [Dansili](https://jse.jpn.org/jrasrch.cgi?key=Dansili&kind=father) | 仏 | 該当 | [André Fabre](https://en.wikipedia.org/wiki/Dansili_%28horse%29) | Danehill |
 | [Danzig](https://jse.jpn.org/jrasrch.cgi?key=Danzig&kind=father) | 米 | 非該当 | [Woody Stephens](https://en.wikipedia.org/wiki/Danzig_%28horse%29) | Northern Dancer |
@@ -585,7 +585,7 @@
 | [Niniski](https://jse.jpn.org/jrasrch.cgi?key=Niniski&kind=father) | 英 | 該当 | [Dick Hern](https://en.wikipedia.org/wiki/Niniski) | Nijinsky |
 | [Northern Baby](https://jse.jpn.org/jrasrch.cgi?key=Northern+Baby&kind=father) | 仏 | 該当 | [François Boutin](https://en.wikipedia.org/wiki/Northern_Baby) | Northern Dancer |
 | [Northern Dancer](https://jse.jpn.org/jrasrch.cgi?key=Northern+Dancer&kind=father) | 加・米 | 非該当 | [Horatio Luro](https://en.wikipedia.org/wiki/Northern_Dancer) | Nearctic |
-| [Northern Park](https://www.jbis.jp/seri/pdf/2020/11B3000666.pdf) | 未確認 | 判定不能 | 調教師・所属国の確認資料不足 | Northern Dancer |
+| [Northern Park](https://www.jbis.jp/seri/pdf/2020/11B3000666.pdf) | 仏 | 該当 | ユーザー提示の調教国（2026-10-08、調教師名の独立確認は未実施） | Northern Dancer |
 | [Northfields](https://jse.jpn.org/jrasrch.cgi?key=Northfields&kind=father) | 米 | 非該当 | [Woody Stephens](https://www.americanclassicpedigrees.com/northfields.html) | Northern Dancer |
 | [Nureyev](https://jse.jpn.org/jrasrch.cgi?key=Nureyev&kind=father) | 仏 | 該当 | [François Boutin](https://en.wikipedia.org/wiki/Nureyev_%28horse%29) | Northern Dancer |
 | [Ocean Crest](https://jse.jpn.org/jrasrch.cgi?key=Ocean+Crest&kind=father) | 米 | 非該当 | [Frank L. Brothers（米国）](https://ahonoora.com/ocean_crest.html) | Storm Bird |
@@ -602,13 +602,13 @@
 | [Storm Bird](https://jse.jpn.org/jrasrch.cgi?key=Storm+Bird&kind=father) | 愛 | 該当 | [Vincent O'Brien](https://en.wikipedia.org/wiki/Storm_Bird) | Northern Dancer |
 | [Storm Cat](https://jse.jpn.org/jrasrch.cgi?key=Storm+Cat&kind=father) | 米 | 非該当 | [Jonathan E. Sheppard](https://en.wikipedia.org/wiki/Storm_Cat) | Storm Bird |
 | [Stormy Atlantic](https://jse.jpn.org/jrasrch.cgi?key=Stormy+Atlantic&kind=father) | 米 | 非該当 | [Jimmy Croll／Robert Camac](https://www.americanclassicpedigrees.com/stormy-atlantic.html) | Storm Cat |
-| [Sword Dance](https://jse.jpn.org/jrasrch.cgi?key=Sword+Dance&kind=father) | 未確認 | 判定不能 | 調教師・所属国の確認資料不足 | Nijinsky |
+| [Sword Dance](https://jse.jpn.org/jrasrch.cgi?key=Sword+Dance&kind=father) | 米 | 非該当 | ユーザー提示の調教国（2026-10-08、調教師名の独立確認は未実施） | Nijinsky |
 | [Tale of the Cat](https://jse.jpn.org/jrasrch.cgi?key=Tale+of+the+Cat&kind=father) | 米 | 非該当 | [John Forbes（米国）](https://ahonoora.com/tale_of_the_cat.html) | Storm Cat |
 | [The Minstrel](https://jse.jpn.org/jrasrch.cgi?key=The+Minstrel&kind=father) | 愛 | 該当 | [Vincent O'Brien](https://en.wikipedia.org/wiki/The_Minstrel) | Northern Dancer |
 | [Tiger Hill](https://jse.jpn.org/jrasrch.cgi?key=Tiger+Hill&kind=father) | 独 | 該当 | [Peter Shiergen（独国）](https://ahonoora.com/tiger_hill.html) | Danehill |
 | [Topsider](https://jse.jpn.org/jrasrch.cgi?key=Topsider&kind=father) | 米 | 非該当 | [Thomas J. Kelly](https://en.wikipedia.org/wiki/Topsider) | Northern Dancer |
 | [Try My Best](https://jse.jpn.org/jrasrch.cgi?key=Try+My+Best&kind=father) | 愛 | 該当 | [Vincent O'Brien](https://en.wikipedia.org/wiki/Try_My_Best) | Northern Dancer |
-| [Van Nistelrooy](https://www.jbis.jp/horse/0000745105/) | 未確認 | 判定不能 | 調教師・所属国の確認資料不足 | Storm Cat |
+| [Van Nistelrooy](https://www.jbis.jp/horse/0000745105/) | 愛 | 該当 | ユーザー提示の調教国（2026-10-08、調教師名の独立確認は未実施） | Storm Cat |
 | [Vice Regent](https://jse.jpn.org/jrasrch.cgi?key=Vice+Regent&kind=father) | 加 | 非該当 | [Gordon J. McCann](https://en.wikipedia.org/wiki/Vice_Regent) | Northern Dancer |
 | [Viceregal](https://jse.jpn.org/jrasrch.cgi?key=Viceregal&kind=father) | 加 | 非該当 | [Gordon J. McCann](https://en.wikipedia.org/wiki/Viceregal_%28horse%29) | Northern Dancer |
 | [Waajib](https://jse.jpn.org/jrasrch.cgi?key=Waajib&kind=father) | 英 | 該当 | [Alec C. Stewart (英国)](https://ahonoora.com/waajib.html) | Try My Best |
@@ -771,7 +771,7 @@ Sadler's Wellsはアイルランド調教なので該当。Danehill・Dancing Br
 | 2025 | [JRA確定結果](https://www.jra.go.jp/datafile/seiseki/replay/2025/092.html) | [当時出馬表](https://sports.yahoo.co.jp/keiba/race/denma/2505040311?detail=1) | 8 | 小雨・良 |
 
 - 各馬のプロフィール・前走結果・5代血統：第4章の馬名・前走日リンクに全94頭分を保存。取得日はいずれも2026-10-08。過去の前走データを事後取得した記述集計であり、発走前保存証跡の代替にはしない。
-- 祖先の調教国・調教師：第4章の分類表にWikipediaの競走馬記事、アホヌラ馬名鑑、Juddmonte、JRA、American Classic Pedigrees等の確認先を保存。ページのCountry・産国は生産国なので調教国として使わず、調教師と所属国・調教拠点の記述で確認した。ND父系の確認先はJSEプロフィールと5代血統表。未確認6名称は生産国から補完しない。
+- 祖先の調教国・調教師：第4章の分類表にWikipediaの競走馬記事、アホヌラ馬名鑑、Juddmonte、JRA、American Classic Pedigrees等の確認先を保存。ページのCountry・産国は生産国なので調教国として使わず、調教師と所属国・調教拠点の記述で確認した。ND父系の確認先はJSEプロフィールと5代血統表。残る6名称は2026-10-08のユーザー提示（A Native Danzig＝米国、Antheus＝フランス、Dancing Count＝米国、Northern Park＝フランス、Sword Dance＝米国、Van Nistelrooy＝アイルランド）を採用し、独立確認済みの公開資料とは区別する。
 - 5代父系の境界：Dark Angel→Acclamation→Royal Applause→Waajib→Try My Best→Northern Dancer、Kahyasi→Ile de Bourbon→Nijinsky→Northern Dancer、スリルシヨー→Northern Baby→Northern Dancer、Lypheor→Lyphard→Northern Dancerは祖先プロフィールで5代血統表外の父系を確認した。
 - 地方キャリア補完：[ダブルシャープ全競走履歴](https://www.oddspark.com/keiba/HorseDetail.do?lineageNb=2015100887&resultsTab=1)、[ビゾンテノブファロ全競走履歴](https://umanity.jp/racing/database/horse_result.php?horse_id=2018102961)。中央履歴に欠ける門別各3戦を補完。直前の前走自体はいずれもJRA競走。
 - 出走馬自身の調教拠点：各年出馬表の所属と全頭プロフィール。外国産フードマンも[当時出馬表](https://sports.yahoo.co.jp/keiba/race/denma/2405040111?detail=1)で日本の所属厩舎を確認。生産国表記は欧州型ND判定に使用しない。
