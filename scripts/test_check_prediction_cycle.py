@@ -273,5 +273,58 @@ class PredictionCycleV2Test(unittest.TestCase):
             run(root)
 
 
+    def test_recommendation_partition_is_required_after_effective_date(self):
+        root = self.root()
+        state_path = root / "docs/validation/execution-gates/contract-state.json"
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        state["recommendation_effective_race_date"] = "2026-10-17"
+        state_path.write_text(json.dumps(state), encoding="utf-8")
+        save(root, record())
+        with self.assertRaisesRegex(CycleValidationError, "recommendations status partition"):
+            run(root)
+
+    def test_pending_recommendation_scope_stays_visible(self):
+        root = self.root()
+        state_path = root / "docs/validation/execution-gates/contract-state.json"
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        state["recommendation_effective_race_date"] = "2026-10-17"
+        state_path.write_text(json.dumps(state), encoding="utf-8")
+        obj = record()
+        obj["recommendations"] = {
+            "recommended_ids": [], "no_recommendation_ids": [],
+            "marks_only_ids": [], "pending_ids": ["r1", "r2"],
+        }
+        obj["kpis"]["recommendation"] = {
+            "target_ids": [], "eligible_ids": [], "ineligible_ids": [],
+            "pending_ids": [],
+        }
+        save(root, obj)
+        self.assertEqual(run(root), 1)
+
+    def test_recommendation_scope_or_gate_mismatch_is_rejected(self):
+        root = self.root()
+        state_path = root / "docs/validation/execution-gates/contract-state.json"
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        state["recommendation_effective_race_date"] = "2026-10-17"
+        state_path.write_text(json.dumps(state), encoding="utf-8")
+        obj = record()
+        obj["recommendations"] = {
+            "recommended_ids": ["r1"], "no_recommendation_ids": [],
+            "marks_only_ids": [], "pending_ids": ["r2"],
+        }
+        obj["kpis"]["recommendation"] = {
+            "target_ids": ["r1"], "eligible_ids": ["r1"],
+            "ineligible_ids": [], "pending_ids": [],
+        }
+        save(root, obj)
+        with self.assertRaisesRegex(CycleValidationError, "missing recommendation gate"):
+            run(root)
+        obj["recommendations"]["recommended_ids"] = []
+        save(root, obj)
+        with self.assertRaisesRegex(CycleValidationError, "status scope mismatch"):
+            run(root)
+
+
+
 if __name__ == "__main__":
     unittest.main()
