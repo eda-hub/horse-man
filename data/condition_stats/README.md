@@ -81,7 +81,7 @@
 - 公式`finish_position`は同着を同じ着順整数として受領する。確定`FINISHED`は1着=勝、2着以内=連対、3着以内=3着内。出走済みの`DNF`（中止）と`DQ`（失格）は分母に含め0勝。`SCRATCHED`（取消）/`EXCLUDED`（除外）は記録するが実出走分母から除外。`PENDING`または結果未確定は率の分母から外し不完全理由に残す。
 - 各グループに`MATCH`、`NON_MATCH`、`UNKNOWN`、`CONFLICT`を別々に出力。欠測/未同定/祖先範囲不完全を非該当へ混入しない。`comparison=NON_MATCH`は同条件かつ判定済みの非該当群だけ比較し、`ALL`は全体の結果有効母数（血統不明を含む）を参照。
 - 勝率/連対率/3着以内率は**確定した有効実出走数**が分母。分母0なら`null`。結果coverageと血統coverageを別に出す。小標本・同馬の反復出走・条件探索の差を適性の確定とは解釈しない。
-- `FORWARD`: 結果・出走情報・確認済み血統revision・同定・分類が`data_cutoff`時点で利用できた場合に限定。過去の結果を**予測対象レースの結果**として混入させない責任は呼出し側（Phase 3）が持つ。`REPLAY`: 後日確認・公式訂正を使用可能だが、両modeとも`production_eligible=false`・`usage=RESEARCH_SHADOW_ONLY`固定。重賞固有集計をProductionへ逆流しない。
+- `FORWARD`: 結果・出走情報・確認済み血統revision・同定・分類（資料の初回観測だけでなく、実際の取得・検証時刻も照合）が`data_cutoff`時点で利用できた場合に限定。過去の結果を**予測対象レースの結果**として混入させない責任は呼出し側（Phase 3）が持つ。`REPLAY`: 後日確認・公式訂正を使用可能だが、両modeとも`production_eligible=false`・`usage=RESEARCH_SHADOW_ONLY`固定。重賞固有集計をProductionへ逆流しない。
 
 **留保**: 公式提供元ごとの同着・降着・除外・失格に固有の規則は原出所仕様の確定を要する。現版は入力に記録した「公式確定着順」の整数による集計であり、未解決のproviderルールを推測補正しない。元入力が全レース・全馬を含むか、`official_source`が真正かは外部原票との突合が必要。
 
