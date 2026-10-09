@@ -16,6 +16,12 @@ AIや人間が作った改善候補を、Productionを汚さずShadow/バック�
 - Owner moduleへの変更候補diff生成
 - release/hash更新支援
 
+## 次期推奨構成の評価（PR68 §25）
+
+- 券種別的中率だけでなく点数・シナリオ・役割・全券の軸依存・構成理由の非劣化を前向きに検証し、同じ券種・対象集合・固定revisionで比較する。
+- 未検証の点数上限・高不確実性閾値・依存率許容値の決定はShadow→評価→人間承認→別PRの変更手順に従う。
+- WIN5は通常の推奨構成と独立の専用契約とし、Phase 8の比較対象へ自動混入させない。
+
 ## 受入条件
 - data_cutoff違反が検出される。
 - 同一 `baseline_forecast_id` でProduction/Shadow比較ができる。
