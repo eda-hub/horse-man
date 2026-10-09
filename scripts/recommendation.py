@@ -514,7 +514,9 @@ def audit(root):
     snapshots = {p.relative_to(root).as_posix(): p for p in
                  (base / "recommendations").glob("*/*.json")}
     gates = sorted((base / "recommendation-gates").glob("*/*.json")) + sorted((base / "recommendation-gates").glob("history/*/*.json"))
-    used_intents, used_snapshots = set(), set()
+    proofs = {p.relative_to(root).as_posix(): p for p in
+              (base / "recommendation-prediction-gates").glob("*/*.json")}
+    used_intents, used_snapshots, used_proofs = set(), set(), set()
     errors = []
     for path in gates:
         try:
@@ -522,6 +524,7 @@ def audit(root):
             rec = verify(root, path)
             used_intents.add(data["intent_path"].removeprefix("docs/validation/"))
             used_snapshots.add(data["evidence_ref"]["artifact_path"])
+            used_proofs.add(data["prediction_gate_ref"]["artifact_path"])
             require(path.parent.name == rec["race_date_jst"], "recommendation gate date/path mismatch")
             require((data.get("recommendation_id") == path.stem if "/history/" in path.as_posix()
                      else data.get("race_id") == path.stem),
@@ -533,6 +536,44 @@ def audit(root):
         errors.append(f"unregistered recommendation intent: {path}")
     for path in sorted(set(snapshots) - used_snapshots):
         errors.append(f"unregistered recommendation snapshot: {path}")
+    for path in sorted(set(proofs) - used_proofs):
+        errors.append(f"unregistered immutable Production gate: {path}")
+    # Prediction開始前の推奨scopeも独立した不足監査の起点。
+    # 推奨intent/snapshot/gateがすべてない場合でも欠落を必ず報告する。
+    for prediction_intent_path in sorted((base / "persistence-intents").glob("*/*.json")):
+        try:
+            pred_intent = read_json(prediction_intent_path)
+            scope = pred_intent.get("recommendation_scope")
+            if scope is None:
+                continue
+            require(isinstance(scope, dict) and
+                    pred_intent.get("schema_version") == "prediction-persistence-intent-v1",
+                    "prediction intent recommendation_scope invalid")
+            date = pred_intent.get("race_date_jst")
+            race = scope.get("race_id")
+            ident = scope.get("recommendation_id")
+            artifact_rel = scope.get("artifact_path")
+            require(isinstance(date, str) and date == prediction_intent_path.parent.name and
+                    isinstance(race, str) and race in pred_intent.get("required_race_ids", []) and
+                    isinstance(ident, str) and bool(ident),
+                    "prediction intent recommendation scope identity mismatch")
+            artifact = relative(root, artifact_rel, "docs/validation/recommendations/")
+            require(artifact.parent.name == date and artifact.suffix == ".json",
+                    "prediction intent recommendation artifact/date mismatch")
+            matching_intents = [
+                p for p in intents.values()
+                if (lambda r: r.get("prediction_intent_path") ==
+                    prediction_intent_path.relative_to(root).as_posix() and
+                    r.get("recommendation_id") == ident and
+                    r.get("artifact_path") == artifact_rel and
+                    r.get("race_id") == race)(read_json(p))
+            ]
+            require(len(matching_intents) == 1,
+                    "declared recommendation intent missing or duplicated")
+            require(artifact.is_file(), "declared recommendation snapshot missing")
+            require(artifact_rel in used_snapshots, "declared recommendation gate missing or invalid")
+        except (ComplianceError, OSError, ValueError, TypeError, KeyError) as exc:
+            errors.append(f"{prediction_intent_path}: {exc}")
     # 次期推奨契約の発効日以降は、Prediction gateに対応する推奨gateの欠落も検出する。
     state_path = base / "execution-gates/contract-state.json"
     if state_path.is_file():
