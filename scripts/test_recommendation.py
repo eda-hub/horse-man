@@ -61,7 +61,19 @@ class RecommendationTest(unittest.TestCase):
         rec = rec if rec is not None else self.rec(root, pred)
         art = f"docs/validation/recommendations/{DATE}/{REC_ID}.json"
         write(root, art, json.dumps(rec, ensure_ascii=False))
+        prediction_intent_path = f"docs/validation/persistence-intents/{DATE}/first.json"
+        original = {
+            "schema_version": "prediction-persistence-intent-v1", "race_date_jst": DATE,
+            "working_branch": f"prediction/{DATE}", "snapshot_id": pred["snapshot_id"],
+            "required_race_ids": [RACE], "deadline_jst": POST,
+            "artifact_path": rec["prediction_ref"]["artifact_path"],
+            "recommendation_scope": {
+                "race_id": RACE, "recommendation_id": REC_ID, "artifact_path": art,
+            },
+        }
+        write(root, prediction_intent_path, json.dumps(original, ensure_ascii=False))
         intent = {
+            "prediction_intent_path": prediction_intent_path,
             "schema_version": INTENT_SCHEMA, "race_date_jst": DATE,
             "race_id": RACE, "recommendation_id": REC_ID,
             "artifact_path": art, "prediction_ref": rec["prediction_ref"],
@@ -300,7 +312,20 @@ class RecommendationTest(unittest.TestCase):
         second_artifact = f"docs/validation/recommendations/{DATE}/{REC_ID}-02.json"
         write(root, second_artifact, json.dumps(later, ensure_ascii=False))
         intent_path = f"docs/validation/recommendation-intents/{DATE}/second.json"
-        intent = {"schema_version": INTENT_SCHEMA, "race_date_jst": DATE,
+        prediction_intent_path = f"docs/validation/persistence-intents/{DATE}/second.json"
+        predeclared = {
+            "schema_version": "prediction-persistence-intent-v1", "race_date_jst": DATE,
+            "working_branch": f"prediction/{DATE}", "snapshot_id": pred["snapshot_id"],
+            "required_race_ids": [RACE], "deadline_jst": POST,
+            "artifact_path": later["prediction_ref"]["artifact_path"],
+            "recommendation_scope": {
+                "race_id": RACE, "recommendation_id": later["recommendation_id"],
+                "artifact_path": second_artifact,
+            },
+        }
+        write(root, prediction_intent_path, json.dumps(predeclared))
+        intent = {"prediction_intent_path": prediction_intent_path,
+                  "schema_version": INTENT_SCHEMA, "race_date_jst": DATE,
                   "race_id": RACE, "recommendation_id": later["recommendation_id"],
                   "artifact_path": second_artifact, "prediction_ref": later["prediction_ref"],
                   "deadline_jst": POST}
@@ -412,6 +437,30 @@ class RecommendationTest(unittest.TestCase):
             {"type": "WIDE", "columns": [[2], [5]], "scenario_id": "joint",
              "reason": "非◎起点", "selected": True}]
         self.assertEqual(self.rec(root, pred, a)["unique_ticket_count"], 1)
+
+
+    def test_22_missing_prediction_predeclaration_fails_recommendation_gate(self):
+        root, g, pred = self.root()
+        gate_path, art = self.artifacts(root, g, pred)
+        intent_path = root / f"docs/validation/recommendation-intents/{DATE}/final.json"
+        intent = json.loads(intent_path.read_text(encoding="utf-8"))
+        original_path = root / intent["prediction_intent_path"]
+        original_path.unlink()
+        with self.assertRaisesRegex(ComplianceError, "prediction predeclaration missing"):
+            verify(root, root / gate_path)
+        self.assertFalse(audit(root))
+
+    def test_23_prediction_predeclaration_cannot_swap_ticket_scope(self):
+        root, g, pred = self.root()
+        gate_path, art = self.artifacts(root, g, pred)
+        intent_path = root / f"docs/validation/recommendation-intents/{DATE}/final.json"
+        intent = json.loads(intent_path.read_text(encoding="utf-8"))
+        original_path = root / intent["prediction_intent_path"]
+        original = json.loads(original_path.read_text(encoding="utf-8"))
+        original["recommendation_scope"]["recommendation_id"] = "DIFFERENT"
+        write(root, original_path.relative_to(root), json.dumps(original))
+        with self.assertRaisesRegex(ComplianceError, "pre-prediction declared scope"):
+            verify(root, root / gate_path)
 
 
 
