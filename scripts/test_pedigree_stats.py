@@ -91,10 +91,10 @@ class PedigreeStatsTest(unittest.TestCase):
                    return_value="2026-10-09T01:00:00+00:00" if current else BASE):
             return self.registry.save(candidate, digest(current) if current else None)
 
-    def fact(self, key, field, value, observed=EARLY):
+    def fact(self, key, field, value, observed=EARLY, captured=None):
         item = {
             "field": field, "value": value, "status": "VERIFIED",
-            "first_observed_at": observed, "captured_at": observed,
+            "first_observed_at": observed, "captured_at": captured or observed,
             "source": {"source_class": "BREEDING_DB",
                        "origin_group": "fixture", "acquisition_method": "manual-verified",
                        "record_key": key, "record_hash": digest([key, field, value])},
@@ -392,6 +392,19 @@ class PedigreeStatsTest(unittest.TestCase):
         new_path, _ = self.calculate()
         self.assertNotEqual(path, new_path)
         self.assertTrue(audit(self.root))
+
+
+
+    def test_24_backdated_observation_captured_after_cutoff_stays_unknown(self):
+        self.definition["mode"] = "FORWARD"
+        self.fact("unknown", "parent:S", "sire-a", observed=EARLY,
+                  captured="2026-10-08T08:00:00+09:00")
+        self.persist()
+        _, out = self.calculate()
+        status = out["horse_trace"]["unknown"]["groups"]["sire-a"]
+        self.assertEqual(status["status"], "UNKNOWN")
+        self.assertEqual(status["reason"], "UNVERIFIED")
+        self.assertEqual(out["groups"]["sire-a"]["cohorts"]["UNKNOWN"]["entries"], 2)
 
 
 
