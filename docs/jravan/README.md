@@ -33,3 +33,5 @@
 15. `phases/` — Codexに渡すフェーズ別実装計画
 
 `DECISIONS.md` は横断的な確定事項の正本とする。競馬判断の意味に矛盾がある場合、`docs/manual/` を優先し、システム設計側を修正する。
+
+血統調査の初期Git基盤: [保存・検索手順](../../data/pedigree/README.md)。計画の正本はPR68、コードと過去候補移行はPR69。JRA-VANアプリのPhase順は変更せず、DB移行はPhase 2、派生根拠固定はPhase 3、表示はPhase 4、評価・昇格はPhase 8へ引き継ぐ。

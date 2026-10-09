@@ -186,3 +186,18 @@ A: Production FINAL、baseline ID、順位・確率・根拠、結果、回顧�
 B: Shadow/検証データ — 検証ライフサイクルに従いDB保持方針を別途設定
 C: feature、集計 — 再生成可能。ただし再生成に必要なraw provenanceは保持する
 D: cache — 削除可
+
+## 血統調査リストのrevision引継ぎ
+
+Git初期正本は `data/pedigree/`（`pedigree-registry-v1`）。Phase 2で次の論理契約をDBへ接続する。具体DDLは実DB導入時に確定する。
+
+| 領域 | 引継ぐ内容 |
+|---|---|
+| core.horse | horse_key、provider ID、名称/別名、生年、国、同定状態・根拠 |
+| core.pedigree | 事実revision、値、検証状態、前revision、supersedes、訂正理由、世代/path、内容hash |
+| ops.data_provenance | source class/origin group、URL/record key、取得方法、元record hash、観測/取得/保存確認時刻、任意provider timestamp |
+| ops調査領域 | request_id、要求範囲/cutoff、参照revision、残存不足、source別失敗、期限・時間予算、保存状態 |
+| feature | derived_from revision/hash、分類版/hash、計算版、内包三値、クロス位置、coverage |
+| condition_stat_snapshot | 種牡馬・母父・系統集計の条件/期間/母数/cutoff、Shadow区分 |
+
+JSON exportとDB読戻しで上記契約を照合し、DB唯一Writerへの切替と旧JSON直接書込停止を同じ移行で行う。JSONとDBの二重書込正本を作らない。過去予想のrevisionを最新訂正値へ置換しない。Git基盤保存とPrediction snapshot保存は別契約。

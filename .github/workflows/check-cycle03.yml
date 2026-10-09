@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: 回帰テスト
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: 血統調査リストの検証
+        run: python3 scripts/pedigree_registry.py audit
       - name: 予想記録の不足と実行ゲートの監査
         run: |
           set -o pipefail

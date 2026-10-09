@@ -234,3 +234,15 @@ raw / normalized data
 - Phase 8: 前向き/バックテスト評価、data cutoff監査、昇格判定
 
 Phase 2のデータ取得が不足する場合、Phase 3でWeb値を無断補完してProductionへ流さない。取得不能はcoverage/missing reasonとして保持する。
+
+## 8. 血統調査リストとの接続
+
+PR68の血統調査リスト計画に基づくGit基盤は `data/pedigree/` と `scripts/pedigree_registry.py`。調査前に検索し、項目・要求世代・cutoff・分類版ごとに不足だけを調査する。原血統の保存はデータ基盤であり、自動加点featureではない。
+
+- 直接血統と祖先属性: horse_key、使用revision/hash、source/provenance、first_observed_atをPrediction根拠へ固定する。
+- 内包・クロス・父系/母父系: 原血統revision/hash・分類版/hash・計算版・世代/path・coverageを保持して再計算する。分類変更時に原血統を再取得しない。
+- レース固有の血統集団傾向: `condition_stat_snapshot` へ接続し、期間・条件・母数・cutoffを保持する。直接血統検索APIへ混ぜず、次期契約ではProduction固定後のShadowだけで参照する。
+- 新しい血統スコア・適性統計: Phase 8で追加価値を検証し、人間承認と別PRを経てのみ昇格する。
+- Git登録の成功は予想snapshot/receiptの保存確認と独立。新必須項目をgateへ追加する際は、新schemaと新旧checker/テンプレートを同じ切替で変更する。
+
+Git基盤の手動候補入力・不足判定・移行はPR69で実装。実DB、feature保存、UIはPhase 2→3→4の順序に従い、アプリコード未整備の現時点では未実装。
