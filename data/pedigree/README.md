@@ -143,3 +143,8 @@ python3 scripts/pedigree_registry.py audit --repo .
 ## DB引継ぎ
 
 Phase 2以降のDB/UI/feature評価はまだ設計段階。DBへの移行はID・revision/hash・時刻・出所を保存したexport照合と旧読取adapterを伴い、唯一WriterをDBへ変更する。`writer.json` がJSON以外ならこのスクリプトの直接更新は拒否する。現行v1.6.1と既存予想監査は変更しない。
+
+
+## 血統別・条件別成績の集計（独立）
+
+血統調査リストの検索・確認と、実際の出走成績の集計は別工程。PR68の11節に基づくGit JSON準備実装は [条件別成績集計の手順](../condition_stats/README.md) と [12受入条件](../condition_stats/acceptance.md) を参照。現行`pedigree_registry.py`は血統・同定事実の唯一Writerとして維持し、`pedigree_stats.py`はそれらの時点適合するrevisionを読むだけ。未確認候補535件を成績集計の母数や確定血統へ変換しない。条件別統計をProductionへ採用するにはPhase 8と独立PRが必要。
