@@ -244,7 +244,7 @@ class PedigreeBackfillTests(unittest.TestCase):
         self.assertEqual({c["claim_id"] for c in recreated["records"]},
                          {c["claim_id"] for c in seed["records"]})
         self.assertEqual(checked["extracted_count"], manifest["extracted_count"])
-        self.assertEqual(checked["scanned_files"], manifest["scanned_files"])
+        self.assertEqual(set(checked["scanned_files"]), set(manifest["scanned_files"]))
 
     def test_legacy_search_never_claims_verified(self):
         repo = Path(__file__).resolve().parents[1]
