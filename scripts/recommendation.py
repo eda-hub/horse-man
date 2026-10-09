@@ -207,8 +207,9 @@ def validate_snapshot(root, rec):
         require(kind in main_types, "ticket type missing from main_ticket_types")
         require(all(x in ranking and x not in cancelled for x in horses),
                 "ticket contains non-runner or scratched horse")
-        require(kind not in {"QUINELLA", "WIDE", "EXACTA"} or anchor in horses,
-                "non-anchor pair/EXACTA is not allowed")
+        require(anchor in horses, "non-anchor ticket is not allowed in initial recommendation")
+        require(kind not in {"EXACTA", "TRIFECTA"} or item["horses"][0] == anchor,
+                "ordered bet must place ◎ as first finisher in initial recommendation")
         for name in ("reason", "scenario_id"):
             require(isinstance(item.get(name), str) and item[name].strip(),
                     f"ticket {name} required")
@@ -514,6 +515,41 @@ def settle(rec, result):
             "hit_tickets": sum(t["result"] == "HIT" for t in valid),
             "race_hit": any(t["result"] == "HIT" for t in valid)}
 
+def form_tickets(assessment):
+    """根拠付きフォーメーションを重複しない券へ展開する。"""
+    forms = assessment.get("ticket_formations")
+    require(isinstance(forms, list) and forms, "ticket_formations must be nonempty list")
+    selected, decisions, chosen_types = [], [], set()
+    for form in forms:
+        require(isinstance(form, dict), "formation object required")
+        kind, groups = form.get("type"), form.get("columns")
+        require(kind in TYPES, "formation ticket type invalid")
+        require(isinstance(groups, list) and len(groups) == TYPES[kind] and
+                all(isinstance(group, list) and group and
+                    all(type(h) is int and h > 0 for h in group) for group in groups),
+                "formation columns invalid")
+        scenario_id, reason, chosen = form.get("scenario_id"), form.get("reason"), form.get("selected")
+        require(isinstance(scenario_id, str) and scenario_id.strip() and
+                isinstance(reason, str) and reason.strip() and type(chosen) is bool,
+                "formation scenario/reason/selected required")
+        decisions.append({"type": kind, "status": "SELECTED" if chosen else "REJECTED", "reason": reason})
+        if chosen:
+            chosen_types.add(kind)
+            for horses in itertools.product(*groups):
+                if len(set(horses)) == len(horses):
+                    selected.append({"type": kind, "horses": list(horses),
+                                     "scenario_id": scenario_id, "reason": reason})
+    require(len(chosen_types) <= 2, "at most two main ticket types")
+    require(len(decisions) == len({d["type"] for d in decisions}), "one decision per type required")
+    seen, tickets = set(), []
+    for item in selected:
+        key = ticket_key(item)
+        if key not in seen:
+            seen.add(key)
+            tickets.append(dict(item, priority=len(tickets) + 1))
+    require(bool(tickets) == bool(chosen_types), "selected formation produced no valid combinations")
+    return tickets, [d["type"] for d in decisions if d["status"] == "SELECTED"], decisions
+
 def build(prediction, assessment, artifact_path, root=Path(".")):
     """構成選択は明示的な非価格シナリオ評価から決め、周辺確率の積は使わない。"""
     a = assessment
@@ -546,6 +582,15 @@ def build(prediction, assessment, artifact_path, root=Path(".")):
     require(not kind or state == "RECOMMENDED", "invalid selected recommendation")
     tickets = ([{"type": kind, "horses": horses, "priority": 1,
                  "scenario_id": scenario, "reason": reason}] if kind else [])
+    form_decisions = None
+    if "ticket_formations" in a:
+        tickets, selected_types, form_decisions = form_tickets(a)
+        kind = None
+        state = "RECOMMENDED" if tickets else a.get("status", "NO_RECOMMENDATION")
+        require(state in STATES and (tickets or state != "RECOMMENDED"),
+                "formation recommendation status invalid")
+    else:
+        selected_types = [kind] if kind else []
     link_path = Path(artifact_path)
     proposed = {"WIDE": bool(a.get("joint_top3_scenario")),
                 "QUINELLA": bool(a.get("joint_top2_scenario")),
@@ -558,6 +603,8 @@ def build(prediction, assessment, artifact_path, root=Path(".")):
                  a.get("status") not in {"EXPLICIT_MARKS_ONLY", "PENDING", "NO_RECOMMENDATION"}]
     if kind and kind not in {x["type"] for x in decisions}:
         decisions.append({"type": kind, "status": "SELECTED", "reason": reason})
+    if form_decisions is not None:
+        decisions = form_decisions
     return {
         "schema_version": SCHEMA, "recommendation_contract": CONTRACT,
         "recommendation_id": a["recommendation_id"],
@@ -578,7 +625,7 @@ def build(prediction, assessment, artifact_path, root=Path(".")):
         "phase": a.get("phase", "FINAL"),
         "status": state, "reason": reason,
         "cancelled_horses": a.get("cancelled_horses", []),
-        "main_ticket_types": [kind] if kind else [],
+        "main_ticket_types": selected_types,
         "tickets": tickets, "unique_ticket_count": len(tickets),
         "candidate_decisions": decisions,
         "horse_roles": role_items, "scenarios": a.get("scenarios", []),
