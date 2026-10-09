@@ -424,8 +424,9 @@ class Registry:
                           f.get('source_key') == request.get('source_key', 'manual')]
                 # Exhaustion is persistent, including with --force or after a
                 # backoff deadline. A different source_key has its own budget.
-                if recent and (recent[-1].get('retry_exhausted') or
-                               len(recent) >= recent[-1].get('max_retries', 2) + 1):
+                if recent and (len(recent) >= recent[-1].get('max_retries', 2) + 1 or
+                               (recent[-1].get('retry_exhausted') and
+                                not recent[-1].get('budget_exhausted'))):
                     item.update(retry_state='RETRY_EXHAUSTED', last_failure=recent[-1]['status'])
                 elif not force and (now >= dt(deadline_at) or
                                     (recent and recent[-1].get('budget_exhausted'))):
@@ -457,8 +458,9 @@ class Registry:
                 raise ValueError('failure must refer to a pending request item')
             prior = [f for f in r['failures'] if f['item'] == item and f['source_key'] == source_key]
             current = dt(stamp())
-            if prior and (prior[-1].get('retry_exhausted') or
-                          len(prior) >= prior[-1].get('max_retries', max_retries) + 1):
+            if prior and (len(prior) >= prior[-1].get('max_retries', max_retries) + 1 or
+                          (prior[-1].get('retry_exhausted') and
+                           not prior[-1].get('budget_exhausted'))):
                 raise ValueError('RETRY_EXHAUSTED: choose another source or request')
             if prior and prior[-1].get('budget_exhausted'):
                 raise ValueError('BUDGET_EXHAUSTED: choose another source or request')
@@ -470,7 +472,8 @@ class Registry:
             delay = not_found_hours * 3600 if status == 'NOT_FOUND' or exhausted or budget_exhausted else min(2 ** len(prior), budget_seconds)
             r['failures'].append({'item': item, 'status': status, 'source_key': source_key,
                                   'at': current.isoformat(), 'next_retry_at': (current + timedelta(seconds=delay)).isoformat(),
-                                  'max_retries': limit, 'retry_exhausted': exhausted,
+                                  'max_retries': limit,
+                                  'retry_exhausted': exhausted or budget_exhausted,
                                   'budget_exhausted': budget_exhausted})
             atomic(path, r)
             return r['failures'][-1]
