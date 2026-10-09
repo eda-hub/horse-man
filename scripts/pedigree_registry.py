@@ -95,11 +95,26 @@ class Registry:
     def records(self):
         return [read(p) for p in sorted((self.root / 'horses').glob('*.json'))]
 
-    def search(self, query):
-        """Aliases are an expendable index; always confirm against canonical records."""
+    @staticmethod
+    def identity_at(record, cutoff=None):
+        """Reconstruct identity and its evidence at cutoff, never using later updates."""
+        identity = record['identity']
+        if cutoff is not None:
+            point = dt(cutoff)
+            for event in reversed(record.get('identity_revisions', [])):
+                if dt(event['at']) > point:
+                    identity = event['before']
+                else:
+                    break
+        return identity
+
+    def search(self, query, cutoff=None):
+        """Search canonical identity and aliases as of cutoff (if supplied)."""
+        if cutoff is not None:
+            dt(cutoff)
         matches = []
         for record in self.records():
-            identity = record['identity']
+            identity = self.identity_at(record, cutoff)
             names = [identity['name']] + identity.get('aliases', [])
             ids = [record['horse_key']] + list(identity.get('external_ids', {}).values())
             if query in ids or any(norm(query) == norm(n) for n in names):
@@ -252,7 +267,10 @@ class Registry:
             for provider, value in before.get('external_ids', {}).items():
                 if identity.get('external_ids', {}).get(provider) != value:
                     raise ValueError('existing external ID cannot be silently replaced')
-            event = {'before': before, 'after': identity, 'at': stamp(),
+            changed_at = stamp()
+            if record.get('identity_revisions') and dt(changed_at) < dt(record['identity_revisions'][-1]['at']):
+                raise ValueError('identity update cannot precede earlier identity evidence')
+            event = {'before': before, 'after': identity, 'at': changed_at,
                      'reason': reason.strip(), 'reviewed_by': reviewed_by.strip()}
             event['event_hash'] = digest(event)
             record.setdefault('identity_revisions', []).append(event)
@@ -287,7 +305,8 @@ class Registry:
         record = read(self.path(key))
         if not record:
             return {'status': 'NOT_FOUND'}
-        if record['identity']['status'] != 'RESOLVED':
+        identity = self.identity_at(record, cutoff)
+        if identity['status'] != 'RESOLVED':
             return {'status': 'IDENTITY_UNRESOLVED'}
         revisions = self.active([r for r in record['revisions'] if r['field'] == field], cutoff)
         if not revisions:
@@ -298,9 +317,17 @@ class Registry:
         if not verified:
             return {'status': 'UNVERIFIED', 'candidates': revisions}
         r = max(verified, key=lambda r: dt(r['first_observed_at']))
-        return {'status': 'VERIFIED', 'value': r['value'], 'revision_id': r['revision_id'],
-                'content_hash': r['content_hash'], 'first_observed_at': r['first_observed_at'],
-                'source': r['source'], 'horse_key': key, 'field': field}
+        result = {'status': 'VERIFIED', 'value': r['value'], 'revision_id': r['revision_id'],
+                  'content_hash': r['content_hash'], 'first_observed_at': r['first_observed_at'],
+                  'source': r['source'], 'horse_key': key, 'field': field,
+                  'identity_evidence': identity.get('identity_evidence')}
+        if field.startswith('parent:'):
+            ancestor = read(self.path(r['value']))
+            if not ancestor or self.identity_at(ancestor, cutoff)['status'] != 'RESOLVED':
+                return {'status': 'IDENTITY_UNRESOLVED', 'candidates': revisions}
+            result['ancestor_identity_evidence'] = self.identity_at(
+                ancestor, cutoff).get('identity_evidence')
+        return result
 
     def edge(self, key, path, cutoff):
         direct = self.fact(key, 'parent:' + path, cutoff)
@@ -380,7 +407,7 @@ class Registry:
         request_id = safe(request['request_id'])
         dt(request['data_cutoff'])
         key = request.get('horse_key')
-        identity = self.search(key or request['query'])
+        identity = self.search(key or request['query'], request['data_cutoff'])
         results, missing = {}, []
         if identity['status'] != 'RESOLVED':
             missing.append({'item': 'identity', 'status': 'IDENTITY_UNRESOLVED'})
@@ -417,7 +444,8 @@ class Registry:
             budget = request.get('budget_seconds', 60)
             if not isinstance(budget, (int, float)) or budget <= 0:
                 raise ValueError('positive finite request budget required')
-            started_at = stamp() if force else old.get('started_at', stamp())
+            # --force bypasses only backoff, not a consumed time budget.
+            started_at = old.get('started_at') or now.isoformat()
             deadline_at = (dt(started_at) + timedelta(seconds=budget)).isoformat()
             for item in missing:
                 recent = [f for f in failures if f['item'] == item['item'] and
@@ -428,8 +456,8 @@ class Registry:
                                (recent[-1].get('retry_exhausted') and
                                 not recent[-1].get('budget_exhausted'))):
                     item.update(retry_state='RETRY_EXHAUSTED', last_failure=recent[-1]['status'])
-                elif not force and (now >= dt(deadline_at) or
-                                    (recent and recent[-1].get('budget_exhausted'))):
+                elif (now >= dt(deadline_at) or
+                      (recent and recent[-1].get('budget_exhausted'))):
                     item.update(retry_state='BUDGET_EXHAUSTED')
                 elif recent and not force and dt(recent[-1]['next_retry_at']) > now:
                     item.update(retry_state='DEFERRED', next_retry_at=recent[-1]['next_retry_at'],
@@ -497,6 +525,9 @@ class Registry:
                     dt(event['at'])
                     if index and history[index - 1]['after'] != event['before']:
                         raise ValueError('identity revision chain broken')
+                    if index and dt(event['at']) < dt(history[index - 1]['at']):
+                        raise ValueError('identity revision chronology broken')
+                    self.validate_identity(event['before'], record['horse_key'])
                     self.validate_identity(event['after'], record['horse_key'])
                 if history and history[-1]['after'] != record['identity']:
                     raise ValueError('identity revision does not match current identity')
@@ -691,7 +722,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', default='data/pedigree')
     sub = parser.add_subparsers(dest='command', required=True)
-    s = sub.add_parser('search'); s.add_argument('query')
+    s = sub.add_parser('search'); s.add_argument('query'); s.add_argument('--cutoff')
     s = sub.add_parser('claims'); s.add_argument('query')
     s = sub.add_parser('save'); s.add_argument('candidate'); s.add_argument('--expected-hash')
     s = sub.add_parser('update-identity'); s.add_argument('candidate'); s.add_argument('--expected-hash', required=True); s.add_argument('--reason', required=True); s.add_argument('--reviewed-by', required=True)
@@ -704,7 +735,7 @@ def main():
     args = parser.parse_args()
     registry = Registry(args.root)
     try:
-        if args.command == 'search': result = registry.search(args.query)
+        if args.command == 'search': result = registry.search(args.query, args.cutoff)
         elif args.command == 'claims':
             result = [c for c in read(Path(args.root) / 'migration.json', {'claims': []})['claims'] if norm(args.query) in norm(c['text'])]
         elif args.command == 'save': result = registry.save(read(Path(args.candidate)), args.expected_hash)
