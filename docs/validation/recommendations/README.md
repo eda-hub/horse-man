@@ -38,6 +38,31 @@ snapshotの必須項目は `recommendation_contract`, `recommendation_id`, `pred
 
 1. **事前宣言**: `python3 scripts/recommendation.py --prepare docs/validation/snapshots/YYYY-MM-DD/P001.json --recommendation-id R001 --intent-id final --output docs/validation/recommendations/YYYY-MM-DD/R001.json`。作成された宣言を日次作業ブランチへコミットし、読戻す。
 2. **判断材料を用意**: JSONで `recommendation_id`、`race_date_jst`、`fixed_at_jst`、`reason`、`horse_roles`（各馬の `finish_role`/ `source_ref`/ `observed_at_jst`/ `scenario_id`/ `reason`）、`scenarios`、`lower_bound_review`、`anchor_failure_scenario` を指定。例えば `joint_top3_scenario` にシナリオIDを指定すれば◎-○のワイド候補、`joint_top2_scenario` なら馬連候補、`anchor_place_scenario` なら◎複勝、`anchor_win_scenario` なら◎単勝を検討。無理に券種を増やさず判断材料不足なら `NO_RECOMMENDATION`。シナリオは根拠付きで予想担当が評価し、自動で独立確率を作らない。
+**7券種のフォーメーション構築**: 判断JSONに`ticket_formations`を指定すると、明示した券種候補を列の直積から展開する。例（入出力の馬番は実レースに合わせて差し替え）:
+
+```json
+{
+  "ticket_formations": [
+    {
+      "type": "TRIO",
+      "columns": [[5], [2, 6], [2, 6, 4]],
+      "scenario_id": "joint",
+      "reason": "◎中心の上位3頭内シナリオ",
+      "selected": true
+    },
+    {
+      "type": "TRIFECTA",
+      "columns": [[5], [2], [6, 4]],
+      "scenario_id": "joint",
+      "reason": "2着以下の指定根拠が不十分なので今回は不採用",
+      "selected": false
+    }
+  ]
+}
+```
+
+上記は判断JSONの一部で、`horse_roles`・`scenarios`・出所時刻など他の必須項目は省略している。選択は根拠に基づき`selected`で明示し、選択券種は最大2種類。全7券種（単勝・複勝・馬連・ワイド・馬単・三連複・三連単）を入力できる。**自動的に7券種を同時推奨する仕組みではない**。三連複/馬連/ワイドは順序違いを統合し、馬単/三連単は順序を保持する。重複馬や不在・取消馬、◎非含有、役割と矛盾する並びは拒否する。
+
 3. **生成**: `python3 scripts/recommendation.py --generate docs/validation/snapshots/YYYY-MM-DD/P001.json --assessment judgement.json --intent-id final --output docs/validation/recommendations/YYYY-MM-DD/R001.json`。既存artifactは上書き拒否。
 4. **保存証跡**: 推奨JSONを保存・読戻し、`persistence-receipt-v1` を同一artifactの `artifact_id=R001`, `artifact_path`, `receipt_id`, `timing_eligibility=PRE_RACE_ELIGIBLE`, `artifact_persist_status=PERSIST_VERIFIED`, `receipt_persist_status=RECEIPT_VERIFIED`, `persist_verified_at_jst`, `receipt_verified_at_jst`, `scheduled_post_time_jst` で追記・読戻す。発走時刻より前に両時刻があること。
 5. **認証**: `python3 scripts/recommendation.py --seal docs/validation/recommendations/YYYY-MM-DD/R001.json --intent-id final --receipt-id R001-RECEIPT`。検証成功時だけ推奨gateを作成。続けて `--verify docs/validation/recommendation-gates/YYYY-MM-DD/<race-id>.json` と `--audit` を実行する。
@@ -58,7 +83,7 @@ snapshotの必須項目は `recommendation_contract`, `recommendation_id`, `pred
 ## 現段階で未実装の接続
 
 - Stage 2: `docs/manual/` Owner正式変更・上位ADR切替・運用テンプレートの適用開始・有効日固定。
-- Phase 3/4/6/8: JRA-VANデータからの全券種自動最適化、UI実画面、結果取得連携、過去実績の前向き統計的分析。現段階はシナリオ評価入力を使った保守的な1種類の自動候補生成と、7券種の構造検証・的中判定ライブラリ。価格API連動、実購入情報保存は将来も標準対象外。
+- Phase 3/4/6/8: JRA-VANデータからの全券種自動最適化、UI実画面、結果取得連携、過去実績の前向き統計的分析。現段階はシナリオ評価入力による保守的な1種類の自動候補選択と、根拠付き`ticket_formations`入力による全7券種の展開・構造検証・的中判定ライブラリ。券種の最適選択を根拠から完全自動判断するエンジンではない。価格API連動、実購入情報保存は将来も標準対象外。
 - WIN5は専用契約であり現実装から除外。
 
 個別券種の点数上限・不確実性閾値・100%軸依存許容の数値化はPR68 §22/25.3の未決事項。恣意的な数値設定はしない。
