@@ -36,6 +36,32 @@
 - 無印好走馬件数:
 - 根拠不足変更件数:
 
+## 推奨買い目（正式切替後の独立契約）
+
+- 最終予想の対象レースを RECOMMENDED / NO_RECOMMENDATION / EXPLICIT_MARKS_ONLY / PENDING に漏れなく区分する。
+- RECOMMENDEDに該当するレースの的中KPI対象を eligible / ineligible / pending に分け、他の3状態を的中率分母へ混入させない。
+- `recommendations` は `prediction-day-v2` JSONの直下、`kpis.recommendation` は既存production / shadowと並列に保存する。下記は `recommendation_effective_race_date` 以降のみ必須。旧v2履歴へ遡及しない。
+- 公式結果未確定時はPENDING、取消で有効券がないときはINVALID。券種別レース的中数と券単位的中数、対象数、点数を保存する（払戻・実購入ROIなし）。
+
+```json
+"recommendations": {
+  "recommended_ids": ["race-1"],
+  "no_recommendation_ids": [],
+  "marks_only_ids": [],
+  "pending_ids": []
+},
+"kpis": {
+  "recommendation": {
+    "target_ids": ["race-1"],
+    "eligible_ids": ["race-1"],
+    "ineligible_ids": [],
+    "pending_ids": []
+  }
+}
+```
+
+実際のJSONでは上記の `kpis.recommendation` を既存 `kpis.production/shadow` と結合する。推奨gateの照合は `scripts/check_prediction_cycle.py`、推奨認証・全件不足監査・公式着順との照合は `scripts/recommendation.py` を使用する。
+
 ## 任意sidecar
 
 市場・仮想収益検証を実行した場合だけ別集計へ記録する。Prediction対象集合・適格性へ混入しない。
