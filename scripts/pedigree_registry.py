@@ -289,10 +289,12 @@ class Registry:
         verified = [r for r in tips if r["verification"] == "VERIFIED"
                     and stamp(r["verification_evidence"]["checked_at"]) <= cutoff]
         unique = {r["value"] for r in verified}
-        if len(unique) > 1:
+        candidate_values = {r["value"] for r in tips}
+        if len(candidate_values) > 1:
             return {"status": "CONFLICT", "candidates": [
-                {"value": r["value"], "revision_id": r["revision_id"], "source": r["source"]}
-                for r in verified]}
+                {"value": r["value"], "revision_id": r["revision_id"], "source": r["source"],
+                 "verification": r["verification"]}
+                for r in tips]}
         if unique:
             selected = min(verified, key=lambda r: (r["first_observed_at"], r["revision_id"]))
             return {"status": "VERIFIED", "value": selected["value"],
@@ -472,6 +474,17 @@ class Registry:
             receipt = atomic_save(path, record, before)
             return {"attempt": incident, "receipt": receipt}
 
+    def legacy_search(self, term):
+        require(isinstance(term, str) and len(term.strip()) >= 2, "検索語は2文字以上")
+        path = self.research / "backfill-2026-10-09.json"
+        if not path.exists():
+            return {"status": "NOT_MIGRATED", "records": []}
+        content = load(path)
+        require(content.get("schema_version") == "pedigree-backfill-v1", "移行データのschema不一致")
+        matches = [x for x in content.get("records", [])
+                   if term.casefold() in x["raw_text"].casefold()]
+        return {"status": "UNVERIFIED_CANDIDATES", "records": matches, "count": len(matches)}
+
     def reindex(self):
         names = {}
         for horse in self.all_horses():
@@ -497,11 +510,15 @@ def command_line(argv=None):
         if act in ("register", "add-fact"):
             item.add_argument("--expected-blob", required=True, help="元のgit blob SHA。新規はABSENT")
     sub.add_parser("reindex")
+    legacy = sub.add_parser("legacy-search")
+    legacy.add_argument("--term", required=True)
     args = parser.parse_args(argv)
     r = Registry(args.root, args.expected_head)
     try:
         if args.action == "reindex":
             result = r.reindex()
+        elif args.action == "legacy-search":
+            result = r.legacy_search(args.term)
         else:
             payload = load(args.input)
             if args.action == "register":
