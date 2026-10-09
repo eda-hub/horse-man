@@ -717,5 +717,82 @@ class RecommendationTest(unittest.TestCase):
 
 
 
+    def test_31_review_completion_keeps_fixed_recommendation_verifiable(self):
+        """正規の結果後review更新は推奨の固定根拠ではない。"""
+        root, g, pred = self.root()
+        gate_rel, _ = self.artifacts(root, g, pred)
+        live_rel = f"docs/validation/execution-gates/{DATE}/{RACE}.json"
+        pin_rel = f"docs/validation/recommendation-prediction-gates/{DATE}/{REC_ID}.json"
+        pinned_hash = sha256(root / pin_rel)
+        baseline = json.loads((root / live_rel).read_text(encoding="utf-8"))
+        baseline["review"] = {
+            "status": "COMPLETE",
+            "result_sources": [{
+                "url": "https://example.invalid/official",
+                "retrieved_at_jst": DATE + "T12:00:00+09:00",
+            }],
+            "result": {"top3": [5, 2, 6]},
+            "error_classification": {"primary": "NO_ERROR", "secondary": []},
+            "layer_assessment": {"prediction": "PASS"},
+            "non_degradation": {"protect": [], "retest": [], "improve": []},
+            "kpis": {"production": {"eligibility": "ELIGIBLE"}},
+        }
+        write(root, live_rel, json.dumps(baseline, ensure_ascii=False))
+        validate_gate(root, root / live_rel)
+        self.assertNotEqual(sha256(root / live_rel), pinned_hash)
+        self.assertEqual(sha256(root / pin_rel), pinned_hash)
+        self.assertEqual(verify(root, root / gate_rel)["status"], "RECOMMENDED")
+        self.assertTrue(audit(root))
+        result_rel = f"docs/validation/results/{DATE}/{RACE}.json"
+        write(root, result_rel, json.dumps({
+            "race_id": RACE, "race_date_jst": DATE,
+            "status": "OFFICIAL",
+            "finish_groups": [[5], [2], [6]],
+            "scratched_horses": [], "place_places": 3,
+            "source_url": "https://example.invalid/official",
+            "retrieved_at_jst": DATE + "T12:00:00+09:00",
+        }))
+        manifest_rel = "docs/validation/results/review-report.json"
+        write(root, manifest_rel, json.dumps({
+            "items": [{"gate_path": gate_rel, "result_path": result_rel}]
+        }))
+        stats = report(root, root / manifest_rel)
+        self.assertEqual(stats["eligible_recommendations"], 1)
+        self.assertEqual(stats["by_type"]["WIDE"]["race_hit_rate"], 1.0)
+
+        # 回顧以外の固定予想契約は、正規gateとして有効でも後から変更を許さない。
+        baseline["timing_route"] = "LATE_PRESERVATION"
+        write(root, live_rel, json.dumps(baseline, ensure_ascii=False))
+        validate_gate(root, root / live_rel)
+        with self.assertRaisesRegex(ComplianceError, "current Production gate changed"):
+            verify(root, root / gate_rel)
+
+    def test_32_explicit_status_cannot_be_overwritten_by_ticket_formations(self):
+        """印だけ/推奨なし/保留では選択済み候補を暗黙の推奨へ昇格させない。"""
+        root, _, pred = self.root()
+        for status in ("EXPLICIT_MARKS_ONLY", "NO_RECOMMENDATION", "PENDING"):
+            with self.subTest(status=status):
+                candidate = self.scenario()
+                candidate["status"] = status
+                candidate["ticket_formations"] = [{
+                    "type": "WIDE",
+                    "columns": [[5], [2]],
+                    "scenario_id": "joint",
+                    "reason": "以前の候補が残っている", "selected": True,
+                }]
+                with self.assertRaisesRegex(ComplianceError,
+                                            "explicit recommendation status conflicts"):
+                    self.rec(root, pred, candidate)
+                # 未選択の候補は意思決定履歴として残しても、無券の状態を維持する。
+                candidate["ticket_formations"][0]["selected"] = False
+                rec = self.rec(root, pred, candidate)
+                self.assertEqual(rec["status"], status)
+                self.assertEqual(rec["tickets"], [])
+                self.assertEqual(rec["main_ticket_types"], [])
+                self.assertEqual(rec["unique_ticket_count"], 0)
+                validate_snapshot(root, rec)
+
+
+
 if __name__ == "__main__":
     unittest.main()
