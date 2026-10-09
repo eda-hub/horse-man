@@ -132,9 +132,14 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(not_found['status'], 'NOT_FOUND')
         self.assertEqual(self.r.plan(self.request())['missing'][0]['retry_state'], 'DEFERRED')
         self.assertNotIn('retry_state', self.r.plan(self.request(), True)['missing'][0])
-        for _ in range(4):
+        for _ in range(3):
             f = self.r.failure('req', 'parent:S', 'SOURCE_ERROR', source_key='other')
         self.assertTrue(f['retry_exhausted'])
+        with self.assertRaisesRegex(ValueError, 'RETRY_EXHAUSTED'):
+            self.r.failure('req', 'parent:S', 'SOURCE_ERROR', source_key='other')
+        other_request = self.request(source_key='other')
+        self.assertEqual(self.r.plan(other_request)['missing'][0]['retry_state'], 'RETRY_EXHAUSTED')
+        self.assertEqual(self.r.plan(other_request, True)['missing'][0]['retry_state'], 'RETRY_EXHAUSTED')
         self.assertEqual(self.r.failure('req', 'parent:S', 'SAVE_ERROR')['status'], 'SAVE_ERROR')
 
     def test_legacy_claim_never_verified(self):
@@ -169,9 +174,16 @@ class RegistryTests(unittest.TestCase):
         repo = Path(self.temp.name) / 'repo'
         p = repo / 'docs/yosou/example.md'; p.parent.mkdir(parents=True)
         p.write_text('父系Danzig内包の仮説\n本文\n母父の調教国は未確認\n')
-        first = migrate(repo, self.root, 'abc', NOW)
+        import subprocess
+        def git(*args):
+            return subprocess.check_output(['git', '-C', str(repo), *args], text=True).strip()
+        git('init', '-q'); git('config', 'user.name', 'test')
+        git('config', 'user.email', 'test@example.invalid')
+        git('add', '.'); git('commit', '-qm', '移行元を固定')
+        commit = git('rev-parse', 'HEAD')
+        first = migrate(repo, self.root, commit, NOW)
         manifest = read(self.root / 'migration.json')
-        second = migrate(repo, self.root, 'abc', NOW)
+        second = migrate(repo, self.root, commit, NOW)
         self.assertEqual(first, second)
         self.assertEqual(manifest, read(self.root / 'migration.json'))
         self.assertEqual(first['verified'], 0)
@@ -236,6 +248,122 @@ class RegistryTests(unittest.TestCase):
         self.assertNotEqual(old_head, result['commit_sha'])
         with self.assertRaisesRegex(ValueError, 'HEAD changed'):
             git_save(repo, self.root, old_head)
+
+    def test_direct_ancestor_claim_cannot_hide_shared_parent_conflict(self):
+        self.add('horse', [self.fact('parent:S', 'sire'),
+                           self.fact('parent:SS', 'ancestor')])
+        self.add('sire', [self.fact('parent:S', 'ancestor')])
+        self.add('sire', [self.fact('parent:S', 'other', LATE)])
+        result = self.r.edge('horse', 'SS', NOW)
+        self.assertEqual(result['status'], 'CONFLICT')
+        self.assertEqual(self.r.plan(self.request(fields=['parent:SS']))['missing'][0]['status'], 'CONFLICT')
+        derived = self.r.derive('horse', ['ancestor'], 2, NOW)
+        self.assertEqual(derived['containment']['ancestor']['status'], 'UNKNOWN')
+        self.assertEqual(self.r.edge('horse', 'SS', EARLY)['status'], 'VERIFIED')
+
+    def test_direct_long_path_cannot_hide_intermediate_conflict(self):
+        self.add('horse', [self.fact('parent:S', 'sire'),
+                           self.fact('parent:SSS', 'ancestor')])
+        self.add('sire', [self.fact('parent:S', 'dam')])
+        self.add('sire', [self.fact('parent:S', 'other', LATE)])
+        self.assertEqual(self.r.edge('horse', 'SSS', NOW)['status'], 'CONFLICT')
+
+    def test_identity_resolution_requires_explicit_versioned_update(self):
+        unresolved = self.candidate('pending')
+        unresolved['identity'] = {'name': '未同定馬', 'status': 'IDENTITY_UNRESOLVED',
+                                  'external_ids': {}, 'aliases': []}
+        self.r.save(unresolved)
+        resolved = copy.deepcopy(unresolved)
+        resolved['identity'].update(status='RESOLVED', external_ids={'registry': 'id-123'},
+                                    identity_evidence={'source': 'BREEDING_DB', 'record_key': 'id-123'})
+        before = read(self.r.path('pending'))
+        with self.assertRaisesRegex(ValueError, 'silently changed'):
+            self.r.save(resolved, digest(before))
+        with self.assertRaisesRegex(ValueError, 'CONCURRENT_UPDATE'):
+            self.r.update_identity(resolved, 'stale', 'checked provider', 'reviewer')
+        receipt = self.r.update_identity(resolved, digest(before), 'checked provider', 'reviewer')
+        self.assertTrue(receipt['identity_updated'])
+        updated = read(self.r.path('pending'))
+        self.assertEqual(updated['revisions'], before['revisions'])
+        self.assertEqual(updated['identity_revisions'][0]['before'], before['identity'])
+        self.assertEqual(updated['identity_revisions'][0]['after'], resolved['identity'])
+        self.assertEqual(self.r.search('id-123')['status'], 'RESOLVED')
+        self.assertEqual(self.r.audit()['status'], 'PASS')
+        repeat = self.r.update_identity(resolved, digest(updated), 'checked provider', 'reviewer')
+        self.assertFalse(repeat['identity_updated'])
+        self.assertEqual(len(read(self.r.path('pending'))['identity_revisions']), 1)
+        # The new canonical identity can now be used by regular save.
+        self.r.save(dict(resolved, facts=[]), digest(updated))
+
+    def test_identity_enrichment_is_auditable_and_rejects_reassignment(self):
+        current = self.candidate('horse')
+        current['identity']['external_ids']['another'] = 'second-id'
+        old = read(self.r.path('horse'))
+        self.r.update_identity(current, digest(old), 'additional original record', 'verifier')
+        latest = read(self.r.path('horse'))
+        changed = copy.deepcopy(current)
+        changed['identity']['external_ids']['test'] = 'new-horse-id'
+        with self.assertRaisesRegex(ValueError, 'external ID'):
+            self.r.update_identity(changed, digest(latest), 'bad reassignment', 'verifier')
+        changed = copy.deepcopy(current)
+        changed['identity']['status'] = 'IDENTITY_UNRESOLVED'
+        with self.assertRaisesRegex(ValueError, 'downgraded'):
+            self.r.update_identity(changed, digest(latest), 'bad downgrade', 'verifier')
+        latest['identity_revisions'][0]['reviewed_by'] = 'tampered'
+        atomic(self.r.path('horse'), latest)
+        self.assertEqual(self.r.audit()['status'], 'FAIL')
+
+    def test_retry_count_is_checked_on_third_failure_and_after_backoff(self):
+        self.r.plan(self.request(source_key='provider'))
+        for attempt in range(1, 4):
+            recorded = self.r.failure('req', 'parent:S', 'SOURCE_ERROR',
+                                      source_key='provider', max_retries=2)
+            self.assertEqual(recorded['retry_exhausted'], attempt == 3)
+            self.assertEqual(recorded['max_retries'], 2)
+        with patch('pedigree_registry.stamp', return_value='2026-11-01T00:00:00+00:00'):
+            item = self.r.plan(self.request(source_key='provider'), True)['missing'][0]
+        self.assertEqual(item['retry_state'], 'RETRY_EXHAUSTED')
+        # The next provider is independent of the exhausted one.
+        self.assertNotEqual(self.r.plan(self.request(source_key='new-provider'), True)['missing'][0].get('retry_state'),
+                            'RETRY_EXHAUSTED')
+        with self.assertRaisesRegex(ValueError, 'RETRY_EXHAUSTED'):
+            self.r.failure('req', 'parent:S', 'SOURCE_ERROR',
+                           source_key='provider', max_retries=100)
+
+    def test_migration_uses_exact_git_commit_not_modified_worktree(self):
+        import subprocess
+        repo = Path(self.temp.name) / 'repo'
+        path = repo / 'docs/yosou/example.md'
+        path.parent.mkdir(parents=True)
+        path.write_text('母父はA\n')
+        def git(*args):
+            return subprocess.check_output(['git', '-C', str(repo), *args], text=True).strip()
+        git('init', '-q'); git('config', 'user.name', 'test')
+        git('config', 'user.email', 'test@example.invalid')
+        git('add', '.'); git('commit', '-qm', 'Aを保存')
+        commit = git('rev-parse', 'HEAD')
+        result = migrate(repo, self.root, commit, NOW)
+        manifest = read(self.root / 'migration.json')
+        self.assertEqual(result['extracted'], 1)
+        self.assertEqual(manifest['claims'][0]['text'], '母父はA')
+        path.write_text('母父はB\n')
+        (repo / 'docs/yosou/untracked.md').write_text('母父はC\n')
+        self.assertEqual(migrate(repo, self.root, commit, LATE), result)
+        self.assertEqual(manifest, read(self.root / 'migration.json'))
+        self.assertEqual(self.r.audit(repo=repo)['status'], 'PASS')
+        with self.assertRaises(Exception):
+            migrate(repo, self.root, 'no-such-commit', NOW)
+        forged = copy.deepcopy(manifest)
+        forged['claims'][0]['text'] = '母父はB'
+        forged['claims'][0]['claim_id'] = digest({'commit': commit, 'path': forged['claims'][0]['path'],
+                                                   'line': 1, 'text': '母父はB'})
+        import hashlib
+        forged['claims'][0]['source']['record_hash'] = hashlib.sha256('母父はB'.encode()).hexdigest()
+        atomic(self.root / 'migration.json', forged)
+        self.assertEqual(self.r.audit(repo=repo)['status'], 'FAIL')
+        with self.assertRaisesRegex(ValueError, 'manifest differs'):
+            migrate(repo, self.root, commit, NOW)
+        self.assertEqual(read(self.root / 'migration.json'), forged)
 
 
 if __name__ == '__main__': unittest.main()
