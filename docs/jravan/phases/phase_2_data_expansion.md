@@ -56,4 +56,4 @@ PR68の追加計画に基づくPR69の `data/pedigree/` を入力契約とする
 
 ## 血統成績集計の公式出走母数（PR68 §11）
 
-PR69で`scripts/pedigree_stats.py`と版付き`official-runners-manifest-v1`入力契約、Git固定集計snapshotを準備した。Phase 2の実データ引継ぎでは、レースID×馬IDの全出走馬・公式着順/結果状態・訂正revision・出走時点・公式出所hashを確保し、既存の確認済み血統IDと一致させる。勝ち馬だけの抽出や不明馬の推測補完を禁止する。保存JSONの`all_runners_included`はプロバイダ原票と突合し、未確認ならfalseにする。現時点では実在のJRA-VAN/JRAアダプタ・DB移行・公式原票との突合は未実装。後続実装で必要な接続とDB Writer切替はこのPhaseの受入条件として残す。詳細は[入力契約](../../../../data/condition_stats/README.md)。
+PR69で`scripts/pedigree_stats.py`と版付き`official-runners-manifest-v1`入力契約、Git固定集計snapshotを準備した。Phase 2の実データ引継ぎでは、レースID×馬IDの全出走馬・公式着順/結果状態・訂正revision・出走時点・公式出所hashを確保し、既存の確認済み血統IDと一致させる。勝ち馬だけの抽出や不明馬の推測補完を禁止する。保存JSONの`all_runners_included`はプロバイダ原票と突合し、未確認ならfalseにする。現時点では実在のJRA-VAN/JRAアダプタ・DB移行・公式原票との突合は未実装。後続実装で必要な接続とDB Writer切替はこのPhaseの受入条件として残す。詳細は[入力契約](../../../data/condition_stats/README.md)。
