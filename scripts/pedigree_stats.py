@@ -298,9 +298,30 @@ class Resolver:
             return ("UNKNOWN", "UNMAPPED_OR_AMBIGUOUS_TRAINING_COUNTRY")
         return ("MATCH" if mapped[0] == target else "NON_MATCH", "VERIFIED_TRAINING_REGION")
 
-    def all_groups(self, key):
+    def as_of_dependency(self, key):
+        original = read(self.registry.path(key))
+        if original is None:
+            return None
+        active = self.registry.active(original.get("revisions", []), self.cutoff)
+        identity = self.registry.identity_at(original, self.cutoff)
+        if identity is None and not active:
+            return None
+        fingerprint = {"identity": identity, "active_revisions": active}
+        return {
+            "as_of_sha256": digest(fingerprint),
+            "revision_ids": sorted(r["revision_id"] for r in active),
+            "identity_status": identity.get("status") if identity else "UNCONFIRMED",
+        }
+
+    def all_groups(self, key, cached=None):
         if key in self.cache:
             return self.cache[key]
+        if isinstance(cached, dict) and isinstance(cached.get("dependencies"), dict):
+            # as-of依存馬・祖先レコードに変更がないものは高コストな系統展開を再利用。
+            if all(self.as_of_dependency(dep) == signature
+                   for dep, signature in cached["dependencies"].items()):
+                self.cache[key] = cached
+                return cached
         self.used = set()
         # 未同定馬は血統・地域の「非該当」へ入れない。
         rec = self.record(key)
@@ -314,20 +335,7 @@ class Resolver:
                 status, reason = self.classify(key, g)
                 states[g["group_id"]] = {"status": status, "reason": reason}
         # 将来の修正・未観測revisionを過去cutoffの依存hashへ逆流させない。
-        dependencies = {}
-        for item in sorted(self.used):
-            original = self.record(item)
-            if original is None:
-                dependencies[item] = None
-                continue
-            active = self.registry.active(original.get("revisions", []), self.cutoff)
-            identity = self.registry.identity_at(original, self.cutoff)
-            fingerprint = {"identity": identity, "active_revisions": active}
-            dependencies[item] = {
-                "as_of_sha256": digest(fingerprint),
-                "revision_ids": sorted(r["revision_id"] for r in active),
-                "identity_status": identity.get("status") if identity else "UNCONFIRMED",
-            }
+        dependencies = {item: self.as_of_dependency(item) for item in sorted(self.used)}
         value = {"groups": states, "dependencies": dependencies}
         self.cache[key] = value
         return value
@@ -369,10 +377,22 @@ def finish(c, horses, races):
     return c
 
 
-def compute(definition, manifest, registry, input_hash, definition_hash):
+def compute(definition, manifest, registry, input_hash, definition_hash, previous=None):
     validate_definition(definition)
     rows, race_set, duplicates = validate_manifest(manifest, definition)
     resolver = Resolver(registry, definition["data_cutoff"], definition)
+    # 系統taxonomyの同一version書き換えも差分判定に含める。
+    lineage = definition.get("taxonomy_version")
+    tax = read(registry.root / "taxonomies" / (safe(lineage) + ".json")) if lineage else None
+    lineage_hash = digest(tax)
+    compatible = bool(previous and previous.get("data_cutoff") == definition["data_cutoff"] and
+                      previous.get("classification_version") == lineage and
+                      previous.get("lineage_taxonomy_hash") == lineage_hash and
+                      previous.get("training_classification_hash") ==
+                      digest(definition.get("training_classification")) and
+                      {k: v["definition"] for k, v in previous.get("groups", {}).items()} ==
+                      {g["group_id"]: g for g in definition["groups"]})
+    past = previous["horse_trace"] if compatible else {}
     groups = {}
     for g in definition["groups"]:
         groups[g["group_id"]] = {
@@ -394,7 +414,7 @@ def compute(definition, manifest, registry, input_hash, definition_hash):
         horses_all.add(key)
         races_all.add(race["race_id"])
         if key not in whole_trace:
-            whole_trace[key] = resolver.all_groups(key)
+            whole_trace[key] = resolver.all_groups(key, cached=past.get(key))
         for gid, group in groups.items():
             cls = whole_trace[key]["groups"][gid]
             status = cls["status"]
@@ -451,6 +471,7 @@ def compute(definition, manifest, registry, input_hash, definition_hash):
         "source_scope": manifest["source_scope"],
         "scope_complete": manifest["all_runners_included"],
         "classification_version": definition.get("taxonomy_version"),
+        "lineage_taxonomy_hash": lineage_hash,
         "training_classification_hash": classification_hash,
         "all_runners": total, "races_in_scope": sorted(race_set),
         "duplicates_removed": duplicates, "groups": groups,
@@ -484,7 +505,7 @@ def freeze_input(root, obj, kind):
     return relative, filehash(path)
 
 
-def run(root, definition_path, input_path):
+def run(root, definition_path, input_path, previous_path=None):
     root = Path(root)
     definition_file = bounded(root, definition_path, "data/condition_stats/definitions/")
     input_file = bounded(root, input_path, "data/condition_stats/inputs/")
@@ -493,8 +514,14 @@ def run(root, definition_path, input_path):
     # 元入力を上書きして訂正しても、旧版は固定入力へ再現できる。
     definition_archive, definition_hash = freeze_input(root, definition, "definitions")
     input_archive, input_hash = freeze_input(root, manifest, "inputs")
+    previous = None
+    if previous_path is not None:
+        previous = verify(root, bounded(root, previous_path,
+                                        "data/condition_stats/snapshots/"))
+        require(previous["definition_id"] == definition["definition_id"],
+                "previous snapshot definition_id mismatch")
     record = compute(definition, manifest, Registry(root / "data/pedigree"),
-                     input_hash, definition_hash)
+                     input_hash, definition_hash, previous=previous)
     record["definition_path"] = definition_archive
     record["input_path"] = input_archive
     record["requested_definition_path"] = str(definition_path)
@@ -609,6 +636,7 @@ def main():
     task.add_argument("--audit", action="store_true")
     task.add_argument("--inventory", action="store_true")
     parser.add_argument("--input", help="versioned full-field official runners manifest")
+    parser.add_argument("--previous", help="previous immutable snapshot; reuse unchanged pedigree traces")
     args = parser.parse_args()
     try:
         if args.audit:
@@ -622,7 +650,7 @@ def main():
                               "completeness": obj["completeness"]}, ensure_ascii=False))
             return 0
         require(args.input, "--run requires --input")
-        path, obj = run(args.root, args.run, args.input)
+        path, obj = run(args.root, args.run, args.input, previous_path=args.previous)
         print(json.dumps({"snapshot": str(path), "sha256": obj["content_sha256"],
                           "status": obj["completeness"], "starts": obj["all_runners"]["valid_starts"],
                           "missing": obj["missing"]}, ensure_ascii=False))
