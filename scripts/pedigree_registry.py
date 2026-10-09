@@ -492,6 +492,8 @@ class Registry:
                 raise ValueError('RETRY_EXHAUSTED: choose another source or request')
             if prior and prior[-1].get('budget_exhausted'):
                 raise ValueError('BUDGET_EXHAUSTED: choose another source or request')
+            if current >= dt(r['deadline_at']):
+                raise ValueError('BUDGET_EXHAUSTED: request time budget has expired')
             # Do not increase the existing retry allowance by changing the CLI flag.
             limit = prior[0].get('max_retries', max_retries) if prior else max_retries
             exhausted = len(prior) + 1 >= limit + 1
