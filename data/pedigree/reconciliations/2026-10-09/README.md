@@ -15,6 +15,7 @@ PR69の旧記述から抽出済みの**父・母父53頭106項目**をJRAの個�
 - `mode=REPLAY`、`production_eligible=false`。外部資料は2026-10-09に取得・確認した。過去発走前の既知情報として遡及登録しない。
 - 旧予想・回顧本文と`migration.json`の535候補は変更せず、元commit・行・claim IDに対する照合sidecarを追加した。535候補全体を確認済みへ一括昇格しない。
 - JBISはHTTP原票のSHA-256、JRAは抽出プロフィールのcanonical SHA-256を記録。後者をHTML全体のhashと称さない。URL・取得方法・取得時刻・外部個体IDを保持する。
+- 照合のRegistry参照時点は`import_summary.json`の`verification_cutoff`に固定する。後日の追加個体・正規の訂正があっても当時の対象集合とrevisionを再検証する。
 - Registryの初期同定・保存時刻はWriterが実際に保存した時刻。10月4日以前のcutoffでは今回の新規個体・事実をVERIFIEDとして返さないことを検査した。
 - source事実の確認者はCodex。人間による独立確認やJRA-VAN認証済みデータ取得を実施したとは記録しない。原票照合・62位置の整合・共通親子関係の整合を確認して登録した。
 - mainへのマージ・現行manual変更・Production/推奨への採用は行わない。
@@ -166,7 +167,7 @@ python3 -m unittest discover -s scripts -p 'test_*.py'
 python3 scripts/pedigree_registry.py audit
 ```
 
-- 既存Python unittest **212件成功**。
+- 既存212件と、後日の別個体追加・親子関係競合が固定照合を遡及変更しない回帰テスト1件の、**計213 unittest成功**。
 - 照合checkerは106項目の元claim/成分/行と公式個体・原票値・hashの一致、全53頭の網羅性、3表記差の明示対応を検査する。
 - JBIS全52表の62位置、全参照個体ID、Registryの親子関係との一致、独立関係の競合・数、過去cutoffへの流用拒否を検査する。
 - Registry監査は全個体・revision/hash・外部ID重複・初期時刻・旧535候補の未昇格を検査する。照合checker内の監査は単一Writerのlock下で読取集合を固定し、同定重複検査のための反復ディスク読込を省く。CLIの`audit`は従来どおりGit移行元commitも検査する。

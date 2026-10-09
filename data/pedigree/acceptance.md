@@ -57,4 +57,4 @@ Phase 2以降の実DB・取得adapter、Phase 3のfeature/snapshot接続、Phase
 
 当初の未登録状態とは分けて、予想対象期間2026-08-16〜2026-10-04の父・母父106成分をJRA原票で再確認（103完全一致・3表記差一致）。参照JBIS52血統表の全5代3,224位置は基本情報6関係と一致し、共通親子関係に競合なし。唯一Writerで1,430個体・1,774親子関係を保存した。
 
-`check_pedigree_reconciliation.py`による原票/元claim/保存レコード/時点の照合とRegistry監査を実施。既存212 unittest成功。取得日より前のcutoffでは今回の登録を確認済みとして扱わない。全535旧候補の自動昇格・旧予想の変更・全出走公式母数に基づく成績集計はしていない。詳細は[照合記録](reconciliations/2026-10-09/README.md)。
+`check_pedigree_reconciliation.py`による原票/元claim/保存レコード/時点の照合とRegistry監査を実施。既存212件と後日の追加・競合に対する固定時点の回帰テスト1件、計213 unittest成功。取得日より前のcutoffでは今回の登録を確認済みとして扱わない。全535旧候補の自動昇格・旧予想の変更・全出走公式母数に基づく成績集計はしていない。詳細は[照合記録](reconciliations/2026-10-09/README.md)。

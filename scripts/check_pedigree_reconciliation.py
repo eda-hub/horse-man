@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 import re
 
-from pedigree_registry import Registry, digest, read, stamp
+from pedigree_registry import Registry, digest, read, dt
 
 
 def check(repo, date='2026-10-09'):
@@ -58,7 +58,12 @@ def check(repo, date='2026-10-09'):
         audit = ReadSnapshot(registry.root).audit()
         assert audit['status'] == 'PASS', audit
         indexed = {r['horse_key']: r for r in records}
+        summary = read(directory / 'import_summary.json')
+        cutoff = summary['verification_cutoff']
+        dt(cutoff)
         sheets = read(directory / 'jbis_pedigrees.json')['records']
+        scoped_ids = {r['horse']['id'] for r in sheets}
+        scoped_ids.update(a['id'] for r in sheets for a in r['ancestors'].values())
         assert len(sheets) == 52
         expected_paths = {format(i, '0%db' % depth).translate(str.maketrans('01', 'SD'))
                           for depth in range(1, 6) for i in range(2 ** depth)}
@@ -68,22 +73,21 @@ def check(repo, date='2026-10-09'):
             assert sheet['source']['source_class'] == 'BREEDING_DB'
             assert re.fullmatch(r'[0-9a-f]{64}', sheet['source']['record_hash'])
             root_key = 'jbis-' + sheet['horse']['id']
-            assert indexed[root_key]['identity']['external_ids']['JBIS'] == sheet['horse']['id']
+            assert registry.identity_at(indexed[root_key], cutoff)['external_ids']['JBIS'] == sheet['horse']['id']
             for path, ancestor in sheet['ancestors'].items():
                 parent_key = root_key if len(path) == 1 else 'jbis-' + sheet['ancestors'][path[:-1]]['id']
                 ancestor_key = 'jbis-' + ancestor['id']
-                assert indexed[ancestor_key]['identity']['name'] == ancestor['name']
-                fact = registry.fact(parent_key, 'parent:' + path[-1], stamp())
+                assert registry.identity_at(indexed[ancestor_key], cutoff)['name'] == ancestor['name']
+                fact = registry.fact(parent_key, 'parent:' + path[-1], cutoff)
                 assert fact['status'] == 'VERIFIED' and fact['value'] == ancestor_key
                 pair = parent_key, path[-1]
                 assert pair not in edges or edges[pair] == ancestor_key
                 edges[pair] = ancestor_key
             # A source acquired today cannot be reused at a previous prediction cutoff.
             assert registry.fact(root_key, 'parent:S', '2026-10-04T23:59:59+09:00')['status'] != 'VERIFIED'
-        summary = read(directory / 'import_summary.json')
         assert summary['independent_parent_edge_count'] == len(edges) == 1774
         assert summary['ancestor_positions'] == 3224
-        assert summary['identity_count'] == len([k for k in indexed if k.startswith('jbis-')]) == 1430
+        assert summary['identity_count'] == len(scoped_ids) == 1430
     return {'status': 'PASS', 'official_horses': len(profiles), 'objective_components': len(seen),
             'matches': evidence['counts'], 'jbis_sheets': len(sheets),
             'ancestor_positions': 3224, 'independent_parent_edges': len(edges),
