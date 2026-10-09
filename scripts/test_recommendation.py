@@ -475,5 +475,217 @@ class RecommendationTest(unittest.TestCase):
 
 
 
+    def test_24_updated_prediction_allows_revision_with_archived_original_proof(self):
+        """旧gateを現行Predictionへ再照合すると失敗する回帰を防止。"""
+        root, g, pred = self.root()
+        previous_gate, previous_artifact = self.artifacts(root, g, pred)
+        original_receipts = root / f"docs/validation/persistence-receipts/{DATE}.md"
+        new_prediction = copy.deepcopy(pred)
+        new_prediction["snapshot_id"] = RACE + "-P002-S01"
+        new_prediction["baseline_forecast_id"] = RACE + "-P002"
+        new_prediction["ranking"] = [2, 5, 6, 4, 1, 3]
+        new_prediction["marks"] = {"honmei": 2, "taikou": 5, "tanana": 6,
+                                   "renka": [4, 1, 3]}
+        new_prediction["fixed_at_jst"] = DATE + "T09:58:00+09:00"
+        new_path = f"docs/validation/snapshots/{DATE}/{new_prediction['snapshot_id']}.json"
+        write(root, new_path, json.dumps(new_prediction, ensure_ascii=False))
+        new_gate = copy.deepcopy(g)
+        prod = new_gate["production"]
+        for name in ("baseline_forecast_id", "ranking", "marks", "fixed_at_jst"):
+            prod[name] = new_prediction[name]
+        receipt_rel = f"docs/validation/persistence-receipts/{DATE}.md"
+        snapshot_receipt_id = new_prediction["snapshot_id"] + "-R01"
+        prod["evidence_ref"] = {
+            "artifact_path": new_path, "artifact_id": new_prediction["snapshot_id"],
+            "receipt_path": receipt_rel, "receipt_id": snapshot_receipt_id,
+            "timing_eligibility": "PRE_RACE_ELIGIBLE",
+            "persist_verified_at_jst": DATE + "T09:59:00+09:00",
+        }
+        self.append_receipt(root, receipt_record(
+            snapshot_receipt_id, new_prediction["snapshot_id"], new_path,
+            verified=DATE + "T09:59:00+09:00", post=POST))
+        write(root, f"docs/validation/execution-gates/{DATE}/{RACE}.json",
+              json.dumps(new_gate, ensure_ascii=False))
+        validate_gate(root, root / f"docs/validation/execution-gates/{DATE}/{RACE}.json")
+        a = self.scenario()
+        a["recommendation_id"] = REC_ID + "-02"
+        a["revision"] = 2
+        a["supersedes"] = REC_ID
+        a["supersedes_sha256"] = sha256(root / previous_artifact)
+        a["fixed_at_jst"] = DATE + "T10:01:00+09:00"
+        second = build(new_prediction, a, new_path, root=root)
+        second_artifact = f"docs/validation/recommendations/{DATE}/{a['recommendation_id']}.json"
+        write(root, second_artifact, json.dumps(second, ensure_ascii=False))
+        second_pred_intent = f"docs/validation/persistence-intents/{DATE}/second.json"
+        second_intent = f"docs/validation/recommendation-intents/{DATE}/second.json"
+        write(root, second_pred_intent, json.dumps({
+            "schema_version": "prediction-persistence-intent-v1",
+            "race_date_jst": DATE, "working_branch": f"prediction/{DATE}",
+            "snapshot_id": new_prediction["snapshot_id"],
+            "artifact_path": new_path, "required_race_ids": [RACE], "deadline_jst": POST,
+            "recommendation_scope": {"race_id": RACE, "recommendation_id": a["recommendation_id"],
+                                     "artifact_path": second_artifact},
+        }))
+        write(root, second_intent, json.dumps({
+            "schema_version": INTENT_SCHEMA, "prediction_intent_path": second_pred_intent,
+            "race_id": RACE, "race_date_jst": DATE,
+            "recommendation_id": a["recommendation_id"], "artifact_path": second_artifact,
+            "prediction_ref": second["prediction_ref"], "deadline_jst": POST,
+        }))
+        second_receipt_id = a["recommendation_id"] + "-RECEIPT"
+        second_receipt = receipt_record(second_receipt_id, a["recommendation_id"],
+                                        second_artifact, verified=DATE + "T10:03:00+09:00",
+                                        post=POST)
+        second_receipt["content_sha256"] = sha256(root / second_artifact)
+        second_receipt["receipt_verified_at_jst"] = DATE + "T10:04:00+09:00"
+        self.append_receipt(root, second_receipt)
+        with self.assertRaisesRegex(ComplianceError, "current Production gate changed"):
+            verify(root, root / previous_gate)
+        saved = seal(root, second_artifact, "second", second_receipt_id)
+        self.assertEqual(verify(root, saved)["revision"], 2)
+        archive = root / f"docs/validation/recommendation-gates/history/{DATE}/{REC_ID}.json"
+        self.assertEqual(verify(root, archive)["prediction_ref"]["artifact_id"], pred["snapshot_id"])
+        self.assertTrue(audit(root))
+
+    @staticmethod
+    def append_receipt(root, payload):
+        path = root / f"docs/validation/persistence-receipts/{DATE}.md"
+        fence = "\x60\x60\x60"
+        path.write_text(path.read_text(encoding="utf-8") +
+                        fence + "persistence-receipt-v1\n" +
+                        json.dumps(payload, ensure_ascii=False) + "\n" + fence + "\n",
+                        encoding="utf-8")
+
+    def test_25_replay_or_ineligible_prediction_must_not_certify_forward_recommendation(self):
+        for mode in ("REPLAY", "FORWARD"):
+            with self.subTest(mode=mode):
+                root, g, pred = self.root()
+                g["mode"] = mode
+                g["kpi_eligibility"]["production"] = "INELIGIBLE"
+                if mode == "REPLAY":
+                    g["timing_route"] = "LATE_PRESERVATION"
+                gate_rel = f"docs/validation/execution-gates/{DATE}/{RACE}.json"
+                write(root, gate_rel, json.dumps(g, ensure_ascii=False))
+                rec_gate, _ = self.artifacts(root, g, pred)
+                rec_gate_path = root / rec_gate
+                obj = json.loads(rec_gate_path.read_text(encoding="utf-8"))
+                if mode == "REPLAY":
+                    obj["mode"] = "REPLAY"
+                write(root, rec_gate, json.dumps(obj, ensure_ascii=False))
+                with self.assertRaisesRegex(ComplianceError, "forward eligible Production"):
+                    verify(root, rec_gate_path)
+                # sealは原Predictionの状態を引き継ぎ、適格にはしない。
+                rec_gate_path.unlink()
+                proof_path = root / obj["prediction_gate_ref"]["artifact_path"]
+                proof_path.unlink()
+                sealed = seal(root, obj["evidence_ref"]["artifact_path"], "final",
+                              obj["evidence_ref"]["receipt_id"])
+                saved_gate = json.loads(sealed.read_text(encoding="utf-8"))
+                self.assertEqual(saved_gate["kpi_eligibility"], "INELIGIBLE")
+                self.assertEqual(saved_gate["mode"], mode)
+                verify(root, sealed)
+
+    def test_26_result_race_and_date_must_match_even_with_same_finish(self):
+        root, g, pred = self.root()
+        gate, _ = self.artifacts(root, g, pred)
+        for race, date in (("DIFFERENT", DATE), (RACE, "2026-10-18")):
+            result = {
+                "race_id": race, "race_date_jst": date,
+                "status": "OFFICIAL", "finish_groups": [[5], [2], [6]],
+                "place_places": 3, "scratched_horses": [],
+                "source_url": "https://example.invalid/results",
+                "retrieved_at_jst": DATE + "T12:00:00+09:00",
+            }
+            with self.subTest(race=race, date=date):
+                with self.assertRaisesRegex(ComplianceError, "race_id/race_date_jst mismatch"):
+                    settle(self.rec(root, pred), result)
+                result_path = f"docs/validation/results/{DATE}/result.json"
+                manifest_path = "docs/validation/results/manifest.json"
+                write(root, result_path, json.dumps(result))
+                write(root, manifest_path, json.dumps({
+                    "items": [{"gate_path": gate, "result_path": result_path}]
+                }))
+                with self.assertRaisesRegex(ComplianceError, "race_id/race_date_jst mismatch"):
+                    report(root, root / manifest_path)
+
+    def test_27_recommendation_receipt_must_bind_bytes_and_follow_fixation(self):
+        root, g, pred = self.root()
+        gate, artifact = self.artifacts(root, g, pred)
+        receipt_path = root / f"docs/validation/persistence-receipts/{DATE}.md"
+        original = receipt_path.read_text(encoding="utf-8")
+        # 内容を変えてgate hashだけ差し替えても、古いreceipt hashが拒否する。
+        obj = json.loads((root / artifact).read_text(encoding="utf-8"))
+        obj["reason"] = "新しい展開条件"
+        write(root, artifact, json.dumps(obj, ensure_ascii=False))
+        gate_obj = json.loads((root / gate).read_text(encoding="utf-8"))
+        gate_obj["content_sha256"] = sha256(root / artifact)
+        write(root, gate, json.dumps(gate_obj))
+        with self.assertRaisesRegex(ComplianceError, "receipt content hash mismatch"):
+            verify(root, root / gate)
+        # hashが一致しても固定時刻が保存確認より後なら不適格。
+        obj["fixed_at_jst"] = DATE + "T10:09:00+09:00"
+        write(root, artifact, json.dumps(obj, ensure_ascii=False))
+        gate_obj["content_sha256"] = sha256(root / artifact)
+        write(root, gate, json.dumps(gate_obj))
+        receipt = json.loads(original.split("persistence-receipt-v1\n")[-1].split("\n")[0])
+        receipt["content_sha256"] = sha256(root / artifact)
+        old_receipt_id = gate_obj["evidence_ref"]["receipt_id"]
+        # first fenced receipt is Production; replace only recommendation receipt.
+        receipt_start = original.rindex("persistence-receipt-v1\n")
+        receipt_start += len("persistence-receipt-v1\n")
+        receipt_end = original.index("\n", receipt_start)
+        receipt_path.write_text(original[:receipt_start] + json.dumps(receipt) +
+                                original[receipt_end:], encoding="utf-8")
+        with self.assertRaisesRegex(ComplianceError, "timestamps out of order"):
+            verify(root, root / gate)
+
+    def test_28_prediction_scope_without_any_recommendation_fails_audit(self):
+        root, g, pred = self.root()
+        pre = f"docs/validation/persistence-intents/{DATE}/only.json"
+        write(root, pre, json.dumps({
+            "schema_version": "prediction-persistence-intent-v1",
+            "race_date_jst": DATE, "required_race_ids": [RACE],
+            "recommendation_scope": {
+                "race_id": RACE, "recommendation_id": REC_ID,
+                "artifact_path": f"docs/validation/recommendations/{DATE}/{REC_ID}.json",
+            }
+        }))
+        self.assertFalse(audit(root))
+
+    def test_29_place_on_second_choice_and_trifecta_reverse_first_row(self):
+        root, g, pred = self.root()
+        a = self.scenario()
+        a["joint_top3_scenario"] = None
+        a["ticket_formations"] = [{
+            "type": "PLACE", "columns": [[2]], "scenario_id": "joint",
+            "reason": "○の3着以内適性が安定", "selected": True,
+        }]
+        rec = self.rec(root, pred, a)
+        self.assertEqual(rec["tickets"][0]["horses"], [2])
+        rec["dependency_audit"]["anchor_dependency"] = "NONE"
+        validate_snapshot(root, rec)
+
+        a = self.scenario()
+        a["joint_top3_scenario"] = None
+        a["horse_roles"][0]["finish_role"] = "TOP2"
+        a["horse_roles"][1]["finish_role"] = "WIN"
+        a["horse_roles"].append({
+            "horse_no": 6, "finish_role": "TOP3", "source_ref": "test-source",
+            "observed_at_jst": DATE + "T09:40:00+09:00",
+            "scenario_id": "joint", "reason": "3着候補",
+        })
+        a["ticket_formations"] = [{
+            "type": "TRIFECTA", "columns": [[2], [5], [6]],
+            "scenario_id": "joint", "reason": "○が◎より先着する展開", "selected": True,
+        }]
+        rec = self.rec(root, pred, a)
+        self.assertEqual(rec["tickets"][0]["horses"], [2, 5, 6])
+        validate_snapshot(root, rec)
+        rec["tickets"][0]["horses"] = [6, 5, 2]
+        with self.assertRaises(ComplianceError):
+            validate_snapshot(root, rec)
+
+
+
 if __name__ == "__main__":
     unittest.main()
