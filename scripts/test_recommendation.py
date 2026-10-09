@@ -55,7 +55,7 @@ class RecommendationTest(unittest.TestCase):
 
     def rec(self, root, pred, scenario=None):
         path = f"docs/validation/snapshots/{DATE}/{pred['snapshot_id']}.json"
-        return build(pred, scenario if scenario is not None else self.scenario(), path)
+        return build(pred, scenario if scenario is not None else self.scenario(), path, root=root)
 
     def artifacts(self, root, g, pred, rec=None):
         rec = rec if rec is not None else self.rec(root, pred)
@@ -110,7 +110,9 @@ class RecommendationTest(unittest.TestCase):
         self.assertEqual(self.rec(root, pred), self.rec(root, pred))
         changed = self.scenario()
         changed["odds"] = 400.0
-        bad = self.rec(root, pred, changed)
+        self.assertEqual(self.rec(root, pred), self.rec(root, pred, changed))
+        bad = self.rec(root, pred)
+        bad["odds"] = 400.0
         with self.assertRaisesRegex(ComplianceError, "forbidden"):
             validate_snapshot(root, bad)
 
