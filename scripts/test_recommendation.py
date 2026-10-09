@@ -684,6 +684,36 @@ class RecommendationTest(unittest.TestCase):
         rec["tickets"][0]["horses"] = [6, 5, 2]
         with self.assertRaises(ComplianceError):
             validate_snapshot(root, rec)
+        # ▲が1着・◎が2着になる合理的な逆転シナリオも受け入れる。
+        a["horse_roles"][-1]["finish_role"] = "WIN"
+        a["horse_roles"][1]["finish_role"] = "TOP3"
+        a["ticket_formations"][0]["columns"] = [[6], [5], [2]]
+        another = self.rec(root, pred, a)
+        self.assertEqual(another["tickets"][0]["horses"], [6, 5, 2])
+        validate_snapshot(root, another)
+
+
+    def test_30_receipt_readback_must_follow_persistence_and_hash_is_mandatory(self):
+        root, _, pred = self.root()
+        gate, art = self.artifacts(root, None, pred)
+        receipt_path = root / f"docs/validation/persistence-receipts/{DATE}.md"
+        original = receipt_path.read_text(encoding="utf-8")
+        prefix = "persistence-receipt-v1\n"
+        # 正確なJSON record（Productionではなく推薦receipt）だけを変更する。
+        start = original.rindex("persistence-receipt-v1\n") + len(prefix)
+        end = original.index("\n", start)
+        record = json.loads(original[start:end])
+        record["receipt_verified_at_jst"] = DATE + "T09:58:00+09:00"
+        receipt_path.write_text(original[:start] + json.dumps(record) + original[end:],
+                                encoding="utf-8")
+        with self.assertRaisesRegex(ComplianceError, "timestamps out of order"):
+            verify(root, root / gate)
+        record["receipt_verified_at_jst"] = DATE + "T10:00:00+09:00"
+        record.pop("content_sha256")
+        receipt_path.write_text(original[:start] + json.dumps(record) + original[end:],
+                                encoding="utf-8")
+        with self.assertRaisesRegex(ComplianceError, "receipt content hash mismatch"):
+            verify(root, root / gate)
 
 
 
