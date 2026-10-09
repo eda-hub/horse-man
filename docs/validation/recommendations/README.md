@@ -7,7 +7,7 @@
 - 入力: 固定済み `prediction-snapshot-v2`、非市場情報の同時好走シナリオ、着順役割、根拠。
 - 出力: `recommendation-snapshot-v1`（契約ID `odds-free-recommendation-v1`）。馬番による券種・具体的組み合わせ・優先順位・ユニーク点数・短い理由と参照根拠。
 - 結果: 公式着順（同着を位置配列で表す）を使って各券の HIT/MISS/INVALID、未確定時はPENDING。購入・払戻・資金を扱わない。
-- Predictionの認証と推奨の認証は独立。ただし正式な推奨は、認証されたProduction gate・固定Prediction snapshotの内容hash・事前宣言・同一artifactの保存receiptに紐付ける。
+- Predictionの認証と推奨の認証は独立。ただし正式な推奨は、認証されたProduction gate・固定Prediction snapshotの内容hash・**予想開始前の推奨scope予定宣言とPrediction固定後の推奨独立宣言の両方**・同一artifactの保存receiptに紐付ける。
 - WIN5、非◎の別軸馬連/ワイド/馬単、価格連動の旧例外、印内全頭BOXは対象外。
 - 券種ごとの役割: 単勝=◎の勝ち切り、複勝=◎の安定3着内、馬連=◎からの連対、ワイド=◎○同時3着内、馬単=◎1着と根拠ある2着、三連複=◎中心の同時3着内、三連単=1〜3着の順序付きシナリオ。複数の高難度券種を機械的に追加しない。計画内の未確定数値閾値は勝手に実装しない。
 
@@ -36,7 +36,8 @@ snapshotの必須項目は `recommendation_contract`, `recommendation_id`, `pred
 
 先に `prediction-snapshot-v2` とそれを参照する正式Prediction gateを固定・保存する。その後、次の順で作業する。必要箇所は自分のレースID/日付へ置換する。
 
-1. **事前宣言**: `python3 scripts/recommendation.py --prepare docs/validation/snapshots/YYYY-MM-DD/P001.json --recommendation-id R001 --intent-id final --output docs/validation/recommendations/YYYY-MM-DD/R001.json`。作成された宣言を日次作業ブランチへコミットし、読戻す。
+0. **予想開始前のscope宣言（必須）**: Prediction作成前に `python3 scripts/verify_prediction_persistence.py --prepare --date YYYY-MM-DD --intent-id prediction-final --snapshot-id P001 --artifact-path docs/validation/snapshots/YYYY-MM-DD/P001.json --deadline-jst YYYY-MM-DDT10:10:00+09:00 --race-id RACE_ID --recommendation-id R001 --recommendation-artifact-path docs/validation/recommendations/YYYY-MM-DD/R001.json` を実行。Prediction artifactと推奨対象ID/pathを同時に宣言して日次ブランチへ保存・読戻しする。既存の購入前宣言・v1.6.1の旧形式はオプションなしでそのまま有効。
+1. **推奨生成前の独立宣言**: Prediction snapshotを固定した後、`python3 scripts/recommendation.py --prepare docs/validation/snapshots/YYYY-MM-DD/P001.json --recommendation-id R001 --prediction-intent-id prediction-final --intent-id final --output docs/validation/recommendations/YYYY-MM-DD/R001.json` を実行。先行するPrediction scope宣言、固定snapshot ID/pathと出力先が一致しなければ拒否する。作成された推奨宣言も日次作業ブランチへコミットし、読戻す。
 2. **判断材料を用意**: JSONで `recommendation_id`、`race_date_jst`、`fixed_at_jst`、`reason`、`horse_roles`（各馬の `finish_role`/ `source_ref`/ `observed_at_jst`/ `scenario_id`/ `reason`）、`scenarios`、`lower_bound_review`、`anchor_failure_scenario` を指定。例えば `joint_top3_scenario` にシナリオIDを指定すれば◎-○のワイド候補、`joint_top2_scenario` なら馬連候補、`anchor_place_scenario` なら◎複勝、`anchor_win_scenario` なら◎単勝を検討。無理に券種を増やさず判断材料不足なら `NO_RECOMMENDATION`。シナリオは根拠付きで予想担当が評価し、自動で独立確率を作らない。
 **7券種のフォーメーション構築**: 判断JSONに`ticket_formations`を指定すると、明示した券種候補を列の直積から展開する。例（入出力の馬番は実レースに合わせて差し替え）:
 
