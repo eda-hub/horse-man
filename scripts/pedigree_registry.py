@@ -214,14 +214,55 @@ class Registry:
                 added.append(fact['revision_id'])
             atomic(path, record)
             # Index failure is harmless: the records remain the canonical truth.
-            aliases = {}
-            for horse in self.records():
-                for name in [horse['identity']['name']] + horse['identity'].get('aliases', []):
-                    aliases.setdefault(norm(name), []).append(horse['horse_key'])
-            atomic(self.root / 'aliases.json', {'schema_version': SCHEMA, 'aliases': aliases})
+            self.reindex()
             return {'horse_key': key, 'content_hash': digest(record), 'added_revisions': added,
                     'persistence': 'LOCAL_READBACK_VERIFIED', 'git_persistence': 'UNCONFIRMED',
                     'snapshot_persistence': 'NOT_EVALUATED', 'verified_at': stamp()}
+
+    def reindex(self):
+        """Rebuild disposable alias index from canonical horse records."""
+        aliases = {}
+        for horse in self.records():
+            for name in [horse['identity']['name']] + horse['identity'].get('aliases', []):
+                aliases.setdefault(norm(name), []).append(horse['horse_key'])
+        atomic(self.root / 'aliases.json', {'schema_version': SCHEMA, 'aliases': aliases})
+
+    def update_identity(self, candidate, expected_hash, reason, reviewed_by):
+        """Explicit, CAS-protected identity enrichment with append-only evidence history."""
+        if candidate.get('schema_version') != SCHEMA:
+            raise ValueError('unsupported schema')
+        key = safe(candidate['horse_key'])
+        if candidate.get('facts'):
+            raise ValueError('identity update cannot modify pedigree facts')
+        if not isinstance(reason, str) or not reason.strip() or not isinstance(reviewed_by, str) or not reviewed_by.strip():
+            raise ValueError('identity update requires a reason and reviewer')
+        with self.writer():
+            path = self.path(key)
+            record = read(path)
+            if record is None or expected_hash is None or digest(record) != expected_hash:
+                raise ValueError('CONCURRENT_UPDATE: identity update requires current record hash')
+            identity = candidate['identity']
+            self.validate_identity(identity, key)
+            before = record['identity']
+            if before == identity:
+                return {'horse_key': key, 'content_hash': digest(record),
+                        'identity_updated': False, 'persistence': 'LOCAL_READBACK_VERIFIED'}
+            if before['status'] == 'RESOLVED' and identity['status'] != 'RESOLVED':
+                raise ValueError('resolved identity cannot be downgraded')
+            for provider, value in before.get('external_ids', {}).items():
+                if identity.get('external_ids', {}).get(provider) != value:
+                    raise ValueError('existing external ID cannot be silently replaced')
+            event = {'before': before, 'after': identity, 'at': stamp(),
+                     'reason': reason.strip(), 'reviewed_by': reviewed_by.strip()}
+            event['event_hash'] = digest(event)
+            record.setdefault('identity_revisions', []).append(event)
+            record['identity'] = identity
+            atomic(path, record)
+            self.reindex()
+            return {'horse_key': key, 'content_hash': digest(record),
+                    'identity_updated': True, 'identity_revision_hash': event['event_hash'],
+                    'persistence': 'LOCAL_READBACK_VERIFIED',
+                    'git_persistence': 'UNCONFIRMED', 'snapshot_persistence': 'NOT_EVALUATED'}
 
     def check_cycle(self, child, ancestor):
         visited, pending = set(), [ancestor]
@@ -267,11 +308,20 @@ class Registry:
             return direct
         parent = self.edge(key, path[:-1], cutoff)
         if parent['status'] != 'VERIFIED':
+            # A direct long-path claim cannot override a conflicting/unresolved
+            # intermediate ancestor identity or relationship.
+            if parent['status'] in {'CONFLICT', 'UNVERIFIED', 'IDENTITY_UNRESOLVED'}:
+                return {'status': parent['status'], 'candidates': [direct, parent]}
             return direct if direct['status'] != 'NOT_FOUND' else parent
         result = self.fact(parent['value'], 'parent:' + path[-1], cutoff)
         if direct['status'] != 'NOT_FOUND':
-            if direct['status'] == 'VERIFIED' and result['status'] == 'VERIFIED' and direct['value'] != result['value']:
+            if result['status'] == 'CONFLICT':
                 return {'status': 'CONFLICT', 'candidates': [direct, result]}
+            if direct['status'] == 'VERIFIED':
+                if result['status'] == 'VERIFIED' and direct['value'] != result['value']:
+                    return {'status': 'CONFLICT', 'candidates': [direct, result]}
+                if result['status'] in {'UNVERIFIED', 'IDENTITY_UNRESOLVED'}:
+                    return {'status': result['status'], 'candidates': [direct, result]}
             return direct
         if result['status'] == 'VERIFIED':
             result = dict(result, dependencies=[parent, result.copy()])
@@ -372,7 +422,13 @@ class Registry:
             for item in missing:
                 recent = [f for f in failures if f['item'] == item['item'] and
                           f.get('source_key') == request.get('source_key', 'manual')]
-                if not force and now >= dt(deadline_at):
+                # Exhaustion is persistent, including with --force or after a
+                # backoff deadline. A different source_key has its own budget.
+                if recent and (recent[-1].get('retry_exhausted') or
+                               len(recent) >= recent[-1].get('max_retries', 2) + 1):
+                    item.update(retry_state='RETRY_EXHAUSTED', last_failure=recent[-1]['status'])
+                elif not force and (now >= dt(deadline_at) or
+                                    (recent and recent[-1].get('budget_exhausted'))):
                     item.update(retry_state='BUDGET_EXHAUSTED')
                 elif recent and not force and dt(recent[-1]['next_retry_at']) > now:
                     item.update(retry_state='DEFERRED', next_retry_at=recent[-1]['next_retry_at'],
@@ -391,7 +447,8 @@ class Registry:
                 not_found_hours=24, budget_seconds=60):
         if status not in {'NOT_FOUND', 'SOURCE_ERROR', 'SAVE_ERROR'}:
             raise ValueError('invalid failure status')
-        if max_retries < 0 or not_found_hours <= 0 or budget_seconds <= 0:
+        if (not isinstance(max_retries, int) or isinstance(max_retries, bool) or
+                max_retries < 0 or not_found_hours <= 0 or budget_seconds <= 0):
             raise ValueError('invalid retry configuration')
         with self.writer():
             path = self.root / 'research' / (safe(request_id) + '.json')
@@ -400,16 +457,25 @@ class Registry:
                 raise ValueError('failure must refer to a pending request item')
             prior = [f for f in r['failures'] if f['item'] == item and f['source_key'] == source_key]
             current = dt(stamp())
-            exhausted = len(prior) >= max_retries + 1
+            if prior and (prior[-1].get('retry_exhausted') or
+                          len(prior) >= prior[-1].get('max_retries', max_retries) + 1):
+                raise ValueError('RETRY_EXHAUSTED: choose another source or request')
+            if prior and prior[-1].get('budget_exhausted'):
+                raise ValueError('BUDGET_EXHAUSTED: choose another source or request')
+            # Do not increase the existing retry allowance by changing the CLI flag.
+            limit = prior[0].get('max_retries', max_retries) if prior else max_retries
+            exhausted = len(prior) + 1 >= limit + 1
             budget_end = dt(prior[0]['at']) + timedelta(seconds=budget_seconds) if prior else current + timedelta(seconds=budget_seconds)
-            delay = not_found_hours * 3600 if status == 'NOT_FOUND' or exhausted or current >= budget_end else min(2 ** len(prior), budget_seconds)
+            budget_exhausted = current >= budget_end
+            delay = not_found_hours * 3600 if status == 'NOT_FOUND' or exhausted or budget_exhausted else min(2 ** len(prior), budget_seconds)
             r['failures'].append({'item': item, 'status': status, 'source_key': source_key,
                                   'at': current.isoformat(), 'next_retry_at': (current + timedelta(seconds=delay)).isoformat(),
-                                  'retry_exhausted': exhausted or current >= budget_end})
+                                  'max_retries': limit, 'retry_exhausted': exhausted,
+                                  'budget_exhausted': budget_exhausted})
             atomic(path, r)
             return r['failures'][-1]
 
-    def audit(self):
+    def audit(self, repo=None):
         errors = []
         external_ids = {}
         for record in self.records():
@@ -418,6 +484,19 @@ class Registry:
                     raise ValueError('schema mismatch')
                 safe(record['horse_key'])
                 self.validate_identity(record['identity'], record['horse_key'])
+                history = record.get('identity_revisions', [])
+                for index, event in enumerate(history):
+                    event_body = {k: v for k, v in event.items() if k != 'event_hash'}
+                    if digest(event_body) != event['event_hash']:
+                        raise ValueError('identity revision hash mismatch')
+                    if not event.get('reason') or not event.get('reviewed_by'):
+                        raise ValueError('identity revision missing review')
+                    dt(event['at'])
+                    if index and history[index - 1]['after'] != event['before']:
+                        raise ValueError('identity revision chain broken')
+                    self.validate_identity(event['after'], record['horse_key'])
+                if history and history[-1]['after'] != record['identity']:
+                    raise ValueError('identity revision does not match current identity')
                 for provider, value in record['identity'].get('external_ids', {}).items():
                     pair = (provider, value)
                     if pair in external_ids:
@@ -459,6 +538,9 @@ class Registry:
                     raise ValueError('migration file count mismatch')
                 if manifest['verified'] != 0 or manifest['unverified'] != len(claims):
                     raise ValueError('migration verification summary mismatch')
+                if repo is not None and migration_manifest(repo, manifest['commit'],
+                                                             manifest['first_observed_at']) != manifest:
+                    raise ValueError('migration differs from referenced commit')
             except (ValueError, KeyError, TypeError) as exc:
                 errors.append({'migration': str(exc)})
         return {'status': 'PASS' if not errors else 'FAIL', 'horses': len(self.records()),
@@ -503,7 +585,7 @@ def git_save(repo, root, expected_head):
     if git('rev-parse', 'HEAD') != expected_head:
         raise ValueError('CONCURRENT_UPDATE: branch HEAD changed')
     with Registry(root).writer():
-        if Registry(root).audit()['status'] != 'PASS':
+        if Registry(root).audit(repo=repo)['status'] != 'PASS':
             raise ValueError('registry audit failed')
         staged = git('diff', '--cached', '--name-only').splitlines()
         if any(not p.startswith(relative + '/') for p in staged):
@@ -526,49 +608,80 @@ def git_save(repo, root, expected_head):
                 'snapshot_persistence': 'NOT_EVALUATED', 'verified_at': stamp()}
 
 
-def migrate(repo, root, commit, observed_at):
-    """Lossless claim-level import, never guess identities or upgrade provenance."""
+def migration_manifest(repo, commit, observed_at):
+    """Reconstruct every imported byte exclusively from the requested Git commit."""
     dt(observed_at)
-    repo, root = Path(repo), Path(root)
-    previous = read(root / 'migration.json')
-    if previous:
-        if previous['commit'] != commit:
-            raise ValueError('migration commit changed; keep prior manifest and use a separate import batch')
-        observed_at = previous['first_observed_at']
-    files = sorted(set(repo.glob('docs/yosou/**/*.md')) |
-                   set(repo.glob('docs/validation/records/*')) |
-                   set(repo.glob('docs/validation/snapshots/*.md')))
+    repo = Path(repo).resolve()
+    def git(*args):
+        return subprocess.check_output(['git', '-C', str(repo), *args],
+                                       stderr=subprocess.PIPE)
+    sha = git('rev-parse', '--verify', commit + '^{commit}').decode().strip()
+    entries = git('ls-tree', '-r', '-z', sha, '--', 'docs/yosou',
+                  'docs/validation/records', 'docs/validation/snapshots')
+    files = []
+    for entry in entries.split(b'\0'):
+        if not entry:
+            continue
+        meta, name = entry.split(b'\t', 1)
+        relative = name.decode('utf-8')
+        if meta.split()[0] not in {b'100644', b'100755'}:
+            continue
+        if ((relative.startswith('docs/yosou/') and relative.endswith('.md')) or
+            (relative.startswith('docs/validation/records/') and
+             '/' not in relative[len('docs/validation/records/'):]) or
+            (relative.startswith('docs/validation/snapshots/') and
+             '/' not in relative[len('docs/validation/snapshots/'):] and
+             relative.endswith('.md'))):
+            files.append(relative)
     claims, inventory = [], []
     pattern = re.compile(r'血統|母父|父系|母系|内包|Danzig|Roberto|Caro|ノーザンダンサー|ディープインパクト')
-    for path in files:
+    for relative in sorted(files):
+        content = git('show', sha + ':' + relative)
         count = 0
-        for number, line in enumerate(path.read_text(encoding='utf-8').splitlines(), 1):
+        for number, line in enumerate(content.decode('utf-8').splitlines(), 1):
             if not pattern.search(line):
                 continue
-            relative = path.relative_to(repo).as_posix()
-            claim_id = digest({'commit': commit, 'path': relative, 'line': number, 'text': line})
+            claim_id = digest({'commit': sha, 'path': relative, 'line': number, 'text': line})
             components = split_claim(line)
             claims.append({'components': components, 'claim_id': claim_id, 'status': 'UNVERIFIED',
                            'identity_status': 'IDENTITY_UNRESOLVED', 'text': line,
                            'claim_kind': 'LEGACY_CLAIM_REQUIRES_REVIEW',
                            'source': {'source_class': 'LEGACY_REPOSITORY', 'origin_group': 'horse-man',
                                       'acquisition_method': 'repository-line-extraction',
-                                      'url': 'https://github.com/eda-hub/horse-man/blob/' + commit + '/' + relative + '#L' + str(number),
+                                      'url': 'https://github.com/eda-hub/horse-man/blob/' + sha + '/' + relative + '#L' + str(number),
                                       'record_hash': hashlib.sha256(line.encode()).hexdigest()},
                            'first_observed_at': observed_at, 'captured_at': observed_at,
-                           'path': relative, 'line': number, 'commit': commit})
+                           'path': relative, 'line': number, 'commit': sha})
             count += 1
-        inventory.append({'path': path.relative_to(repo).as_posix(), 'commit': commit,
-                          'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'extracted': count})
-    manifest = {'schema_version': SCHEMA, 'commit': commit, 'first_observed_at': observed_at,
-                'files': inventory, 'extracted': len(claims), 'verified': 0,
-                'unverified': len(claims), 'duplicate_texts': len(claims) - len({c['text'] for c in claims}),
-                'conflicts': 'NOT_ASSESSED_IDENTITIES_UNRESOLVED',
-                'unaccessed': ['past chats', 'original external sources', 'other branches'],
-                'claims': claims}
+        inventory.append({'path': relative, 'commit': sha,
+                          'sha256': hashlib.sha256(content).hexdigest(), 'extracted': count})
+    return {'schema_version': SCHEMA, 'commit': sha, 'first_observed_at': observed_at,
+            'files': inventory, 'extracted': len(claims), 'verified': 0,
+            'unverified': len(claims), 'duplicate_texts': len(claims) - len({c['text'] for c in claims}),
+            'conflicts': 'NOT_ASSESSED_IDENTITIES_UNRESOLVED',
+            'unaccessed': ['past chats', 'original external sources', 'other branches'],
+            'claims': claims}
+
+
+def migrate(repo, root, commit, observed_at):
+    """Commit-pinned, idempotent migration that preserves an existing manifest."""
+    dt(observed_at)
     with Registry(root).writer():
-        atomic(root / 'migration.json', manifest)
-    return {'files': len(files), 'extracted': len(claims), 'verified': 0}
+        path = Path(root) / 'migration.json'
+        previous = read(path)
+        if previous:
+            if previous['commit'] != subprocess.check_output(
+                    ['git', '-C', str(repo), 'rev-parse', '--verify', commit + '^{commit}'],
+                    text=True, stderr=subprocess.PIPE).strip():
+                raise ValueError('migration commit changed; keep prior manifest and use a separate import batch')
+            observed_at = previous['first_observed_at']
+        manifest = migration_manifest(repo, commit, observed_at)
+        if previous:
+            if manifest != previous:
+                raise ValueError('migration manifest differs from referenced commit; existing manifest preserved')
+        else:
+            atomic(path, manifest)
+        return {'files': len(manifest['files']), 'extracted': len(manifest['claims']), 'verified': 0}
 
 
 def main():
@@ -578,12 +691,13 @@ def main():
     s = sub.add_parser('search'); s.add_argument('query')
     s = sub.add_parser('claims'); s.add_argument('query')
     s = sub.add_parser('save'); s.add_argument('candidate'); s.add_argument('--expected-hash')
+    s = sub.add_parser('update-identity'); s.add_argument('candidate'); s.add_argument('--expected-hash', required=True); s.add_argument('--reason', required=True); s.add_argument('--reviewed-by', required=True)
     s = sub.add_parser('plan'); s.add_argument('request'); s.add_argument('--force', action='store_true')
     s = sub.add_parser('failure'); s.add_argument('request_id'); s.add_argument('item'); s.add_argument('status', choices=['NOT_FOUND', 'SOURCE_ERROR', 'SAVE_ERROR']); s.add_argument('--source-key', default='manual'); s.add_argument('--max-retries', type=int, default=2); s.add_argument('--not-found-hours', type=float, default=24); s.add_argument('--budget-seconds', type=float, default=60)
     s = sub.add_parser('derive'); s.add_argument('horse_key'); s.add_argument('--ancestor', action='append', default=[]); s.add_argument('--depth', type=int, default=5); s.add_argument('--cutoff', required=True); s.add_argument('--taxonomy-version')
     s = sub.add_parser('migrate'); s.add_argument('--repo', default='.'); s.add_argument('--commit', required=True); s.add_argument('--observed-at', default=stamp())
     s = sub.add_parser('git-save'); s.add_argument('--repo', default='.'); s.add_argument('--expected-head', required=True)
-    sub.add_parser('audit')
+    s = sub.add_parser('audit'); s.add_argument('--repo', default='.')
     args = parser.parse_args()
     registry = Registry(args.root)
     try:
@@ -591,12 +705,13 @@ def main():
         elif args.command == 'claims':
             result = [c for c in read(Path(args.root) / 'migration.json', {'claims': []})['claims'] if norm(args.query) in norm(c['text'])]
         elif args.command == 'save': result = registry.save(read(Path(args.candidate)), args.expected_hash)
+        elif args.command == 'update-identity': result = registry.update_identity(read(Path(args.candidate)), args.expected_hash, args.reason, args.reviewed_by)
         elif args.command == 'plan': result = registry.plan(read(Path(args.request)), args.force)
         elif args.command == 'derive': result = registry.derive(args.horse_key, args.ancestor, args.depth, args.cutoff, args.taxonomy_version)
         elif args.command == 'failure': result = registry.failure(args.request_id, args.item, args.status, args.source_key, args.max_retries, args.not_found_hours, args.budget_seconds)
         elif args.command == 'migrate': result = migrate(args.repo, args.root, args.commit, args.observed_at)
         elif args.command == 'git-save': result = git_save(args.repo, args.root, args.expected_head)
-        else: result = registry.audit()
+        else: result = registry.audit(repo=args.repo)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 1 if isinstance(result, dict) and result.get('status') == 'FAIL' else 0
     except (ValueError, KeyError, TypeError, OSError, subprocess.CalledProcessError) as exc:
