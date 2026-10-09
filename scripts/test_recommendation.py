@@ -7,7 +7,7 @@ from pathlib import Path
 
 from check_prediction_compliance import ComplianceError, validate_gate
 from recommendation import (CONTRACT, GATE_SCHEMA, INTENT_SCHEMA, audit, build,
-                            settle, ticket_key, validate_snapshot, verify, sha256, display, report)
+                            settle, ticket_key, validate_snapshot, verify, sha256, display, report, seal)
 from test_check_prediction_compliance import (
     add_next_production_snapshot, next_gate, receipt_record,
     write, write_contract_state, write_receipts,
@@ -175,6 +175,7 @@ class RecommendationTest(unittest.TestCase):
         rec["reason"] = "同時好走根拠不足"
         rec["tickets"] = []
         rec["main_ticket_types"] = []
+        rec["candidate_decisions"] = []
         rec["unique_ticket_count"] = 0
         rec["dependency_audit"]["anchor_dependency"] = "NONE"
         validate_snapshot(root, rec)
@@ -284,6 +285,47 @@ class RecommendationTest(unittest.TestCase):
             self.assertEqual(rec["tickets"], [])
             validate_snapshot(root, rec)
             self.assertEqual(settle(rec, {"status": "OFFICIAL"})["status"], "NOT_APPLICABLE")
+
+
+    def test_18_seal_revision_archives_previous_gate_without_double_count(self):
+        root, g, pred = self.root()
+        first_gate, first_path = self.artifacts(root, g, pred)
+        prior = self.rec(root, pred)
+        later = copy.deepcopy(prior)
+        later["recommendation_id"] = REC_ID + "-02"
+        later["revision"] = 2
+        later["supersedes"] = REC_ID
+        later["supersedes_sha256"] = sha256(root / first_path)
+        later["fixed_at_jst"] = DATE + "T10:01:00+09:00"
+        second_artifact = f"docs/validation/recommendations/{DATE}/{REC_ID}-02.json"
+        write(root, second_artifact, json.dumps(later, ensure_ascii=False))
+        intent_path = f"docs/validation/recommendation-intents/{DATE}/second.json"
+        intent = {"schema_version": INTENT_SCHEMA, "race_date_jst": DATE,
+                  "race_id": RACE, "recommendation_id": later["recommendation_id"],
+                  "artifact_path": second_artifact, "prediction_ref": later["prediction_ref"],
+                  "deadline_jst": POST}
+        write(root, intent_path, json.dumps(intent))
+        rid = later["recommendation_id"] + "-RECEIPT"
+        receipt = receipt_record(rid, later["recommendation_id"], second_artifact,
+                                 verified=DATE + "T10:02:00+09:00", post=POST)
+        receipt["receipt_verified_at_jst"] = DATE + "T10:03:00+09:00"
+        receipt_path = root / f"docs/validation/persistence-receipts/{DATE}.md"
+        fence = "\x60\x60\x60"
+        receipt_path.write_text(receipt_path.read_text() +
+                                fence + "persistence-receipt-v1\n" +
+                                json.dumps(receipt) + "\n" + fence + "\n")
+        saved = seal(root, second_artifact, "second", rid)
+        self.assertEqual(saved, root / first_gate)
+        archive = root / f"docs/validation/recommendation-gates/history/{DATE}/{REC_ID}.json"
+        self.assertTrue(archive.is_file())
+        self.assertEqual(verify(root, saved)["revision"], 2)
+        self.assertEqual(verify(root, archive)["revision"], 1)
+        self.assertTrue(audit(root))
+        manifest = "docs/validation/results/history-report.json"
+        write(root, manifest, json.dumps({"items": [{"gate_path": str(archive.relative_to(root))}]}))
+        with self.assertRaisesRegex(ComplianceError, "superseded gate"):
+            report(root, root / manifest)
+
 
 
 if __name__ == "__main__":
