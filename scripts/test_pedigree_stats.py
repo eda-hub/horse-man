@@ -226,9 +226,10 @@ class PedigreeStatsTest(unittest.TestCase):
         second_path, second = self.calculate()
         self.assertNotEqual(first_path, second_path)
         self.assertEqual(second["groups"]["sire-a"]["cohorts"]["MATCH"]["wins"], 2)
-        # Old manifest is immutable input: restoring it restores previous snapshot.
-        with self.assertRaisesRegex(ValueError, "input_path missing or changed"):
-            verify(self.root, first_path)
+        # 元manifestが訂正されても、旧版は内容アドレス保存した入力で認証できる。
+        self.assertEqual(verify(self.root, first_path)["content_sha256"], first["content_sha256"])
+        self.assertEqual(verify(self.root, second_path)["content_sha256"], second["content_sha256"])
+        self.assertTrue(audit(self.root))
 
     def test_10_scope_incomplete_never_reports_complete(self):
         self.manifest["all_runners_included"] = False
@@ -305,7 +306,7 @@ class PedigreeStatsTest(unittest.TestCase):
 
     def test_18_taxonomy_cutoff_and_training_mapping_no_guess(self):
         self.definition["mode"] = "FORWARD"
-        self.definition["training_classification"]["regions"] = {"EU": ["FR"]}
+        self.definition["training_classification"]["regions"] = {"EU": ["FR"], "US": ["US"]}
         _, obj = self.calculate()
         self.assertEqual(obj["horse_trace"]["bob"]["groups"]["sire-us"]["status"], "UNKNOWN")
         self.assertEqual(obj["horse_trace"]["bob"]["groups"]["sire-us"]["reason"],
