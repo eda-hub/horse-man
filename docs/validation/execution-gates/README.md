@@ -25,6 +25,8 @@ checkerは `manual_release + schema_version` の組み合わせで検証契約�
 - manual releaseとcontract-stateが矛盾する場合はfail closedする。
 
 
+推奨買い目は予想v2とは別の `recommendation-compliance-v1` で検証する。詳細は [推奨買い目の契約・保存・監査](../recommendations/README.md)。`contract-state.json` の `recommendation_effective_race_date=null` の間は、準備済みv2 gateにも新推奨を遡及必須化しない。Stage 2で有効開催日を固定すると、それ以降のPrediction gateに対応する推奨gateが必須になる（推奨なし・明示的印のみ・未完了も分類）。PredictionとRecommendationの合否および市場sidecarの合否は混ぜない。
+
 `prediction-compliance-v2` は実購入・BettingをProduction正式性の必須入力にしない。Production、適用Shadow、発走前証跡、data cutoff相当の時点性、結果後回顧を監査する。市場・仮想収益検証を行う場合は任意sidecarとして別契約に分離する。
 
 ### v2 Production必須構造
