@@ -253,7 +253,7 @@ class Registry:
             require(file_blob_sha(self.path(key)) == expected_blob, "blob競合。読直して再統合")
             horse = self.read_horse(key)
             require(horse["identity"]["status"] == "RESOLVED", "同定未解決の事実は確定登録不可")
-            revision = {k: v for k, v in payload.items() if k not in ("horse_key", "revision_id")}
+            revision = {k: v for k, v in payload.items() if k not in ("horse_key", "revision_id", "saved_at")}
             self._validate_revision(horse, revision)
             fp = hash_object(revision)
             for existing in horse["revisions"]:
@@ -266,6 +266,7 @@ class Registry:
                     raise RegistryError("同一source record/hashの内容不一致")
             revision["content_sha256"] = fp
             revision["revision_id"] = "rev-" + fp[:20]
+            revision["saved_at"] = now()
             horse["revisions"].append(revision)
             receipt = atomic_save(self.path(key), horse, expected_blob)
             return {"status": "ADDED", "revision_id": revision["revision_id"], "receipt": receipt}
@@ -379,7 +380,7 @@ class Registry:
             if field in ("sire", "dam"):
                 result = self.fact(key, "parent." + field, cutoff, mode)
             else:
-                path = "DS" if field == "dam_sire" else field.split("@", 1)[1]
+                path = "D" if field == "dam_sire" else field.split("@", 1)[1]
                 target, parents, state = self.follow(key, path, cutoff, mode)
                 result = (self.fact(target, "parent.sire" if field == "dam_sire"
                                     else "attribute." + field.split("@")[0], cutoff, mode)
@@ -480,6 +481,7 @@ class Registry:
                   "aliases": {k: sorted(set(v)) for k, v in sorted(names.items())}}
         path = self.root / "aliases.json"
         with single_writer(self.root):
+            guard_head(self.expected_head, self.root)
             receipt = atomic_save(path, output, file_blob_sha(path))
             return {"receipt": receipt, "aliases": len(names)}
 
