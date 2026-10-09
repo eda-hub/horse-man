@@ -10,10 +10,10 @@
 | 4 | UNKNOWN/CONFLICTを非該当に混ぜない | MATCH/NON_MATCH/UNKNOWN/CONFLICTと理由別不足/coverage。`test_04` | テスト入力で完了 |
 | 5 | 米国型/欧州型と調教履歴確認・ユーザー照会 | 対象HORSE/SIRE/DAM_SIRE/ANCESTORの本人の確認済み調教国だけ使用。`test_05/06/18/20`。未確認・多地域の理由を表示 | 安全な保留と判定は実装、ユーザー問合せ回答ログ/外部検証は未実装 |
 | 6 | 同着・取消・中止・失格・未確定・訂正・分母0 | 版付き整数着順ルールを明示し`test_01/09/11/12`で確認 | テスト実装済。provider固有の降着/除外規則の正式対応は未確定 |
-| 7 | cutoffとFORWARD/REPLAY | 結果観測/出走観測/Registry同定・血統・分類時点を検査。`test_07/08/16/21`。全出力は研究Shadow限定 | テスト実装済。実運用FORWARD接続は未実装 |
+| 7 | cutoffとFORWARD/REPLAY | 結果観測/出走観測/Registry同定・血統・分類時点を検査。`test_07/08/16/21/24`。後日取得のバックデート事実もcutoffではUNKNOWNとする。全出力は研究Shadow限定 | テスト実装済。実運用FORWARD接続は未実装 |
 | 8 | 同一入力冪等・旧snapshot保持 | input/definition原本archive・digest識別・原子保存・読戻し・改変監査。`test_09/14/21` | テスト実装済 |
 | 9 | 差分再計算・不要な外部再取得禁止 | `--previous`で前snapshotの登録済みrevision依存hashが同じ馬の派生を再利用。`test_19/20`。外部API照会なし | Git JSON機構実装済。DB/大規模ジョブ連携は後続 |
-| 10 | 保存失敗・不足・再開 | atomically archived inputs / readback, partial+missing/coverage, verify/audit。Snapshot 0件でも集計完了と誤認しない | Git JSON準備実装。実DB障害/再開ジョブは後続 |
+| 10 | 保存失敗・不足・再開 | 原子保存・入力archive・読戻し、partial+missing/coverage、verify/audit。実行前定義だけ存在する場合・公式結果manifestが更新され未集計の場合も不足検出（`test_23`）。Snapshot 0件でも集計完了と誤認しない | Git JSON準備実装。実DB障害/再開ジョブは後続 |
 | 11 | 公式実データ母数の照合 | 全出走宣言と出所hash必須。スコープ未完了はPARTIAL | 未完了：Phase 2の公式出走/結果原票の取得・照合作業が必要 |
 | 12 | 重賞固有Shadow隔離・Prediction非干渉 | `production_eligible=false` と `usage=RESEARCH_SHADOW_ONLY` 固定。既存manual/checker/既存記録を不変更 | 構造上隔離。Phase 8での性能評価・Production昇格は未実装 |
 
