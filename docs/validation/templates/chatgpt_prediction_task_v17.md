@@ -21,7 +21,7 @@
 - 適用Shadowの対象/非該当/未完了
 - snapshot / receipt
 - **次期推奨構成**: Production固定後、独立したオッズ非依存の推奨買い目（券種・馬番の組み合わせ・ユニーク点数・優先順位・短い理由）、または根拠付き「推奨なし」を提示する。明示的な印のみ依頼・未完了も別状態として保存する。
-- 推奨生成にオッズ・人気・期待値・実購入・予算入力は不要。◎○と同時好走・着順適性を先に確認し、原則1券種（多くても2種類程度）の自然な本線を選ぶ。旧☆価格目的追加・非◎縦目は移植しない。
+- 推奨生成にオッズ・人気・期待値・実購入・予算入力は不要。◎○と同時好走・着順適性を先に確認し、原則1券種（多くても2種類程度）の自然な本線を選ぶ。複勝は○など根拠ある非◎も対象。三連単は◎1着を原則とし、○/▲1着・◎2着の根拠ある逆転も認める。旧☆価格目的追加・馬連/ワイド等の非◎縦目は移植しない。
 
 ## 根拠契約
 
@@ -60,7 +60,9 @@
 4. FIX内容のJSONファイルbytesからSHA-256を保持し、snapshot保存・読戻し、同一artifactのreceipt保存・読戻し後に `--task-complete --fixed-content-sha256` で一致確認する。
 5. `prediction-compliance-v2` gateを作成し、snapshot内容とgate内容を完全照合する。
 6. persistence auditとcompliance auditの両方で未宣言snapshot・未登録gateがないことを確認する。
-7. 保存・監査が未完了でも予想内容を結果後に捏造・補完しない。
+7. 推奨が要求される場合、Prediction作成前の事前宣言に `recommendation_scope`（race_id/推奨ID/保存予定path）を含める。固定後に独立推薦intentと推奨snapshotを作成し、推薦JSON全体の `content_sha256` を記録したreceiptで固定時刻→保存確認→receipt読戻し→発走時刻の順を保証する。Prediction gateも各推奨revisionごとにSHA-256付きの固定証跡を残す。
+8. 推奨の前向き適格は元Predictionの `FORWARD + Production ELIGIBLE` が前提。結果照合では同じ開催日・レースIDを必須検証する。旧版は当時のPredictionを参照して失効状態を保つ。
+9. 保存・監査が未完了でも予想内容を結果後に捏造・補完しない。
 
 旧Markdown snapshotはv1.6.1履歴互換のため継続して読めるが、新規v1.7.0 Productionの標準形式にはしない。
 
