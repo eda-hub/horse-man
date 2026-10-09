@@ -41,3 +41,8 @@
 - `docs/manual/` を変更・複製して別正本を作らない。
 - `docs/yosou/jra_racing/` の代表レースで適用rule IDsを説明できる。
 - 新規featureはdata_cutoff/provenanceを保持し、初期状態ではProductionへ逆流しない。
+
+
+## 血統条件別統計のGit準備実装（PR68 §11）
+
+PR69に `scripts/pedigree_stats.py` を追加。版付き条件定義/全出走manifestに基づく父・母父・父系・母父系・祖先/クロス・調教地域のグループ分類、公式結果の率/母数/coverage、UNKNOWN/CONFLICTの明示、FORWARD/REPLAY時点監査、入力を固定した`condition-stat-snapshot-v1`、差分再計算（`--previous`）をCLIで実行できる。利用契約は[README](../../../../data/condition_stats/README.md)。このJSONは既存`feature.condition_stat_snapshot`へ将来接続する準備形式であり、DBテーブルやPhase 3アプリ側Producer/Consumerはまだ未実装。血統追加得点やProduction順位の自動更新を行わない。Phase 2公式全出走母数の取得→Phase 3実データ照合→Phase 4 UI→Phase 8前向き検証・別PRの順序を維持する。
