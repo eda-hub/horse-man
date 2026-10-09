@@ -366,4 +366,110 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(read(self.root / 'migration.json'), forged)
 
 
+    def test_identity_as_of_cutoff_does_not_retroactively_verify_attributes(self):
+        old_candidate = self.candidate('later_identity', [self.fact('attribute:sex', '牝', EARLY)])
+        old_candidate['identity'] = {'name': '調査中', 'aliases': [], 'external_ids': {},
+                                      'status': 'IDENTITY_UNRESOLVED'}
+        self.r.save(old_candidate)
+        request = {'schema_version': SCHEMA, 'request_id': 'identity-asof',
+                   'horse_key': 'later_identity', 'fields': ['attribute:sex'],
+                   'data_cutoff': EARLY}
+        self.assertEqual(self.r.fact('later_identity', 'attribute:sex', EARLY)['status'],
+                         'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.plan(request)['missing'][0]['status'], 'IDENTITY_UNRESOLVED')
+        upgrade = copy.deepcopy(old_candidate)
+        upgrade['facts'] = []
+        upgrade['identity'].update(
+            status='RESOLVED', external_ids={'register': 'confirmed-later'},
+            identity_evidence={'source': 'official', 'record_key': 'confirmed-later'})
+        with patch('pedigree_registry.stamp', return_value=LATE):
+            self.r.update_identity(upgrade, digest(read(self.r.path('later_identity'))),
+                                   '元資料で照合', '確認者')
+        # A later identity must not change a historical plan, source evidence or lookup.
+        self.assertEqual(self.r.search('later_identity', EARLY)['status'],
+                         'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.search('confirmed-later', EARLY)['matches'], [])
+        self.assertEqual(self.r.search('confirmed-later', NOW)['status'], 'RESOLVED')
+        self.assertEqual(self.r.fact('later_identity', 'attribute:sex', EARLY)['status'],
+                         'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.plan(request)['missing'][0]['status'], 'IDENTITY_UNRESOLVED')
+        verified = self.r.fact('later_identity', 'attribute:sex', NOW)
+        self.assertEqual(verified['status'], 'VERIFIED')
+        self.assertEqual(verified['identity_evidence'], upgrade['identity']['identity_evidence'])
+        self.assertEqual(self.r.audit()['status'], 'PASS')
+
+    def test_ancestor_identity_as_of_cutoff_blocks_direct_and_inferred_paths(self):
+        unresolved = self.candidate('late_sire')
+        unresolved['identity'] = {'name': '父候補', 'status': 'IDENTITY_UNRESOLVED',
+                                  'external_ids': {}, 'aliases': []}
+        self.r.save(unresolved)
+        confirmed = copy.deepcopy(unresolved)
+        confirmed['identity'].update(
+            status='RESOLVED', external_ids={'register': 'late-sire-id'},
+            identity_evidence={'source': 'official', 'record_key': 'late-sire-id'})
+        with patch('pedigree_registry.stamp', return_value=LATE):
+            self.r.update_identity(confirmed, digest(read(self.r.path('late_sire'))),
+                                   '父候補の同定', '確認者')
+        self.add('late_sire', [self.fact('parent:S', 'ancestor', EARLY)])
+        self.add('horse', [self.fact('parent:S', 'late_sire', EARLY),
+                           self.fact('parent:SS', 'ancestor', EARLY)])
+        self.assertEqual(self.r.edge('horse', 'S', EARLY)['status'], 'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.edge('horse', 'SS', EARLY)['status'], 'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.fact('late_sire', 'parent:S', EARLY)['status'],
+                         'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.edge('horse', 'SS', NOW)['status'], 'VERIFIED')
+        self.assertEqual(self.r.derive('horse', ['ancestor'], 2, EARLY)['containment']['ancestor']['status'],
+                         'UNKNOWN')
+        self.assertEqual(self.r.audit()['status'], 'PASS')
+
+    def test_identity_evidence_changes_only_from_revision_time(self):
+        before = self.r.search('horse', EARLY)['matches'][0]['identity']
+        enriched = self.candidate('horse')
+        enriched['identity']['identity_evidence'] = {
+            'source': 'new-provider', 'record_key': 'later-proof'}
+        with patch('pedigree_registry.stamp', return_value=LATE):
+            self.r.update_identity(enriched, digest(read(self.r.path('horse'))),
+                                   '根拠更新', '確認者')
+        self.assertEqual(self.r.search('horse', EARLY)['matches'][0]['identity'], before)
+        self.assertEqual(self.r.search('horse', NOW)['matches'][0]['identity'],
+                         enriched['identity'])
+        with patch('pedigree_registry.stamp', return_value=EARLY):
+            with self.assertRaisesRegex(ValueError, 'cannot precede'):
+                changed = copy.deepcopy(enriched)
+                changed['identity']['aliases'] = ['別名']
+                self.r.update_identity(changed, digest(read(self.r.path('horse'))),
+                                       '過去へ変更', '確認者')
+
+    def test_force_cannot_restart_elapsed_budget_and_failure_stays_blocked(self):
+        request = self.request(budget_seconds=2, source_key='provider')
+        with patch('pedigree_registry.stamp', return_value=EARLY):
+            original = self.r.plan(request)
+            first = self.r.failure('req', 'parent:S', 'SOURCE_ERROR',
+                                   source_key='provider', budget_seconds=2)
+        self.assertFalse(first['retry_exhausted'])
+        with patch('pedigree_registry.stamp', return_value=LATE):
+            forced = self.r.plan(request, True)
+            normal = self.r.plan(request)
+            self.assertEqual(forced['missing'][0]['retry_state'], 'BUDGET_EXHAUSTED')
+            self.assertEqual(normal['missing'][0]['retry_state'], 'BUDGET_EXHAUSTED')
+            self.assertEqual(forced['started_at'], original['started_at'])
+            self.assertEqual(forced['deadline_at'], original['deadline_at'])
+            self.assertEqual(forced['failures'], normal['failures'])
+            with self.assertRaisesRegex(ValueError, 'BUDGET_EXHAUSTED'):
+                self.r.failure('req', 'parent:S', 'SOURCE_ERROR',
+                               source_key='provider', budget_seconds=2)
+        self.assertEqual(len(read(self.root / 'research/req.json')['failures']), 1)
+
+    def test_expired_request_without_failures_cannot_be_forced(self):
+        request = self.request(budget_seconds=1)
+        with patch('pedigree_registry.stamp', return_value=EARLY):
+            initial = self.r.plan(request)
+        with patch('pedigree_registry.stamp', return_value=LATE):
+            again = self.r.plan(request, True)
+            self.assertEqual(again['missing'][0]['retry_state'], 'BUDGET_EXHAUSTED')
+            self.assertEqual(again['started_at'], initial['started_at'])
+            with self.assertRaisesRegex(ValueError, 'BUDGET_EXHAUSTED'):
+                self.r.failure('req', 'parent:S', 'SOURCE_ERROR')
+
+
 if __name__ == '__main__': unittest.main()
