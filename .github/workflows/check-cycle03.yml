@@ -27,6 +27,16 @@ jobs:
             cat /tmp/cycle03-audit.txt
             echo '~~~'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: 次期推奨買い目の保存・認証を独立監査
+        run: |
+          set -o pipefail
+          python3 scripts/recommendation.py --audit | tee /tmp/recommendation-audit.txt
+          {
+            echo '### 次期推奨買い目の監査'
+            echo '~~~text'
+            cat /tmp/recommendation-audit.txt
+            echo '~~~'
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: 予想保存の事前宣言とreceiptを監査
         run: |
           set -o pipefail
