@@ -55,7 +55,7 @@ def collect(repo, commit, recorded_at):
                     "claim_id": "legacy-" + content_id[:24],
                     "raw_text": claim, "source_path": rel,
                     "source_line": lineno,
-                    "source_text_sha256": hashlib.sha256(raw.encode()).hexdigest(),
+                    "source_text_sha256": hashlib.sha256(claim.encode()).hexdigest(),
                     "source_commit": commit,
                     "status": "UNVERIFIED",
                     "claim_kind": "PEDIGREE_OR_TREND_CANDIDATE",
