@@ -87,10 +87,15 @@ class RecommendationTest(unittest.TestCase):
         receipt = receipt_record(receipt_id, REC_ID, art,
                                  verified=DATE + "T09:59:00+09:00", post=POST)
         receipt["receipt_verified_at_jst"] = DATE + "T10:00:00+09:00"
+        receipt["content_sha256"] = sha256(root / art)
         fence = "\x60\x60\x60"
         write(root, receipt_rel, prior + fence + "persistence-receipt-v1\n" +
               json.dumps(receipt, ensure_ascii=False) + "\n" + fence + "\n")
+        proof_rel = f"docs/validation/recommendation-prediction-gates/{DATE}/{REC_ID}.json"
+        prod_rel = f"docs/validation/execution-gates/{DATE}/{RACE}.json"
+        write(root, proof_rel, (root / prod_rel).read_text(encoding="utf-8"))
         gate = {
+            "prediction_gate_ref": {"artifact_path": proof_rel, "sha256": sha256(root / proof_rel)},
             "schema_version": GATE_SCHEMA, "race_id": RACE, "race_date_jst": DATE,
             "recommendation_id": REC_ID, "status": rec["status"],
             "prediction_ref": rec["prediction_ref"], "content_sha256": sha256(root / art),
@@ -113,7 +118,7 @@ class RecommendationTest(unittest.TestCase):
         self.assertEqual(verify(root, root / gate_path)["status"], "RECOMMENDED")
         self.assertTrue(audit(root))
         self.assertTrue(settle(self.rec(root, pred), {
-            "status": "OFFICIAL", "finish_groups": [[5], [2], [6], [4]],
+            "race_id": RACE, "race_date_jst": DATE, "status": "OFFICIAL", "finish_groups": [[5], [2], [6], [4]],
             "scratched_horses": [], "place_places": 3,
             "source_url": "https://example.invalid/official",
             "retrieved_at_jst": DATE + "T12:30:00+09:00",
@@ -225,14 +230,16 @@ class RecommendationTest(unittest.TestCase):
     def test_11_settle_tied_scratch_and_pending(self):
         root, _, pred = self.root()
         rec = self.rec(root, pred)
-        result = {"status": "OFFICIAL", "finish_groups": [[2, 5], [6], [4]],
+        result = {"race_id": RACE, "race_date_jst": DATE,
+                  "status": "OFFICIAL", "finish_groups": [[2, 5], [6], [4]],
                   "place_places": 3, "scratched_horses": [],
                   "source_url": "https://example.invalid/official",
                   "retrieved_at_jst": DATE + "T12:30:00+09:00"}
         self.assertTrue(settle(rec, result)["race_hit"])
         result["scratched_horses"] = [2]
         self.assertEqual(settle(rec, result)["status"], "INVALID")
-        self.assertEqual(settle(rec, {"status": "UNCONFIRMED"})["status"], "PENDING")
+        self.assertEqual(settle(rec, {"race_id": RACE, "race_date_jst": DATE,
+                                      "status": "UNCONFIRMED"})["status"], "PENDING")
 
     def test_12_old_v2_prediction_stays_valid_without_recommendation(self):
         root, g, pred = self.root()
@@ -259,6 +266,7 @@ class RecommendationTest(unittest.TestCase):
         root, g, pred = self.root()
         gate_path, art = self.artifacts(root, g, pred)
         result = {
+            "race_id": RACE, "race_date_jst": DATE,
             "status": "OFFICIAL", "finish_groups": [[5], [2], [6], [4]],
             "scratched_horses": [], "place_places": 3,
             "source_url": "https://example.invalid/official",
@@ -276,7 +284,8 @@ class RecommendationTest(unittest.TestCase):
     def test_16_reject_result_future_data_or_unverified_source(self):
         root, _, pred = self.root()
         rec = self.rec(root, pred)
-        result = {"status": "OFFICIAL", "finish_groups": [[5], [2], [6]],
+        result = {"race_id": RACE, "race_date_jst": DATE,
+                  "status": "OFFICIAL", "finish_groups": [[5], [2], [6]],
                   "place_places": 3, "scratched_horses": [],
                   "source_url": "https://example.invalid/results",
                   "retrieved_at_jst": DATE + "T09:00:00+09:00"}
@@ -296,7 +305,8 @@ class RecommendationTest(unittest.TestCase):
             self.assertEqual(rec["status"], state)
             self.assertEqual(rec["tickets"], [])
             validate_snapshot(root, rec)
-            self.assertEqual(settle(rec, {"status": "OFFICIAL"})["status"], "NOT_APPLICABLE")
+            self.assertEqual(settle(rec, {"race_id": RACE,
+                     "race_date_jst": DATE, "status": "OFFICIAL"})["status"], "NOT_APPLICABLE")
 
 
     def test_18_seal_revision_archives_previous_gate_without_double_count(self):
@@ -334,6 +344,7 @@ class RecommendationTest(unittest.TestCase):
         receipt = receipt_record(rid, later["recommendation_id"], second_artifact,
                                  verified=DATE + "T10:02:00+09:00", post=POST)
         receipt["receipt_verified_at_jst"] = DATE + "T10:03:00+09:00"
+        receipt["content_sha256"] = sha256(root / second_artifact)
         receipt_path = root / f"docs/validation/persistence-receipts/{DATE}.md"
         fence = "\x60\x60\x60"
         receipt_path.write_text(receipt_path.read_text() +
