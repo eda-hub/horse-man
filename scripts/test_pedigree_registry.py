@@ -193,5 +193,66 @@ class PedigreeRegistryTests(unittest.TestCase):
         self.assertEqual(self.reg.resolve({"name": "テスト馬"})["status"], "IDENTITY_UNRESOLVED")
 
 
+    def test_verified_and_unverified_disagreement_is_conflict(self):
+        self.add("root001", "attribute.training_country", "USA")
+        self.add("root001", "attribute.training_country", "JP", source="unverified-claim",
+                 verified=False)
+        result = self.request(fields=["training_country@"])
+        self.assertEqual(result["missing"][0]["status"], "CONFLICT")
+        self.assertEqual(len(result["missing"][0]["candidates"]), 2)
+
+    def test_cross_only_verified_paths(self):
+        self.add("root001", "parent.sire", "sire001")
+        self.add("root001", "parent.dam", "dam0001")
+        self.add("sire001", "parent.sire", "damsire1")
+        self.add("dam0001", "parent.sire", "damsire1")
+        r = self.request(crosses=[{"ancestor_key": "damsire1", "depth": 2}])
+        self.assertEqual(r["reused"]["cross:damsire1:2"]["status"], "PRESENT")
+        self.assertEqual(r["reused"]["cross:damsire1:2"]["generation_cross"], "2x2")
+        r2 = self.request(crosses=[{"ancestor_key": "damsire1", "depth": 1}])
+        self.assertEqual(r2["reused"]["cross:damsire1:1"]["status"],
+                         "ABSENT_WITHIN_SCOPE")
+
+    def test_incomplete_cross_never_absent(self):
+        r = self.request(crosses=[{"ancestor_key": "damsire1", "depth": 5}])
+        self.assertEqual(r["missing"][0]["status"], "UNKNOWN")
+
+
+class PedigreeBackfillTests(unittest.TestCase):
+    def test_backfill_manifest_and_source_lines_are_traceable(self):
+        from migrate_pedigree_notes import collect
+        repo = Path(__file__).resolve().parents[1]
+        data = repo / "data/pedigree"
+        seed = json.loads((data / "research/backfill-2026-10-09.json").read_text(encoding="utf-8"))
+        manifest = json.loads((data / "migration_manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual(seed["schema_version"], "pedigree-backfill-v1")
+        self.assertEqual(manifest["scanned_file_count"], len(seed["scanned_files"]))
+        self.assertEqual(manifest["extracted_count"], len(seed["records"]))
+        self.assertEqual(manifest["verified_count"], 0)
+        self.assertFalse(manifest["conflicts_assessed"])
+        self.assertEqual(len({c["claim_id"] for c in seed["records"]}), len(seed["records"]))
+        for claim in seed["records"]:
+            raw = (repo / claim["source_path"]).read_text(encoding="utf-8").splitlines()[
+                claim["source_line"] - 1]
+            self.assertEqual(raw.strip(), claim["raw_text"])
+            self.assertEqual(hashlib.sha256(raw.encode()).hexdigest(),
+                             claim["source_text_sha256"])
+            self.assertEqual(claim["source_commit"], manifest["source_commit"])
+            self.assertEqual(claim["status"], "UNVERIFIED")
+        recreated, checked = collect(repo, manifest["source_commit"], seed["generated_at"])
+        self.assertEqual({c["claim_id"] for c in recreated["records"]},
+                         {c["claim_id"] for c in seed["records"]})
+        self.assertEqual(checked["extracted_count"], manifest["extracted_count"])
+        self.assertEqual(checked["scanned_files"], manifest["scanned_files"])
+
+    def test_legacy_search_never_claims_verified(self):
+        repo = Path(__file__).resolve().parents[1]
+        registry = Registry(repo / "data/pedigree")
+        result = registry.legacy_search("血統")
+        self.assertEqual(result["status"], "UNVERIFIED_CANDIDATES")
+        self.assertGreater(result["count"], 0)
+        self.assertTrue(all(r["status"] == "UNVERIFIED" for r in result["records"]))
+
+
 if __name__ == "__main__":
     unittest.main()
