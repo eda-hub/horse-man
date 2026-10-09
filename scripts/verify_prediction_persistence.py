@@ -166,6 +166,18 @@ def check_intent(root, path):
         artifact=Path(artifact_path)
         if artifact.is_absolute() or '..' in artifact.parts or not str(artifact).startswith('docs/validation/snapshots/'):
             raise ComplianceError(f'{path}: invalid artifact_path')
+    recommendation = intent.get('recommendation_scope')
+    if recommendation is not None:
+        if not isinstance(recommendation,dict) or not isinstance(recommendation.get('recommendation_id'),str) or not recommendation['recommendation_id']:
+            raise ComplianceError(f'{path}: recommendation_scope.recommendation_id required')
+        rec_path=recommendation.get('artifact_path')
+        if not isinstance(rec_path,str):
+            raise ComplianceError(f'{path}: recommendation_scope.artifact_path required')
+        relative=Path(rec_path)
+        if relative.is_absolute() or '..' in relative.parts or not rec_path.startswith('docs/validation/recommendations/'):
+            raise ComplianceError(f'{path}: invalid recommendation_scope.artifact_path')
+        if len(races)!=1 or recommendation.get('race_id')!=races[0]:
+            raise ComplianceError(f'{path}: recommendation_scope must match one predicted race')
     return verify(root,date,snapshot_id,deadline,races,artifact_path)
 
 
@@ -187,6 +199,8 @@ def main():
     parser.add_argument('--deadline-jst',help='earliest scheduled post time for this attempt')
     parser.add_argument('--race-id',action='append',default=[],help='one expected race ID; repeat for all races')
     parser.add_argument('--artifact-path',help='repository-relative snapshot artifact path')
+    parser.add_argument('--recommendation-id',help='optional predeclared next-contract recommendation ID')
+    parser.add_argument('--recommendation-artifact-path',help='optional predeclared recommendation JSON path')
     parser.add_argument('--task-complete',action='store_true',help='require saved intent and exact fixed-content hash before declaring task complete')
     parser.add_argument('--fixed-content-sha256',help='hash of the FIXED snapshot section before writing')
     args=parser.parse_args()
@@ -211,6 +225,20 @@ def main():
                     'race_date_jst':args.date,'working_branch':f'prediction/{args.date}',
                     'snapshot_id':args.snapshot_id,'required_race_ids':args.race_id,
                     'deadline_jst':args.deadline_jst}
+            if bool(args.recommendation_id) != bool(args.recommendation_artifact_path):
+                raise ComplianceError('both --recommendation-id and --recommendation-artifact-path are required')
+            if args.recommendation_id:
+                if len(args.race_id)!=1 or not args.recommendation_id.strip():
+                    raise ComplianceError('recommendation predeclaration requires exactly one race and ID')
+                rec_path=Path(args.recommendation_artifact_path)
+                if (rec_path.is_absolute() or '..' in rec_path.parts or
+                    not str(rec_path).startswith('docs/validation/recommendations/') or
+                    rec_path.suffix!='.json' or rec_path.parent.name!=args.date):
+                    raise ComplianceError('invalid recommendation artifact path or date')
+                intent['recommendation_scope']={
+                    'race_id':args.race_id[0], 'recommendation_id':args.recommendation_id,
+                    'artifact_path':str(rec_path)
+                }
             if args.artifact_path:
                 artifact=Path(args.artifact_path)
                 if artifact.is_absolute() or '..' in artifact.parts or not str(artifact).startswith('docs/validation/snapshots/'):
