@@ -11,7 +11,7 @@
 | 5. 不完全なら内包なしにしない | PRESENT/ABSENT_WITHIN_SCOPE/UNKNOWN、complete_scopeテスト | 完了 |
 | 6. 分類変更は原血統再取得なし | taxonomy版/hashとderive、taxonomy_changeテスト | 完了 |
 | 7. 競合保持・訂正前再現 | append-only revision、supersedes/理由、conflict_correctionテスト | 完了 |
-| 8. cutoff後更新の混入防止 | 事実/分類のcutoffに加え、同定履歴をcutoffで復元。後日の馬ID・別名・同定根拠が過去の参照/祖先判定に混入しないことを検証 | Git事実/派生/同定情報は完了。統計更新はPhase 3 |
+| 8. cutoff後更新の混入防止 | 初回のidentity_observed_at/identity_confirmed_atと初期状態を保存。初回観測前の検索・属性・祖先は未確認、後日の同定更新は時点履歴で復元。日時欠落・不整合をaudit拒否 | Git事実/派生/同定情報は完了。統計更新はPhase 3 |
 | 9. 再実行・再開・並行更新 | source/hash冪等、record hash CAS、単一Writer、原子的置換、Git HEAD照合 | 完了 |
 | 10. 調査→検証→保存→読戻し→検索 | 手動候補入力のroundtrip、git_commit_readbackテスト | 手動経路完了。自動source adapterは未実装 |
 | 11. 不足・障害・未保存と有限再試行 | source別に初回＋2回で上限確定。forceでも回数上限・時間予算は解除しない。plan/failure双方で期限切れを拒否 | 完了（自動照会なし、再調査可否を返す） |
@@ -19,9 +19,9 @@
 | 13. 重賞固有集計・新スコアの隔離 | 事実fieldの許可リスト、移行傾向候補分離、Production request拒否 | Git APIは完了。統計featureはPhase 3/8 |
 | 14. 予想snapshot保存と混同しない | LOCAL/Git/remote保存を分離、snapshot_persistence=NOT_EVALUATED | 完了 |
 | 15. DB移行後もID等一致 | 移行契約とJSON Writer停止を設計・テスト | 実DB移行/読取adapter/照合はPhase 2で未実施 |
-| 16. 既存監査・固定予想の維持 | 全146 unittest（今回さらに5件追加）、Git履歴取得後の血統audit、既存の固定予想は不変更 | 完了（既存の不足は残存） |
+| 16. 既存監査・固定予想の維持 | 全150 unittest（今回さらに4件追加）、Git履歴取得後の血統audit、既存の固定予想は不変更 | 完了（既存の不足は残存） |
 
-追加機能のテスト37件を含む全146件が通過。血統auditは535候補のhash/件数/未確認状態を検証してPASS。確認済みhorseレコードは0件であり、既存記述を事実へ自動変換したとは主張しない。
+追加機能のテスト41件を含む全150件が通過。血統auditは535候補のhash/件数/未確認状態を検証してPASS。確認済みhorseレコードは0件であり、既存記述を事実へ自動変換したとは主張しない。
 
 移行: PR69取得時点commit `439faa54a524ce9d242f100788f2a80fa2b0b698` の55ファイルから535記述・626成分・明示的父/母父候補106件。元外部出所の再照合と馬ID同定は未完了として候補内に保持。過去チャット・他ブランチは未アクセス。REPLAY資料をFORWARD証跡へ変換していない。
 
@@ -43,3 +43,11 @@ Phase 2以降の実DB・取得adapter、Phase 3のfeature/snapshot接続、Phase
 - **P2 時間予算の固定**：`plan --force` はDEFERREDの待機期限のみを解除する。既存requestの`started_at`/`deadline_at`を再設定せず、時間予算切れを常に`BUDGET_EXHAUSTED`として通知。`failure` でも期限切れ・既に失効した調査期間の追加失敗を拒否。新しい期間は別request_idを明示して開始。
 - 遡及同定、祖先経路、同定根拠の時点変更、時間予算消尽済みのforceとfailureの一致など**5件の新規回帰テスト**を追加。既存141件と合わせて146件を実行。
 - 運用詳細は`data/pedigree/README.md`へ反映。既存Predictionのゲート・snapshotの意味や第3サイクルの固定予想は変更していない。
+
+## 2026-10-09 新規登録の初期同定時刻のcutoff制約（再指摘P1）
+
+- `Registry.save` で初回の `initial_identity`、`identity_observed_at`、`identity_confirmed_at` を保存。Writer保存時の観測時刻を使用し、属性の旧 `first_observed_at` で同定時刻を遡及させない。
+- `identity_at` は初期観測時刻より古いcutoff、初期記録に観測時刻がない場合は未確認扱い。検索は該当候補を返さず、属性・祖先・derive・planは確認済みとして扱わない。初期未同定→後日確定は同定更新イベント時刻から有効になる。
+- `audit` は初期identity欠落、観測時刻欠落、初期同定確定時刻と実履歴の不一致、初期履歴チェーンの不一致を失敗として扱う。
+- 新規RESOLVED馬の過去cutoff、未同定から確定した境界、初期時刻の不正、初期登録より前の同定更新拒否の4回帰テストを追加し、全150件の回帰テストと血統auditを検証。
+- 既存の移行済み未確認候補（535記述）をVERIFIEDへ昇格させず、過去予想の推測補完を行わない。
