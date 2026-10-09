@@ -9,7 +9,7 @@
 - 結果: 公式着順（同着を位置配列で表す）を使って各券の HIT/MISS/INVALID、未確定時はPENDING。購入・払戻・資金を扱わない。
 - Predictionの認証と推奨の認証は独立。ただし正式な推奨は、認証されたProduction gate・固定Prediction snapshotの内容hash・**予想開始前の推奨scope予定宣言とPrediction固定後の推奨独立宣言の両方**・同一artifactの保存receiptに紐付ける。
 - WIN5、非◎の別軸馬連/ワイド/馬単、価格連動の旧例外、印内全頭BOXは対象外。
-- 券種ごとの役割: 単勝=◎の勝ち切り、複勝=◎の安定3着内、馬連=◎からの連対、ワイド=◎○同時3着内、馬単=◎1着と根拠ある2着、三連複=◎中心の同時3着内、三連単=1〜3着の順序付きシナリオ。複数の高難度券種を機械的に追加しない。計画内の未確定数値閾値は勝手に実装しない。
+- 券種ごとの役割: 単勝=◎の勝ち切り、複勝=◎以外を含めた各馬の安定3着内（該当馬のProduction根拠必須）、馬連=◎からの連対、ワイド=◎○同時3着内、馬単=◎1着と根拠ある2着、三連複=◎中心の同時3着内、三連単=◎1着中心に、○または▲1着・◎2着の根拠ある逆転構成も許可する順序付きシナリオ。複数の高難度券種を機械的に追加しない。計画内の未確定数値閾値は勝手に実装しない。
 
 ## 構造・保存経路
 
@@ -20,6 +20,7 @@
 | 推奨内容 | `docs/validation/recommendations/YYYY-MM-DD/<recommendation-id>.json`、`recommendation-snapshot-v1` |
 | 発走前読戻し | `docs/validation/persistence-receipts/YYYY-MM-DD.md`、従来の `persistence-receipt-v1` に推奨artifactの別レコードを追記 |
 | 推奨認証 | `docs/validation/recommendation-gates/YYYY-MM-DD/<race-id>.json`、`recommendation-compliance-v1` |
+| 参照したPrediction gateの固定証跡 | `docs/validation/recommendation-prediction-gates/YYYY-MM-DD/<recommendation-id>.json`（SHA-256と照合） |
 | 結果 | 公式結果JSONを読み `scripts/recommendation.py --settle` で照合。出力は履歴として別保存し、元snapshotは上書きしない |
 
 snapshotの必須項目は `recommendation_contract`, `recommendation_id`, `prediction_ref`（snapshot ID/path/SHA-256/baseline ID）, `revision`, `supersedes`, `race_id`, `race_date_jst`, `phase`, `status`, `reason`, `data_cutoff`, `fixed_at_jst`, `main_ticket_types`, `tickets`, `unique_ticket_count`, `horse_roles`, `scenarios`, `candidate_decisions`、`dependency_audit`。具体的なフィールド型は [版付きJSON Schema](schema-v1.json) に定義する。
@@ -30,7 +31,7 @@ snapshotの必須項目は `recommendation_contract`, `recommendation_id`, `pred
 - `EXPLICIT_MARKS_ONLY`: ユーザーの印のみ指定による省略。理由を記録
 - `PENDING`: 未完了。推奨済みとは扱わず、後から補完して適格にしない
 
-同じレースの改訂は `recommendation_id` と `revision` を変え、`supersedes` と `supersedes_sha256` で旧版を固定する。`--seal` 実行時、以前の推奨gateを `recommendation-gates/history/YYYY-MM-DD/<recommendation-id>.json` へ保存したうえで、現行の単一日・レースgateを新しい最終版に切り替える。旧版は失効保管し、的中KPIへ二重計上しない。発走後の改訂を前向きKPIへ付け替えない。
+同じレースの改訂は `recommendation_id` と `revision` を変え、`supersedes` と `supersedes_sha256` で旧版を固定する。`--seal` 実行時、以前の推奨gateを `recommendation-gates/history/YYYY-MM-DD/<recommendation-id>.json` へ保存したうえで、現行の単一日・レースgateを新しい最終版に切り替える。旧版はその時点のPrediction gateを固定した証跡で検証し、失効保管して的中KPIへ二重計上しない。元Predictionが更新されても旧版を新しいPrediction gateと突き合わせない。新しい推奨は変更後の現行Prediction gateと照合してから認証する。発走後の改訂を前向きKPIへ付け替えない。
 
 ## 操作例
 
@@ -62,22 +63,22 @@ snapshotの必須項目は `recommendation_contract`, `recommendation_id`, `pred
 }
 ```
 
-上記は判断JSONの一部で、`horse_roles`・`scenarios`・出所時刻など他の必須項目は省略している。選択は根拠に基づき`selected`で明示し、選択券種は最大2種類。全7券種（単勝・複勝・馬連・ワイド・馬単・三連複・三連単）を入力できる。**自動的に7券種を同時推奨する仕組みではない**。三連複/馬連/ワイドは順序違いを統合し、馬単/三連単は順序を保持する。重複馬や不在・取消馬、◎非含有、役割と矛盾する並びは拒否する。
+上記は判断JSONの一部で、`horse_roles`・`scenarios`・出所時刻など他の必須項目は省略している。選択は根拠に基づき`selected`で明示し、選択券種は最大2種類。全7券種（単勝・複勝・馬連・ワイド・馬単・三連複・三連単）を入力できる。**自動的に7券種を同時推奨する仕組みではない**。三連複/馬連/ワイドは順序違いを統合し、馬単/三連単は順序を保持する。重複馬や不在・取消馬、根拠のない券種役割は拒否する。複勝は○などの非◎も認める。三連単は◎1着を基本とし、○/▲1着・◎2着の説明可能な逆転構成を許容する。単勝・馬連・ワイド・馬単・三連複での無根拠な非◎別軸化は許可しない。
 
 3. **生成**: `python3 scripts/recommendation.py --generate docs/validation/snapshots/YYYY-MM-DD/P001.json --assessment judgement.json --intent-id final --output docs/validation/recommendations/YYYY-MM-DD/R001.json`。既存artifactは上書き拒否。
-4. **保存証跡**: 推奨JSONを保存・読戻し、`persistence-receipt-v1` を同一artifactの `artifact_id=R001`, `artifact_path`, `receipt_id`, `timing_eligibility=PRE_RACE_ELIGIBLE`, `artifact_persist_status=PERSIST_VERIFIED`, `receipt_persist_status=RECEIPT_VERIFIED`, `persist_verified_at_jst`, `receipt_verified_at_jst`, `scheduled_post_time_jst` で追記・読戻す。発走時刻より前に両時刻があること。
+4. **保存証跡**: 推奨JSONを保存・読戻し、`persistence-receipt-v1` を同一artifactの `artifact_id=R001`, `artifact_path`, `receipt_id`, `timing_eligibility=PRE_RACE_ELIGIBLE`, `artifact_persist_status=PERSIST_VERIFIED`, `receipt_persist_status=RECEIPT_VERIFIED`, `persist_verified_at_jst`, `receipt_verified_at_jst`, `scheduled_post_time_jst` で追記・読戻す。推奨JSON全体のSHA-256を `content_sha256` に格納し、`fixed_at_jst <= persist_verified_at_jst <= receipt_verified_at_jst < scheduled_post_time_jst` を必須とする。旧receiptからの流用・改変後のハッシュ差異は認証不可。推奨専用receiptにのみ新規ハッシュ必須を適用し、旧v1.6.1の保存契約は変更しない。
 5. **認証**: `python3 scripts/recommendation.py --seal docs/validation/recommendations/YYYY-MM-DD/R001.json --intent-id final --receipt-id R001-RECEIPT`。検証成功時だけ推奨gateを作成。続けて `--verify docs/validation/recommendation-gates/YYYY-MM-DD/<race-id>.json` と `--audit` を実行する。
 6. **提示**: `python3 scripts/recommendation.py --display docs/validation/recommendations/YYYY-MM-DD/R001.json`。保存済みJSONだけから券種・具体的馬番・点数・順位・理由を日本語表示する。ユーザーへ表示する内容を保存済み推奨と照合する。
-7. **結果照合**: `python3 scripts/recommendation.py --settle docs/validation/recommendations/YYYY-MM-DD/R001.json --result official-result.json`。公式結果JSONは `{"status":"OFFICIAL","source_url":"https://example.org/result","retrieved_at_jst":"YYYY-MM-DDT12:00:00+09:00","finish_groups":[[5],[2],[6]],"scratched_horses":[],"place_places":3}` のように出所と取得時刻を持ち、同着は同一配列にまとめる。複勝対象数は出走頭数・公式規則を確認して2または3で指定する。未確定なら `{"status":"PENDING"}` として保留する。
+7. **結果照合**: `python3 scripts/recommendation.py --settle docs/validation/recommendations/YYYY-MM-DD/R001.json --result official-result.json`。公式結果JSONは `{"race_id":"RACE_ID","race_date_jst":"YYYY-MM-DD","status":"OFFICIAL","source_url":"https://example.org/result","retrieved_at_jst":"YYYY-MM-DDT12:00:00+09:00","finish_groups":[[5],[2],[6]],"scratched_horses":[],"place_places":3}` のように出所と取得時刻を持ち、同着は同一配列にまとめる。複勝対象数は出走頭数・公式規則を確認して2または3で指定する。未確定なら `{"race_id":"RACE_ID","race_date_jst":"YYYY-MM-DD","status":"PENDING"}` として保留する。結果レースID・開催日が推奨対象と一致しない場合は、着順が同じでも照合・集計を拒否する。
 8. **集計**: `docs/validation/results/` に公式結果と、`{"items":[{"gate_path":"docs/validation/recommendation-gates/YYYY-MM-DD/<race-id>.json","result_path":"docs/validation/results/YYYY-MM-DD/<race-id>.json"}]}` 形式の集計manifestを用意し、`python3 scripts/recommendation.py --report docs/validation/results/report.json` で券種別の有効券・的中券・有効レース・的中レースの件数と率を出力する。失効gateは受け付けない。
 
 ※ 入力例の判断JSONはユーザーからの購入意思ではなく、非価格の着順・展開評価を人間が確定した記録。仮定を勝手にYESへ補完しない。固定Productionの評価根拠に無い馬（△含む）は採用できない。
 
 ## 監査・発効境界
 
-`scripts/recommendation.py --audit` は全開催日を走査し、宣言のみ・artifactのみ・gateのみ・hash不一致・時刻違反・認証済みPrediction不在を検出する。GitHub Actionsで既存予想/Persistence監査と別に実施する。
+`scripts/recommendation.py --audit` は全開催日を走査し、Prediction側の `recommendation_scope` だけが存在し、推奨intent・snapshot・gateが全欠落する場合も含め、宣言のみ・artifactのみ・gateのみ・固定Prediction証跡不足・hash不一致・保存順序違反・認証済みPrediction不在を検出する。GitHub Actionsで既存予想/Persistence監査と別に実施する。
 
-`contract-state.json` の `recommendation_effective_race_date` がnullの間、旧v2の推奨欠落は失敗にしない。Stage 2でmanual release・次期契約の有効日と同時に日付を明示してACTIVEとした場合、その日以降のv2 Prediction gateには対応する推奨gateを要求する。推奨なしや明示印のみも**独立した推奨状態**として保存・認証する。初回暫定、旧revision、Replayは正式的中KPIに含めない。
+`contract-state.json` の `recommendation_effective_race_date` がnullの間、旧v2の推奨欠落は失敗にしない。Stage 2でmanual release・次期契約の有効日と同時に日付を明示してACTIVEとした場合、その日以降のv2 Prediction gateには対応する推奨gateを要求する。推奨なしや明示印のみも**独立した推奨状態**として保存・認証する。推奨の前向き的中KPI適格は `FORWARD + Production ELIGIBLE + FINAL RECOMMENDED` をすべて満たす場合のみ認め、`REPLAY` や Production 不適格からの昇格を認めない。初回暫定、旧revision、Replayは正式的中KPIに含めない。
 
 単体テスト: `python3 -m unittest discover -s scripts -p 'test_*.py'`。当日提出する買い目の表示と保存内容を運用側でも必ず照合する。
 
