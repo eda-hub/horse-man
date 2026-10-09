@@ -368,7 +368,7 @@ class RecommendationTest(unittest.TestCase):
                 self.assertEqual(rec["status"], "RECOMMENDED")
                 self.assertEqual(rec["main_ticket_types"], [kind])
                 self.assertEqual(rec["unique_ticket_count"], 1 if len(columns) == 1 else (
-                    2 if len(columns) == 2 else 4))
+                    2 if len(columns) == 2 else (3 if kind == "TRIO" else 4)))
                 validate_snapshot(root, rec)
 
     def test_20_unordered_formations_deduplicate_ordered_do_not(self):
