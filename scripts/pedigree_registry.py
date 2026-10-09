@@ -97,15 +97,25 @@ class Registry:
 
     @staticmethod
     def identity_at(record, cutoff=None):
-        """Reconstruct identity and its evidence at cutoff, never using later updates."""
+        """Use identity only after its first observation, and replay later changes."""
+        if cutoff is None:
+            return record['identity']
+        point = dt(cutoff)
+        first_observed = record.get('identity_observed_at')
+        # Records without authenticated initial observation time fail closed.
+        # Do not silently treat the latest identity as historical evidence.
+        if not first_observed or dt(first_observed) > point:
+            return None
         identity = record['identity']
-        if cutoff is not None:
-            point = dt(cutoff)
-            for event in reversed(record.get('identity_revisions', [])):
-                if dt(event['at']) > point:
-                    identity = event['before']
-                else:
-                    break
+        for event in reversed(record.get('identity_revisions', [])):
+            if dt(event['at']) > point:
+                identity = event['before']
+            else:
+                break
+        if identity['status'] == 'RESOLVED':
+            confirmed = record.get('identity_confirmed_at')
+            if not confirmed or dt(confirmed) > point:
+                return None
         return identity
 
     def search(self, query, cutoff=None):
@@ -115,6 +125,8 @@ class Registry:
         matches = []
         for record in self.records():
             identity = self.identity_at(record, cutoff)
+            if identity is None:
+                continue
             names = [identity['name']] + identity.get('aliases', [])
             ids = [record['horse_key']] + list(identity.get('external_ids', {}).values())
             if query in ids or any(norm(query) == norm(n) for n in names):
@@ -194,8 +206,14 @@ class Registry:
             self.validate_identity(identity, key)
             if old and old['identity'] != identity:
                 raise ValueError('identity cannot be silently changed')
+            # The initial identity cannot precede the actual first capture.
+            # Historical fact timestamps do not establish when identity was known.
+            initial_at = stamp()
             record = old or {'schema_version': SCHEMA, 'horse_key': key,
-                             'identity': identity, 'revisions': []}
+                             'identity': identity, 'initial_identity': json.loads(json.dumps(identity)),
+                             'identity_observed_at': initial_at,
+                             'identity_confirmed_at': initial_at if identity['status'] == 'RESOLVED' else None,
+                             'revisions': []}
             added = []
             for input_fact in candidate.get('facts', []):
                 fact = json.loads(json.dumps(input_fact))
@@ -268,6 +286,10 @@ class Registry:
                 if identity.get('external_ids', {}).get(provider) != value:
                     raise ValueError('existing external ID cannot be silently replaced')
             changed_at = stamp()
+            if not record.get('identity_observed_at'):
+                raise ValueError('initial identity observation missing; explicit migration required')
+            if dt(changed_at) < dt(record['identity_observed_at']):
+                raise ValueError('identity update cannot precede initial identity observation')
             if record.get('identity_revisions') and dt(changed_at) < dt(record['identity_revisions'][-1]['at']):
                 raise ValueError('identity update cannot precede earlier identity evidence')
             event = {'before': before, 'after': identity, 'at': changed_at,
@@ -275,6 +297,10 @@ class Registry:
             event['event_hash'] = digest(event)
             record.setdefault('identity_revisions', []).append(event)
             record['identity'] = identity
+            if before['status'] != 'RESOLVED' and identity['status'] == 'RESOLVED':
+                if record.get('identity_confirmed_at') is not None:
+                    raise ValueError('identity confirmation timestamp inconsistent')
+                record['identity_confirmed_at'] = changed_at
             atomic(path, record)
             self.reindex()
             return {'horse_key': key, 'content_hash': digest(record),
@@ -306,7 +332,7 @@ class Registry:
         if not record:
             return {'status': 'NOT_FOUND'}
         identity = self.identity_at(record, cutoff)
-        if identity['status'] != 'RESOLVED':
+        if identity is None or identity['status'] != 'RESOLVED':
             return {'status': 'IDENTITY_UNRESOLVED'}
         revisions = self.active([r for r in record['revisions'] if r['field'] == field], cutoff)
         if not revisions:
@@ -323,10 +349,10 @@ class Registry:
                   'identity_evidence': identity.get('identity_evidence')}
         if field.startswith('parent:'):
             ancestor = read(self.path(r['value']))
-            if not ancestor or self.identity_at(ancestor, cutoff)['status'] != 'RESOLVED':
+            ancestor_identity = self.identity_at(ancestor, cutoff) if ancestor else None
+            if not ancestor_identity or ancestor_identity['status'] != 'RESOLVED':
                 return {'status': 'IDENTITY_UNRESOLVED', 'candidates': revisions}
-            result['ancestor_identity_evidence'] = self.identity_at(
-                ancestor, cutoff).get('identity_evidence')
+            result['ancestor_identity_evidence'] = ancestor_identity.get('identity_evidence')
         return result
 
     def edge(self, key, path, cutoff):
@@ -517,14 +543,33 @@ class Registry:
                     raise ValueError('schema mismatch')
                 safe(record['horse_key'])
                 self.validate_identity(record['identity'], record['horse_key'])
+                first = record.get('initial_identity')
+                observed = record.get('identity_observed_at')
+                if not isinstance(first, dict) or not observed:
+                    raise ValueError('initial identity or observation timestamp missing')
+                self.validate_identity(first, record['horse_key'])
+                first_time = dt(observed)
+                if first_time > dt(stamp()):
+                    raise ValueError('initial identity observation is in the future')
                 history = record.get('identity_revisions', [])
+                if history and history[0]['before'] != first:
+                    raise ValueError('initial identity revision chain broken')
+                if not history and record['identity'] != first:
+                    raise ValueError('initial identity mismatch')
+                confirmed = observed if first['status'] == 'RESOLVED' else None
                 for index, event in enumerate(history):
                     event_body = {k: v for k, v in event.items() if k != 'event_hash'}
                     if digest(event_body) != event['event_hash']:
                         raise ValueError('identity revision hash mismatch')
                     if not event.get('reason') or not event.get('reviewed_by'):
                         raise ValueError('identity revision missing review')
-                    dt(event['at'])
+                    event_time = dt(event['at'])
+                    if event_time < first_time or event_time > dt(stamp()):
+                        raise ValueError('identity revision timestamp outside observation interval')
+                    if event['before']['status'] != 'RESOLVED' and event['after']['status'] == 'RESOLVED':
+                        if confirmed is not None:
+                            raise ValueError('identity already confirmed')
+                        confirmed = event['at']
                     if index and history[index - 1]['after'] != event['before']:
                         raise ValueError('identity revision chain broken')
                     if index and dt(event['at']) < dt(history[index - 1]['at']):
@@ -533,6 +578,8 @@ class Registry:
                     self.validate_identity(event['after'], record['horse_key'])
                 if history and history[-1]['after'] != record['identity']:
                     raise ValueError('identity revision does not match current identity')
+                if record.get('identity_confirmed_at') != confirmed:
+                    raise ValueError('identity confirmation timestamp mismatch')
                 for provider, value in record['identity'].get('external_ids', {}).items():
                     pair = (provider, value)
                     if pair in external_ids:
