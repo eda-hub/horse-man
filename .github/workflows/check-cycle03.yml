@@ -17,6 +17,23 @@ jobs:
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: 血統調査リストの検証
         run: python3 scripts/pedigree_registry.py audit
+      - name: 血統候補の未確認棚卸しと条件集計snapshot監査
+        run: |
+          set -o pipefail
+          python3 scripts/pedigree_stats.py --inventory > /tmp/pedigree-stat-inventory.json
+          python3 scripts/pedigree_stats.py --audit | tee /tmp/pedigree-stat-audit.txt
+          {
+            echo '### 血統集計の準備・未確認候補'
+            echo '~~~text'
+            python3 - <<'PY'
+          import json
+          d = json.load(open('/tmp/pedigree-stat-inventory.json'))
+          print('legacy_claims=', d['candidate_claims'], 'verified_facts=', d['verified_facts'],
+                'source_verification_complete=', d['source_verification_complete'])
+          PY
+            cat /tmp/pedigree-stat-audit.txt
+            echo '~~~'
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: 予想記録の不足と実行ゲートの監査
         run: |
           set -o pipefail
