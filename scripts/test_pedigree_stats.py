@@ -381,5 +381,19 @@ class PedigreeStatsTest(unittest.TestCase):
 
 
 
+    def test_23_predeclared_stats_and_unaggregated_changed_inputs_fail_audit(self):
+        # 定義や元結果だけが保存されても、snapshot不足を発見する。
+        self.assertFalse(audit(self.root))
+        path, _ = self.calculate()
+        self.assertTrue(audit(self.root))
+        self.manifest["races"][1]["runners"][0]["finish_position"] = 1
+        self.persist()
+        self.assertFalse(audit(self.root))
+        new_path, _ = self.calculate()
+        self.assertNotEqual(path, new_path)
+        self.assertTrue(audit(self.root))
+
+
+
 if __name__ == "__main__":
     unittest.main()
