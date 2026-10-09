@@ -630,7 +630,8 @@ def build(prediction, assessment, artifact_path, root=Path(".")):
         "candidate_decisions": decisions,
         "horse_roles": role_items, "scenarios": a.get("scenarios", []),
         "dependency_audit": a.get("dependency_audit", {
-            "anchor_dependency": "ALL" if kind else "NONE",
+            "anchor_dependency": ("ALL" if tickets and all(anchor in t["horses"] for t in tickets) else
+                                   ("PARTIAL" if any(anchor in t["horses"] for t in tickets) else "NONE")),
             "lower_bound_review": a.get("lower_bound_review", ""),
             "anchor_failure_scenario": a.get("anchor_failure_scenario", ""),
             "scenario_overlap_reason": a.get("scenario_overlap_reason", "同一軸・同一シナリオの重なりを確認"),
