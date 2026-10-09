@@ -76,6 +76,72 @@ def load_next_gates(root):
     return gates
 
 
+
+def load_recommendation_gates(root):
+    from recommendation import verify
+    directory = root / "docs/validation/recommendation-gates"
+    gates = {}
+    for path in sorted(directory.glob("*/*.json")):
+        try:
+            rec = verify(root, path)
+            gate = json.loads(path.read_text(encoding="utf-8"))
+        except (ComplianceError, OSError, ValueError, TypeError, KeyError) as exc:
+            raise CycleValidationError(f"{path}: invalid recommendation gate: {exc}") from exc
+        key = (rec["race_date_jst"], rec["race_id"])
+        if key in gates:
+            raise CycleValidationError(f"{path}: duplicate recommendation gate for {key}")
+        gates[key] = gate
+    return gates
+
+
+def validate_recommendation_day(record, path, recommendation_gates, effective):
+    """正式有効日より前の既存v2台帳には新項目を要求しない。"""
+    if not effective or record["race_date_jst"] < effective:
+        return
+    final = string_set(record["final_scope"], str(path) + "/final_scope")
+    section = record.get("recommendations")
+    if not isinstance(section, dict):
+        raise CycleValidationError(f"{path}: recommendations status partition required")
+    names = {
+        "RECOMMENDED": "recommended_ids",
+        "NO_RECOMMENDATION": "no_recommendation_ids",
+        "EXPLICIT_MARKS_ONLY": "marks_only_ids",
+        "PENDING": "pending_ids",
+    }
+    partitions = {state: string_set(section.get(key), f"{path}/recommendations/{key}")
+                  for state, key in names.items()}
+    for state, ids in partitions.items():
+        for other, others in partitions.items():
+            if state != other and ids & others:
+                raise CycleValidationError(f"{path}: overlapping recommendation status")
+    if set().union(*partitions.values()) != final:
+        raise CycleValidationError(f"{path}: recommendation status scope mismatch")
+    for state, races in partitions.items():
+        for race in races:
+            gate = recommendation_gates.get((record["race_date_jst"], race))
+            if gate is None:
+                if state != "PENDING":
+                    raise CycleValidationError(f"{path}: missing recommendation gate for {race}")
+                continue
+            if gate["status"] != state:
+                raise CycleValidationError(f"{path}: recommendation status/gate mismatch for {race}")
+    kpi = record.get("kpis", {}).get("recommendation")
+    if not isinstance(kpi, dict):
+        raise CycleValidationError(f"{path}: recommendation KPI required")
+    validate_kpi(kpi, final, f"{path}/recommendation")
+    eligible_scope = partitions["RECOMMENDED"]
+    if string_set(kpi.get("target_ids"), f"{path}/recommendation/target_ids") != eligible_scope:
+        raise CycleValidationError(f"{path}: recommendation KPI target must equal RECOMMENDED scope")
+    for race in eligible_scope:
+        gate = recommendation_gates.get((record["race_date_jst"], race))
+        expected = expected_state(kpi, race)
+        if gate is None:
+            if expected != "PENDING":
+                raise CycleValidationError(f"{path}: recommendation KPI requires gate for {race}")
+            continue
+        if expected != gate["kpi_eligibility"]:
+            raise CycleValidationError(f"{path}: recommendation KPI/gate mismatch for {race}")
+
 def expected_state(kpi, race):
     if race in kpi.get("eligible_ids", []):
         return "ELIGIBLE"
@@ -105,7 +171,7 @@ def validate_gate_links(record, path, gates):
                     f"{path}: {race}/{layer} gate state mismatch: ledger={expected} gate={actual}"
                 )
 
-def validate_day(record, path, gates=None):
+def validate_day(record, path, gates=None, recommendation_gates=None, recommendation_effective=None):
     if not isinstance(record, dict):
         raise CycleValidationError(f"{path}: record object required")
     if record.get("manual_release") != RELEASE:
@@ -136,12 +202,18 @@ def validate_day(record, path, gates=None):
         validate_kpi(market, initial, f"{path}/market_validation")
     if gates is not None:
         validate_gate_links(record, path, gates)
+    validate_recommendation_day(record, path, recommendation_gates or {}, recommendation_effective)
     return record
 
 
 def run(root=Path(".")):
     records_dir = root / "docs/validation/records"
     gates = load_next_gates(root)
+    state_file = root / "docs/validation/execution-gates/contract-state.json"
+    state = json.loads(state_file.read_text(encoding="utf-8")) if state_file.is_file() else {}
+    effective = (state.get("recommendation_effective_race_date")
+                 if state.get("status") == "ACTIVE" else None)
+    recommendation_gates = load_recommendation_gates(root)
     count = 0
     seen = set()
     if records_dir.exists():
@@ -150,7 +222,7 @@ def run(root=Path(".")):
                 key = (record.get("race_date_jst"), record.get("cycle_id"))
                 if key in seen:
                     raise CycleValidationError(f"{path}: duplicate day/cycle record: {key}")
-                validate_day(record, path, gates)
+                validate_day(record, path, gates, recommendation_gates, effective)
                 seen.add(key)
                 count += 1
     print(f"PREDICTION_CYCLE_V2_OK: {count} day record(s) validated")
