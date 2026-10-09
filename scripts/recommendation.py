@@ -465,7 +465,7 @@ def settle(rec, result):
             "hit_tickets": sum(t["result"] == "HIT" for t in valid),
             "race_hit": any(t["result"] == "HIT" for t in valid)}
 
-def build(prediction, assessment, artifact_path):
+def build(prediction, assessment, artifact_path, root=Path(".")):
     """構成選択は明示的な非価格シナリオ評価から決め、周辺確率の積は使わない。"""
     a = assessment
     anchor, opponent = prediction["ranking"][:2]
@@ -506,7 +506,7 @@ def build(prediction, assessment, artifact_path):
         "prediction_ref": {
             "artifact_path": str(link_path),
             "artifact_id": prediction["snapshot_id"],
-            "sha256": sha256(link_path),
+            "sha256": sha256(root / link_path),
             "baseline_forecast_id": prediction["baseline_forecast_id"],
         },
         "revision": a.get("revision", 1), "supersedes": a.get("supersedes"),
@@ -568,7 +568,7 @@ def main():
         require(bool(args.assessment) and bool(args.output and args.intent_id),
                 "--generate requires --assessment, --output and --intent-id")
         prediction = read_json(args.root / args.generate)
-        rec = build(prediction, read_json(args.root / args.assessment), args.generate)
+        rec = build(prediction, read_json(args.root / args.assessment), args.generate, root=args.root)
         intent = read_json(args.root / "docs/validation/recommendation-intents" /
                            rec["race_date_jst"] / (args.intent_id + ".json"))
         require(intent.get("recommendation_id") == rec["recommendation_id"] and
