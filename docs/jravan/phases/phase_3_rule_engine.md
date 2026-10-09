@@ -20,6 +20,14 @@
 - manual release / manifest hash / module hashes
 - rule application理由
 
+## 次期推奨買い目（PR68 §25、Stage 2発効後）
+
+- Production順位・印・確率・根拠を固定した後、**オッズ非依存**で同時好走シナリオ・着順適性から券種と具体的な馬番構成を生成する。
+- PR69の先行実装は `scripts/recommendation.py` の単純な◎中心候補生成・全7券種の検証・独立推奨gate。Phase 3のアプリ実行コード・全券種自動候補展開は依然未実装。
+- `baseline_forecast_id`・Prediction snapshot hash・推奨契約versionとdata cutoffを保持し、オッズ/人気/資金変動だけで推奨を再生成しない。
+- 根拠不十分なら`NO_RECOMMENDATION`、処理未完了なら`PENDING`とし、Production認証を無効にしない。
+- ☆・非◎保険縦目の流用はしない。未決の点数上限・閾値を暗黙に決めない。
+
 ## 受入条件
 - 未来情報混入テストが通る。
 - 必須module release不一致時に処理を停止する。
