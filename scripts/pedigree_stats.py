@@ -313,8 +313,21 @@ class Resolver:
             for g in self.definition["groups"]:
                 status, reason = self.classify(key, g)
                 states[g["group_id"]] = {"status": status, "reason": reason}
-        dependencies = {k: digest(self.record(k)) if self.record(k) is not None else None
-                        for k in sorted(self.used)}
+        # 将来の修正・未観測revisionを過去cutoffの依存hashへ逆流させない。
+        dependencies = {}
+        for item in sorted(self.used):
+            original = self.record(item)
+            if original is None:
+                dependencies[item] = None
+                continue
+            active = self.registry.active(original.get("revisions", []), self.cutoff)
+            identity = self.registry.identity_at(original, self.cutoff)
+            fingerprint = {"identity": identity, "active_revisions": active}
+            dependencies[item] = {
+                "as_of_sha256": digest(fingerprint),
+                "revision_ids": sorted(r["revision_id"] for r in active),
+                "identity_status": identity.get("status") if identity else "UNCONFIRMED",
+            }
         value = {"groups": states, "dependencies": dependencies}
         self.cache[key] = value
         return value
@@ -398,6 +411,9 @@ def compute(definition, manifest, registry, input_hash, definition_hash):
         missing.append({"type": "INCOMPLETE_RACE_SCOPE", "reason": "all_runners_included=false"})
     if not rows:
         missing.append({"type": "NO_MATCHED_RACES", "reason": "no valid scope rows"})
+    if total["pending_results"]:
+        missing.append({"type": "RESULT_COVERAGE_INCOMPLETE",
+                        "entries": total["pending_results"]})
     for gid, group in groups.items():
         for state, c in group["cohorts"].items():
             h, r = counts[id(group)][state]
@@ -541,6 +557,49 @@ def audit(root):
     return not errors
 
 
+def inventory(root):
+    """legacy候補と確認済み事実の棚卸し。履歴候補は昇格しない。"""
+    registry = Registry(root / "data/pedigree")
+    source = read(registry.root / "migration.json")
+    require(isinstance(source, dict) and source.get("schema_version") ==
+            "pedigree-registry-v1", "pedigree migration manifest required")
+    claims = source.get("claims")
+    require(isinstance(claims, list) and source.get("extracted") == len(claims),
+            "legacy migration counts mismatch")
+    by_kind, by_status, files = {}, {}, set()
+    for claim in claims:
+        require(claim.get("status") == "UNVERIFIED" and
+                claim.get("identity_status") == "IDENTITY_UNRESOLVED",
+                "legacy candidates may not be automatically promoted")
+        files.add(claim["path"])
+        for component in claim["components"]:
+            kind = component["kind"]
+            by_kind[kind] = by_kind.get(kind, 0) + 1
+            status = component["status"]
+            by_status[status] = by_status.get(status, 0) + 1
+            require(status == "UNVERIFIED", "legacy component wrongly promoted")
+    known = registry.records()
+    return {
+        "schema_version": "pedigree-stat-inventory-v1",
+        "source": "data/pedigree/migration.json",
+        "source_sha256": filehash(registry.root / "migration.json"),
+        "source_commit": source.get("commit"),
+        "candidate_claims": len(claims),
+        "candidate_components": sum(by_kind.values()),
+        "candidate_by_kind": by_kind,
+        "candidate_by_status": by_status,
+        "source_files": sorted(files),
+        "unverified_claims": len(claims),
+        "registered_horses": len(known),
+        "resolved_horses": sum(r.get("identity", {}).get("status") == "RESOLVED" for r in known),
+        "verified_facts": sum(sum(rev.get("status") == "VERIFIED"
+                                   for rev in r.get("revisions", [])) for r in known),
+        "source_verification_complete": len(claims) == 0,
+        "stats_source_ready": False,
+        "status": "UNVERIFIED_CANDIDATES_REMAIN" if claims else "CANDIDATES_REVIEWED",
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path("."))
@@ -548,11 +607,15 @@ def main():
     task.add_argument("--run", metavar="DEFINITION_PATH")
     task.add_argument("--verify", metavar="SNAPSHOT_PATH")
     task.add_argument("--audit", action="store_true")
+    task.add_argument("--inventory", action="store_true")
     parser.add_argument("--input", help="versioned full-field official runners manifest")
     args = parser.parse_args()
     try:
         if args.audit:
             return 0 if audit(args.root) else 1
+        if args.inventory:
+            print(json.dumps(inventory(args.root), ensure_ascii=False, indent=2))
+            return 0
         if args.verify:
             obj = verify(args.root, args.root / args.verify)
             print(json.dumps({"status": "VERIFIED", "snapshot_hash": obj["content_sha256"],
