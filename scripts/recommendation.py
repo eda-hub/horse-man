@@ -207,9 +207,14 @@ def validate_snapshot(root, rec):
         require(kind in main_types, "ticket type missing from main_ticket_types")
         require(all(x in ranking and x not in cancelled for x in horses),
                 "ticket contains non-runner or scratched horse")
-        require(anchor in horses, "non-anchor ticket is not allowed in initial recommendation")
-        require(kind not in {"EXACTA", "TRIFECTA"} or item["horses"][0] == anchor,
-                "ordered bet must place ◎ as first finisher in initial recommendation")
+        if kind not in {"PLACE"}:
+            require(anchor in horses, "non-anchor ticket is not allowed for this type")
+        if kind == "EXACTA":
+            require(item["horses"][0] == anchor, "EXACTA must fix ◎ as winner")
+        if kind == "TRIFECTA":
+            first, second = item["horses"][:2]
+            require(first == anchor or (second == anchor and first in ranking[1:3]),
+                    "TRIFECTA winner must be ◎, or ○/▲ with ◎ in second place")
         for name in ("reason", "scenario_id"):
             require(isinstance(item.get(name), str) and item[name].strip(),
                     f"ticket {name} required")
@@ -270,7 +275,34 @@ def validate_prediction_intent(root, rec, recommendation_intent):
             "recommendation differs from pre-prediction declared scope")
     return path
 
-def verify(root, gate_path):
+def verified_prediction_proof(root, gate, rec, historical=False):
+    """推奨作成時に固定したProduction gateから元Predictionの正式性を再検証する。"""
+    from check_prediction_compliance import validate_gate
+    date, race_id, ident = rec["race_date_jst"], rec["race_id"], rec["recommendation_id"]
+    ref = gate.get("prediction_gate_ref")
+    require(isinstance(ref, dict), "immutable Production gate evidence required")
+    expected = f"docs/validation/recommendation-prediction-gates/{date}/{ident}.json"
+    require(ref.get("artifact_path") == expected, "Production gate evidence path mismatch")
+    pinned = relative(root, expected, "docs/validation/recommendation-prediction-gates/")
+    require(pinned.is_file() and sha256(pinned) == ref.get("sha256"),
+            "immutable Production gate hash mismatch")
+    pg = validate_gate(root, pinned)
+    require(pg.get("race_id") == race_id and pg.get("race_date_jst") == date and
+            pg.get("schema_version") == "prediction-compliance-v2" and
+            pg.get("production", {}).get("evidence_ref", {}).get("artifact_id") ==
+            rec["prediction_ref"]["artifact_id"] and
+            pg.get("production", {}).get("baseline_forecast_id") ==
+            rec["prediction_ref"]["baseline_forecast_id"],
+            "Production evidence reference mismatch")
+    if not historical:
+        live = root / "docs/validation/execution-gates" / date / (race_id + ".json")
+        require(live.is_file(), "current Production gate missing")
+        require(sha256(live) == sha256(pinned),
+                "current Production gate changed since recommendation; revise first")
+    return pg
+
+
+def verify(root, gate_path, allow_stale_current=False):
     gate = read_json(gate_path)
     require(gate.get("schema_version") == GATE_SCHEMA, "recommendation gate schema mismatch")
     ident = gate.get("recommendation_id")
@@ -283,15 +315,9 @@ def verify(root, gate_path):
     require(artifact.is_file() and artifact.suffix == ".json", "recommendation artifact missing")
     require(sha256(artifact) == gate.get("content_sha256"), "recommendation snapshot hash mismatch")
     rec = validate_snapshot(root, read_json(artifact))
-    # Archiveはseal直前に前バージョンを認証済み。現行版だけ現行Prediction gateと再照合する。
     historical = "/history/" in gate_path.as_posix()
-    if not historical:
-        from check_prediction_compliance import validate_gate
-        prediction_gate = root / "docs/validation/execution-gates" / date / (rec["race_id"] + ".json")
-        require(prediction_gate.is_file(), "certified Production gate missing")
-        pg = validate_gate(root, prediction_gate)
-        require(pg.get("production", {}).get("evidence_ref", {}).get("artifact_id") ==
-                rec["prediction_ref"]["artifact_id"], "Production evidence reference mismatch")
+    pg = verified_prediction_proof(root, gate, rec,
+                                   historical=historical or allow_stale_current)
     require(rec["recommendation_id"] == ident and rec["race_date_jst"] == date and
             rec["race_id"] == gate.get("race_id") and
             rec["status"] == gate.get("status") and
@@ -327,17 +353,26 @@ def verify(root, gate_path):
                       ("receipt_persist_status", "RECEIPT_VERIFIED")):
         require(receipt.get(name) == val, f"recommendation receipt {name} mismatch")
     post = iso(rec["scheduled_post_time_jst"], "post")
-    for name in ("persist_verified_at_jst", "receipt_verified_at_jst"):
-        require(iso(receipt.get(name), name) < post, f"recommendation {name} must be before post")
+    fixed = iso(rec["fixed_at_jst"], "fixed_at_jst")
+    saved = iso(receipt.get("persist_verified_at_jst"), "persist_verified_at_jst")
+    readback = iso(receipt.get("receipt_verified_at_jst"), "receipt_verified_at_jst")
+    require(fixed <= saved <= readback < post,
+            "recommendation fixed/persist/receipt timestamps out of order")
+    require(receipt.get("content_sha256") == sha256(artifact) ==
+            gate.get("content_sha256"), "recommendation receipt content hash mismatch")
     require(link.get("persist_verified_at_jst") == receipt.get("persist_verified_at_jst"),
             "recommendation receipt timestamp mismatch")
-    if gate.get("kpi_eligibility") == "ELIGIBLE":
+    require(gate.get("mode") == pg.get("mode"),
+            "recommendation mode differs from Production")
+    eligibility = gate.get("kpi_eligibility")
+    require(eligibility in {"ELIGIBLE", "INELIGIBLE", "PENDING", "NOT_APPLICABLE"},
+            "invalid recommendation eligibility")
+    if eligibility == "ELIGIBLE":
         require(rec["status"] == "RECOMMENDED" and rec["phase"] == "FINAL",
                 "only FINAL RECOMMENDED may be KPI eligible")
-        require(gate.get("mode") == "FORWARD", "REPLAY cannot be forward KPI eligible")
-    else:
-        require(gate.get("kpi_eligibility") in {"INELIGIBLE", "PENDING", "NOT_APPLICABLE"},
-                "invalid recommendation eligibility")
+        require(gate["mode"] == "FORWARD" and pg.get("mode") == "FORWARD" and
+                pg.get("kpi_eligibility", {}).get("production") == "ELIGIBLE",
+                "recommendation cannot be ELIGIBLE without forward eligible Production")
     return rec
 
 
@@ -409,13 +444,32 @@ def seal(root, rec_path, intent_id, receipt_id):
     matches = [r for r in receipts if r.get("receipt_id") == receipt_id]
     require(len(matches) == 1, "verified receipt required")
     record = matches[0]
+    # 元Predictionの固定済みgateを改訂履歴から読めるよう独立保存する。
+    from check_prediction_compliance import validate_gate
+    live_path = root / "docs/validation/execution-gates" / date / (rec["race_id"] + ".json")
+    require(live_path.is_file(), "Production gate required before recommendation seal")
+    pg = validate_gate(root, live_path)
+    require(pg["race_id"] == rec["race_id"] and
+            pg["production"].get("evidence_ref", {}).get("artifact_id") ==
+            rec["prediction_ref"]["artifact_id"] and
+            pg["production"].get("baseline_forecast_id") ==
+            rec["prediction_ref"]["baseline_forecast_id"],
+            "Production evidence reference mismatch")
+    proof_path = f"docs/validation/recommendation-prediction-gates/{date}/{rec['recommendation_id']}.json"
+    proof = root / proof_path
+    require(not proof.exists(), "immutable Production evidence already exists")
+    proof_ref = {"artifact_path": proof_path, "sha256": sha256(live_path)}
     gate = {
         "schema_version": GATE_SCHEMA, "race_id": rec["race_id"],
         "race_date_jst": date, "recommendation_id": rec["recommendation_id"],
         "status": rec["status"], "prediction_ref": rec["prediction_ref"],
         "content_sha256": sha256(path), "intent_path": intent_path,
-        "mode": "FORWARD",
-        "kpi_eligibility": "ELIGIBLE" if rec["status"] == "RECOMMENDED" and rec["phase"] == "FINAL" else "INELIGIBLE",
+        "mode": pg["mode"],
+        "prediction_gate_ref": proof_ref,
+        "kpi_eligibility": ("ELIGIBLE" if
+            rec["status"] == "RECOMMENDED" and rec["phase"] == "FINAL" and
+            pg["mode"] == "FORWARD" and pg["kpi_eligibility"]["production"] == "ELIGIBLE"
+            else "INELIGIBLE"),
         "evidence_ref": {
             "artifact_id": rec["recommendation_id"], "artifact_path": rec_path,
             "receipt_path": receipt_path, "receipt_id": receipt_id,
@@ -427,7 +481,7 @@ def seal(root, rec_path, intent_id, receipt_id):
     old_text = None
     archive = None
     if gate_path.exists():
-        old = verify(root, gate_path)
+        old = verify(root, gate_path, allow_stale_current=True)
         require(rec["revision"] == old["revision"] + 1 and
                 rec.get("supersedes") == old["recommendation_id"],
                 "new revision must supersede existing recommendation gate")
@@ -438,10 +492,13 @@ def seal(root, rec_path, intent_id, receipt_id):
         archive.parent.mkdir(parents=True, exist_ok=True)
         archive.write_text(old_text, encoding="utf-8")
     gate_path.parent.mkdir(parents=True, exist_ok=True)
+    proof.parent.mkdir(parents=True, exist_ok=True)
+    proof.write_bytes(live_path.read_bytes())
     gate_path.write_text(json.dumps(gate, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     try:
         verify(root, gate_path)
     except Exception:
+        proof.unlink()
         if old_text is not None:
             gate_path.write_text(old_text, encoding="utf-8")
             archive.unlink()
@@ -498,6 +555,9 @@ def audit(root):
 
 def settle(rec, result):
     """払戻・購入情報なしで公式着順と券の一致のみ判定。結果未確定は保留。"""
+    require(result.get("race_id") == rec.get("race_id") and
+            result.get("race_date_jst") == rec.get("race_date_jst"),
+            "official result race_id/race_date_jst mismatch")
     if rec.get("status") != "RECOMMENDED":
         return {"status": "NOT_APPLICABLE", "tickets": []}
     if result.get("status") != "OFFICIAL":
