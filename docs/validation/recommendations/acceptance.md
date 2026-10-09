@@ -30,3 +30,16 @@
 `python3 -m unittest discover -s scripts -p 'test_*.py'` で、現行/次期Prediction・persistence・pedigreeも含む回帰を実行。GitHub Actions `予想実行と検証台帳の機械監査` は推奨の独立全件auditを追加。最新実行結果はPR69のChecksを正とし、実施済み範囲・残Phaseを混同しない。
 
 正本: [PR68の次期実装計画 §25](../../proposals/2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[推奨買い目の操作手順](README.md)。
+
+## 2026-10-09 指摘6件の修正・回帰受入
+
+| 指摘 | 対応 | 回帰テスト |
+|---|---|---|
+| P1 改訂不能 | 推奨revisionごとに認証当時のPrediction gateとSHA-256を固定保存。seal時には旧版を固定証跡で検証し、新版は現行gateへ照合する | `test_24_updated_prediction_allows_revision_with_archived_original_proof` |
+| P1 REPLAYの昇格 | 原Predictionのmode/Production KPIを認証し、推奨gateのmode一致とELIGIBLE条件を検証する | `test_25_replay_or_ineligible_prediction_must_not_certify_forward_recommendation` |
+| P1 別レース結果 | 結果JSONの`race_id`/`race_date_jst`を必須にし、直接照合と日別率集計の両方で照合する | `test_26_result_race_and_date_must_match_even_with_same_finish` |
+| P1 古いreceipt | 推奨JSON bytesのSHA-256と固定・保存・receipt読戻し・発走時刻の順序を機械検証する | `test_27_recommendation_receipt_must_bind_bytes_and_follow_fixation` |
+| P2 推奨の全欠落 | Prediction開始前の`recommendation_scope`をaudit起点にし、独立宣言/snapshot/gateがゼロでも不足扱いとする | `test_28_prediction_scope_without_any_recommendation_fails_audit` |
+| P2 券種一律◎制約 | 複勝の非◎対象と、○/▲1着・◎2着の根拠付き三連単を許可。馬連/ワイド等の非◎縦目制約は維持する | `test_29_place_on_second_choice_and_trifecta_reverse_first_row` |
+
+**受入範囲**: CIのPython回帰テストで検証する範囲に限定。正式運用への切替や、JRA-VAN/WebUIへの接続を完了した意味ではない。
