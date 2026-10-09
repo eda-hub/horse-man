@@ -7,7 +7,8 @@ from unittest.mock import patch
 
 from pedigree_registry import Registry, SCHEMA as PEDIGREE_SCHEMA, digest, read, atomic
 from pedigree_stats import (DEFINITION_SCHEMA, INPUT_SCHEMA, RESULT_RULE, audit,
-                            compute, run, verify, validate_manifest, validate_definition)
+                            compute, run, verify, validate_manifest, validate_definition,
+                            inventory)
 
 DATE = "2026-10-05"
 CUTOFF = "2026-10-07T12:00:00+09:00"
@@ -311,6 +312,73 @@ class PedigreeStatsTest(unittest.TestCase):
         self.assertEqual(obj["horse_trace"]["bob"]["groups"]["sire-us"]["status"], "UNKNOWN")
         self.assertEqual(obj["horse_trace"]["bob"]["groups"]["sire-us"]["reason"],
                          "UNMAPPED_OR_AMBIGUOUS_TRAINING_COUNTRY")
+
+
+    def test_19_incremental_reuses_unchanged_classification_and_updates_affected(self):
+        old_path, old = self.calculate()
+        # 未確認馬のみ確認が進んだ。別馬の分類結果とrevision証跡を維持。
+        self.fact("unknown", "parent:S", "sire-a")
+        self.persist()
+        updated_path, updated = run(
+            self.root, DEF_PATH, INPUT_PATH,
+            previous_path=old_path.relative_to(self.root).as_posix())
+        self.assertEqual(updated["groups"]["sire-a"]["cohorts"]["MATCH"]["entries"], 6)
+        self.assertEqual(updated["horse_trace"]["alice"], old["horse_trace"]["alice"])
+        self.assertNotEqual(updated["horse_trace"]["unknown"], old["horse_trace"]["unknown"])
+        cold_path, cold = self.calculate()
+        self.assertEqual(cold_path, updated_path)
+        self.assertEqual(cold, updated)
+        self.assertEqual(verify(self.root, old_path)["content_sha256"], old["content_sha256"])
+
+    def test_20_training_classification_change_invalidates_reused_groups(self):
+        old_path, old = self.calculate()
+        self.definition["training_classification"]["regions"] = {
+            "EU": ["FR", "US"], "US": ["US"]
+        }
+        # 重複地域所属は分類不能。前のMATCHを再利用せずUNKNOWNになる。
+        self.persist()
+        path, updated = run(self.root, DEF_PATH, INPUT_PATH,
+                            previous_path=old_path.relative_to(self.root).as_posix())
+        self.assertNotEqual(path, old_path)
+        self.assertEqual(updated["horse_trace"]["alice"]["groups"]["sire-us"]["status"],
+                         "UNKNOWN")
+        self.assertNotEqual(updated["horse_trace"]["alice"], old["horse_trace"]["alice"])
+
+    def test_21_post_cutoff_revision_does_not_rewrite_forward_asof_fingerprint(self):
+        self.definition["mode"] = "FORWARD"
+        first_path, first = self.calculate()
+        self.fact("alice", "attribute:birth_country", "JP",
+                  observed="2026-10-08T00:00:00+09:00")
+        self.persist()
+        second_path, second = run(
+            self.root, DEF_PATH, INPUT_PATH,
+            previous_path=first_path.relative_to(self.root).as_posix())
+        self.assertEqual(first_path, second_path)
+        self.assertEqual(first, second)
+        self.assertTrue(audit(self.root))
+
+    def test_22_inventory_keeps_legacy_candidates_unverified(self):
+        migration = {
+            "schema_version": PEDIGREE_SCHEMA,
+            "extracted": 1, "commit": "a" * 40,
+            "claims": [{
+                "path": "docs/source.md", "status": "UNVERIFIED",
+                "identity_status": "IDENTITY_UNRESOLVED",
+                "components": [{"kind": "DERIVED_CLAIM", "status": "UNVERIFIED"}]
+            }],
+        }
+        atomic(self.registry.root / "migration.json", migration)
+        result = inventory(self.root)
+        self.assertEqual(result["candidate_claims"], 1)
+        self.assertEqual(result["unverified_claims"], 1)
+        self.assertEqual(result["verified_facts"], 6)
+        self.assertFalse(result["source_verification_complete"])
+        self.assertFalse(result["stats_source_ready"])
+        migration["claims"][0]["status"] = "VERIFIED"
+        atomic(self.registry.root / "migration.json", migration)
+        with self.assertRaisesRegex(ValueError, "may not be automatically promoted"):
+            inventory(self.root)
+
 
 
 if __name__ == "__main__":
