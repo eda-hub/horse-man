@@ -1,0 +1,86 @@
+{
+  "horse_key": "jbis-0001127392",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2002,
+    "external_ids": {
+      "JBIS": "0001127392"
+    },
+    "identity_evidence": {
+      "record_key": "0001127392",
+      "source": "JBIS"
+    },
+    "name": "Bellamy Road(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:40.389331+00:00",
+  "identity_observed_at": "2026-10-09T12:33:40.389331+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2002,
+    "external_ids": {
+      "JBIS": "0001127392"
+    },
+    "identity_evidence": {
+      "record_key": "0001127392",
+      "source": "JBIS"
+    },
+    "name": "Bellamy Road(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:09.491099+00:00",
+      "content_hash": "cf1620023fbcd5bf2c8e244a9354d822b90d41298fbcd7523134ffcbaf877fcb",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:09.491099+00:00",
+      "input_hash": "64a1c1c5a3d74db76f3a576383926fd43240554ad27238bbe6df8dc920051768",
+      "previous_revision": null,
+      "revision_id": "rev-64a1c1c5a3d74db76f3a5763",
+      "saved_at": "2026-10-09T12:35:10.712426+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "d5ac7afc7418374ed473a28d79a484042bc909dc3742a8fc27cc35dcf16d9378",
+        "record_key": "0001127392",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001127392/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000365332",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:09.491099+00:00",
+      "content_hash": "02b71d4800bdc4c3fbbac0f86d3bb12b805fd1dcf7bdb461ae6d58673aee6650",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:09.491099+00:00",
+      "input_hash": "71ed6471a023c40d4680642f904909e7166ca0af8f4b6c37425791b1cb6aef07",
+      "previous_revision": null,
+      "revision_id": "rev-71ed6471a023c40d4680642f",
+      "saved_at": "2026-10-09T12:35:10.715186+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "d5ac7afc7418374ed473a28d79a484042bc909dc3742a8fc27cc35dcf16d9378",
+        "record_key": "0001127392",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001127392/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001127390",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,86 @@
+{
+  "horse_key": "jbis-0000430456",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1988,
+    "external_ids": {
+      "JBIS": "0000430456"
+    },
+    "identity_evidence": {
+      "record_key": "0000430456",
+      "source": "JBIS"
+    },
+    "name": "Aurora(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:24.062310+00:00",
+  "identity_observed_at": "2026-10-09T12:33:24.062310+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1988,
+    "external_ids": {
+      "JBIS": "0000430456"
+    },
+    "identity_evidence": {
+      "record_key": "0000430456",
+      "source": "JBIS"
+    },
+    "name": "Aurora(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:08.163411+00:00",
+      "content_hash": "987e7f46abe148c05544d7accf8134b923f8798183e0eaaa917fb62f189001e3",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:08.163411+00:00",
+      "input_hash": "ede2208c150255ab8b45c6e030c39c89bd88ad6916a81c8dcbd2575abbb25a0f",
+      "previous_revision": null,
+      "revision_id": "rev-ede2208c150255ab8b45c6e0",
+      "saved_at": "2026-10-09T12:34:45.044680+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "058046e69bf4126c6f343d7af692290d5577db9feed3de463077cdeb94031781",
+        "record_key": "0001338648",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001338648/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336082",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:08.163411+00:00",
+      "content_hash": "730c5dadd579b4882c04b056bcd565ad07fbe569e6b2eed2cdacc708ae1e1e95",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:08.163411+00:00",
+      "input_hash": "b8c383208cbfb666c844ff02975bcbcf1bbb7cfed6a27832a3c871e6301c1e25",
+      "previous_revision": null,
+      "revision_id": "rev-b8c383208cbfb666c844ff02",
+      "saved_at": "2026-10-09T12:34:45.044789+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "058046e69bf4126c6f343d7af692290d5577db9feed3de463077cdeb94031781",
+        "record_key": "0001338648",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001338648/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000409037",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

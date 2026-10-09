@@ -17,6 +17,8 @@ jobs:
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: 血統調査リストの検証
         run: python3 scripts/pedigree_registry.py audit
+      - name: 血統実データ照合の原票・個体・祖先位置・時点を検証
+        run: python3 scripts/check_pedigree_reconciliation.py
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査
         run: |
           set -o pipefail
@@ -91,3 +93,4 @@ jobs:
         run: |
           echo "未対応manual release: ${{ steps.manual.outputs.release }}" >&2
           exit 1
+

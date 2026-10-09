@@ -1,0 +1,86 @@
+{
+  "horse_key": "jbis-0000714551",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1998,
+    "external_ids": {
+      "JBIS": "0000714551"
+    },
+    "identity_evidence": {
+      "record_key": "0000714551",
+      "source": "JBIS"
+    },
+    "name": "Banks Hill(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:29.868126+00:00",
+  "identity_observed_at": "2026-10-09T12:33:29.868126+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1998,
+    "external_ids": {
+      "JBIS": "0000714551"
+    },
+    "identity_evidence": {
+      "record_key": "0000714551",
+      "source": "JBIS"
+    },
+    "name": "Banks Hill(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:59.148630+00:00",
+      "content_hash": "1a3dc909990844a2281cd5611992e48ff40585622791e242ad8034d886360a99",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:59.148630+00:00",
+      "input_hash": "f3be91dd143c7ee00a8a5dad38f359965aa2f7b83c51c473ee783ebd36f647a9",
+      "previous_revision": null,
+      "revision_id": "rev-f3be91dd143c7ee00a8a5dad",
+      "saved_at": "2026-10-09T12:34:54.800035+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "6f6910b130112aad655ea93308dd307c439937db6d490accb6b0234334bfb7fe",
+        "record_key": "0001396835",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001396835/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000337424",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:59.148630+00:00",
+      "content_hash": "28a15f2239d1ec5eb44f38a29db9666cf55dec37c58fb22fcdbae84228a5ce0d",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:59.148630+00:00",
+      "input_hash": "2b9a592939715803c9dd67fa474ecd03e42d79b41aa9a4accaa18bb740863bc5",
+      "previous_revision": null,
+      "revision_id": "rev-2b9a592939715803c9dd67fa",
+      "saved_at": "2026-10-09T12:34:54.800243+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "6f6910b130112aad655ea93308dd307c439937db6d490accb6b0234334bfb7fe",
+        "record_key": "0001396835",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001396835/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000448867",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

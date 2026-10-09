@@ -1,0 +1,86 @@
+{
+  "horse_key": "jbis-0000383758",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1990,
+    "external_ids": {
+      "JBIS": "0000383758"
+    },
+    "identity_evidence": {
+      "record_key": "0000383758",
+      "source": "JBIS"
+    },
+    "name": "ラスティックベル(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:01.332780+00:00",
+  "identity_observed_at": "2026-10-09T12:33:01.332780+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1990,
+    "external_ids": {
+      "JBIS": "0000383758"
+    },
+    "identity_evidence": {
+      "record_key": "0000383758",
+      "source": "JBIS"
+    },
+    "name": "ラスティックベル(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:58.909732+00:00",
+      "content_hash": "8403d94a5b428cbd7687cc78145aea709f27a321ee984eef46013ea6cdddc46a",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:58.909732+00:00",
+      "input_hash": "f428dad016dc565ec34ad577aeaf066dab002526db56b34902772f885b3c7c4e",
+      "previous_revision": null,
+      "revision_id": "rev-f428dad016dc565ec34ad577",
+      "saved_at": "2026-10-09T12:34:22.171983+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "97ed6e3a1e8e4cf9a2005846b035233c922d0f51602151ab25bf8c5c457884bc",
+        "record_key": "0001387175",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001387175/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000335975",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:58.909732+00:00",
+      "content_hash": "79b6d077a838e74a4d5a9292dddc6dcbc104ad26692de6fb66fa03c220de92b4",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:58.909732+00:00",
+      "input_hash": "883c093d2cfd47477d5b1d10182f6bcc29faa97edfee9e36c2cf4cfb61f18ab7",
+      "previous_revision": null,
+      "revision_id": "rev-883c093d2cfd47477d5b1d10",
+      "saved_at": "2026-10-09T12:34:22.172097+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "97ed6e3a1e8e4cf9a2005846b035233c922d0f51602151ab25bf8c5c457884bc",
+        "record_key": "0001387175",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001387175/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000411459",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

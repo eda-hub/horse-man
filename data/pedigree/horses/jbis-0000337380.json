@@ -1,0 +1,86 @@
+{
+  "horse_key": "jbis-0000337380",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1984,
+    "external_ids": {
+      "JBIS": "0000337380"
+    },
+    "identity_evidence": {
+      "record_key": "0000337380",
+      "source": "JBIS"
+    },
+    "name": "マイニング(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:32:57.980800+00:00",
+  "identity_observed_at": "2026-10-09T12:32:57.980800+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1984,
+    "external_ids": {
+      "JBIS": "0000337380"
+    },
+    "identity_evidence": {
+      "record_key": "0000337380",
+      "source": "JBIS"
+    },
+    "name": "マイニング(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:25.558567+00:00",
+      "content_hash": "295c7786b8eb6727a57ebbe7efe4ae616a61fb45115c273407733f61d00cf1ec",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:25.558567+00:00",
+      "input_hash": "25af49dc6a8a90031f691eeae18ec084a9e9cdf20a62beb88fb09ae74686b00b",
+      "previous_revision": null,
+      "revision_id": "rev-25af49dc6a8a90031f691eea",
+      "saved_at": "2026-10-09T12:34:08.880000+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "76f154d1b81ec7ffafe4022ca9b6d5fdfb20149ed1932e90fe37daf9038316d3",
+        "record_key": "0001336773",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001336773/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000335975",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:25.558567+00:00",
+      "content_hash": "a7a0a047fa02ccf03c9c7df57e26a0deb74116980a608589390518b794e22ef1",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:25.558567+00:00",
+      "input_hash": "25f4f27644a422bed73b63849551ff3ee952dc71fd5538edc8354f033f569e63",
+      "previous_revision": null,
+      "revision_id": "rev-25f4f27644a422bed73b6384",
+      "saved_at": "2026-10-09T12:34:08.880145+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "76f154d1b81ec7ffafe4022ca9b6d5fdfb20149ed1932e90fe37daf9038316d3",
+        "record_key": "0001336773",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001336773/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000394452",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}
