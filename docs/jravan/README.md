@@ -33,8 +33,3 @@
 15. `phases/` — Codexに渡すフェーズ別実装計画
 
 `DECISIONS.md` は横断的な確定事項の正本とする。競馬判断の意味に矛盾がある場合、`docs/manual/` を優先し、システム設計側を修正する。
-
-
-## 次期追加計画
-
-- [血統調査リストの保存・参照・不足調査](../proposals/2026-10-09_pedigree_research_registry_implementation_plan.md): Git調査基盤、過去情報移行、Phase 2〜4/8への接続。保存基盤と新評価featureの昇格を分離する。
