@@ -31,7 +31,9 @@ snapshotの必須項目は `recommendation_contract`, `recommendation_id`, `pred
 - `EXPLICIT_MARKS_ONLY`: ユーザーの印のみ指定による省略。理由を記録
 - `PENDING`: 未完了。推奨済みとは扱わず、後から補完して適格にしない
 
-同じレースの改訂は `recommendation_id` と `revision` を変え、`supersedes` と `supersedes_sha256` で旧版を固定する。`--seal` 実行時、以前の推奨gateを `recommendation-gates/history/YYYY-MM-DD/<recommendation-id>.json` へ保存したうえで、現行の単一日・レースgateを新しい最終版に切り替える。旧版はその時点のPrediction gateを固定した証跡で検証し、失効保管して的中KPIへ二重計上しない。元Predictionが更新されても旧版を新しいPrediction gateと突き合わせない。新しい推奨は変更後の現行Prediction gateと照合してから認証する。発走後の改訂を前向きKPIへ付け替えない。
+`EXPLICIT_MARKS_ONLY`・`NO_RECOMMENDATION`・`PENDING` は明示状態として優先し、`ticket_formations` に `selected=true` が残っていた場合は暗黙に `RECOMMENDED` へ昇格せず、**矛盾した入力として生成を拒否**する。選択しない候補（`selected=false`）は意思決定履歴として保存可能で、推奨点数は0とする。
+
+同じレースの改訂は `recommendation_id` と `revision` を変え、`supersedes` と `supersedes_sha256` で旧版を固定する。`--seal` 実行時、以前の推奨gateを `recommendation-gates/history/YYYY-MM-DD/<recommendation-id>.json` へ保存したうえで、現行の単一日・レースgateを新しい最終版に切り替える。旧版はその時点のPrediction gateを固定した証跡で検証し、失効保管して的中KPIへ二重計上しない。現行Prediction gateの `review` は結果後に正式に `COMPLETE` へ更新でき、推奨gateの `--verify`、`--audit`、`--report` は継続可能。発走前固定対象（PredictionのProduction、mode、cutoff、manual、固定時点のProduction KPI等）の変更は認証を拒否する。旧固定証跡ファイルのSHA-256照合は継続する。元Predictionが更新されても旧版を新しいPrediction gateと突き合わせない。新しい推奨は変更後の現行Prediction gateと照合してから認証する。発走後の改訂を前向きKPIへ付け替えない。
 
 ## 操作例
 
