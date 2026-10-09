@@ -109,6 +109,17 @@ def validate_snapshot(root, rec):
     else:
         require(isinstance(rec.get("supersedes"), str) and rec["supersedes"] != rec["recommendation_id"],
                 "later revision must reference previous recommendation")
+        previous = root / "docs/validation/recommendations" / date / (rec["supersedes"] + ".json")
+        require(previous.is_file() and previous !=
+                root / "docs/validation/recommendations" / date / (rec["recommendation_id"] + ".json"),
+                "superseded recommendation artifact missing")
+        require(sha256(previous) == rec.get("supersedes_sha256"),
+                "superseded recommendation hash mismatch")
+        before = read_json(previous)
+        require(before.get("revision") == revision - 1 and
+                before.get("race_id") == rec.get("race_id") and
+                before.get("fixed_at_jst", "~") < rec.get("fixed_at_jst", ""),
+                "recommendation revision/previous race/time mismatch")
     prediction = prediction_link(root, rec)
     ranking = prediction.get("ranking", [])
     require(isinstance(ranking, list) and len(ranking) >= 3, "prediction ranking required")
@@ -173,6 +184,18 @@ def validate_snapshot(root, rec):
         else:
             require("probability_range" not in item and "probability_method" not in item,
                     "uncalculated scenario cannot declare probability")
+    decisions = rec.get("candidate_decisions", [])
+    require(isinstance(decisions, list), "candidate_decisions must be list")
+    seen_decisions = set()
+    for item in decisions:
+        require(isinstance(item, dict) and item.get("type") in TYPES and
+                item["type"] not in seen_decisions, "duplicate or invalid candidate type")
+        seen_decisions.add(item["type"])
+        require(item.get("status") in {"SELECTED", "REJECTED"} and
+                isinstance(item.get("reason"), str) and item["reason"].strip(),
+                "candidate requires decision and reason")
+    require({x["type"] for x in decisions if x["status"] == "SELECTED"} == set(main_types),
+            "selected candidate decisions differ from main_ticket_types")
     keys = set()
     priorities = set()
     for item in tickets:
@@ -240,13 +263,15 @@ def verify(root, gate_path):
     require(artifact.is_file() and artifact.suffix == ".json", "recommendation artifact missing")
     require(sha256(artifact) == gate.get("content_sha256"), "recommendation snapshot hash mismatch")
     rec = validate_snapshot(root, read_json(artifact))
-    # Production認証と推奨認証は別判定。ただし推奨は実在する認証済みPredictionを参照する。
-    from check_prediction_compliance import validate_gate
-    prediction_gate = root / "docs/validation/execution-gates" / date / (rec["race_id"] + ".json")
-    require(prediction_gate.is_file(), "certified Production gate missing")
-    pg = validate_gate(root, prediction_gate)
-    require(pg.get("production", {}).get("evidence_ref", {}).get("artifact_id") ==
-            rec["prediction_ref"]["artifact_id"], "Production evidence reference mismatch")
+    # Archiveはseal直前に前バージョンを認証済み。現行版だけ現行Prediction gateと再照合する。
+    historical = "/history/" in gate_path.as_posix()
+    if not historical:
+        from check_prediction_compliance import validate_gate
+        prediction_gate = root / "docs/validation/execution-gates" / date / (rec["race_id"] + ".json")
+        require(prediction_gate.is_file(), "certified Production gate missing")
+        pg = validate_gate(root, prediction_gate)
+        require(pg.get("production", {}).get("evidence_ref", {}).get("artifact_id") ==
+                rec["prediction_ref"]["artifact_id"], "Production evidence reference mismatch")
     require(rec["recommendation_id"] == ident and rec["race_date_jst"] == date and
             rec["race_id"] == gate.get("race_id") and
             rec["status"] == gate.get("status") and
@@ -362,13 +387,29 @@ def seal(root, rec_path, intent_id, receipt_id):
         },
     }
     gate_path = root / "docs/validation/recommendation-gates" / date / (rec["race_id"] + ".json")
-    require(not gate_path.exists(), "recommendation gate already exists; do not overwrite history")
+    old_text = None
+    archive = None
+    if gate_path.exists():
+        old = verify(root, gate_path)
+        require(rec["revision"] == old["revision"] + 1 and
+                rec.get("supersedes") == old["recommendation_id"],
+                "new revision must supersede existing recommendation gate")
+        archive = root / "docs/validation/recommendation-gates/history" / date / (
+            old["recommendation_id"] + ".json")
+        require(not archive.exists(), "previous recommendation gate already archived")
+        old_text = gate_path.read_text(encoding="utf-8")
+        archive.parent.mkdir(parents=True, exist_ok=True)
+        archive.write_text(old_text, encoding="utf-8")
     gate_path.parent.mkdir(parents=True, exist_ok=True)
     gate_path.write_text(json.dumps(gate, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     try:
         verify(root, gate_path)
     except Exception:
-        gate_path.unlink()
+        if old_text is not None:
+            gate_path.write_text(old_text, encoding="utf-8")
+            archive.unlink()
+        else:
+            gate_path.unlink()
         raise
     return gate_path
 
@@ -378,7 +419,7 @@ def audit(root):
                (base / "recommendation-intents").glob("*/*.json")}
     snapshots = {p.relative_to(root).as_posix(): p for p in
                  (base / "recommendations").glob("*/*.json")}
-    gates = sorted((base / "recommendation-gates").glob("*/*.json"))
+    gates = sorted((base / "recommendation-gates").glob("*/*.json")) + sorted((base / "recommendation-gates").glob("history/*/*.json"))
     used_intents, used_snapshots = set(), set()
     errors = []
     for path in gates:
@@ -388,7 +429,9 @@ def audit(root):
             used_intents.add(data["intent_path"].removeprefix("docs/validation/"))
             used_snapshots.add(data["evidence_ref"]["artifact_path"])
             require(path.parent.name == rec["race_date_jst"], "recommendation gate date/path mismatch")
-            require(data.get("race_id") == path.stem, "recommendation gate race/path mismatch")
+            require((data.get("recommendation_id") == path.stem if "/history/" in path.as_posix()
+                     else data.get("race_id") == path.stem),
+                    "recommendation gate race/path mismatch")
             print(f"RECOMMENDATION_VERIFIED {path}: {rec['status']}")
         except (ComplianceError, OSError, ValueError, TypeError, KeyError) as exc:
             errors.append(f"{path}: {exc}")
@@ -504,6 +547,17 @@ def build(prediction, assessment, artifact_path, root=Path(".")):
     tickets = ([{"type": kind, "horses": horses, "priority": 1,
                  "scenario_id": scenario, "reason": reason}] if kind else [])
     link_path = Path(artifact_path)
+    proposed = {"WIDE": bool(a.get("joint_top3_scenario")),
+                "QUINELLA": bool(a.get("joint_top2_scenario")),
+                "PLACE": bool(a.get("anchor_place_scenario")),
+                "WIN": bool(a.get("anchor_win_scenario"))}
+    decisions = [{"type": typ, "status": "SELECTED" if typ == kind else "REJECTED",
+                  "reason": reason if typ == kind else
+                  "同時好走・着順適性から選んだ主力構成より優先度が低いため不採用"}
+                 for typ, eligible in proposed.items() if eligible and
+                 a.get("status") not in {"EXPLICIT_MARKS_ONLY", "PENDING", "NO_RECOMMENDATION"}]
+    if kind and kind not in {x["type"] for x in decisions}:
+        decisions.append({"type": kind, "status": "SELECTED", "reason": reason})
     return {
         "schema_version": SCHEMA, "recommendation_contract": CONTRACT,
         "recommendation_id": a["recommendation_id"],
@@ -520,11 +574,13 @@ def build(prediction, assessment, artifact_path, root=Path(".")):
             "baseline_forecast_id": prediction["baseline_forecast_id"],
         },
         "revision": a.get("revision", 1), "supersedes": a.get("supersedes"),
+        "supersedes_sha256": a.get("supersedes_sha256"),
         "phase": a.get("phase", "FINAL"),
         "status": state, "reason": reason,
         "cancelled_horses": a.get("cancelled_horses", []),
         "main_ticket_types": [kind] if kind else [],
         "tickets": tickets, "unique_ticket_count": len(tickets),
+        "candidate_decisions": decisions,
         "horse_roles": role_items, "scenarios": a.get("scenarios", []),
         "dependency_audit": a.get("dependency_audit", {
             "anchor_dependency": "ALL" if kind else "NONE",
@@ -568,6 +624,7 @@ def report(root, manifest):
     for item in items:
         require(isinstance(item, dict), "report item object required")
         gate_path = relative(root, item.get("gate_path", ""), "docs/validation/recommendation-gates/")
+        require("/history/" not in gate_path.as_posix(), "superseded gate cannot join forward report")
         gate = read_json(gate_path)
         rec = verify(root, gate_path)
         key = (rec["race_date_jst"], rec["race_id"])
