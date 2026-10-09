@@ -328,5 +328,92 @@ class RecommendationTest(unittest.TestCase):
 
 
 
+    def test_19_formations_cover_all_seven_types_without_duplication(self):
+        root, g, pred = self.root()
+        # 選択候補は1〜2券種を入れ替えて各券種を直接生成する。
+        scenarios = {
+            "scenario_id": "joint", "description": "◎と上位の同時好走",
+            "probability_status": "NOT_CALCULATED",
+        }
+        for kind, columns in {
+            "WIN": [[5]], "PLACE": [[5]],
+            "QUINELLA": [[5], [2, 6]],
+            "WIDE": [[5], [2, 6]],
+            "EXACTA": [[5], [2, 6]],
+            "TRIO": [[5], [2, 6], [2, 6, 4]],
+            "TRIFECTA": [[5], [2, 6], [2, 6, 4]],
+        }.items():
+            with self.subTest(kind=kind):
+                pred2 = copy.deepcopy(pred)
+                pred2["evidence_items"].extend([
+                    {"horse_no": h, "factor": "ability", "fact": "検証済み",
+                     "source_ref": "test-source", "observed_at_jst": DATE + "T09:40:00+09:00",
+                     "direction": "plus", "strength": "medium"} for h in (4,)
+                ])
+                pred_path = f"docs/validation/snapshots/{DATE}/{pred['snapshot_id']}.json"
+                write(root, pred_path, json.dumps(pred2))
+                plan = self.scenario()
+                plan["scenarios"] = [scenarios]
+                plan["horse_roles"].extend([
+                    {"horse_no": h, "finish_role": role, "source_ref": "test-source",
+                     "observed_at_jst": DATE + "T09:40:00+09:00",
+                     "scenario_id": "joint", "reason": "今回の着順適性"}
+                    for h, role in ((6, "TOP2"), (4, "TOP3"))
+                ])
+                plan["ticket_formations"] = [
+                    {"type": kind, "columns": columns, "scenario_id": "joint",
+                     "reason": "能力と展開から成立を説明できる構成", "selected": True}
+                ]
+                rec = self.rec(root, pred2, plan)
+                self.assertEqual(rec["status"], "RECOMMENDED")
+                self.assertEqual(rec["main_ticket_types"], [kind])
+                self.assertEqual(rec["unique_ticket_count"], 1 if len(columns) == 1 else (
+                    2 if len(columns) == 2 else 4))
+                validate_snapshot(root, rec)
+
+    def test_20_unordered_formations_deduplicate_ordered_do_not(self):
+        root, _, pred = self.root()
+        for typ, expected in (("TRIO", 1), ("TRIFECTA", 2)):
+            with self.subTest(typ=typ):
+                p = copy.deepcopy(pred)
+                p["evidence_items"].append(
+                    {"horse_no": 4, "factor": "ability", "fact": "適性あり",
+                     "source_ref": "test-source", "observed_at_jst": DATE + "T09:40:00+09:00",
+                     "direction": "plus", "strength": "medium"})
+                pred_path = f"docs/validation/snapshots/{DATE}/{p['snapshot_id']}.json"
+                write(root, pred_path, json.dumps(p))
+                a = self.scenario()
+                a["horse_roles"].extend([
+                    {"horse_no": h, "finish_role": role, "source_ref": "test-source",
+                     "observed_at_jst": DATE + "T09:40:00+09:00",
+                     "scenario_id": "joint", "reason": "同時好走"}
+                    for h, role in ((6, "TOP2"), (4, "TOP3"))])
+                a["ticket_formations"] = [
+                    {"type": typ, "columns": [[5], [2, 6], [2, 6]],
+                     "scenario_id": "joint", "reason": "上位3頭内を評価", "selected": True}]
+                rec = self.rec(root, p, a)
+                # 重複列内の同一馬を除去。三連単は逆順を別券とする。
+                self.assertEqual(rec["unique_ticket_count"], expected)
+                validate_snapshot(root, rec)
+
+    def test_21_formations_reject_three_types_and_non_anchor(self):
+        root, _, pred = self.root()
+        a = self.scenario()
+        a["ticket_formations"] = [
+            {"type": typ, "columns": [[h]], "scenario_id": "joint",
+             "reason": "構成を検討", "selected": True}
+            for typ, h in (("WIN", 5), ("PLACE", 5))]
+        a["ticket_formations"].append(
+            {"type": "WIDE", "columns": [[5], [2]], "scenario_id": "joint",
+             "reason": "追加", "selected": True})
+        with self.assertRaisesRegex(ComplianceError, "at most two"):
+            self.rec(root, pred, a)
+        a["ticket_formations"] = [
+            {"type": "WIDE", "columns": [[2], [5]], "scenario_id": "joint",
+             "reason": "非◎起点", "selected": True}]
+        self.assertEqual(self.rec(root, pred, a)["unique_ticket_count"], 1)
+
+
+
 if __name__ == "__main__":
     unittest.main()
