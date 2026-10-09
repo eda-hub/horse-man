@@ -418,8 +418,14 @@ def audit(root):
 
 def settle(rec, result):
     """払戻・購入情報なしで公式着順と券の一致のみ判定。結果未確定は保留。"""
+    if rec.get("status") != "RECOMMENDED":
+        return {"status": "NOT_APPLICABLE", "tickets": []}
     if result.get("status") != "OFFICIAL":
         return {"status": "PENDING", "tickets": []}
+    require(isinstance(result.get("source_url"), str) and result["source_url"].startswith(("https://", "http://")),
+            "official result source_url required")
+    require(iso(result.get("retrieved_at_jst"), "official result retrieved_at") >=
+            iso(rec["scheduled_post_time_jst"], "post"), "official result was observed before start")
     groups = result.get("finish_groups")
     require(isinstance(groups, list) and groups and all(
         isinstance(g, list) and g and all(type(h) is int and h > 0 for h in g)
@@ -478,6 +484,8 @@ def build(prediction, assessment, artifact_path, root=Path(".")):
     kind = None
     horses = []
     scenario = None
+    if a.get("status") in {"NO_RECOMMENDATION", "EXPLICIT_MARKS_ONLY", "PENDING"}:
+        pair = top2 = win = stable = None
     if pair and all(h in by_horse for h in (anchor, opponent)):
         kind, horses, scenario = "WIDE", [anchor, opponent], pair
     elif top2 and all(h in by_horse for h in (anchor, opponent)) and all(
@@ -490,7 +498,9 @@ def build(prediction, assessment, artifact_path, root=Path(".")):
     reason = a.get("reason", "シナリオ根拠不足のため推奨なし")
     if kind:
         require(isinstance(reason, str) and reason.strip(), "assessment reason required")
-    state = "RECOMMENDED" if kind else "NO_RECOMMENDATION"
+    state = "RECOMMENDED" if kind else a.get("status", "NO_RECOMMENDATION")
+    require(state in STATES, "invalid assessment status")
+    require(not kind or state == "RECOMMENDED", "invalid selected recommendation")
     tickets = ([{"type": kind, "horses": horses, "priority": 1,
                  "scenario_id": scenario, "reason": reason}] if kind else [])
     link_path = Path(artifact_path)
@@ -524,6 +534,87 @@ def build(prediction, assessment, artifact_path, root=Path(".")):
         }),
     }
 
+
+def display(rec):
+    """保存済みsnapshotの値だけから、ユーザー提示用の日本語本文を作る。"""
+    labels = {"WIN": "単勝", "PLACE": "複勝", "QUINELLA": "馬連",
+              "WIDE": "ワイド", "EXACTA": "馬単", "TRIO": "三連複",
+              "TRIFECTA": "三連単"}
+    status = rec["status"]
+    lines = [f"推奨買い目（オッズ非依存） / {rec['race_id']} / {rec['phase']}"]
+    if status != "RECOMMENDED":
+        lines.append(f"状態: {status} / 理由: {rec['reason']}")
+        return "\n".join(lines)
+    lines.append("主力券種: " + "・".join(labels[x] for x in rec["main_ticket_types"]))
+    lines.append(f"推奨点数: {rec['unique_ticket_count']}点")
+    for item in sorted(rec["tickets"], key=lambda t: t["priority"]):
+        sep = "→" if item["type"] in {"EXACTA", "TRIFECTA"} else "-"
+        lines.append(f"{item['priority']}位: {labels[item['type']]} {sep.join(map(str,item['horses']))} / {item['reason']}")
+    lines.append("構成理由: " + rec["reason"])
+    lines.append("軸依存: " + rec["dependency_audit"]["anchor_dependency"])
+    lines.append("※的中・払戻を保証するものではありません。")
+    return "\n".join(lines)
+
+
+def report(root, manifest):
+    """固定済みFINALの推薦gateから券種別の的中率を組み立てる。"""
+    items = read_json(manifest).get("items")
+    require(isinstance(items, list), "report items list required")
+    totals = {}
+    seen = set()
+    summary = {"eligible_recommendations": 0, "no_recommendation": 0,
+               "marks_only": 0, "pending": 0, "ineligible": 0,
+               "unsettled": 0, "invalid": 0, "by_type": totals}
+    for item in items:
+        require(isinstance(item, dict), "report item object required")
+        gate_path = relative(root, item.get("gate_path", ""), "docs/validation/recommendation-gates/")
+        gate = read_json(gate_path)
+        rec = verify(root, gate_path)
+        key = (rec["race_date_jst"], rec["race_id"])
+        require(key not in seen, "report contains duplicated race/revision")
+        seen.add(key)
+        if rec["status"] == "NO_RECOMMENDATION":
+            summary["no_recommendation"] += 1
+            continue
+        if rec["status"] == "EXPLICIT_MARKS_ONLY":
+            summary["marks_only"] += 1
+            continue
+        if rec["status"] == "PENDING":
+            summary["pending"] += 1
+            continue
+        if (gate["kpi_eligibility"] != "ELIGIBLE" or
+                rec["phase"] != "FINAL" or gate["mode"] != "FORWARD"):
+            summary["ineligible"] += 1
+            continue
+        summary["eligible_recommendations"] += 1
+        result_path = item.get("result_path")
+        if not result_path:
+            summary["unsettled"] += 1
+            continue
+        result = settle(rec, read_json(relative(root, result_path, "docs/validation/results/")))
+        if result["status"] == "PENDING":
+            summary["unsettled"] += 1
+            continue
+        if result["status"] == "INVALID":
+            summary["invalid"] += 1
+            continue
+        for kind in rec["main_ticket_types"]:
+            outcome = [t for t in result["tickets"] if t["type"] == kind and t["result"] != "INVALID"]
+            if not outcome:
+                continue
+            line = totals.setdefault(kind, {"eligible_races": 0, "hit_races": 0,
+                                            "valid_tickets": 0, "hit_tickets": 0,
+                                            "recommended_tickets": 0})
+            line["eligible_races"] += 1
+            line["hit_races"] += int(any(t["result"] == "HIT" for t in outcome))
+            line["valid_tickets"] += len(outcome)
+            line["hit_tickets"] += sum(t["result"] == "HIT" for t in outcome)
+            line["recommended_tickets"] += sum(t["type"] == kind for t in rec["tickets"])
+    for row in totals.values():
+        row["race_hit_rate"] = row["hit_races"] / row["eligible_races"] if row["eligible_races"] else None
+        row["ticket_hit_rate"] = row["hit_tickets"] / row["valid_tickets"] if row["valid_tickets"] else None
+    return summary
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path("."))
@@ -534,6 +625,8 @@ def main():
     group.add_argument("--generate", metavar="PREDICTION_PATH")
     group.add_argument("--prepare", metavar="PREDICTION_PATH")
     group.add_argument("--seal", metavar="RECOMMENDATION_PATH")
+    group.add_argument("--display", metavar="RECOMMENDATION_PATH")
+    group.add_argument("--report", metavar="MANIFEST_PATH")
     parser.add_argument("--result", help="official result JSON for --settle")
     parser.add_argument("--assessment", help="non-market judgement JSON for --generate")
     parser.add_argument("--output", help="recommendation JSON output for --generate")
@@ -547,6 +640,13 @@ def main():
         if args.verify:
             rec = verify(args.root, args.root / args.verify)
             print(f"RECOMMENDATION_VERIFIED {rec['recommendation_id']} {rec['status']}")
+            return 0
+        if args.display:
+            rec = validate_snapshot(args.root, read_json(args.root / args.display))
+            print(display(rec))
+            return 0
+        if args.report:
+            print(json.dumps(report(args.root, args.root / args.report), ensure_ascii=False, indent=2))
             return 0
         if args.settle:
             require(bool(args.result), "--result required")
