@@ -52,3 +52,8 @@ PR68の追加計画に基づくPR69の `data/pedigree/` を入力契約とする
 - Gitの未確認移行候補をVERIFIEDとして取り込まず、原出所を再照合する。
 
 具体DDL・JRA-VAN/Web adapter・実移行はPhase 2の実装PRで確定する。PR69の現在の完成範囲はGit JSONの検索・検証・保存・過去候補抽出であり、本節の実DB受入完了を意味しない。
+
+
+## 血統成績集計の公式出走母数（PR68 §11）
+
+PR69で`scripts/pedigree_stats.py`と版付き`official-runners-manifest-v1`入力契約、Git固定集計snapshotを準備した。Phase 2の実データ引継ぎでは、レースID×馬IDの全出走馬・公式着順/結果状態・訂正revision・出走時点・公式出所hashを確保し、既存の確認済み血統IDと一致させる。勝ち馬だけの抽出や不明馬の推測補完を禁止する。保存JSONの`all_runners_included`はプロバイダ原票と突合し、未確認ならfalseにする。現時点では実在のJRA-VAN/JRAアダプタ・DB移行・公式原票との突合は未実装。後続実装で必要な接続とDB Writer切替はこのPhaseの受入条件として残す。詳細は[入力契約](../../../../data/condition_stats/README.md)。
