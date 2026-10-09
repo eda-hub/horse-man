@@ -1,5 +1,7 @@
 # 予想保存の事前宣言と直後確認
 
+次期v1.7.0の**推奨買い目**は既存prediction intentとは別の `recommendation-persistence-intent-v1` を用いる。固定Prediction参照・推奨scope・artifactを事前宣言し、同一artifactの独立receiptとSHA-256を `scripts/recommendation.py --seal/--audit` で確認する。詳しい操作は [次期推奨買い目](../recommendations/README.md)。現行v1.6.1の予想宣言と旧prediction gateの意味は変更しない。
+
 全レース予想や個別レースの依頼を受けた時点で、予想本文の作成前に対象レース・保存予定のsnapshot ID・最も早い発走時刻を宣言する。予約実行なら予約設定時に日次作業ブランチへ保存し、同じブランチから読戻す。既存ブランチ・既存ファイルは再利用する。
 
 `scripts/verify_prediction_persistence.py --prepare` は `docs/validation/persistence-intents/YYYY-MM-DD/<intent-id>.json` を作る。既存の同名宣言を異なる内容で上書きしない。日付や競馬場は固定しない。
