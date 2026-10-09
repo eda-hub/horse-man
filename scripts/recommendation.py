@@ -275,6 +275,17 @@ def validate_prediction_intent(root, rec, recommendation_intent):
             "recommendation differs from pre-prediction declared scope")
     return path
 
+def fixed_prediction_fields(gate):
+    """回顧は可変。発走前に固定したProductionの同一性だけを比較する。"""
+    names = ("schema_version", "race_id", "race_date_jst", "mode",
+             "working_branch", "manual_release", "manual_ref_commit",
+             "scheduled_post_time_jst", "data_cutoff", "timing_route", "production")
+    return {
+        **{name: gate.get(name) for name in names},
+        "production_kpi_eligibility": gate.get("kpi_eligibility", {}).get("production"),
+    }
+
+
 def verified_prediction_proof(root, gate, rec, historical=False):
     """推奨作成時に固定したProduction gateから元Predictionの正式性を再検証する。"""
     from check_prediction_compliance import validate_gate
@@ -297,7 +308,8 @@ def verified_prediction_proof(root, gate, rec, historical=False):
     if not historical:
         live = root / "docs/validation/execution-gates" / date / (race_id + ".json")
         require(live.is_file(), "current Production gate missing")
-        require(sha256(live) == sha256(pinned),
+        current = validate_gate(root, live)
+        require(fixed_prediction_fields(current) == fixed_prediction_fields(pg),
                 "current Production gate changed since recommendation; revise first")
     return pg
 
@@ -723,7 +735,13 @@ def build(prediction, assessment, artifact_path, root=Path(".")):
     if "ticket_formations" in a:
         tickets, selected_types, form_decisions = form_tickets(a)
         kind = None
-        state = "RECOMMENDED" if tickets else a.get("status", "NO_RECOMMENDATION")
+        declared_state = a.get("status")
+        if declared_state in {"EXPLICIT_MARKS_ONLY", "NO_RECOMMENDATION", "PENDING"}:
+            require(not tickets,
+                    "explicit recommendation status conflicts with selected ticket formations")
+            state = declared_state
+        else:
+            state = "RECOMMENDED" if tickets else a.get("status", "NO_RECOMMENDATION")
         require(state in STATES and (tickets or state != "RECOMMENDED"),
                 "formation recommendation status invalid")
     else:
