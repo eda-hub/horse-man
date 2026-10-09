@@ -10,6 +10,10 @@
 4. `python3 scripts/pedigree_stats.py --run data/condition_stats/definitions/<ID>.json --input data/condition_stats/inputs/<ID>.json` で集計し、`completeness`・`missing`・`coverage`とsnapshotのパスを読む。
 5. `python3 scripts/pedigree_stats.py --verify data/condition_stats/snapshots/<ID>/<SHA256>.json` / `python3 scripts/pedigree_stats.py --audit` でhash・入力原本を検証する。
 
+前回snapshotの同定・血統依存revisionが時点適合している場合、
+`python3 scripts/pedigree_stats.py --run data/condition_stats/definitions/<ID>.json --input data/condition_stats/inputs/<ID>.json --previous data/condition_stats/snapshots/<ID>/<旧SHA256>.json`
+で変更されていない馬の分類を再利用し、訂正の影響範囲だけ再分類する。`--audit` は未実行の集計定義や未集計の最新版出走manifestも不足検出する。`--inventory` は既存未確認候補の数を表示するが、実データを確定した証明にはしない。
+
 集計定義/入力の内容アドレス原本をそれぞれ`definitions/archive/`・`inputs/archive/`へ固定し、`condition_stat_snapshot`の**Git JSON準備形式**を`snapshots/`へ保存する。結果訂正・分類変更の新規snapshotは新しいSHA-256名となり、旧snapshotは上書きしない。外部情報の再取得なしに、保存済み入力から再集計可能。DBへの唯一Writer切替・差分ジョブはPhase 2/3の後続工程。
 
 ## 契約例（架空データ。公式取得済みとは扱わない）
