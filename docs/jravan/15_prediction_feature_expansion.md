@@ -234,3 +234,10 @@ raw / normalized data
 - Phase 8: 前向き/バックテスト評価、data cutoff監査、昇格判定
 
 Phase 2のデータ取得が不足する場合、Phase 3でWeb値を無断補完してProductionへ流さない。取得不能はcoverage/missing reasonとして保持する。
+
+
+## 8. 血統調査情報の再利用基盤
+
+[血統調査リストの実装計画](../proposals/2026-10-09_pedigree_research_registry_implementation_plan.md)に従い、保存済み血統を必要項目・世代・分類版・data cutoffで検索し、不足だけを追加調査する。
+
+客観血統は再利用可能なraw/normalized data、系統・内包は元revisionと分類版から再計算可能なderived dataとする。未確認範囲を「内包なし」としない。条件別成績は既存condition_stat_snapshotへ接続し、レース固有集団傾向はProduction固定後のShadowに限定する。保存済み事実の再利用と新血統スコアの昇格を分け、新規スコアは本書のShadow/Phase 8契約に従う。

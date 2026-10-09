@@ -38,3 +38,16 @@
 - `JVEvtWeight` 受信済み、JRA-VAN公式動作確認で取得可能、またはJRA公式一次情報で公開済みと確認できるのに内部Adapter/Parserで取得できないケースを `SOURCE_ERROR` として検知できる。
 - JRA-VAN公式動作確認ツールで同一 `0B11` が取得できる場合、provider未発表ではなく内部Adapter/Parser側障害として切り分けられる。
 - 前走馬体重や静的HTMLの空欄を当日馬体重として代用しない。
+
+
+## 血統調査リストとの接続
+
+[血統調査リストの実装計画](../../proposals/2026-10-09_pedigree_research_registry_implementation_plan.md)のGit調査基盤をDBへ接続する。
+
+追加受入条件:
+- 保存済みの確認範囲を参照し、必要項目・世代・cutoffに対する不足だけを取得できる。
+- 馬の同定、表記ゆれ、同名異馬、祖先共用を識別子で扱える。
+- 内包の存在・指定範囲内の不存在・未確認を区別できる。
+- JSONからDBへ移行してもrevision、hash、観測時刻、provenanceが失われない。
+- 単一Writerへ切り替え、JSON/DBの二重更新を防止できる。
+- 訂正前revisionを保持し、過去予想が使用した血統を再現できる。
