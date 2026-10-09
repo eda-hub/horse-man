@@ -23,6 +23,7 @@
 - v1.6.1以前の `prediction-compliance-v1`、Betting KPI、固定仮想資金、実購入記録は旧契約の履歴として保持し、新KPIへ自動混入しない。
 - 次期記録書式は [次期検証サイクルテンプレート](templates/next_cycle_execution_v17.md)、チャットPredictionは [次期予想タスクテンプレート](templates/chatgpt_prediction_task_v17.md) を使用する。
 - 近5走相手レベル、開催傾向、新馬専用評価、条件別統計は原則としてProduction固定後のShadow前向き比較から開始する。
+- PR68 §25の[オッズ非依存推奨買い目](recommendations/README.md)はPR69に準備実装を追加。固定Productionの下流で構成を作り、別artifact/intent/receipt/gateとする。Stage 2の正式発効日までは履歴v2へ推奨必須化せず、現行第3サイクルに適用しない。
 
 
 ## 第2サイクルの総括と第3サイクルの開始準備 — 2026-09-22
