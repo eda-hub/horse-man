@@ -101,14 +101,32 @@ def run(argv=None):
         raise RegistryError("source-commitは40桁Git SHA")
     check = subprocess.run(["git", "-C", str(repo), "rev-parse", "HEAD"],
                            check=False, capture_output=True, text=True)
-    if check.returncode == 0 and check.stdout.strip() != args.source_commit:
-        # 作業ブランチ上での抽出もあり得るため、当該commitが祖先にあることを検証する
+    if check.returncode != 0:
+        raise RegistryError("Git HEADを確認できない")
+    if check.stdout.strip() != args.source_commit:
+        # source_commit以降に抽出元が変更されていないことを担保する
         ancestor = subprocess.run(
             ["git", "-C", str(repo), "merge-base", "--is-ancestor", args.source_commit, "HEAD"],
             check=False, capture_output=True,
         )
         if ancestor.returncode != 0:
             raise RegistryError("抽出元コミットが作業HEADの祖先ではない")
+    for diff_args in (
+        ["diff", "--quiet", args.source_commit, "HEAD", "--"],
+        ["diff", "--quiet", "--"],
+        ["diff", "--cached", "--quiet", "--"],
+    ):
+        check_files = subprocess.run(["git", "-C", str(repo), *diff_args, *SOURCE_DIRECTORIES],
+                                     check=False, capture_output=True)
+        if check_files.returncode != 0:
+            raise RegistryError("元コミットと現作業ツリーの抽出対象に差分があるため中止")
+    untracked = subprocess.run(
+        ["git", "-C", str(repo), "ls-files", "--others", "--exclude-standard",
+         "--", *SOURCE_DIRECTORIES],
+        check=False, capture_output=True, text=True,
+    )
+    if untracked.returncode != 0 or untracked.stdout.strip():
+        raise RegistryError("未追跡の抽出対象があるため中止")
     registered_at = now()
     results, manifest = collect(repo, args.source_commit, registered_at)
     paths = [repo / "data/pedigree/research/backfill-2026-10-09.json",
