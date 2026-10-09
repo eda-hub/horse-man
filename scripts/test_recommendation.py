@@ -7,7 +7,7 @@ from pathlib import Path
 
 from check_prediction_compliance import ComplianceError, validate_gate
 from recommendation import (CONTRACT, GATE_SCHEMA, INTENT_SCHEMA, audit, build,
-                            settle, ticket_key, validate_snapshot, verify, sha256)
+                            settle, ticket_key, validate_snapshot, verify, sha256, display, report)
 from test_check_prediction_compliance import (
     add_next_production_snapshot, next_gate, receipt_record,
     write, write_contract_state, write_receipts,
@@ -103,6 +103,8 @@ class RecommendationTest(unittest.TestCase):
         self.assertTrue(settle(self.rec(root, pred), {
             "status": "OFFICIAL", "finish_groups": [[5], [2], [6], [4]],
             "scratched_horses": [], "place_places": 3,
+            "source_url": "https://example.invalid/official",
+            "retrieved_at_jst": DATE + "T12:30:00+09:00",
         })["race_hit"])
 
     def test_02_odds_change_does_not_change_recommendation(self):
@@ -211,7 +213,9 @@ class RecommendationTest(unittest.TestCase):
         root, _, pred = self.root()
         rec = self.rec(root, pred)
         result = {"status": "OFFICIAL", "finish_groups": [[2, 5], [6], [4]],
-                  "place_places": 3, "scratched_horses": []}
+                  "place_places": 3, "scratched_horses": [],
+                  "source_url": "https://example.invalid/official",
+                  "retrieved_at_jst": DATE + "T12:30:00+09:00"}
         self.assertTrue(settle(rec, result)["race_hit"])
         result["scratched_horses"] = [2]
         self.assertEqual(settle(rec, result)["status"], "INVALID")
@@ -229,6 +233,57 @@ class RecommendationTest(unittest.TestCase):
         state["recommendation_effective_race_date"] = "2026-10-17"
         write(root, "docs/validation/execution-gates/contract-state.json", json.dumps(state))
         self.assertFalse(audit(root))
+
+
+    def test_14_display_matches_saved_ticket(self):
+        root, _, pred = self.root()
+        rec = self.rec(root, pred)
+        self.assertIn("ワイド 5-2", display(rec))
+        self.assertIn("1点", display(rec))
+        self.assertNotIn("円", display(rec))
+
+    def test_15_report_uses_official_results_not_payout(self):
+        root, g, pred = self.root()
+        gate_path, art = self.artifacts(root, g, pred)
+        result = {
+            "status": "OFFICIAL", "finish_groups": [[5], [2], [6], [4]],
+            "scratched_horses": [], "place_places": 3,
+            "source_url": "https://example.invalid/official",
+            "retrieved_at_jst": DATE + "T12:30:00+09:00",
+        }
+        result_path = f"docs/validation/results/{DATE}/{RACE}.json"
+        write(root, result_path, json.dumps(result))
+        manifest = "docs/validation/results/report.json"
+        write(root, manifest, json.dumps({"items": [{"gate_path": gate_path, "result_path": result_path}]}))
+        output = report(root, root / manifest)
+        self.assertEqual(output["by_type"]["WIDE"]["hit_tickets"], 1)
+        self.assertEqual(output["by_type"]["WIDE"]["race_hit_rate"], 1.0)
+        self.assertNotIn("roi", output)
+
+    def test_16_reject_result_future_data_or_unverified_source(self):
+        root, _, pred = self.root()
+        rec = self.rec(root, pred)
+        result = {"status": "OFFICIAL", "finish_groups": [[5], [2], [6]],
+                  "place_places": 3, "scratched_horses": [],
+                  "source_url": "https://example.invalid/results",
+                  "retrieved_at_jst": DATE + "T09:00:00+09:00"}
+        with self.assertRaisesRegex(ComplianceError, "before start"):
+            settle(rec, result)
+        result["retrieved_at_jst"] = DATE + "T11:00:00+09:00"
+        result["source_url"] = ""
+        with self.assertRaisesRegex(ComplianceError, "source_url"):
+            settle(rec, result)
+
+    def test_17_explicit_marks_only_and_pending(self):
+        root, _, pred = self.root()
+        for state in ("EXPLICIT_MARKS_ONLY", "PENDING"):
+            scenario = self.scenario()
+            scenario["status"] = state
+            rec = self.rec(root, pred, scenario)
+            self.assertEqual(rec["status"], state)
+            self.assertEqual(rec["tickets"], [])
+            validate_snapshot(root, rec)
+            self.assertEqual(settle(rec, {"status": "OFFICIAL"})["status"], "NOT_APPLICABLE")
 
 
 if __name__ == "__main__":
