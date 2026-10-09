@@ -214,9 +214,22 @@ class Resolver:
         self.used.add(key)
         return read(self.registry.path(key))
 
+    def late_capture(self, f):
+        if f.get("status") != "VERIFIED":
+            return False
+        horse, revision = f.get("horse_key"), f.get("revision_id")
+        r = self.record(horse) if horse else None
+        found = next((rev for rev in r.get("revisions", [])
+                      if rev.get("revision_id") == revision), None) if r else None
+        # 事実の観測時刻だけではなく、実際の取得/確認時刻を確認する。
+        return (found is None or
+                iso(found.get("captured_at"), "pedigree capture") > iso(self.cutoff, "cutoff"))
+
     def fact(self, key, field):
         self.record(key)
         f = self.registry.fact(key, field, self.cutoff)
+        if self.late_capture(f):
+            return {"status": "UNVERIFIED", "reason": "CAPTURED_AFTER_CUTOFF"}
         if f.get("value") and field.startswith("parent:"):
             self.record(f["value"])
         return f
@@ -226,6 +239,8 @@ class Resolver:
         # Include every intermediate record in the dependency fingerprint.
         for step in range(1, len(path) + 1):
             f = self.registry.edge(key, path[:step], self.cutoff)
+            if self.late_capture(f):
+                return {"status": "UNVERIFIED", "reason": "CAPTURED_AFTER_CUTOFF"}
             if f.get("value"):
                 self.record(f["value"])
         return self.registry.edge(key, path, self.cutoff)
@@ -233,7 +248,10 @@ class Resolver:
     def derive(self, key, ancestors, depth, taxonomy=None):
         self.record(key)
         result = self.registry.derive(key, ancestors, depth, self.cutoff, taxonomy)
+        result["blocked_late_capture"] = False
         for path, fact in result["derived_from"].items():
+            if self.late_capture(fact):
+                result["blocked_late_capture"] = True
             if fact.get("value"):
                 self.record(fact["value"])
         return result
@@ -251,6 +269,8 @@ class Resolver:
             return self.resolution(self.edge(key, "S" if axis == "SIRE" else "DS"), target)
         if axis in {"ANCESTOR", "CROSS"}:
             d = self.derive(key, [target], group["depth"])
+            if d.get("blocked_late_capture"):
+                return "UNKNOWN", "CAPTURED_AFTER_CUTOFF"
             c = d["containment"][target]
             if axis == "ANCESTOR":
                 if c["status"] == "PRESENT":
@@ -265,6 +285,8 @@ class Resolver:
                     else "UNKNOWN", "INCOMPLETE_ANCESTRY")
         if axis in {"SIRE_LINE", "DAM_SIRE_LINE"}:
             d = self.derive(key, [], group["depth"], self.definition["taxonomy_version"])
+            if d.get("blocked_late_capture"):
+                return "UNKNOWN", "CAPTURED_AFTER_CUTOFF"
             obj = d["lines"].get("sire_line" if axis == "SIRE_LINE" else "dam_sire_line", {})
             if obj.get("status") != "VERIFIED":
                 return "UNKNOWN", "LINE_NOT_VERIFIED"
@@ -279,6 +301,8 @@ class Resolver:
             subject = f["value"]
         elif subject == "ANCESTOR":
             d = self.derive(key, [group["ancestor_key"]], group["depth"])
+            if d.get("blocked_late_capture"):
+                return "UNKNOWN", "CAPTURED_AFTER_CUTOFF"
             c = d["containment"][group["ancestor_key"]]
             if c["status"] == "ABSENT_WITHIN_SCOPE":
                 return "NON_MATCH", "ANCESTOR_NOT_PRESENT"
