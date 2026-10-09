@@ -80,7 +80,8 @@ def prediction_link(root, rec):
     for field in ("race_id", "manual_release", "manual_ref_commit", "working_branch",
                   "scheduled_post_time_jst", "data_cutoff"):
         require(rec.get(field) == data.get(field), f"prediction {field} mismatch")
-    require(rec.get("fixed_at_jst") >= data.get("fixed_at_jst", "~"),
+    require(iso(rec.get("fixed_at_jst"), "recommendation fixed_at") >=
+            iso(data.get("fixed_at_jst"), "prediction fixed_at"),
             "recommendation predates prediction fixation")
     return data
 
@@ -97,8 +98,6 @@ def validate_snapshot(root, rec):
     require(isinstance(date, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", date),
             "race_date_jst required")
     require(rec.get("working_branch") == f"prediction/{date}", "wrong working branch")
-    require(rec["race_id"].startswith(date.replace("-", "")) or bool(rec.get("nonstandard_race_id")),
-            "race/date mismatch")
     cutoff = iso(rec.get("data_cutoff"), "data_cutoff")
     post = iso(rec.get("scheduled_post_time_jst"), "scheduled_post_time_jst")
     fixed = iso(rec.get("fixed_at_jst"), "fixed_at_jst")
@@ -241,6 +240,13 @@ def verify(root, gate_path):
     require(artifact.is_file() and artifact.suffix == ".json", "recommendation artifact missing")
     require(sha256(artifact) == gate.get("content_sha256"), "recommendation snapshot hash mismatch")
     rec = validate_snapshot(root, read_json(artifact))
+    # Production認証と推奨認証は別判定。ただし推奨は実在する認証済みPredictionを参照する。
+    from check_prediction_compliance import validate_gate
+    prediction_gate = root / "docs/validation/execution-gates" / date / (rec["race_id"] + ".json")
+    require(prediction_gate.is_file(), "certified Production gate missing")
+    pg = validate_gate(root, prediction_gate)
+    require(pg.get("production", {}).get("evidence_ref", {}).get("artifact_id") ==
+            rec["prediction_ref"]["artifact_id"], "Production evidence reference mismatch")
     require(rec["recommendation_id"] == ident and rec["race_date_jst"] == date and
             rec["race_id"] == gate.get("race_id") and
             rec["status"] == gate.get("status") and
@@ -251,7 +257,8 @@ def verify(root, gate_path):
     intent_path = relative(root, gate.get("intent_path", ""),
                            "docs/validation/recommendation-intents/")
     intent = read_json(intent_path)
-    require(intent.get("schema_version") == INTENT_SCHEMA and
+    require(intent_path.parent.name == date and
+            intent.get("schema_version") == INTENT_SCHEMA and
             intent.get("race_date_jst") == date and
             intent.get("race_id") == rec["race_id"] and
             intent.get("recommendation_id") == ident and
@@ -287,6 +294,84 @@ def verify(root, gate_path):
                 "invalid recommendation eligibility")
     return rec
 
+
+def ref_for_prediction(root, path):
+    pred_path = relative(root, path, "docs/validation/snapshots/")
+    pred = read_json(pred_path)
+    require(pred.get("schema_version") == "prediction-snapshot-v2", "prediction v2 required")
+    return {
+        "artifact_path": str(path),
+        "artifact_id": pred["snapshot_id"],
+        "sha256": sha256(pred_path),
+        "baseline_forecast_id": pred["baseline_forecast_id"],
+    }
+
+def prepare(root, prediction_path, rec_id, artifact_path, intent_id):
+    require(re.fullmatch(r"[a-zA-Z0-9_-]+", intent_id or "") is not None,
+            "valid intent ID required")
+    prediction = read_json(relative(root, prediction_path, "docs/validation/snapshots/"))
+    date = prediction.get("scheduled_post_time_jst", "")[:10]
+    require(date and rec_id, "race date and recommendation ID required")
+    now = datetime.now(iso(prediction["scheduled_post_time_jst"], "post").tzinfo)
+    require(now < iso(prediction["scheduled_post_time_jst"], "post"),
+            "cannot prepare intent after post time")
+    artifact = relative(root, artifact_path, "docs/validation/recommendations/")
+    require(artifact.parent.name == date and artifact.suffix == ".json", "recommendation path/date invalid")
+    intent = {
+        "schema_version": INTENT_SCHEMA, "race_date_jst": date,
+        "race_id": prediction["race_id"], "recommendation_id": rec_id,
+        "artifact_path": artifact_path, "prediction_ref": ref_for_prediction(root, prediction_path),
+        "deadline_jst": prediction["scheduled_post_time_jst"],
+    }
+    path = root / "docs/validation/recommendation-intents" / date / (intent_id + ".json")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    content = json.dumps(intent, ensure_ascii=False, indent=2) + "\n"
+    if path.exists():
+        require(path.read_text(encoding="utf-8") == content, "existing intent differs")
+    else:
+        path.write_text(content, encoding="utf-8")
+    return path
+
+def seal(root, rec_path, intent_id, receipt_id):
+    path = relative(root, rec_path, "docs/validation/recommendations/")
+    rec = validate_snapshot(root, read_json(path))
+    date = rec["race_date_jst"]
+    intent_path = f"docs/validation/recommendation-intents/{date}/{intent_id}.json"
+    intent = read_json(root / intent_path)
+    require(intent.get("recommendation_id") == rec["recommendation_id"] and
+            intent.get("artifact_path") == rec_path and
+            intent.get("prediction_ref") == rec["prediction_ref"],
+            "recommendation does not match prior intent")
+    receipt_path = f"docs/validation/persistence-receipts/{date}.md"
+    receipts = receipt_records(root / receipt_path)
+    matches = [r for r in receipts if r.get("receipt_id") == receipt_id]
+    require(len(matches) == 1, "verified receipt required")
+    record = matches[0]
+    gate = {
+        "schema_version": GATE_SCHEMA, "race_id": rec["race_id"],
+        "race_date_jst": date, "recommendation_id": rec["recommendation_id"],
+        "status": rec["status"], "prediction_ref": rec["prediction_ref"],
+        "content_sha256": sha256(path), "intent_path": intent_path,
+        "mode": "FORWARD",
+        "kpi_eligibility": "ELIGIBLE" if rec["status"] == "RECOMMENDED" and rec["phase"] == "FINAL" else "INELIGIBLE",
+        "evidence_ref": {
+            "artifact_id": rec["recommendation_id"], "artifact_path": rec_path,
+            "receipt_path": receipt_path, "receipt_id": receipt_id,
+            "timing_eligibility": "PRE_RACE_ELIGIBLE",
+            "persist_verified_at_jst": record.get("persist_verified_at_jst"),
+        },
+    }
+    gate_path = root / "docs/validation/recommendation-gates" / date / (rec["race_id"] + ".json")
+    require(not gate_path.exists(), "recommendation gate already exists; do not overwrite history")
+    gate_path.parent.mkdir(parents=True, exist_ok=True)
+    gate_path.write_text(json.dumps(gate, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    try:
+        verify(root, gate_path)
+    except Exception:
+        gate_path.unlink()
+        raise
+    return gate_path
+
 def audit(root):
     base = root / "docs/validation"
     intents = {p.relative_to(base).as_posix(): p for p in
@@ -311,6 +396,21 @@ def audit(root):
         errors.append(f"unregistered recommendation intent: {path}")
     for path in sorted(set(snapshots) - used_snapshots):
         errors.append(f"unregistered recommendation snapshot: {path}")
+    # 次期推奨契約の発効日以降は、Prediction gateに対応する推奨gateの欠落も検出する。
+    state_path = base / "execution-gates/contract-state.json"
+    if state_path.is_file():
+        state = read_json(state_path)
+        effective = state.get("recommendation_effective_race_date")
+        if state.get("status") == "ACTIVE" and effective:
+            for prediction_gate in (base / "execution-gates").glob("*/*.json"):
+                if prediction_gate.parent.name < effective:
+                    continue
+                data = read_json(prediction_gate)
+                if data.get("schema_version") != "prediction-compliance-v2":
+                    continue
+                expected = base / "recommendation-gates" / prediction_gate.parent.name / prediction_gate.name
+                if not expected.is_file():
+                    errors.append(f"missing recommendation gate for {prediction_gate}")
     for error in errors:
         print(f"RECOMMENDATION_INCOMPLETE {error}")
     print(f"RECOMMENDATION_AUDIT: gates={len(gates)} incomplete={len(errors)}")
@@ -432,9 +532,14 @@ def main():
     group.add_argument("--verify", metavar="GATE_PATH")
     group.add_argument("--settle", metavar="RECOMMENDATION_PATH")
     group.add_argument("--generate", metavar="PREDICTION_PATH")
+    group.add_argument("--prepare", metavar="PREDICTION_PATH")
+    group.add_argument("--seal", metavar="RECOMMENDATION_PATH")
     parser.add_argument("--result", help="official result JSON for --settle")
     parser.add_argument("--assessment", help="non-market judgement JSON for --generate")
     parser.add_argument("--output", help="recommendation JSON output for --generate")
+    parser.add_argument("--recommendation-id")
+    parser.add_argument("--intent-id")
+    parser.add_argument("--receipt-id")
     args = parser.parse_args()
     try:
         if args.audit:
@@ -448,10 +553,28 @@ def main():
             rec = validate_snapshot(args.root, read_json(args.root / args.settle))
             print(json.dumps(settle(rec, read_json(args.root / args.result)), ensure_ascii=False, indent=2))
             return 0
-        require(bool(args.assessment) and bool(args.output),
-                "--generate requires --assessment and --output")
+        if args.prepare:
+            require(bool(args.recommendation_id and args.output and args.intent_id),
+                    "--prepare needs --recommendation-id, --output and --intent-id")
+            path = prepare(args.root, args.prepare, args.recommendation_id, args.output, args.intent_id)
+            print(f"RECOMMENDATION_INTENT_PREPARED {path}; commit/read back before generating")
+            return 0
+        if args.seal:
+            require(bool(args.intent_id and args.receipt_id),
+                    "--seal needs --intent-id and --receipt-id")
+            path = seal(args.root, args.seal, args.intent_id, args.receipt_id)
+            print(f"RECOMMENDATION_SEALED {path}")
+            return 0
+        require(bool(args.assessment) and bool(args.output and args.intent_id),
+                "--generate requires --assessment, --output and --intent-id")
         prediction = read_json(args.root / args.generate)
-        rec = build(prediction, read_json(args.root / args.assessment), args.root / args.generate)
+        rec = build(prediction, read_json(args.root / args.assessment), args.generate)
+        intent = read_json(args.root / "docs/validation/recommendation-intents" /
+                           rec["race_date_jst"] / (args.intent_id + ".json"))
+        require(intent.get("recommendation_id") == rec["recommendation_id"] and
+                intent.get("artifact_path") == args.output and
+                intent.get("prediction_ref") == rec["prediction_ref"],
+                "generate must match predeclared intent")
         validate_snapshot(args.root, rec)
         dest = relative(args.root, args.output, "docs/validation/recommendations/")
         require(not dest.exists(), "cannot overwrite a fixed recommendation; create new revision")
