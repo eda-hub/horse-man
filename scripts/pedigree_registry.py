@@ -198,6 +198,8 @@ class Registry:
                                 for prev in record["identity"].get("external_ids", [])), "外部IDが既存馬と重複")
         for eid in values["external_ids"]:
             require(isinstance(eid, dict) and eid.get("provider") and eid.get("id"), "外部IDの項目不足")
+        pairs = [(x["provider"], x["id"]) for x in values["external_ids"]]
+        require(len(pairs) == len(set(pairs)), "同一馬の外部ID重複")
         item = {"schema_version": SCHEMA, "horse_key": key, "identity": values, "revisions": []}
         with single_writer(self.root):
             guard_head(self.expected_head, self.root)
@@ -223,7 +225,7 @@ class Registry:
             check = rev.get("verification_evidence") or {}
             require(all(check.get(k) for k in ("checked_by", "method", "checked_at")),
                     "VERIFIEDには検証担当/手法/検証時刻が必要")
-            require(stamp(check["checked_at"]) >= observed, "検証時刻が観測前")
+            require(stamp(check["checked_at"]) >= captured, "検証時刻が取得前")
         else:
             require(not rev.get("verification_evidence"), "未確認レコードに検証証跡を付けない")
         value = rev.get("value")
@@ -343,6 +345,18 @@ class Registry:
         return {"status": state, "paths": sorted(found), "unverified_paths": sorted(missing, key=lambda x:x["path"]),
                 "scope_depth": depth, "derived_from": proof, "algorithm_version": SCHEMA}
 
+    def cross(self, horse_key, ancestor, depth, cutoff, mode):
+        result = self.contain(horse_key, ancestor, depth, cutoff, mode)
+        paths = result["paths"]
+        if len(paths) >= 2:
+            result["status"] = "PRESENT"
+            result["generation_cross"] = "x".join(str(len(p)) for p in sorted(paths))
+        elif result["unverified_paths"]:
+            result["status"] = "UNKNOWN"
+        else:
+            result["status"] = "ABSENT_WITHIN_SCOPE"
+        return result
+
     def line(self, horse_key, name, taxonomy_version, cutoff, mode):
         require(re.fullmatch(r"v[0-9]+(?:_[a-z0-9]+)?", taxonomy_version), "分類版が不正")
         taxonomy = load(self.taxonomies / (taxonomy_version + ".json"))
@@ -399,6 +413,16 @@ class Registry:
             depth = spec.get("depth", request.get("depth", 5))
             result = self.contain(key, ancestor, depth, cutoff, mode)
             tag = "contains:" + ancestor + ":" + str(depth)
+            if result["status"] in ("PRESENT", "ABSENT_WITHIN_SCOPE"):
+                reused[tag] = result
+            else:
+                missing.append({"item": tag, **result})
+        for spec in request.get("crosses", []):
+            require(isinstance(spec, dict), "crosses要素が不正")
+            ancestor = spec["ancestor_key"]
+            depth = spec.get("depth", request.get("depth", 5))
+            result = self.cross(key, ancestor, depth, cutoff, mode)
+            tag = "cross:" + ancestor + ":" + str(depth)
             if result["status"] in ("PRESENT", "ABSENT_WITHIN_SCOPE"):
                 reused[tag] = result
             else:
