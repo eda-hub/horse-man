@@ -169,8 +169,8 @@ class PedigreeRegistryTests(unittest.TestCase):
         first = self.reg.plan(request)
         self.assertEqual(first["receipt"]["status"], "PERSIST_VERIFIED")
         second = self.reg.plan(request)
-        self.assertEqual(len(self.reg.research.glob("*.json").__iter__().__next__().read_text()), len(
-            (self.reg.research / "research01.json").read_text()))
+        self.assertEqual(len(list(self.reg.research.glob("*.json"))), 1)
+        self.assertEqual(second["receipt"]["status"], "PERSIST_VERIFIED")
         self.assertEqual(second["result"]["missing"][0]["item"], "dam_sire")
         attempt = self.reg.attempt({"request_id": "research01", "item": "dam_sire",
                                     "source": "JRA-VAN", "status": "NOT_FOUND"})
