@@ -251,6 +251,25 @@ def validate_snapshot(root, rec):
     require(rec.get("unique_ticket_count") == len(tickets), "ticket count mismatch")
     return rec
 
+def validate_prediction_intent(root, rec, recommendation_intent):
+    """Prediction開始前のscopeと推奨開始前の宣言を一致させる。"""
+    path = relative(root, recommendation_intent.get("prediction_intent_path", ""),
+                    "docs/validation/persistence-intents/")
+    require(path.is_file() and path.parent.name == rec["race_date_jst"],
+            "prediction predeclaration missing or wrong date")
+    prior = read_json(path)
+    scope = prior.get("recommendation_scope")
+    require(prior.get("schema_version") == "prediction-persistence-intent-v1" and
+            prior.get("required_race_ids") == [rec["race_id"]] and
+            prior.get("snapshot_id") == rec["prediction_ref"]["artifact_id"] and
+            prior.get("artifact_path") == rec["prediction_ref"]["artifact_path"] and
+            prior.get("deadline_jst") == rec["scheduled_post_time_jst"] and
+            isinstance(scope, dict) and scope.get("race_id") == rec["race_id"] and
+            scope.get("recommendation_id") == rec["recommendation_id"] and
+            scope.get("artifact_path") == recommendation_intent.get("artifact_path"),
+            "recommendation differs from pre-prediction declared scope")
+    return path
+
 def verify(root, gate_path):
     gate = read_json(gate_path)
     require(gate.get("schema_version") == GATE_SCHEMA, "recommendation gate schema mismatch")
@@ -292,6 +311,7 @@ def verify(root, gate_path):
             intent.get("prediction_ref") == rec["prediction_ref"] and
             intent.get("deadline_jst") == rec["scheduled_post_time_jst"],
             "recommendation was not properly predeclared")
+    validate_prediction_intent(root, rec, intent)
     receipt_path = relative(root, link.get("receipt_path", ""),
                             "docs/validation/persistence-receipts/")
     require(receipt_path.is_file() and receipt_path.name == date + ".md",
@@ -332,7 +352,7 @@ def ref_for_prediction(root, path):
         "baseline_forecast_id": pred["baseline_forecast_id"],
     }
 
-def prepare(root, prediction_path, rec_id, artifact_path, intent_id):
+def prepare(root, prediction_path, rec_id, artifact_path, intent_id, prediction_intent_id):
     require(re.fullmatch(r"[a-zA-Z0-9_-]+", intent_id or "") is not None,
             "valid intent ID required")
     prediction = read_json(relative(root, prediction_path, "docs/validation/snapshots/"))
@@ -343,7 +363,22 @@ def prepare(root, prediction_path, rec_id, artifact_path, intent_id):
             "cannot prepare intent after post time")
     artifact = relative(root, artifact_path, "docs/validation/recommendations/")
     require(artifact.parent.name == date and artifact.suffix == ".json", "recommendation path/date invalid")
+    require(re.fullmatch(r"[a-zA-Z0-9_-]+", prediction_intent_id or "") is not None,
+            "prediction-intent-id required")
+    pred_intent_path = f"docs/validation/persistence-intents/{date}/{prediction_intent_id}.json"
+    prior = read_json(root / pred_intent_path)
+    scope = prior.get("recommendation_scope")
+    require(prior.get("schema_version") == "prediction-persistence-intent-v1" and
+            prior.get("required_race_ids") == [prediction["race_id"]] and
+            prior.get("snapshot_id") == prediction["snapshot_id"] and
+            prior.get("artifact_path") == prediction_path and
+            prior.get("deadline_jst") == prediction["scheduled_post_time_jst"] and
+            isinstance(scope, dict) and scope.get("race_id") == prediction["race_id"] and
+            scope.get("recommendation_id") == rec_id and
+            scope.get("artifact_path") == artifact_path,
+            "recommendation was not predeclared before Prediction")
     intent = {
+        "prediction_intent_path": pred_intent_path,
         "schema_version": INTENT_SCHEMA, "race_date_jst": date,
         "race_id": prediction["race_id"], "recommendation_id": rec_id,
         "artifact_path": artifact_path, "prediction_ref": ref_for_prediction(root, prediction_path),
@@ -368,6 +403,7 @@ def seal(root, rec_path, intent_id, receipt_id):
             intent.get("artifact_path") == rec_path and
             intent.get("prediction_ref") == rec["prediction_ref"],
             "recommendation does not match prior intent")
+    validate_prediction_intent(root, rec, intent)
     receipt_path = f"docs/validation/persistence-receipts/{date}.md"
     receipts = receipt_records(root / receipt_path)
     matches = [r for r in receipts if r.get("receipt_id") == receipt_id]
@@ -737,6 +773,7 @@ def main():
     parser.add_argument("--output", help="recommendation JSON output for --generate")
     parser.add_argument("--recommendation-id")
     parser.add_argument("--intent-id")
+    parser.add_argument("--prediction-intent-id")
     parser.add_argument("--receipt-id")
     args = parser.parse_args()
     try:
@@ -759,9 +796,10 @@ def main():
             print(json.dumps(settle(rec, read_json(args.root / args.result)), ensure_ascii=False, indent=2))
             return 0
         if args.prepare:
-            require(bool(args.recommendation_id and args.output and args.intent_id),
-                    "--prepare needs --recommendation-id, --output and --intent-id")
-            path = prepare(args.root, args.prepare, args.recommendation_id, args.output, args.intent_id)
+            require(bool(args.recommendation_id and args.output and args.intent_id and args.prediction_intent_id),
+                    "--prepare needs --recommendation-id, --output, --intent-id and --prediction-intent-id")
+            path = prepare(args.root, args.prepare, args.recommendation_id, args.output,
+                           args.intent_id, args.prediction_intent_id)
             print(f"RECOMMENDATION_INTENT_PREPARED {path}; commit/read back before generating")
             return 0
         if args.seal:
@@ -780,6 +818,7 @@ def main():
                 intent.get("artifact_path") == args.output and
                 intent.get("prediction_ref") == rec["prediction_ref"],
                 "generate must match predeclared intent")
+        validate_prediction_intent(args.root, rec, intent)
         validate_snapshot(args.root, rec)
         dest = relative(args.root, args.output, "docs/validation/recommendations/")
         require(not dest.exists(), "cannot overwrite a fixed recommendation; create new revision")
