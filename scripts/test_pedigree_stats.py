@@ -86,7 +86,8 @@ class PedigreeStatsTest(unittest.TestCase):
             },
             "facts": facts or [],
         }
-        with patch("pedigree_registry.stamp", return_value=BASE):
+        with patch("pedigree_registry.stamp",
+                   return_value="2026-10-09T01:00:00+00:00" if current else BASE):
             return self.registry.save(candidate, digest(current) if current else None)
 
     def fact(self, key, field, value, observed=EARLY):
