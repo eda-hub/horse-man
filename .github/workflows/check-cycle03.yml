@@ -21,6 +21,8 @@ jobs:
         run: python3 scripts/check_pedigree_reconciliation.py
       - name: 期間内全出走結果・追加血統・調教履歴と取得停止を検証
         run: python3 scripts/check_pedigree_followup.py
+      - name: JBIS取得不能分の別サイト血統原票・訂正・全件集計を検証
+        run: python3 scripts/check_pedigree_alternative.py
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査
         run: |
           set -o pipefail

@@ -78,6 +78,25 @@ class BatchTests(unittest.TestCase):
             atomic(reg.path('horse-b'), record)
             self.assertEqual(reg.audit()['status'], 'FAIL')
 
+    def test_identity_update_indexes_new_provider_and_rejects_invalid_values(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            reg = BatchRegistry(tmp)
+            reg.save(candidate('horse-a', '001'))
+            with reg.batch():
+                change = candidate('horse-a', '001')
+                change['identity']['external_ids']['NETKEIBA'] = 'new-id'
+                reg.update_identity(change, digest(read(reg.path('horse-a'))),
+                                    'verified native ID', 'test reviewer')
+                duplicate = candidate('horse-b', '002')
+                duplicate['identity']['external_ids']['NETKEIBA'] = 'new-id'
+                with self.assertRaisesRegex(ValueError, 'external ID'):
+                    reg.save(duplicate)
+                invalid = candidate('horse-b', '002')
+                invalid['identity']['external_ids']['NETKEIBA'] = []
+                with self.assertRaises(ValueError):
+                    reg.save(invalid)
+            self.assertFalse(reg.path('horse-b').exists())
+
 
 if __name__ == '__main__':
     unittest.main()

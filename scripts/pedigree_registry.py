@@ -544,17 +544,36 @@ class Registry:
         errors = []
         external_ids = {}
         records = list(self.records())
+        owners = {}
+        by_key = {r['horse_key']: r for r in records if isinstance(r.get('horse_key'), str)}
+        for record in records:
+            if not isinstance(record.get('horse_key'), str):
+                continue
+            ids = record.get('identity', {}).get('external_ids', {})
+            if isinstance(ids, dict):
+                for provider, value in ids.items():
+                    if isinstance(value, str):
+                        owners.setdefault((provider, value), set()).add(record['horse_key'])
+
+        def validate_indexed(identity, key):
+            # 全体の外部ID所有者を先に作り、現在/旧identityの重複検査を保つ。
+            self.validate_identity(identity, key, [])
+            candidates = set()
+            for provider, value in identity.get('external_ids', {}).items():
+                candidates.update(owners.get((provider, value), set()))
+            self.validate_identity(identity, key, [by_key[k] for k in candidates])
+
         for record in records:
             try:
                 if record['schema_version'] != SCHEMA:
                     raise ValueError('schema mismatch')
                 safe(record['horse_key'])
-                self.validate_identity(record['identity'], record['horse_key'], records)
+                validate_indexed(record['identity'], record['horse_key'])
                 first = record.get('initial_identity')
                 observed = record.get('identity_observed_at')
                 if not isinstance(first, dict) or not observed:
                     raise ValueError('initial identity or observation timestamp missing')
-                self.validate_identity(first, record['horse_key'], records)
+                validate_indexed(first, record['horse_key'])
                 first_time = dt(observed)
                 if first_time > dt(stamp()):
                     raise ValueError('initial identity observation is in the future')
@@ -581,8 +600,8 @@ class Registry:
                         raise ValueError('identity revision chain broken')
                     if index and dt(event['at']) < dt(history[index - 1]['at']):
                         raise ValueError('identity revision chronology broken')
-                    self.validate_identity(event['before'], record['horse_key'], records)
-                    self.validate_identity(event['after'], record['horse_key'], records)
+                    validate_indexed(event['before'], record['horse_key'])
+                    validate_indexed(event['after'], record['horse_key'])
                 if history and history[-1]['after'] != record['identity']:
                     raise ValueError('identity revision does not match current identity')
                 if record.get('identity_confirmed_at') != confirmed:
