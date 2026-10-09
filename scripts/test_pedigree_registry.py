@@ -8,6 +8,7 @@ from pedigree_registry import Registry, SCHEMA, digest, read, atomic, migrate
 EARLY = '2026-09-01T00:00:00+00:00'
 LATE = '2026-10-01T00:00:00+00:00'
 NOW = '2026-10-09T01:00:00+00:00'
+BASELINE = '2026-08-01T00:00:00+00:00'
 
 
 class RegistryTests(unittest.TestCase):
@@ -28,7 +29,13 @@ class RegistryTests(unittest.TestCase):
 
     def add(self, key, facts=None, **kwargs):
         old = read(self.r.path(key))
-        return self.r.save(self.candidate(key, facts, **kwargs), digest(old) if old else None)
+        if old is None:
+            # Existing fixtures were verified before all requested cutoffs.
+            # Actual runtime callers cannot supply/backdate this timestamp.
+            with patch('pedigree_registry.stamp', return_value=BASELINE):
+                self.r.save(self.candidate(key, [], **kwargs))
+            old = read(self.r.path(key))
+        return self.r.save(self.candidate(key, facts, **kwargs), digest(old))
 
     def fact(self, field, value, at=EARLY, source='BREEDING_DB'):
         return {'field': field, 'value': value, 'status': 'VERIFIED',
@@ -370,7 +377,8 @@ class RegistryTests(unittest.TestCase):
         old_candidate = self.candidate('later_identity', [self.fact('attribute:sex', '牝', EARLY)])
         old_candidate['identity'] = {'name': '調査中', 'aliases': [], 'external_ids': {},
                                       'status': 'IDENTITY_UNRESOLVED'}
-        self.r.save(old_candidate)
+        with patch('pedigree_registry.stamp', return_value=EARLY):
+            self.r.save(old_candidate)
         request = {'schema_version': SCHEMA, 'request_id': 'identity-asof',
                    'horse_key': 'later_identity', 'fields': ['attribute:sex'],
                    'data_cutoff': EARLY}
@@ -402,7 +410,8 @@ class RegistryTests(unittest.TestCase):
         unresolved = self.candidate('late_sire')
         unresolved['identity'] = {'name': '父候補', 'status': 'IDENTITY_UNRESOLVED',
                                   'external_ids': {}, 'aliases': []}
-        self.r.save(unresolved)
+        with patch('pedigree_registry.stamp', return_value=EARLY):
+            self.r.save(unresolved)
         confirmed = copy.deepcopy(unresolved)
         confirmed['identity'].update(
             status='RESOLVED', external_ids={'register': 'late-sire-id'},
@@ -471,6 +480,102 @@ class RegistryTests(unittest.TestCase):
             self.assertEqual(again['started_at'], initial['started_at'])
             with self.assertRaisesRegex(ValueError, 'BUDGET_EXHAUSTED'):
                 self.r.failure('req', 'parent:S', 'SOURCE_ERROR')
+
+
+    def test_new_identity_first_registered_later_is_not_historically_verified(self):
+        # A historical fact's timestamp is not proof that a horse was identified then.
+        candidate = self.candidate('new_later', [
+            self.fact('attribute:sex', '牝', EARLY),
+            self.fact('parent:S', 'sire', EARLY)], name='新規登録馬')
+        with patch('pedigree_registry.stamp', return_value=LATE):
+            saved = self.r.save(candidate)
+        record = read(self.r.path('new_later'))
+        self.assertEqual(record['identity_observed_at'], LATE)
+        self.assertEqual(record['identity_confirmed_at'], LATE)
+        self.assertEqual(record['initial_identity'], candidate['identity'])
+        self.assertEqual(saved['content_hash'], digest(record))
+        # Before the first capture: name, key, provider IDs and old facts cannot verify.
+        for query in ('new_later', '新規登録馬'):
+            search = self.r.search(query, EARLY)
+            self.assertNotEqual(search['status'], 'RESOLVED')
+            self.assertEqual(search['matches'], [])
+        self.assertEqual(self.r.fact('new_later', 'attribute:sex', EARLY)['status'],
+                         'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.fact('new_later', 'parent:S', EARLY)['status'],
+                         'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.edge('new_later', 'S', EARLY)['status'],
+                         'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.derive('new_later', ['sire'], 1, EARLY)
+                         ['containment']['sire']['status'], 'UNKNOWN')
+        historical = {'schema_version': SCHEMA, 'request_id': 'historical-new',
+                      'horse_key': 'new_later', 'data_cutoff': EARLY,
+                      'fields': ['attribute:sex']}
+        self.assertEqual(self.r.plan(historical)['missing'][0]['status'],
+                         'IDENTITY_UNRESOLVED')
+        # Boundary is inclusive: from the captured/confirmed point facts can be used.
+        self.assertEqual(self.r.search('new_later', LATE)['status'], 'RESOLVED')
+        self.assertEqual(self.r.fact('new_later', 'attribute:sex', LATE)['status'],
+                         'VERIFIED')
+        self.assertEqual(self.r.edge('new_later', 'S', LATE)['status'], 'VERIFIED')
+        self.assertEqual(self.r.audit()['status'], 'PASS')
+
+    def test_unresolved_initial_capture_then_later_confirmation_respects_both_times(self):
+        candidate = self.candidate('new_unresolved', [self.fact('attribute:sex', '牡', EARLY)])
+        candidate['identity'] = {'name': '未同定', 'aliases': [], 'external_ids': {},
+                                 'status': 'IDENTITY_UNRESOLVED'}
+        with patch('pedigree_registry.stamp', return_value=EARLY):
+            self.r.save(candidate)
+        upgrade = copy.deepcopy(candidate)
+        upgrade['facts'] = []
+        upgrade['identity'].update(status='RESOLVED',
+                                   external_ids={'test': 'unresolved-after'},
+                                   identity_evidence={'source': 'official', 'record_key': 'source-7'})
+        with patch('pedigree_registry.stamp', return_value=LATE):
+            self.r.update_identity(upgrade, digest(read(self.r.path('new_unresolved'))),
+                                   '馬を同定', '二重確認者')
+        record = read(self.r.path('new_unresolved'))
+        self.assertEqual(record['identity_observed_at'], EARLY)
+        self.assertEqual(record['identity_confirmed_at'], LATE)
+        self.assertEqual(record['initial_identity']['status'], 'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.search('new_unresolved', BASELINE)['matches'], [])
+        self.assertEqual(self.r.search('new_unresolved', EARLY)['status'],
+                         'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.fact('new_unresolved', 'attribute:sex', EARLY)['status'],
+                         'IDENTITY_UNRESOLVED')
+        self.assertEqual(self.r.search('new_unresolved', LATE)['status'], 'RESOLVED')
+        self.assertEqual(self.r.fact('new_unresolved', 'attribute:sex', LATE)['status'],
+                         'VERIFIED')
+        self.assertEqual(self.r.audit()['status'], 'PASS')
+
+    def test_audit_rejects_missing_or_forged_initial_identity_time(self):
+        record = read(self.r.path('horse'))
+        self.assertEqual(self.r.audit()['status'], 'PASS')
+        record.pop('identity_observed_at')
+        atomic(self.r.path('horse'), record)
+        self.assertEqual(self.r.audit()['status'], 'FAIL')
+        self.assertEqual(self.r.fact('horse', 'attribute:sex', NOW)['status'],
+                         'IDENTITY_UNRESOLVED')
+        record['identity_observed_at'] = BASELINE
+        record['identity_confirmed_at'] = EARLY
+        atomic(self.r.path('horse'), record)
+        self.assertEqual(self.r.audit()['status'], 'FAIL')
+        record['identity_confirmed_at'] = BASELINE
+        record['initial_identity']['external_ids']['test'] = 'forged'
+        atomic(self.r.path('horse'), record)
+        self.assertEqual(self.r.audit()['status'], 'FAIL')
+
+    def test_identity_update_refuses_before_first_observation(self):
+        candidate = self.candidate('first_observed_late')
+        with patch('pedigree_registry.stamp', return_value=LATE):
+            self.r.save(candidate)
+        updated = copy.deepcopy(candidate)
+        updated['identity']['aliases'] = ['新しい別名']
+        with patch('pedigree_registry.stamp', return_value=EARLY):
+            with self.assertRaisesRegex(ValueError, 'initial identity observation'):
+                self.r.update_identity(
+                    updated, digest(read(self.r.path('first_observed_late'))),
+                    '古すぎる記録', '確認者')
+        self.assertEqual(self.r.audit()['status'], 'PASS')
 
 
 if __name__ == '__main__': unittest.main()
