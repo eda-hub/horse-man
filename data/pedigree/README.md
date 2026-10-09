@@ -9,6 +9,8 @@
 ```sh
 # 登録馬・別名・provider IDで検索。同名の候補は自動統合しない。
 python3 scripts/pedigree_registry.py search '対象馬名'
+# 過去の時点で確認できた馬名・別名・provider ID・同定根拠のみを検索する。
+python3 scripts/pedigree_registry.py search '対象馬名' --cutoff '2026-09-01T00:00:00+09:00'
 # 過去調査の未確認候補を検索。結果はProduction入力に使用しない。
 python3 scripts/pedigree_registry.py claims '母父'
 # 対象・必要項目・cutoffを明示して不足だけを調査要求へ保存。
@@ -56,6 +58,8 @@ python3 scripts/pedigree_registry.py audit
 
 `update-identity` は現行hashをCAS照合し、旧identity・新identity・確認者・理由・更新時刻・イベントhashを `identity_revisions` へ追記する。確認済みにする場合は `identity_evidence.source/record_key` と同定用ID、または生年・国・親情報を必須とする。既存外部IDの付け替えや確認済み状態への逆行（未同定へ戻す操作）は拒否する。更新後も既存の血統revisionは維持し、別名インデックスを再構築する。
 
+**同定の時点管理**：検索の `--cutoff`、`plan` の `data_cutoff`、`derive` の `--cutoff` では、`identity_revisions` の各更新時刻からその時点の `status / external_ids / aliases / identity_evidence` を復元する。cutoff後に確定した同定情報は過去のVERIFIED事実・祖先パスへ流用しない。祖先馬の独立レコードも同じ時点で照合する。更新履歴のない初期identityは既存データ互換の基準状態として扱い、初期作成前の同定を実証したものと解釈しない。
+
 祖先馬は先に独立レコードを登録する。事実は `parent:<path>` または生産国・調教国・性別の属性のみ受理し、系統・適性評価・レース傾向・スコアは事実へ書き込めない。各事実は次を持つ。
 
 - `field`, `value`, `status`（`VERIFIED / UNVERIFIED / CONFLICT`）
@@ -102,11 +106,11 @@ python3 scripts/pedigree_registry.py derive '<horse_key>' --ancestor '<ancestor_
 ```sh
 python3 scripts/pedigree_registry.py failure '<request_id>' 'parent:DS' SOURCE_ERROR --source-key '<調査先>' --max-retries 2 --budget-seconds 60
 python3 scripts/pedigree_registry.py failure '<request_id>' 'parent:DS' NOT_FOUND --source-key '<調査先>' --not-found-hours 24
-# 明示再調査。別sourceを使う場合は要求のsource_keyで区別する。
+# --forceが解除するのは次回試行までの待機だけ。回数上限・時間予算切れは解除しない。
 python3 scripts/pedigree_registry.py plan /tmp/request.json --force
 ```
 
-NOT_FOUNDは指定調査先・範囲の未取得、SOURCE_ERRORは通信・認証・parser障害、SAVE_ERRORは未保存。同じ要求・同じsourceの初回＋最大2回の再試行（計3回）で `retry_exhausted=true`、`plan` は `retry_state=RETRY_EXHAUSTED` を返す。期限経過や `--force` でも同じsourceの上限は解除しない。別の出所を確認する場合は `source_key` を変更する。時間予算切れは `BUDGET_EXHAUSTED` として扱う。同じ要求の再試行期限と有限予算を記録する。初期版は自動調査を実行せず、再調査してよいかを不足リストへ返す。保存エラーは成功扱いせず、取得済み候補から再開する。
+NOT_FOUNDは指定調査先・範囲の未取得、SOURCE_ERRORは通信・認証・parser障害、SAVE_ERRORは未保存。同じ要求・同じsourceの初回＋最大2回の再試行（計3回）で `retry_exhausted=true`、`plan` は `retry_state=RETRY_EXHAUSTED` を返す。期限経過や `--force` でも同じsourceの上限は解除しない。別の出所を確認する場合は `source_key` を変更する。時間予算切れは `BUDGET_EXHAUSTED` として扱い、`plan --force` でも`started_at`と`deadline_at`を変更しない。`failure` も期限切れや過去の予算切れの追記を拒否する。新しい調査期間が必要なら**新規request_idで明示的な別要求**を作成する（同じrequest_idの時間予算はリセットしない）。同じ要求の再試行期限と有限予算を記録する。初期版は自動調査を実行せず、再調査してよいかを不足リストへ返す。保存エラーは成功扱いせず、取得済み候補から再開する。
 
 ## Git保存
 
