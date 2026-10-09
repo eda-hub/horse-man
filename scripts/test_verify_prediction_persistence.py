@@ -191,5 +191,42 @@ class PersistenceTest(unittest.TestCase):
         self.assertIn('NO_INTENT',out.getvalue())
         self.assertIn(JSON_SNAP,out.getvalue())
 
+    def test_predeclared_recommendation_scope_is_verified(self):
+        intent = self.json_intent()
+        obj = json.loads(intent.read_text(encoding="utf-8"))
+        obj["recommendation_scope"] = {"race_id": JSON_RACE, "recommendation_id": "REC-01",
+                                       "artifact_path": f"docs/validation/recommendations/{JSON_DATE}/REC-01.json"}
+        intent.write_text(json.dumps(obj), encoding="utf-8")
+        self.json_snapshot(); self.json_receipt()
+        self.assertEqual(check_intent(self.root, intent), JSON_SNAP+"-R01")
+        obj["recommendation_scope"]["race_id"] = "DIFFERENT"
+        intent.write_text(json.dumps(obj), encoding="utf-8")
+        with self.assertRaisesRegex(ComplianceError, "must match one predicted race"):
+            check_intent(self.root, intent)
+
+    def test_predeclared_recommendation_wrong_date_is_rejected(self):
+        intent = self.json_intent()
+        obj = json.loads(intent.read_text(encoding="utf-8"))
+        obj["recommendation_scope"] = {"race_id": JSON_RACE, "recommendation_id": "REC-01",
+                                       "artifact_path": "docs/validation/recommendations/2026-10-14/REC-01.json"}
+        intent.write_text(json.dumps(obj), encoding="utf-8")
+        self.json_snapshot(); self.json_receipt()
+        with self.assertRaisesRegex(ComplianceError, "invalid recommendation_scope.artifact_path"):
+            check_intent(self.root, intent)
+
+    def test_prediction_prepare_records_recommendation_scope(self):
+        date="2099-10-17"; race="20991017-TOK-01"
+        sid=race+"-P001-S01"
+        rec=f"docs/validation/recommendations/{date}/{race}-R001.json"
+        argv=["verify_prediction_persistence.py","--root",str(self.root),"--prepare",
+              "--date",date,"--intent-id","pred-final","--snapshot-id",sid,
+              "--artifact-path",f"docs/validation/snapshots/{date}/{sid}.json",
+              "--deadline-jst",date+"T10:10:00+09:00","--race-id",race,
+              "--recommendation-id",race+"-R001","--recommendation-artifact-path",rec]
+        with patch.object(sys,"argv",argv), redirect_stdout(io.StringIO()):
+            self.assertEqual(persistence_main(),0)
+        saved=json.loads((self.root/f"docs/validation/persistence-intents/{date}/pred-final.json").read_text())
+        self.assertEqual(saved["recommendation_scope"]["artifact_path"],rec)
+
 
 if __name__=='__main__': unittest.main()
