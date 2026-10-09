@@ -1,0 +1,121 @@
+{
+  "coverage_policy": "確認した競走馬としての調教エピソードのみ。出生・種牡馬供用地・遠征先を調教国に流用しない。",
+  "first_observed_at": "2026-10-09T16:38:00.075235+00:00",
+  "records": [
+    {
+      "basis": "同年ガネー賞の主催者記録で調教師一致。Racing Post原著記事にフランス調教馬との明記。1972年仏種牡馬入り・1977年米国輸出は調教移籍ではない。",
+      "country": "FR",
+      "documented_years": [
+        1971
+      ],
+      "horse_key": "jbis-0000334731",
+      "sources": [
+        {
+          "captured_at": "2026-10-09T16:38:00.075235+00:00",
+          "fields": {
+            "horse": "CARO",
+            "trainer": "A. KLIMSCHA",
+            "year": 1971
+          },
+          "record_hash": "4494226799baebd921f1144a2a5270f49166bac4a4f8c871e35d621553b99f20",
+          "record_hash_kind": "canonical-extracted-fields-sha256",
+          "url": "https://www.france-galop.com/sites/default/files/ganay.pdf"
+        },
+        {
+          "captured_at": "2026-10-09T16:38:00.075235+00:00",
+          "fields": {
+            "horse": "Caro",
+            "training_country": "FR",
+            "year": 1971
+          },
+          "record_hash": "3b381f47eb247e345f5cdb7d5bd7c8de12baccf25d7e962ed9e81750249b6118",
+          "record_hash_kind": "canonical-extracted-fields-sha256",
+          "url": "https://www.racingpost.com/news/features/geoff-lewis-i-rode-some-great-horses-but-there-was-something-different-about-mill-reef-ajht91q0yEGV/"
+        },
+        {
+          "captured_at": "2026-10-09T16:38:00.075235+00:00",
+          "fields": {
+            "stallion_export_country": "US",
+            "stallion_export_year": 1977,
+            "stud_entry_country": "FR",
+            "stud_entry_year": 1972,
+            "trainer": "Albert Klimscha"
+          },
+          "record_hash": "aaf6f5e85227e615e88996ba5f5084e2676190bfea72e421743fb44925a1bcbe",
+          "record_hash_kind": "canonical-extracted-fields-sha256",
+          "url": "https://www.americanclassicpedigrees.com/caro-ire.html"
+        }
+      ],
+      "trainer": "Albert Klimscha"
+    },
+    {
+      "basis": "馬主が1985年にSheppardへ委託した経緯と、米国の調教拠点を馬主協会掲載の原著記事で確認。",
+      "country": "US",
+      "documented_years": [
+        1985,
+        1987
+      ],
+      "horse_key": "jbis-0000337102",
+      "sources": [
+        {
+          "captured_at": "2026-10-09T16:38:00.075235+00:00",
+          "fields": {
+            "entrusted_year": 1985,
+            "horse": "Storm Cat",
+            "race_return_age": 4,
+            "stable_locations": [
+              "Pennsylvania",
+              "Camden",
+              "Philadelphia Park",
+              "Meadowlands, New Jersey"
+            ],
+            "trainer": "Jonathan Sheppard",
+            "training_base": "West Grove, Pennsylvania"
+          },
+          "record_hash": "bb712065931da0187b7c0676ab126b89547955df1917c3845da5c35ea389e3a7",
+          "record_hash_kind": "canonical-extracted-fields-sha256",
+          "url": "https://www.dtha.com/2021/01/hall-of-fame-trainer-sheppard-retires/"
+        }
+      ],
+      "trainer": "Jonathan Sheppard"
+    },
+    {
+      "basis": "Equibase掲載の当事者発表を引用した記事で調教師交代と2005年引退を確認。NYRA本人インタビューの紹介でZitoのSaratoga厩舎とBellamy Roadの担当を照合。確定属性はZito担当期の米国所属で、Dickinson期の拠点・交代日を推定補完しない。",
+      "country": "US",
+      "documented_years": [
+        2005
+      ],
+      "horse_key": "jbis-0001127392",
+      "sources": [
+        {
+          "captured_at": "2026-10-09T16:38:00.075235+00:00",
+          "fields": {
+            "horse": "Bellamy Road",
+            "last_race": "Travers Stakes, Saratoga",
+            "last_race_year": 2005,
+            "trainers_ordered": [
+              "Michael Dickinson",
+              "Nick Zito"
+            ]
+          },
+          "record_hash": "a663d01c2018593ad8d71cffc152f10c8afd9e5dc4af927b4908fd99d08465b9",
+          "record_hash_kind": "canonical-extracted-fields-sha256",
+          "url": "https://cms.equibase.com/node/145035"
+        },
+        {
+          "captured_at": "2026-10-09T16:38:00.075235+00:00",
+          "fields": {
+            "horse_trained": "Bellamy Road",
+            "interview_base": "Saratoga Race Course barn",
+            "trainer": "Nick Zito"
+          },
+          "record_hash": "4b328b59de518ec90c4c0402f55bb7cd43d8a4a4adfaaa9c8c0eacb769895bd0",
+          "record_hash_kind": "canonical-extracted-fields-sha256",
+          "url": "https://www.nyra.com/saratoga/news/across-the-board-with-andy-serling-episode-25-nick-zito"
+        }
+      ],
+      "trainer": "Nick Zito (previously Michael Dickinson)"
+    }
+  ],
+  "schema_version": "pedigree-training-history-v1"
+}

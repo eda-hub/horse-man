@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from pedigree_registry import Registry, SCHEMA as PEDIGREE_SCHEMA, digest, read, atomic
-from pedigree_stats import (DEFINITION_SCHEMA, INPUT_SCHEMA, RESULT_RULE, audit,
+from pedigree_stats import (DEFINITION_SCHEMA, INPUT_SCHEMA, RESULT_RULE, audit, main_training_country,
                             compute, run, verify, validate_manifest, validate_definition,
                             inventory)
 
@@ -406,6 +406,54 @@ class PedigreeStatsTest(unittest.TestCase):
         self.assertEqual(status["reason"], "UNVERIFIED")
         self.assertEqual(out["groups"]["sire-a"]["cohorts"]["UNKNOWN"]["entries"], 2)
 
+
+
+    def training_starts(self, countries):
+        return {"complete": True, "total_starts": len(countries), "starts": [
+            {"race_id": f"TRAINING-{i}", "race_date": "2026-09-01",
+             "training_country": country, "race_country": "GB",
+             "source": {"url": "https://authority.example/starts", "record_hash": digest(i),
+                        "captured_at": EARLY}}
+            for i, country in enumerate(countries)]}
+
+    def test_26_main_training_country_counts_affiliation_not_race_venue(self):
+        history = self.training_starts(["FR", "FR", "GB"])
+        self.assertEqual(main_training_country(history, CUTOFF)[0], "FR")
+        self.fact("sire-a", "attribute:training_start_history", history)
+        self.definition["training_classification"]["country_selection"] = "MOST_STARTS_BY_TRAINING_COUNTRY"
+        _, out = self.calculate()
+        self.assertEqual(out["groups"]["sire-us"]["cohorts"]["MATCH"]["entries"], 0)
+        self.assertEqual(out["groups"]["sire-us"]["cohorts"]["NON_MATCH"]["entries"], 4)
+        # The old single-country attribute US must not override the selected method.
+        self.assertEqual(out["groups"]["horse-eu"]["cohorts"]["UNKNOWN"]["entries"], 8)
+
+    def test_27_training_start_ties_and_incomplete_history_stay_unknown(self):
+        history = self.training_starts(["FR", "US"])
+        self.assertEqual(main_training_country(history, CUTOFF)[1],
+                         "MAIN_TRAINING_COUNTRY_TIED_USER_INPUT_REQUIRED")
+        history["complete"] = False
+        self.assertIsNone(main_training_country(history, CUTOFF)[0])
+        history["complete"] = True
+        history["total_starts"] = 3
+        self.assertIsNone(main_training_country(history, CUTOFF)[0])
+        history["total_starts"] = 2
+        history["starts"][1]["race_id"] = history["starts"][0]["race_id"]
+        self.assertIsNone(main_training_country(history, CUTOFF)[0])
+
+    def test_28_training_country_source_cutoff_and_no_birth_country_fallback(self):
+        history = self.training_starts(["FR"])
+        history["starts"][0].pop("training_country")
+        history["starts"][0]["birth_country"] = "FR"
+        self.assertIsNone(main_training_country(history, CUTOFF)[0])
+        history = self.training_starts(["FR"])
+        history["starts"][0]["source"]["captured_at"] = "2026-10-10T00:00:00+09:00"
+        self.assertEqual(main_training_country(history, CUTOFF)[1], "TRAINING_SOURCE_AFTER_CUTOFF")
+        history["starts"][0]["source"]["captured_at"] = EARLY
+        history["starts"][0]["race_date"] = "2026-10-10"
+        self.assertEqual(main_training_country(history, CUTOFF)[1], "TRAINING_START_AFTER_CUTOFF")
+        history["starts"][0]["race_date"] = "2026-09-01"
+        history["starts"][0]["source"].pop("record_hash")
+        self.assertEqual(main_training_country(history, CUTOFF)[1], "TRAINING_START_SOURCE_MISSING")
 
 
 if __name__ == "__main__":

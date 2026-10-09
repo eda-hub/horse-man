@@ -80,6 +80,76 @@
         "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-09T15:04:16.011434+00:00",
+      "content_hash": "8380ee7a92f4b70d7f94721e08557aec4e19d5db7fa94e8e8502bec18bb86b3d",
+      "documented_years": [
+        2005
+      ],
+      "field": "attribute:training_country",
+      "first_observed_at": "2026-10-09T15:04:16.011434+00:00",
+      "input_hash": "a43bd0fab49e843c6eb478322e448ff00533d712d0f4a181b422eb0a5b5319db",
+      "previous_revision": null,
+      "revision_id": "rev-a43bd0fab49e843c6eb47832",
+      "saved_at": "2026-10-09T15:05:33.580953+00:00",
+      "scope": "DOCUMENTED_RACING_TRAINING_EPISODE",
+      "source": {
+        "acquisition_method": "original-publications-identity-trainer-training-base-cross-check",
+        "evidence_fields": {
+          "country": "US",
+          "documented_years": [
+            2005
+          ],
+          "evidence_hashes": [
+            "a663d01c2018593ad8d71cffc152f10c8afd9e5dc4af927b4908fd99d08465b9",
+            "4b328b59de518ec90c4c0402f55bb7cd43d8a4a4adfaaa9c8c0eacb769895bd0"
+          ],
+          "trainer": "Nick Zito (previously Michael Dickinson)"
+        },
+        "evidence_sources": [
+          {
+            "captured_at": "2026-10-09T15:04:16.011434+00:00",
+            "fields": {
+              "horse": "Bellamy Road",
+              "last_race": "Travers Stakes, Saratoga",
+              "last_race_year": 2005,
+              "trainers_ordered": [
+                "Michael Dickinson",
+                "Nick Zito"
+              ]
+            },
+            "record_hash": "a663d01c2018593ad8d71cffc152f10c8afd9e5dc4af927b4908fd99d08465b9",
+            "record_hash_kind": "canonical-extracted-fields-sha256",
+            "url": "https://cms.equibase.com/node/145035"
+          },
+          {
+            "captured_at": "2026-10-09T15:04:16.011434+00:00",
+            "fields": {
+              "horse_trained": "Bellamy Road",
+              "interview_base": "Saratoga Race Course barn",
+              "trainer": "Nick Zito"
+            },
+            "record_hash": "4b328b59de518ec90c4c0402f55bb7cd43d8a4a4adfaaa9c8c0eacb769895bd0",
+            "record_hash_kind": "canonical-extracted-fields-sha256",
+            "url": "https://www.nyra.com/saratoga/news/across-the-board-with-andy-serling-episode-25-nick-zito"
+          }
+        ],
+        "origin_group": "SOURCE_BACKED_TRAINING_HISTORY",
+        "record_hash": "cc459ea6bb4e8de239709561bc445de439b57146008b230a27ad53984471f8df",
+        "record_hash_kind": "canonical-training-evidence-fields-sha256",
+        "record_key": "jbis-0001127392",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://cms.equibase.com/node/145035"
+      },
+      "status": "VERIFIED",
+      "value": "US",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 当該馬・調教師・調教拠点を資料で照合。種牡馬供用地と分離",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

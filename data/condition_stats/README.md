@@ -88,3 +88,11 @@
 ## 完了境界
 
 `--audit`は保存済みsnapshotの改ざん等を確認するが、**snapshotが0件でも成功し得る**。これは実集計・出走データ収集・原出所確認の完了を意味しない。既存の過去記述535件は未確認の候補であり、統計用の出走母数ではない。Phase 2の公式出走/結果・実データID整備、Phase 3の実データ照合・DB連携、Phase 4表示、Phase 8検証/正式採用は独立した完了判定を維持する。
+
+## 実データの主な調教国（2026-10-10 利用者指定）
+
+`training_classification.country_selection=MOST_STARTS_BY_TRAINING_COUNTRY`を指定し、対象馬の競走馬としての各出走時の**調教所属国**を数え、最多出走国を採用する。開催国・遠征先・生産国・種牡馬供用国を代用しない。最多出走が同率の場合は利用者へ国名の指定を求め、指定を受けるまでUNKNOWNにする。
+
+入力は唯一Writerで保存した`attribute:training_start_history`。値は`complete=true`、全出走母数`total_starts`、`starts`配列を持つ。各行に`race_id`、`race_date`、`training_country`（ISO二文字）、`source.url/record_hash/captured_at`を保存する。全出走一覧・各出走時の所属の照合前にcompleteを宣言しない。重複レース、母数不一致、所属国不明、出所欠落、cutoff後の出走・取得は分類を保留する。未照合の所属時点はその事実として報告する。
+
+過去の固定snapshotの互換性のため、既存の`VERIFIED_COUNTRY`方式は維持する。今回確認した3祖先の単一調教エピソードは全出走履歴ではなく、新方式の入力に自動昇格しない。欧州に含める国の一覧も版付き定義に明記し、未指定国を欧州へ推定しない。

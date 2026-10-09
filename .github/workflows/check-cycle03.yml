@@ -19,6 +19,8 @@ jobs:
         run: python3 scripts/pedigree_registry.py audit
       - name: 血統実データ照合の原票・個体・祖先位置・時点を検証
         run: python3 scripts/check_pedigree_reconciliation.py
+      - name: 期間内全出走結果・追加血統・調教履歴と取得停止を検証
+        run: python3 scripts/check_pedigree_followup.py
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査
         run: |
           set -o pipefail

@@ -80,6 +80,70 @@
         "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-09T15:04:16.011434+00:00",
+      "content_hash": "cdb5b4ddd08e8f689eab07bedaecb9c181a4cbdff37673931eaac4006f152c82",
+      "documented_years": [
+        1985,
+        1987
+      ],
+      "field": "attribute:training_country",
+      "first_observed_at": "2026-10-09T15:04:16.011434+00:00",
+      "input_hash": "9053afe7b72dc3d50e312b1b91a4978d7fe7d83b8ff7a69980f25460568fa391",
+      "previous_revision": null,
+      "revision_id": "rev-9053afe7b72dc3d50e312b1b",
+      "saved_at": "2026-10-09T15:05:33.564197+00:00",
+      "scope": "DOCUMENTED_RACING_TRAINING_EPISODE",
+      "source": {
+        "acquisition_method": "original-publications-identity-trainer-training-base-cross-check",
+        "evidence_fields": {
+          "country": "US",
+          "documented_years": [
+            1985,
+            1987
+          ],
+          "evidence_hashes": [
+            "bb712065931da0187b7c0676ab126b89547955df1917c3845da5c35ea389e3a7"
+          ],
+          "trainer": "Jonathan Sheppard"
+        },
+        "evidence_sources": [
+          {
+            "captured_at": "2026-10-09T15:04:16.011434+00:00",
+            "fields": {
+              "entrusted_year": 1985,
+              "horse": "Storm Cat",
+              "race_return_age": 4,
+              "stable_locations": [
+                "Pennsylvania",
+                "Camden",
+                "Philadelphia Park",
+                "Meadowlands, New Jersey"
+              ],
+              "trainer": "Jonathan Sheppard",
+              "training_base": "West Grove, Pennsylvania"
+            },
+            "record_hash": "bb712065931da0187b7c0676ab126b89547955df1917c3845da5c35ea389e3a7",
+            "record_hash_kind": "canonical-extracted-fields-sha256",
+            "url": "https://www.dtha.com/2021/01/hall-of-fame-trainer-sheppard-retires/"
+          }
+        ],
+        "origin_group": "SOURCE_BACKED_TRAINING_HISTORY",
+        "record_hash": "717d0360c7f37d483206726deca106d22c41322c2c9425558ae184f2d268892a",
+        "record_hash_kind": "canonical-training-evidence-fields-sha256",
+        "record_key": "jbis-0000337102",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.dtha.com/2021/01/hall-of-fame-trainer-sheppard-retires/"
+      },
+      "status": "VERIFIED",
+      "value": "US",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 当該馬・調教師・調教拠点を資料で照合。種牡馬供用地と分離",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

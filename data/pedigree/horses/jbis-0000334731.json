@@ -80,6 +80,86 @@
         "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-09T15:04:16.011434+00:00",
+      "content_hash": "984b912b11a3446e57f42fa876e675668c62880658bae6cb9525d906a03acbd9",
+      "documented_years": [
+        1971
+      ],
+      "field": "attribute:training_country",
+      "first_observed_at": "2026-10-09T15:04:16.011434+00:00",
+      "input_hash": "87f01e0650684da416ecf40f8b2cc65dc4e8b54ea5529c2d561ca4dc93ed3a14",
+      "previous_revision": null,
+      "revision_id": "rev-87f01e0650684da416ecf40f",
+      "saved_at": "2026-10-09T15:05:33.551865+00:00",
+      "scope": "DOCUMENTED_RACING_TRAINING_EPISODE",
+      "source": {
+        "acquisition_method": "original-publications-identity-trainer-training-base-cross-check",
+        "evidence_fields": {
+          "country": "FR",
+          "documented_years": [
+            1971
+          ],
+          "evidence_hashes": [
+            "4494226799baebd921f1144a2a5270f49166bac4a4f8c871e35d621553b99f20",
+            "3b381f47eb247e345f5cdb7d5bd7c8de12baccf25d7e962ed9e81750249b6118",
+            "aaf6f5e85227e615e88996ba5f5084e2676190bfea72e421743fb44925a1bcbe"
+          ],
+          "trainer": "Albert Klimscha"
+        },
+        "evidence_sources": [
+          {
+            "captured_at": "2026-10-09T15:04:16.011434+00:00",
+            "fields": {
+              "horse": "CARO",
+              "trainer": "A. KLIMSCHA",
+              "year": 1971
+            },
+            "record_hash": "4494226799baebd921f1144a2a5270f49166bac4a4f8c871e35d621553b99f20",
+            "record_hash_kind": "canonical-extracted-fields-sha256",
+            "url": "https://www.france-galop.com/sites/default/files/ganay.pdf"
+          },
+          {
+            "captured_at": "2026-10-09T15:04:16.011434+00:00",
+            "fields": {
+              "horse": "Caro",
+              "training_country": "FR",
+              "year": 1971
+            },
+            "record_hash": "3b381f47eb247e345f5cdb7d5bd7c8de12baccf25d7e962ed9e81750249b6118",
+            "record_hash_kind": "canonical-extracted-fields-sha256",
+            "url": "https://www.racingpost.com/news/features/geoff-lewis-i-rode-some-great-horses-but-there-was-something-different-about-mill-reef-ajht91q0yEGV/"
+          },
+          {
+            "captured_at": "2026-10-09T15:04:16.011434+00:00",
+            "fields": {
+              "stallion_export_country": "US",
+              "stallion_export_year": 1977,
+              "stud_entry_country": "FR",
+              "stud_entry_year": 1972,
+              "trainer": "Albert Klimscha"
+            },
+            "record_hash": "aaf6f5e85227e615e88996ba5f5084e2676190bfea72e421743fb44925a1bcbe",
+            "record_hash_kind": "canonical-extracted-fields-sha256",
+            "url": "https://www.americanclassicpedigrees.com/caro-ire.html"
+          }
+        ],
+        "origin_group": "SOURCE_BACKED_TRAINING_HISTORY",
+        "record_hash": "a259beaa0e3fccf21453a943ab1d70144936c625bb0e417c942d0ef1db9f241a",
+        "record_hash_kind": "canonical-training-evidence-fields-sha256",
+        "record_key": "jbis-0000334731",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.france-galop.com/sites/default/files/ganay.pdf"
+      },
+      "status": "VERIFIED",
+      "value": "FR",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 当該馬・調教師・調教拠点を資料で照合。種牡馬供用地と分離",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

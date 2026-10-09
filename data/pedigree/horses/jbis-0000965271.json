@@ -1,0 +1,86 @@
+{
+  "horse_key": "jbis-0000965271",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1999,
+    "external_ids": {
+      "JBIS": "0000965271"
+    },
+    "identity_evidence": {
+      "record_key": "0000965271",
+      "source": "JBIS"
+    },
+    "name": "Candy Ride(ARG)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:27.969045+00:00",
+  "identity_observed_at": "2026-10-09T15:04:27.969045+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1999,
+    "external_ids": {
+      "JBIS": "0000965271"
+    },
+    "identity_evidence": {
+      "record_key": "0000965271",
+      "source": "JBIS"
+    },
+    "name": "Candy Ride(ARG)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:49:08.135971+00:00",
+      "content_hash": "efc61f462321a72a973945959c7083ea39f4c007f954bcf6e7a4f58737edd3ed",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:49:08.135971+00:00",
+      "input_hash": "0aab071be6e64376d822d8333e6ff3e95ae818b67433533b4f3aaab030f0b621",
+      "previous_revision": null,
+      "revision_id": "rev-0aab071be6e64376d822d833",
+      "saved_at": "2026-10-09T15:05:09.186562+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "4bc21ffb8fb00ee2939737505e5e0347e864f96d3940b90b89e7fa7d6f493810",
+        "record_key": "0001397128",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001397128/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000348538",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:49:08.135971+00:00",
+      "content_hash": "00b08c94478403873c1329a770418dfb09279235fdb47fb80d0430743bb5da07",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:49:08.135971+00:00",
+      "input_hash": "6432dcbf498c680cc25dff8497a40d33ea0aba44efbfd50f9a6bf87a37342f05",
+      "previous_revision": null,
+      "revision_id": "rev-6432dcbf498c680cc25dff84",
+      "saved_at": "2026-10-09T15:05:09.190996+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "4bc21ffb8fb00ee2939737505e5e0347e864f96d3940b90b89e7fa7d6f493810",
+        "record_key": "0001397128",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001397128/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000964152",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

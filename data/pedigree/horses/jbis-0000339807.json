@@ -28,6 +28,59 @@
     "name": "Marfa(USA)",
     "status": "RESOLVED"
   },
-  "revisions": [],
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T16:34:03.664765+00:00",
+      "content_hash": "10f0d69d4a5fe36bb841d21b87e0eafe32080b95caf336897d7d1b04e209b77c",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T16:34:03.664765+00:00",
+      "input_hash": "37600ad7a08f18bceaf7b8359042da250b53bfc7935e3e90265f88af61942023",
+      "previous_revision": null,
+      "revision_id": "rev-37600ad7a08f18bceaf7b835",
+      "saved_at": "2026-10-09T16:38:01.899134+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "04d84304d080cdc1e5d23914443ceda79a65193945fd6ff08a5408cafaf3161e",
+        "record_key": "0001395092",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001395092/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000334740",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T16:34:03.664765+00:00",
+      "content_hash": "b76a15a62164bb68e18ee2fe933c0f1d95a1bfb85e43f3d7fd77e9e7bb85eb55",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T16:34:03.664765+00:00",
+      "input_hash": "76f8e182a0ae90cc95bdff0754d67b56705f8141f4815e415bdd9d80849834a9",
+      "previous_revision": null,
+      "revision_id": "rev-76f8e182a0ae90cc95bdff07",
+      "saved_at": "2026-10-09T16:38:01.899266+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "04d84304d080cdc1e5d23914443ceda79a65193945fd6ff08a5408cafaf3161e",
+        "record_key": "0001395092",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001395092/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000408378",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    }
+  ],
   "schema_version": "pedigree-registry-v1"
 }

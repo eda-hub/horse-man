@@ -172,3 +172,7 @@ python3 scripts/pedigree_registry.py audit
 - JBIS全52表の62位置、全参照個体ID、Registryの親子関係との一致、独立関係の競合・数、過去cutoffへの流用拒否を検査する。
 - Registry監査は全個体・revision/hash・外部ID重複・初期時刻・旧535候補の未昇格を検査する。照合checker内の監査は単一Writerのlock下で読取集合を固定し、同定重複検査のための反復ディスク読込を省く。CLIの`audit`は従来どおりGit移行元commitも検査する。
 - `audit_result.json`は実行した照合checkerの結果。GitHub上の保存確認はcommitのtree/blob SHAと読戻しで別途検証する。Actionsの成功や原票取得を、過去の予想保存証跡の修復とみなさない。
+
+## 追加調査の状況
+
+[予想済み期間の全出走・追加血統・調教エピソード照合](../2026-10-09-followup/README.md)に追補を保存した。初回照合時点の保留記録は保全し、追加で確認した3祖先の履歴・全159レースの公式結果と、JBIS HTTP 403で残る取得不足を別記録で追跡する。

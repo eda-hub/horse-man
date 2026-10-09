@@ -115,6 +115,9 @@ def validate_definition(definition):
                     isinstance(t.get("regions"), dict) and t["regions"],
                     "explicit training-region classification required")
             require(value in t["regions"], "undefined training region")
+            require(t.get("country_selection", "VERIFIED_COUNTRY") in
+                    {"VERIFIED_COUNTRY", "MOST_STARTS_BY_TRAINING_COUNTRY"},
+                    "unsupported training country selection")
             require(all(isinstance(v, list) and v and
                         all(isinstance(x, str) and x for x in v)
                         for v in t["regions"].values()), "invalid training regions")
@@ -202,6 +205,40 @@ def validate_manifest(manifest, definition):
     rows.sort(key=lambda item: (item[0]["race_date_jst"], item[0]["race_id"],
                                 item[1]["horse_key"]))
     return rows, included_races, duplicate_count
+
+
+def main_training_country(history, cutoff):
+    """全出走の調教所属国で最多国を選ぶ。開催国・出生国は参照しない。"""
+    if not isinstance(history, dict) or history.get("complete") is not True:
+        return None, "TRAINING_START_HISTORY_INCOMPLETE"
+    rows, total = history.get("starts"), history.get("total_starts")
+    if not isinstance(rows, list) or type(total) is not int or total <= 0 or len(rows) != total:
+        return None, "TRAINING_START_HISTORY_COUNT_MISMATCH"
+    counts, seen = {}, set()
+    for row in rows:
+        if not isinstance(row, dict):
+            return None, "TRAINING_START_HISTORY_INVALID"
+        race, country, source = row.get("race_id"), row.get("training_country"), row.get("source")
+        if not isinstance(race, str) or not race or race in seen:
+            return None, "TRAINING_START_HISTORY_DUPLICATE_OR_MISSING_RACE"
+        if not isinstance(country, str) or not re.fullmatch(r"[A-Z]{2}", country):
+            return None, "TRAINING_START_COUNTRY_UNKNOWN"
+        if not isinstance(source, dict) or not source.get("url") or not re.fullmatch(
+                r"[a-f0-9]{64}", str(source.get("record_hash", ""))):
+            return None, "TRAINING_START_SOURCE_MISSING"
+        try:
+            if day(row.get("race_date"), "training race date") > iso(cutoff, "cutoff").date():
+                return None, "TRAINING_START_AFTER_CUTOFF"
+            if iso(source.get("captured_at"), "training source capture") > iso(cutoff, "cutoff"):
+                return None, "TRAINING_SOURCE_AFTER_CUTOFF"
+        except ValueError:
+            return None, "TRAINING_START_HISTORY_INVALID"
+        seen.add(race)
+        counts[country] = counts.get(country, 0) + 1
+    winners = [c for c, n in counts.items() if n == max(counts.values())]
+    if len(winners) != 1:
+        return None, "MAIN_TRAINING_COUNTRY_TIED_USER_INPUT_REQUIRED"
+    return winners[0], "VERIFIED_MOST_STARTS_TRAINING_COUNTRY"
 
 
 class Resolver:
@@ -309,11 +346,20 @@ class Resolver:
             if c["status"] != "PRESENT":
                 return "UNKNOWN", "ANCESTOR_UNKNOWN"
             subject = group["ancestor_key"]
-        f = self.fact(subject if subject != "HORSE" else key, "attribute:training_country")
+        method = self.definition["training_classification"].get(
+            "country_selection", "VERIFIED_COUNTRY")
+        field = ("attribute:training_start_history" if method ==
+                 "MOST_STARTS_BY_TRAINING_COUNTRY" else "attribute:training_country")
+        f = self.fact(subject if subject != "HORSE" else key, field)
         if f["status"] != "VERIFIED":
             return ("CONFLICT" if f["status"] == "CONFLICT" else "UNKNOWN",
                     "TRAINING_" + f["status"])
-        country = f["value"]
+        if method == "MOST_STARTS_BY_TRAINING_COUNTRY":
+            country, reason = main_training_country(f["value"], self.cutoff)
+            if country is None:
+                return "UNKNOWN", reason
+        else:
+            country = f["value"]
         if not isinstance(country, str) or re.search("[,;/+]", country):
             return "UNKNOWN", "MULTI_REGION_CLASSIFICATION_UNDEFINED"
         lookup = self.definition["training_classification"]["regions"]

@@ -28,6 +28,59 @@
     "name": "Thirty Zip(USA)",
     "status": "RESOLVED"
   },
-  "revisions": [],
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:48:33.537475+00:00",
+      "content_hash": "706e7db67d2b5e9ed9c580e722ba3963d90858947e25f8831a14d3747d7470d6",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:48:33.537475+00:00",
+      "input_hash": "97fccfea6517799de9e581d4ca7d26220f9d568db8e4930758f0ef72c7f15f57",
+      "previous_revision": null,
+      "revision_id": "rev-97fccfea6517799de9e581d4",
+      "saved_at": "2026-10-09T15:04:58.628969+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "3421afbf1072a0aa90ee4db860bccf559b3b705b5e873bc85e45844d09357bf8",
+        "record_key": "0001392768",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001392768/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336425",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:48:33.537475+00:00",
+      "content_hash": "1aa1bed656c88cdcca0828d0d1cab1d2278675d447d6a3fdf5c55bd5caa3441c",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:48:33.537475+00:00",
+      "input_hash": "a8c67f018ae35f765e652d828ee20d2140e19ef05324073b7dd8f5220dbc09cc",
+      "previous_revision": null,
+      "revision_id": "rev-a8c67f018ae35f765e652d82",
+      "saved_at": "2026-10-09T15:04:58.629165+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "3421afbf1072a0aa90ee4db860bccf559b3b705b5e873bc85e45844d09357bf8",
+        "record_key": "0001392768",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001392768/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000404766",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    }
+  ],
   "schema_version": "pedigree-registry-v1"
 }

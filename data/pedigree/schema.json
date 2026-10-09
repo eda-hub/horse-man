@@ -92,11 +92,18 @@
       "properties": {
         "field": {
           "type": "string",
-          "pattern": "^(parent:[SD]{1,10}|attribute:(birth_country|training_country|sex))$"
+          "pattern": "^(parent:[SD]{1,10}|attribute:(birth_country|training_country|training_start_history|sex))$"
         },
         "value": {
-          "type": "string",
-          "minLength": 1
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object"
+            }
+          ]
         },
         "status": {
           "enum": [
@@ -212,15 +219,45 @@
         {
           "if": {
             "properties": {
-              "status": {
-                "const": "VERIFIED"
+              "field": {
+                "const": "attribute:training_start_history"
+              }
+            },
+            "required": [
+              "field"
+            ]
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "object",
+                "required": [
+                  "complete",
+                  "total_starts",
+                  "starts"
+                ],
+                "properties": {
+                  "complete": {
+                    "type": "boolean"
+                  },
+                  "total_starts": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "starts": {
+                    "type": "array"
+                  }
+                }
               }
             }
           },
-          "then": {
-            "required": [
-              "verification"
-            ]
+          "else": {
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
           }
         }
       ]

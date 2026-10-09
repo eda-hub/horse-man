@@ -1,0 +1,86 @@
+{
+  "horse_key": "jbis-0001158726",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2000,
+    "external_ids": {
+      "JBIS": "0001158726"
+    },
+    "identity_evidence": {
+      "record_key": "0001158726",
+      "source": "JBIS"
+    },
+    "name": "Plume Rouge(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:30.630851+00:00",
+  "identity_observed_at": "2026-10-09T15:04:30.630851+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2000,
+    "external_ids": {
+      "JBIS": "0001158726"
+    },
+    "identity_evidence": {
+      "record_key": "0001158726",
+      "source": "JBIS"
+    },
+    "name": "Plume Rouge(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:44:26.323025+00:00",
+      "content_hash": "de60ab38c5a76b733a4a75b5de10c8c378562cdc384ba2abb59bb17782707dc7",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:44:26.323025+00:00",
+      "input_hash": "5459b3884f313df9c57d466862c4303f4f5e315336b61a6147b530c7738307e4",
+      "previous_revision": null,
+      "revision_id": "rev-5459b3884f313df9c57d4668",
+      "saved_at": "2026-10-09T15:05:16.215965+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "ac0875e0cfb448577046f697da6da4838837c3413298c757a48cf48fe48d8f9f",
+        "record_key": "0001375580",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001375580/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000365118",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:44:26.323025+00:00",
+      "content_hash": "e8973c8d7bc5144de7e76fe10f69154888b3acfb060147ab2b61832ad0c672ed",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:44:26.323025+00:00",
+      "input_hash": "bece159d10d66d812ac3ced7999311f49cd8a95ea55aa6ae0e7a5c2b5932a79f",
+      "previous_revision": null,
+      "revision_id": "rev-bece159d10d66d812ac3ced7",
+      "saved_at": "2026-10-09T15:05:16.217052+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "ac0875e0cfb448577046f697da6da4838837c3413298c757a48cf48fe48d8f9f",
+        "record_key": "0001375580",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001375580/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000866779",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

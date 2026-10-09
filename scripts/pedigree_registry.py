@@ -135,7 +135,7 @@ class Registry:
                 matches[0]['identity']['status'] == 'RESOLVED' else 'IDENTITY_UNRESOLVED',
                 'matches': matches}
 
-    def validate_identity(self, identity, horse_key=None):
+    def validate_identity(self, identity, horse_key=None, records=None):
         if identity['status'] not in {'RESOLVED', 'IDENTITY_UNRESOLVED'} or not identity['name']:
             raise ValueError('invalid identity')
         if not isinstance(identity.get('external_ids', {}), dict) or any(not isinstance(v, str) or not v for v in identity.get('external_ids', {}).values()):
@@ -147,7 +147,7 @@ class Registry:
             if not identity.get('external_ids') and not all(identity.get(k) for k in
                     ('birth_year', 'country', 'parents')):
                 raise ValueError('local identity requires birth year, country and parents')
-        for other in self.records():
+        for other in self.records() if records is None else records:
             if other['horse_key'] == horse_key:
                 continue
             for provider, value in identity.get('external_ids', {}).items():
@@ -157,7 +157,7 @@ class Registry:
     def validate_fact(self, fact):
         field = fact['field']
         if not (re.fullmatch(r'parent:[SD]{1,10}', field) or
-                field in {'attribute:birth_country', 'attribute:training_country', 'attribute:sex'}):
+                field in {'attribute:birth_country', 'attribute:training_country', 'attribute:training_start_history', 'attribute:sex'}):
             raise ValueError('only pedigree edges and ancestor attributes are facts')
         if fact['status'] not in STATUSES:
             raise ValueError('invalid fact status')
@@ -187,6 +187,12 @@ class Registry:
                 raise ValueError('ancestor must have an independent record')
             if fact['status'] == 'VERIFIED' and ancestor['identity']['status'] != 'RESOLVED':
                 raise ValueError('ancestor identity unresolved')
+        elif field == 'attribute:training_start_history':
+            value = fact['value']
+            if not isinstance(value, dict) or type(value.get('complete')) is not bool or \
+                    type(value.get('total_starts')) is not int or value['total_starts'] < 0 or \
+                    not isinstance(value.get('starts'), list):
+                raise ValueError('training start history object required')
         elif not isinstance(fact['value'], str) or not fact['value']:
             raise ValueError('attribute must be a nonempty string')
 
@@ -440,7 +446,7 @@ class Registry:
         else:
             key = identity['matches'][0]['horse_key']
             for field in request.get('fields', []):
-                if not (re.fullmatch(r'parent:[SD]{1,10}', field) or field in {'attribute:birth_country', 'attribute:training_country', 'attribute:sex'}):
+                if not (re.fullmatch(r'parent:[SD]{1,10}', field) or field in {'attribute:birth_country', 'attribute:training_country', 'attribute:training_start_history', 'attribute:sex'}):
                     raise ValueError('unsupported fact field; statistics and scores use a separate API')
                 if field.startswith('parent:'):
                     if not re.fullmatch(r'parent:[SD]{1,10}', field):
@@ -537,17 +543,18 @@ class Registry:
     def audit(self, repo=None):
         errors = []
         external_ids = {}
-        for record in self.records():
+        records = list(self.records())
+        for record in records:
             try:
                 if record['schema_version'] != SCHEMA:
                     raise ValueError('schema mismatch')
                 safe(record['horse_key'])
-                self.validate_identity(record['identity'], record['horse_key'])
+                self.validate_identity(record['identity'], record['horse_key'], records)
                 first = record.get('initial_identity')
                 observed = record.get('identity_observed_at')
                 if not isinstance(first, dict) or not observed:
                     raise ValueError('initial identity or observation timestamp missing')
-                self.validate_identity(first, record['horse_key'])
+                self.validate_identity(first, record['horse_key'], records)
                 first_time = dt(observed)
                 if first_time > dt(stamp()):
                     raise ValueError('initial identity observation is in the future')
@@ -574,8 +581,8 @@ class Registry:
                         raise ValueError('identity revision chain broken')
                     if index and dt(event['at']) < dt(history[index - 1]['at']):
                         raise ValueError('identity revision chronology broken')
-                    self.validate_identity(event['before'], record['horse_key'])
-                    self.validate_identity(event['after'], record['horse_key'])
+                    self.validate_identity(event['before'], record['horse_key'], records)
+                    self.validate_identity(event['after'], record['horse_key'], records)
                 if history and history[-1]['after'] != record['identity']:
                     raise ValueError('identity revision does not match current identity')
                 if record.get('identity_confirmed_at') != confirmed:
@@ -626,7 +633,7 @@ class Registry:
                     raise ValueError('migration differs from referenced commit')
             except (ValueError, KeyError, TypeError) as exc:
                 errors.append({'migration': str(exc)})
-        return {'status': 'PASS' if not errors else 'FAIL', 'horses': len(self.records()),
+        return {'status': 'PASS' if not errors else 'FAIL', 'horses': len(records),
                 'migration_claims': manifest['extracted'] if manifest else 0, 'errors': errors}
 
 
@@ -794,7 +801,9 @@ def main():
         elif args.command == 'failure': result = registry.failure(args.request_id, args.item, args.status, args.source_key, args.max_retries, args.not_found_hours, args.budget_seconds)
         elif args.command == 'migrate': result = migrate(args.repo, args.root, args.commit, args.observed_at)
         elif args.command == 'git-save': result = git_save(args.repo, args.root, args.expected_head)
-        else: result = registry.audit(repo=args.repo)
+        else:
+            with registry.writer():
+                result = registry.audit(repo=args.repo)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 1 if isinstance(result, dict) and result.get('status') == 'FAIL' else 0
     except (ValueError, KeyError, TypeError, OSError, subprocess.CalledProcessError) as exc:
@@ -804,3 +813,4 @@ def main():
 
 if __name__ == '__main__':
     raise SystemExit(main())
+
