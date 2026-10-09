@@ -570,14 +570,37 @@ def verify(root, path):
 
 
 def audit(root):
-    base = root / "data/condition_stats/snapshots"
-    errors = []
-    snapshots = sorted(base.glob("*/*.json"))
+    root = Path(root)
+    base = root / "data/condition_stats"
+    errors, validated = [], []
+    snapshots = sorted((base / "snapshots").glob("*/*.json"))
     for path in snapshots:
         try:
-            verify(root, path)
+            validated.append(verify(root, path))
         except (ValueError, KeyError, TypeError, OSError) as exc:
             errors.append(f"{path}: {exc}")
+    # snapshotのみ検査すると、宣言後に一件も実行しない欠落を見逃す。
+    for definition in sorted((base / "definitions").glob("*.json")):
+        rel = definition.relative_to(root).as_posix()
+        try:
+            current = read_object(definition)
+            validate_definition(current)
+            current_hash = digest(current)
+            matches = [r for r in validated if r.get("requested_definition_path") == rel]
+            require(any(r.get("definition_id") == current["definition_id"] and
+                        digest(read_object(root / r["definition_path"])) == current_hash
+                        for r in matches), "definition has no matching current snapshot")
+        except (ValueError, KeyError, TypeError, OSError) as exc:
+            errors.append(f"{definition}: {exc}")
+    for input_file in sorted((base / "inputs").glob("*.json")):
+        rel = input_file.relative_to(root).as_posix()
+        try:
+            input_hash = digest(read_object(input_file))
+            matching = [r for r in validated if r.get("requested_input_path") == rel]
+            require(any(digest(read_object(root / r["input_path"])) == input_hash
+                        for r in matching), "runner manifest has no matching current snapshot")
+        except (ValueError, KeyError, TypeError, OSError) as exc:
+            errors.append(f"{input_file}: {exc}")
     for error in errors:
         print(f"PEDIGREE_STAT_INCOMPLETE {error}")
     print(f"PEDIGREE_STAT_AUDIT: snapshots={len(snapshots)} invalid={len(errors)}")
