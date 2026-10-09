@@ -58,7 +58,11 @@ python3 scripts/pedigree_registry.py audit
 
 `update-identity` は現行hashをCAS照合し、旧identity・新identity・確認者・理由・更新時刻・イベントhashを `identity_revisions` へ追記する。確認済みにする場合は `identity_evidence.source/record_key` と同定用ID、または生年・国・親情報を必須とする。既存外部IDの付け替えや確認済み状態への逆行（未同定へ戻す操作）は拒否する。更新後も既存の血統revisionは維持し、別名インデックスを再構築する。
 
-**同定の時点管理**：検索の `--cutoff`、`plan` の `data_cutoff`、`derive` の `--cutoff` では、`identity_revisions` の各更新時刻からその時点の `status / external_ids / aliases / identity_evidence` を復元する。cutoff後に確定した同定情報は過去のVERIFIED事実・祖先パスへ流用しない。祖先馬の独立レコードも同じ時点で照合する。更新履歴のない初期identityは既存データ互換の基準状態として扱い、初期作成前の同定を実証したものと解釈しない。
+**同定の時点管理**：初回登録時にシステムが確定した `identity_observed_at`（初期同定の観測・登録時刻）と、RESOLVEDの場合の `identity_confirmed_at`（同定確定時刻）を保存する。`initial_identity` は初期状態の監査用コピーである。未同定で新規登録した場合は `identity_confirmed_at=null` とし、`update-identity` による初回の明示的な同定確定時刻を記録する。初期の時刻は外部資料の公開日や候補factの古い `first_observed_at` で遡及させず、Writerの実際の保存時刻を使う。
+
+検索の `--cutoff`、`plan` の `data_cutoff`、`derive` の `--cutoff`、属性・祖先参照では、**初回観測時刻より前は一切VERIFIEDにしない**。その時点では検索候補を表示せず、事実・祖先は `IDENTITY_UNRESOLVED` とする。初回観測後は `identity_revisions` で時点の同定状態・外部ID・別名・根拠を復元する。初回観測時点で未同定なら、後日確定するまでVERIFIEDにしない。独立祖先レコードにも同じ制約を適用する。
+
+初回観測時刻がない旧horseレコードは、過去のcutoffへ最新同定を流用せず**未確認扱い**にする。`audit` は初期観測・確定時刻や初期状態が欠けたhorseレコードをFAILとする。旧データに対して根拠不明な日時を自動補完してはならず、原証跡を確認した上で別途明示的な移行を行う（現在の移行済み過去候補は `migration.json` 内に未確認として保管し、確認済みhorseレコードは未作成）。
 
 祖先馬は先に独立レコードを登録する。事実は `parent:<path>` または生産国・調教国・性別の属性のみ受理し、系統・適性評価・レース傾向・スコアは事実へ書き込めない。各事実は次を持つ。
 
