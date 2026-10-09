@@ -236,7 +236,8 @@ class PedigreeBackfillTests(unittest.TestCase):
                 claim["source_line"] - 1]
             self.assertEqual(raw.strip(), claim["raw_text"])
             self.assertEqual(hashlib.sha256(raw.encode()).hexdigest(),
-                             claim["source_text_sha256"])
+                             claim["source_text_sha256"],
+                             msg=f'{claim["source_path"]}:{claim["source_line"]} {raw!r}')
             self.assertEqual(claim["source_commit"], manifest["source_commit"])
             self.assertEqual(claim["status"], "UNVERIFIED")
         recreated, checked = collect(repo, manifest["source_commit"], seed["generated_at"])
