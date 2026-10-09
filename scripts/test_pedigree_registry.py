@@ -235,7 +235,7 @@ class PedigreeBackfillTests(unittest.TestCase):
             raw = (repo / claim["source_path"]).read_text(encoding="utf-8").splitlines()[
                 claim["source_line"] - 1]
             self.assertEqual(raw.strip(), claim["raw_text"])
-            self.assertEqual(hashlib.sha256(raw.encode()).hexdigest(),
+            self.assertEqual(hashlib.sha256(claim["raw_text"].encode()).hexdigest(),
                              claim["source_text_sha256"],
                              msg=f'{claim["source_path"]}:{claim["source_line"]} {raw!r}')
             self.assertEqual(claim["source_commit"], manifest["source_commit"])
