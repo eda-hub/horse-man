@@ -174,7 +174,7 @@ def check_intent(root, path):
         if not isinstance(rec_path,str):
             raise ComplianceError(f'{path}: recommendation_scope.artifact_path required')
         relative=Path(rec_path)
-        if relative.is_absolute() or '..' in relative.parts or not rec_path.startswith('docs/validation/recommendations/'):
+        if relative.is_absolute() or '..' in relative.parts or not rec_path.startswith('docs/validation/recommendations/') or relative.suffix!='.json' or relative.parent.name!=date:
             raise ComplianceError(f'{path}: invalid recommendation_scope.artifact_path')
         if len(races)!=1 or recommendation.get('race_id')!=races[0]:
             raise ComplianceError(f'{path}: recommendation_scope must match one predicted race')
