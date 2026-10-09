@@ -410,7 +410,8 @@ class RegistryTests(unittest.TestCase):
         with patch('pedigree_registry.stamp', return_value=LATE):
             self.r.update_identity(confirmed, digest(read(self.r.path('late_sire'))),
                                    '父候補の同定', '確認者')
-        self.add('late_sire', [self.fact('parent:S', 'ancestor', EARLY)])
+        self.r.save(dict(confirmed, facts=[self.fact('parent:S', 'ancestor', EARLY)]),
+                    digest(read(self.r.path('late_sire'))))
         self.add('horse', [self.fact('parent:S', 'late_sire', EARLY),
                            self.fact('parent:SS', 'ancestor', EARLY)])
         self.assertEqual(self.r.edge('horse', 'S', EARLY)['status'], 'IDENTITY_UNRESOLVED')
