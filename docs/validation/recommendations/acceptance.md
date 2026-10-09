@@ -43,3 +43,12 @@
 | P2 券種一律◎制約 | 複勝の非◎対象と、○/▲1着・◎2着の根拠付き三連単を許可。馬連/ワイド等の非◎縦目制約は維持する | `test_29_place_on_second_choice_and_trifecta_reverse_first_row` |
 
 **受入範囲**: CIのPython回帰テストで検証する範囲に限定。正式運用への切替や、JRA-VAN/WebUIへの接続を完了した意味ではない。
+
+## 2026-10-09 再指摘2件：結果後の回顧更新と明示状態の厳守
+
+| 再指摘 | 修正内容 | テスト |
+|---|---|---|
+| P1 回顧追記で推奨認証・監査・集計が失敗 | 固定Prediction gateのSHA-256付き原本は維持しつつ、現行gateとの同一性比較を発走前固定対象（Production内容とevidence、契約・mode・cutoff・timing_route・Production KPI）に限定。結果後の`review.status=COMPLETE`更新は、Prediction checkerで適法な場合に許可する。固定予想の改変は引き続き拒否 | `test_31_review_completion_keeps_fixed_recommendation_verifiable`：回顧更新→verify/audit/report成功、timing_route変更拒否 |
+| P2 明示的な推奨省略が買い目で上書き | `EXPLICIT_MARKS_ONLY`・`NO_RECOMMENDATION`・`PENDING` と選択済み`ticket_formations`の併存をエラーにする。未選択の候補だけなら明示状態を保持して点数0のまま検証 | `test_32_explicit_status_cannot_be_overwritten_by_ticket_formations`：3状態それぞれの矛盾拒否と無券保存 |
+
+結果後に新規推奨を正式KPIへ昇格させる変更ではない。既存PR69のDraft・切替未実施・第3サイクル契約不変の条件を保持する。
