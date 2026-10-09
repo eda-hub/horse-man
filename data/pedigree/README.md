@@ -15,6 +15,7 @@ python3 scripts/pedigree_registry.py claims '母父'
 python3 scripts/pedigree_registry.py plan /tmp/request.json
 # 出所と同定を確認した候補を保存。更新時は最新レコードのcanonical hashが必須。
 python3 scripts/pedigree_registry.py save /tmp/candidate.json --expected-hash '<最新content_hash>'
+# 同定状態・出所IDの更新は通常saveではなく履歴付き専用操作（下記）を利用。
 # 追加保存後に同じ要求を再評価する。充足済みなら外部照会・調査要求は0件。
 python3 scripts/pedigree_registry.py plan /tmp/request.json
 python3 scripts/pedigree_registry.py audit
@@ -43,6 +44,17 @@ python3 scripts/pedigree_registry.py audit
 初期版は手動取得・候補JSON入力の経路を実装している。JRA-VAN/JRAが利用できる場合は優先し、次にJBIS等の血統DB、Web補助は補助経路と明記する。未確認のAPI・Web parserを自動取得経路として実装していない。スクリプトはネットワークアクセスしないため、`external_queries=0` は本スクリプトの外部照会数であり、利用者のブラウザ調査件数を意味しない。
 
 候補は `schema_version`, `horse_key`, `identity`, `facts` を持つ（`schema.json` 参照）。同定はprovider IDを優先する。ローカルIDには生年・国・親情報と同定根拠が必要。曖昧な同名候補は `IDENTITY_UNRESOLVED` のまま保存する。別名変更・ID統合を暗黙に行わない。
+
+未同定馬の追加調査後は、同じ `horse_key` の完全なidentityを記載した候補JSONを作り、以下の明示操作で更新する。通常の `save` はidentityの変更を拒否する。
+
+```sh
+python3 scripts/pedigree_registry.py update-identity /tmp/identity-candidate.json \
+  --expected-hash '<現在の馬レコード全体のdigest>' \
+  --reason '同定した出所と更新理由' --reviewed-by '<確認者>'
+python3 scripts/pedigree_registry.py audit
+```
+
+`update-identity` は現行hashをCAS照合し、旧identity・新identity・確認者・理由・更新時刻・イベントhashを `identity_revisions` へ追記する。確認済みにする場合は `identity_evidence.source/record_key` と同定用ID、または生年・国・親情報を必須とする。既存外部IDの付け替えや確認済み状態への逆行（未同定へ戻す操作）は拒否する。更新後も既存の血統revisionは維持し、別名インデックスを再構築する。
 
 祖先馬は先に独立レコードを登録する。事実は `parent:<path>` または生産国・調教国・性別の属性のみ受理し、系統・適性評価・レース傾向・スコアは事実へ書き込めない。各事実は次を持つ。
 
@@ -94,7 +106,7 @@ python3 scripts/pedigree_registry.py failure '<request_id>' 'parent:DS' NOT_FOUN
 python3 scripts/pedigree_registry.py plan /tmp/request.json --force
 ```
 
-NOT_FOUNDは指定調査先・範囲の未取得、SOURCE_ERRORは通信・認証・parser障害、SAVE_ERRORは未保存。同じ要求の再試行期限と有限予算を記録する。初期版は自動調査を実行せず、再調査してよいかを不足リストへ返す。保存エラーは成功扱いせず、取得済み候補から再開する。
+NOT_FOUNDは指定調査先・範囲の未取得、SOURCE_ERRORは通信・認証・parser障害、SAVE_ERRORは未保存。同じ要求・同じsourceの初回＋最大2回の再試行（計3回）で `retry_exhausted=true`、`plan` は `retry_state=RETRY_EXHAUSTED` を返す。期限経過や `--force` でも同じsourceの上限は解除しない。別の出所を確認する場合は `source_key` を変更する。時間予算切れは `BUDGET_EXHAUSTED` として扱う。同じ要求の再試行期限と有限予算を記録する。初期版は自動調査を実行せず、再調査してよいかを不足リストへ返す。保存エラーは成功扱いせず、取得済み候補から再開する。
 
 ## Git保存
 
@@ -111,6 +123,14 @@ JSONの監査後、血統ディレクトリだけコミットし、同じcommit�
 `migration.json` は55ファイルを検索して抽出した535記述、626成分（明示的父/母父候補106件）のmanifestを保持する。各記述に元ファイル・commit・行・原文・hashを付ける。明示的な表の親情報、系統主張、傾向/適性解釈は成分で分離する。馬ID未確認のためすべて未確認候補であり、horsesのVERIFIED事実へ混ぜない。元ファイルは保持する。
 
 過去チャット・他ブランチ・元外部出所は未アクセス範囲として記録済み。全履歴を網羅したという主張はしない。移行は初回観測時刻を固定して実行する。再実行時も元の観測時刻を使用し、公開日時や再実行時刻へ置き換えない。
+
+```sh
+python3 scripts/pedigree_registry.py migrate --repo . --commit '<取得済みのcommit SHA>' \
+  --observed-at '<初回確認日時（タイムゾーン付き）>'
+python3 scripts/pedigree_registry.py audit --repo .
+```
+
+移行元は `git ls-tree` / `git show` で**指定commitに含まれるファイルの内容のみ**を読み込む。未コミット変更・未追跡ファイルは抽出しない。再実行時は元manifestとcommit由来の再生成結果が完全一致することを確認し、不一致なら元manifestを保全して失敗する。`audit --repo` はGit側のcommit内容との一致も検査する。移行元commitがローカルに存在しなければ中止し、作業ツリーへフォールバックしない。
 
 ## DB引継ぎ
 
