@@ -455,16 +455,34 @@ def bounded(root, relative, prefix):
     return full
 
 
+def freeze_input(root, obj, kind):
+    """結果訂正後も旧snapshotの入力を再現できる内容アドレス保存。"""
+    key = digest(obj)
+    relative = f"data/condition_stats/{kind}/archive/{key}.json"
+    path = root / relative
+    if path.exists():
+        require(read_object(path) == obj, "immutable input archive changed")
+    else:
+        atomic(path, obj)
+    require(read_object(path) == obj, "input archive readback mismatch")
+    return relative, filehash(path)
+
+
 def run(root, definition_path, input_path):
+    root = Path(root)
     definition_file = bounded(root, definition_path, "data/condition_stats/definitions/")
     input_file = bounded(root, input_path, "data/condition_stats/inputs/")
     definition, manifest = read_object(definition_file), read_object(input_file)
     validate_definition(definition)
-    # Raw files are versioned inputs; changed bytes yield a distinct snapshot.
+    # 元入力を上書きして訂正しても、旧版は固定入力へ再現できる。
+    definition_archive, definition_hash = freeze_input(root, definition, "definitions")
+    input_archive, input_hash = freeze_input(root, manifest, "inputs")
     record = compute(definition, manifest, Registry(root / "data/pedigree"),
-                     filehash(input_file), filehash(definition_file))
-    record["definition_path"] = str(definition_path)
-    record["input_path"] = str(input_path)
+                     input_hash, definition_hash)
+    record["definition_path"] = definition_archive
+    record["input_path"] = input_archive
+    record["requested_definition_path"] = str(definition_path)
+    record["requested_input_path"] = str(input_path)
     record["content_sha256"] = digest({k: v for k, v in record.items()
                                         if k != "content_sha256"})
     dest = root / "data/condition_stats/snapshots" / safe(definition["definition_id"]) / (
