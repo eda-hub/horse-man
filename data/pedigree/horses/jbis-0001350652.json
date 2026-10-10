@@ -80,6 +80,46 @@
         "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:29.330349+00:00",
+      "content_hash": "eeabfa195f12fd92bc6dfe485ec1542b9fec09ff0b482dedd7a3f5162e9a2a97",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:29.330331+00:00",
+      "input_hash": "2d260850bc78da7f9756512cf0c30bfd207c1e7beee78d10a1bade4fa327490a",
+      "previous_revision": null,
+      "revision_id": "rev-2d260850bc78da7f9756512c",
+      "saved_at": "2026-10-10T07:57:29.385050+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "WIKIPEDIA",
+        "record_hash": "a260ad00cc1acc2fde6bf7bb9325a17c068f150e80a7108956a2f561978a32a0",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0001350652",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://en.wikipedia.org/wiki/Corniche_(horse)"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-10T07:23:03.126105+00:00",
+              "record_hash": "a260ad00cc1acc2fde6bf7bb9325a17c068f150e80a7108956a2f561978a32a0",
+              "url": "https://en.wikipedia.org/wiki/Corniche_(horse)"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

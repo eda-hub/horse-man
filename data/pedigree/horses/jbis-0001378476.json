@@ -80,6 +80,62 @@
         "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:30.150980+00:00",
+      "content_hash": "5bccccc539ccad7baf647a5eeff822bc418d67a19b15ed10c89529eb430de9ed",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:30.150898+00:00",
+      "input_hash": "bb06f335d7d3bc87bb8112cf4f32e501277a767fcfad8237896bc2ff33e26bdd",
+      "previous_revision": null,
+      "revision_id": "rev-bb06f335d7d3bc87bb8112cf",
+      "saved_at": "2026-10-10T07:57:30.211494+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "IFHA",
+        "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0001378476",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-10T06:57:01.244664+00:00",
+              "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+              "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76"
+            }
+          },
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-10T07:43:02.612668+00:00",
+              "record_hash": "04198e1e84b887894b7731b82983fe35bc5d1111f8e0d1b22568dd8e1bd2a287",
+              "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=71"
+            }
+          },
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-10T07:43:02.859464+00:00",
+              "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+              "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

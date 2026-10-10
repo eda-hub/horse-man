@@ -80,6 +80,54 @@
         "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:29.887239+00:00",
+      "content_hash": "aa959477981b6e086ec549aa0aa1129feeef20646e5f4e0a0daed5ec6fc93523",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:29.887223+00:00",
+      "input_hash": "4f3886419fde443f41600442cd1c8f5c5c302649254724847486900252afbea7",
+      "previous_revision": null,
+      "revision_id": "rev-4f3886419fde443f41600442",
+      "saved_at": "2026-10-10T07:57:29.941841+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "IFHA",
+        "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0001366827",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "FR",
+            "source": {
+              "captured_at": "2026-10-10T06:57:01.244664+00:00",
+              "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+              "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76"
+            }
+          },
+          {
+            "country": "FR",
+            "source": {
+              "captured_at": "2026-10-10T07:43:02.859464+00:00",
+              "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+              "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"
