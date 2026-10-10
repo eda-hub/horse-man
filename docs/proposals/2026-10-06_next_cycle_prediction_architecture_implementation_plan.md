@@ -14,7 +14,7 @@
 - 現行Production基準: `manual_release=v1.6.1`
 - 現行検証サイクル: 第3検証サイクル（2026-09-26〜2026-10-12）
 - 状態: 実装計画。未マージの本計画を現行Productionルールとして使用しない。
-- 適用原則: 第3検証サイクル中は現行Productionの判断基準・印体系・Betting必須工程を変更しない。正式切替はサイクル終了審査後の別PRで行う。
+- 適用原則: 第3検証サイクル中は現行Productionの判断基準・印体系・Betting必須工程を変更しない。正式切替はサイクル終了審査合格後にPR69内の原子的な切替コミットで行う。PR69を準備実装から切替までの管理単位とし、審査完了前はDraftを維持する。
 
 ## 1. 目的
 
@@ -765,7 +765,7 @@ checkerは少なくとも `schema_version + manual_release` で検証契約をdi
 | 本計画の作業段階 | 内容 | 既存JRA-VAN Phase | 実装上の扱い |
 |---|---|---|---|
 | Stage 0 | 第3サイクル中の計画・設計準備 | Phase外 | proposalのみ。Productionを変更しない |
-| Stage 1 | 第3サイクル終了審査 | Phase外 | validation / review上の変更管理。実装変更と別PR |
+| Stage 1 | 第3サイクル終了審査 | Phase外 | PR69内で審査記録・判定を確定。準備実装・審査・正式切替を段階とコミットで区別 |
 | Stage 2 | 次期仕様・契約の原子切替 | Phase 3〜8の前提 | manual、AGENTS、ADR、validation、gate/checker、phase文書を整合。新release有効化条件 |
 | Stage 3 | Prediction / feature / Shadow engine | **Phase 3** | 根拠構造、☆廃止、共通Production、オッズ非依存Recommendation、新規feature受け皿 |
 | Stage 4 | WebUI対象外 | **Phase 4: N/A** | 参考設計のみ。画面・操作・ホスティングは実施せず、後続Phaseの依存条件にしない |
@@ -806,7 +806,7 @@ checkerは少なくとも `schema_version + manual_release` で検証契約をdi
 
 完了条件:
 
-- 終了審査と正式変更を同じPRで混在させない。
+- 終了審査と正式変更はPR69で一貫管理し、審査記録・合格判定・切替コミットを区別する。審査合格前のACTIVE化・マージは行わない。
 - 未検証項目を効果ありとして昇格させない。
 
 ### 17.4 Stage 2: 次期仕様・監査契約の原子切替
@@ -883,10 +883,10 @@ Phase 5・6は現行文書が購入判断・実購入settlementを前提とし�
 
 ### 17.7 R09の事前判定と終了後の再開条件（2026-10-11 JST）
 
-R09の終了審査は2026-10-12開催分までの第3サイクルを閉じた後に別PRで行う。2026-10-11時点は開催期間中であり、Stage 1は未完了、Stage 2は保留。日付到来・CI success・PR69の準備コードだけで終了審査合格やACTIVEを宣言しない。
+R09の終了審査は2026-10-12開催分までの第3サイクルを閉じた後にPR69内で行う。2026-10-11時点は開催期間中であり、Stage 1は未完了、Stage 2は保留。日付到来・CI success・PR69の準備コードだけで終了審査合格やACTIVEを宣言しない。
 
-- 7開催日のscope/日別/サイクル集計、運用KPI、性能KPI、介入と未実施、変更候補の採用/継続検証/棄却/判断保留を終了審査PRで確定する。
-- Stage 1審査合格後、Stage 2切替PRでmanual全Owner、AGENTS、DECISIONS、validation、Prediction/Recommendationのgate・checker・テスト、Phase文書を原子的に整合する。
+- 7開催日のscope/日別/サイクル集計、運用KPI、性能KPI、介入と未実施、変更候補の採用/継続検証/棄却/判断保留をPR69内の終了審査記録で確定する。
+- Stage 1審査合格後、PR69内のStage 2切替コミットでmanual全Owner、AGENTS、DECISIONS、validation、Prediction/Recommendationのgate・checker・テスト、Phase文書を原子的に整合する。
 - 新releaseとRecommendationの有効開催日・有効化時刻は実際の審査結果に従って記録する。2026-10-13は最早境界であり、自動切替日ではない。過去v1.6.1/v2履歴へ新要件を遡及適用しない。
 - Phase 4は対象外/N/A。保存・監査・結果照合・失効管理の受入はチャット/非UI処理で継続し、画面完成をStage 2やPhase 5以降の前提にしない。
 
@@ -1004,9 +1004,9 @@ checkerテストだけでなく、validation templateのsampleを用いたend-to
 
 推奨順:
 
-1. 第3サイクル終了審査PR
-2. **次期契約切替PR**  
-   manual / AGENTS / superseding ADR / validation template / execution gate schema / checker / checker tests / Phase 3〜6文書を同時整合し、次期manual releaseを有効化
+1. PR69内で第3サイクル終了審査の記録と判定を確定
+2. **PR69内の次期契約切替コミット**  
+   審査合格後、manual / AGENTS / superseding ADR / validation template / execution gate schema / checker / checker tests / Phase 3〜6文書を同時整合し、次期manual releaseを有効化。準備実装・終了審査・切替を同じPRで追跡する
 3. Phase 3: Feature / Production / Recommendation / Shadow engine PR
 4. Phase 4: 対象外/N/A。WebUI PRは作成せず、後続Phaseの前提にしない
 5. Phase 5: Odds / Market validation PR
@@ -1018,7 +1018,7 @@ checkerテストだけでなく、validation templateのsampleを用いたend-to
 11. 新馬Shadow PR
 12. 条件別統計基盤PR
 
-次期契約切替PRは「複数機能をまとめて実装するPR」ではなく、**同一releaseの仕様・保存形式・監査器を一致させるための不可分な契約変更**とする。Phase 3以降の実装コードはそこへ混在させず、各Phaseの受入条件を満たしてから次へ進む。
+PR69は今回の準備実装から終了審査・正式切替までを一貫管理する。切替コミットは**同一releaseの仕様・保存形式・監査器を一致させるための不可分な契約変更**とする。後続のアプリPhase 3以降は今回の切替範囲へ追加せず、各Phaseの受入条件を満たして独立PRで進める。
 
 ## 22. 未決事項
 
@@ -1041,7 +1041,7 @@ checkerテストだけでなく、validation templateのsampleを用いたend-to
 1. 第3サイクルは `v1.6.1` のまま2026-10-12まで完走する。
 2. 並行して本計画と次期仕様候補だけを整備する。
 3. 第3サイクル終了審査で変更理由を実測と対応付ける。
-4. Stage 2の次期契約切替PRでmanual・上位契約・validation・gate/checker・Phase文書を原子的に整合し、新releaseを有効化する。
+4. PR69内のStage 2切替コミットでmanual・上位契約・validation・gate/checker・Phase文書を原子的に整合し、新releaseを有効化する。
 5. その後は既存JRA-VAN Phase 3→8の順にコード実装を独立PRで進める。
 6. 新規featureは1つずつShadow検証する。
 7. 精度・再現性・説明可能性の改善を確認してからProductionへ昇格する。
@@ -1200,3 +1200,8 @@ Stage 2ではチャット出力・保存・監査の契約を先に揃える。�
 **発見の出所を明示した回顧例（前向き成果には算入しない）**：2026-10-10東京8Rは発走前の固定Productionで⑥75%、④71%が軸条件に適合し、相手①35%、⑩32%で三連単候補12点、印内他5頭で三連複候補5点となる。当日の確定結果は④→⑥→①、払戻は三連単④-⑥-①が100円当たり2,800円、三連複①-④-⑥が730円。**結果後の構成検算**として各100円均等なら1,700円→3,530円（207.6%）。この17点は当日の発走前固定研究用5点に存在せず、2026-10-10の正式/研究用ROIに算入しない。事後例1件で将来の回収率改善や70%/30%閾値の妥当性は証明できない。出典：[JRA東京8R結果](https://app.jra.jp/JRADB/accessS.html?CNAME=sw01sde0105202604030820261010%2F88)、[払戻明細](https://race.netkeiba.com/race/result.html?race_id=202605040308)。
 
 実装時は正常・不正・欠測・取消・履歴互換fixtureを用意し、compliance / persistence / cycleの単体テストと、標準テンプレートを使った発走前保存から結果照合までのend-to-end確認を行う。
+
+
+## 26. PR管理単位の利用者指定（2026-10-11）
+
+準備実装・終了審査・新実装への正式切替はPR69で一貫管理する。別の終了審査PR/切替PRは作成しない。計画の正本はPR68のまま保持する。PR69をDraftで維持し、10/12開催分までの終了審査、採否・合格判定、切替の原子性・新旧互換・有効日を段階とコミットで追跡する。審査前のACTIVE化やマージは行わない。後続のアプリPhaseや独立featureの正式昇格は既存の独立PR契約を維持する。
