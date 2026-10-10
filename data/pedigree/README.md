@@ -155,3 +155,17 @@ Phase 2以降のDB/UI/feature評価はまだ設計段階。DBへの移行はID�
 予想対象期間2026-08-16〜2026-10-04の記録にある父・母父53頭106項目をJRA原票と照合し、103項目完全一致・3項目表記差一致を確認。参照済みJBIS52血統表の5代3,224位置を照合し、独立した1,430個体・1,774親子関係を唯一Writerで新規保存した。元535候補・旧予想は変更しない。取得日より前のcutoffへの流用は禁止。
 
 [照合結果・出典・未確認範囲](reconciliations/2026-10-09/README.md)。`python3 scripts/check_pedigree_reconciliation.py`で元候補との対応、原票値・個体ID・hash、全祖先位置と保存レコード、過去cutoffを再検証できる。期間全体の公式全出走・結果母数は未取得であり、条件別実成績の集計完了を意味しない。
+
+
+## 調教国の検索結果登録（新規調査）
+
+最新の調教国決定規則は[条件別統計の調教国優先規則](../condition_stats/README.md#調教国の確定優先順位2026-10-10-改訂)に定義する。
+調査対象は予想・集計で使用する父・母父・指定祖先を先行とし、対象外の全祖先へ無制限に広げない。
+検索一致が1国ならその国で止め、複数国なら直近の調教所属国を選び、検索一致ゼロならタスク終了後のチャットでユーザー照会する。
+検索後は唯一Writerから`attribute:training_country_matches`の構造化事実を保存する。
+検索一致が無い場合は`matches=[]`と`search_completed=true`を記録するが、国を推測しない。
+ユーザー提供国は検索不一致でのみ`attribute:training_country`へ
+`source_class=USER_PROVIDED`、`acquisition_method=user-chat`として保存し、
+`source.user_reply_text`に回答原文、`record_hash`に原文SHA-256を設定する。
+受領時刻・対象馬同定・確認者を併記し、読戻し後に未確認状態を更新する。
+検索一致・同率・時点不足は独立管理し、以前の固定REPLAY集計を上書きしない。
