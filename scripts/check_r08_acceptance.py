@@ -154,6 +154,39 @@ def check(root=Path('.')):
     acquisition=read(current/'bha-retry.json');response=json.loads(gzip.decompress((current/'bha-retry-response.json.gz').read_bytes()))
     body=base64.b64decode(response['body_base64'],validate=True)
     require(response['capture']==acquisition and acquisition['http_status']==403 and acquisition['result_table_obtained'] is False and acquisition['authentication_values_stored'] is False and len(body)==acquisition['response_bytes'] and hashlib.sha256(body).hexdigest()==acquisition['response_sha256'],'BHA retry response hash and unresolved status')
-    return {'jra_races':original['jra_races'],'added_snapshots':10,'foreign_country_confirmed':18,'foreign_country_waiting':2,'bha_pending_runners':8,'mode':'REPLAY','production_eligible':False}
+    result={'jra_races':original['jra_races'],'added_snapshots':10,'foreign_country_confirmed':18,'foreign_country_waiting':2,'bha_pending_runners':8,'mode':'REPLAY','production_eligible':False}
+    if 'user_resolution' in progress:
+        resolution=progress['user_resolution'];reply=read(root/resolution['manifest_path'])
+        require(reply['mode']=='REPLAY' and reply['production_eligible'] is False and hashlib.sha256(reply['user_reply_text'].encode()).hexdigest()==reply['user_reply_sha256'],'user reply raw text and hash')
+        require(reply['historical_cutoff']==progress['data_cutoff'] and reply['data_cutoff']==resolution['data_cutoff'],'user reply cutoff binding')
+        require({(r['name'],r['birth_year'],r['country'],r['role']) for r in reply['reviews']}=={('Sakhee',1997,'GB','DAM_SIRE'),('Starspangledbanner',2006,'AU','SIRE')} and len(reply['reviews'])==2,'explicit two individual answers and roles')
+        for row in reply['reviews']:
+            validate_user_answer(root,registry,reply,row)
+        require(resolution['externally_confirmed']==18 and resolution['user_confirmed']==2 and resolution['resolved_total']==20 and resolution['remaining']==0,'country resolution counts')
+        require(resolution['total_snapshots']==16 and resolution['previous_snapshots_preserved']==14 and len(resolution['snapshots'])==2,'append-only snapshot count')
+        for summary in resolution['snapshots']:
+            obj=read(root/summary['snapshot']);definition=read(root/summary['definition'])
+            require(obj['content_sha256']==summary['hash']==digest({k:v for k,v in obj.items() if k!='content_sha256'}),'user resolution snapshot hash')
+            require((root/summary['snapshot']).stat().st_size==summary['bytes'] and definition['data_cutoff']==reply['data_cutoff'] and definition['mode']=='REPLAY','user resolution time and bytes')
+            previous=next(p for p in progress['snapshots'] if p['scope']==summary['scope'])
+            require(summary['input']==previous['input'] and obj['all_runners']==summary['all_runners']==previous['all_runners'] and len(obj['groups'])==summary['groups']==43,'user resolution unchanged results and denominator')
+            require(all(g['cohorts']['UNKNOWN']['entries']==g['cohorts']['CONFLICT']['entries']==0 for g in obj['groups'].values()) and summary['unknown_entries']==summary['conflict_entries']==0,'all foreign country missing resolved')
+            expected='COMPLETE' if summary['scope']=='official-three' else 'PARTIAL'
+            require(obj['completeness']==summary['completeness']==expected,'BHA pending cannot become complete')
+        result.update(added_snapshots=12,foreign_country_user_confirmed=2,foreign_country_waiting=0,total_snapshots=16)
+    return result
+
+def validate_user_answer(root,registry,reply,row):
+    record=read(registry.path(row['horse_key']));n=len(row['before_revision_hashes'])
+    before=copy.deepcopy(record);before['revisions']=before['revisions'][:n]
+    require(record['identity']['birth_year']==row['birth_year'] and norm(record['identity']['name'])==norm(row['name']),'user answer own identity')
+    require(digest(before)==row['before_record_hash'] and digest(record)==row['after_record_hash'] and [r['content_hash'] for r in before['revisions']]==row['before_revision_hashes'],'user answer original record prefix')
+    revision=record['revisions'][-1];registry.validate_fact(revision)
+    source=revision['source']
+    require(revision['revision_id']==row['added_revision_id'] and revision['field']=='attribute:training_country_user' and revision['value']==row['country'],'user answer revision and country')
+    require(source.get('source_class')=='USER_PROVIDED' and source.get('resolution_policy')=='USER_EXPLICIT_COUNTRY_V1' and source.get('subject_name')==row['name'] and source.get('record_key')==row['horse_key'],'user answer explicit source binding')
+    require(source.get('user_reply_text')==reply['user_reply_text'] and source.get('record_hash')==reply['user_reply_sha256'] and source.get('user_received_at')==reply['received_at'] and revision['first_observed_at']==reply['received_at'],'user answer exact text and receipt time')
+    require(row['repeated_save_added']==0 and registry.fact(row['horse_key'],'attribute:training_country_user',reply['historical_cutoff'])['status']=='NOT_FOUND','user answer idempotence and old cutoff')
+    require(registry.fact(row['horse_key'],'attribute:training_country_user',reply['data_cutoff'])['value']==row['country'],'user answer available only at new cutoff')
 
 if __name__=='__main__': print(json.dumps(check(),ensure_ascii=False))

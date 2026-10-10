@@ -1,3 +1,9 @@
+# 最新：利用者指定による調教国2頭の解消（2026-10-11）
+
+Sakhee（1997、ブライトライトの母父）は英国GB、Starspangledbanner（2006、プリサイスの父）は豪州AUとして、利用者の回答原文・受領時刻2026-10-11 02:06:52 JST・hash付きUSER_PROVIDEDを追記。元の複数国所属原票と旧cutoff・14snapshotを保持し、国待ち0。詳細はexplicit-country-reply.jsonとprogress.jsonのuser_resolution。
+
+新時点の海外2snapshotを追加し、全16snapshotを監査。公式結果3レース30出走・43条件はCOMPLETE、UNKNOWN/CONFLICTは0。Yorkを含む4レース版は国欠測0だがBHA未確認8頭のためPARTIAL。結果・取消・母数は変更しない。以下は前回の受入履歴。
+
 # R08：血統・成績集計の受入再照合
 
 開始HEAD `6ad3dab9e32dc3ffbc090b741fd4a675300101c3`、同じPR69の作業ブランチで再開した。前回手元に作成済みだった39構造条件・海外43条件の8snapshot、原票、本人調教国20頭の追加調査を引き継ぎ、当時の時点・hashを保持して保存する。現在のリモート19個体の全記録を照合し、既存revision・同定履歴をそのまま保持した追記であることを確認した。
