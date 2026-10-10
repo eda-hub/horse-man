@@ -509,6 +509,8 @@ class PedigreeStatsTest(unittest.TestCase):
         self.fact("bob", "attribute:training_country", "FR", source_class="USER_PROVIDED")
         _, after = self.calculate()
         self.assertEqual(after["horse_trace"]["bob"]["groups"]["horse-eu"]["status"], "MATCH")
+        self.assertEqual(after["horse_trace"]["bob"]["groups"]["horse-eu"]["reason"],
+                         "USER_PROVIDED_TRAINING_REGION")
         # A legacy source is not a substitute for a response to the no-match task.
         self.fact("d", "attribute:training_country_matches", no_matches)
         _, out = self.calculate()
