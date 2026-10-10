@@ -643,20 +643,35 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
       "parent_references": 41,
       "registry_verification": {
         "field": "attribute:training_country_matches",
         "fact_status": "VERIFIED",
         "revision_id": "rev-8c87fe9959556c360992ec59",
         "record_path": "data/pedigree/horses/jbis-0001240055.json",
-        "record_blob_sha": "8291601f40d25cb1da4f06fc91ede77d2fa1b8e0",
         "source_url": "https://www.bobbaffert.com/drefong-gives-baffert-fifth-breeders-cup-sprint-g1/",
         "source_record_hash": "1b80935862dcaa9ea5d7d0bc93c1b74bff265ef3877e7a688bf4e48d427b8c15",
         "source_record_hash_kind": "canonical-extracted-fields-sha256",
         "registry_readback": true,
-        "raw_html_captured": false,
-        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001240055-country.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001240055-country.html",
+        "sha256": "a3b0da607f4dbb6b51bd9299704567540f610355cd8c9d4a5a7aac01773b366b",
+        "captured_at": "2026-10-10T05:52:12.206154+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001240055-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001240055-country.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r04",
+        "country": "US",
+        "proof_kind": "IFHA_TRAINED_COLUMN"
       }
     },
     {
@@ -671,20 +686,34 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
       "parent_references": 38,
       "registry_verification": {
         "field": "attribute:training_country_matches",
         "fact_status": "VERIFIED",
         "revision_id": "rev-8f30654908305cd055ae1c3f",
         "record_path": "data/pedigree/horses/jbis-0001171845.json",
-        "record_blob_sha": "104711706940c136bb8a59822f262621cf25c557",
         "source_url": "https://www.jbis.or.jp/horse/0001171845/",
         "source_record_hash": "367ce8c23091eca10eb9464dfb3df791a4e2ee0ddf1015f1df00dbe4db324aae",
         "source_record_hash_kind": "canonical-extracted-fields-sha256",
         "registry_readback": true,
-        "raw_html_captured": false,
-        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001171845-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001171845-profile.html",
+        "sha256": "b6869077d4acf80ec951868eac278ef63a2429cdb75645b491f5c651a146e2ed",
+        "captured_at": "2026-10-10T05:50:32.228666+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001171845-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r04",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
       }
     },
     {
@@ -699,20 +728,34 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
       "parent_references": 37,
       "registry_verification": {
         "field": "attribute:training_country_matches",
         "fact_status": "VERIFIED",
         "revision_id": "rev-a252f8e037e9880e22d5abc4",
         "record_path": "data/pedigree/horses/jbis-0000619768.json",
-        "record_blob_sha": "2db3cc9d3d844c3b20a9e010654501d8eae3dc8f",
         "source_url": "https://www.jbis.or.jp/horse/0000619768/",
         "source_record_hash": "f19248a9d10a145647e4f22c5a379a645ecf7ecaaa92b8b1317d348c2df876f5",
         "source_record_hash_kind": "canonical-extracted-fields-sha256",
         "registry_readback": true,
-        "raw_html_captured": false,
-        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0000619768-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0000619768-profile.html",
+        "sha256": "bdd6f991b65503ee7cf65fea62f1d277d58b5521a53f0c6c971e3d8b2d936ef9",
+        "captured_at": "2026-10-10T05:50:30.455526+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0000619768-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r04",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
       }
     },
     {
@@ -727,20 +770,34 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
       "parent_references": 37,
       "registry_verification": {
         "field": "attribute:training_country_matches",
         "fact_status": "VERIFIED",
         "revision_id": "rev-851e4e4d05a41d7dcdf0c305",
         "record_path": "data/pedigree/horses/jbis-0001104811.json",
-        "record_blob_sha": "33162dc58eb57eb00b4cf088e18c9e36f3b025a1",
         "source_url": "https://www.jbis.or.jp/horse/0001104811/",
         "source_record_hash": "07f639c9c1cb24b13f8750b847ec61003df93efb48c0fb0376712bd52aa7b6f1",
         "source_record_hash_kind": "canonical-extracted-fields-sha256",
         "registry_readback": true,
-        "raw_html_captured": false,
-        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001104811-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001104811-profile.html",
+        "sha256": "27aa38b58dfb3a44bf0a63d61339c18c7e9d34b9f6fe88dcdd2ae7bdb9ccd54e",
+        "captured_at": "2026-10-10T05:50:43.005064+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001104811-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r04",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
       }
     },
     {
@@ -755,20 +812,35 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
       "parent_references": 37,
       "registry_verification": {
         "field": "attribute:training_country_matches",
         "fact_status": "VERIFIED",
         "revision_id": "rev-f4f04ffa28c3d54b6a1726d0",
         "record_path": "data/pedigree/horses/jbis-0001293348.json",
-        "record_blob_sha": "c0321acc23fa8baf6d6ca5f89c9298f06c6df74c",
         "source_url": "https://www.belmontstakes.com/news/bricks-and-mortar-tops-chad-brown-trained-trifecta-in-g1-manhattan",
         "source_record_hash": "85be1035899c4341e74544fab8e2ba7480e08356d3afdecd81d6428856780e59",
         "source_record_hash_kind": "canonical-extracted-fields-sha256",
         "registry_readback": true,
-        "raw_html_captured": false,
-        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001293348-country.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001293348-country.html",
+        "sha256": "04198e1e84b887894b7731b82983fe35bc5d1111f8e0d1b22568dd8e1bd2a287",
+        "captured_at": "2026-10-10T05:52:12.432383+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001293348-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001293348-country.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r04",
+        "country": "US",
+        "proof_kind": "IFHA_TRAINED_COLUMN"
       }
     },
     {
@@ -1001,7 +1073,7 @@
     }
   ],
   "registry_verified_extracted_fields_count": 26,
-  "registry_raw_html_captured_count": 15,
+  "registry_raw_html_captured_count": 20,
   "registry_registration_inventory": {
     "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-registration-inventory.json",
     "base_commit": "180c595c5044faaaa231619caee8674038f2d0ec",
@@ -1013,11 +1085,12 @@
   "current_registration_progress": {
     "base_commit": "aa3872eaddf7d2c0f8ccbdb71fafea1aee7b0e6c",
     "completed_batches": [
-      "r03"
+      "r03",
+      "r04"
     ],
     "registry_verified_subjects": 26,
-    "raw_verified_subjects": 15,
-    "remaining_source_reviewed_subjects": 15,
+    "raw_verified_subjects": 20,
+    "remaining_source_reviewed_subjects": 10,
     "no_training_match_fact_subjects": 4,
     "unsearched_inventory_subjects": 583
   }
