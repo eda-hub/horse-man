@@ -103,7 +103,12 @@ def check(root=Path('.')):
             registered += selected is not None; seen.append(key)
     require(progress['reviewed'] == len(seen) and progress['registered'] == registered and progress['unsearched'] == 12-len(seen) and progress['latest_date_unresolved'] == len(seen)-registered, 'counts')
     check_user_resolution(directory, registry, scope, progress)
-    return {k: progress[k] for k in ['reviewed', 'registered', 'latest_date_unresolved', 'unsearched']}
+    result = {k: progress[k] for k in ['reviewed', 'registered', 'latest_date_unresolved', 'unsearched']}
+    if progress.get('user_resolution'):
+        result['user_confirmed'] = progress['user_resolution']['user_confirmed']
+        result['resolved_total'] = progress['user_resolution']['resolved_total']
+        result['remaining'] = progress['user_resolution']['remaining']
+    return result
 
 if __name__ == '__main__':
     print(json.dumps(check(), ensure_ascii=False))
