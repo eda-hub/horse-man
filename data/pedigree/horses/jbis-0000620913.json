@@ -80,6 +80,46 @@
         "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:17.840470+00:00",
+      "content_hash": "8623249b1a7de2822b9004cb88df654e477cc1b5a601154926380a603c505c80",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:17.840450+00:00",
+      "input_hash": "830dfc104ddd794e1a496e7269a9bac540d547cec3ce904953f3d1a1aac73661",
+      "previous_revision": null,
+      "revision_id": "rev-830dfc104ddd794e1a496e72",
+      "saved_at": "2026-10-10T07:57:17.906300+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "TJC",
+        "record_hash": "3caecea2399fb50390eb965ed9a9ce36403ccf00cb3128d0e16f8afbe82e7226",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0000620913",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.tjcis.com/pdf/icsc02/EndMaterial2002.pdf"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "IE",
+            "source": {
+              "captured_at": "2026-10-10T06:57:31.494750+00:00",
+              "record_hash": "3caecea2399fb50390eb965ed9a9ce36403ccf00cb3128d0e16f8afbe82e7226",
+              "url": "https://www.tjcis.com/pdf/icsc02/EndMaterial2002.pdf"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"
