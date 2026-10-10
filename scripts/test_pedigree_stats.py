@@ -617,6 +617,33 @@ class PedigreeStatsTest(unittest.TestCase):
         self.assertIsNone(country_name_suffix('Horse (未確認)'))
         self.assertIsNone(country_name_suffix('Horse'))
 
+    def test_41_explicit_direct_answer_resolves_undated_multiple_countries(self):
+        self.definition['training_classification']['country_selection'] = 'SEARCH_MATCH_PRIORITY_V1'
+        self.fact('bob', 'attribute:training_country_matches', self.matched_countries([('US', None), ('GB', None)]))
+        item = {'field': 'attribute:training_country_user', 'value': 'GB', 'status': 'VERIFIED',
+                'first_observed_at': EARLY, 'captured_at': EARLY,
+                'source': {'source_class': 'USER_PROVIDED', 'origin_group': 'USER_CHAT',
+                           'acquisition_method': 'user-chat', 'record_key': 'bob',
+                           'user_reply_text': 'bobはイギリス',
+                           'record_hash': __import__('hashlib').sha256('bobはイギリス'.encode()).hexdigest(),
+                           'resolution_policy': 'USER_EXPLICIT_COUNTRY_V1', 'subject_name': 'bob'},
+                'verification': {'identity_checked': True, 'source_checked': True, 'relationship_checked': True, 'reviewed_by': 'test'}}
+        self.save('bob', [item])
+        _, result = self.calculate()
+        self.assertEqual(result['horse_trace']['bob']['groups']['horse-eu']['status'], 'MATCH')
+        self.assertEqual(result['horse_trace']['bob']['groups']['horse-eu']['reason'], 'USER_PROVIDED_TRAINING_REGION')
+        self.assertEqual(self.registry.fact('bob', 'attribute:training_country_user', BASE)['status'], 'NOT_FOUND')
+        item['value'] = 'US'
+        with self.assertRaisesRegex(ValueError, 'explicit user name/country/reply mismatch'):
+            self.save('bob', [item])
+
+    def test_42_explicit_country_parser_does_not_fill_unlisted_horses(self):
+        from pedigree_registry import explicit_user_countries
+        self.assertEqual(explicit_user_countries("Flatterはアメリカ\nMagic Albertはオーストラリア\n所感：検索先が偏り過ぎている"),
+                         {'Flatter': 'US', 'Magic Albert': 'AU'})
+        with self.assertRaisesRegex(ValueError, 'conflicting explicit'):
+            explicit_user_countries('Flatterはアメリカ\nFlatterはイギリス')
+
 if __name__ == "__main__":
     unittest.main()
 

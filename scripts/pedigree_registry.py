@@ -58,6 +58,21 @@ def country_name_suffix(value):
     return countries.get(match.group(1).strip().upper()) if match else None
 
 
+def explicit_user_countries(reply):
+    """本人名と明示された国の対応を原文から抽出する。未記載馬は補わない。"""
+    countries = {'アメリカ': 'US', '米国': 'US', 'イギリス': 'GB', '英国': 'GB',
+                 'オーストラリア': 'AU', '豪州': 'AU'}
+    result = {}
+    for line in reply.splitlines():
+        match = re.fullmatch(r'(.+?)は(アメリカ|米国|イギリス|英国|オーストラリア|豪州)(?:\s+を追加する。)?', line.strip())
+        if match:
+            name, label = match.groups()
+            if name in result and result[name] != countries[label]:
+                raise ValueError('conflicting explicit user country lines')
+            result[name] = countries[label]
+    return result
+
+
 def safe(value):
     if not isinstance(value, str) or not KEY.fullmatch(value):
         raise ValueError('invalid key')
@@ -191,9 +206,14 @@ class Registry:
             if not isinstance(fact.get('value'), str) or not re.fullmatch(r'[A-Z]{2}', fact['value']):
                 raise ValueError('user-provided training country must be ISO alpha-2')
             if source.get('resolution_policy') is not None:
-                if (source['resolution_policy'] != 'USER_CONFIRMED_NAME_SUFFIX_V1' or
-                        not isinstance(source.get('subject_name'), str) or
-                        country_name_suffix(source['subject_name']) != fact['value']):
+                policy = source['resolution_policy']
+                if policy == 'USER_EXPLICIT_COUNTRY_V1':
+                    if (not isinstance(source.get('subject_name'), str) or
+                            explicit_user_countries(reply).get(source['subject_name']) != fact['value']):
+                        raise ValueError('explicit user name/country/reply mismatch')
+                elif (policy != 'USER_CONFIRMED_NAME_SUFFIX_V1' or
+                      not isinstance(source.get('subject_name'), str) or
+                      country_name_suffix(source['subject_name']) != fact['value']):
                     raise ValueError('user suffix policy/name/country mismatch')
         if not re.fullmatch(r'[0-9a-f]{64}', source['record_hash']):
             raise ValueError('source record SHA256 required')

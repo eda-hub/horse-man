@@ -409,7 +409,8 @@ class Resolver:
                 if (answer["status"] == "VERIFIED" and isinstance(answer.get("source"), dict) and
                         answer["source"].get("source_class") == "USER_PROVIDED" and
                         (reason == "TRAINING_COUNTRY_USER_INPUT_REQUIRED" or
-                         answer["source"].get("resolution_policy") == "USER_CONFIRMED_NAME_SUFFIX_V1")):
+                         answer["source"].get("resolution_policy") in {
+                             "USER_CONFIRMED_NAME_SUFFIX_V1", "USER_EXPLICIT_COUNTRY_V1"})):
                     country = answer["value"]
                     source_reason = "USER_PROVIDED_TRAINING_REGION"
                 elif answer["status"] == "CONFLICT":
