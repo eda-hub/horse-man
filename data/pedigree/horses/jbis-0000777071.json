@@ -80,6 +80,46 @@
         "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:20.699605+00:00",
+      "content_hash": "01cc2e2083df705b318ee4385d465d156150a37fbb3c2416760da711357fdba4",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:20.699586+00:00",
+      "input_hash": "6cf8504580a40dfc6e8081d24c1cea398d3360698169a29a272d0302173f616e",
+      "previous_revision": null,
+      "revision_id": "rev-6cf8504580a40dfc6e8081d2",
+      "saved_at": "2026-10-10T07:57:20.753890+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "IFHA",
+        "record_hash": "0986e1f4402072c08fae325fb8f8d289aa70bb985d5a2390bf536eeb9977d8fa",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0000777071",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.ifhaonline.org/resources/2004Rankings/2004_Rankings_All.asp"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-10T06:57:23.741533+00:00",
+              "record_hash": "0986e1f4402072c08fae325fb8f8d289aa70bb985d5a2390bf536eeb9977d8fa",
+              "url": "https://www.ifhaonline.org/resources/2004Rankings/2004_Rankings_All.asp"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

@@ -80,6 +80,46 @@
         "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:21.279352+00:00",
+      "content_hash": "0d140a073e5ddd79c8cdd5fadba309c69c298714be186d78de0aebd7283b2f1d",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:21.279336+00:00",
+      "input_hash": "cf4c3a5d1cd744a22865ae6222573bffa12444839af48efaccc8d86e76f72804",
+      "previous_revision": null,
+      "revision_id": "rev-cf4c3a5d1cd744a22865ae62",
+      "saved_at": "2026-10-10T07:57:21.330046+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "IFHA",
+        "record_hash": "47d5b828a3e33649310555db1d6d3e2cb9200ca5186dec2c151e6962b8552f49",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0000847796",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.ifhaonline.org/resources/Ratings_AlphaList_04.pdf"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "FR",
+            "source": {
+              "captured_at": "2026-10-10T07:51:06.118251+00:00",
+              "record_hash": "47d5b828a3e33649310555db1d6d3e2cb9200ca5186dec2c151e6962b8552f49",
+              "url": "https://www.ifhaonline.org/resources/Ratings_AlphaList_04.pdf"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"
