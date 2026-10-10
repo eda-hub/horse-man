@@ -1,0 +1,196 @@
+{
+  "schema_version": "training-country-reviewed-batch-v1",
+  "batch": "r03",
+  "base_commit": "aa3872eaddf7d2c0f8ccbdb71fafea1aee7b0e6c",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "positions": [
+    11,
+    15
+  ],
+  "subjects": [
+    {
+      "horse_key": "jbis-0001138240",
+      "horse_name": "モーリス",
+      "country": "JP",
+      "operation": "REGISTER_NEW_FACT",
+      "record_path": "data/pedigree/horses/jbis-0001138240.json",
+      "before_record_hash": "694c9241f6c5a527723619087e5090adad2c1d7f58e415c4cc2bf19902194972",
+      "after_record_hash": "ec4c3d089724c917c04e2cb1b29773ed0c4a951b98676bf2d602136c1b9ef2e2",
+      "before_revision_hashes": [
+        "e9b24d79e63ae99aa69ceb1c0926bd2dd2ca92ca53a5bdcd9eff42c600ee329d",
+        "951e7da2a4e2815368c9b594025662cf0094dce2cb0bb073cb2c2f920fd9b7a6"
+      ],
+      "registry_revision_id": "rev-d9b84676644c64e93986eff1",
+      "registry_revision_content_hash": "e94b36822a0bd9030763a9d89556f47d138ab998bf021e99597c8cfd9e58f49e",
+      "proof_kind": "JBIS_TRAINER_AFFILIATION",
+      "verified_fields": {
+        "birth_date": "2011.03.02",
+        "trainer": "堀 宣行",
+        "trainer_location": "美浦"
+      },
+      "raw_capture_metadata_paths": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001138240-profile.capture.json"
+      ],
+      "writer_result": {
+        "horse_key": "jbis-0001138240",
+        "content_hash": "ec4c3d089724c917c04e2cb1b29773ed0c4a951b98676bf2d602136c1b9ef2e2",
+        "added_revisions": [
+          "rev-d9b84676644c64e93986eff1"
+        ],
+        "persistence": "LOCAL_READBACK_VERIFIED",
+        "git_persistence": "UNCONFIRMED",
+        "snapshot_persistence": "NOT_EVALUATED",
+        "verified_at": "2026-10-10T05:53:58.136555+00:00"
+      },
+      "second_save_added_revisions": [],
+      "original_details_reconfirmation": "国と今回記載の項目のみを再確認。既存の厩舎所在地の細部や生涯所属網羅は主張しない。"
+    },
+    {
+      "horse_key": "jbis-0000615577",
+      "horse_name": "クロフネ(USA)",
+      "country": "JP",
+      "operation": "IDEMPOTENT_EXISTING_FACT",
+      "record_path": "data/pedigree/horses/jbis-0000615577.json",
+      "before_record_hash": "138ee56a50a53bb73eb926a310b18eb4a707f50ccbee8a4831ac58149231e0bd",
+      "after_record_hash": "138ee56a50a53bb73eb926a310b18eb4a707f50ccbee8a4831ac58149231e0bd",
+      "before_revision_hashes": [
+        "647bba4461c8687beb408397586991a94cf0daba8417cd727924ec20c826474e",
+        "17c1544025ea2bd8d7fbe97b9e3ec13a197f17dfb3460eab3ef99b1d0ca41a13",
+        "dc90ebe9ee3059a0cdb5954c8a31d567af2f63a5ae65d72175be19dc74f55e91"
+      ],
+      "registry_revision_id": "rev-96a2c7cdf35879dca3f6a9a3",
+      "registry_revision_content_hash": "dc90ebe9ee3059a0cdb5954c8a31d567af2f63a5ae65d72175be19dc74f55e91",
+      "proof_kind": "JBIS_TRAINER_AFFILIATION",
+      "verified_fields": {
+        "birth_date": "1998.03.31",
+        "trainer": "松田 国英",
+        "trainer_location": "栗東"
+      },
+      "raw_capture_metadata_paths": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0000615577-profile.capture.json"
+      ],
+      "writer_result": {
+        "horse_key": "jbis-0000615577",
+        "content_hash": "138ee56a50a53bb73eb926a310b18eb4a707f50ccbee8a4831ac58149231e0bd",
+        "added_revisions": [],
+        "persistence": "LOCAL_READBACK_VERIFIED",
+        "git_persistence": "UNCONFIRMED",
+        "snapshot_persistence": "NOT_EVALUATED",
+        "verified_at": "2026-10-10T05:53:58.154473+00:00"
+      },
+      "second_save_added_revisions": [],
+      "original_details_reconfirmation": "国と今回記載の項目のみを再確認。既存の厩舎所在地の細部や生涯所属網羅は主張しない。"
+    },
+    {
+      "horse_key": "jbis-0001155349",
+      "horse_name": "キタサンブラック",
+      "country": "JP",
+      "operation": "IDEMPOTENT_EXISTING_FACT",
+      "record_path": "data/pedigree/horses/jbis-0001155349.json",
+      "before_record_hash": "c89df65cd70ad7a7c3cb9d8b880304e1db14e9620ff431b04a4c3304c81b6053",
+      "after_record_hash": "c89df65cd70ad7a7c3cb9d8b880304e1db14e9620ff431b04a4c3304c81b6053",
+      "before_revision_hashes": [
+        "ed0a0afe8aba28d5fd7466bad7fc23e5938e3bc483f1f51a64c6ace840412803",
+        "5b666f36241f604745153d33e866708c7d6d48bc7ea3636b40b16abec6f360fa",
+        "1e2ecf6ab734dddc0621faebd4a8e34730b4d3d1c73d5dd5f92baead0a767fbe"
+      ],
+      "registry_revision_id": "rev-2e27fc3742d8d07dc5cb592b",
+      "registry_revision_content_hash": "1e2ecf6ab734dddc0621faebd4a8e34730b4d3d1c73d5dd5f92baead0a767fbe",
+      "proof_kind": "JBIS_TRAINER_AFFILIATION",
+      "verified_fields": {
+        "birth_date": "2012.03.10",
+        "trainer": "清水 久詞",
+        "trainer_location": "栗東"
+      },
+      "raw_capture_metadata_paths": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001155349-profile.capture.json"
+      ],
+      "writer_result": {
+        "horse_key": "jbis-0001155349",
+        "content_hash": "c89df65cd70ad7a7c3cb9d8b880304e1db14e9620ff431b04a4c3304c81b6053",
+        "added_revisions": [],
+        "persistence": "LOCAL_READBACK_VERIFIED",
+        "git_persistence": "UNCONFIRMED",
+        "snapshot_persistence": "NOT_EVALUATED",
+        "verified_at": "2026-10-10T05:53:58.171612+00:00"
+      },
+      "second_save_added_revisions": [],
+      "original_details_reconfirmation": "国と今回記載の項目のみを再確認。既存の厩舎所在地の細部や生涯所属網羅は主張しない。"
+    },
+    {
+      "horse_key": "jbis-0001090360",
+      "horse_name": "オルフェーヴル",
+      "country": "JP",
+      "operation": "IDEMPOTENT_EXISTING_FACT",
+      "record_path": "data/pedigree/horses/jbis-0001090360.json",
+      "before_record_hash": "a331fe07ab4712898712d267667db5da08f95d47ccf39ad948bb04d300e5f135",
+      "after_record_hash": "a331fe07ab4712898712d267667db5da08f95d47ccf39ad948bb04d300e5f135",
+      "before_revision_hashes": [
+        "2d1c5f86487314c0b94b18ff818076d8f2e0c063de03392b63a6980e212384cb",
+        "4e9240245597749c2764f910014f1594db66b2769820d96e4aa55a52ac8a27df",
+        "7d9bc120165d2c0db0051a0c1a452e705ff05d1c405db99e98c0ba34a284c4f0"
+      ],
+      "registry_revision_id": "rev-d103aa30c9a48f121b44b137",
+      "registry_revision_content_hash": "7d9bc120165d2c0db0051a0c1a452e705ff05d1c405db99e98c0ba34a284c4f0",
+      "proof_kind": "JBIS_TRAINER_AFFILIATION",
+      "verified_fields": {
+        "birth_date": "2008.05.14",
+        "trainer": "池江 泰寿",
+        "trainer_location": "栗東"
+      },
+      "raw_capture_metadata_paths": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001090360-profile.capture.json"
+      ],
+      "writer_result": {
+        "horse_key": "jbis-0001090360",
+        "content_hash": "a331fe07ab4712898712d267667db5da08f95d47ccf39ad948bb04d300e5f135",
+        "added_revisions": [],
+        "persistence": "LOCAL_READBACK_VERIFIED",
+        "git_persistence": "UNCONFIRMED",
+        "snapshot_persistence": "NOT_EVALUATED",
+        "verified_at": "2026-10-10T05:53:58.195077+00:00"
+      },
+      "second_save_added_revisions": [],
+      "original_details_reconfirmation": "国と今回記載の項目のみを再確認。既存の厩舎所在地の細部や生涯所属網羅は主張しない。"
+    },
+    {
+      "horse_key": "jbis-0001189721",
+      "horse_name": "レイデオロ",
+      "country": "JP",
+      "operation": "IDEMPOTENT_EXISTING_FACT",
+      "record_path": "data/pedigree/horses/jbis-0001189721.json",
+      "before_record_hash": "7c5f2158323f48b9f0efb72f00997083ed5c240c9fc4887d6d96f63f8306ff01",
+      "after_record_hash": "7c5f2158323f48b9f0efb72f00997083ed5c240c9fc4887d6d96f63f8306ff01",
+      "before_revision_hashes": [
+        "cdfec81598bd0233c06191a6f05a4d5931b6c2f0b7b2cc4751550009bf9b67ad",
+        "231171f5dcda948cf34f422ae57ba60c57483edb27e7bec5601a3e394be21eae",
+        "7883f060f9f6c6800a47e1406973fef530e47389ddc6ea704e10b99b8ee0fe45"
+      ],
+      "registry_revision_id": "rev-e541c38b45a27e684cb0820f",
+      "registry_revision_content_hash": "7883f060f9f6c6800a47e1406973fef530e47389ddc6ea704e10b99b8ee0fe45",
+      "proof_kind": "JBIS_TRAINER_AFFILIATION",
+      "verified_fields": {
+        "birth_date": "2014.02.05",
+        "trainer": "藤沢 和雄",
+        "trainer_location": "美浦"
+      },
+      "raw_capture_metadata_paths": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001189721-profile.capture.json"
+      ],
+      "writer_result": {
+        "horse_key": "jbis-0001189721",
+        "content_hash": "7c5f2158323f48b9f0efb72f00997083ed5c240c9fc4887d6d96f63f8306ff01",
+        "added_revisions": [],
+        "persistence": "LOCAL_READBACK_VERIFIED",
+        "git_persistence": "UNCONFIRMED",
+        "snapshot_persistence": "NOT_EVALUATED",
+        "verified_at": "2026-10-10T05:53:58.214663+00:00"
+      },
+      "second_save_added_revisions": [],
+      "original_details_reconfirmation": "国と今回記載の項目のみを再確認。既存の厩舎所在地の細部や生涯所属網羅は主張しない。"
+    }
+  ],
+  "verified_at": "2026-10-10T05:53:58.225359+00:00",
+  "added_registry_revisions": 1
+}
