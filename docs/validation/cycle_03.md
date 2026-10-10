@@ -198,7 +198,7 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
 | 2026-09-27 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-03 | 元記録 `46ae9b50c0fe83ba32d130be86ac77f360a9ec62` / R04（本PR） | initial 24 / selected 5 / final 5 / reviewed 24 | 最終完了5/5。Production保存証跡0/24、Betting保存証跡0/5、Shadow保存証跡0/5。保存復旧介入3プロンプト・4R | 仮想精算50,000円→60,050円（ROI 120.1%）を保持。性能認証は保留5/5、購入ルール不適格5/5、保存証跡不適格5/5 | REVIEW_COMPLETED / AGGREGATION_R04 |
 | 2026-10-04 | 本PR日別record R03 / AGGREGATION_R05 | initial 24 / selected 15 / final 5 / reviewed 24。最終未完了10Rを明示 | Production正式KPI 0/24適格・24/24不適格（うち再取得5Rは発走前保存・receipt検証済みだがexecution gate/certification欠落）。最終完了5/15。Betting性能は購入候補12R中、固定済み5R保留・未固定7R不適格。Betting証跡0/12、Shadow0/15 | 固定仮想は固定済み5Rのみ50,000円→41,000円（ROI82.0%）。実購入12,000円→8,200円（ROI68.3%）。未完了候補を事後0円見送りへ変換しない | REVIEW_COMPLETED_WITH_FINAL_EXECUTION_GAPS / AGGREGATION_R05 |
-| 2026-10-10 | `13231f576b4cc94298e3496f1a8cc7ade9c269f6` / R01・AGGREGATION_R06 | 依頼24 / 発走前参考一次20＋発走後参考4 / 選定7 / 最終7 / 回顧24 | Production正式証跡0/24適格・24/24不適格。Shadow0/7。購入候補0で正式Betting対象外。初回Production未完了、保存SHA・標準checker・必須Shadow不足 | 朝の中心馬1着8/20・3着内13/20は参考。研究仮想35券70,000円→53,150円（75.93%）、実購入0円。公式Betting ROI算定対象外 | REVIEW_COMPLETED_WITH_EVIDENCE_GAPS / AGGREGATION_R06 |
+| 2026-10-10 | `1109ede780c59fc43467e505055789bf4f416cc4` / R02・AGGREGATION_R06 | 依頼24 / 発走前参考一次20＋発走後参考4 / 選定7 / 最終7 / 回顧24 | Production正式証跡0/24適格・24/24不適格。Shadow0/7。購入候補0で正式Betting対象外。初回Production未完了、保存SHA・標準checker・必須Shadow不足 | 朝の中心馬1着8/20・3着内13/20は参考。研究仮想35券70,000円→53,150円（75.93%）、実購入0円。公式Betting ROI算定対象外 | REVIEW_COMPLETED_WITH_EVIDENCE_GAPS / AGGREGATION_R06 |
 | 2026-10-11 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 | 2026-10-12 | 未実施 | 未測定 | 未測定 | 未測定 | NOT_RUN |
 
