@@ -89,7 +89,7 @@ BASE=Path('data/pedigree/reconciliations/2026-10-10-foreign-review')
 def check(root=Path('.')):
  root=Path(root);directory=root/BASE
  if not directory.exists():return {'registered_rows':0}
- registry=Registry(root/'data/pedigree');registered=0;positions=0
+ registry=Registry(root/'data/pedigree');registered=0;positions=0;seen=set()
  official_races=json.loads((root/'data/pedigree/reconciliations/2026-10-09-followup/foreign_pedigree_evidence.json').read_text())['races']
  results=json.loads((root/'data/pedigree/reconciliations/2026-10-09-followup/foreign_results_evidence.json').read_text())['races']
  assert len(results)==4 and sum(len(r['runners']) for r in results)==42
@@ -109,6 +109,7 @@ def check(root=Path('.')):
    identity=json.loads(registry.path('netkeiba-'+proof['provider_id']).read_text())['identity']
    assert identity['external_ids']['NETKEIBA']==proof['provider_id'] and identity['name']==proof['existing_name'] and identity['birth_year']==proof['birth_year']
   for row in batch['rows']:
+   row_token=(race_id,row.get('result_scope_index',row['target'].get('reported_horse_number')));assert row_token not in seen;seen.add(row_token)
    provider=batch.get('provider','NETKEIBA');id=row['target'].get('provider_id',row['target'].get('netkeiba_id'))
    ped=Document(base64.b64decode(bundle[id+'-pedigree']['body_base64']), 'utf-8' if provider=='JBIS' else 'euc_jp').root
    assert any(norm(n.text_content())==norm(row['target']['reported_name']) for n in ped.walk('h1'))
@@ -149,6 +150,8 @@ def check(root=Path('.')):
     assert fact['source']['record_hash'] in {e['capture'].get('sha256') for e in bundle.values()} and dt(fact['captured_at'])<=dt(batch['data_cutoff'])
    assert sum(len(r['added_revision_ids']) for r in batch['write_receipts'])==batch['new_parent_revisions']
   assert batch['registry_promoted']==len(batch['rows'])
+ progress=json.loads((directory/'progress.json').read_text());assert progress['registered_rows']==registered and progress['remaining_rows']==42-registered and progress['finished']==38 and progress['scratched']==4 and len(progress['rows'])==42
+ assert sum(r['review_status']=='REGISTERED_5_GENERATIONS' for r in progress['rows'])==registered
  return {'scope_rows':42,'registered_rows':registered,'ancestor_positions':positions,'remaining_rows':42-registered,'finished':38,'scratched':4}
 
 if __name__=='__main__':
