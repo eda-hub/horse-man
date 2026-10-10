@@ -7,7 +7,8 @@
     "cancelled": 4,
     "reference_candidates": 31,
     "candidate_without_id": 3,
-    "without_alternate_source": 8
+    "without_alternate_source": 8,
+    "independent_source_crosschecked": 1
   },
   "source_json": [
     "data/pedigree/reconciliations/2026-10-09-followup/foreign_results_evidence.json",
@@ -30,10 +31,25 @@
           "official_recorded_training_country_at_race": "FR",
           "source_horse_id_candidate": "000a029d42",
           "foreign_name_candidate": "Daryz",
-          "identity_status": "NOT_INDEPENDENTLY_CROSS_VERIFIED",
-          "five_gen_status": "NOT_FULLY_CROSS_VERIFIED",
+          "identity_status": "INDEPENDENT_SOURCES_CROSS_CHECKED_AWAITING_REGISTRY_WRITER",
+          "five_gen_status": "SOURCE_PEDIGREE_AVAILABLE_NOT_REGISTERED",
           "registry_write": "NOT_ATTEMPTED",
-          "missing": "INDEPENDENT_ID_AND_PARENT_CROSS_CHECK_PENDING"
+          "missing": "REGISTRY_WRITER_AND_FIVE_GEN_AUDIT_REQUIRED",
+          "independent_confirmation": {
+            "source_class": "BREEDING_DB",
+            "identity_source": "https://www.jbis.or.jp/horse/0001428854/",
+            "alternate_source": "https://en.netkeiba.com/db/horse/000a029d42/",
+            "third_source": "https://www.france-sire.com/cheval-537294-daryz.php",
+            "jbis_id": "0001428854",
+            "netkeiba_id": "000a029d42",
+            "horse_birth_year": 2022,
+            "matched_sire": "Sea The Stars",
+            "matched_dam": "Daryakana",
+            "matched_damsire": "Selkirk",
+            "reviewed_at": "2026-10-10",
+            "matching_basis": "NAME_BIRTH_YEAR_PARENTS_CONSISTENT_ACROSS_JBIS_NETKEIBA_FRANCE_SIRE",
+            "capture_warning": "public HTML not archived as raw sha; registry not yet written"
+          }
         },
         {
           "horse_number": 7,
