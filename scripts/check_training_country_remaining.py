@@ -116,42 +116,48 @@ def domestic_country(fields):
     return 'JP' if any('(' + x + ')' in affiliation or affiliation.startswith(x) for x in TRAINING_CENTRES_JP) else None
 
 
-@lru_cache(maxsize=32)
+@lru_cache(maxsize=64)
 def parsed_rows(data):
     parser = HTMLRows()
     parser.feed(decode_html(data))
     return parser.rows
 
 
-def ranking_rows(data, year, profile, identity):
+@lru_cache(maxsize=64)
+def ranking_index(data, year):
     rows = parsed_rows(data)
     headers = next((r for r in rows if 'Trained' in r and 'Horse' in r), None)
     if not headers:
-        return []
+        return {}
     h, t = headers.index('Horse'), headers.index('Trained')
     y = headers.index('YOF') if 'YOF' in headers else None
     age = headers.index('A') if 'A' in headers else headers.index('a.s') if 'a.s' in headers else None
-    found = []
+    found = {}
     for row in rows:
-        if len(row) != len(headers) or english(row[h]) != english(profile['english_name']):
+        if len(row) != len(headers):
             continue
         if y is not None:
-            if row[y] != str(identity['birth_year']):
+            if not row[y].isdigit():
                 continue
+            birth_year = int(row[y])
         elif age is not None:
             age_match = re.match(r'^(\d+)', row[age])
-            if not age_match or year - int(age_match.group(1)) != identity['birth_year']:
+            if not age_match:
                 continue
+            birth_year = year - int(age_match.group(1))
         else:
             continue
         tokens = re.split(r'\s*/\s*', row[t])
         if not tokens or any(token not in COUNTRIES for token in tokens):
             continue
         for token in tokens:
-            found.append(dict(proof_kind='IFHA_EXPLICIT_TRAINED_COLUMN', country=COUNTRIES[token],
+            found.setdefault((english(row[h]), birth_year), []).append(dict(proof_kind='IFHA_EXPLICIT_TRAINED_COLUMN', country=COUNTRIES[token],
                               row=row, reference_year=year, last_trained_on=None))
     return found
 
+
+def ranking_rows(data, year, profile, identity):
+    return copy.deepcopy(ranking_index(data, year).get((english(profile['english_name']), identity['birth_year']), []))
 
 WIKI_TRAINING_COUNTRIES = {'United States': 'US', 'Ireland': 'IE', 'United Kingdom': 'GB',
                          'France': 'FR', 'Germany': 'DE', 'Italy': 'IT', 'Canada': 'CA',
