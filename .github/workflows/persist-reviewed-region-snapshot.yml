@@ -46,7 +46,7 @@ jobs:
         run: |
           git fetch origin feature/next-cycle-prediction-contract
           test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_HEAD"
-          git add -- 'data/condition_stats/snapshots/prediction-period-jra-training-regions-20261010/c37467eef8f237e25f504cbd725c90158e1c65e468c66a7cf283fab393b86e9c.json'
+          git add -f -- 'data/condition_stats/snapshots/prediction-period-jra-training-regions-20261010/c37467eef8f237e25f504cbd725c90158e1c65e468c66a7cf283fab393b86e9c.json'
           test "$(git diff --cached --name-only)" = 'data/condition_stats/snapshots/prediction-period-jra-training-regions-20261010/c37467eef8f237e25f504cbd725c90158e1c65e468c66a7cf283fab393b86e9c.json'
           git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m '検証済みJRA159レース25条件の地域集計JSONを固定hashで保存'
           git push origin HEAD:refs/heads/feature/next-cycle-prediction-contract
