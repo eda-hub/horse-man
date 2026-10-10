@@ -25,6 +25,8 @@ jobs:
         run: python3 scripts/check_pedigree_alternative.py
       - name: 登録済み5頭の調教国原HTML追加証跡を検証
         run: python3 scripts/check_training_country_raw_evidence.py
+      - name: 資料確認済み一覧6〜10番目の原文と既存登録を照合
+        run: python3 scripts/check_training_country_r02.py
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査
         run: |
           set -o pipefail

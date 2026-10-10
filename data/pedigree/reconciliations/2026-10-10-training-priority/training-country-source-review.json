@@ -3,7 +3,7 @@
   "source_date": "2026-10-10",
   "scope": "Only sire/damsire subjects in 2089-horse JRA 2026 scope",
   "count": 30,
-  "raw_body_hash_policy": "Five R01 subjects now have separately captured raw HTTP response bytes in r01-raw/. Their original Registry revisions and canonical-extracted-fields hashes remain unchanged. registry_verification.raw_html_captured=false describes the original capture, while raw_html_evidence points to the later supplemental capture. No original-time HTML reconstruction or backdating is claimed. Remaining 25 reviewed subjects are not registered; 583 subjects remain unsearched.",
+  "raw_body_hash_policy": "R01 and R02 cover ten subjects with later supplemental raw HTTP body bytes, separate from their original canonical-extracted-fields Registry revisions. Of the 30 source-list subjects, record inspection shows 25 registered and five without training-country-match facts. R02 reverified only positions 6..10; original sources for the other 15 registered subjects have not been rechecked in this task. The earlier 5-registered/25-unregistered summary was a stale list, not the actual Registry. No historical HTML reconstruction or backdating is claimed.",
   "horses": [
     {
       "horse_key": "jbis-0000742976",
@@ -202,8 +202,39 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 66
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 66,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-5bf111b9584203f4466f6cf6",
+        "record_path": "data/pedigree/horses/jbis-0000725485.json",
+        "record_blob_sha": "8a714ce5fc3fdad3206a6d9239e288d3aae0f943",
+        "source_url": "https://www.jbis.or.jp/horse/0000725485/",
+        "source_record_hash": "9bd53060d2da4c6c9e8c713928a88adb37b470362207b1ff7f1014ca2bc14e10",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。",
+        "source_reviewed": true
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0000725485-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0000725485-profile.html",
+        "sha256": "4488102afed30b289edf1297fc525daa6f091b104400fc62769aff5b1fc36400",
+        "captured_at": "2026-10-10T05:39:59.161962+00:00",
+        "supplemental": true,
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0000725485-profile.capture.json"
+        ],
+        "verification_manifest": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "R02",
+        "country": "JP",
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json",
+        "reviewed_at": "2026-10-10T05:41:25.426915+00:00"
+      }
     },
     {
       "horse_key": "jbis-0001124297",
@@ -217,8 +248,39 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 63
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 63,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-0975fe20ec6ffe23350832bf",
+        "record_path": "data/pedigree/horses/jbis-0001124297.json",
+        "record_blob_sha": "375ad306ee49d9c60e1e4447582d686ded48e7e7",
+        "source_url": "https://www.jbis.or.jp/horse/0001124297/",
+        "source_record_hash": "d3b37d2d7787d5e98576b6a3f31bceb0c037e57a0d924fa274cd866a1c826ab3",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。",
+        "source_reviewed": true
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001124297-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001124297-profile.html",
+        "sha256": "3dced97639cab38a2ceb65785ea609ade4a7ff7a47fbd4c93792bd884d4c3a4c",
+        "captured_at": "2026-10-10T05:39:58.895990+00:00",
+        "supplemental": true,
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001124297-profile.capture.json"
+        ],
+        "verification_manifest": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "R02",
+        "country": "JP",
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json",
+        "reviewed_at": "2026-10-10T05:41:25.426915+00:00"
+      }
     },
     {
       "horse_key": "jbis-0001042049",
@@ -232,8 +294,39 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 62
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 62,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-9c674b679eaeea3126c59acd",
+        "record_path": "data/pedigree/horses/jbis-0001042049.json",
+        "record_blob_sha": "15e858c55a9e7ba778c52f0175e4c645c5deebc4",
+        "source_url": "https://www.jbis.or.jp/horse/0001042049/",
+        "source_record_hash": "7d609916b99e3542d0cf7a4eba02fd736e5d31497256b71e12d6efd3a4779df9",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。",
+        "source_reviewed": true
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001042049-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001042049-profile.html",
+        "sha256": "9d2d87a5a3075a4eaa706a907d3671712a8a2de3170865351915c46c7916f4ff",
+        "captured_at": "2026-10-10T05:40:04.754874+00:00",
+        "supplemental": true,
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001042049-profile.capture.json"
+        ],
+        "verification_manifest": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "R02",
+        "country": "JP",
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json",
+        "reviewed_at": "2026-10-10T05:41:25.426915+00:00"
+      }
     },
     {
       "horse_key": "jbis-0001115148",
@@ -247,8 +340,40 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 62
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 62,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-9e60bb12fedfd5c39ff328ce",
+        "record_path": "data/pedigree/horses/jbis-0001115148.json",
+        "record_blob_sha": "e8456063f81d36d9e8e92804998bef54f982f4be",
+        "source_url": "https://www.theguardian.com/sport/2010/jul/06/ryan-moore-workforce-king-george",
+        "source_record_hash": "9d3368db50e2f5a3805c1e125a95d7d73346bfb9e4db429b08bbffd249fc8ce0",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。",
+        "source_reviewed": true
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001115148-training.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001115148-training.html",
+        "sha256": "a863f6a8c0b49d0db5de41bcf2678f07091022f7bc69de9e36cf89318b6b2fdd",
+        "captured_at": "2026-10-10T05:39:58.908883+00:00",
+        "supplemental": true,
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001115148-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001115148-training.capture.json"
+        ],
+        "verification_manifest": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "R02",
+        "country": "GB",
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json",
+        "reviewed_at": "2026-10-10T05:41:25.426915+00:00"
+      }
     },
     {
       "horse_key": "jbis-0001215724",
@@ -262,8 +387,39 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 61
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 61,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-e2f737611fc52f3b8606d138",
+        "record_path": "data/pedigree/horses/jbis-0001215724.json",
+        "record_blob_sha": "9c0f7253f0e47aaeb2fc04e3ff7a40e4a54d049a",
+        "source_url": "https://www.jbis.or.jp/horse/0001215724/",
+        "source_record_hash": "487fa8f63a32b8cd346cac07958271fe3258e2ee0fad598d94e8f9ba4041fb65",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。",
+        "source_reviewed": true
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001215724-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001215724-profile.html",
+        "sha256": "ba163832cda618c92fef7a7986586acf0f22ae657a54c183b21020cb6a6f176f",
+        "captured_at": "2026-10-10T05:39:59.049834+00:00",
+        "supplemental": true,
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001215724-profile.capture.json"
+        ],
+        "verification_manifest": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "R02",
+        "country": "JP",
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json",
+        "reviewed_at": "2026-10-10T05:41:25.426915+00:00"
+      }
     },
     {
       "horse_key": "jbis-0001138240",
@@ -292,8 +448,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 57
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 57,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-96a2c7cdf35879dca3f6a9a3",
+        "record_path": "data/pedigree/horses/jbis-0000615577.json",
+        "record_blob_sha": "7deb1e369ce1c6643cb5688b216bfa2608ae0a45",
+        "source_url": "https://www.jbis.or.jp/horse/0000615577/",
+        "source_record_hash": "ed1add366a2f69a00103a1d0d8a3ddde99475866de2863c187b9b8120c3045cd",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001155349",
@@ -307,8 +476,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 54
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 54,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-2e27fc3742d8d07dc5cb592b",
+        "record_path": "data/pedigree/horses/jbis-0001155349.json",
+        "record_blob_sha": "958846670994907d75f1e8262ce7c61c6c7f3f11",
+        "source_url": "https://www.jbis.or.jp/horse/0001155349/",
+        "source_record_hash": "7aace956c130dc389faf8f35eec0ed13e89ed46e29e772c8327abf2d688e8c04",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001090360",
@@ -322,8 +504,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 48
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 48,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-d103aa30c9a48f121b44b137",
+        "record_path": "data/pedigree/horses/jbis-0001090360.json",
+        "record_blob_sha": "f8f8af77fffcfbb4ef38d11a4e0a5332bac8c15c",
+        "source_url": "https://www.jbis.or.jp/horse/0001090360/",
+        "source_record_hash": "c6e2dc8ac7eea9d6fdde4d0d608f217dd267eef58a3cd793f7f9888915ee9f6c",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001189721",
@@ -337,8 +532,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 42
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 42,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-e541c38b45a27e684cb0820f",
+        "record_path": "data/pedigree/horses/jbis-0001189721.json",
+        "record_blob_sha": "8cb833798a5d32b631484575b37cd837b43a1f4f",
+        "source_url": "https://www.jbis.or.jp/horse/0001189721/",
+        "source_record_hash": "37b9f18db54b9524427798909e8e25b55866e35ca27650f3e4e37cf04294e302",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001240055",
@@ -352,8 +560,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 41
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 41,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-8c87fe9959556c360992ec59",
+        "record_path": "data/pedigree/horses/jbis-0001240055.json",
+        "record_blob_sha": "8291601f40d25cb1da4f06fc91ede77d2fa1b8e0",
+        "source_url": "https://www.bobbaffert.com/drefong-gives-baffert-fifth-breeders-cup-sprint-g1/",
+        "source_record_hash": "1b80935862dcaa9ea5d7d0bc93c1b74bff265ef3877e7a688bf4e48d427b8c15",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001171845",
@@ -367,8 +588,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 38
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 38,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-8f30654908305cd055ae1c3f",
+        "record_path": "data/pedigree/horses/jbis-0001171845.json",
+        "record_blob_sha": "104711706940c136bb8a59822f262621cf25c557",
+        "source_url": "https://www.jbis.or.jp/horse/0001171845/",
+        "source_record_hash": "367ce8c23091eca10eb9464dfb3df791a4e2ee0ddf1015f1df00dbe4db324aae",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0000619768",
@@ -382,8 +616,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 37
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 37,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-a252f8e037e9880e22d5abc4",
+        "record_path": "data/pedigree/horses/jbis-0000619768.json",
+        "record_blob_sha": "2db3cc9d3d844c3b20a9e010654501d8eae3dc8f",
+        "source_url": "https://www.jbis.or.jp/horse/0000619768/",
+        "source_record_hash": "f19248a9d10a145647e4f22c5a379a645ecf7ecaaa92b8b1317d348c2df876f5",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001104811",
@@ -397,8 +644,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 37
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 37,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-851e4e4d05a41d7dcdf0c305",
+        "record_path": "data/pedigree/horses/jbis-0001104811.json",
+        "record_blob_sha": "33162dc58eb57eb00b4cf088e18c9e36f3b025a1",
+        "source_url": "https://www.jbis.or.jp/horse/0001104811/",
+        "source_record_hash": "07f639c9c1cb24b13f8750b847ec61003df93efb48c0fb0376712bd52aa7b6f1",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001293348",
@@ -412,8 +672,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 37
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 37,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-f4f04ffa28c3d54b6a1726d0",
+        "record_path": "data/pedigree/horses/jbis-0001293348.json",
+        "record_blob_sha": "c0321acc23fa8baf6d6ca5f89c9298f06c6df74c",
+        "source_url": "https://www.belmontstakes.com/news/bricks-and-mortar-tops-chad-brown-trained-trifecta-in-g1-manhattan",
+        "source_record_hash": "85be1035899c4341e74544fab8e2ba7480e08356d3afdecd81d6428856780e59",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001170063",
@@ -427,8 +700,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 36
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 36,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-2dac7196b397a51af6415c14",
+        "record_path": "data/pedigree/horses/jbis-0001170063.json",
+        "record_blob_sha": "c4cad03a7dc967515b92d11c0272a3c878f1e218",
+        "source_url": "https://www.jbis.or.jp/horse/0001170063/",
+        "source_record_hash": "b730579ca27e99dea300f79ebcf3f250474a3ee6429377dff9195d7f7803d106",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001025279",
@@ -457,8 +743,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 34
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 34,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-65200f9d1516740e11942147",
+        "record_path": "data/pedigree/horses/jbis-0001302899.json",
+        "record_blob_sha": "1ca14f85f8cb1afd6cd7ac1028916e2b62ab71d5",
+        "source_url": "https://www.drf.com/news/new-trainer-summers-ready-start-fast-mind-your-biscuits",
+        "source_record_hash": "f7bad6a6eddc62bca77bdf322ca4f63f9735514b6b9da89f22925590069448b5",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001157711",
@@ -472,8 +771,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 33
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 33,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-dbd5a39c19d9707cda764d70",
+        "record_path": "data/pedigree/horses/jbis-0001157711.json",
+        "record_blob_sha": "b43f0f91601125df71d24979883fb904b14905c1",
+        "source_url": "https://www.jbis.or.jp/horse/0001157711/",
+        "source_record_hash": "a609b54438cc27d8cb313fea8ea134c66721dd0e9dc227779f7ad70e99933071",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001205475",
@@ -487,8 +799,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 33
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 33,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-0ebee679f04783ea6ab50e93",
+        "record_path": "data/pedigree/horses/jbis-0001205475.json",
+        "record_blob_sha": "8b9a9c6c77f22f2e9d12aaa34816cecb42567401",
+        "source_url": "https://www.jbis.or.jp/horse/0001205475/",
+        "source_record_hash": "695962c4d0f24f598d57afb7f57d734e1ef3e5bd435247e0cfa3bce273606429",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0000749845",
@@ -532,8 +857,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 30
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 30,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-4a0f3fafb05ba9092e71dc4d",
+        "record_path": "data/pedigree/horses/jbis-0001328857.json",
+        "record_blob_sha": "41fb9683e8f664f4d51d6d4dab167decd0d962e6",
+        "source_url": "https://www.santaanita.com/assets/71tzd15sgbj0/7GkOgKoV59VYcJzUc4AMqy/07bd97713d52eadadf446bd1aaa7d2b6/LATC21_Media-Guide.pdf",
+        "source_record_hash": "697ed3999f15f598d1e9f34ef6fcf7e2a9ed60de01529cab44a5b0d90d21e99c",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0000324933",
@@ -547,8 +885,21 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 28
+      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "parent_references": 28,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-7339e52530bf5174e36d5aee",
+        "record_path": "data/pedigree/horses/jbis-0000324933.json",
+        "record_blob_sha": "c63dbfc609297b3f3e80e6fca6bd837a919f266b",
+        "source_url": "https://www.jbis.or.jp/horse/0000324933/",
+        "source_record_hash": "680407bcfd3339ad19c76c6c86a3236842c2a1a9d029c4fb7810e6ca537154c9",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+      }
     },
     {
       "horse_key": "jbis-0001083691",
@@ -566,6 +917,14 @@
       "parent_references": 30
     }
   ],
-  "registry_verified_extracted_fields_count": 5,
-  "registry_raw_html_captured_count": 5
+  "registry_verified_extracted_fields_count": 25,
+  "registry_raw_html_captured_count": 10,
+  "registry_registration_inventory": {
+    "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-registration-inventory.json",
+    "base_commit": "180c595c5044faaaa231619caee8674038f2d0ec",
+    "reviewed_subjects": 30,
+    "registry_verified_subjects": 25,
+    "no_training_match_fact_subjects": 5,
+    "raw_html_verified_subjects": 10
+  }
 }

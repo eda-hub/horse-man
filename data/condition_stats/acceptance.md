@@ -1,6 +1,6 @@
 # PR68 §11.7 血統確認・成績集計の受入対応
 
-確認基準: PR69 `c3be2a577f54ce70dc48007b7087cdc719941201`。実データの正本は[範囲summary](../pedigree/reconciliations/2026-10-10-alternative/scope_summary.json)と同summaryから参照する固定snapshot。調教国は[最新実施記録](../pedigree/reconciliations/2026-10-10-training-priority/README.md)を参照。
+確認基準: PR69 `180c595c5044faaaa231619caee8674038f2d0ec`の実レコードとR02原文照合。実データの正本は[範囲summary](../pedigree/reconciliations/2026-10-10-alternative/scope_summary.json)と同summaryから参照する固定snapshot。調教国は[最新実施記録](../pedigree/reconciliations/2026-10-10-training-priority/README.md)を参照。
 
 **区別する完了段階**: 過去候補の整理・Git血統調査基盤・合成fixtureによる集計処理の検証は、実データの原出所確認/公式全出走母数の取得/正式統計採用とは異なる。PR69の既存manualとPrediction KPIは変更しない。
 
@@ -10,7 +10,7 @@
 | 2 | 全出走母数・勝/連対/3着数と率 | 結果確定済み全出走からrace×horseを計数。`test_01`の同着例で分母・率を検証 | 合成入力とJRA159レースの父キズナ・母父ディープインパクト限定REPLAYで完了 |
 | 3 | 入力重複・同馬別レース・共通祖先重複 | 重複行は同一内容のみ除去、矛盾重複拒否、出走IDで計数。`test_02/03/13/15` | 合成入力で検証済み。限定JRA実データは原票・集計監査でも検証済み |
 | 4 | UNKNOWN/CONFLICTを非該当に混ぜない | MATCH/NON_MATCH/UNKNOWN/CONFLICTと理由別不足/coverage。`test_04` | 合成入力で欠測分離を検証済み。限定2条件の実データはUNKNOWN/CONFLICT=0 |
-| 5 | 米国型/欧州型と調教履歴確認・ユーザー照会 | 対象HORSE/SIRE/DAM_SIRE/ANCESTORの本人の確認済み調教国だけ使用。`test_05/06/18/20`。未確認・多地域の理由を表示 | 判定・ユーザー回答原文/hash/受領時刻の保存は実装・回帰検証済み。父・母父613頭中5頭登録・原HTML補完済み、25頭未登録・583頭未検索。実際の照会/回答取得は別工程 |
+| 5 | 米国型/欧州型と調教履歴確認・ユーザー照会 | 対象HORSE/SIRE/DAM_SIRE/ANCESTORの本人の確認済み調教国だけ使用。`test_05/06/18/20`。未確認・多地域の理由を表示 | 判定・ユーザー回答原文/hash/受領時刻の保存は実装・回帰検証済み。資料確認30頭の実レコードは25頭登録済み・5頭未登録。R01/R02の10頭は原HTML照合済み、登録済み15頭は原文再確認待ち。583頭は従来台帳で未検索。実際の照会/回答取得は別工程 |
 | 6 | 同着・取消・中止・失格・未確定・訂正・分母0 | 版付き整数着順ルールを明示し`test_01/09/11/12`で確認 | テスト実装済。provider固有の降着/除外規則の正式対応は未確定 |
 | 7 | cutoffとFORWARD/REPLAY | 結果観測/出走観測/Registry同定・血統・分類時点を検査。`test_07/08/16/21/24`。後日取得のバックデート事実もcutoffではUNKNOWNとする。全出力は研究Shadow限定 | テスト実装済。実運用FORWARD接続は未実装 |
 | 8 | 同一入力冪等・旧snapshot保持 | input/definition原本archive・digest識別・原子保存・読戻し・改変監査。`test_09/14/21` | テスト実装済 |
