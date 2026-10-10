@@ -31,6 +31,8 @@ jobs:
         run: |
           command -v pdftotext >/dev/null || { sudo apt-get update && sudo apt-get install -y poppler-utils; }
           python3 scripts/check_training_country_reviewed_batches.py
+      - name: 指定祖先28表記の同定・役割・親子経路・調査キューを検証
+        run: python3 scripts/check_designated_ancestor_scope.py
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査
         run: |
           set -o pipefail
