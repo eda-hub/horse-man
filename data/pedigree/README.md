@@ -164,7 +164,7 @@ Phase 2以降のDB/UI/feature評価はまだ設計段階。DBへの移行はID�
 検索一致が1国ならその国で止め、複数国なら直近の調教所属国を選び、検索一致ゼロならタスク終了後のチャットでユーザー照会する。
 検索後は唯一Writerから`attribute:training_country_matches`の構造化事実を保存する。
 検索一致が無い場合は`matches=[]`と`search_completed=true`を記録するが、国を推測しない。
-ユーザー提供国は検索不一致でのみ`attribute:training_country`へ
+ユーザー提供国は検索不一致でのみ`attribute:training_country_user`へ
 `source_class=USER_PROVIDED`、`acquisition_method=user-chat`として保存し、
 `source.user_reply_text`に回答原文、`record_hash`に原文SHA-256を設定する。
 受領時刻・対象馬同定・確認者を併記し、読戻し後に未確認状態を更新する。
