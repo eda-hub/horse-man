@@ -76,7 +76,7 @@
 ## 集計と結果の規則
 
 - 血統軸: `SIRE`（父）、`DAM_SIRE`（母父）、`SIRE_LINE`、`DAM_SIRE_LINE`（`taxonomy_version`と要求`depth`を指定）、`ANCESTOR`（`depth`を指定）、`CROSS`（`depth`と`min_paths >= 2`を指定）、`TRAINING_REGION`（対象`HORSE/SIRE/DAM_SIRE/ANCESTOR`を明示）。
-- 調教地域は対象馬**自身**の確認済み`attribute:training_country`と指定した分類表から判断する。生産国・父系・親の属性を対象馬本人へ流用しない。複数地域・未指定国・競合は保留。地域定義は実データの調査・確認後に固定し、例示値を現実の分類へ流用しない。
+- 調教地域は対象馬**自身**の確認済み調教所属情報と指定した地域分類表から判断する。新方式は`attribute:training_country_matches`（検索不一致の場合のみ`attribute:training_country_user`）、旧方式は既存の`attribute:training_country`を参照する。生産国・父系・親の属性を対象馬本人へ流用しない。判定不能・未指定国・競合は保留。地域定義は確認後に固定し、例示値を現実の分類へ流用しない。
 - Race filter: `period_start/end`、`venue`、`surface`、`distance_min/max`、`class`、`going`、`race_type`。要求されたグループだけ算出する。出走IDは`race_id × horse_key`で重複排除。異なるレースの同じ馬は別出走。実頭数とレース数も保持。複数血統グループの重なりは合算しない。
 - 公式`finish_position`は同着を同じ着順整数として受領する。確定`FINISHED`は1着=勝、2着以内=連対、3着以内=3着内。出走済みの`DNF`（中止）と`DQ`（失格）は分母に含め0勝。`SCRATCHED`（取消）/`EXCLUDED`（除外）は記録するが実出走分母から除外。`PENDING`または結果未確定は率の分母から外し不完全理由に残す。
 - 各グループに`MATCH`、`NON_MATCH`、`UNKNOWN`、`CONFLICT`を別々に出力。欠測/未同定/祖先範囲不完全を非該当へ混入しない。`comparison=NON_MATCH`は同条件かつ判定済みの非該当群だけ比較し、`ALL`は全体の結果有効母数（血統不明を含む）を参照。
