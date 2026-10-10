@@ -1,0 +1,26 @@
+{
+  "schema_version": "historical-pr-ref-review-v1",
+  "baseline_head": "b29454a04dc2dcf06ab7c162bea7a97bf711913b",
+  "reviewed_at": "2026-10-10T16:31:55.436380+00:00",
+  "prs": 22,
+  "commits": 253,
+  "new_commits_outside_previous_trees": 192,
+  "docs_trees": 220,
+  "candidate_blobs": 59,
+  "reviewed": 40,
+  "resolved_eligible": 0,
+  "unresolved": 40,
+  "status_counts": {
+    "NO_CORRESPONDING_INTENT_IN_PR_HISTORY": 38,
+    "CORRESPONDING_INTENT_INVALID": 1,
+    "VALID_INTENT_WITHOUT_VERIFIED_RECEIPT": 1
+  },
+  "artifacts_with_receipt_candidates": 28,
+  "evidence_path": "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-pr-ref-review/git-evidence.json.gz",
+  "evidence_sha256": "5575f6306429116c127633e2a04dbdece60ca891b663d9df378318f8b307a83a",
+  "new_intent_or_receipt_created": false,
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "scope": "対象期間作成PR22件のHEAD・全PR commit履歴・閉鎖PR merge commit・全docs tree。GitHubでPR参照可能な削除branch履歴も含む。",
+  "limitation": "PRなしで削除されたbranch・到達不能commit・ローカルreflog・Git外の真正証跡は取得不能。commit時刻はreceiptの発走前読戻し時刻の代用にしない。"
+}
