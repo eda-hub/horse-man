@@ -1,1 +1,128 @@
-{"horse_key":"jbis-0000412380","identity":{"aliases":["Into Harbour (英)"],"birth_year":1973,"external_ids":{"JBIS":"0000412380","NETKEIBA":"000a0122b1"},"identity_evidence":{"record_key":"0000412380","source":"JBIS"},"name":"Into Harbour(IRE)","status":"RESOLVED"},"identity_confirmed_at":"2026-10-09T12:33:20.324159+00:00","identity_observed_at":"2026-10-09T12:33:20.324159+00:00","identity_revisions":[{"after":{"aliases":["Into Harbour (英)"],"birth_year":1973,"external_ids":{"JBIS":"0000412380","NETKEIBA":"000a0122b1"},"identity_evidence":{"record_key":"0000412380","source":"JBIS"},"name":"Into Harbour(IRE)","status":"RESOLVED"},"at":"2026-10-09T17:32:03.550726+00:00","before":{"aliases":[],"birth_year":1973,"external_ids":{"JBIS":"0000412380"},"identity_evidence":{"record_key":"0000412380","source":"JBIS"},"name":"Into Harbour(IRE)","status":"RESOLVED"},"event_hash":"a1078e48681060c0465efad80508094a195b0c6172f98e850a198e892dbae3cb","reason":"取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。","reviewed_by":"原票同定照合"}],"initial_identity":{"aliases":[],"birth_year":1973,"external_ids":{"JBIS":"0000412380"},"identity_evidence":{"record_key":"0000412380","source":"JBIS"},"name":"Into Harbour(IRE)","status":"RESOLVED"},"revisions":[],"schema_version":"pedigree-registry-v1"}
+{
+  "horse_key": "jbis-0000412380",
+  "identity": {
+    "aliases": [
+      "Into Harbour (英)"
+    ],
+    "birth_year": 1973,
+    "external_ids": {
+      "JBIS": "0000412380",
+      "NETKEIBA": "000a0122b1"
+    },
+    "identity_evidence": {
+      "record_key": "0000412380",
+      "source": "JBIS"
+    },
+    "name": "Into Harbour(IRE)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:20.324159+00:00",
+  "identity_observed_at": "2026-10-09T12:33:20.324159+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "Into Harbour (英)"
+        ],
+        "birth_year": 1973,
+        "external_ids": {
+          "JBIS": "0000412380",
+          "NETKEIBA": "000a0122b1"
+        },
+        "identity_evidence": {
+          "record_key": "0000412380",
+          "source": "JBIS"
+        },
+        "name": "Into Harbour(IRE)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:32:03.550726+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1973,
+        "external_ids": {
+          "JBIS": "0000412380"
+        },
+        "identity_evidence": {
+          "record_key": "0000412380",
+          "source": "JBIS"
+        },
+        "name": "Into Harbour(IRE)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "a1078e48681060c0465efad80508094a195b0c6172f98e850a198e892dbae3cb",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1973,
+    "external_ids": {
+      "JBIS": "0000412380"
+    },
+    "identity_evidence": {
+      "record_key": "0000412380",
+      "source": "JBIS"
+    },
+    "name": "Into Harbour(IRE)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:07:49.129524+00:00",
+      "content_hash": "55e5f1615bf7cc6ab5187acb1f39a398eb69837b9e010b4e7862293df371d8ac",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:07:49.129519+00:00",
+      "input_hash": "88910d1023aed0f78367e99d83d1bd1cddb8def1531898d567ec795c583c742a",
+      "previous_revision": null,
+      "revision_id": "rev-88910d1023aed0f78367e99d",
+      "saved_at": "2026-10-10T10:07:49.129799+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "1d1579c3050b97dbdcfd1fb55e1ce3fcf25df83d9d8197917ff814e0270d2363",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d629:SDDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d629/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a000e38",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:07:49.136044+00:00",
+      "content_hash": "80ec114b6ed12e678fa8e3242a0c29411096d4c75d1e5c1ac137f7a757e23115",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:07:49.136037+00:00",
+      "input_hash": "46f1487736ea0e1fc33394ff57b1f5b0715a8f3dcdb6a230e42afb3766743df9",
+      "previous_revision": null,
+      "revision_id": "rev-46f1487736ea0e1fc33394ff",
+      "saved_at": "2026-10-10T10:07:49.136379+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "1d1579c3050b97dbdcfd1fb55e1ce3fcf25df83d9d8197917ff814e0270d2363",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d629:SDDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d629/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a006eba",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

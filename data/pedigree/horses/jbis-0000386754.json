@@ -1,1 +1,128 @@
-{"horse_key":"jbis-0000386754","identity":{"aliases":["Sunbittern (愛)"],"birth_year":1970,"external_ids":{"JBIS":"0000386754","NETKEIBA":"000a007243"},"identity_evidence":{"record_key":"0000386754","source":"JBIS"},"name":"Sunbittern(GB)","status":"RESOLVED"},"identity_confirmed_at":"2026-10-09T15:04:19.878507+00:00","identity_observed_at":"2026-10-09T15:04:19.878507+00:00","identity_revisions":[{"after":{"aliases":["Sunbittern (愛)"],"birth_year":1970,"external_ids":{"JBIS":"0000386754","NETKEIBA":"000a007243"},"identity_evidence":{"record_key":"0000386754","source":"JBIS"},"name":"Sunbittern(GB)","status":"RESOLVED"},"at":"2026-10-09T17:30:28.705280+00:00","before":{"aliases":[],"birth_year":1970,"external_ids":{"JBIS":"0000386754"},"identity_evidence":{"record_key":"0000386754","source":"JBIS"},"name":"Sunbittern(GB)","status":"RESOLVED"},"event_hash":"9c4a53d7ad1756181073b58d745afb906f0371b77c601382bfa26cc2a898093d","reason":"取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。","reviewed_by":"原票同定照合"}],"initial_identity":{"aliases":[],"birth_year":1970,"external_ids":{"JBIS":"0000386754"},"identity_evidence":{"record_key":"0000386754","source":"JBIS"},"name":"Sunbittern(GB)","status":"RESOLVED"},"revisions":[],"schema_version":"pedigree-registry-v1"}
+{
+  "horse_key": "jbis-0000386754",
+  "identity": {
+    "aliases": [
+      "Sunbittern (愛)"
+    ],
+    "birth_year": 1970,
+    "external_ids": {
+      "JBIS": "0000386754",
+      "NETKEIBA": "000a007243"
+    },
+    "identity_evidence": {
+      "record_key": "0000386754",
+      "source": "JBIS"
+    },
+    "name": "Sunbittern(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:19.878507+00:00",
+  "identity_observed_at": "2026-10-09T15:04:19.878507+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "Sunbittern (愛)"
+        ],
+        "birth_year": 1970,
+        "external_ids": {
+          "JBIS": "0000386754",
+          "NETKEIBA": "000a007243"
+        },
+        "identity_evidence": {
+          "record_key": "0000386754",
+          "source": "JBIS"
+        },
+        "name": "Sunbittern(GB)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:28.705280+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1970,
+        "external_ids": {
+          "JBIS": "0000386754"
+        },
+        "identity_evidence": {
+          "record_key": "0000386754",
+          "source": "JBIS"
+        },
+        "name": "Sunbittern(GB)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "9c4a53d7ad1756181073b58d745afb906f0371b77c601382bfa26cc2a898093d",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1970,
+    "external_ids": {
+      "JBIS": "0000386754"
+    },
+    "identity_evidence": {
+      "record_key": "0000386754",
+      "source": "JBIS"
+    },
+    "name": "Sunbittern(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:07:48.961087+00:00",
+      "content_hash": "f3c026663ebfdf289106ceca523c26441b029e55999afaeee283f669d4928e3a",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:07:48.961082+00:00",
+      "input_hash": "069d1686cd756b76177c1c7d72ab0f374562f8f055b1095f7b42bc0a3d1b11da",
+      "previous_revision": null,
+      "revision_id": "rev-069d1686cd756b76177c1c7d",
+      "saved_at": "2026-10-10T10:07:48.961566+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "95b30a07bcea9908eb65b0049caf370f794a7365b0888f59b0cfec83254709d3",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a029c22:SSDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a029c22/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333476",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:07:48.968162+00:00",
+      "content_hash": "bee5caf1f20e6a375e9c50d32af3eb3c7d01efe56d7a45329387264f08f6617b",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:07:48.968157+00:00",
+      "input_hash": "04ecc140356da80c4901ca795906467f92727a4b179b83ba430e501b1370f7c7",
+      "previous_revision": null,
+      "revision_id": "rev-04ecc140356da80c4901ca79",
+      "saved_at": "2026-10-10T10:07:48.968473+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "95b30a07bcea9908eb65b0049caf370f794a7365b0888f59b0cfec83254709d3",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a029c22:SSDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a029c22/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a007241",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}
