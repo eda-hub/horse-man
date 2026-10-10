@@ -1,0 +1,147 @@
+{
+  "horse_key": "jbis-0001240340",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2010,
+    "external_ids": {
+      "JBIS": "0001240340"
+    },
+    "identity_evidence": {
+      "record_key": "0001240340",
+      "source": "JBIS"
+    },
+    "name": "Overanalyze(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T16:38:01.436971+00:00",
+  "identity_observed_at": "2026-10-09T16:38:01.436971+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2010,
+    "external_ids": {
+      "JBIS": "0001240340"
+    },
+    "identity_evidence": {
+      "record_key": "0001240340",
+      "source": "JBIS"
+    },
+    "name": "Overanalyze(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T16:34:18.564776+00:00",
+      "content_hash": "cc9cb5fd59ab582015c7d202e48f1050d2907efddd4cf2444b80f525373d9841",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T16:34:18.564776+00:00",
+      "input_hash": "f939fa77d83baaca7280b29a748902bdc8e5979a085fe29e3d1e7cadc27d5ee0",
+      "previous_revision": null,
+      "revision_id": "rev-f939fa77d83baaca7280b29a",
+      "saved_at": "2026-10-09T16:38:02.987311+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "0c7921c4870febddf8fa60ff41eb7076c748a56457d7292f79d77b43b5e2664d",
+        "record_key": "0001401211",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001401211/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000372662",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T16:34:18.564776+00:00",
+      "content_hash": "48b1cc2c968c3ac9755d4ef64a65d2a306957585f0ebf65a1f6e43ecc6f518e3",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T16:34:18.564776+00:00",
+      "input_hash": "cd830c5eccfd9875183ca04a5f43c4b85451ae326817aee5d13fd5f1c410c363",
+      "previous_revision": null,
+      "revision_id": "rev-cd830c5eccfd9875183ca04a",
+      "saved_at": "2026-10-09T16:38:02.987865+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "0c7921c4870febddf8fa60ff41eb7076c748a56457d7292f79d77b43b5e2664d",
+        "record_key": "0001401211",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001401211/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001014340",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:29.061377+00:00",
+      "content_hash": "c153cb7bbdc33a7c9711d9beaa39f641086a0d6be091fb3ca2cad8b4aaeb25af",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:29.061357+00:00",
+      "input_hash": "c8192d6ccc9d5bd1aaab714ac039c54111ccc5f5808f46c5ed8d8052afb109a3",
+      "previous_revision": null,
+      "revision_id": "rev-c8192d6ccc9d5bd1aaab714a",
+      "saved_at": "2026-10-10T07:57:29.106494+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "JBIS",
+        "record_hash": "c84228ea5aed19333ad868939cb9258283a06b01d8328477cd25f721d965c43c",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0001240340",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001240340/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T09:03:47.095612+00:00",
+      "content_hash": "5de94ffc3f90765fe0d902e2c4c9f1b035b06651e69f37abecf162406b76df6a",
+      "field": "attribute:training_country_user",
+      "first_observed_at": "2026-10-10T17:58:46+09:00",
+      "input_hash": "c3dda365af6eec8dd74c7ff080726760109d57191b00eb440dbe0c81a1f50736",
+      "previous_revision": null,
+      "revision_id": "rev-c3dda365af6eec8dd74c7ff0",
+      "saved_at": "2026-10-10T09:03:47.137334+00:00",
+      "source": {
+        "acquisition_method": "user-chat",
+        "origin_group": "USER_CHAT",
+        "original_search_cutoff": "2026-10-10T07:58:22.155591+00:00",
+        "record_hash": "efa107e26c1d3731d0d3a4408b5890d18fde7efc39908de792c75cd621b681ee",
+        "record_key": "jbis-0001240340",
+        "resolution_policy": "USER_CONFIRMED_NAME_SUFFIX_V1",
+        "source_class": "USER_PROVIDED",
+        "subject_name": "Overanalyze(USA)",
+        "user_received_at": "2026-10-10T17:58:46+09:00",
+        "user_reply_text": "確認待ち一覧について。\n名前の末尾に（USA）とあればそれが調教国で良い。漢字の場合も同一。\nひとつ質問：馬名を参照するときに（）も含まれないよね？例：ベンバトルを参照する場合、「ベンバトル(GB)と完全一致しないといけない」など、理想は\"ベンバトル\"と馬名で参照されること。"
+      },
+      "status": "VERIFIED",
+      "value": "US",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 利用者の末尾国指定を本人ID・確認待ち一覧と照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}
