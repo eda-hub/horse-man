@@ -1,0 +1,764 @@
+{
+  "schema_version": "foreign-identity-source-review-v1",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "source_head": "eef04c4f1df7dcccc4e74fbe748d8ba0c1caff39",
+  "data_cutoff": "2026-10-10T10:14:14.724317+00:00",
+  "historical_cutoff": "2026-10-04T00:00:00+00:00",
+  "scope_total": 42,
+  "reviewed_in_batch": 1,
+  "registry_promoted": 1,
+  "source_bundle_path": "data/pedigree/reconciliations/2026-10-10-foreign-review/sources-batch-10.json.gz",
+  "source_bundle_sha256": "7e1de2df1dd6f177c2acec20d1654d2229a934d7b4d857a0e5d3b4143d7f573f",
+  "rows": [
+    {
+      "target": {
+        "provider_id": "000a02ca82",
+        "netkeiba_id": "000a02ca82",
+        "jbis_id": "0001430239",
+        "reported_name": "Hawk Mountain",
+        "reported_horse_number": 8
+      },
+      "result_scope_index": 5,
+      "primary_profile_key": "0001430239-profile",
+      "primary_pedigree_key": "0001430239-pedigree",
+      "birth_year": 2023,
+      "profile_fields": {
+        "登録": "海外",
+        "品種": "サラ",
+        "性別": "牡",
+        "生年月日": "2023.03.27",
+        "毛色": "鹿毛",
+        "産地": "愛国産",
+        "馬主": "",
+        "生産牧場": "",
+        "調教師": "(海 外)",
+        "戦績": "海外：7戦4勝",
+        "総賞金": "0.0万円",
+        "ヘルプページ": "検索方法やデータについてお困りの際はまずこちらのヘルプページをご覧ください。",
+        "サービスの利用にあたって": "サービスを利用することによって利用規約の内容を承諾いただいたものとみなします。"
+      },
+      "ancestors": {
+        "S": {
+          "id": "000a01322e",
+          "name": "Wootton Bassett (英)",
+          "birth_year": 2008
+        },
+        "SS": {
+          "id": "000a0111d1",
+          "name": "Iffraaj (英)",
+          "birth_year": 2001
+        },
+        "SSS": {
+          "id": "000a001d7d",
+          "name": "Zafonic (米)",
+          "birth_year": 1990
+        },
+        "SSSS": {
+          "id": "000a001be1",
+          "name": "Gone West (米)",
+          "birth_year": 1984
+        },
+        "SSSSS": {
+          "id": "000a001607",
+          "name": "Mr. Prospector",
+          "birth_year": null
+        },
+        "SSSSD": {
+          "id": "000a00923d",
+          "name": "Secrettame (米)",
+          "birth_year": null
+        },
+        "SSSD": {
+          "id": "000a009960",
+          "name": "Zaizafon (米)",
+          "birth_year": 1982
+        },
+        "SSSDS": {
+          "id": "000a0012c8",
+          "name": "The Minstrel (加)",
+          "birth_year": null
+        },
+        "SSSDD": {
+          "id": "000a00995f",
+          "name": "Mofida (英)",
+          "birth_year": null
+        },
+        "SSD": {
+          "id": "000a0111e1",
+          "name": "Pastorale",
+          "birth_year": 1988
+        },
+        "SSDS": {
+          "id": "000a001676",
+          "name": "Nureyev",
+          "birth_year": 1977
+        },
+        "SSDSS": {
+          "id": "000a000e04",
+          "name": "Northern Dancer",
+          "birth_year": null
+        },
+        "SSDSD": {
+          "id": "000a0081e9",
+          "name": "Special",
+          "birth_year": null
+        },
+        "SSDD": {
+          "id": "000a009fa4",
+          "name": "Park Appeal (愛)",
+          "birth_year": 1982
+        },
+        "SSDDS": {
+          "id": "000a00176c",
+          "name": "Ahonoora (英)",
+          "birth_year": null
+        },
+        "SSDDD": {
+          "id": "000a008c3e",
+          "name": "Balidaress (愛)",
+          "birth_year": null
+        },
+        "SD": {
+          "id": "000a01322f",
+          "name": "Balladonia (英)",
+          "birth_year": 1996
+        },
+        "SDS": {
+          "id": "000a001e69",
+          "name": "Primo Dominie (英)",
+          "birth_year": 1982
+        },
+        "SDSS": {
+          "id": "000a001b88",
+          "name": "Dominion (英)",
+          "birth_year": 1972
+        },
+        "SDSSS": {
+          "id": "000a000ed9",
+          "name": "Derring-Do (英)",
+          "birth_year": null
+        },
+        "SDSSD": {
+          "id": "000a0090a9",
+          "name": "Picture Palace (英)",
+          "birth_year": null
+        },
+        "SDSD": {
+          "id": "000a009065",
+          "name": "Swan Ann (英)",
+          "birth_year": 1971
+        },
+        "SDSDS": {
+          "id": "000a0010e8",
+          "name": "My Swanee (英)",
+          "birth_year": null
+        },
+        "SDSDD": {
+          "id": "000a009064",
+          "name": "Anna Barry (英)",
+          "birth_year": null
+        },
+        "SDD": {
+          "id": "000a00a085",
+          "name": "Susquehanna Days (米)",
+          "birth_year": 1990
+        },
+        "SDDS": {
+          "id": "000a001b87",
+          "name": "Chief's Crown (米)",
+          "birth_year": 1982
+        },
+        "SDDSS": {
+          "id": "000a0000d3",
+          "name": "Danzig (米)",
+          "birth_year": null
+        },
+        "SDDSD": {
+          "id": "000a00909c",
+          "name": "Six Crowns (米)",
+          "birth_year": null
+        },
+        "SDDD": {
+          "id": "000a013244",
+          "name": "Gliding By (米)",
+          "birth_year": 1975
+        },
+        "SDDDS": {
+          "id": "000a001033",
+          "name": "Tom Rolfe (米)",
+          "birth_year": null
+        },
+        "SDDDD": {
+          "id": "000a007138",
+          "name": "Key Bridge (米)",
+          "birth_year": null
+        },
+        "D": {
+          "id": "000a013fa9",
+          "name": "ハイドレンジア",
+          "birth_year": 2014
+        },
+        "DS": {
+          "id": "000a00232b",
+          "name": "Galileo (愛)",
+          "birth_year": 1998
+        },
+        "DSS": {
+          "id": "000a00185d",
+          "name": "Sadler's Wells (米)",
+          "birth_year": 1981
+        },
+        "DSSS": {
+          "id": "000a000e04",
+          "name": "Northern Dancer",
+          "birth_year": 1961
+        },
+        "DSSSS": {
+          "id": "000a000f8c",
+          "name": "Nearctic (加)",
+          "birth_year": null
+        },
+        "DSSSD": {
+          "id": "000a00702e",
+          "name": "Natalma (米)",
+          "birth_year": null
+        },
+        "DSSD": {
+          "id": "000a008892",
+          "name": "Fairy Bridge (米)",
+          "birth_year": 1975
+        },
+        "DSSDS": {
+          "id": "000a001183",
+          "name": "Bold Reason (米)",
+          "birth_year": null
+        },
+        "DSSDD": {
+          "id": "000a0081e9",
+          "name": "Special",
+          "birth_year": null
+        },
+        "DSD": {
+          "id": "1989109105",
+          "name": "Urban Sea (米)",
+          "birth_year": 1989
+        },
+        "DSDS": {
+          "id": "000a0017b0",
+          "name": "Miswaki (米)",
+          "birth_year": 1978
+        },
+        "DSDSS": {
+          "id": "000a001607",
+          "name": "Mr. Prospector",
+          "birth_year": null
+        },
+        "DSDSD": {
+          "id": "000a0081ee",
+          "name": "Hopespringseternal (米)",
+          "birth_year": null
+        },
+        "DSDD": {
+          "id": "000a009786",
+          "name": "Allegretta (英)",
+          "birth_year": 1978
+        },
+        "DSDDS": {
+          "id": "000a0017ef",
+          "name": "Lombard (独)",
+          "birth_year": null
+        },
+        "DSDDD": {
+          "id": "000a009785",
+          "name": "Anatevka (独)",
+          "birth_year": null
+        },
+        "DD": {
+          "id": "000a012d2d",
+          "name": "Beauty Is Truth (愛)",
+          "birth_year": 2004
+        },
+        "DDS": {
+          "id": "000a002328",
+          "name": "Pivotal (英)",
+          "birth_year": 1993
+        },
+        "DDSS": {
+          "id": "000a001f3f",
+          "name": "Polar Falcon (米)",
+          "birth_year": 1987
+        },
+        "DDSSS": {
+          "id": "000a001676",
+          "name": "Nureyev",
+          "birth_year": null
+        },
+        "DDSSD": {
+          "id": "000a00a159",
+          "name": "Marie d'Argonne (仏)",
+          "birth_year": null
+        },
+        "DDSD": {
+          "id": "000a00b6ce",
+          "name": "Fearless Revival (英)",
+          "birth_year": 1987
+        },
+        "DDSDS": {
+          "id": "000a001bda",
+          "name": "Cozzene (米)",
+          "birth_year": null
+        },
+        "DDSDD": {
+          "id": "000a00a1ad",
+          "name": "Stufida (英)",
+          "birth_year": null
+        },
+        "DDD": {
+          "id": "000a012d2c",
+          "name": "Zelding (愛)",
+          "birth_year": 1995
+        },
+        "DDDS": {
+          "id": "000a000843",
+          "name": "ウォーニング",
+          "birth_year": 1985
+        },
+        "DDDSS": {
+          "id": "000a0015ca",
+          "name": "Known Fact (米)",
+          "birth_year": null
+        },
+        "DDDSD": {
+          "id": "000a009614",
+          "name": "Slightly Dangerous (米)",
+          "birth_year": null
+        },
+        "DDDD": {
+          "id": "000a010c23",
+          "name": "Zelda (愛)",
+          "birth_year": 1990
+        },
+        "DDDDS": {
+          "id": "000a0016eb",
+          "name": "Caerleon (米)",
+          "birth_year": null
+        },
+        "DDDDD": {
+          "id": "000a009241",
+          "name": "Mill Princess (愛)",
+          "birth_year": null
+        }
+      },
+      "official_parent_evidence": {
+        "sire": "Wootton Bassett(GB)",
+        "dam": "ハイドレンジア(IRE)",
+        "damsire": "Galileo(IRE)"
+      },
+      "official_parent_aliases": [],
+      "status": "REGISTERED_5_GENERATIONS",
+      "registry_promoted": true,
+      "horse_key": "netkeiba-000a02ca82",
+      "ancestor_keys": {
+        "S": "netkeiba-000a01322e",
+        "SS": "netkeiba-000a0111d1",
+        "SSS": "jbis-0000347622",
+        "SSSS": "jbis-0000337432",
+        "SSSSS": "jbis-0000335975",
+        "SSSSD": "jbis-0000394672",
+        "SSSD": "jbis-0000415580",
+        "SSSDS": "jbis-0000335164",
+        "SSSDD": "jbis-0000408259",
+        "SSD": "netkeiba-000a0111e1",
+        "SSDS": "jbis-0000336085",
+        "SSDSS": "jbis-0000334002",
+        "SSDSD": "jbis-0000390581",
+        "SSDD": "jbis-0000416199",
+        "SSDDS": "jbis-0000336322",
+        "SSDDD": "jbis-0000393182",
+        "SD": "netkeiba-000a01322f",
+        "SDS": "netkeiba-000a001e69",
+        "SDSS": "jbis-0000337340",
+        "SDSSS": "jbis-0000335314",
+        "SDSSD": "netkeiba-000a0090a9",
+        "SDSD": "netkeiba-000a009065",
+        "SDSDS": "jbis-0000334726",
+        "SDSDD": "netkeiba-000a009064",
+        "SDD": "netkeiba-000a00a085",
+        "SDDS": "jbis-0000337339",
+        "SDDSS": "jbis-0000336082",
+        "SDDSD": "jbis-0000394259",
+        "SDDD": "netkeiba-000a013244",
+        "SDDDS": "jbis-0000334546",
+        "SDDDD": "netkeiba-000a007138",
+        "D": "netkeiba-000a013fa9",
+        "DS": "jbis-0000714343",
+        "DSS": "jbis-0000336572",
+        "DSSS": "jbis-0000334002",
+        "DSSSS": "jbis-0000334378",
+        "DSSSD": "jbis-0000386225",
+        "DSSD": "jbis-0000392264",
+        "DSSDS": "jbis-0000334859",
+        "DSSDD": "jbis-0000390581",
+        "DSD": "jbis-0000225908",
+        "DSDS": "jbis-0000336395",
+        "DSDSS": "jbis-0000335975",
+        "DSDSD": "jbis-0000390586",
+        "DSDD": "jbis-0000406125",
+        "DSDDS": "jbis-0000336459",
+        "DSDDD": "jbis-0000406124",
+        "DD": "netkeiba-000a012d2d",
+        "DDS": "jbis-0000365118",
+        "DDSS": "jbis-0000341066",
+        "DDSSS": "jbis-0000336085",
+        "DDSSD": "jbis-0000407506",
+        "DDSD": "jbis-0000410548",
+        "DDSDS": "jbis-0000337423",
+        "DDSDD": "jbis-0000410547",
+        "DDD": "netkeiba-000a012d2c",
+        "DDDS": "jbis-0000342675",
+        "DDDSS": "jbis-0000335911",
+        "DDDSD": "jbis-0000408196",
+        "DDDD": "netkeiba-000a010c23",
+        "DDDDS": "jbis-0000336202",
+        "DDDDD": "jbis-0000394676"
+      }
+    }
+  ],
+  "provider": "NETKEIBA",
+  "race_id": "FOREIGN-20260819-YORK-INTERNATIONAL",
+  "new_records": 2,
+  "new_parent_revisions": 6,
+  "write_receipts": [
+    {
+      "horse_key": "netkeiba-000a010c23",
+      "before_record_hash": "5f0428784027963075c3ab18ad8eb5003287805924783db97239cf8273567f82",
+      "before_revision_hashes": [],
+      "after_record_hash": "d7e1a243b2f63ee798312adbc489f0e99a272097a137a58593692d2030f939c7",
+      "added_revision_ids": [
+        "rev-8c5e24eda0ff95de1cef38a4",
+        "rev-39ffa1ebd51c1c8b8521f611"
+      ],
+      "new_identity": false
+    },
+    {
+      "horse_key": "netkeiba-000a02ca82",
+      "before_record_hash": null,
+      "before_revision_hashes": [],
+      "after_record_hash": "0d42a84c49e8d2bcecce353ff7e0fb060844d9c17156d9f01aca0d256e184776",
+      "added_revision_ids": [
+        "rev-30dc68aaedf65767c18c7548",
+        "rev-3c3d810ac7cefda6b297132e"
+      ],
+      "new_identity": true
+    },
+    {
+      "horse_key": "netkeiba-000a013fa9",
+      "before_record_hash": null,
+      "before_revision_hashes": [],
+      "after_record_hash": "e83f47fa5dea098e1a37fb48708a08f57b6dbe5f7abe576eed4a991fe45d5f41",
+      "added_revision_ids": [
+        "rev-fbe36badf666eeb277731414",
+        "rev-d798506eb0b1f26e6a345009"
+      ],
+      "new_identity": true
+    }
+  ],
+  "identity_crosswalk": [
+    {
+      "provider_id": "000a01322e",
+      "horse_key": "netkeiba-000a01322e",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0111d1",
+      "horse_key": "netkeiba-000a0111d1",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001d7d",
+      "horse_key": "jbis-0000347622",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001be1",
+      "horse_key": "jbis-0000337432",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001607",
+      "horse_key": "jbis-0000335975",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00923d",
+      "horse_key": "jbis-0000394672",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a009960",
+      "horse_key": "jbis-0000415580",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0012c8",
+      "horse_key": "jbis-0000335164",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00995f",
+      "horse_key": "jbis-0000408259",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0111e1",
+      "horse_key": "netkeiba-000a0111e1",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001676",
+      "horse_key": "jbis-0000336085",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a000e04",
+      "horse_key": "jbis-0000334002",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0081e9",
+      "horse_key": "jbis-0000390581",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a009fa4",
+      "horse_key": "jbis-0000416199",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00176c",
+      "horse_key": "jbis-0000336322",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a008c3e",
+      "horse_key": "jbis-0000393182",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a01322f",
+      "horse_key": "netkeiba-000a01322f",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001e69",
+      "horse_key": "netkeiba-000a001e69",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001b88",
+      "horse_key": "jbis-0000337340",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a000ed9",
+      "horse_key": "jbis-0000335314",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0090a9",
+      "horse_key": "netkeiba-000a0090a9",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a009065",
+      "horse_key": "netkeiba-000a009065",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0010e8",
+      "horse_key": "jbis-0000334726",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a009064",
+      "horse_key": "netkeiba-000a009064",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00a085",
+      "horse_key": "netkeiba-000a00a085",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001b87",
+      "horse_key": "jbis-0000337339",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0000d3",
+      "horse_key": "jbis-0000336082",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00909c",
+      "horse_key": "jbis-0000394259",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a013244",
+      "horse_key": "netkeiba-000a013244",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001033",
+      "horse_key": "jbis-0000334546",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a007138",
+      "horse_key": "netkeiba-000a007138",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00232b",
+      "horse_key": "jbis-0000714343",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00185d",
+      "horse_key": "jbis-0000336572",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a000f8c",
+      "horse_key": "jbis-0000334378",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00702e",
+      "horse_key": "jbis-0000386225",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a008892",
+      "horse_key": "jbis-0000392264",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001183",
+      "horse_key": "jbis-0000334859",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "1989109105",
+      "horse_key": "jbis-0000225908",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0017b0",
+      "horse_key": "jbis-0000336395",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0081ee",
+      "horse_key": "jbis-0000390586",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a009786",
+      "horse_key": "jbis-0000406125",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0017ef",
+      "horse_key": "jbis-0000336459",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a009785",
+      "horse_key": "jbis-0000406124",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a012d2d",
+      "horse_key": "netkeiba-000a012d2d",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a002328",
+      "horse_key": "jbis-0000365118",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001f3f",
+      "horse_key": "jbis-0000341066",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00a159",
+      "horse_key": "jbis-0000407506",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00b6ce",
+      "horse_key": "jbis-0000410548",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a001bda",
+      "horse_key": "jbis-0000337423",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a00a1ad",
+      "horse_key": "jbis-0000410547",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a012d2c",
+      "horse_key": "netkeiba-000a012d2c",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a000843",
+      "horse_key": "jbis-0000342675",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0015ca",
+      "horse_key": "jbis-0000335911",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a009614",
+      "horse_key": "jbis-0000408196",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a010c23",
+      "horse_key": "netkeiba-000a010c23",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a0016eb",
+      "horse_key": "jbis-0000336202",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a009241",
+      "horse_key": "jbis-0000394676",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "000a02ca82",
+      "horse_key": "netkeiba-000a02ca82",
+      "method": "NEW_INDEPENDENT_PROVIDER_ID"
+    },
+    {
+      "provider_id": "000a013fa9",
+      "horse_key": "netkeiba-000a013fa9",
+      "method": "NEW_INDEPENDENT_PROVIDER_ID"
+    }
+  ]
+}
