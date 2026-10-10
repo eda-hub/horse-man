@@ -1,0 +1,90 @@
+{
+  "horse_key": "netkeiba-000a02dd40",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2010,
+    "external_ids": {
+      "NETKEIBA": "000a02dd40"
+    },
+    "identity_evidence": {
+      "record_key": "000a02dd40",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02d860"
+    },
+    "name": "Rocaille (仏)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:00:51.434478+00:00",
+  "identity_observed_at": "2026-10-10T10:00:51.434478+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2010,
+    "external_ids": {
+      "NETKEIBA": "000a02dd40"
+    },
+    "identity_evidence": {
+      "record_key": "000a02dd40",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02d860"
+    },
+    "name": "Rocaille (仏)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:00:51.683706+00:00",
+      "content_hash": "782042802496a5fd62807fb38057024586d819b94ce56ca7435bf3a8f54b2691",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:00:51.683698+00:00",
+      "input_hash": "dc0ee5059c0e29deb189cab2146d72896df14ed9576cd5cd5a95fe26c78fa8ce",
+      "previous_revision": null,
+      "revision_id": "rev-dc0ee5059c0e29deb189cab2",
+      "saved_at": "2026-10-10T10:00:51.685992+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "64af8bc0b58c1926d9761b7abaf518a9f18e4402781d5cbda372b54eb4b0f382",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d860:DS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d860/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a0022e2",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:00:51.694281+00:00",
+      "content_hash": "d7f41c7b8111d9a6653c77107e334799d92ec6bcfc5320c88b2291919f3c6f4b",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:00:51.694274+00:00",
+      "input_hash": "329af9104d3cf27fa7289996787dcc41e2a446bbc743e088d3b9e0c8bda6b03b",
+      "previous_revision": null,
+      "revision_id": "rev-329af9104d3cf27fa7289996",
+      "saved_at": "2026-10-10T10:00:51.694559+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "64af8bc0b58c1926d9761b7abaf518a9f18e4402781d5cbda372b54eb4b0f382",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d860:DD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d860/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a02dd42",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}
