@@ -74,7 +74,14 @@ def check(root=Path('.')):
    birth=next(tr.children('td')[0].text_content().strip() for tr in [tr for tr in profile.walk('tr') if tr.children('th')] if tr.children('th')[0].text_content().strip()=='生年月日');assert int(re.match(r'(\d{4})年',birth)[1])==row['birth_year']
    parent=next(p for p in official if p['horse_number']==int(row['target']['reported_horse_number']));assert parent==row['official_parent_evidence']
    result=next(r for r in race_results['runners'] if r['horse_number']==parent['horse_number']);assert result['birth_year']==row['birth_year']
-   assert all(norm(parsed[p]['name'])==norm(parent[f]) for p,f in [('S','sire'),('D','dam'),('DS','damsire')])
+   for ancestry,field in [('S','sire'),('D','dam'),('DS','damsire')]:
+    if norm(parsed[ancestry]['name'])==norm(parent[field]):continue
+    proof=next(e for e in row.get('official_parent_aliases',[]) if e['path']==ancestry)
+    identity=json.loads(registry.path(proof['horse_key']).read_text())['identity']
+    assert digest(identity)==proof['identity_hash'] and identity['external_ids']['NETKEIBA']==parsed[ancestry]['id']==proof['provider_id'] and identity['birth_year']==parsed[ancestry]['birth_year']==proof['birth_year']
+    names={norm(n) for n in [identity['name']]+identity.get('aliases',[])}
+    assert norm(parsed[ancestry]['name']) in names and norm(parent[field]) in names and proof['table_name']==parsed[ancestry]['name'] and proof['official_name']==parent[field]
+
    assert row['registry_promoted'] and row['status']=='REGISTERED_5_GENERATIONS'
    for ancestry,key in row['ancestor_keys'].items():
     fact=registry.edge(row['horse_key'],ancestry,batch['data_cutoff']);assert fact['status']=='VERIFIED' and fact['value']==key
