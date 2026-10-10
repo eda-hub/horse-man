@@ -11,9 +11,11 @@
       "OBJECTIVE_FACT_CANDIDATE": 106
     },
     "original_official_matches": 106,
-    "linked_by_simple_field_text": 0
+    "linked_by_simple_field_text": 106,
+    "objective_field_link_errors": 0,
+    "claims_with_all_components_source_matched": 53
   },
-  "warning": "レガシー記述の全文をVERIFIEDに変換せず、成績・適性の仮説は原文状態を保持。出所側matchesが106であっても紐付けが一意でなければ手動判定までOPEN。",
+  "warning": "客観的父・母父106成分についてJRA個体原票を追跡照合した。これは旧535記述全体の検証や解釈の正しさを意味せず、レガシーmanifestは未確認状態を維持する。",
   "claims": [
     {
       "claim_id": "daa8625e2bdac0900fe090c86c664cca9c3e704d8166d46eb4963d5b12ee3d28",
@@ -2385,18 +2387,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ミホマル",
+            "horse_external_id": "2024101431",
+            "expected": "グレーターロンドン",
+            "actual": "グレーターロンドン",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024101431%2F2B",
+            "source_record_hash": "c703171cfa026a209e1821b425b9c30b0ef8cc20c07c9a24a34fe44230625870"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ミホマル",
+            "horse_external_id": "2024101431",
+            "expected": "シニスターミニスター",
+            "actual": "シニスターミニスター",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024101431%2F2B",
+            "source_record_hash": "c703171cfa026a209e1821b425b9c30b0ef8cc20c07c9a24a34fe44230625870"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2416,18 +2436,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ダイヴ",
+            "horse_external_id": "2024100874",
+            "expected": "インディチャンプ",
+            "actual": "インディチャンプ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024100874%2FB2",
+            "source_record_hash": "3243fe0a03fc0b5fb8280baa7b7d84a46346448a8a442891f9c36a87dd9b8c11"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ダイヴ",
+            "horse_external_id": "2024100874",
+            "expected": "クロフネ",
+            "actual": "クロフネ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024100874%2FB2",
+            "source_record_hash": "3243fe0a03fc0b5fb8280baa7b7d84a46346448a8a442891f9c36a87dd9b8c11"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2447,18 +2485,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "リアルハーン",
+            "horse_external_id": "2024102352",
+            "expected": "ヴァンゴッホ",
+            "actual": "ヴァンゴッホ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102352%2F95",
+            "source_record_hash": "cfda8fd2c33c68c2315d8b2499a42c8cde1624e07292ebb53be10548c97a46f0"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "リアルハーン",
+            "horse_external_id": "2024102352",
+            "expected": "アグネスタキオン",
+            "actual": "アグネスタキオン",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102352%2F95",
+            "source_record_hash": "cfda8fd2c33c68c2315d8b2499a42c8cde1624e07292ebb53be10548c97a46f0"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2478,18 +2534,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "マカロンボイス",
+            "horse_external_id": "2024101322",
+            "expected": "フィレンツェファイア",
+            "actual": "フィレンツェファイア",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024101322%2F5D",
+            "source_record_hash": "690e990e5c379aac0adde2a3959fee32262e35051f8c9fcc12a958b7cc233c0d"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "マカロンボイス",
+            "horse_external_id": "2024101322",
+            "expected": "チーフベアハート",
+            "actual": "チーフベアハート",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024101322%2F5D",
+            "source_record_hash": "690e990e5c379aac0adde2a3959fee32262e35051f8c9fcc12a958b7cc233c0d"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2509,18 +2583,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "インユアスカイ",
+            "horse_external_id": "2024103353",
+            "expected": "ドレフォン",
+            "actual": "ドレフォン",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024103353%2FF7",
+            "source_record_hash": "872d067f4629f2cbfa55523a10bae673d813862480810e3e6bdaf03514d388a4"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "インユアスカイ",
+            "horse_external_id": "2024103353",
+            "expected": "エピファネイア",
+            "actual": "エピファネイア",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024103353%2FF7",
+            "source_record_hash": "872d067f4629f2cbfa55523a10bae673d813862480810e3e6bdaf03514d388a4"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2540,18 +2632,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "スリーオブスペイズ",
+            "horse_external_id": "2024108284",
+            "expected": "Tacitus",
+            "actual": "Tacitus",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024108284%2FFB",
+            "source_record_hash": "37d6c45c8975678f75bc06760c595c7fc4873da33c4b4f6bf5934def4ed23ee4"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "スリーオブスペイズ",
+            "horse_external_id": "2024108284",
+            "expected": "Despite the Odds",
+            "actual": "Despite the Odds",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024108284%2FFB",
+            "source_record_hash": "37d6c45c8975678f75bc06760c595c7fc4873da33c4b4f6bf5934def4ed23ee4"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2571,18 +2681,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "オージーブラック",
+            "horse_external_id": "2024101134",
+            "expected": "シャンハイボビー",
+            "actual": "シャンハイボビー",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024101134%2F0A",
+            "source_record_hash": "a3a99489984fab7b651c07c691f9793927ce8430ee5d2f567991b48b904c842d"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "オージーブラック",
+            "horse_external_id": "2024101134",
+            "expected": "スペシャルウィーク",
+            "actual": "スペシャルウィーク",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024101134%2F0A",
+            "source_record_hash": "a3a99489984fab7b651c07c691f9793927ce8430ee5d2f567991b48b904c842d"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2602,18 +2730,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "マンノエンプレス",
+            "horse_external_id": "2024101394",
+            "expected": "ロジャーバローズ",
+            "actual": "ロジャーバローズ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024101394%2FCC",
+            "source_record_hash": "304cd9dc5f8e482864857dee9c9c7fc3706272a64b7269143df22b25bb484866"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "マンノエンプレス",
+            "horse_external_id": "2024101394",
+            "expected": "トウカイテイオー",
+            "actual": "トウカイテイオー",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024101394%2FCC",
+            "source_record_hash": "304cd9dc5f8e482864857dee9c9c7fc3706272a64b7269143df22b25bb484866"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2633,18 +2779,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アップルペアー",
+            "horse_external_id": "2024107251",
+            "expected": "スマートファルコン",
+            "actual": "スマートファルコン",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024107251%2F83",
+            "source_record_hash": "17e4557a673743939f9ee444307b2a72b8b545f91a339c9a91b441a577d24ae3"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アップルペアー",
+            "horse_external_id": "2024107251",
+            "expected": "タイムパラドックス",
+            "actual": "タイムパラドックス",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024107251%2F83",
+            "source_record_hash": "17e4557a673743939f9ee444307b2a72b8b545f91a339c9a91b441a577d24ae3"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2664,18 +2828,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ランスオブナイト",
+            "horse_external_id": "2024106792",
+            "expected": "シャンハイボビー",
+            "actual": "シャンハイボビー",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106792%2F55",
+            "source_record_hash": "d4abeada984082a9d598a3267e40018b117bb07e105ecab54ec628de1d109503"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ランスオブナイト",
+            "horse_external_id": "2024106792",
+            "expected": "ヘニーヒューズ",
+            "actual": "ヘニーヒューズ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106792%2F55",
+            "source_record_hash": "d4abeada984082a9d598a3267e40018b117bb07e105ecab54ec628de1d109503"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2695,18 +2877,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "エリーマイラヴ",
+            "horse_external_id": "2024108341",
+            "expected": "Army Mule",
+            "actual": "Army Mule",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024108341%2F93",
+            "source_record_hash": "a755d1a14a431891e0a1b1f47b9d4a4c6219cb2ba39d0b9fc90a80537727759a"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "エリーマイラヴ",
+            "horse_external_id": "2024108341",
+            "expected": "Sky Kingdom",
+            "actual": "Sky Kingdom",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024108341%2F93",
+            "source_record_hash": "a755d1a14a431891e0a1b1f47b9d4a4c6219cb2ba39d0b9fc90a80537727759a"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2726,18 +2926,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "フェイマスウルフ",
+            "horse_external_id": "2024100276",
+            "expected": "シャンハイボビー",
+            "actual": "シャンハイボビー",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024100276%2F59",
+            "source_record_hash": "a377b01eb09cff18200685b2a566aeb3e4bc01822098559e098df3972f7d30cf"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "フェイマスウルフ",
+            "horse_external_id": "2024100276",
+            "expected": "パイロ",
+            "actual": "パイロ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024100276%2F59",
+            "source_record_hash": "a377b01eb09cff18200685b2a566aeb3e4bc01822098559e098df3972f7d30cf"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2757,18 +2975,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アマリス",
+            "horse_external_id": "2024101482",
+            "expected": "アジアエクスプレス",
+            "actual": "アジアエクスプレス",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024101482%2FEE",
+            "source_record_hash": "44471da239834b55494a1ab4392a24c6b354970d7fc85f88d5660f75613d6712"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アマリス",
+            "horse_external_id": "2024101482",
+            "expected": "ディープインパクト",
+            "actual": "ディープインパクト",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024101482%2FEE",
+            "source_record_hash": "44471da239834b55494a1ab4392a24c6b354970d7fc85f88d5660f75613d6712"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2836,18 +3072,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ギニー",
+            "horse_external_id": "2024102946",
+            "expected": "チュウワウィザード",
+            "actual": "チュウワウィザード",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024102946%2F5E",
+            "source_record_hash": "a20e29379cc1cb17b5b6c65b9e280e7153e3b8a62677bb0e8971389ff0b11ecd"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ギニー",
+            "horse_external_id": "2024102946",
+            "expected": "ゴールドアリュール",
+            "actual": "ゴールドアリュール",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024102946%2F5E",
+            "source_record_hash": "a20e29379cc1cb17b5b6c65b9e280e7153e3b8a62677bb0e8971389ff0b11ecd"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2898,18 +3152,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "クラウンソクラテス",
+            "horse_external_id": "2024100299",
+            "expected": "ルーラーシップ",
+            "actual": "ルーラーシップ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://sp.jra.jp/JRADB/accessU.html?CNAME=sj01ude002024100299%2F60",
+            "source_record_hash": "e04222e319256dfa074d640cdd79e0cb5f15d77e4250127678bd31407a6c8d8e"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "クラウンソクラテス",
+            "horse_external_id": "2024100299",
+            "expected": "モーリス",
+            "actual": "モーリス",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://sp.jra.jp/JRADB/accessU.html?CNAME=sj01ude002024100299%2F60",
+            "source_record_hash": "e04222e319256dfa074d640cdd79e0cb5f15d77e4250127678bd31407a6c8d8e"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2929,18 +3201,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アンバーライト",
+            "horse_external_id": "2024104135",
+            "expected": "エイシンフラッシュ",
+            "actual": "エイシンフラッシュ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024104135%2F4A",
+            "source_record_hash": "dc6505585161afd433f87976c49d3f4d546e6d3934c5428de889e02145886fea"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アンバーライト",
+            "horse_external_id": "2024104135",
+            "expected": "Danehill Dancer",
+            "actual": "Danehill Dancer",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024104135%2F4A",
+            "source_record_hash": "dc6505585161afd433f87976c49d3f4d546e6d3934c5428de889e02145886fea"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2960,18 +3250,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ジュンキング",
+            "horse_external_id": "2024106382",
+            "expected": "キタサンブラック",
+            "actual": "キタサンブラック",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106382%2F81",
+            "source_record_hash": "17c3627acaf0abae50d1b8c6a3cc43f79ad02606a917d8aa92313288ecaae7e3"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ジュンキング",
+            "horse_external_id": "2024106382",
+            "expected": "Noble Mission",
+            "actual": "Noble Mission",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106382%2F81",
+            "source_record_hash": "17c3627acaf0abae50d1b8c6a3cc43f79ad02606a917d8aa92313288ecaae7e3"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -2991,18 +3299,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "オミゴト",
+            "horse_external_id": "2024105657",
+            "expected": "ロジャーバローズ",
+            "actual": "ロジャーバローズ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024105657%2F1B",
+            "source_record_hash": "0aec6d42b3fe416221ec68db11b483e546594c08353d3b05447e4efffd3ecd77"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "オミゴト",
+            "horse_external_id": "2024105657",
+            "expected": "アルデバランⅡ",
+            "actual": "アルデバラン2",
+            "match_status": "ALIAS_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024105657%2F1B",
+            "source_record_hash": "0aec6d42b3fe416221ec68db11b483e546594c08353d3b05447e4efffd3ecd77"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3022,18 +3348,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アスクハイタッチ",
+            "horse_external_id": "2024102223",
+            "expected": "サートゥルナーリア",
+            "actual": "サートゥルナーリア",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024102223%2F8E",
+            "source_record_hash": "0562b5de42d88b512ebb54ac61fbb8ff4acd1f5998bde975add3c943fffab27a"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アスクハイタッチ",
+            "horse_external_id": "2024102223",
+            "expected": "Forestry",
+            "actual": "Forestry",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024102223%2F8E",
+            "source_record_hash": "0562b5de42d88b512ebb54ac61fbb8ff4acd1f5998bde975add3c943fffab27a"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3077,18 +3421,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "シュテルンライト",
+            "horse_external_id": "2024102827",
+            "expected": "レイデオロ",
+            "actual": "レイデオロ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024102827%2F80",
+            "source_record_hash": "b964d7e2406c27be635c4a1899ef2f1754be3f3b9857181d5152788ce66b9518"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "シュテルンライト",
+            "horse_external_id": "2024102827",
+            "expected": "ハービンジャー",
+            "actual": "ハービンジャー",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024102827%2F80",
+            "source_record_hash": "b964d7e2406c27be635c4a1899ef2f1754be3f3b9857181d5152788ce66b9518"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3108,18 +3470,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "トロカアニマダ",
+            "horse_external_id": "2024103593",
+            "expected": "ベンバトル",
+            "actual": "ベンバトル",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024103593%2F80",
+            "source_record_hash": "e49a9d7ca4ca4fae0ae3134d456a86d815dbdb9f1d54176cb9952201a831baa5"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "トロカアニマダ",
+            "horse_external_id": "2024103593",
+            "expected": "ゴールドシップ",
+            "actual": "ゴールドシップ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024103593%2F80",
+            "source_record_hash": "e49a9d7ca4ca4fae0ae3134d456a86d815dbdb9f1d54176cb9952201a831baa5"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3163,18 +3543,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ザキノシュガー",
+            "horse_external_id": "2024103519",
+            "expected": "エフフォーリア",
+            "actual": "エフフォーリア",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024103519%2FCB",
+            "source_record_hash": "3cf831a324f296ce716eba9eb3c4c89320959278b2294bacdbac9129cfcfeba5"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ザキノシュガー",
+            "horse_external_id": "2024103519",
+            "expected": "Indygo Shiner",
+            "actual": "Indygo Shiner",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024103519%2FCB",
+            "source_record_hash": "3cf831a324f296ce716eba9eb3c4c89320959278b2294bacdbac9129cfcfeba5"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3194,18 +3592,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ジワールドコア",
+            "horse_external_id": "2024103199",
+            "expected": "オルフェーヴル",
+            "actual": "オルフェーヴル",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024103199%2F87",
+            "source_record_hash": "e6c019d5149978c9a912200f63f0945e537f69678a1fccc1216fac1b478e273e"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ジワールドコア",
+            "horse_external_id": "2024103199",
+            "expected": "Mr. Greeley",
+            "actual": "Mr. Greeley",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024103199%2F87",
+            "source_record_hash": "e6c019d5149978c9a912200f63f0945e537f69678a1fccc1216fac1b478e273e"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3225,18 +3641,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "タナオルフォーリア",
+            "horse_external_id": "2024109036",
+            "expected": "エフフォーリア",
+            "actual": "エフフォーリア",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024109036%2F1E",
+            "source_record_hash": "e7679bda440d79539dc4a8c725da4a3a9da4dba611e2cc47d9da41101a1cf901"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "タナオルフォーリア",
+            "horse_external_id": "2024109036",
+            "expected": "オルフェーヴル",
+            "actual": "オルフェーヴル",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024109036%2F1E",
+            "source_record_hash": "e7679bda440d79539dc4a8c725da4a3a9da4dba611e2cc47d9da41101a1cf901"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3287,18 +3721,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ジーティーカグラ",
+            "horse_external_id": "2024102550",
+            "expected": "ルヴァンスレーヴ",
+            "actual": "ルヴァンスレーヴ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102550%2F11",
+            "source_record_hash": "8c5313d02cd571d7192d4e1bb7540fd4a4dc55271d304553103b556dae30f9ba"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ジーティーカグラ",
+            "horse_external_id": "2024102550",
+            "expected": "ゴールドアリュール",
+            "actual": "ゴールドアリュール",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102550%2F11",
+            "source_record_hash": "8c5313d02cd571d7192d4e1bb7540fd4a4dc55271d304553103b556dae30f9ba"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3318,18 +3770,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "コールレスポンス",
+            "horse_external_id": "2024106796",
+            "expected": "ミッキーアイル",
+            "actual": "ミッキーアイル",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106796%2F21",
+            "source_record_hash": "ce498d9a10a090326c230328efa315eec1a5646a34a16c564ad349f1fa5852cb"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "コールレスポンス",
+            "horse_external_id": "2024106796",
+            "expected": "ダンカーク",
+            "actual": "ダンカーク",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106796%2F21",
+            "source_record_hash": "ce498d9a10a090326c230328efa315eec1a5646a34a16c564ad349f1fa5852cb"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3349,18 +3819,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "コールドアズアイス",
+            "horse_external_id": "2024102162",
+            "expected": "サンダースノー",
+            "actual": "サンダースノー",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102162%2F43",
+            "source_record_hash": "1f6b306e246c66f07f7a233fc3ade139d9427d48dd35d2b97756f4137c74f214"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "コールドアズアイス",
+            "horse_external_id": "2024102162",
+            "expected": "アドマイヤムーン",
+            "actual": "アドマイヤムーン",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102162%2F43",
+            "source_record_hash": "1f6b306e246c66f07f7a233fc3ade139d9427d48dd35d2b97756f4137c74f214"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3380,18 +3868,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "オーケーグラン",
+            "horse_external_id": "2024102824",
+            "expected": "マインドユアビスケッツ",
+            "actual": "マインドユアビスケッツ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102824%2F40",
+            "source_record_hash": "894dd868b09182635afecd5709bc5a0d89941788096ba649a2793dc4869de5c7"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "オーケーグラン",
+            "horse_external_id": "2024102824",
+            "expected": "フジキセキ",
+            "actual": "フジキセキ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102824%2F40",
+            "source_record_hash": "894dd868b09182635afecd5709bc5a0d89941788096ba649a2793dc4869de5c7"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3411,18 +3917,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アルヴィットーリア",
+            "horse_external_id": "2024101248",
+            "expected": "アルクトス",
+            "actual": "アルクトス",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024101248%2F17",
+            "source_record_hash": "dda35772db96228ee86ab79d69a73762975ff2295a04b5e91373905be43c7052"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アルヴィットーリア",
+            "horse_external_id": "2024101248",
+            "expected": "ディープブリランテ",
+            "actual": "ディープブリランテ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024101248%2F17",
+            "source_record_hash": "dda35772db96228ee86ab79d69a73762975ff2295a04b5e91373905be43c7052"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3442,18 +3966,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "フェデュデスタン",
+            "horse_external_id": "2024102205",
+            "expected": "チュウワウィザード",
+            "actual": "チュウワウィザード",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024102205%2F54",
+            "source_record_hash": "185c9493a13c2e1c5aba6e608d3064ac9bdd12c0be6e58c2be31a92418ddce92"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "フェデュデスタン",
+            "horse_external_id": "2024102205",
+            "expected": "ヴィクトワールピサ",
+            "actual": "ヴィクトワールピサ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024102205%2F54",
+            "source_record_hash": "185c9493a13c2e1c5aba6e608d3064ac9bdd12c0be6e58c2be31a92418ddce92"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3473,18 +4015,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "マックスプロックス",
+            "horse_external_id": "2024106024",
+            "expected": "マインドユアビスケッツ",
+            "actual": "マインドユアビスケッツ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024106024%2F5B",
+            "source_record_hash": "03b5d65c4c7ddffbd0ad125c527f870c18aba2c7b91453e1c3c0d4ee82c3dad5"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "マックスプロックス",
+            "horse_external_id": "2024106024",
+            "expected": "ステイゴールド",
+            "actual": "ステイゴールド",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024106024%2F5B",
+            "source_record_hash": "03b5d65c4c7ddffbd0ad125c527f870c18aba2c7b91453e1c3c0d4ee82c3dad5"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3504,18 +4064,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "タイザンフクン",
+            "horse_external_id": "2024106984",
+            "expected": "ナダル",
+            "actual": "ナダル",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106984%2F8D",
+            "source_record_hash": "a2f0737c8f611592aa3904bbdd3fa372a3ac265b2f991fced37dea5924745342"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "タイザンフクン",
+            "horse_external_id": "2024106984",
+            "expected": "ネオユニヴァース",
+            "actual": "ネオユニヴァース",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106984%2F8D",
+            "source_record_hash": "a2f0737c8f611592aa3904bbdd3fa372a3ac265b2f991fced37dea5924745342"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3535,18 +4113,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ヴェントセラーレ",
+            "horse_external_id": "2024106966",
+            "expected": "ルヴァンスレーヴ",
+            "actual": "ルヴァンスレーヴ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106966%2F53",
+            "source_record_hash": "7f625acd0d67e09a478054440ffc6a9da69efeddf941ba9fc64ed120f3ee7f6b"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ヴェントセラーレ",
+            "horse_external_id": "2024106966",
+            "expected": "オルフェーヴル",
+            "actual": "オルフェーヴル",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106966%2F53",
+            "source_record_hash": "7f625acd0d67e09a478054440ffc6a9da69efeddf941ba9fc64ed120f3ee7f6b"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3566,18 +4162,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "エコロゴッド",
+            "horse_external_id": "2024107322",
+            "expected": "American Pharoah",
+            "actual": "American Pharoah",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024107322%2FF7",
+            "source_record_hash": "e32ae9e5ee79b76d4a590a6a83dcea76d5f990f553b18985ad5468e391a06cbc"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "エコロゴッド",
+            "horse_external_id": "2024107322",
+            "expected": "Munnings",
+            "actual": "Munnings",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024107322%2FF7",
+            "source_record_hash": "e32ae9e5ee79b76d4a590a6a83dcea76d5f990f553b18985ad5468e391a06cbc"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3597,18 +4211,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "サラサハヤブサ",
+            "horse_external_id": "2024104345",
+            "expected": "シニスターミニスター",
+            "actual": "シニスターミニスター",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024104345%2FBC",
+            "source_record_hash": "2662b6eaab1bdb882f1e280d1378c738f9ccf2f6b5b1085883c1ef6f827c924e"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "サラサハヤブサ",
+            "horse_external_id": "2024104345",
+            "expected": "Medaglia d'Oro",
+            "actual": "Medaglia d'Oro",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024104345%2FBC",
+            "source_record_hash": "2662b6eaab1bdb882f1e280d1378c738f9ccf2f6b5b1085883c1ef6f827c924e"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3628,18 +4260,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ピュアティアラ",
+            "horse_external_id": "2024101205",
+            "expected": "シニスターミニスター",
+            "actual": "シニスターミニスター",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024101205%2F65",
+            "source_record_hash": "254643f861172afc8725314713a7b6786a8e5a015462833899ad9713ae82afd4"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ピュアティアラ",
+            "horse_external_id": "2024101205",
+            "expected": "ゴールドアリュール",
+            "actual": "ゴールドアリュール",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024101205%2F65",
+            "source_record_hash": "254643f861172afc8725314713a7b6786a8e5a015462833899ad9713ae82afd4"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3659,18 +4309,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "シンボリサーブル",
+            "horse_external_id": "2024102327",
+            "expected": "マジェスティックウォリアー",
+            "actual": "マジェスティックウォリアー",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024102327%2F8B",
+            "source_record_hash": "19edad028b0e6d9d42074bfad98e5449f3f622432c4c897f74c5b13d3db041a2"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "シンボリサーブル",
+            "horse_external_id": "2024102327",
+            "expected": "サクラバクシンオー",
+            "actual": "サクラバクシンオー",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024102327%2F8B",
+            "source_record_hash": "19edad028b0e6d9d42074bfad98e5449f3f622432c4c897f74c5b13d3db041a2"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3690,18 +4358,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ワイドヴァラー",
+            "horse_external_id": "2024108373",
+            "expected": "Yaupon",
+            "actual": "Yaupon",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024108373%2FC2",
+            "source_record_hash": "13d3f7ada4e50881cb60886e4ebab1193b82c1d1679864b752f937f28d96364b"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ワイドヴァラー",
+            "horse_external_id": "2024108373",
+            "expected": "Into Mischief",
+            "actual": "Into Mischief",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024108373%2FC2",
+            "source_record_hash": "13d3f7ada4e50881cb60886e4ebab1193b82c1d1679864b752f937f28d96364b"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3721,18 +4407,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ドーリック",
+            "horse_external_id": "2024105845",
+            "expected": "マインドユアビスケッツ",
+            "actual": "マインドユアビスケッツ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024105845%2F87",
+            "source_record_hash": "c36ef64372b3cc5bab6b89e99f6b67e503c69262880f687f763e586a81659254"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ドーリック",
+            "horse_external_id": "2024105845",
+            "expected": "ゴールドアリュール",
+            "actual": "ゴールドアリュール",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024105845%2F87",
+            "source_record_hash": "c36ef64372b3cc5bab6b89e99f6b67e503c69262880f687f763e586a81659254"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3752,18 +4456,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アストロカノン",
+            "horse_external_id": "2024102760",
+            "expected": "アルクトス",
+            "actual": "アルクトス",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102760%2F83",
+            "source_record_hash": "362b8c5a47ed4525640c8ebf3e0f4e26c9d2b5c522a83420620a69c906015144"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "アストロカノン",
+            "horse_external_id": "2024102760",
+            "expected": "フォーティナイナーズサン",
+            "actual": "フォーティナイナーズサン",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102760%2F83",
+            "source_record_hash": "362b8c5a47ed4525640c8ebf3e0f4e26c9d2b5c522a83420620a69c906015144"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3807,18 +4529,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "サンデー",
+            "horse_external_id": "2024102192",
+            "expected": "モーリス",
+            "actual": "モーリス",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102192%2F73",
+            "source_record_hash": "79ff69fb5b2263708aea593d75db4c14724902405b1d63bdd1d701fad11c6325"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "サンデー",
+            "horse_external_id": "2024102192",
+            "expected": "アドマイヤムーン",
+            "actual": "アドマイヤムーン",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102192%2F73",
+            "source_record_hash": "79ff69fb5b2263708aea593d75db4c14724902405b1d63bdd1d701fad11c6325"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3838,18 +4578,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ゴールドパーティー",
+            "horse_external_id": "2024103682",
+            "expected": "ゴールドアクター",
+            "actual": "ゴールドアクター",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024103682%2F47",
+            "source_record_hash": "cefe6da48009c1ba558f07db720d8d516b06858c39007a72408541c10f95345a"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ゴールドパーティー",
+            "horse_external_id": "2024103682",
+            "expected": "フジキセキ",
+            "actual": "フジキセキ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024103682%2F47",
+            "source_record_hash": "cefe6da48009c1ba558f07db720d8d516b06858c39007a72408541c10f95345a"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3869,18 +4627,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ドンタククイーン",
+            "horse_external_id": "2024105603",
+            "expected": "Highland Reel",
+            "actual": "ハイランドリール",
+            "match_status": "ALIAS_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024105603%2FFF",
+            "source_record_hash": "b7c1447dbe60e521ffbffc3a721f840a3dce2eb1489b73124c3a88abaa50fdbc"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ドンタククイーン",
+            "horse_external_id": "2024105603",
+            "expected": "サクラプレジデント",
+            "actual": "サクラプレジデント",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024105603%2FFF",
+            "source_record_hash": "b7c1447dbe60e521ffbffc3a721f840a3dce2eb1489b73124c3a88abaa50fdbc"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3900,18 +4676,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ヘヴンリーワールド",
+            "horse_external_id": "2024103194",
+            "expected": "ワールドプレミア",
+            "actual": "ワールドプレミア",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024103194%2F2F",
+            "source_record_hash": "64f8fcbf27b91d801ee6f22ffc43c154cc64b879eb39e4e0311e321b06a48189"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ヘヴンリーワールド",
+            "horse_external_id": "2024103194",
+            "expected": "ヨハネスブルグ",
+            "actual": "ヨハネスブルグ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024103194%2F2F",
+            "source_record_hash": "64f8fcbf27b91d801ee6f22ffc43c154cc64b879eb39e4e0311e321b06a48189"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3955,18 +4749,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "レンミッキ",
+            "horse_external_id": "2024100094",
+            "expected": "ウインブライト",
+            "actual": "ウインブライト",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024100094%2F4A",
+            "source_record_hash": "a45da359fb2f9a8b0c23aa10cb7ff0b9b0c7e95c5ad6390cebc86efba234a4dc"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "レンミッキ",
+            "horse_external_id": "2024100094",
+            "expected": "ヤマニンセラフィム",
+            "actual": "ヤマニンセラフィム",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024100094%2F4A",
+            "source_record_hash": "a45da359fb2f9a8b0c23aa10cb7ff0b9b0c7e95c5ad6390cebc86efba234a4dc"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -3986,18 +4798,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ランプリサージュ",
+            "horse_external_id": "2024102484",
+            "expected": "キタサンブラック",
+            "actual": "キタサンブラック",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102484%2FDC",
+            "source_record_hash": "a0e909a9bd04c9c28ca50a7720c8fe50b84af6a49794269fea69459db26cef5b"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ランプリサージュ",
+            "horse_external_id": "2024102484",
+            "expected": "キングカメハメハ",
+            "actual": "キングカメハメハ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102484%2FDC",
+            "source_record_hash": "a0e909a9bd04c9c28ca50a7720c8fe50b84af6a49794269fea69459db26cef5b"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -4017,18 +4847,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "リリーリリー",
+            "horse_external_id": "2024103863",
+            "expected": "アドマイヤマーズ",
+            "actual": "アドマイヤマーズ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024103863%2FE3",
+            "source_record_hash": "ce2abda0983ef719bdb5b77b3c81247b59d6563924e3394efc703d8fd347fb59"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "リリーリリー",
+            "horse_external_id": "2024103863",
+            "expected": "ミッキーアイル",
+            "actual": "Mikki Isle",
+            "match_status": "ALIAS_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024103863%2FE3",
+            "source_record_hash": "ce2abda0983ef719bdb5b77b3c81247b59d6563924e3394efc703d8fd347fb59"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -4048,18 +4896,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ウィレマイト",
+            "horse_external_id": "2024106317",
+            "expected": "マインドユアビスケッツ",
+            "actual": "マインドユアビスケッツ",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106317%2F50",
+            "source_record_hash": "033c09eed9842b375cc868acf6bff7c0531f12d986da7d81e5e523b4dc6af5fc"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ウィレマイト",
+            "horse_external_id": "2024106317",
+            "expected": "ダイワメジャー",
+            "actual": "ダイワメジャー",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106317%2F50",
+            "source_record_hash": "033c09eed9842b375cc868acf6bff7c0531f12d986da7d81e5e523b4dc6af5fc"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -4079,18 +4945,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "シドニーハーバー",
+            "horse_external_id": "2024100645",
+            "expected": "タワーオブロンドン",
+            "actual": "タワーオブロンドン",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024100645%2F93",
+            "source_record_hash": "286ec4bd8b2b0e64d51bbbf04aa9205a9a93553b56bcc1b8007d9c0db4462982"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "シドニーハーバー",
+            "horse_external_id": "2024100645",
+            "expected": "オルフェーヴル",
+            "actual": "オルフェーヴル",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024100645%2F93",
+            "source_record_hash": "286ec4bd8b2b0e64d51bbbf04aa9205a9a93553b56bcc1b8007d9c0db4462982"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -4110,18 +4994,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "リプレイハズシ",
+            "horse_external_id": "2024109045",
+            "expected": "サトノクラウン",
+            "actual": "サトノクラウン",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024109045%2FBB",
+            "source_record_hash": "d1515260758066a2951134711b71ca4be8f8ae0c882c0dee2e7570c41722ab81"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "リプレイハズシ",
+            "horse_external_id": "2024109045",
+            "expected": "アドマイヤムーン",
+            "actual": "アドマイヤムーン",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102024109045%2FBB",
+            "source_record_hash": "d1515260758066a2951134711b71ca4be8f8ae0c882c0dee2e7570c41722ab81"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -4141,18 +5043,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ディアム",
+            "horse_external_id": "2024102901",
+            "expected": "エフフォーリア",
+            "actual": "エフフォーリア",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102901%2FF8",
+            "source_record_hash": "0e542e10ae5c24cfeda3efc60ac4fa5c6801c0431248ba5011c5284c5592d791"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ディアム",
+            "horse_external_id": "2024102901",
+            "expected": "モーリス",
+            "actual": "モーリス",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102901%2FF8",
+            "source_record_hash": "0e542e10ae5c24cfeda3efc60ac4fa5c6801c0431248ba5011c5284c5592d791"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -4172,18 +5092,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ニシノメガミサマ",
+            "horse_external_id": "2024101683",
+            "expected": "サリオス",
+            "actual": "サリオス",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024101683%2FDC",
+            "source_record_hash": "e14ce263f72db5fe3e728eea003770a0e290f7374e38a5b230c3512b68d1554b"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ニシノメガミサマ",
+            "horse_external_id": "2024101683",
+            "expected": "オペラハウス",
+            "actual": "オペラハウス",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024101683%2FDC",
+            "source_record_hash": "e14ce263f72db5fe3e728eea003770a0e290f7374e38a5b230c3512b68d1554b"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
@@ -4203,18 +5141,36 @@
           "component_index": 0,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ルージュクエーサー",
+            "horse_external_id": "2024103405",
+            "expected": "ブリックスアンドモルタル",
+            "actual": "ブリックスアンドモルタル",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024103405%2FBE",
+            "source_record_hash": "fdebf7f403106c75b4d7786ba40ec502f58809aa828247a25a428c91526f39be"
+          },
+          "field": "parent:S"
         },
         {
           "component_index": 1,
           "kind": "OBJECTIVE_FACT_CANDIDATE",
           "text": "",
-          "status": "REVIEW_REQUIRED",
-          "linked_original_evidence": null
+          "status": "SOURCE_JRA_PARENT_FIELD_MATCHED",
+          "linked_original_evidence": {
+            "subject": "ルージュクエーサー",
+            "horse_external_id": "2024103405",
+            "expected": "ディープインパクト",
+            "actual": "ディープインパクト",
+            "match_status": "EXACT_MATCH",
+            "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024103405%2FBE",
+            "source_record_hash": "fdebf7f403106c75b4d7786ba40ec502f58809aa828247a25a428c91526f39be"
+          },
+          "field": "parent:DS"
         }
       ],
-      "review_status": "OPEN_REVIEW",
+      "review_status": "OBJECTIVE_FIELDS_SOURCE_MATCHED_NOT_FULL_CLAIM_ADOPTED",
       "source": {
         "acquisition_method": "repository-line-extraction",
         "origin_group": "horse-man",
