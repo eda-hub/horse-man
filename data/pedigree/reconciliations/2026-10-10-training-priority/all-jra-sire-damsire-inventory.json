@@ -9,8 +9,8 @@
     "damsire_references": 2089,
     "labeled_subjects": 613,
     "unlabeled_subjects": 0,
-    "researched_one_country": 29,
-    "not_yet_searched": 584
+    "researched_one_country": 30,
+    "not_yet_searched": 583
   },
   "warning": "馬名の履歴出走表由来ラベルは同定証明にならない。調教国の検索は別途必要。未検索を検索一致ゼロと扱わない。",
   "source_parts": [
@@ -640,9 +640,12 @@
       ],
       "label": "マジェスティックウォリアー(USA)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "TRAINING_COUNTRY_SOURCE_REVIEWED_AWAITING_HASH_AND_REGISTRY_WRITER",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "source_review_country": "US",
+      "source_review_url": "https://news.sp.netkeiba.com/?no=22698&pid=news_view",
+      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json"
     },
     {
       "horse_key": "jbis-0001328857",
