@@ -1,9 +1,15 @@
 # Phase 4 — Prediction Web UI
 
-## 目的
+## 適用状態：対象外/N/A（2026-10-10 利用者指定）
+
+WebUIの新規作成・改修・画面連携・ホスティングは行わない。本Phaseは後続Phaseの依存条件・未完了残件に含めない。以下は参考設計であり、画面の実施・合格を要求しない。
+
+チャット出力・保存/読戻し・監査・Prediction/Shadow分離・結果照合・改訂前履歴の失効は非UI処理で検証し、省略しない。
+
+## 参考：旧目的
 MacのブラウザからProduction予想、条件別補正、Shadow比較を混同せず確認・操作できるようにする。
 
-## 対象
+## 参考：旧対象（実施しない）
 - レース一覧 / race detail
 - `manual_release` / module整合性表示
 - `baseline_forecast_id`
@@ -20,13 +26,13 @@ MacのブラウザからProduction予想、条件別補正、Shadow比較を混�
 - 馬体重・馬場・変更eventの取得時刻/source表示
 - 馬体重の発表検知時刻・最終取得時刻・acquisition method・coverage表示
 
-## 次期推奨買い目（PR68 §25、Stage 2発効後）
+## 参考：旧次期推奨買い目（PR68 §25、Stage 2発効後）
 
 - 固定済みPredictionに紐づく推奨買い目の券種・馬番組合せ・点数・優先順位・構成理由を表示し、推奨なし/明示印のみ/未完了も識別する。
 - 改訂前の推奨は失効を表示し、取消・Prediction変更後の古い構成を有効な最終推奨として扱わない。
 - 予算入力・実購入確認・払戻入力がない状態で推奨を確認できる。PR69の日本語CLI表示は準備実装でありWebUI実画面の代用としない。
 
-## 受入条件
+## 参考：旧画面受入条件（対象外/N/A）
 - MacからWindows VMへローカル接続できる。
 - Internetへ公開されない。
 - ProductionとShadowが視覚的・操作的に明確に分離される。
@@ -42,3 +48,4 @@ MacのブラウザからProduction予想、条件別補正、Shadow比較を混�
 - `PARTIAL` の場合は欠損馬番を表示できる。
 - `data_readiness=DEGRADED` の場合は欠損項目と最終成功時刻・最終試行時刻を明示し、READYと同じ見た目でFINAL確定しない。
 - `SOURCE_ERROR` の判定自体はingest/readiness層で行い、UIはその状態・根拠・最終試行時刻を表示する。UIが外部サイトを独自に照合して障害判定しない。
+
