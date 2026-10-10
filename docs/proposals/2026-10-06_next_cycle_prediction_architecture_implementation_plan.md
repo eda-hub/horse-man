@@ -9,7 +9,7 @@
 - 既存のWebUIコード・文書の削除はこの指示に含まない。現行Productionルールの変更権限も追加しない。
 
 - 作成日: 2026-10-06
-- 更新日: 2026-10-09（オッズ非依存の推奨買い目を追加）
+- 更新日: 2026-10-11（R09事前照合・WebUI対象外の依存関係を整合）
 - 対象リポジトリ: `eda-hub/horse-man`
 - 現行Production基準: `manual_release=v1.6.1`
 - 現行検証サイクル: 第3検証サイクル（2026-09-26〜2026-10-12）
@@ -94,7 +94,7 @@ Production順位
 - 「根拠→評価→確率→順位→印」の順序を正式契約化
 - 重賞Productionを通常レースと同一骨格へ統一
 - 重賞過去傾向をProduction固定後の比較層へ限定
-- Betting前提のmanual / validation / WebUI / JRA-VAN設計の再構成
+- Betting前提のmanual / validation / JRA-VAN設計の再構成（WebUIは対象外/N/A）
 - `AGENTS.md` と `DECISIONS.md` の購入・見送り・仮想精算・監査契約を次期責任範囲へ整合
 - execution gateの次期schema、`scripts/check_prediction_compliance.py`、関連テストを次期契約へ対応
 - 次期manual releaseへの更新
@@ -716,16 +716,18 @@ checkerは少なくとも `schema_version + manual_release` で検証契約をdi
 - 実購入判断を削除
 - 任意仮想検証との接続を分離
 
-### 16.3 `docs/jravan/06_webui.md`
+### 16.3 `docs/jravan/06_webui.md`（対象外/N/A・参考設計）
 
-削除候補:
+以下は旧参考設計として保持し、実装・画面改修・ホスティング・受入試験は行わない。必要な内容の提示はチャット、保存/監査/履歴失効/結果照合は非UI処理で成立させる。
+
+旧削除候補（実施しない）:
 
 - ユーザー予算入力
 - BET操作
 - 実購入記録
 - 実損益
 
-表示候補:
+旧表示候補（画面実装は実施しない）:
 
 - Production順位
 - 印
@@ -756,7 +758,7 @@ checkerは少なくとも `schema_version + manual_release` で検証契約をdi
 
 ## 17. 本計画の作業段階と既存JRA-VAN Phaseの対応
 
-本節の「作業段階」は変更管理上の順序であり、`docs/jravan/phases/README.md` の正式な実装Phaseを置き換えない。コード実装は既存Phase 3→4→5→6→7→8の依存順と「各Phaseを独立PRにする」契約を維持する。
+本節の「作業段階」は変更管理上の順序であり、`docs/jravan/phases/README.md` の正式な実装Phaseを置き換えない。コード実装は既存非UI Phase 3→5→6→7→8の依存順（Phase 4は対象外/N/A）と「各Phaseを独立PRにする」契約を維持する。
 
 ### 17.1 対応表
 
@@ -766,7 +768,7 @@ checkerは少なくとも `schema_version + manual_release` で検証契約をdi
 | Stage 1 | 第3サイクル終了審査 | Phase外 | validation / review上の変更管理。実装変更と別PR |
 | Stage 2 | 次期仕様・契約の原子切替 | Phase 3〜8の前提 | manual、AGENTS、ADR、validation、gate/checker、phase文書を整合。新release有効化条件 |
 | Stage 3 | Prediction / feature / Shadow engine | **Phase 3** | 根拠構造、☆廃止、共通Production、オッズ非依存Recommendation、新規feature受け皿 |
-| Stage 4 | Prediction Web UI | **Phase 4** | 次期Production表示、根拠、推奨買い目、Shadow差分。購入UIを要求しない |
+| Stage 4 | WebUI対象外 | **Phase 4: N/A** | 参考設計のみ。画面・操作・ホスティングは実施せず、後続Phaseの依存条件にしない |
 | Stage 5 | Odds / Market validation | **Phase 5** | 「Betting decision」から市場評価・任意仮想検証へphase文書を先に改訂してから実装 |
 | Stage 6 | Result / Review preparation / Automation | **Phase 6** | 実購入settlement必須を外し、全Productionと推奨買い目の結果結合を中心化 |
 | Stage 7 | AI review | **Phase 7** | 次期根拠・誤差分類を用いた回顧支援。自動昇格は禁止 |
@@ -821,7 +823,7 @@ checkerは少なくとも `schema_version + manual_release` で検証契約をdi
 - `scripts/check_prediction_compliance.py`
 - checker関連テスト
 - `docs/jravan/phases/phase_3_rule_engine.md`
-- `phase_4_prediction_ui.md`
+- `phase_4_prediction_ui.md`（対象外/N/Aを明記。画面実装は不要）
 - `phase_5_odds_betting.md`
 - `phase_6_settlement_automation.md`
 
@@ -830,7 +832,7 @@ checkerは少なくとも `schema_version + manual_release` で検証契約をdi
 - 新releaseの保存・監査が旧価格付きBetting・実購入情報なしで成立し、推奨買い目状態/構成まで読戻し照合できる。
 - v1.6.1記録を旧契約で引き続き検証できる。
 - 新旧schemaのdispatchがテストされる。
-- Phase 3〜6の目的・受入条件が次期仕様と矛盾しない。
+- Phase 3・5・6の目的・受入条件が次期仕様と矛盾しない。Phase 4の画面受入はN/Aとし、保存・失効・結果照合の非UI受入は維持する。
 - manualだけ、checkerだけ、phase文書だけの片側切替を行わない。
 
 ### 17.5 Stage 3以降: 既存Phase順でコード実装
@@ -844,8 +846,6 @@ Stage 2 契約切替
   ↓
 Phase 3 Feature / Production / Shadow engine
   ↓
-Phase 4 Prediction Web UI
-  ↓
 Phase 5 Odds / Market validation
   ↓
 Phase 6 Result / Review preparation / Automation
@@ -855,7 +855,7 @@ Phase 7 AI review
 Phase 8 Backtest / Rule lifecycle
 ```
 
-Phase 5・6は現行文書が購入判断・実購入settlementを前提としているため、Stage 2でphase文書の目的と受入条件を改訂した後にコード実装へ進む。Phase 3・4も印体系・根拠出力・新release整合を受入条件へ反映する。
+Phase 5・6は現行文書が購入判断・実購入settlementを前提としているため、Stage 2でphase文書の目的と受入条件を改訂した後にコード実装へ進む。Phase 3の印体系・根拠出力・新release整合を受入条件へ反映する。Phase 4は対象外/N/Aであり、Phase 3から5以降へ画面実装なしで進む。
 
 ### 17.6 新規Shadow検証
 
@@ -880,6 +880,15 @@ Phase 5・6は現行文書が購入判断・実購入settlementを前提とし�
 - data cutoffが検証可能。
 - 取得不能時に既存Productionが継続可能。
 - 結果後に条件を追加して適格化しない。
+
+### 17.7 R09の事前判定と終了後の再開条件（2026-10-11 JST）
+
+R09の終了審査は2026-10-12開催分までの第3サイクルを閉じた後に別PRで行う。2026-10-11時点は開催期間中であり、Stage 1は未完了、Stage 2は保留。日付到来・CI success・PR69の準備コードだけで終了審査合格やACTIVEを宣言しない。
+
+- 7開催日のscope/日別/サイクル集計、運用KPI、性能KPI、介入と未実施、変更候補の採用/継続検証/棄却/判断保留を終了審査PRで確定する。
+- Stage 1審査合格後、Stage 2切替PRでmanual全Owner、AGENTS、DECISIONS、validation、Prediction/Recommendationのgate・checker・テスト、Phase文書を原子的に整合する。
+- 新releaseとRecommendationの有効開催日・有効化時刻は実際の審査結果に従って記録する。2026-10-13は最早境界であり、自動切替日ではない。過去v1.6.1/v2履歴へ新要件を遡及適用しない。
+- Phase 4は対象外/N/A。保存・監査・結果照合・失効管理の受入はチャット/非UI処理で継続し、画面完成をStage 2やPhase 5以降の前提にしない。
 
 ## 18. テスト計画
 
@@ -964,7 +973,7 @@ checkerテストだけでなく、validation templateのsampleを用いたend-to
 8. 新規予想メソッドはShadowを経ずにProductionへ昇格しない。
 9. data cutoffより未来の相手成績を利用しない。
 10. 過去snapshot、回顧、旧☆、旧Betting recordを遡及変更しない。
-11. manual、validation、JRA-VAN設計、WebUIで責任範囲が一致する。
+11. manual、validation、JRA-VAN設計、チャット出力で責任範囲が一致する。WebUI/Phase 4の画面受入は対象外/N/A。
 12. 変更理由・受入条件・検証結果を日本語PRで追跡できる。
 13. 次期manual releaseへ切り替えた時点で、対応するexecution gate / checker / validation templateが同時に利用可能である。
 14. 新release切替後もv1.6.1の過去記録を旧契約のまま機械検証できる。
@@ -999,7 +1008,7 @@ checkerテストだけでなく、validation templateのsampleを用いたend-to
 2. **次期契約切替PR**  
    manual / AGENTS / superseding ADR / validation template / execution gate schema / checker / checker tests / Phase 3〜6文書を同時整合し、次期manual releaseを有効化
 3. Phase 3: Feature / Production / Recommendation / Shadow engine PR
-4. Phase 4: Prediction Web UI PR
+4. Phase 4: 対象外/N/A。WebUI PRは作成せず、後続Phaseの前提にしない
 5. Phase 5: Odds / Market validation PR
 6. Phase 6: Result / Review preparation / Automation PR
 7. Phase 7: AI review PR
@@ -1045,7 +1054,7 @@ checkerテストだけでなく、validation templateのsampleを用いたend-to
 - これまでの調査を検証状態・出所・revision付きで蓄積し、調査時は先に検索する。
 - 馬の登録有無ではなく必要項目・世代・分類版・data cutoffで不足判定し、不足分だけ追加調査・保存・読戻しする。
 - 客観血統、派生系統、祖先属性、条件別統計を分離し、未取得を「内包なし」と解釈しない。
-- 計画・追加要件はPR68で管理し、PR69は本計画に基づいてGit調査基盤、過去情報移行、関連設計への接続を実装する。Phase 2のDB/取得、Phase 3のfeature、Phase 4のUI、Phase 8の効果検証は既存Phaseの依存順序・独立PR契約を維持し、実装済み範囲と未実施範囲を対応付ける。
+- 計画・追加要件はPR68で管理し、PR69は本計画に基づいてGit調査基盤、過去情報移行、関連設計への接続を実装する。Phase 2のDB/取得、Phase 3のfeature、Phase 8の効果検証（Phase 4のUIは対象外/N/A）は既存Phaseの依存順序・独立PR契約を維持し、実装済み範囲と未実施範囲を対応付ける。
 - Stage 2の調査手順へ再利用・不足調査を接続する。現行manual・既存snapshot・KPIは本計画追加で変更しない。
 - 完了判定に、登録済み同一要求の外部照会0件、不足のみ調査、保存後の再参照、訂正前revision再現、未来情報排除を追加する。
 
@@ -1056,7 +1065,7 @@ checkerテストだけでなく、validation templateのsampleを用いたend-to
 - 対象資料・馬ID・必要項目を棚卸しし、原出所照合と確認済み登録を進める。未確認・競合・未アクセス範囲を隠さず、候補件数を確認済み件数へ読み替えない。
 - 父・母父・系統・指定祖先内包・調教地域別に、期間とレース条件を事前固定して全出走馬の公式結果を集計する。出走数・実頭数・対象レース数・勝率/連対率/3着以内率・欠測と保留を保存する。好走馬だけの資料から率を作らない。
 - 欧州型は欧州、米国型は米国で調教されていた馬を指す。生産国・供用地・系統名では代用しない。分類対象の父/母父/指定祖先と子孫自身を区別し、実使用馬を優先する。調教国は検索一致1国で確定・後続確認停止、複数一致なら最も直近に調教所属した国を採用し、最多出走国は用いない。検索一致ゼロならタスク後にチャットで対象馬を一覧提示して情報を得て、原文・出所・受領時刻付きでユーザー提供値としてセットする。未回答・所属時点不明・矛盾は保留する。詳細は血統計画§11.8。
-- Phase 2で血統/同定/調教履歴と公式出走/結果を整備し、Phase 3でcondition_stat_snapshotへ集計・再計算・時点監査を実装、Phase 4で母数/coverage/出所/残件を表示、Phase 8で前向き追加価値を検証する。既存Phase順・独立PR契約を維持する。
+- Phase 2で血統/同定/調教履歴と公式出走/結果を整備し、Phase 3でcondition_stat_snapshotへ集計・再計算・時点監査を実装、母数/coverage/出所/残件はチャットと保存済み非UI出力で提示（Phase 4はN/A）、Phase 8で前向き追加価値を検証する。既存Phase順・独立PR契約を維持する。
 - 重賞固有集計はProduction固定後のShadowに限定し、新統計の正式採用は別PR。オッズ・回収率・実購入記録を集計必須入力にしない。
 - 同着/取消/中止等の結果規則、集計期間、最低件数、地域対応と複数地域分類基準は実装前の確認事項。未確認仕様を推測実装しない。集計完成と予想への正式採用は独立判定する。
 
@@ -1127,7 +1136,7 @@ checkerテストだけでなく、validation templateのsampleを用いたend-to
 
 `RECOMMENDED` は提示したことだけを表す。`INTENDED` / `PURCHASE_CONFIRMED` へ進めず、購入券・金額・実収支へ転記しない。券ごとのstakeや合計10,000円等の旧固定資金を再導入しない。
 
-オッズだけの更新では再生成しない。新しい非価格情報ではPredictionの正式変更手順を先に実行し、対応する推奨を新revisionで作る。取消で無効になった構成を画面に有効な推奨として残さず、旧版を失効表示し履歴として保持する。新しい基準ID/Prediction revisionに古い推奨を付け替えない。発走後の補完・再演は前向き実績と区別する。
+オッズだけの更新では再生成しない。新しい非価格情報ではPredictionの正式変更手順を先に実行し、対応する推奨を新revisionで作る。取消で無効になった構成をチャット出力・保存状態で有効な推奨として残さず、旧版を失効表示し履歴として保持する。新しい基準ID/Prediction revisionに古い推奨を付け替えない。発走後の補完・再演は前向き実績と区別する。
 
 ### 25.5 次期保存・機械監査とPR69への差分
 
@@ -1153,7 +1162,7 @@ PR69準備済みの `v1.7.0 + prediction-compliance-v2` は、現時点で順位
 - 順位評価ミス、券種/着順指定ミス、相手切り・点数増加、展開依存を分けて回顧する。実購入ROIは算出しない。
 - 任意市場sidecarの仮想ROIは別対象集合・別KPIにし、推奨的中KPIへ混入しない。
 
-Stage 2ではチャット出力・保存・監査の契約を先に揃える。アプリ実行コードはPhase 3で固定Prediction→推奨構成、Phase 4で表示/履歴/失効、Phase 6で結果照合、Phase 8で前向き評価を実装する。オッズ取得のPhase 5は推奨生成の前提にしない。既存Phase順・独立PR契約は維持し、存在しないアプリruntimeを準備実装済みと報告しない。
+Stage 2ではチャット出力・保存・監査の契約を先に揃える。アプリ実行コードはPhase 3で固定Prediction→推奨構成・チャット用出力・履歴/失効、Phase 6で結果照合（Phase 4の画面実装はN/A）、Phase 8で前向き評価を実装する。オッズ取得のPhase 5は推奨生成の前提にしない。既存Phase順・独立PR契約は維持し、存在しないアプリruntimeを準備実装済みと報告しない。
 
 ### 25.7 受入ケース
 
@@ -1170,7 +1179,7 @@ Stage 2ではチャット出力・保存・監査の契約を先に揃える。�
 9. 取消・非価格情報更新では旧推奨を失効させ、新revisionと対応Predictionを照合する。結果後の買い目組替え・別基準IDへの付替えを前向きKPIへ認証しない。
 10. 新契約に対応する日別台帳・scope・推奨認証・的中KPIを照合し、不適格/保留/未完了を削除せず、Predictionと市場sidecarから分離する。
 11. 旧v1.6.1のBetting必須欠落は従来どおりFAIL、旧☆/資金/実購入記録は旧契約で読める。準備済みv2 Predictionも記録当時の契約で検証できる。
-12. チャットの具体的買い目と保存/読戻し内容が完全一致し、WebUIでも印＋構成＋点数＋短い理由を表示する。予算入力・購入完了操作・新規実購入台帳を要求しない。
+12. チャットで印＋構成＋点数＋短い理由を提示し、具体的買い目と保存/読戻し内容が完全一致する。WebUI表示の受入は対象外/N/A。予算入力・購入完了操作・新規実購入台帳を要求しない。
 
 
 
