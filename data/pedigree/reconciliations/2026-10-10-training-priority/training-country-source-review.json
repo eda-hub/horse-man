@@ -3,7 +3,7 @@
   "source_date": "2026-10-10",
   "scope": "Only sire/damsire subjects in 2089-horse JRA 2026 scope",
   "count": 30,
-  "raw_body_hash_policy": "The five first R01 subjects have Registry VERIFIED facts with canonical-extracted-fields-sha256 and Git readback, NOT raw HTTP body hashes. Original HTML bytes have not been captured. Remaining reviewed subjects are not automatically verified. Do not claim original HTML capture or all 30 are completed.",
+  "raw_body_hash_policy": "Five R01 subjects now have separately captured raw HTTP response bytes in r01-raw/. Their original Registry revisions and canonical-extracted-fields hashes remain unchanged. registry_verification.raw_html_captured=false describes the original capture, while raw_html_evidence points to the later supplemental capture. No original-time HTML reconstruction or backdating is claimed. Remaining 25 reviewed subjects are not registered; 583 subjects remain unsearched.",
   "horses": [
     {
       "horse_key": "jbis-0000742976",
@@ -17,7 +17,7 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
       "parent_references": 158,
       "registry_verification": {
         "field": "attribute:training_country_matches",
@@ -33,6 +33,13 @@
         "source_reviewed": true,
         "registry_readback": true,
         "raw_html_captured": false
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000742976.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000742976.html",
+        "sha256": "4346b72a2f415ee012a2d6e0f03920007eaa94ac30cee68d89c91f61fa77605e",
+        "captured_at": "2026-10-10T05:27:26.409437+00:00",
+        "supplemental": true
       }
     },
     {
@@ -47,7 +54,7 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
       "parent_references": 92,
       "registry_verification": {
         "field": "attribute:training_country_matches",
@@ -63,6 +70,13 @@
         "source_reviewed": true,
         "registry_readback": true,
         "raw_html_captured": false
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000722158.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000722158.html",
+        "sha256": "627c36ae784c038455af1bfb2508655961822ba1253dbef278900905256d32cf",
+        "captured_at": "2026-10-10T05:27:29.249356+00:00",
+        "supplemental": true
       }
     },
     {
@@ -77,7 +91,7 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
       "parent_references": 90,
       "registry_verification": {
         "field": "attribute:training_country_matches",
@@ -93,6 +107,13 @@
         "source_reviewed": true,
         "registry_readback": true,
         "raw_html_captured": false
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000729458.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000729458.html",
+        "sha256": "c547364ced7089b5c05d7e8fab6d5bf8c9948a7c15928c855e69b3d24a214186",
+        "captured_at": "2026-10-10T05:27:29.206888+00:00",
+        "supplemental": true
       }
     },
     {
@@ -107,7 +128,7 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
       "parent_references": 77,
       "registry_verification": {
         "field": "attribute:training_country_matches",
@@ -123,6 +144,13 @@
         "source_reviewed": true,
         "registry_readback": true,
         "raw_html_captured": false
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0001089850.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0001089850.html",
+        "sha256": "c67e34ef9080fb9e76165a50b4c1455b3c9f72ae77495d87e203f52807e8c5df",
+        "captured_at": "2026-10-10T05:27:26.419050+00:00",
+        "supplemental": true
       }
     },
     {
@@ -137,7 +165,7 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
       "parent_references": 71,
       "registry_verification": {
         "field": "attribute:training_country_matches",
@@ -153,6 +181,13 @@
         "source_reviewed": true,
         "registry_readback": true,
         "raw_html_captured": false
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0001120570.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0001120570.html",
+        "sha256": "4ed0a856b0f94faa3768f1b1304d735882b8b2e2bd9ce8a417ea3a22f3aac3a4",
+        "captured_at": "2026-10-10T05:27:29.490802+00:00",
+        "supplemental": true
       }
     },
     {
@@ -532,5 +567,5 @@
     }
   ],
   "registry_verified_extracted_fields_count": 5,
-  "registry_raw_html_captured_count": 0
+  "registry_raw_html_captured_count": 5
 }

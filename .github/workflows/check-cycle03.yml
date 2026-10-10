@@ -23,6 +23,8 @@ jobs:
         run: python3 scripts/check_pedigree_followup.py
       - name: JBIS取得不能分の別サイト血統原票・訂正・全件集計を検証
         run: python3 scripts/check_pedigree_alternative.py
+      - name: 登録済み5頭の調教国原HTML追加証跡を検証
+        run: python3 scripts/check_training_country_raw_evidence.py
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査
         run: |
           set -o pipefail
@@ -97,4 +99,5 @@ jobs:
         run: |
           echo "未対応manual release: ${{ steps.manual.outputs.release }}" >&2
           exit 1
+
 
