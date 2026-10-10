@@ -1,0 +1,90 @@
+{
+  "horse_key": "netkeiba-000a01d620",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2015,
+    "external_ids": {
+      "NETKEIBA": "000a01d620"
+    },
+    "identity_evidence": {
+      "record_key": "000a01d620",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02c278"
+    },
+    "name": "Merino (米)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:03:23.529039+00:00",
+  "identity_observed_at": "2026-10-10T10:03:23.529039+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2015,
+    "external_ids": {
+      "NETKEIBA": "000a01d620"
+    },
+    "identity_evidence": {
+      "record_key": "000a01d620",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02c278"
+    },
+    "name": "Merino (米)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:03:23.887514+00:00",
+      "content_hash": "0cc5f07026bcdac8d980553f3bab79c50d04b97763aad7ed915b8ca6477de656",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:03:23.887508+00:00",
+      "input_hash": "1d696231d20661a4592380ae47a2d78412b702c84125d31fc96a12177f976f6b",
+      "previous_revision": null,
+      "revision_id": "rev-1d696231d20661a4592380ae",
+      "saved_at": "2026-10-10T10:03:23.890309+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "f750383b06ac7c879c8c2d5cb529b2a085c84efad1e111ac248cc65b64f3709e",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02c278:DS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02c278/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000372626",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:03:23.899889+00:00",
+      "content_hash": "189d377352e9a7cd80329e684309ed45b93aa954d571fd3460c56df16cbfac66",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:03:23.899882+00:00",
+      "input_hash": "9e512b5a80cd28f0035af1a0d2ae722a611cea9b729b9075806e129bfcdb6928",
+      "previous_revision": null,
+      "revision_id": "rev-9e512b5a80cd28f0035af1a0",
+      "saved_at": "2026-10-10T10:03:23.900310+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "f750383b06ac7c879c8c2d5cb529b2a085c84efad1e111ac248cc65b64f3709e",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02c278:DD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02c278/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a0143f8",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,90 @@
+{
+  "horse_key": "netkeiba-000a01173e",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "NETKEIBA": "000a01173e"
+    },
+    "identity_evidence": {
+      "record_key": "000a01173e",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02797d"
+    },
+    "name": "Big Brown (米)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:03:23.522359+00:00",
+  "identity_observed_at": "2026-10-10T10:03:23.522359+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "NETKEIBA": "000a01173e"
+    },
+    "identity_evidence": {
+      "record_key": "000a01173e",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02797d"
+    },
+    "name": "Big Brown (米)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:03:23.675994+00:00",
+      "content_hash": "3158cf800d76c284fd7e4c74e7f2a693a9f66617e9946356c1527e3e2b50c2e0",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:03:23.675987+00:00",
+      "input_hash": "ece1a57e7d867e1da7b2d0bae5722c8702529e4e69e008b75325844d85b4f044",
+      "previous_revision": null,
+      "revision_id": "rev-ece1a57e7d867e1da7b2d0ba",
+      "saved_at": "2026-10-10T10:03:23.677337+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "96c47684ce8374086869ad9eaa46971870f897ce4e5ff5d7cc8ebc3ba5fc3df4",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02797d:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02797d/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000337863",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:03:23.684290+00:00",
+      "content_hash": "823a43e40b2f3352f7be22c45e875ba63f04a001d1a8d6cfde20a11bde505dbc",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:03:23.684283+00:00",
+      "input_hash": "f96890739f3706d069f38dc46cc542d4f20a6ed9c5fc9be4a05778c225b67d0c",
+      "previous_revision": null,
+      "revision_id": "rev-f96890739f3706d069f38dc4",
+      "saved_at": "2026-10-10T10:03:23.684867+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "96c47684ce8374086869ad9eaa46971870f897ce4e5ff5d7cc8ebc3ba5fc3df4",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02797d:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02797d/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a011743",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

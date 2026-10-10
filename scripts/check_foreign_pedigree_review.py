@@ -56,13 +56,13 @@ def check(root=Path('.')):
  root=Path(root);directory=root/BASE
  if not directory.exists():return {'registered_rows':0}
  registry=Registry(root/'data/pedigree');registered=0;positions=0
- official=json.loads((root/'data/pedigree/reconciliations/2026-10-09-followup/foreign_pedigree_evidence.json').read_text())['races'][0]['entries']
+ official_races=json.loads((root/'data/pedigree/reconciliations/2026-10-09-followup/foreign_pedigree_evidence.json').read_text())['races']
  results=json.loads((root/'data/pedigree/reconciliations/2026-10-09-followup/foreign_results_evidence.json').read_text())['races']
  assert len(results)==4 and sum(len(r['runners']) for r in results)==42
  assert sum(x['status']=='FINISHED' for r in results for x in r['runners'])==38
  assert sum(x['status']=='SCRATCHED' for r in results for x in r['runners'])==4
  for path in sorted(directory.glob('batch-*.json')):
-  batch=json.loads(path.read_text());assert batch['mode']=='REPLAY' and batch['production_eligible'] is False
+  batch=json.loads(path.read_text());race_id=batch.get('race_id',results[0]['race_id']);official=next(r['entries'] for r in official_races if r['race_id']==race_id);race_results=next(r for r in results if r['race_id']==race_id);assert batch['mode']=='REPLAY' and batch['production_eligible'] is False
   raw=(root/batch['source_bundle_path']).read_bytes();assert hashlib.sha256(raw).hexdigest()==batch['source_bundle_sha256'];bundle=json.loads(gzip.decompress(raw))
   for entry in bundle.values():
    if 'body_base64' not in entry:continue
@@ -73,14 +73,14 @@ def check(root=Path('.')):
    parsed=parse_table(ped);assert parsed==row['ancestors'] and len(parsed)==62
    birth=next(tr.children('td')[0].text_content().strip() for tr in [tr for tr in profile.walk('tr') if tr.children('th')] if tr.children('th')[0].text_content().strip()=='生年月日');assert int(re.match(r'(\d{4})年',birth)[1])==row['birth_year']
    parent=next(p for p in official if p['horse_number']==int(row['target']['reported_horse_number']));assert parent==row['official_parent_evidence']
-   result=next(r for r in results[0]['runners'] if r['horse_number']==parent['horse_number']);assert result['birth_year']==row['birth_year']
+   result=next(r for r in race_results['runners'] if r['horse_number']==parent['horse_number']);assert result['birth_year']==row['birth_year']
    assert all(norm(parsed[p]['name'])==norm(parent[f]) for p,f in [('S','sire'),('D','dam'),('DS','damsire')])
    assert row['registry_promoted'] and row['status']=='REGISTERED_5_GENERATIONS'
    for ancestry,key in row['ancestor_keys'].items():
     fact=registry.edge(row['horse_key'],ancestry,batch['data_cutoff']);assert fact['status']=='VERIFIED' and fact['value']==key
    registered+=1;positions+=62
   for receipt in batch['write_receipts']:
-   record=json.loads(registry.path(receipt['horse_key']).read_text());assert digest(record)==receipt['after_record_hash'];n=len(receipt['before_revision_hashes']);assert [r['content_hash'] for r in record['revisions'][:n]]==receipt['before_revision_hashes']
+   record=json.loads(registry.path(receipt['horse_key']).read_text());n=len(receipt['before_revision_hashes']);record['revisions']=record['revisions'][:n+len(receipt['added_revision_ids'])];assert digest(record)==receipt['after_record_hash'];assert [r['content_hash'] for r in record['revisions'][:n]]==receipt['before_revision_hashes']
    if not receipt['new_identity']:
     before=copy.deepcopy(record);before['revisions']=before['revisions'][:n];assert digest(before)==receipt['before_record_hash']
    assert [r['revision_id'] for r in record['revisions'][n:]]==receipt['added_revision_ids']
