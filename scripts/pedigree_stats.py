@@ -291,6 +291,7 @@ class Resolver:
         self.registry, self.cutoff, self.definition = registry, cutoff, definition
         self.cache = {}
         self.used = set()
+        self.derived = {}
 
     def record(self, key):
         self.used.add(key)
@@ -328,14 +329,30 @@ class Resolver:
         return self.registry.edge(key, path, self.cutoff)
 
     def derive(self, key, ancestors, depth, taxonomy=None):
+        # 同じ馬・世代・分類版の祖先条件は共通の完全展開を使う。
+        # usedはall_groups内では単調増加し、馬を切り替える時にcacheも破棄する。
+        cache_key = (key, depth, taxonomy)
+        if cache_key in self.derived:
+            result = self.derived[cache_key]
+            if all(a in result['containment'] for a in ancestors):
+                return result
+        targets = set(ancestors)
+        for group in self.definition['groups']:
+            if group.get('depth') != depth:
+                continue
+            if group['axis'] in {'ANCESTOR', 'CROSS'}:
+                targets.add(group['value'])
+            elif group['axis'] == 'TRAINING_REGION' and group.get('subject') == 'ANCESTOR':
+                targets.add(group['ancestor_key'])
         self.record(key)
-        result = self.registry.derive(key, ancestors, depth, self.cutoff, taxonomy)
+        result = self.registry.derive(key, sorted(targets), depth, self.cutoff, taxonomy)
         result["blocked_late_capture"] = False
         for path, fact in result["derived_from"].items():
             if self.late_capture(fact):
                 result["blocked_late_capture"] = True
             if fact.get("value"):
                 self.record(fact["value"])
+        self.derived[cache_key] = result
         return result
 
     @staticmethod
@@ -463,6 +480,7 @@ class Resolver:
                 self.cache[key] = cached
                 return cached
         self.used = set()
+        self.derived = {}
         # 未同定馬は血統・地域の「非該当」へ入れない。
         rec = self.record(key)
         identity = self.registry.identity_at(rec, self.cutoff) if rec else None

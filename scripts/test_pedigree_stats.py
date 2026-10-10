@@ -644,6 +644,31 @@ class PedigreeStatsTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'conflicting explicit'):
             explicit_user_countries('Flatterはアメリカ\nFlatterはイギリス')
 
+    def test_shared_ancestor_expansion_keeps_each_condition_and_depth(self):
+        definition = copy.deepcopy(self.definition)
+        definition['groups'] = [
+            {'group_id': 'present', 'axis': 'ANCESTOR', 'value': 'sire-a', 'depth': 2},
+            {'group_id': 'absent', 'axis': 'ANCESTOR', 'value': 'ancestor', 'depth': 2},
+            {'group_id': 'cross', 'axis': 'CROSS', 'value': 'sire-a', 'depth': 2, 'min_paths': 2},
+            {'group_id': 'short', 'axis': 'ANCESTOR', 'value': 'sire-a', 'depth': 1},
+        ]
+        from pedigree_stats import Resolver
+        resolver = Resolver(self.registry, CUTOFF, definition)
+        with patch.object(self.registry, 'derive', wraps=self.registry.derive) as derive:
+            result = resolver.all_groups('alice')
+            self.assertEqual(derive.call_count, 2)
+            self.assertEqual(result['groups']['present']['status'], 'MATCH')
+            self.assertEqual(result['groups']['absent']['status'], 'UNKNOWN')
+            self.assertEqual(result['groups']['cross']['status'], 'UNKNOWN')
+            self.assertEqual(result['groups']['short']['status'], 'MATCH')
+            first = derive.call_args_list[0].args
+            self.assertEqual(set(first[1]), {'sire-a', 'ancestor'})
+            # 別個体の依存集合へ前の馬のcacheを流用しない。
+            other = resolver.all_groups('bob')
+            self.assertEqual(derive.call_count, 4)
+            self.assertNotIn('alice', other['dependencies'])
+
+
 if __name__ == "__main__":
     unittest.main()
 
