@@ -272,7 +272,7 @@ PR69の受入文書（commit ea12cf3472426872e6420b1ca7416eab05aa3845）では�
 
 台帳の新規選択規則は`SEARCH_MATCH_PRIORITY_V1`、検索結果は
 `attribute:training_country_matches`（`training-country-matches-v1`）。
-回答後の値は既存`attribute:training_country`に
+回答後の値は専用`attribute:training_country_user`に
 `source_class=USER_PROVIDED`、`acquisition_method=user-chat`を明記する。
 ユーザー回答は検索不一致の場合に限り有効とし、検索で確定した国を上書きしない。
 
