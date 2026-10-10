@@ -36,6 +36,8 @@ jobs:
         run: python3 scripts/check_designated_ancestor_scope.py
       - name: 父・母父613頭の開始時点・優先調査10頭・所属原資料を照合
         run: python3 scripts/check_training_country_priority.py --repo .
+      - name: 海外先頭5登録行の個体・原票・5代・履歴を検証
+        run: python3 scripts/check_foreign_pedigree_review.py
       - name: 追加指定祖先の本人所属原票・追記・時点を検証
         run: python3 scripts/check_training_country_ancestors.py
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査

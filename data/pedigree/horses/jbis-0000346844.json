@@ -1,1 +1,128 @@
-{"horse_key":"jbis-0000346844","identity":{"aliases":["Lorenzaccio (英)"],"birth_year":1965,"external_ids":{"JBIS":"0000346844","NETKEIBA":"000a000f66"},"identity_evidence":{"record_key":"0000346844","source":"JBIS"},"name":"Lorenzaccio(GB)","status":"RESOLVED"},"identity_confirmed_at":"2026-10-09T12:32:59.618297+00:00","identity_observed_at":"2026-10-09T12:32:59.618297+00:00","identity_revisions":[{"after":{"aliases":["Lorenzaccio (英)"],"birth_year":1965,"external_ids":{"JBIS":"0000346844","NETKEIBA":"000a000f66"},"identity_evidence":{"record_key":"0000346844","source":"JBIS"},"name":"Lorenzaccio(GB)","status":"RESOLVED"},"at":"2026-10-09T17:30:29.500380+00:00","before":{"aliases":[],"birth_year":1965,"external_ids":{"JBIS":"0000346844"},"identity_evidence":{"record_key":"0000346844","source":"JBIS"},"name":"Lorenzaccio(GB)","status":"RESOLVED"},"event_hash":"366afe910e1586a39c46a64f2c87a4beaf2531fa1bcbf28fbf0e738bf2b09653","reason":"取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。","reviewed_by":"原票同定照合"}],"initial_identity":{"aliases":[],"birth_year":1965,"external_ids":{"JBIS":"0000346844"},"identity_evidence":{"record_key":"0000346844","source":"JBIS"},"name":"Lorenzaccio(GB)","status":"RESOLVED"},"revisions":[],"schema_version":"pedigree-registry-v1"}
+{
+  "horse_key": "jbis-0000346844",
+  "identity": {
+    "aliases": [
+      "Lorenzaccio (英)"
+    ],
+    "birth_year": 1965,
+    "external_ids": {
+      "JBIS": "0000346844",
+      "NETKEIBA": "000a000f66"
+    },
+    "identity_evidence": {
+      "record_key": "0000346844",
+      "source": "JBIS"
+    },
+    "name": "Lorenzaccio(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:32:59.618297+00:00",
+  "identity_observed_at": "2026-10-09T12:32:59.618297+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "Lorenzaccio (英)"
+        ],
+        "birth_year": 1965,
+        "external_ids": {
+          "JBIS": "0000346844",
+          "NETKEIBA": "000a000f66"
+        },
+        "identity_evidence": {
+          "record_key": "0000346844",
+          "source": "JBIS"
+        },
+        "name": "Lorenzaccio(GB)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:29.500380+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1965,
+        "external_ids": {
+          "JBIS": "0000346844"
+        },
+        "identity_evidence": {
+          "record_key": "0000346844",
+          "source": "JBIS"
+        },
+        "name": "Lorenzaccio(GB)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "366afe910e1586a39c46a64f2c87a4beaf2531fa1bcbf28fbf0e738bf2b09653",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1965,
+    "external_ids": {
+      "JBIS": "0000346844"
+    },
+    "identity_evidence": {
+      "record_key": "0000346844",
+      "source": "JBIS"
+    },
+    "name": "Lorenzaccio(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T09:34:29.180958+00:00",
+      "content_hash": "4a1f03ae2abbd908895d896948a42bb077c189ee99b5863805a83589b145c726",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T09:34:29.180950+00:00",
+      "input_hash": "fb3d7537d16552c93dc506a6eba3fa25de53bc932dafc7cd9d14957195b4fbf1",
+      "previous_revision": null,
+      "revision_id": "rev-fb3d7537d16552c93dc506a6",
+      "saved_at": "2026-10-10T09:34:29.181317+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "c77620a0b8f940947757b29aff4ff81f370828da1747fe01d72f3052f65f10bd",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a024841:DSSSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a024841/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000334323",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T09:34:29.187870+00:00",
+      "content_hash": "20c9458ccd690297303b70a6c916fba74c0f1958316dba57c9a0117d907735e8",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T09:34:29.187864+00:00",
+      "input_hash": "ce6f6cdc9be27f53839f93fb779a92c96739b7f719889a8d79964e3e6c387e1a",
+      "previous_revision": null,
+      "revision_id": "rev-ce6f6cdc9be27f53839f93fb",
+      "saved_at": "2026-10-10T09:34:29.188281+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "c77620a0b8f940947757b29aff4ff81f370828da1747fe01d72f3052f65f10bd",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a024841:DSSSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a024841/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a00791a",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}
