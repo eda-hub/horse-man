@@ -1,6 +1,6 @@
 {
   "schema_version": "training-country-recovery-checkpoint-v1",
-  "status": "BLOCKED_WORKSPACE_EXECUTION",
+  "status": "RECOVERED_AND_PERSISTED",
   "observed_at": "2026-10-10T08:24:59.821Z",
   "mode": "REPLAY",
   "production_eligible": false,
@@ -1553,11 +1553,85 @@
     }
   ],
   "resume_instructions": [
+    "手順5のbatch45〜53は保存・読戻し完了。再取得や同一factの再追記を行わない。",
+    "国未確認79頭と最終所属日不足16頭はneeds-information.mdを参照し、回答/原資料受領までUNKNOWNを維持。",
+    "次は追加指定祖先12頭の調教国調査。WebUIは対象外、現行v1.6.1とDraft維持。"
+  ],
+  "original_interruption_status": "BLOCKED_WORKSPACE_EXECUTION",
+  "original_resume_instructions": [
     "PR69の現在HEADとprogress.jsonを最初に読み取り、45から10頭単位で再開する。",
     "候補はローカルファイルとexpected blob SHAを再照合する。ファイルが失われている場合は本人IDの原票を再取得し、実取得時刻・hashを新しく記録する。",
     "既存Writerの読み戻し・CAS・重複保存0件・古いcutoffを再検査し、保存前に同一個体への既存追記を確認する。",
     "保存済み430頭の履歴・固定batch01/02・共有原票bundleを変更しない。",
     "未保存81頭を検索完了／国確定として報告しない。全件保存後に確認待ち一覧とPR本文を更新する。",
     "WebUIを実装せず、Draft・現行v1.6.1・Production・旧固定snapshotを維持する。"
-  ]
+  ],
+  "recovery_completion": {
+    "verified_at": "2026-10-10T08:48:40.978Z",
+    "data_head": "c08740097ffb0947978aac0f552deb086e128515",
+    "last_committed_batch": 53,
+    "counts": {
+      "reviewed": 511,
+      "registered": 416,
+      "searched_without_country": 79,
+      "latest_date_unresolved": 16,
+      "acquisition_blocked": 0,
+      "unsearched": 0
+    },
+    "registered_sire_damsire_total": 518,
+    "restored_subjects": 81,
+    "restored_registered": 70,
+    "restored_without_country": 11,
+    "candidate_hash_match": true,
+    "original_timestamps_preserved": true,
+    "source_bundles_readback": [
+      {
+        "sha": "a3307a6b70958be8d05062dea3e4def854b70d9f",
+        "size": 747224,
+        "verified_at": "2026-10-10T08:47:58.203Z"
+      },
+      {
+        "sha": "04d6951b95f990956660845ae064a0cf660b33ee",
+        "size": 639447,
+        "verified_at": "2026-10-10T08:48:01.571Z"
+      },
+      {
+        "sha": "3510f837b81bba6ebb5c7c4bfe7d37c767962eaa",
+        "size": 1113701,
+        "verified_at": "2026-10-10T08:48:04.175Z"
+      },
+      {
+        "sha": "758c48c23a4f7abd31984bc487e5f7b855745742",
+        "size": 648809,
+        "verified_at": "2026-10-10T08:48:06.292Z"
+      },
+      {
+        "sha": "584b43aa156ac0040d93d74a8725af1fe6f0dcb3",
+        "size": 399368,
+        "verified_at": "2026-10-10T08:48:08.242Z"
+      },
+      {
+        "sha": "92b7ae0a2e64a9393e280b5fc73d7b76dd02b243",
+        "size": 369771,
+        "verified_at": "2026-10-10T08:48:10.455Z"
+      },
+      {
+        "sha": "5ed7ef735ef7324e561f3c2e81ea15cc9886e048",
+        "size": 353061,
+        "verified_at": "2026-10-10T08:48:12.939Z"
+      },
+      {
+        "sha": "9086db79666f1bdd4ac49504e59f315326b1b019",
+        "size": 328034,
+        "verified_at": "2026-10-10T08:48:15.636Z"
+      },
+      {
+        "sha": "dae6dd05f0448d11fadf99909765c61ec8f860ff",
+        "size": 29754,
+        "verified_at": "2026-10-10T08:48:17.400Z"
+      }
+    ],
+    "tests": "全511頭の原票/本人/旧revision/cutoff/CAS・重複追記0件監査成功、関連19回帰テスト成功",
+    "ci": "データHEADのActions #798は確認時点で実行中。成功とは未判定。"
+  }
 }
