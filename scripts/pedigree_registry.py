@@ -157,7 +157,7 @@ class Registry:
     def validate_fact(self, fact):
         field = fact['field']
         if not (re.fullmatch(r'parent:[SD]{1,10}', field) or
-                field in {'attribute:birth_country', 'attribute:training_country', 'attribute:training_country_matches', 'attribute:training_start_history', 'attribute:sex'}):
+                field in {'attribute:birth_country', 'attribute:training_country', 'attribute:training_country_matches', 'attribute:training_country_user', 'attribute:training_start_history', 'attribute:sex'}):
             raise ValueError('only pedigree edges and ancestor attributes are facts')
         if fact['status'] not in STATUSES:
             raise ValueError('invalid fact status')
@@ -168,7 +168,7 @@ class Registry:
         if source['source_class'] not in SOURCES or not (source.get('url') or source.get('record_key')):
             raise ValueError('source reference required')
         if source['source_class'] == 'USER_PROVIDED':
-            if field != 'attribute:training_country' or source.get('acquisition_method') != 'user-chat':
+            if field != 'attribute:training_country_user' or source.get('acquisition_method') != 'user-chat':
                 raise ValueError('user-provided evidence is restricted to chat training country')
             reply = source.get('user_reply_text')
             if (not isinstance(reply, str) or not reply.strip() or
@@ -265,7 +265,9 @@ class Registry:
                 if supersedes:
                     if set(supersedes) != {r['revision_id'] for r in self.active(prior, stamp())}:
                         raise ValueError('correction must supersede all current competing revisions')
-                    if not fact.get('correction_reason') or fact['status'] != 'VERIFIED' or fact['source']['source_class'] not in {'OFFICIAL_JRA', 'OFFICIAL_JRA_VAN', 'BREEDING_DB'}:
+                    if not fact.get('correction_reason') or fact['status'] != 'VERIFIED' or (fact['source']['source_class'] not in {'OFFICIAL_JRA', 'OFFICIAL_JRA_VAN', 'BREEDING_DB'} and
+                            not (fact['field'] == 'attribute:training_country_user' and
+                                 fact['source']['source_class'] == 'USER_PROVIDED')):
                         raise ValueError('correction requires authority and reason')
                     if any(dt(fact['first_observed_at']) < dt(r['first_observed_at']) for r in prior):
                         raise ValueError('correction cannot precede prior observation')
@@ -476,7 +478,7 @@ class Registry:
         else:
             key = identity['matches'][0]['horse_key']
             for field in request.get('fields', []):
-                if not (re.fullmatch(r'parent:[SD]{1,10}', field) or field in {'attribute:birth_country', 'attribute:training_country', 'attribute:training_country_matches', 'attribute:training_start_history', 'attribute:sex'}):
+                if not (re.fullmatch(r'parent:[SD]{1,10}', field) or field in {'attribute:birth_country', 'attribute:training_country', 'attribute:training_country_matches', 'attribute:training_country_user', 'attribute:training_start_history', 'attribute:sex'}):
                     raise ValueError('unsupported fact field; statistics and scores use a separate API')
                 if field.startswith('parent:'):
                     if not re.fullmatch(r'parent:[SD]{1,10}', field):
