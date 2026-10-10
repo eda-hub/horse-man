@@ -39,7 +39,7 @@ def verify(root, date, snapshot_id, deadline=None, expected_races=()):
     if expected_races:
         # A structured scope block prevents another section's race IDs from
         # accidentally satisfying an all-race prediction intent.
-        blocks = re.findall(r'^```prediction-scope-v1\s*\n(.*?)\n```\s*$',section,re.M|re.S)
+        blocks = re.findall(r'^(?:```|\\`\\`\\`)prediction-scope-v1[ \t]*\n(.*?)\n(?:```|\\`\\`\\`)[ \t]*$',section,re.M|re.S)
         if len(blocks)!=1: raise ComplianceError(f'{snapshot_id}: prediction-scope-v1 required')
         scope=json.loads(blocks[0])
         if set(scope.get('race_ids',[])) != set(expected_races) or len(scope.get('race_ids',[]))!=len(expected_races):
