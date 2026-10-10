@@ -46,6 +46,8 @@ jobs:
         run: python3 scripts/check_historical_pr_refs.py
       - name: R06追加の本人原HTML・父直系・5代内包・原文成分を再照合
         run: python3 scripts/check_legacy_fact_followup.py
+      - name: R08の公式成績・調教国・条件別集計と固定時点を再照合
+        run: python3 scripts/check_r08_acceptance.py
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査
         run: |
           set -o pipefail
@@ -120,7 +122,3 @@ jobs:
         run: |
           echo "未対応manual release: ${{ steps.manual.outputs.release }}" >&2
           exit 1
-
-
-
-

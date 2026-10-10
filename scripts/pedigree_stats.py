@@ -101,8 +101,16 @@ def validate_definition(definition):
             require(type(g.get("min_paths")) is int and g["min_paths"] >= 2,
                     "cross min_paths >=2 required")
         if axis in {"SIRE_LINE", "DAM_SIRE_LINE"}:
-            require(isinstance(definition.get("taxonomy_version"), str) and
-                    definition["taxonomy_version"], "line taxonomy_version required")
+            if "line_root_key" in g:
+                safe(g["line_root_key"])
+                require(value == g["line_root_key"], "line root/value mismatch")
+                require(g.get("line_rule") == "exact-sire-chain-within-depth-v1",
+                        "explicit line path rule required")
+                require(g["depth"] >= (1 if axis == "SIRE_LINE" else 2),
+                        "line depth shorter than subject path")
+            else:
+                require(isinstance(definition.get("taxonomy_version"), str) and
+                        definition["taxonomy_version"], "line taxonomy_version required")
         if axis == "TRAINING_REGION":
             require(g.get("subject") in {"HORSE", "SIRE", "DAM_SIRE", "ANCESTOR"},
                     "training region requires explicit subject")
@@ -344,6 +352,8 @@ class Resolver:
                 targets.add(group['value'])
             elif group['axis'] == 'TRAINING_REGION' and group.get('subject') == 'ANCESTOR':
                 targets.add(group['ancestor_key'])
+            elif group['axis'] in {'SIRE_LINE', 'DAM_SIRE_LINE'} and group.get('line_root_key'):
+                targets.add(group['line_root_key'])
         self.record(key)
         result = self.registry.derive(key, sorted(targets), depth, self.cutoff, taxonomy)
         result["blocked_late_capture"] = False
@@ -383,6 +393,19 @@ class Resolver:
             return ("CONFLICT" if any(m["status"] == "CONFLICT" for m in d["missing"])
                     else "UNKNOWN", "INCOMPLETE_ANCESTRY")
         if axis in {"SIRE_LINE", "DAM_SIRE_LINE"}:
+            if group.get("line_root_key"):
+                d = self.derive(key, [group["line_root_key"]], group["depth"])
+                if d.get("blocked_late_capture"):
+                    return "UNKNOWN", "CAPTURED_AFTER_CUTOFF"
+                prefix = "S" if axis == "SIRE_LINE" else "DS"
+                chain = [prefix + "S" * n for n in range(group["depth"] - len(prefix) + 1)]
+                facts = [d["derived_from"].get(p, {"status": "UNVERIFIED"}) for p in chain]
+                if any(f.get("status") == "VERIFIED" and f.get("value") == target for f in facts):
+                    return "MATCH", "VERIFIED_EXACT_SIRE_CHAIN"
+                if all(f.get("status") == "VERIFIED" for f in facts):
+                    return "NON_MATCH", "COMPLETE_SIRE_CHAIN_WITHIN_SCOPE"
+                return ("CONFLICT" if any(f.get("status") == "CONFLICT" for f in facts)
+                        else "UNKNOWN", "INCOMPLETE_SIRE_CHAIN")
             d = self.derive(key, [], group["depth"], self.definition["taxonomy_version"])
             if d.get("blocked_late_capture"):
                 return "UNKNOWN", "CAPTURED_AFTER_CUTOFF"

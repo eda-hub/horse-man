@@ -135,6 +135,42 @@ class PedigreeStatsTest(unittest.TestCase):
         self.persist()
         return run(self.root, DEF_PATH, INPUT_PATH)
 
+    def test_exact_line_does_not_count_dam_side_containment(self):
+        from pedigree_stats import Resolver
+        self.fact('alice', 'parent:D', 'unknown')
+        self.fact('unknown', 'parent:S', 'ancestor')
+        group={'group_id':'line','axis':'SIRE_LINE','value':'ancestor',
+               'line_root_key':'ancestor','line_rule':'exact-sire-chain-within-depth-v1','depth':2}
+        definition=copy.deepcopy(self.definition);definition['groups']=[group]
+        validate_definition(definition)
+        resolver=Resolver(self.registry,CUTOFF,definition)
+        self.assertEqual(resolver.classify('alice',group)[0],'UNKNOWN')
+        self.fact('sire-a','parent:S','sire-b')
+        self.assertEqual(Resolver(self.registry,CUTOFF,definition).classify('alice',group)[0],'NON_MATCH')
+        group['axis']='DAM_SIRE_LINE'
+        self.assertEqual(Resolver(self.registry,CUTOFF,definition).classify('alice',group)[0],'MATCH')
+
+    def test_exact_line_distinguishes_broad_and_nested_roots(self):
+        from pedigree_stats import Resolver
+        self.fact('sire-a','parent:S','ancestor')
+        definition=copy.deepcopy(self.definition)
+        definition['groups']=[{'group_id':target,'axis':'SIRE_LINE','value':target,
+            'line_root_key':target,'line_rule':'exact-sire-chain-within-depth-v1','depth':2}
+            for target in ['sire-a','ancestor']]
+        resolver=Resolver(self.registry,CUTOFF,definition)
+        self.assertEqual([resolver.classify('alice',g)[0] for g in definition['groups']],['MATCH','MATCH'])
+
+    def test_exact_line_rejects_ambiguous_root_and_short_maternal_depth(self):
+        definition=copy.deepcopy(self.definition)
+        group={'group_id':'line','axis':'DAM_SIRE_LINE','value':'ancestor',
+               'line_root_key':'ancestor','line_rule':'exact-sire-chain-within-depth-v1','depth':1}
+        definition['groups']=[group]
+        with self.assertRaisesRegex(ValueError,'shorter'):validate_definition(definition)
+        group['depth']=2;group['value']='sire-a'
+        with self.assertRaisesRegex(ValueError,'mismatch'):validate_definition(definition)
+        group['value']='ancestor';group['line_rule']='guess'
+        with self.assertRaisesRegex(ValueError,'explicit'):validate_definition(definition)
+
     def test_01_all_starters_and_rates_use_full_race_field(self):
         path, out = self.calculate()
         self.assertEqual(out["all_runners"]["entries"], 8)

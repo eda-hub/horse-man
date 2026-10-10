@@ -1,3 +1,13 @@
+# R08の受入再照合（2026-10-11）
+
+国内159レース・2,182登録行・2,177実出走について、選定39条件（指定祖先21、父直系6、母父直系6、クロス6）を6期間の固定集計へ保存。全期間COMPLETE、血統UNKNOWN/CONFLICTは0。取消1・除外4・中止6、同着を含む整数着順の計数を原結果と照合した。既存4snapshotとその定義は保持する。
+
+海外4レース42登録行・4取消について、公式結果確認済み3レース30実出走を成績分母とする43条件の集計を保存。York8頭はBHA公式原票未取得につきPENDINGとし分母に入れない。追加調教国20頭中17頭を確認した前回記録を保存し、今回Commissioner（2011）のIFHA公式原票Trained列USAを照合して18頭確認・残2頭へ更新した。Sakhee（1997、GB/AE）とStarspangledbanner（2006、AU/IE）は最新所属日が未確定。国欠測はUNKNOWNへ分離し、新時点の海外2snapshotの欠測は延べ6から4へ減少した。BHA API再取得は403、応答hashと停止状態を保存。
+
+新規snapshotは前回作成8＋今回更新2の10件。全14snapshotを再計算監査する。すべてREPLAY研究用・Production採用前。正式なSHADOW前向き評価や全未選定条件の完了を主張しない。
+
+現在の証跡・残件は [R08受入記録](../pedigree/reconciliations/2026-10-11-r08-acceptance/README.md) と同ディレクトリのprogress.json。以下は各実施時点の履歴。
+
 # 最新の受入再照合（2026-10-10）
 
 JRA159レース・2,182登録行・2,177実出走に対する父/母父EU・USと指定祖先21条件、計25条件をREPLAYで保存/readback。結果はCOMPLETE。欧州対象国は利用者指定の英・愛・仏・独・伊。 固定入力の取消1・除外4・中止6と母数を保持し、未確認・競合は独立群に残す。新snapshotは `data/condition_stats/snapshots/prediction-period-jra-training-regions-20261010/c37467eef8f237e25f504cbd725c90158e1c65e468c66a7cf283fab393b86e9c.json`。外部所属とUSER_PROVIDEDを理由・revision・hashで追跡できる。
