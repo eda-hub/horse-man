@@ -116,7 +116,8 @@ def validate_definition(definition):
                     "explicit training-region classification required")
             require(value in t["regions"], "undefined training region")
             require(t.get("country_selection", "VERIFIED_COUNTRY") in
-                    {"VERIFIED_COUNTRY", "MOST_STARTS_BY_TRAINING_COUNTRY"},
+                    {"VERIFIED_COUNTRY", "MOST_STARTS_BY_TRAINING_COUNTRY",
+                     "SEARCH_MATCH_PRIORITY_V1"},
                     "unsupported training country selection")
             require(all(isinstance(v, list) and v and
                         all(isinstance(x, str) and x for x in v)
@@ -240,6 +241,50 @@ def main_training_country(history, cutoff):
         return None, "MAIN_TRAINING_COUNTRY_TIED_USER_INPUT_REQUIRED"
     return winners[0], "VERIFIED_MOST_STARTS_TRAINING_COUNTRY"
 
+ 
+def select_training_country(matches, cutoff):
+    """検索で1国なら即決、複数国なら最終調教所属日が直近の国。未確認は推測しない。
+
+    出走回数・開催国・生産国は使わない。情報の取得時点は個別に検証する。
+    """
+    if (not isinstance(matches, dict) or
+            matches.get("schema_version") != "training-country-matches-v1" or
+            matches.get("search_completed") is not True or
+            not isinstance(matches.get("matches"), list)):
+        return None, "TRAINING_COUNTRY_SEARCH_INCOMPLETE"
+    rows = matches["matches"]
+    if not rows:
+        return None, "TRAINING_COUNTRY_USER_INPUT_REQUIRED"
+    candidates = []
+    for row in rows:
+        if not isinstance(row, dict) or not isinstance(row.get("country"), str) or not re.fullmatch(
+                r"[A-Z]{2}", row["country"]):
+            return None, "TRAINING_COUNTRY_SEARCH_INVALID"
+        source = row.get("source")
+        if (not isinstance(source, dict) or not (source.get("url") or source.get("record_key")) or
+                not re.fullmatch(r"[0-9a-f]{64}", str(source.get("record_hash", "")))):
+            return None, "TRAINING_COUNTRY_MATCH_SOURCE_MISSING"
+        try:
+            if iso(source.get("captured_at"), "training match capture") > iso(cutoff, "cutoff"):
+                return None, "TRAINING_COUNTRY_MATCH_AFTER_CUTOFF"
+            last = (day(row["last_trained_on"], "training last date")
+                    if row.get("last_trained_on") is not None else None)
+            if last is not None and last > iso(cutoff, "cutoff").date():
+                return None, "TRAINING_COUNTRY_DATE_AFTER_CUTOFF"
+        except ValueError:
+            return None, "TRAINING_COUNTRY_MATCH_INVALID_DATE"
+        candidates.append((row["country"], last))
+    countries = {country for country, _ in candidates}
+    if len(countries) == 1:
+        return next(iter(countries)), "VERIFIED_SINGLE_MATCH_TRAINING_COUNTRY"
+    if any(last is None for _, last in candidates):
+        return None, "TRAINING_COUNTRY_RECENT_DATE_REQUIRED"
+    latest = max(last for _, last in candidates)
+    latest_countries = {country for country, last in candidates if last == latest}
+    if len(latest_countries) != 1:
+        return None, "TRAINING_COUNTRY_LATEST_TIED_USER_INPUT_REQUIRED"
+    return next(iter(latest_countries)), "VERIFIED_LATEST_MATCH_TRAINING_COUNTRY"
+
 
 class Resolver:
     def __init__(self, registry, cutoff, definition):
@@ -348,18 +393,36 @@ class Resolver:
             subject = group["ancestor_key"]
         method = self.definition["training_classification"].get(
             "country_selection", "VERIFIED_COUNTRY")
-        field = ("attribute:training_start_history" if method ==
-                 "MOST_STARTS_BY_TRAINING_COUNTRY" else "attribute:training_country")
-        f = self.fact(subject if subject != "HORSE" else key, field)
-        if f["status"] != "VERIFIED":
-            return ("CONFLICT" if f["status"] == "CONFLICT" else "UNKNOWN",
-                    "TRAINING_" + f["status"])
-        if method == "MOST_STARTS_BY_TRAINING_COUNTRY":
-            country, reason = main_training_country(f["value"], self.cutoff)
+        subject_key = subject if subject != "HORSE" else key
+        if method == "SEARCH_MATCH_PRIORITY_V1":
+            searched = self.fact(subject_key, "attribute:training_country_matches")
+            if searched["status"] != "VERIFIED":
+                return ("CONFLICT" if searched["status"] == "CONFLICT" else "UNKNOWN",
+                        "TRAINING_COUNTRY_SEARCH_" + searched["status"])
+            country, reason = select_training_country(searched["value"], self.cutoff)
+            if reason == "TRAINING_COUNTRY_USER_INPUT_REQUIRED":
+                # ユーザー回答は検索不一致時だけ参照。既存の通常国属性を流用しない。
+                answer = self.fact(subject_key, "attribute:training_country")
+                if (answer["status"] == "VERIFIED" and isinstance(answer.get("source"), dict) and
+                        answer["source"].get("source_class") == "USER_PROVIDED"):
+                    country = answer["value"]
+                elif answer["status"] == "CONFLICT":
+                    return "CONFLICT", "TRAINING_COUNTRY_USER_INPUT_CONFLICT"
             if country is None:
                 return "UNKNOWN", reason
         else:
-            country = f["value"]
+            field = ("attribute:training_start_history" if method ==
+                     "MOST_STARTS_BY_TRAINING_COUNTRY" else "attribute:training_country")
+            f = self.fact(subject_key, field)
+            if f["status"] != "VERIFIED":
+                return ("CONFLICT" if f["status"] == "CONFLICT" else "UNKNOWN",
+                        "TRAINING_" + f["status"])
+            if method == "MOST_STARTS_BY_TRAINING_COUNTRY":
+                country, reason = main_training_country(f["value"], self.cutoff)
+                if country is None:
+                    return "UNKNOWN", reason
+            else:
+                country = f["value"]
         if not isinstance(country, str) or re.search("[,;/+]", country):
             return "UNKNOWN", "MULTI_REGION_CLASSIFICATION_UNDEFINED"
         lookup = self.definition["training_classification"]["regions"]
