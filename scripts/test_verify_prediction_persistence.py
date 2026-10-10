@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0,str(Path(__file__).parent))
 
 from check_prediction_compliance import ComplianceError
-from verify_prediction_persistence import check_intent, verify, declared_intent_paths
+from verify_prediction_persistence import check_intent, verify, declared_intent_paths, snapshot_section, field
 
 
 DATE='2026-10-04'
@@ -49,6 +49,53 @@ class PersistenceTest(unittest.TestCase):
             f'persist_verified_at_jst: {DATE}T09:41:00+09:00\n'
             f'receipt_verified_at_jst: {receipt_verified}\n'
             f'scheduled_post_time_jst: {DATE}T09:50:00+09:00\n')
+
+    def test_bulleted_snapshot_metadata_is_verified(self):
+        # 2026-10-10 uses "- snapshot_id:" and "- working_branch:".
+        self.snapshot()
+        snapshot_file=self.root/'docs/validation/snapshots'/f'{DATE}.md'
+        original=snapshot_file.read_text(encoding='utf-8')
+        snapshot_file.write_text(original.replace('snapshot_id:', '- snapshot_id:')
+                                 .replace('working_branch:', '- working_branch:'),
+                                 encoding='utf-8')
+        self.receipt()
+        self.assertEqual(check_intent(self.root,self.path),SNAP+'-R02')
+
+    def test_escaped_scope_fences_in_historical_snapshot(self):
+        # Preserve the original bytes, including literal backslash-escaped fences.
+        self.snapshot()
+        path=self.root/'docs/validation/snapshots'/f'{DATE}.md'
+        path.write_text(path.read_text(encoding='utf-8').replace('```', '\\`\\`\\`'), encoding='utf-8')
+        self.receipt()
+        self.assertEqual(check_intent(self.root,self.path), SNAP+'-R02')
+    def test_mixed_bulleted_and_plain_fields(self):
+        content=(f'## one\n- snapshot_id: {SNAP}\n'
+                 f'working_branch: prediction/{DATE}\n')
+        self.assertEqual(field(snapshot_section(content,SNAP),'working_branch'),
+                         f'prediction/{DATE}')
+
+    def test_duplicate_snapshot_ids_in_two_styles_are_rejected(self):
+        content=(f'## first\nsnapshot_id: {SNAP}\n'
+                 f'## second\n- snapshot_id: {SNAP}\n')
+        with self.assertRaisesRegex(ComplianceError,'found 2'):
+            snapshot_section(content,SNAP)
+
+    def test_bulleted_snapshot_without_pre_race_receipt_remains_incomplete(self):
+        self.snapshot()
+        path=self.root/'docs/validation/snapshots'/f'{DATE}.md'
+        path.write_text(path.read_text(encoding='utf-8')
+                        .replace('snapshot_id:', '- snapshot_id:')
+                        .replace('working_branch:', '- working_branch:'),
+                        encoding='utf-8')
+        self.receipt()
+        receipt_path=self.root/'docs/validation/persistence-receipts'/f'{DATE}.md'
+        receipt_path.write_text(
+            receipt_path.read_text(encoding='utf-8').replace(
+                'receipt_persist_status: RECEIPT_VERIFIED',
+                'receipt_persist_status: RECEIPT_READBACK_PENDING'),
+            encoding='utf-8')
+        with self.assertRaisesRegex(ComplianceError,'verified pre-race receipt missing'):
+            check_intent(self.root,self.path)
 
     def test_intent_catches_snapshot_never_created(self):
         with self.assertRaisesRegex(ComplianceError,'snapshot file missing'): check_intent(self.root,self.path)

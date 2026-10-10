@@ -19,14 +19,14 @@ from check_prediction_compliance import ComplianceError, iso, receipt_records
 def snapshot_section(content, snapshot_id):
     sections = re.split(r'(?=^##\s+)', content, flags=re.M)
     matched = [section for section in sections
-               if re.search(r'^snapshot_id:\s*'+re.escape(snapshot_id)+r'\s*$',section,re.M)]
+               if re.search(r'^(?:-\s+)?snapshot_id:\s*'+re.escape(snapshot_id)+r'\s*$',section,re.M)]
     if len(matched) != 1:
         raise ComplianceError(f'{snapshot_id}: expected one snapshot section, found {len(matched)}')
     return matched[0]
 
 
 def field(section, key):
-    match = re.search(r'^'+re.escape(key)+r':\s*(.*?)\s*$',section,re.M)
+    match = re.search(r'^(?:-\s+)?'+re.escape(key)+r':\s*(.*?)\s*$',section,re.M)
     return match.group(1).strip() if match else None
 
 
@@ -39,7 +39,7 @@ def verify(root, date, snapshot_id, deadline=None, expected_races=()):
     if expected_races:
         # A structured scope block prevents another section's race IDs from
         # accidentally satisfying an all-race prediction intent.
-        blocks = re.findall(r'^```prediction-scope-v1\s*\n(.*?)\n```\s*$',section,re.M|re.S)
+        blocks = re.findall(r'^(?:```|\\`\\`\\`)prediction-scope-v1[ \t]*\n(.*?)\n(?:```|\\`\\`\\`)[ \t]*$',section,re.M|re.S)
         if len(blocks)!=1: raise ComplianceError(f'{snapshot_id}: prediction-scope-v1 required')
         scope=json.loads(blocks[0])
         if set(scope.get('race_ids',[])) != set(expected_races) or len(scope.get('race_ids',[]))!=len(expected_races):
@@ -165,7 +165,7 @@ def main():
         snapshots=args.root/'docs/validation/snapshots'
         for snapshot in sorted(snapshots.glob('*.md')):
             if args.date and snapshot.stem!=args.date: continue
-            for ident in re.findall(r'^snapshot_id:\s*(\S+)\s*$',snapshot.read_text(encoding='utf-8'),re.M):
+            for ident in re.findall(r'^(?:-\s+)?snapshot_id:\s*(\S+)\s*$',snapshot.read_text(encoding='utf-8'),re.M):
                 if (snapshot.stem,ident) not in declared:
                     failed+=1
                     print(f'PERSISTENCE_INCOMPLETE {snapshot}: {ident}: NO_INTENT; historical omission, not retroactively prepared')
