@@ -80,6 +80,46 @@
         "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:26.063883+00:00",
+      "content_hash": "b7e241513bda599723a0808fd293ef82769ecb69acebc1173707d7d53b7c6f72",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:26.063868+00:00",
+      "input_hash": "ed6754c8fea2bcc25fcb6f2113a160f2df56f31fdd27d495efda66ee02c087a7",
+      "previous_revision": null,
+      "revision_id": "rev-ed6754c8fea2bcc25fcb6f21",
+      "saved_at": "2026-10-10T07:57:26.111658+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "WIKIPEDIA",
+        "record_hash": "a8e83f7b20d8e725b438c618944f321828c99f6c12584016298493cbe1ab2956",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0001177657",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://en.wikipedia.org/wiki/Intense_Focus"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "IE",
+            "source": {
+              "captured_at": "2026-10-10T07:22:41.733153+00:00",
+              "record_hash": "a8e83f7b20d8e725b438c618944f321828c99f6c12584016298493cbe1ab2956",
+              "url": "https://en.wikipedia.org/wiki/Intense_Focus"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"
