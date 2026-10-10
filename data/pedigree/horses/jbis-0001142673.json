@@ -1,1 +1,162 @@
-{"horse_key":"jbis-0001142673","identity":{"aliases":[],"birth_year":2011,"external_ids":{"JBIS":"0001142673","NETKEIBA":"2011103328"},"identity_evidence":{"record_key":"0001142673","source":"JBIS"},"name":"ビッグアーサー","status":"RESOLVED"},"identity_confirmed_at":"2026-10-09T15:04:30.272710+00:00","identity_observed_at":"2026-10-09T15:04:30.272710+00:00","identity_revisions":[{"after":{"aliases":[],"birth_year":2011,"external_ids":{"JBIS":"0001142673","NETKEIBA":"2011103328"},"identity_evidence":{"record_key":"0001142673","source":"JBIS"},"name":"ビッグアーサー","status":"RESOLVED"},"at":"2026-10-09T17:30:31.943455+00:00","before":{"aliases":[],"birth_year":2011,"external_ids":{"JBIS":"0001142673"},"identity_evidence":{"record_key":"0001142673","source":"JBIS"},"name":"ビッグアーサー","status":"RESOLVED"},"event_hash":"9faa2b69ef1a3eb02db11c750ea81e4d571e472cc8be4033902042d05f554654","reason":"取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。","reviewed_by":"原票同定照合"}],"initial_identity":{"aliases":[],"birth_year":2011,"external_ids":{"JBIS":"0001142673"},"identity_evidence":{"record_key":"0001142673","source":"JBIS"},"name":"ビッグアーサー","status":"RESOLVED"},"revisions":[{"captured_at":"2026-10-09T14:40:58.802733+00:00","content_hash":"c5e7e6ee1e4b86f43250aff67751faf78387112379d997d718374394dbdd4f1c","field":"parent:S","first_observed_at":"2026-10-09T14:40:58.802733+00:00","input_hash":"89967785680456f0326b385a5518a77390773ba0071b73bdd37f37ce72f25015","previous_revision":null,"revision_id":"rev-89967785680456f0326b385a","saved_at":"2026-10-09T15:05:15.310234+00:00","source":{"acquisition_method":"https-html-62-cell-basic-six-parent-cross-check","origin_group":"JBIS","record_hash":"98cbeb923ac1e77c988975f5cba51dd31cb9e4ff72acf501794aa8742fc0da8d","record_key":"0001392660","source_class":"BREEDING_DB","url":"https://www.jbis.or.jp/horse/0001392660/pedigree/"},"status":"VERIFIED","value":"jbis-0000225628","verification":{"identity_checked":true,"relationship_checked":true,"reviewed_by":"Codex: 個体ID・生年・父母母父・全62位置の照合","source_checked":true}},{"captured_at":"2026-10-09T14:40:58.802733+00:00","content_hash":"fccb64f10eef62142610f8c276faf5f0b4d373ef4b257b2847d8f0812ae85c13","field":"parent:D","first_observed_at":"2026-10-09T14:40:58.802733+00:00","input_hash":"47abfb93da6da91e8dcba20a889a11ac55f15f04801d28d762794a7f988fc6fb","previous_revision":null,"revision_id":"rev-47abfb93da6da91e8dcba20a","saved_at":"2026-10-09T15:05:15.314881+00:00","source":{"acquisition_method":"https-html-62-cell-basic-six-parent-cross-check","origin_group":"JBIS","record_hash":"98cbeb923ac1e77c988975f5cba51dd31cb9e4ff72acf501794aa8742fc0da8d","record_key":"0001392660","source_class":"BREEDING_DB","url":"https://www.jbis.or.jp/horse/0001392660/pedigree/"},"status":"VERIFIED","value":"jbis-0001082306","verification":{"identity_checked":true,"relationship_checked":true,"reviewed_by":"Codex: 個体ID・生年・父母母父・全62位置の照合","source_checked":true}}],"schema_version":"pedigree-registry-v1"}
+{
+  "horse_key": "jbis-0001142673",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "JBIS": "0001142673",
+      "NETKEIBA": "2011103328"
+    },
+    "identity_evidence": {
+      "record_key": "0001142673",
+      "source": "JBIS"
+    },
+    "name": "ビッグアーサー",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:30.272710+00:00",
+  "identity_observed_at": "2026-10-09T15:04:30.272710+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2011,
+        "external_ids": {
+          "JBIS": "0001142673",
+          "NETKEIBA": "2011103328"
+        },
+        "identity_evidence": {
+          "record_key": "0001142673",
+          "source": "JBIS"
+        },
+        "name": "ビッグアーサー",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:31.943455+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2011,
+        "external_ids": {
+          "JBIS": "0001142673"
+        },
+        "identity_evidence": {
+          "record_key": "0001142673",
+          "source": "JBIS"
+        },
+        "name": "ビッグアーサー",
+        "status": "RESOLVED"
+      },
+      "event_hash": "9faa2b69ef1a3eb02db11c750ea81e4d571e472cc8be4033902042d05f554654",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "JBIS": "0001142673"
+    },
+    "identity_evidence": {
+      "record_key": "0001142673",
+      "source": "JBIS"
+    },
+    "name": "ビッグアーサー",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:40:58.802733+00:00",
+      "content_hash": "c5e7e6ee1e4b86f43250aff67751faf78387112379d997d718374394dbdd4f1c",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:40:58.802733+00:00",
+      "input_hash": "89967785680456f0326b385a5518a77390773ba0071b73bdd37f37ce72f25015",
+      "previous_revision": null,
+      "revision_id": "rev-89967785680456f0326b385a",
+      "saved_at": "2026-10-09T15:05:15.310234+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "98cbeb923ac1e77c988975f5cba51dd31cb9e4ff72acf501794aa8742fc0da8d",
+        "record_key": "0001392660",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001392660/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000225628",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:40:58.802733+00:00",
+      "content_hash": "fccb64f10eef62142610f8c276faf5f0b4d373ef4b257b2847d8f0812ae85c13",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:40:58.802733+00:00",
+      "input_hash": "47abfb93da6da91e8dcba20a889a11ac55f15f04801d28d762794a7f988fc6fb",
+      "previous_revision": null,
+      "revision_id": "rev-47abfb93da6da91e8dcba20a",
+      "saved_at": "2026-10-09T15:05:15.314881+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "98cbeb923ac1e77c988975f5cba51dd31cb9e4ff72acf501794aa8742fc0da8d",
+        "record_key": "0001392660",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001392660/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001082306",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001142673/",
+              "record_hash": "646b55cdedb684c683feff8b5a6492b3e2c7b8402558ce26e0818792480b6a39",
+              "captured_at": "2026-10-10T04:18:59.724Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:18:59.724Z",
+      "captured_at": "2026-10-10T04:18:59.724Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001142673",
+        "record_hash": "646b55cdedb684c683feff8b5a6492b3e2c7b8402558ce26e0818792480b6a39",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "url": "https://www.jbis.or.jp/horse/0001142673/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-f68ebff0e458596c8630c183",
+      "input_hash": "f68ebff0e458596c8630c1830186a8703423fa40f16f9d96d071101fcc1b9d6a",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:18:59.727Z",
+      "content_hash": "fab1cd9d18dba607c1f283fe540f403d58643f10e6e543c63feaf5669a555362"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}
