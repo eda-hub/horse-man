@@ -394,6 +394,7 @@ class Resolver:
         method = self.definition["training_classification"].get(
             "country_selection", "VERIFIED_COUNTRY")
         subject_key = subject if subject != "HORSE" else key
+        source_reason = "VERIFIED_TRAINING_REGION"
         if method == "SEARCH_MATCH_PRIORITY_V1":
             searched = self.fact(subject_key, "attribute:training_country_matches")
             if searched["status"] != "VERIFIED":
@@ -406,6 +407,7 @@ class Resolver:
                 if (answer["status"] == "VERIFIED" and isinstance(answer.get("source"), dict) and
                         answer["source"].get("source_class") == "USER_PROVIDED"):
                     country = answer["value"]
+                    source_reason = "USER_PROVIDED_TRAINING_REGION"
                 elif answer["status"] == "CONFLICT":
                     return "CONFLICT", "TRAINING_COUNTRY_USER_INPUT_CONFLICT"
             if country is None:
@@ -429,7 +431,7 @@ class Resolver:
         mapped = [r for r, countries in lookup.items() if country in countries]
         if len(mapped) != 1:
             return ("UNKNOWN", "UNMAPPED_OR_AMBIGUOUS_TRAINING_COUNTRY")
-        return ("MATCH" if mapped[0] == target else "NON_MATCH", "VERIFIED_TRAINING_REGION")
+        return ("MATCH" if mapped[0] == target else "NON_MATCH", source_reason)
 
     def as_of_dependency(self, key):
         original = read(self.registry.path(key))
