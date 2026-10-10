@@ -30,6 +30,61 @@
     "name": "Hertford Castle (英)",
     "status": "RESOLVED"
   },
-  "revisions": [],
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:06:57.709916+00:00",
+      "content_hash": "99646bcb7dbcab0fef1a8cbb8544459129d699a17c8ddca76c894d8b1a9210ea",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:06:57.709909+00:00",
+      "input_hash": "dca8cc8aae971059eb73090c5f4a3999770c565dc452805ddb3cf2d185a811e9",
+      "previous_revision": null,
+      "revision_id": "rev-dca8cc8aae971059eb73090c",
+      "saved_at": "2026-10-10T10:06:57.710729+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "ff7947cf92c33d887f994e1efd48a660ba6e2211e40900e8f77f5aacaab9033b",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d639:SDDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d639/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a0019a6",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:06:57.717791+00:00",
+      "content_hash": "073a10d4b6b6f43c6820092aaa5709ca6ea6c43b7d95042f6fdb306fb5cab773",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:06:57.717784+00:00",
+      "input_hash": "56ee93395078d94875df15241813041a8252c41576b4be1e7efa8ab286d48233",
+      "previous_revision": null,
+      "revision_id": "rev-56ee93395078d94875df1524",
+      "saved_at": "2026-10-10T10:06:57.718383+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "ff7947cf92c33d887f994e1efd48a660ba6e2211e40900e8f77f5aacaab9033b",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d639:SDDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d639/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a000821",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
   "schema_version": "pedigree-registry-v1"
 }

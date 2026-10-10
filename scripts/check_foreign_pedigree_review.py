@@ -67,6 +67,13 @@ def check(root=Path('.')):
   for entry in bundle.values():
    if 'body_base64' not in entry:continue
    body=base64.b64decode(entry['body_base64'],validate=True);m=entry['capture'];assert m['http_status']==200 and m['hash_kind']=='response-body-sha256' and hashlib.sha256(body).hexdigest()==m['sha256'] and len(body)==m['bytes'] and dt(m['captured_at'])<=dt(batch['data_cutoff'])
+  for proof in batch.get('identity_reconciliations',[]):
+   body=base64.b64decode(bundle[proof['proof_key']]['body_base64']);doc=Document(body).root
+   assert any(norm(h.text_content())==norm(proof['profile_name']) for h in doc.walk('h1'))
+   birth=next(tr.children('td')[0].text_content().strip() for tr in doc.walk('tr') if tr.children('th') and tr.children('td') and tr.children('th')[0].text_content().strip()=='生年月日')
+   assert int(re.match(r'(\d{4})年',birth)[1])==proof['birth_year']
+   identity=json.loads(registry.path('netkeiba-'+proof['provider_id']).read_text())['identity']
+   assert identity['external_ids']['NETKEIBA']==proof['provider_id'] and identity['name']==proof['existing_name'] and identity['birth_year']==proof['birth_year']
   for row in batch['rows']:
    id=row['target']['netkeiba_id'];ped=Document(base64.b64decode(bundle[id+'-pedigree']['body_base64'])).root;profile=Document(base64.b64decode(bundle[id+'-profile']['body_base64'])).root
    assert any(norm(n.text_content())==norm(row['target']['reported_name']) for n in ped.walk('h1'))
