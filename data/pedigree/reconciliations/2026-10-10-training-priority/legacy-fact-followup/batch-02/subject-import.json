@@ -1,0 +1,44 @@
+{
+  "schema_version": "legacy-explicit-subject-import-v1",
+  "baseline_cutoff": "2026-10-10T15:31:28.898499+00:00",
+  "data_cutoff": "2026-10-10T15:31:30.131444+00:00",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "subjects": [
+    {
+      "provider_id": "0001332370",
+      "horse_key": "jbis-0001332370",
+      "father_key": "jbis-0001175221",
+      "profile": {
+        "name": "オールナット",
+        "birth_year": 2021,
+        "father_id": "0001175221",
+        "father_name": "サトノダイヤモンド"
+      },
+      "before_record_hash": null,
+      "after_record_hash": "33c696eeb72c8c25271ea1106f1b0c968bdb85f4b9cf525f62f8721827c46e20",
+      "added_revision_ids": [
+        "rev-c4e4fc6fd99b18f79fa26af3"
+      ],
+      "repeat_added_revisions": 0
+    },
+    {
+      "provider_id": "0001322201",
+      "horse_key": "jbis-0001322201",
+      "father_key": "jbis-0001181460",
+      "profile": {
+        "name": "シランケド",
+        "birth_year": 2020,
+        "father_id": "0001181460",
+        "father_name": "デクラレーションオブウォー(USA)"
+      },
+      "before_record_hash": null,
+      "after_record_hash": "4e5e43bb3d9d977f2173c6a56cce10fd0aee52fde09f648e58e6b37012630a50",
+      "added_revision_ids": [
+        "rev-9a4ed960bf4c4afe79fde48e"
+      ],
+      "repeat_added_revisions": 0
+    }
+  ],
+  "scope": "本人と父のみ新規保存。5代父直系は既存独立祖先を再利用。母・5代全体・当時の確認・適性は未昇格。"
+}
