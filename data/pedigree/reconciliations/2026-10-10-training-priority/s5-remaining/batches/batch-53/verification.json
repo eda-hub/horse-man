@@ -1,0 +1,54 @@
+{
+  "schema_version": "training-country-remaining-batch-v1",
+  "batch": 53,
+  "data_cutoff": "2026-10-10T07:58:22.155591+00:00",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "webui_in_scope": false,
+  "bundle_path": "data/pedigree/reconciliations/2026-10-10-training-priority/s5-remaining/batches/batch-53/sources.json.gz",
+  "bundle_sha256": "60d827467a465d98c1d5b2dc35f955a5ed8433210f8e5c721712c0733fe546e0",
+  "reviews": [
+    {
+      "priority": 521,
+      "horse_key": "netkeiba-2016104695",
+      "horse_name": "リオンリオン",
+      "sire_uses": 1,
+      "damsire_uses": 0,
+      "use_references": 1,
+      "identity_hash": "f5cc185c8bcad54cd2d38d853d7f110d7f28c69795dbd5ec4845f2672fd9612c",
+      "profile_fields": {
+        "heading": "リオンリオン",
+        "english_name": "Lion Lion",
+        "birth": "2016年1月28日",
+        "trainer": "松永幹夫 (栗東)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "9f1b607b5d2732ca4e84e46b7e9fa600ad7c12bb3c64184ac9c71d0c94ff9428",
+      "before_revision_hashes": [
+        "9e15c184e2fed522c8f98827086b16c3eb1bf3a71c88865b5bafc725a26b4571",
+        "bda6ed9992fb4305e2d7c4db5e03d6d81487d718f1600402d14a258c9569cdb0"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "JP",
+      "matches": [
+        {
+          "country": "JP",
+          "source": {
+            "url": "https://db.netkeiba.com/horse/2016104695/",
+            "record_hash": "6ef010d5cf370781bc456ed6f0ea9f3d6c3499f51fa8716ade5473868f2034dd",
+            "captured_at": "2026-10-10T07:18:02.134009+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "bd4d9b9f8cbb5b14e819861b2be97e103e8f62bfe19b9c9707a83c5a3d8a29db",
+      "added_revision_id": "rev-5c7e42c383192f9d3e5cecf3",
+      "added_revision_content_hash": "358912a58aa2f93ba794f10904e71b02c22c8873f8893d2e159371e6f6e786d2",
+      "historical_cutoff_status": "NOT_FOUND"
+    }
+  ]
+}

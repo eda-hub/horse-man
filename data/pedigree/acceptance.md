@@ -110,3 +110,11 @@
 詳細と次の10頭は `data/pedigree/reconciliations/2026-10-10-training-priority/README.md` の最新節、固定証跡は `s5-inventory-checkpoint.json` と `s5-batches/batch-01/verification.json` を参照。フレンチデピュティは原PDFの直接取得403のためprovider原文照合後の抽出項目証跡であり、原PDF byte保存を主張しない。その他は取得本文とbyte hashを保存。
 
 `python3 scripts/check_training_country_priority.py --repo .` と8回帰テストで元blob・件数・優先順・個体・所属国/日付・原資料hash・旧履歴・時点・残りキューを照合。CIへ追加。残り511頭と後続工程は未完了。WebUIは実施対象外、現行v1.6.1・Production・旧snapshotは維持。
+
+## 手順5：父・母父の優先調査を全件実施（2026-10-10）
+
+開始時点613頭（登録92・未検索521）のうち、先頭10頭に続く511頭を52個の10頭単位チェックポイント（最後1頭）で原票照合した。新たな唯一Writer追記511件、国確定416頭、資料範囲内の検索一致ゼロ79頭、複数国の実際の最終所属日不足16頭、取得不能・未検索0頭。父・母父全体の現在値は国登録518頭・確認待ち95頭。旧revision・独立ID・同定・開始cutoffを保持し、再保存追加0件。
+
+HTTP原票を圧縮保存し、本人ID・名前・生年・本人調教師欄／明示Trained列／明示調教所属分類を照合した。公式IFHA年次版を追加し、従来保存資料の年途中版と年度ラベル違いを記録した。出生・出走開催・種牡馬供用国や年度を最新所属の根拠にしない。国確定にはSEARCH_MATCH_PRIORITY_V1を使用し、全生涯の全移籍を網羅したとの主張はしない。
+
+再開位置・件数は `data/pedigree/reconciliations/2026-10-10-training-priority/s5-remaining/progress.json`、不足情報は同ディレクトリの `needs-information.md`。手順5の原票調査と保存は完了したが、95頭の国確定は回答・所属日の資料待ち。追加祖先12頭の手順6、海外42行、旧482記述、過去証跡40件、JSON Schema追随・全条件再集計は別工程として残る。WebUIは実施対象外。Draft PR69・現行v1.6.1・Production・旧固定snapshotは維持する。
