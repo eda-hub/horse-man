@@ -2,6 +2,16 @@
 
 調査前に保存済み情報を検索し、確認済み・時点適合の項目を再利用する。不足だけを調査し、候補を検証して保存・読戻しする。計画の正本は [PR68](https://github.com/eda-hub/horse-man/pull/68) の `2026-10-09_pedigree_research_registry_implementation_plan.md`。ここは実装の利用手順であり、競馬判断のOwnerは `docs/manual/` のまま。
 
+## 最新状態と完了境界（2026-10-10）
+
+確認基準はPR69 `c3be2a577f54ce70dc48007b7087cdc719941201`。[調査実施記録](reconciliations/2026-10-10-training-priority/README.md)と[実データsummary](reconciliations/2026-10-10-alternative/scope_summary.json)を現在の実施範囲の根拠とする。
+
+- JRA対象期間2026-08-16〜2026-10-04の159レース・2,089頭を照合し、2,182登録行・2,177実出走に対する父キズナ・母父ディープインパクトの固定REPLAY集計はCOMPLETE。全血統条件や海外の完了ではない。
+- 調教国対象は父・母父613頭。資料確認30頭のうち5頭はRegistry登録と別証跡の原HTML補完済み、25頭は未登録、583頭は未検索。指定祖先28表記は必要対象の確定前。
+- 旧535記述の父・母父106成分（53記述）は原票照合済み。残る482記述の解釈・傾向は保留。元migrationの未確認候補は書き換えず、別の照合記録から参照する。
+- 新しい調教国判定とユーザー回答保存は実装済み。旧最多出走国方式は固定履歴の再現専用。
+- 実DB移行、自動取得adapter、非UIアプリ連携、正式契約切替、前向き評価・Production採用は別工程。WebUIは利用者指定で実施対象外。
+
 ## 操作
 
 リポジトリのルートで実行する。Python標準ライブラリのみ使用（Mac/Linux、単一Writer）。
@@ -39,7 +49,7 @@ python3 scripts/pedigree_registry.py audit
 }
 ```
 
-祖先の調教国はその祖先馬を対象とした別要求の `attribute:training_country` で照合する。生産国は `attribute:birth_country` であり調教国へ代用しない。要求した範囲を確認し切れていなければ内包は `UNKNOWN`。完全な範囲だけ `ABSENT_WITHIN_SCOPE` を返す。最大深さは10代、既定は5代。欠測を推測補完しない。
+新規調査では祖先馬本人を対象に `attribute:training_country_matches` を照合し、検索不一致時だけ `attribute:training_country_user` を参照する。旧 `attribute:training_country` は固定履歴の互換読取専用。生産国は `attribute:birth_country` であり調教国へ代用しない。要求した範囲を確認し切れていなければ内包は `UNKNOWN`。完全な範囲だけ `ABSENT_WITHIN_SCOPE` を返す。最大深さは10代、既定は5代。欠測を推測補完しない。
 
 ## 候補入力と確認
 
@@ -142,7 +152,7 @@ python3 scripts/pedigree_registry.py audit --repo .
 
 ## DB引継ぎ
 
-Phase 2以降のDB/UI/feature評価はまだ設計段階。DBへの移行はID・revision/hash・時刻・出所を保存したexport照合と旧読取adapterを伴い、唯一WriterをDBへ変更する。`writer.json` がJSON以外ならこのスクリプトの直接更新は拒否する。現行v1.6.1と既存予想監査は変更しない。
+実DB移行・非UIアプリfeature接続と効果評価は未実施。Git JSONの限定実データ集計は実施済み（冒頭参照）。WebUIは実施対象外。DBへの移行はID・revision/hash・時刻・出所を保存したexport照合と旧読取adapterを伴い、唯一WriterをDBへ変更する。`writer.json` がJSON以外ならこのスクリプトの直接更新は拒否する。現行v1.6.1と既存予想監査は変更しない。
 
 
 ## 血統別・条件別成績の集計（独立）
@@ -150,7 +160,9 @@ Phase 2以降のDB/UI/feature評価はまだ設計段階。DBへの移行はID�
 血統調査リストの検索・確認と、実際の出走成績の集計は別工程。PR68の11節に基づくGit JSON準備実装は [条件別成績集計の手順](../condition_stats/README.md) と [12受入条件](../condition_stats/acceptance.md) を参照。現行`pedigree_registry.py`は血統・同定事実の唯一Writerとして維持し、`pedigree_stats.py`はそれらの時点適合するrevisionを読むだけ。未確認候補535件を成績集計の母数や確定血統へ変換しない。条件別統計をProductionへ採用するにはPhase 8と独立PRが必要。
 
 
-## 2026-10-09 実データ照合
+## 2026-10-09 実データ照合（追加取得前の履歴）
+
+以下は当時の状態。現在の取得・集計範囲は冒頭の最新状態を参照する。
 
 予想対象期間2026-08-16〜2026-10-04の記録にある父・母父53頭106項目をJRA原票と照合し、103項目完全一致・3項目表記差一致を確認。参照済みJBIS52血統表の5代3,224位置を照合し、独立した1,430個体・1,774親子関係を唯一Writerで新規保存した。元535候補・旧予想は変更しない。取得日より前のcutoffへの流用は禁止。
 

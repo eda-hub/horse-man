@@ -1,6 +1,15 @@
 # 血統別・条件別成績集計（次期Shadow準備）
 
-正本計画: [PR68 血統調査・成績集計11節](../../docs/proposals/2026-10-09_pedigree_research_registry_implementation_plan.md)。実装: [scripts/pedigree_stats.py](../../scripts/pedigree_stats.py)。現在の運用は**確認済み血統・正式出走結果を整備する前段の集計ライブラリ**であり、現行manual・Production評価・実購入・推奨買い目には接続しない。
+正本計画: [PR68 血統調査・成績集計11節](../../docs/proposals/2026-10-09_pedigree_research_registry_implementation_plan.md)。実装: [scripts/pedigree_stats.py](../../scripts/pedigree_stats.py)。現在の運用は**Git JSONの集計ライブラリと、保存済み対象期間に限定した実データREPLAY研究**であり、現行manual・Production評価・実購入・推奨買い目には接続しない。
+
+## 最新の実施範囲（2026-10-10）
+
+確認基準はPR69 `c3be2a577f54ce70dc48007b7087cdc719941201`。[実データsummary](../pedigree/reconciliations/2026-10-10-alternative/scope_summary.json)から固定定義・入力・snapshotを辿れる。
+
+- 2026-08-16〜2026-10-04のJRA159レース・2,182登録行・2,177実出走・2,089頭を保存・照合。父キズナと母父ディープインパクトの2条件の固定REPLAY集計はCOMPLETE、血統UNKNOWN/CONFLICTは0。
+- 調教国は父・母父613頭中5頭登録・原HTML補完済み、25頭は資料確認済み未登録、583頭は未検索。調教地域・他系統・海外を含む全条件の集計完了とはしない。
+- 初期のPARTIAL入力・snapshotと、旧調教国方式の固定結果は履歴として保持。今回の新規調教国調査で過去の集計値を上書きしない。
+- DB/取得adapter・非UIアプリ接続・FORWARD運用と効果評価は未実施。WebUIは実施対象外。現在の受入範囲は[受入表](acceptance.md)を参照。
 
 ## まず何をするか
 
@@ -87,7 +96,7 @@
 
 ## 完了境界
 
-`--audit`は保存済みsnapshotの改ざん等を確認するが、**snapshotが0件でも成功し得る**。これは実集計・出走データ収集・原出所確認の完了を意味しない。既存の過去記述535件は未確認の候補であり、統計用の出走母数ではない。Phase 2の公式出走/結果・実データID整備、Phase 3の実データ照合・DB連携、Phase 4表示、Phase 8検証/正式採用は独立した完了判定を維持する。
+`--audit`は保存済みsnapshotの改ざん等を確認するが、**snapshotが0件でも成功し得る**。これは実集計・出走データ収集・原出所確認の完了を意味しない。既存の過去記述535件は未確認の候補であり、統計用の出走母数ではない。対象期間のJRA公式入力・ID照合と限定2条件のGit実集計は実施済み。対象外データの整備、Phase 2のDB/取得連携、Phase 3の非UIアプリ接続、Phase 8の検証/正式採用は独立した未完了項目として維持する。WebUIは実施対象外。
 
 ## 調教国の確定優先順位（2026-10-10 改訂）
 
