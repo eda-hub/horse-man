@@ -1,3 +1,11 @@
+# 最新の受入再照合（2026-10-10）
+
+JRA159レース・2,182登録行・2,177実出走に対する父/母父EU・USと指定祖先21条件、計25条件をREPLAYで保存/readback。結果はCOMPLETE。欧州対象国は利用者指定の英・愛・仏・独・伊。 固定入力の取消1・除外4・中止6と母数を保持し、未確認・競合は独立群に残す。新snapshotは `data/condition_stats/snapshots/prediction-period-jra-training-regions-20261010/c37467eef8f237e25f504cbd725c90158e1c65e468c66a7cf283fab393b86e9c.json`。外部所属とUSER_PROVIDEDを理由・revision・hashで追跡できる。
+
+父/母父613頭と追加指定祖先12頭の未確定は0。旧535候補は昇格せず、残482記述の分類と原文hash照合は別記録。海外42行の5代登録は完了したが、YorkのBHA結果原票と海外集計は未完了。Stage切替・DB/アプリ・前向き評価・Production採用は独立した後続工程。WebUIは対象外。
+
+[対象集合・出所・残件の再照合manifest](../pedigree/reconciliations/2026-10-10-training-priority/acceptance-recheck.json)を現在の状態とする。以下は各実施時点の受入履歴。
+
 # PR68 §11.7 血統確認・成績集計の受入対応
 
 確認基準: PR69 `aa3872eaddf7d2c0f8ccbdb71fafea1aee7b0e6c`からのR03〜R06原文照合・Writer保存。実データの正本は[範囲summary](../pedigree/reconciliations/2026-10-10-alternative/scope_summary.json)と同summaryから参照する固定snapshot。調教国は[最新実施記録](../pedigree/reconciliations/2026-10-10-training-priority/README.md)を参照。

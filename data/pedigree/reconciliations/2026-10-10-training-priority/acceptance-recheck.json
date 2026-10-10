@@ -1,0 +1,239 @@
+{
+  "schema_version": "pedigree-acceptance-recheck-v1",
+  "baseline_head": "4606f0257c451b49ada80fe210a68c2d0acb3152",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "jra": {
+    "races": 159,
+    "entered_rows": 2182,
+    "starters": 2177,
+    "unique_horses": 2089,
+    "result_statuses": {
+      "FINISHED": 2171,
+      "DNF": 6,
+      "EXCLUDED": 4,
+      "SCRATCHED": 1
+    },
+    "input_manifest": "data/condition_stats/inputs/prediction-period-jra-20260816-20261004-alternative.json",
+    "previous_snapshots_preserved": 3,
+    "new_snapshot": "data/condition_stats/snapshots/prediction-period-jra-training-regions-20261010/c37467eef8f237e25f504cbd725c90158e1c65e468c66a7cf283fab393b86e9c.json",
+    "new_snapshot_hash": "c37467eef8f237e25f504cbd725c90158e1c65e468c66a7cf283fab393b86e9c",
+    "completeness": "COMPLETE",
+    "groups": {
+      "ancestor-jbis-0000161740-eu": {
+        "match_starts": 415,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000333862-us": {
+        "match_starts": 1869,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000333952-eu": {
+        "match_starts": 4,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000333996-eu": {
+        "match_starts": 626,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000334001-us": {
+        "match_starts": 93,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000334002-us": {
+        "match_starts": 1720,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000334140-us": {
+        "match_starts": 93,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000334374-eu": {
+        "match_starts": 13,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000334731-eu": {
+        "match_starts": 305,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000334968-eu": {
+        "match_starts": 994,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000335167-eu": {
+        "match_starts": 725,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000335975-us": {
+        "match_starts": 1756,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000336082-us": {
+        "match_starts": 863,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000336085-eu": {
+        "match_starts": 766,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000336572-eu": {
+        "match_starts": 681,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000337102-us": {
+        "match_starts": 878,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000337424-eu": {
+        "match_starts": 316,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000340528-eu": {
+        "match_starts": 23,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000347989-eu": {
+        "match_starts": 688,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0000714343-eu": {
+        "match_starts": 97,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "ancestor-jbis-0001127392-us": {
+        "match_starts": 7,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "dam_sire-eu": {
+        "match_starts": 369,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "dam_sire-us": {
+        "match_starts": 536,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "sire-eu": {
+        "match_starts": 190,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      },
+      "sire-us": {
+        "match_starts": 454,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "reason_counts": {}
+      }
+    },
+    "new_snapshot_blob_sha": "01e13ee18b45cba638d40b5d3e6f9a13c07553f3",
+    "snapshot_readback": {
+      "commit": "ab303079197787a86a01a3de627123e026da1a30",
+      "git_blob_sha": "01e13ee18b45cba638d40b5d3e6f9a13c07553f3",
+      "bytes": 30891655,
+      "remote_tree_sha_and_size_matched": true,
+      "ci_transfer_run": "https://github.com/eda-hub/horse-man/actions/runs/38046534773"
+    }
+  },
+  "training_country": {
+    "father_damsire_subjects": 613,
+    "externally_confirmed": 518,
+    "user_confirmed": 95,
+    "remaining": 0,
+    "additional_ancestor_reviewed": 12,
+    "additional_ancestor_external": 11,
+    "additional_ancestor_user": 1,
+    "additional_ancestor_remaining": 0
+  },
+  "foreign": {
+    "registered_rows": 42,
+    "finished": 38,
+    "scratched": 4,
+    "verified_ancestor_positions": 2604,
+    "remaining_pedigree_rows": 0,
+    "official_jra_result_races": 3,
+    "participant_result_races_pending_bha": 1,
+    "foreign_statistics_complete": false
+  },
+  "legacy": {
+    "original_claims": 535,
+    "original_parent_components_source_matched": 106,
+    "remaining_claims_classified": 482,
+    "new_verified_claims": 0,
+    "unconfirmed_components": 219,
+    "derived_components": 218,
+    "hypothesis_components": 83
+  },
+  "historical_persistence": {
+    "reviewed": 40,
+    "resolved_eligible": 0,
+    "unresolved": 40
+  },
+  "schema": {
+    "additional_fields": [
+      "attribute:training_country_matches",
+      "attribute:training_country_user"
+    ],
+    "additional_source_class": "USER_PROVIDED"
+  },
+  "deferred": {
+    "stage_switch": "2026-10-12開催までの第3サイクル終了審査後、別PRでのみ実施。現行v1.6.1とDraftを維持。",
+    "application_phases": "Phase 2の入力/DBとStage 2契約が成立した後、非UI Phaseを独立PRで順に実装。",
+    "webui": "利用者指定により実施対象外。",
+    "verification": "未確認/派生/仮説の追加原票検証、別branch/中間commitの真正保存証跡探索、海外YorkのBHA原票・未選定条件・系統/クロスの明示定義。"
+  },
+  "calculation_head": "65186d860c743d3fcc86c8f2bf9123052faf9226",
+  "new_old_calculation_comparison": {
+    "previous_code_commit": "4606f0257c451b49ada80fe210a68c2d0acb3152",
+    "races": 1,
+    "entries": 16,
+    "groups": 25,
+    "byte_equal_record": true,
+    "content_sha256": "7eaa067c2f831043b9068d2f512e02b123425e737dd3555d1a80680c4e3578e0"
+  }
+}

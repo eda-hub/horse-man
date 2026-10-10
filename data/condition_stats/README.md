@@ -201,3 +201,10 @@ HTTP原票を圧縮保存し、本人ID・名前・生年・本人調教師欄�
 ## 海外4レースの先頭5登録行（手順6、2026-10-10）
 
 本人同定・公式父母母父・5代310位置をRegistryへ保存/readback。36独立個体・58親子revisionを追加。42登録行＝38出走＋4取消は不変、残37行は未照合。原文・対応表・CAS receipt・固定cutoffはdata/pedigree/reconciliations/2026-10-10-foreign-reviewに保存。全海外coverageと全条件再集計は未完了。
+
+
+## 2026-10-10 地域・指定祖先の固定REPLAY
+
+利用者指定の欧州5か国（GB/IE/FR/DE/IT）、米国US、対象父/母父で確認されたその他国AR/AU/CA/JPを版付き定義へ固定。未定義国はUNKNOWN。JRA159レースの父/母父EU・USと指定祖先21個体の5代内包＋本人地域、計25条件を再集計した。2,182登録行・2,177実出走でCOMPLETE、血統条件UNKNOWN/CONFLICTは0。外部所属と利用者提供をreason/revision/hashで区別し、旧3snapshotを保持する。
+
+定義はdefinitions/prediction-period-jra-training-regions-20261010.json。現在の受入・未検証範囲はacceptance.md。各条件の件数を合算して母数にしない。既存処理と同じJSON snapshotを保存し、共通祖先展開の再利用後も新旧件数/hashが一致する。REPLAY専用でProduction採用を意味しない。
