@@ -21,14 +21,14 @@ PREDICTION_SNAPSHOT_SCHEMA = 'prediction-snapshot-v2'
 def snapshot_section(content, snapshot_id):
     sections = re.split(r'(?=^##\s+)', content, flags=re.M)
     matched = [section for section in sections
-               if re.search(r'^snapshot_id:\s*'+re.escape(snapshot_id)+r'\s*$',section,re.M)]
+               if re.search(r'^(?:-\s+)?snapshot_id:\s*'+re.escape(snapshot_id)+r'\s*$',section,re.M)]
     if len(matched) != 1:
         raise ComplianceError(f'{snapshot_id}: expected one snapshot section, found {len(matched)}')
     return matched[0]
 
 
 def field(section, key):
-    match = re.search(r'^'+re.escape(key)+r':\s*(.*?)\s*$',section,re.M)
+    match = re.search(r'^(?:-\s+)?'+re.escape(key)+r':\s*(.*?)\s*$',section,re.M)
     return match.group(1).strip() if match else None
 
 
@@ -66,7 +66,7 @@ def resolve_snapshot(root, date, snapshot_id, declared_artifact_path=None):
                 if declared_artifact_path:
                     raise
                 continue
-            scope_blocks=re.findall(r'^```prediction-scope-v1\s*\n(.*?)\n```\s*$',section,re.M|re.S)
+            scope_blocks= re.findall(r'^(?:```|\\`\\`\\`)prediction-scope-v1[ \t]*\n(.*?)\n(?:```|\\`\\`\\`)[ \t]*$',section,re.M|re.S)
             scope=None
             if scope_blocks:
                 if len(scope_blocks)!=1:
@@ -284,7 +284,7 @@ def main():
         snapshots=args.root/'docs/validation/snapshots'
         for snapshot in sorted(snapshots.glob('*.md')):
             if args.date and snapshot.stem!=args.date: continue
-            for ident in re.findall(r'^snapshot_id:\s*(\S+)\s*$',snapshot.read_text(encoding='utf-8'),re.M):
+            for ident in re.findall(r'^(?:-\s+)?snapshot_id:\s*(\S+)\s*$',snapshot.read_text(encoding='utf-8'),re.M):
                 if (snapshot.stem,ident) not in declared:
                     failed+=1
                     print(f'PERSISTENCE_INCOMPLETE {snapshot}: {ident}: NO_INTENT; historical omission, not retroactively prepared')
@@ -319,3 +319,4 @@ def main():
 
 
 if __name__=='__main__': raise SystemExit(main())
+

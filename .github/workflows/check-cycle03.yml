@@ -107,7 +107,7 @@ jobs:
           echo "manual_release=$release" >> "$GITHUB_STEP_SUMMARY"
       - name: 第3サイクル日別記録と集計の照合
         if: steps.manual.outputs.release == 'v1.6.1'
-        run: python3 scripts/check_cycle03.py
+        run: python3 scripts/check_cycle03.py --require-data
       - name: 次期Prediction日別台帳の照合
         if: steps.manual.outputs.release == 'v1.7.0'
         run: python3 scripts/check_prediction_cycle.py
@@ -116,5 +116,6 @@ jobs:
         run: |
           echo "未対応manual release: ${{ steps.manual.outputs.release }}" >&2
           exit 1
+
 
 
