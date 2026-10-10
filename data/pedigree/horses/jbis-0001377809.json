@@ -1,0 +1,86 @@
+{
+  "horse_key": "jbis-0001377809",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2023,
+    "external_ids": {
+      "JBIS": "0001377809"
+    },
+    "identity_evidence": {
+      "record_key": "0001377809",
+      "source": "JBIS"
+    },
+    "name": "ウイントリベルガ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:34.827431+00:00",
+  "identity_observed_at": "2026-10-09T15:04:34.827431+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2023,
+    "external_ids": {
+      "JBIS": "0001377809"
+    },
+    "identity_evidence": {
+      "record_key": "0001377809",
+      "source": "JBIS"
+    },
+    "name": "ウイントリベルガ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:50:11.812992+00:00",
+      "content_hash": "51ca3a34e311c221ec2535b2d9b3e9d40d735ee0589fbc8ce9f17a6b7997ca20",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:50:11.812992+00:00",
+      "input_hash": "76d7e3eb698d444808cee22ebcbacac284fcb4a827000f74d8f8207f9136284a",
+      "previous_revision": null,
+      "revision_id": "rev-76d7e3eb698d444808cee22e",
+      "saved_at": "2026-10-09T15:05:29.190248+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "1e104625b39f7a322feef1d070c505ee4f0df8eeabdd4d486bd1fcb449054aea",
+        "record_key": "0001377809",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001377809/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001190059",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:50:11.812992+00:00",
+      "content_hash": "ecdc79acebf22e0827914175951c63b430a0f9b8e58853a24b566982bf9b1d22",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:50:11.812992+00:00",
+      "input_hash": "785b10dad9830f48dbfcbadf280dffede65d28625e1d74e7599c60f8b899cd40",
+      "previous_revision": null,
+      "revision_id": "rev-785b10dad9830f48dbfcbadf",
+      "saved_at": "2026-10-09T15:05:29.196354+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "1e104625b39f7a322feef1d070c505ee4f0df8eeabdd4d486bd1fcb449054aea",
+        "record_key": "0001377809",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001377809/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001095061",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0001104811",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001104811",
+      "NETKEIBA": "2009102739"
+    },
+    "identity_evidence": {
+      "record_key": "0001104811",
+      "source": "JBIS"
+    },
+    "name": "ゴールドシップ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:29.457386+00:00",
+  "identity_observed_at": "2026-10-09T15:04:29.457386+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2009,
+        "external_ids": {
+          "JBIS": "0001104811",
+          "NETKEIBA": "2009102739"
+        },
+        "identity_evidence": {
+          "record_key": "0001104811",
+          "source": "JBIS"
+        },
+        "name": "ゴールドシップ",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:28.031901+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2009,
+        "external_ids": {
+          "JBIS": "0001104811"
+        },
+        "identity_evidence": {
+          "record_key": "0001104811",
+          "source": "JBIS"
+        },
+        "name": "ゴールドシップ",
+        "status": "RESOLVED"
+      },
+      "event_hash": "2abfb27f0516e7a86de03fe2e601b6de34ba6093a985983b420f28175abf6800",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001104811"
+    },
+    "identity_evidence": {
+      "record_key": "0001104811",
+      "source": "JBIS"
+    },
+    "name": "ゴールドシップ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:40:20.650260+00:00",
+      "content_hash": "36f57b1021ea2bb0e985192e456c479482125ee39041da36865d12470f204726",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:40:20.650260+00:00",
+      "input_hash": "e0df523116541557408221b770d2259b503ec620f422bd4d9ded2b9a5af13b01",
+      "previous_revision": null,
+      "revision_id": "rev-e0df523116541557408221b7",
+      "saved_at": "2026-10-09T15:05:13.158111+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "14563631be1772806f535a7a1cd478d81b759022f2696764242f1a8781a4202e",
+        "record_key": "0001395647",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001395647/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000286968",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:40:20.650260+00:00",
+      "content_hash": "04027bea78c8bd8a7c82f9cea15fce882f0f6160bdce5624adb72e2d61bcaf3d",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:40:20.650260+00:00",
+      "input_hash": "fc534d5cac9933df289155776eb2f787ff2d3c2d0d0d8256b7a4bc733294fd38",
+      "previous_revision": null,
+      "revision_id": "rev-fc534d5cac9933df28915577",
+      "saved_at": "2026-10-09T15:05:13.160296+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "14563631be1772806f535a7a1cd478d81b759022f2696764242f1a8781a4202e",
+        "record_key": "0001395647",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001395647/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000329411",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001104811/",
+              "record_hash": "07f639c9c1cb24b13f8750b847ec61003df93efb48c0fb0376712bd52aa7b6f1",
+              "captured_at": "2026-10-10T04:23:17.739Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:23:17.739Z",
+      "captured_at": "2026-10-10T04:23:17.739Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001104811",
+        "record_hash": "07f639c9c1cb24b13f8750b847ec61003df93efb48c0fb0376712bd52aa7b6f1",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001104811",
+          "horse_name": "ゴールドシップ",
+          "trainer": "須貝 尚介",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001104811/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-851e4e4d05a41d7dcdf0c305",
+      "input_hash": "851e4e4d05a41d7dcdf0c305b2063bd58c31b82dcccf217319dd90af4e42bea0",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:23:17.742Z",
+      "content_hash": "b5af14766698c396c0d8c92f2025a2211313409c0da48bea2f81195cb40e86e4"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

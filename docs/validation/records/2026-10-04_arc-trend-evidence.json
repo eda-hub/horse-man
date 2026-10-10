@@ -1,0 +1,3127 @@
+{
+  "schema": "arc-trend-evidence-v1",
+  "acquired_date_jst": "2026-10-05",
+  "acquisition_stage": "POST_RACE",
+  "race_id": "2026-10-04-LCH-05",
+  "definitions": {
+    "past_window": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "current_year": 2026,
+    "course": "パリロンシャン芝2400m",
+    "top3": "確定着順1～3。中止は出走分母に含め、取消は除外",
+    "gate": "公式ゲート番号。馬番と区別し取消で詰めない。1～8対9以上は事後設定の補助定義",
+    "sex_age": "牡牝×3歳/4歳以上。斤量がほぼ同じ分類のため独立した斤量効果としない",
+    "last_start": "出馬表の実際の直前出走が同年フォワ賞/ニエル賞/ヴェルメイユ賞か。他路線と区別。生涯同場実績の代理としない",
+    "going": "各年JRA日本語表記。現地原文・硬度・天候・全馬位置取りは未確認。時計差の因果分析を行わない",
+    "new_definitions": "以上の区分は結果後の記述分析用。事前に定義されていた統計・予想へ遡及しない"
+  },
+  "sources": {
+    "results": {
+      "2021": "https://jra.jp/keiba/overseas/race/2021arc/kaiko.html",
+      "2022": "https://jra.jp/keiba/overseas/race/2022arc/kaiko.html",
+      "2023": "https://jra.jp/keiba/overseas/race/2023arc/kaiko.html",
+      "2024": "https://jra.jp/keiba/overseas/race/2024arc/kaiko.html",
+      "2025": "https://jra.jp/keiba/overseas/race/2025arc/kaiko.html",
+      "2026": "https://jra.jp/keiba/overseas/race/2026arc/kaiko.html"
+    },
+    "past_cards": [
+      "https://world.jra-van.jp/race/arc/2021/racecard/",
+      "https://world.jra-van.jp/race/arc/2022/racecard/",
+      "https://world.jra-van.jp/race/arc/2023/racecard/",
+      "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+      "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html"
+    ],
+    "current_card": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D"
+  },
+  "annual_conditions": [
+    {
+      "year": 2021,
+      "going_jra": "重",
+      "starters": 14,
+      "time": "2:37.62"
+    },
+    {
+      "year": 2022,
+      "going_jra": "重",
+      "starters": 20,
+      "time": "2:35.71"
+    },
+    {
+      "year": 2023,
+      "going_jra": "稍重",
+      "starters": 15,
+      "time": "2:25.50"
+    },
+    {
+      "year": 2024,
+      "going_jra": "重",
+      "starters": 16,
+      "time": "2:31.58"
+    },
+    {
+      "year": 2025,
+      "going_jra": "重",
+      "starters": 17,
+      "time": "2:29.17"
+    },
+    {
+      "year": 2026,
+      "going_jra": "稍重",
+      "starters": 16,
+      "time": "2:27.11"
+    }
+  ],
+  "excluded_registrations": [
+    {
+      "year": 2021,
+      "rank": "取消",
+      "number": 5,
+      "gate": 4,
+      "name": "ラブ",
+      "sex": "牝",
+      "age": 4,
+      "weight": 58,
+      "popularity": null
+    },
+    {
+      "year": 2025,
+      "rank": "取消",
+      "number": 7,
+      "gate": 18,
+      "name": "エストレンジ",
+      "sex": "牝",
+      "age": 4,
+      "weight": 58,
+      "popularity": null
+    }
+  ],
+  "past_starters": [
+    {
+      "year": 2021,
+      "rank": 1,
+      "number": 1,
+      "gate": 12,
+      "name": "トルカータータッソ",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 13,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 65,
+        "text": "21/09/05 7頭 芝2400 バーデン大賞（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2021,
+      "rank": 2,
+      "number": 4,
+      "gate": 3,
+      "name": "タルナワ",
+      "sex": "牝",
+      "age": 5,
+      "weight": 58,
+      "popularity": 2,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 96,
+        "text": "21/09/11 4頭 芝2000 愛チャンピオンS（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2021,
+      "rank": 3,
+      "number": 11,
+      "gate": 2,
+      "name": "ハリケーンレーン",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 1,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 155,
+        "text": "21/09/11 10頭 芝2910 英セントレジャー（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2021,
+      "rank": 4,
+      "number": 10,
+      "gate": 11,
+      "name": "アダイヤー",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 5,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 146,
+        "text": "21/07/24 5頭 芝2390 キングジョージ（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2021,
+      "rank": 5,
+      "number": 12,
+      "gate": 10,
+      "name": "シリウェイ",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 12,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 165,
+        "text": "21/06/06 19頭 芝2100 仏ダービー（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2021,
+      "rank": 6,
+      "number": 15,
+      "gate": 9,
+      "name": "スノーフォール",
+      "sex": "牝",
+      "age": 3,
+      "weight": 55,
+      "popularity": 4,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 195,
+        "text": "21/09/12 7頭 芝2400 ヴェルメイユ賞（G1）"
+      },
+      "last_start_trial": "ヴェルメイユ賞"
+    },
+    {
+      "year": 2021,
+      "rank": 7,
+      "number": 7,
+      "gate": 14,
+      "name": "クロノジェネシス",
+      "sex": "牝",
+      "age": 5,
+      "weight": 58,
+      "popularity": 3,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 116,
+        "text": "21/06/27 13頭 芝2200 宝塚記念（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2021,
+      "rank": 8,
+      "number": 14,
+      "gate": 6,
+      "name": "バブルギフト",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 11,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 185,
+        "text": "21/09/12 5頭 芝2400 ニエル賞（G2）"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2021,
+      "rank": 9,
+      "number": 13,
+      "gate": 8,
+      "name": "アレンカー",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 8,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 175,
+        "text": "21/08/18 7頭 芝2050 英インターナショナルS（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2021,
+      "rank": 10,
+      "number": 8,
+      "gate": 1,
+      "name": "モジョスター",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 10,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 126,
+        "text": "21/09/11 10頭 芝2910 英セントレジャー（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2021,
+      "rank": 11,
+      "number": 3,
+      "gate": 7,
+      "name": "ブルーム",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 7,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 86,
+        "text": "21/09/12 6頭 芝2400 フォワ賞（G2）"
+      },
+      "last_start_trial": "フォワ賞"
+    },
+    {
+      "year": 2021,
+      "rank": 12,
+      "number": 6,
+      "gate": 15,
+      "name": "ラービアー",
+      "sex": "牝",
+      "age": 4,
+      "weight": 58,
+      "popularity": 9,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 106,
+        "text": "21/08/22 6頭 芝2500 ポモヌ賞（G2）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2021,
+      "rank": 13,
+      "number": 9,
+      "gate": 13,
+      "name": "ベイビーライダー",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 14,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 136,
+        "text": "21/09/12 5頭 芝2400 ニエル賞（G2）"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2021,
+      "rank": 14,
+      "number": 2,
+      "gate": 5,
+      "name": "ディープボンド",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 6,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2021/racecard/",
+        "source_line": 75,
+        "text": "21/09/12 6頭 芝2400 フォワ賞（G2）"
+      },
+      "last_start_trial": "フォワ賞"
+    },
+    {
+      "year": 2022,
+      "rank": 1,
+      "number": 14,
+      "gate": 6,
+      "name": "アルピニスタ",
+      "sex": "牝",
+      "age": 5,
+      "weight": 58,
+      "popularity": 2,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 915,
+        "text": "英ヨーク　　　22/08/18ヨークシャーオーク（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 2,
+      "number": 15,
+      "gate": 2,
+      "name": "ヴァデニ",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 7,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 976,
+        "text": "愛レパーズタ　22/09/10愛チャンピオンS（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 3,
+      "number": 2,
+      "gate": 18,
+      "name": "トルカータータッソ",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 6,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 182,
+        "text": "独バーデンバ　22/09/04バーデン大賞（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 4,
+      "number": 16,
+      "gate": 4,
+      "name": "アルハキーム",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 11,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 1037,
+        "text": "仏ドーヴィル　22/08/15ギヨームドルナノ賞（G2）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 5,
+      "number": 13,
+      "gate": 9,
+      "name": "グランドグローリー",
+      "sex": "牝",
+      "age": 6,
+      "weight": 58,
+      "popularity": 16,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 854,
+        "text": "仏パリロンシ　22/09/11ヴェルメイユ賞（G1）"
+      },
+      "last_start_trial": "ヴェルメイユ賞"
+    },
+    {
+      "year": 2022,
+      "rank": 6,
+      "number": 18,
+      "gate": 7,
+      "name": "ウエストオーバー",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 8,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 1158,
+        "text": "英アスコット　22/07/23キングジョージ（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 7,
+      "number": 20,
+      "gate": 8,
+      "name": "ルクセンブルク",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 4,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 1281,
+        "text": "愛レパーズタ　22/09/10愛チャンピオンS（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 8,
+      "number": 7,
+      "gate": 14,
+      "name": "ブルーム",
+      "sex": "牡",
+      "age": 6,
+      "weight": 59.5,
+      "popularity": 20,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 488,
+        "text": "愛レパーズタ　22/09/10愛チャンピオンS（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 9,
+      "number": 5,
+      "gate": 12,
+      "name": "アレンカー",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 19,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 365,
+        "text": "愛レパーズタ　22/09/10愛チャンピオンS（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 10,
+      "number": 17,
+      "gate": 11,
+      "name": "オネスト",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 5,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 1098,
+        "text": "愛レパーズタ　22/09/10愛チャンピオンS（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 11,
+      "number": 11,
+      "gate": 10,
+      "name": "タイトルホルダー",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 1,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 732,
+        "text": "日阪神　　　　22/06/26宝塚記念（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 12,
+      "number": 10,
+      "gate": 1,
+      "name": "メンドシーノ",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 9,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 670,
+        "text": "独バーデンバ　22/09/04バーデン大賞（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 13,
+      "number": 1,
+      "gate": 17,
+      "name": "ミシュリフ",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 13,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 121,
+        "text": "愛レパーズタ　22/09/10愛チャンピオンS（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 14,
+      "number": 8,
+      "gate": 20,
+      "name": "ステイフーリッシュ",
+      "sex": "牡",
+      "age": 7,
+      "weight": 59.5,
+      "popularity": 12,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 548,
+        "text": "仏ドーヴィル　22/08/28ドーヴィル大賞（G2）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 15,
+      "number": 3,
+      "gate": 19,
+      "name": "マレオーストラリス",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 17,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 243,
+        "text": "仏サンクルー　22/07/03サンクルー大賞（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 16,
+      "number": 4,
+      "gate": 15,
+      "name": "シリウェイ",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 15,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 304,
+        "text": "仏パリロンシ　22/09/04ラクープドメゾンラ（G3）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 17,
+      "number": 12,
+      "gate": 13,
+      "name": "バブルギフト",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 14,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 793,
+        "text": "仏パリロンシ　22/09/11フォワ賞（G2）"
+      },
+      "last_start_trial": "フォワ賞"
+    },
+    {
+      "year": 2022,
+      "rank": 18,
+      "number": 6,
+      "gate": 5,
+      "name": "ディープボンド",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 10,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 427,
+        "text": "日阪神　　　　22/06/26宝塚記念（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2022,
+      "rank": 19,
+      "number": 19,
+      "gate": 3,
+      "name": "ドウデュース",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 3,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 1220,
+        "text": "仏パリロンシ　22/09/11ニエル賞（G2）"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2022,
+      "rank": 20,
+      "number": 9,
+      "gate": 16,
+      "name": "モスターダフ",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 18,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2022/racecard/",
+        "source_line": 609,
+        "text": "英ケンプトン　22/09/03セプテンバーS（G3）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 1,
+      "number": 13,
+      "gate": 8,
+      "name": "エースインパクト",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 1,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 851,
+        "text": "仏ドーヴィル　23/08/15ギヨームドルナノ賞（G2）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 2,
+      "number": 6,
+      "gate": 1,
+      "name": "ウエストオーバー",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 2,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 425,
+        "text": "英アスコット　23/07/29キングジョージ（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 3,
+      "number": 3,
+      "gate": 9,
+      "name": "オネスト",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 13,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 242,
+        "text": "愛レパーズタ　23/09/09愛チャンピオンS（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 4,
+      "number": 9,
+      "gate": 5,
+      "name": "スルーセブンシーズ",
+      "sex": "牝",
+      "age": 5,
+      "weight": 58,
+      "popularity": 5,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 607,
+        "text": "日阪神　　　　23/06/25宝塚記念（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 5,
+      "number": 15,
+      "gate": 7,
+      "name": "コンティニュアス",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 7,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 973,
+        "text": "英ドンカスタ　23/09/16英セントレジャー（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 6,
+      "number": 5,
+      "gate": 6,
+      "name": "ベイブリッジ",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 11,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 364,
+        "text": "英ケンプトン　23/09/09セプテンバーS（G3）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 7,
+      "number": 1,
+      "gate": 13,
+      "name": "シスファハン",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 14,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 120,
+        "text": "独バーデンバ　23/09/03バーデン大賞（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 8,
+      "number": 12,
+      "gate": 2,
+      "name": "フィードザフレーム",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 3,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 790,
+        "text": "仏パリロンシ　23/09/10ニエル賞（G2）"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2023,
+      "rank": 9,
+      "number": 7,
+      "gate": 14,
+      "name": "フクム",
+      "sex": "牡",
+      "age": 6,
+      "weight": 59.5,
+      "popularity": 4,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 486,
+        "text": "英アスコット　23/07/29キングジョージ（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 10,
+      "number": 4,
+      "gate": 15,
+      "name": "シムカミル",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 9,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 303,
+        "text": "独ホッペガル　23/08/13ベルリン大賞（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 11,
+      "number": 14,
+      "gate": 12,
+      "name": "ファンタスティックムーン",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 6,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 912,
+        "text": "仏パリロンシ　23/09/10ニエル賞（G2）"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2023,
+      "rank": 12,
+      "number": 8,
+      "gate": 11,
+      "name": "プラスデュキャルゼル",
+      "sex": "牝",
+      "age": 4,
+      "weight": 58,
+      "popularity": 8,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 547,
+        "text": "仏パリロンシ　23/09/10フォワ賞（G2）"
+      },
+      "last_start_trial": "フォワ賞"
+    },
+    {
+      "year": 2023,
+      "rank": 13,
+      "number": 10,
+      "gate": 3,
+      "name": "フリーウインド",
+      "sex": "牝",
+      "age": 5,
+      "weight": 58,
+      "popularity": 10,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 668,
+        "text": "英ヨーク　　　23/08/24ヨークシャーオーク（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 14,
+      "number": 2,
+      "gate": 4,
+      "name": "アヤザーク",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 15,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 181,
+        "text": "仏ドーヴィル　23/08/27ドーヴィル大賞（G2）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2023,
+      "rank": 15,
+      "number": 11,
+      "gate": 10,
+      "name": "ミスターハリウッド",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 12,
+      "previous_race_evidence": {
+        "source": "https://world.jra-van.jp/race/arc/2023/racecard/",
+        "source_line": 729,
+        "text": "独バーデンバ　23/09/03バーデン大賞（G1）"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2024,
+      "rank": 1,
+      "number": 7,
+      "gate": 3,
+      "name": "ブルーストッキング",
+      "sex": "牝",
+      "age": 4,
+      "weight": 58,
+      "popularity": 2,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 534,
+        "text": "118  | GB Image: 勝負服の画像牝4/鹿 58.0 kg R.ライアン  | 2024年9月15日 FR ヴェルメイユ Image: GⅠ 1着12頭9番1番人気 R.ライアン 59.0 kg 2400芝・右重 2:31.5"
+      },
+      "last_start_trial": "ヴェルメイユ賞"
+    },
+    {
+      "year": 2024,
+      "rank": 2,
+      "number": 16,
+      "gate": 4,
+      "name": "アヴァンチュール",
+      "sex": "牝",
+      "age": 3,
+      "weight": 55,
+      "popularity": 7,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 780,
+        "text": "116  | IRE Image: 勝負服の画像牝3/鹿 55.0 kg S.パスキエ  | 2024年9月15日 FR ヴェルメイユ Image: GⅠ 2着12頭2番3番人気 M.ギュイヨン 55.5 kg 2400芝・右重 2:31.6"
+      },
+      "last_start_trial": "ヴェルメイユ賞"
+    },
+    {
+      "year": 2024,
+      "rank": 3,
+      "number": 14,
+      "gate": 10,
+      "name": "ロスアンゼルス",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 6,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 725,
+        "text": "120  | IRE Image: 勝負服の画像牡3/黒鹿 56.5 kg R.ムーア  | 2024年9月14日 IRE 愛チャンピオ Image: GⅠ 4着8頭5番4番人気 D.マクモナグ 58.5 kg 2000芝・左良 2:03.4"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2024,
+      "rank": 4,
+      "number": 13,
+      "gate": 5,
+      "name": "ソジー",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 1,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 698,
+        "text": "119  | IRE Image: 勝負服の画像牡3/鹿 56.5 kg M.ギュイヨン  | 2024年9月15日 FR ニエル賞 Image: GⅡ 1着5頭5番2番人気 M.ギュイヨン 58.0 kg 2400芝・右重 2:34.3"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2024,
+      "rank": 5,
+      "number": 5,
+      "gate": 12,
+      "name": "セヴェナズナイト",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 13,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 479,
+        "text": "115  | IRE Image: 勝負服の画像牡4/鹿 59.5 kg M.バルザローナ  | 2024年9月8日 FR グラディアト Image: GⅢ 1着10頭5番3番人気 M.バルザロー 59.0 kg 3100芝・右重 3:30.6"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2024,
+      "rank": 6,
+      "number": 1,
+      "gate": 1,
+      "name": "ザラケム",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 12,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 369,
+        "text": "120  | FR Image: 勝負服の画像牡4/鹿 59.5 kg C.デムーロ  | 2024年8月21日 GB 英インターS Image: GⅠ 11着13頭9番7番人気 M.ギュイヨン 61.0 kg 2050芝・左良 2:07.9"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2024,
+      "rank": 7,
+      "number": 15,
+      "gate": 6,
+      "name": "シュルヴィー",
+      "sex": "牝",
+      "age": 3,
+      "weight": 55,
+      "popularity": 15,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 753,
+        "text": "114  | IRE Image: 勝負服の画像牝3/鹿 55.0 kg T.マーカンド  | 2024年9月15日 FR ヴェルメイユ Image: GⅠ 7着12頭10番5番人気 S.パスキエ 55.5 kg 2400芝・右重 2:32.9"
+      },
+      "last_start_trial": "ヴェルメイユ賞"
+    },
+    {
+      "year": 2024,
+      "rank": 8,
+      "number": 12,
+      "gate": 7,
+      "name": "デリウス",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 8,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 670,
+        "text": "115  | GB Image: 勝負服の画像牡3/鹿 56.5 kg I.メンディザバル  | 2024年9月15日 FR ニエル賞 Image: GⅡ 2着5頭6番4番人気 I.メンディザ 58.0 kg 2400芝・右重 2:34.5"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2024,
+      "rank": 9,
+      "number": 3,
+      "gate": 2,
+      "name": "ファンタスティックムーン",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 10,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 424,
+        "text": "120  | GER Image: 勝負服の画像牡4/鹿 59.5 kg R.ピーヒュレク  | 2024年9月1日 GER バーデン大賞 Image: GⅠ 1着6頭5番2番人気 R.ピーヒュレ 60.0 kg 2400芝・左良 2:28.0"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2024,
+      "rank": 10,
+      "number": 11,
+      "gate": 15,
+      "name": "サンウェイ",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 14,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 643,
+        "text": "116  | FR Image: 勝負服の画像牡3/鹿 56.5 kg O.マーフィー  | 2024年9月14日 GB 英セントレジ Image: GⅠ 3着7頭2番4番人気 C.スミヨン 58.5 kg 2910芝・左良 3:04.8"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2024,
+      "rank": 11,
+      "number": 4,
+      "gate": 9,
+      "name": "アルリファー",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 5,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 452,
+        "text": "119  | FR Image: 勝負服の画像牡4/鹿 59.5 kg武 豊  | 2024年8月11日 GER ベルリン大賞 Image: GⅠ 1着7頭1番1番人気 D.マクモナグ 60.0 kg 2400芝・右良 2:30.2"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2024,
+      "rank": 12,
+      "number": 10,
+      "gate": 11,
+      "name": "シンエンペラー",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 3,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 616,
+        "text": "120  | FR Image: 勝負服の画像牡3/栗 56.5 kg坂井 瑠星  | 2024年9月14日 IRE 愛チャンピオ Image: GⅠ 3着8頭3番6番人気 坂井 瑠星 58.5 kg 2000芝・左良 2:03.4"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2024,
+      "rank": 13,
+      "number": 9,
+      "gate": 8,
+      "name": "ルックドゥヴェガ",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 4,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 588,
+        "text": "120  | FR Image: 勝負服の画像牡3/鹿 56.5 kg R.トーマス  | 2024年9月15日 FR ニエル賞 Image: GⅡ 3着5頭2番1番人気 R.トーマス 58.0 kg 2400芝・右重 2:34.8"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2024,
+      "rank": 14,
+      "number": 8,
+      "gate": 16,
+      "name": "マルキーズドゥセヴィニエ",
+      "sex": "牝",
+      "age": 5,
+      "weight": 58,
+      "popularity": 9,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 562,
+        "text": "117  | IRE Image: 勝負服の画像牝5/鹿 58.0 kg A.プーシャン  | 2024年8月18日 FR ジャンロマネ Image: GⅠ 1着5頭5番1番人気 A.プーシャン 57.0 kg 2000芝・右稍重 2:08.8"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2024,
+      "rank": 15,
+      "number": 6,
+      "gate": 14,
+      "name": "コンティニュアス",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 11,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 507,
+        "text": "114  | JPN Image: 勝負服の画像牡4/鹿 59.5 kg C.スミヨン  | 2024年9月15日 FR フォワ賞 Image: GⅡ 3着5頭5番1番人気 C.スミヨン 58.0 kg 2400芝・右重 2:34.5"
+      },
+      "last_start_trial": "フォワ賞"
+    },
+    {
+      "year": 2024,
+      "rank": "中止",
+      "number": 2,
+      "gate": 13,
+      "name": "アヤザーク",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 16,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2024arc/syutsuba.html",
+        "source_line": 397,
+        "text": "116  | FR Image: 勝負服の画像牡5/鹿 59.5 kg W.ビュイック  | 2024年9月8日 FR ラクープメゾ Image: GⅢ 2着7頭2番2番人気 C.スミヨン 60.0 kg 2000芝・右重 2:09.0"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2025,
+      "rank": 1,
+      "number": 11,
+      "gate": 2,
+      "name": "ダリズ",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 10,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 659,
+        "text": "117  | FR Image: 勝負服の画像牡3/鹿 56.5 kg M.バルザローナ  | 2025年9月14日 FR Pオランジュ Image: GⅢ 2着7頭7番2番人気 M.バルザロー 57.0 kg 2000芝・右重 2:11.7"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2025,
+      "rank": 2,
+      "number": 17,
+      "gate": 1,
+      "name": "ミニーホーク",
+      "sex": "牝",
+      "age": 3,
+      "weight": 55,
+      "popularity": 2,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 823,
+        "text": "118  | IRE Image: 勝負服の画像牝3/鹿 55.0 kg C.スミヨン  | 2025年8月21日 GB ヨークシャO Image: GⅠ 1着4頭4番1番人気 R.ムーア 57.0 kg 2370芝・左良 2:26.6"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2025,
+      "rank": 3,
+      "number": 4,
+      "gate": 3,
+      "name": "ソジー",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 5,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 467,
+        "text": "120  | IRE Image: 勝負服の画像牡4/鹿 59.5 kg S.パスキエ  | 2025年9月7日 FR フォワ賞 Image: GⅡ 2着9頭1番1番人気 M.ギュイヨン 58.5 kg 2400芝・右稍重 2:28.3"
+      },
+      "last_start_trial": "フォワ賞"
+    },
+    {
+      "year": 2025,
+      "rank": 4,
+      "number": 1,
+      "gate": 5,
+      "name": "ジアヴェロット",
+      "sex": "牡",
+      "age": 6,
+      "weight": 59.5,
+      "popularity": 13,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 384,
+        "text": "120  | IRE Image: 勝負服の画像牡6/栗 59.5 kg A.アッゼニ  | 2025年9月6日 GB セプテンバS Image: GⅢ 1着6頭3番2番人気 O.マーフィー 60.5 kg 2400AW・右良 2:31.1"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2025,
+      "rank": 5,
+      "number": 6,
+      "gate": 15,
+      "name": "ビザンチンドリーム",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 4,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 522,
+        "text": "121  | JPN Image: 勝負服の画像牡4/栗 59.5 kg О.マーフィー  | 2025年9月7日 FR フォワ賞 Image: GⅡ 1着9頭4番6番人気 О.マーフィー 58.5 kg 2400芝・右稍重 2:28.3 計不"
+      },
+      "last_start_trial": "フォワ賞"
+    },
+    {
+      "year": 2025,
+      "rank": 6,
+      "number": 3,
+      "gate": 16,
+      "name": "アローイーグル",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 17,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 439,
+        "text": "110  | FR Image: 勝負服の画像牡4/鹿 59.5 kg I.メンディザバル  | 2025年9月7日 FR フォワ賞 Image: GⅡ 6着9頭2番4番人気 C.デムーロ 58.5 kg 2400芝・右稍重 2:29.2"
+      },
+      "last_start_trial": "フォワ賞"
+    },
+    {
+      "year": 2025,
+      "rank": 7,
+      "number": 9,
+      "gate": 10,
+      "name": "カルパナ",
+      "sex": "牝",
+      "age": 4,
+      "weight": 58,
+      "popularity": 7,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 604,
+        "text": "120  | GB Image: 勝負服の画像牝4/鹿 58.0 kg C.キーン  | 2025年9月6日 GB セプテンバS Image: GⅢ 2着6頭6番1番人気 C.キーン 59.0 kg 2400AW・右良 2:31.3"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2025,
+      "rank": 8,
+      "number": 12,
+      "gate": 6,
+      "name": "ルファール",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 12,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 687,
+        "text": "116  | FR Image: 勝負服の画像牡3/黒鹿 56.5 kg C.デムーロ  | 2025年9月7日 FR ニエル賞 Image: GⅡ 6着8頭8番1番人気 C.デムーロ 58.5 kg 2400芝・右稍重 2:31.0"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2025,
+      "rank": 9,
+      "number": 8,
+      "gate": 7,
+      "name": "キジサナ",
+      "sex": "牝",
+      "age": 5,
+      "weight": 58,
+      "popularity": 9,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 577,
+        "text": "116  | FR Image: 勝負服の画像牝5/鹿 58.0 kg A.プーシャン  | 2025年8月24日 FR ジャンロマネ Image: GⅠ 1着8頭4番4番人気 C.スミヨン 59.0 kg 2000芝・右良 2:05.7"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2025,
+      "rank": 10,
+      "number": 14,
+      "gate": 11,
+      "name": "ホタツェル",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 16,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 742,
+        "text": "117  | GB Image: 勝負服の画像牡3/鹿 56.5 kg S.フォーリー  | 2025年9月13日 IRE 愛チャンS Image: GⅠ 4着8頭6番6番人気 S.フォーリー 58.5 kg 2000芝・左稍重 2:05.3"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2025,
+      "rank": 11,
+      "number": 10,
+      "gate": 12,
+      "name": "アヴァンチュール",
+      "sex": "牝",
+      "age": 4,
+      "weight": 58,
+      "popularity": 1,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 632,
+        "text": "118  | IRE Image: 勝負服の画像牝4/鹿 58.0 kg M.ギュイヨン  | 2025年9月7日 FR ヴェルメイユ Image: GⅠ 1着6頭2番2番人気 M.ギュイヨン 59.5 kg 2400芝・右稍重 2:29.3"
+      },
+      "last_start_trial": "ヴェルメイユ賞"
+    },
+    {
+      "year": 2025,
+      "rank": 12,
+      "number": 2,
+      "gate": 9,
+      "name": "ホワイトバーチ",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 15,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 412,
+        "text": "120  | GB Image: 勝負服の画像牡5/芦 59.5 kg D.マクモナグル  | 2025年9月13日 IRE 愛チャンS Image: GⅠ 5着8頭5番5番人気 D.マクモナグ 61.0 kg 2000芝・左稍重 2:05.4"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2025,
+      "rank": 13,
+      "number": 18,
+      "gate": 13,
+      "name": "ゲゾラ",
+      "sex": "牝",
+      "age": 3,
+      "weight": 55,
+      "popularity": 11,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 851,
+        "text": "115  | FR Image: 勝負服の画像牝3/鹿 55.0 kg T.マーカンド  | 2025年9月7日 FR ヴェルメイユ Image: GⅠ 2着6頭3番3番人気 M.バルザロー 56.0 kg 2400芝・右稍重 2:29.5"
+      },
+      "last_start_trial": "ヴェルメイユ賞"
+    },
+    {
+      "year": 2025,
+      "rank": 14,
+      "number": 15,
+      "gate": 17,
+      "name": "クロワデュノール",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 3,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 768,
+        "text": "120  | JPN Image: 勝負服の画像牡3/青鹿 56.5 kg北村 友一  | 2025年9月14日 FR Pオランジュ Image: GⅢ 1着7頭5番1番人気 北村 友一 58.0 kg 2000芝・右重 2:11.6 計不"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2025,
+      "rank": 15,
+      "number": 13,
+      "gate": 8,
+      "name": "クアリフィカー",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 8,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 714,
+        "text": "115  | GB Image: 勝負服の画像牡3/栗 56.5 kg W.ビュイック  | 2025年9月7日 FR ニエル賞 Image: GⅡ 1着8頭3番2番人気 W.ビュイック 58.5 kg 2400芝・右稍重 2:30.5"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2025,
+      "rank": 16,
+      "number": 16,
+      "gate": 4,
+      "name": "アロヒアリイ",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 6,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 796,
+        "text": "119  | JPN Image: 勝負服の画像牡3/栗 56.5 kg C.ルメール  | 2025年8月16日 FR Gドルナノ賞 Image: GⅡ 1着5頭1番3番人気 C.ルメール 58.5 kg 2000芝・右重 2:08.6 計不"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2025,
+      "rank": 17,
+      "number": 5,
+      "gate": 14,
+      "name": "ロスアンゼルス",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 14,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/keiba/overseas/race/2025arc/syutsuba.html",
+        "source_line": 494,
+        "text": "123  | IRE Image: 勝負服の画像牡4/黒鹿 59.5 kg W.ローダン  | 2025年9月7日 FR フォワ賞 Image: GⅡ 4着9頭3番2番人気 C.スミヨン 58.5 kg 2400芝・右稍重 2:28.6"
+      },
+      "last_start_trial": "フォワ賞"
+    }
+  ],
+  "current_starters": [
+    {
+      "year": 2026,
+      "rank": 1,
+      "number": 1,
+      "gate": 5,
+      "name": "ダリズ",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 1,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 345,
+        "text": "127  | FR Image: 勝負服の画像牡4/鹿 59.5 kg M.バルザローナ  | 2026年9月6日 FR フォワ賞 Image: GⅡ 1着4頭3番1番人気 M.バルザロー 58.5 kg 2400芝 2:30.8 稍重 パリロンシャン"
+      },
+      "last_start_trial": "フォワ賞"
+    },
+    {
+      "year": 2026,
+      "rank": 2,
+      "number": 7,
+      "gate": 15,
+      "name": "ベイシティローラー",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 13,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 509,
+        "text": "122  | IRE Image: 勝負服の画像牡4/鹿 59.5 kg O.マーフィー  | 2026年9月6日 FR フォワ賞 Image: GⅡ 2着4頭4番2番人気 O.マーフィー 58.5 kg 2400芝 2:31.1 稍重 パリロンシャン"
+      },
+      "last_start_trial": "フォワ賞"
+    },
+    {
+      "year": 2026,
+      "rank": 3,
+      "number": 16,
+      "gate": 16,
+      "name": "ダイヤモンドネックレス",
+      "sex": "牝",
+      "age": 3,
+      "weight": 55,
+      "popularity": 7,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 750,
+        "text": "120  | IRE Image: 勝負服の画像牝3/鹿 55.0 kg C.スミヨン  | 2026年8月23日 FR ジャン&ルイ Image: GⅠ 2着10頭2番1番人気 R.ムーア 56.0 kg 2000芝 2:09.3 重 ドーヴィル"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2026,
+      "rank": 4,
+      "number": 10,
+      "gate": 7,
+      "name": "フレンドリーソウル",
+      "sex": "牝",
+      "age": 5,
+      "weight": 58,
+      "popularity": 10,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 592,
+        "text": "115  | GB Image: 勝負服の画像牝5/鹿 58.0 kg J.ドイル  | 2026年9月6日 FR ヴェルメイユ Image: GⅠ 1着13頭5番3番人気 J.ドイル 59.5 kg 2400芝 2:25.4 稍重 パリロンシャン"
+      },
+      "last_start_trial": "ヴェルメイユ賞"
+    },
+    {
+      "year": 2026,
+      "rank": 5,
+      "number": 9,
+      "gate": 6,
+      "name": "カルパナ",
+      "sex": "牝",
+      "age": 5,
+      "weight": 58,
+      "popularity": 3,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 564,
+        "text": "124  | GB Image: 勝負服の画像牝5/鹿 58.0 kg C.キーン  | 2026年8月20日 GB ヨークシャO Image: GⅠ 1着9頭6番1番人気 C.キーン 61.0 kg 2370芝 2:36.0 稍重 ヨーク"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2026,
+      "rank": 6,
+      "number": 14,
+      "gate": 11,
+      "name": "モルティーズクロス",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 4,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 695,
+        "text": "124  | FR Image: 勝負服の画像牡3/鹿 56.5 kg T.マーカンド  | 2026年8月19日 GB Gヴォルティ Image: GⅡ 1着6頭6番2番人気 T.マーカンド 60.5 kg 2370芝 2:32.0 良 ヨーク"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2026,
+      "rank": 7,
+      "number": 11,
+      "gate": 4,
+      "name": "ヴァランディール",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 6,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 612,
+        "text": "117  | FR Image: 勝負服の画像牡3/栗 56.5 kg C.ルクーヴル  | 2026年9月6日 FR ニエル賞 Image: GⅡ 1着7頭3番2番人気 M.バルザロー 58.5 kg 2400芝 2:25.7 稍重 パリロンシャン"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2026,
+      "rank": 8,
+      "number": 15,
+      "gate": 3,
+      "name": "サンダリングオン",
+      "sex": "牝",
+      "age": 3,
+      "weight": 55,
+      "popularity": 5,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 722,
+        "text": "117  | GB Image: 勝負服の画像牝3/栗 55.0 kg P.ブドー  | 2026年9月13日 IRE ブランドフォ Image: GⅡ 1着10頭9番1番人気 R.ムーア 59.5 kg 2000芝 2:04.2 良 カラ"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2026,
+      "rank": 9,
+      "number": 12,
+      "gate": 1,
+      "name": "ベンヴェヌートチェッリーニ",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 8,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 640,
+        "text": "123  | IRE Image: 勝負服の画像牡3/栗 56.5 kg R.ムーア  | 2026年9月6日 FR ニエル賞 Image: GⅡ 5着7頭7番1番人気 R.ムーア 58.5 kg 2400芝 2:26.4 稍重 パリロンシャン"
+      },
+      "last_start_trial": "ニエル賞"
+    },
+    {
+      "year": 2026,
+      "rank": 10,
+      "number": 8,
+      "gate": 10,
+      "name": "ミニーホーク",
+      "sex": "牝",
+      "age": 4,
+      "weight": 58,
+      "popularity": 11,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 537,
+        "text": "123  | IRE Image: 勝負服の画像牝4/鹿 58.0 kg W.ビュイック  | 2026年8月20日 GB ヨークシャO Image: GⅠ 3着9頭4番2番人気 R.ムーア 61.0 kg 2370芝 2:36.4 稍重 ヨーク"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2026,
+      "rank": 11,
+      "number": 4,
+      "gate": 12,
+      "name": "アドマイヤテラ",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 9,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 428,
+        "text": "115  | JPN Image: 勝負服の画像牡5/芦 59.5 kg C.デムーロ  | 2026年8月16日 札幌 札幌記念 Image: GⅡ 9着16頭10番2番人気 坂井 瑠星 58.0 kg 2000芝 1:59.4 良 494 kg"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2026,
+      "rank": 12,
+      "number": 6,
+      "gate": 14,
+      "name": "アローイーグル",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 16,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 482,
+        "text": "117  | FR Image: 勝負服の画像牡5/鹿 59.5 kg I.メンディザバル  | 2026年8月30日 FR ドヴィル大賞 Image: GⅡ 3着7頭2番1番人気 C.デムーロ 59.0 kg 2500芝 2:48.3 不良 ドーヴィル"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2026,
+      "rank": 13,
+      "number": 3,
+      "gate": 2,
+      "name": "チェスナットロケット",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 15,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 400,
+        "text": "113  | FR Image: 勝負服の画像牡4/栗 59.5 kg M.グランディン  | 2026年8月30日 FR ドヴィル大賞 Image: GⅡ 2着7頭1番5番人気 M.グランディ 59.0 kg 2500芝 2:48.2 不良 ドーヴィル"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2026,
+      "rank": 14,
+      "number": 5,
+      "gate": 13,
+      "name": "メイショウタバル",
+      "sex": "牡",
+      "age": 5,
+      "weight": 59.5,
+      "popularity": 2,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 455,
+        "text": "123  | JPN Image: 勝負服の画像牡5/鹿 59.5 kg武 豊  | 2026年6月14日 阪神 宝塚記念 Image: GⅠ 1着18頭16番2番人気 武 豊 58.0 kg 2200芝 2:12.1 重 502 kg"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2026,
+      "rank": 15,
+      "number": 2,
+      "gate": 9,
+      "name": "サダッド",
+      "sex": "牡",
+      "age": 4,
+      "weight": 59.5,
+      "popularity": 12,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 373,
+        "text": "118  | IRE Image: 勝負服の画像牡4/鹿 59.5 kg R.ドーソン  | 2026年9月6日 GER バーデン大賞 Image: GⅠ 1着7頭8番2番人気 J.ミッチェル 60.0 kg 2400芝 2:27.6 良 バーデンバーデン"
+      },
+      "last_start_trial": "その他"
+    },
+    {
+      "year": 2026,
+      "rank": 16,
+      "number": 13,
+      "gate": 8,
+      "name": "ブライトライト",
+      "sex": "牡",
+      "age": 3,
+      "weight": 56.5,
+      "popularity": 14,
+      "previous_race_evidence": {
+        "source": "https://jra.jp/JRADB/accessSD.html?CNAME=pk01dde0110520260101051/9D",
+        "source_line": 667,
+        "text": "114  | FR Image: 勝負服の画像牡3/栗 56.5 kg B.マリー  | 2026年9月6日 GER バーデン大賞 Image: GⅠ 3着7頭5番3番人気 B.マリー 56.5 kg 2400芝 2:28.0 良 バーデンバーデン"
+      },
+      "last_start_trial": "その他"
+    }
+  ],
+  "aggregates": {
+    "past": {
+      "sex_age": [
+        {
+          "group": "4歳以上牡",
+          "starters": 34,
+          "winners": 1,
+          "top3": 5
+        },
+        {
+          "group": "4歳以上牝",
+          "starters": 13,
+          "winners": 2,
+          "top3": 3
+        },
+        {
+          "group": "3歳牡",
+          "starters": 30,
+          "winners": 2,
+          "top3": 5
+        },
+        {
+          "group": "3歳牝",
+          "starters": 5,
+          "winners": 0,
+          "top3": 2
+        }
+      ],
+      "weight": [
+        {
+          "group": "55",
+          "starters": 5,
+          "winners": 0,
+          "top3": 2
+        },
+        {
+          "group": "58",
+          "starters": 13,
+          "winners": 2,
+          "top3": 3
+        },
+        {
+          "group": "59.5",
+          "starters": 34,
+          "winners": 1,
+          "top3": 5
+        },
+        {
+          "group": "56.5",
+          "starters": 30,
+          "winners": 2,
+          "top3": 5
+        }
+      ],
+      "gate": [
+        {
+          "group": "9以上",
+          "starters": 43,
+          "winners": 1,
+          "top3": 4
+        },
+        {
+          "group": "1～8",
+          "starters": 39,
+          "winners": 4,
+          "top3": 11
+        }
+      ],
+      "gate_bands": [
+        {
+          "group": "9～12",
+          "starters": 20,
+          "winners": 1,
+          "top3": 3
+        },
+        {
+          "group": "1～4",
+          "starters": 19,
+          "winners": 2,
+          "top3": 9
+        },
+        {
+          "group": "13以上",
+          "starters": 23,
+          "winners": 0,
+          "top3": 1
+        },
+        {
+          "group": "5～8",
+          "starters": 20,
+          "winners": 2,
+          "top3": 2
+        }
+      ],
+      "last_start": [
+        {
+          "group": "その他",
+          "starters": 56,
+          "winners": 4,
+          "top3": 12
+        },
+        {
+          "group": "ヴェルメイユ賞",
+          "starters": 7,
+          "winners": 1,
+          "top3": 2
+        },
+        {
+          "group": "ニエル賞",
+          "starters": 10,
+          "winners": 0,
+          "top3": 0
+        },
+        {
+          "group": "フォワ賞",
+          "starters": 9,
+          "winners": 0,
+          "top3": 1
+        }
+      ],
+      "trial_vs_other": [
+        {
+          "group": "その他",
+          "starters": 56,
+          "winners": 4,
+          "top3": 12
+        },
+        {
+          "group": "3前哨戦",
+          "starters": 26,
+          "winners": 1,
+          "top3": 3
+        }
+      ]
+    },
+    "current": {
+      "sex_age": [
+        {
+          "group": "4歳以上牡",
+          "starters": 7,
+          "winners": 1,
+          "top3": 2
+        },
+        {
+          "group": "3歳牝",
+          "starters": 2,
+          "winners": 0,
+          "top3": 1
+        },
+        {
+          "group": "4歳以上牝",
+          "starters": 3,
+          "winners": 0,
+          "top3": 0
+        },
+        {
+          "group": "3歳牡",
+          "starters": 4,
+          "winners": 0,
+          "top3": 0
+        }
+      ],
+      "weight": [
+        {
+          "group": "55",
+          "starters": 2,
+          "winners": 0,
+          "top3": 1
+        },
+        {
+          "group": "58",
+          "starters": 3,
+          "winners": 0,
+          "top3": 0
+        },
+        {
+          "group": "59.5",
+          "starters": 7,
+          "winners": 1,
+          "top3": 2
+        },
+        {
+          "group": "56.5",
+          "starters": 4,
+          "winners": 0,
+          "top3": 0
+        }
+      ],
+      "gate": [
+        {
+          "group": "1～8",
+          "starters": 8,
+          "winners": 1,
+          "top3": 1
+        },
+        {
+          "group": "9以上",
+          "starters": 8,
+          "winners": 0,
+          "top3": 2
+        }
+      ],
+      "gate_bands": [
+        {
+          "group": "5～8",
+          "starters": 4,
+          "winners": 1,
+          "top3": 1
+        },
+        {
+          "group": "13以上",
+          "starters": 4,
+          "winners": 0,
+          "top3": 2
+        },
+        {
+          "group": "9～12",
+          "starters": 4,
+          "winners": 0,
+          "top3": 0
+        },
+        {
+          "group": "1～4",
+          "starters": 4,
+          "winners": 0,
+          "top3": 0
+        }
+      ],
+      "last_start": [
+        {
+          "group": "フォワ賞",
+          "starters": 2,
+          "winners": 1,
+          "top3": 2
+        },
+        {
+          "group": "その他",
+          "starters": 11,
+          "winners": 0,
+          "top3": 1
+        },
+        {
+          "group": "ヴェルメイユ賞",
+          "starters": 1,
+          "winners": 0,
+          "top3": 0
+        },
+        {
+          "group": "ニエル賞",
+          "starters": 2,
+          "winners": 0,
+          "top3": 0
+        }
+      ],
+      "trial_vs_other": [
+        {
+          "group": "3前哨戦",
+          "starters": 5,
+          "winners": 1,
+          "top3": 2
+        },
+        {
+          "group": "その他",
+          "starters": 11,
+          "winners": 0,
+          "top3": 1
+        }
+      ]
+    },
+    "by_year": [
+      {
+        "year": 2021,
+        "sex_age": [
+          {
+            "group": "4歳以上牡",
+            "starters": 3,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "4歳以上牝",
+            "starters": 3,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "3歳牡",
+            "starters": 7,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "3歳牝",
+            "starters": 1,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "weight": [
+          {
+            "group": "55",
+            "starters": 1,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "58",
+            "starters": 3,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "59.5",
+            "starters": 3,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "56.5",
+            "starters": 7,
+            "winners": 0,
+            "top3": 1
+          }
+        ],
+        "gate": [
+          {
+            "group": "9以上",
+            "starters": 7,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "1～8",
+            "starters": 7,
+            "winners": 0,
+            "top3": 2
+          }
+        ],
+        "gate_bands": [
+          {
+            "group": "9～12",
+            "starters": 4,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "1～4",
+            "starters": 3,
+            "winners": 0,
+            "top3": 2
+          },
+          {
+            "group": "13以上",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "5～8",
+            "starters": 4,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "last_start": [
+          {
+            "group": "その他",
+            "starters": 9,
+            "winners": 1,
+            "top3": 3
+          },
+          {
+            "group": "ヴェルメイユ賞",
+            "starters": 1,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "ニエル賞",
+            "starters": 2,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "フォワ賞",
+            "starters": 2,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "trial_vs_other": [
+          {
+            "group": "その他",
+            "starters": 9,
+            "winners": 1,
+            "top3": 3
+          },
+          {
+            "group": "3前哨戦",
+            "starters": 5,
+            "winners": 0,
+            "top3": 0
+          }
+        ]
+      },
+      {
+        "year": 2022,
+        "sex_age": [
+          {
+            "group": "4歳以上牝",
+            "starters": 2,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "3歳牡",
+            "starters": 6,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "4歳以上牡",
+            "starters": 12,
+            "winners": 0,
+            "top3": 1
+          }
+        ],
+        "weight": [
+          {
+            "group": "58",
+            "starters": 2,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "56.5",
+            "starters": 6,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "59.5",
+            "starters": 12,
+            "winners": 0,
+            "top3": 1
+          }
+        ],
+        "gate": [
+          {
+            "group": "1～8",
+            "starters": 8,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "9以上",
+            "starters": 12,
+            "winners": 0,
+            "top3": 1
+          }
+        ],
+        "gate_bands": [
+          {
+            "group": "5～8",
+            "starters": 4,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "1～4",
+            "starters": 4,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "13以上",
+            "starters": 8,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "9～12",
+            "starters": 4,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "last_start": [
+          {
+            "group": "その他",
+            "starters": 17,
+            "winners": 1,
+            "top3": 3
+          },
+          {
+            "group": "ヴェルメイユ賞",
+            "starters": 1,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "フォワ賞",
+            "starters": 1,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "ニエル賞",
+            "starters": 1,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "trial_vs_other": [
+          {
+            "group": "その他",
+            "starters": 17,
+            "winners": 1,
+            "top3": 3
+          },
+          {
+            "group": "3前哨戦",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          }
+        ]
+      },
+      {
+        "year": 2023,
+        "sex_age": [
+          {
+            "group": "3歳牡",
+            "starters": 5,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "4歳以上牡",
+            "starters": 7,
+            "winners": 0,
+            "top3": 2
+          },
+          {
+            "group": "4歳以上牝",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "weight": [
+          {
+            "group": "58",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "56.5",
+            "starters": 5,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "59.5",
+            "starters": 7,
+            "winners": 0,
+            "top3": 2
+          }
+        ],
+        "gate": [
+          {
+            "group": "1～8",
+            "starters": 8,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "9以上",
+            "starters": 7,
+            "winners": 0,
+            "top3": 1
+          }
+        ],
+        "gate_bands": [
+          {
+            "group": "5～8",
+            "starters": 4,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "1～4",
+            "starters": 4,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "9～12",
+            "starters": 4,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "13以上",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "last_start": [
+          {
+            "group": "その他",
+            "starters": 12,
+            "winners": 1,
+            "top3": 3
+          },
+          {
+            "group": "ニエル賞",
+            "starters": 2,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "フォワ賞",
+            "starters": 1,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "trial_vs_other": [
+          {
+            "group": "その他",
+            "starters": 12,
+            "winners": 1,
+            "top3": 3
+          },
+          {
+            "group": "3前哨戦",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          }
+        ]
+      },
+      {
+        "year": 2024,
+        "sex_age": [
+          {
+            "group": "4歳以上牝",
+            "starters": 2,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "3歳牝",
+            "starters": 2,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "3歳牡",
+            "starters": 6,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "4歳以上牡",
+            "starters": 6,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "weight": [
+          {
+            "group": "55",
+            "starters": 2,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "58",
+            "starters": 2,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "56.5",
+            "starters": 6,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "59.5",
+            "starters": 6,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "gate": [
+          {
+            "group": "1～8",
+            "starters": 8,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "9以上",
+            "starters": 8,
+            "winners": 0,
+            "top3": 1
+          }
+        ],
+        "gate_bands": [
+          {
+            "group": "1～4",
+            "starters": 4,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "9～12",
+            "starters": 4,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "5～8",
+            "starters": 4,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "13以上",
+            "starters": 4,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "last_start": [
+          {
+            "group": "ヴェルメイユ賞",
+            "starters": 3,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "その他",
+            "starters": 9,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "ニエル賞",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "フォワ賞",
+            "starters": 1,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "trial_vs_other": [
+          {
+            "group": "3前哨戦",
+            "starters": 7,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "その他",
+            "starters": 9,
+            "winners": 0,
+            "top3": 1
+          }
+        ]
+      },
+      {
+        "year": 2025,
+        "sex_age": [
+          {
+            "group": "3歳牡",
+            "starters": 6,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "3歳牝",
+            "starters": 2,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "4歳以上牡",
+            "starters": 6,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "4歳以上牝",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "weight": [
+          {
+            "group": "55",
+            "starters": 2,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "58",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "56.5",
+            "starters": 6,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "59.5",
+            "starters": 6,
+            "winners": 0,
+            "top3": 1
+          }
+        ],
+        "gate": [
+          {
+            "group": "1～8",
+            "starters": 8,
+            "winners": 1,
+            "top3": 3
+          },
+          {
+            "group": "9以上",
+            "starters": 9,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "gate_bands": [
+          {
+            "group": "1～4",
+            "starters": 4,
+            "winners": 1,
+            "top3": 3
+          },
+          {
+            "group": "5～8",
+            "starters": 4,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "13以上",
+            "starters": 5,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "9～12",
+            "starters": 4,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "last_start": [
+          {
+            "group": "その他",
+            "starters": 9,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "フォワ賞",
+            "starters": 4,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "ニエル賞",
+            "starters": 2,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "ヴェルメイユ賞",
+            "starters": 2,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "trial_vs_other": [
+          {
+            "group": "その他",
+            "starters": 9,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "3前哨戦",
+            "starters": 8,
+            "winners": 0,
+            "top3": 1
+          }
+        ]
+      },
+      {
+        "year": 2026,
+        "sex_age": [
+          {
+            "group": "4歳以上牡",
+            "starters": 7,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "3歳牝",
+            "starters": 2,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "4歳以上牝",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "3歳牡",
+            "starters": 4,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "weight": [
+          {
+            "group": "55",
+            "starters": 2,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "58",
+            "starters": 3,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "59.5",
+            "starters": 7,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "56.5",
+            "starters": 4,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "gate": [
+          {
+            "group": "1～8",
+            "starters": 8,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "9以上",
+            "starters": 8,
+            "winners": 0,
+            "top3": 2
+          }
+        ],
+        "gate_bands": [
+          {
+            "group": "5～8",
+            "starters": 4,
+            "winners": 1,
+            "top3": 1
+          },
+          {
+            "group": "13以上",
+            "starters": 4,
+            "winners": 0,
+            "top3": 2
+          },
+          {
+            "group": "9～12",
+            "starters": 4,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "1～4",
+            "starters": 4,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "last_start": [
+          {
+            "group": "フォワ賞",
+            "starters": 2,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "その他",
+            "starters": 11,
+            "winners": 0,
+            "top3": 1
+          },
+          {
+            "group": "ヴェルメイユ賞",
+            "starters": 1,
+            "winners": 0,
+            "top3": 0
+          },
+          {
+            "group": "ニエル賞",
+            "starters": 2,
+            "winners": 0,
+            "top3": 0
+          }
+        ],
+        "trial_vs_other": [
+          {
+            "group": "3前哨戦",
+            "starters": 5,
+            "winners": 1,
+            "top3": 2
+          },
+          {
+            "group": "その他",
+            "starters": 11,
+            "winners": 0,
+            "top3": 1
+          }
+        ]
+      }
+    ],
+    "next_year_window": {
+      "sex_age": [
+        {
+          "group": "4歳以上牝",
+          "starters": 13,
+          "winners": 2,
+          "top3": 2
+        },
+        {
+          "group": "3歳牡",
+          "starters": 27,
+          "winners": 2,
+          "top3": 4
+        },
+        {
+          "group": "4歳以上牡",
+          "starters": 38,
+          "winners": 1,
+          "top3": 6
+        },
+        {
+          "group": "3歳牝",
+          "starters": 6,
+          "winners": 0,
+          "top3": 3
+        }
+      ],
+      "weight": [
+        {
+          "group": "55",
+          "starters": 6,
+          "winners": 0,
+          "top3": 3
+        },
+        {
+          "group": "58",
+          "starters": 13,
+          "winners": 2,
+          "top3": 2
+        },
+        {
+          "group": "56.5",
+          "starters": 27,
+          "winners": 2,
+          "top3": 4
+        },
+        {
+          "group": "59.5",
+          "starters": 38,
+          "winners": 1,
+          "top3": 6
+        }
+      ],
+      "gate": [
+        {
+          "group": "1～8",
+          "starters": 40,
+          "winners": 5,
+          "top3": 10
+        },
+        {
+          "group": "9以上",
+          "starters": 44,
+          "winners": 0,
+          "top3": 5
+        }
+      ],
+      "gate_bands": [
+        {
+          "group": "5～8",
+          "starters": 20,
+          "winners": 3,
+          "top3": 3
+        },
+        {
+          "group": "1～4",
+          "starters": 20,
+          "winners": 2,
+          "top3": 7
+        },
+        {
+          "group": "13以上",
+          "starters": 24,
+          "winners": 0,
+          "top3": 3
+        },
+        {
+          "group": "9～12",
+          "starters": 20,
+          "winners": 0,
+          "top3": 2
+        }
+      ],
+      "last_start": [
+        {
+          "group": "その他",
+          "starters": 58,
+          "winners": 3,
+          "top3": 10
+        },
+        {
+          "group": "ヴェルメイユ賞",
+          "starters": 7,
+          "winners": 1,
+          "top3": 2
+        },
+        {
+          "group": "フォワ賞",
+          "starters": 9,
+          "winners": 1,
+          "top3": 3
+        },
+        {
+          "group": "ニエル賞",
+          "starters": 10,
+          "winners": 0,
+          "top3": 0
+        }
+      ],
+      "trial_vs_other": [
+        {
+          "group": "その他",
+          "starters": 58,
+          "winners": 3,
+          "top3": 10
+        },
+        {
+          "group": "3前哨戦",
+          "starters": 26,
+          "winners": 2,
+          "top3": 5
+        }
+      ]
+    }
+  },
+  "overseas_subledger": {
+    "revision": "ARC-R01",
+    "scope": {
+      "imported_prediction": [
+        "2026-10-04-LCH-05"
+      ],
+      "selected_final": [
+        "2026-10-04-LCH-05"
+      ],
+      "purchased": [
+        "2026-10-04-LCH-05"
+      ],
+      "reviewed": [
+        "2026-10-04-LCH-05"
+      ],
+      "domestic_scope_changed": false
+    },
+    "kpi": {
+      "production": {
+        "target_ids": [
+          "2026-10-04-LCH-05"
+        ],
+        "eligible_ids": [],
+        "ineligible_ids": [],
+        "pending_ids": [
+          "2026-10-04-LCH-05"
+        ],
+        "reason": "全16頭確率・元基準ID・元FIX時刻・事前宣言未提供。事後補完せず正式認証保留"
+      },
+      "betting": {
+        "target_ids": [
+          "2026-10-04-LCH-05"
+        ],
+        "eligible_ids": [],
+        "ineligible_ids": [],
+        "pending_ids": [
+          "2026-10-04-LCH-05"
+        ],
+        "reason": "元固定仮想3券は追跡可能で精算済み。買い目性能適格は価格・確率・元FIX等不足で認証保留。非◎単勝の例外未提示によるルール違反は別欄"
+      },
+      "betting_evidence": {
+        "target_ids": [
+          "2026-10-04-LCH-05"
+        ],
+        "eligible_ids": [],
+        "ineligible_ids": [],
+        "pending_ids": [
+          "2026-10-04-LCH-05"
+        ],
+        "reason": "発走前本体・receipt読戻し確認。元予想宣言・ID・FIX等の欠測を保存成功で補わず契約全体認証保留"
+      },
+      "shadow": {
+        "target_ids": [],
+        "eligible_ids": [],
+        "ineligible_ids": [],
+        "pending_ids": [],
+        "reason": "Shadow未提供。依頼・必須適用の詳細も要確認"
+      }
+    },
+    "fixed_virtual": {
+      "tickets": [
+        {
+          "type": "単勝",
+          "numbers": [
+            9
+          ],
+          "stake": 4000,
+          "return": 0
+        },
+        {
+          "type": "単勝",
+          "numbers": [
+            14
+          ],
+          "stake": 3500,
+          "return": 0
+        },
+        {
+          "type": "単勝",
+          "numbers": [
+            11
+          ],
+          "stake": 2500,
+          "return": 0
+        }
+      ],
+      "stake": 10000,
+      "return": 0,
+      "profit": -10000,
+      "roi_percent": 0,
+      "rules_status": "NON_MAIN_SINGLE_EXCEPTION_UNDOCUMENTED"
+    },
+    "actual": {
+      "tickets": [
+        {
+          "type": "馬連",
+          "numbers": [
+            1,
+            9
+          ],
+          "stake": 1200,
+          "return": 0
+        },
+        {
+          "type": "馬連",
+          "numbers": [
+            1,
+            14
+          ],
+          "stake": 1000,
+          "return": 0
+        },
+        {
+          "type": "馬連",
+          "numbers": [
+            1,
+            11
+          ],
+          "stake": 800,
+          "return": 0
+        }
+      ],
+      "stake": 3000,
+      "return": 0,
+      "profit": -3000,
+      "roi_percent": 0,
+      "purchase_confirmation": "2026-10-04T22:31:22+09:00",
+      "main_horse_dependency": 1
+    },
+    "withdrawn_actual_proposal": {
+      "type": "単勝",
+      "stake": 3000,
+      "status": "撤回済み・実購入へ加算しない"
+    },
+    "interventions": {
+      "actual_ticket_correction_count": 1,
+      "new_post_race_prediction_changes": 0
+    },
+    "review_status": "COMPLETED_WITH_CERTIFICATION_PENDING",
+    "aggregation_status": "OVERSEAS_SUBLEDGER_RECONCILED",
+    "missing": [
+      "元予想宣言・基準ID・元FIX秒時刻",
+      "全16頭勝率・市場独立生成監査",
+      "馬連の事前同時成立確率・価格・価格監査",
+      "実購入券の外部認証（本人申告を正として精算）",
+      "全馬通過順・ラップ・映像因果検証",
+      "現地Going原文・計測値時刻・公式天候",
+      "Shadowの依頼・必須適用詳細"
+    ],
+    "combined_actual_reference": {
+      "domestic_stake": 12000,
+      "domestic_return": 8200,
+      "overseas_stake": 3000,
+      "overseas_return": 0,
+      "stake": 15000,
+      "return": 8200,
+      "profit": -6800,
+      "roi_percent": 54.666666666666664,
+      "formal_cycle_kpi": false
+    },
+    "combined_virtual_reference": {
+      "stake": 60000,
+      "return": 41000,
+      "profit": -19000,
+      "roi_percent": 68.33333333333333,
+      "formal_cycle_kpi": false
+    }
+  }
+}

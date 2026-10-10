@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0000729458",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2001,
+    "external_ids": {
+      "JBIS": "0000729458",
+      "NETKEIBA": "2001103460"
+    },
+    "identity_evidence": {
+      "record_key": "0000729458",
+      "source": "JBIS"
+    },
+    "name": "キングカメハメハ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:30.744545+00:00",
+  "identity_observed_at": "2026-10-09T12:33:30.744545+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2001,
+        "external_ids": {
+          "JBIS": "0000729458",
+          "NETKEIBA": "2001103460"
+        },
+        "identity_evidence": {
+          "record_key": "0000729458",
+          "source": "JBIS"
+        },
+        "name": "キングカメハメハ",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:26.020311+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2001,
+        "external_ids": {
+          "JBIS": "0000729458"
+        },
+        "identity_evidence": {
+          "record_key": "0000729458",
+          "source": "JBIS"
+        },
+        "name": "キングカメハメハ",
+        "status": "RESOLVED"
+      },
+      "event_hash": "a1eebaab5dabbca89a790891ec1eb7b71e14cee62a2377e3453782f3fd384bc7",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2001,
+    "external_ids": {
+      "JBIS": "0000729458"
+    },
+    "identity_evidence": {
+      "record_key": "0000729458",
+      "source": "JBIS"
+    },
+    "name": "キングカメハメハ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:25.552231+00:00",
+      "content_hash": "a89c38cacd72d557b2e2c0180c8a5e2091842b2fac37cb86fc7f92907eddd7b2",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+      "input_hash": "a1e8f6073a31631daaba99a0639c90fd2b2b05bf4e9a5496ce400ed5cf9ac07c",
+      "previous_revision": null,
+      "revision_id": "rev-a1e8f6073a31631daaba99a0",
+      "saved_at": "2026-10-09T12:34:56.115344+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62",
+        "record_key": "0001218051",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001218051/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000347989",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:25.552231+00:00",
+      "content_hash": "c4cce9e97e46e52b31e9c4882355f5e8fd2f74e3857bacf4bffe752a05ce8fab",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+      "input_hash": "4459a2b0deaa69a95487a7a58063812cad6428f50b7b6642f084228dee727ffd",
+      "previous_revision": null,
+      "revision_id": "rev-4459a2b0deaa69a95487a7a5",
+      "saved_at": "2026-10-09T12:34:56.116376+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62",
+        "record_key": "0001218051",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001218051/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000440324",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0000729458/",
+              "record_hash": "225ad1be4bae02322506c1116110dd1af746bfaf59d479d8c83354a53da03dbe",
+              "captured_at": "2026-10-10T04:21:06.687Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:21:06.687Z",
+      "captured_at": "2026-10-10T04:21:06.687Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0000729458",
+        "record_hash": "225ad1be4bae02322506c1116110dd1af746bfaf59d479d8c83354a53da03dbe",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0000729458",
+          "horse_name": "キングカメハメハ",
+          "trainer": "松田 国英",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0000729458/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-f56a16e7cb05280c87c661f6",
+      "input_hash": "f56a16e7cb05280c87c661f6466156f8a58f51023699eb86c25dc9d341738087",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:21:06.689Z",
+      "content_hash": "85f98f3db89bb9a11509922dfc85e8e011569aa8230e1abb30a755a903b8715f"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

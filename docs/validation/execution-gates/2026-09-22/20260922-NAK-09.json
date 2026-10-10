@@ -1,0 +1,328 @@
+{
+  "schema_version": "prediction-compliance-v1",
+  "race_id": "20260922-NAK-09",
+  "race_date_jst": "2026-09-22",
+  "mode": "REPLAY",
+  "working_branch": "prediction/2026-09-22",
+  "manual_release": "v1.6.1",
+  "manual_ref_commit": "063b23d444938730fe7ad8cb93e9574751e51ec7",
+  "scheduled_post_time_jst": "2026-09-22T14:10:00+09:00",
+  "timing_route": "LATE_PRESERVATION",
+  "production": {
+    "baseline_forecast_id": "20260922-NAK-09-P001",
+    "marks": {
+      "honmei": 3,
+      "taikou": 6,
+      "tanana": 5
+    },
+    "confidence": "B",
+    "reuse_status": "REUSED",
+    "source_snapshot_path": "docs/validation/snapshots/2026-09-22.md",
+    "source_snapshot_state": "HISTORICAL_PRE_RACE_SOURCE_WITHOUT_CURRENT_RECEIPT"
+  },
+  "kpi_eligibility": {
+    "production": "INELIGIBLE",
+    "betting": "INELIGIBLE",
+    "shadow": "INELIGIBLE"
+  },
+  "shadow_items": [
+    {
+      "item_id": "E-04",
+      "state": "REPLAY_COMPLETE",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-09",
+      "state": "REPLAY_COMPLETE",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-10",
+      "state": "REPLAY_COMPLETE",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "U-01",
+      "state": "REPLAY_COMPLETE",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "U-01Q",
+      "state": "REPLAY_COMPLETE",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "U-02",
+      "state": "PARTIAL_UNAVAILABLE",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-08",
+      "state": "NOT_RECONSTRUCTED_POST_RACE",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-11",
+      "state": "PENDING_RULE_CONFLICT",
+      "kpi_eligibility": "PENDING"
+    },
+    {
+      "item_id": "E-12",
+      "state": "REPLAY_REFERENCE_ONLY",
+      "kpi_eligibility": "INELIGIBLE"
+    },
+    {
+      "item_id": "E-13",
+      "state": "REPLAY_REFERENCE_ONLY",
+      "kpi_eligibility": "INELIGIBLE"
+    }
+  ],
+  "betting": {
+    "status": "BLOCKED",
+    "reason_code": "PRE_RACE_QUANT_EVIDENCE_UNAVAILABLE",
+    "reason": "Replayで使用した価格・保守確率をbetting-evidence-v1として発走前保存し、同一receiptレコードでPRE_RACE_ELIGIBLEを確認した証跡がないためformal FIXEDにしない"
+  },
+  "review": {
+    "status": "COMPLETE",
+    "reviewed_at_jst": "2026-09-23T18:26:36+09:00",
+    "result_sources": [
+      {
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0106202604070920260922/D5",
+        "retrieved_at_jst": "2026-09-23T18:26:36+09:00"
+      }
+    ],
+    "result": {
+      "top3": [
+        4,
+        14,
+        10
+      ],
+      "production_mark_positions": {
+        "3": 10,
+        "5": 14,
+        "6": 15
+      }
+    },
+    "error_classification": {
+      "primary": "B",
+      "secondary": [
+        "F"
+      ]
+    },
+    "counterfactual_check": "UNDETERMINED",
+    "layer_assessment": {
+      "prediction": "FAIL",
+      "price": "PARTIAL",
+      "betting": "FAIL"
+    },
+    "kpis": {
+      "production": {
+        "eligibility": "INELIGIBLE",
+        "evidence_state": "HISTORICAL_PRE_RACE_SOURCE_WITHOUT_CURRENT_RECEIPT"
+      },
+      "betting": {
+        "eligibility": "INELIGIBLE",
+        "evidence_state": "REPLAY_REFERENCE_ONLY"
+      },
+      "shadow": {
+        "eligibility": "INELIGIBLE",
+        "evidence_state": "REPLAY_REFERENCE_ONLY"
+      }
+    },
+    "non_degradation": {
+      "protect": [
+        "市場価格をProduction順位へ逆流させない",
+        "非◎縦目の独立期待値監査"
+      ],
+      "retest": [
+        "前圧が強い場合の先行上位馬評価",
+        "pace_keyとProduction◎自身の位置取り整合",
+        "無印の能力上限候補抽出"
+      ],
+      "improve": []
+    },
+    "summary": "1着4、2着14、3着10でProduction上位3頭は10・15・14着。Replay買い目10,000円案は0円。3・6が前を作って失速しており、展開・位置取り評価を次回前向きで再検証する。",
+    "formal_kpi_aggregation": "NOT_APPLICABLE",
+    "live_cycle_success": "NOT_APPLICABLE"
+  },
+  "replay_reference_betting": {
+    "status": "FIXED",
+    "audit_status": "PASS",
+    "budget_kind": "USER_BUDGET",
+    "requested_budget_yen": 5000,
+    "total_stake_yen": 5000,
+    "user_purchase_state": "INTENDED",
+    "natural_candidates": [
+      {
+        "type": "QUINELLA",
+        "horses": [
+          3,
+          6
+        ],
+        "role": "MAIN"
+      },
+      {
+        "type": "QUINELLA",
+        "horses": [
+          3,
+          5
+        ],
+        "role": "SUPPORT"
+      },
+      {
+        "type": "WIDE",
+        "horses": [
+          3,
+          6
+        ],
+        "role": "NATURAL_MAIN_CANDIDATE"
+      },
+      {
+        "type": "WIDE",
+        "horses": [
+          3,
+          5
+        ],
+        "role": "SUPPORT"
+      },
+      {
+        "type": "WIDE",
+        "horses": [
+          5,
+          6
+        ],
+        "role": "VERTICAL_EXCEPTION_CANDIDATE"
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "type": "WIDE",
+        "horses": [
+          3,
+          6
+        ],
+        "reason": "saved price 3.0-3.4 is weaker than adopted alternatives for the 5000-yen budget"
+      }
+    ],
+    "tickets": [
+      {
+        "type": "QUINELLA",
+        "horses": [
+          3,
+          6
+        ],
+        "amount_yen": 2000,
+        "role": "MAIN"
+      },
+      {
+        "type": "QUINELLA",
+        "horses": [
+          3,
+          5
+        ],
+        "amount_yen": 1300,
+        "role": "SUPPORT"
+      },
+      {
+        "type": "WIDE",
+        "horses": [
+          3,
+          5
+        ],
+        "amount_yen": 1000,
+        "role": "SUPPORT"
+      },
+      {
+        "type": "WIDE",
+        "horses": [
+          5,
+          6
+        ],
+        "amount_yen": 700,
+        "role": "VERTICAL_EXCEPTION",
+        "vertical_exception": {
+          "reason_code": "INDEPENDENT_POSITIVE_EV",
+          "scenario_id": "S2_6_FORWARD_5_SURVIVE_3_MISS",
+          "probability_low": 0.13,
+          "odds": 8.3,
+          "ev_low": 1.079
+        }
+      }
+    ],
+    "validation_stake_plan": {
+      "kpi_eligible": false,
+      "total_stake_yen": 10000,
+      "tickets": [
+        {
+          "type": "QUINELLA",
+          "horses": [
+            3,
+            6
+          ],
+          "amount_yen": 4000
+        },
+        {
+          "type": "QUINELLA",
+          "horses": [
+            3,
+            5
+          ],
+          "amount_yen": 2500
+        },
+        {
+          "type": "WIDE",
+          "horses": [
+            3,
+            5
+          ],
+          "amount_yen": 2000
+        },
+        {
+          "type": "WIDE",
+          "horses": [
+            5,
+            6
+          ],
+          "amount_yen": 1500,
+          "vertical_exception": {
+            "reason_code": "INDEPENDENT_POSITIVE_EV",
+            "scenario_id": "S2_6_FORWARD_5_SURVIVE_3_MISS",
+            "probability_low": 0.13,
+            "odds": 8.3,
+            "ev_low": 1.079
+          }
+        }
+      ]
+    },
+    "ticket_type_decisions": {
+      "WIN": {
+        "status": "REJECTED",
+        "reason": "◎3の保存済み勝率23%×単勝4.6=1.058で、現行32の購入目安1.10を下回る"
+      },
+      "PLACE": {
+        "status": "UNAVAILABLE",
+        "reason": "発走前に固定された複勝オッズが今回の証跡にない"
+      },
+      "QUINELLA": {
+        "status": "SELECTED",
+        "reason": "◎-○、◎-▲を独立期待値監査して採用"
+      },
+      "WIDE": {
+        "status": "SELECTED",
+        "reason": "◎-▲および独立シナリオの非◎縦目を監査して採用"
+      },
+      "EXACTA": {
+        "status": "UNAVAILABLE",
+        "reason": "発走前に固定された馬単価格と条件付き確率がない"
+      },
+      "TRIO": {
+        "status": "UNAVAILABLE",
+        "reason": "発走前に固定された三連複価格がない"
+      },
+      "TRIFECTA": {
+        "status": "UNAVAILABLE",
+        "reason": "発走前に固定された三連単価格と着順条件付き確率がない"
+      }
+    }
+  }
+}

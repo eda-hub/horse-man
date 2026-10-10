@@ -1,0 +1,174 @@
+{
+  "horse_key": "jbis-0000725485",
+  "identity": {
+    "aliases": [
+      "Daiwa Major"
+    ],
+    "birth_year": 2001,
+    "external_ids": {
+      "JBIS": "0000725485",
+      "NETKEIBA": "2001103114"
+    },
+    "identity_evidence": {
+      "record_key": "0000725485",
+      "source": "JBIS"
+    },
+    "name": "ダイワメジャー",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:30.526077+00:00",
+  "identity_observed_at": "2026-10-09T12:33:30.526077+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "Daiwa Major"
+        ],
+        "birth_year": 2001,
+        "external_ids": {
+          "JBIS": "0000725485",
+          "NETKEIBA": "2001103114"
+        },
+        "identity_evidence": {
+          "record_key": "0000725485",
+          "source": "JBIS"
+        },
+        "name": "ダイワメジャー",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:29.072943+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2001,
+        "external_ids": {
+          "JBIS": "0000725485"
+        },
+        "identity_evidence": {
+          "record_key": "0000725485",
+          "source": "JBIS"
+        },
+        "name": "ダイワメジャー",
+        "status": "RESOLVED"
+      },
+      "event_hash": "0d772699e2794831299ff8bf27983e7b1af15fc5765bfcc9b904d7977127ec18",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2001,
+    "external_ids": {
+      "JBIS": "0000725485"
+    },
+    "identity_evidence": {
+      "record_key": "0000725485",
+      "source": "JBIS"
+    },
+    "name": "ダイワメジャー",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:09.427641+00:00",
+      "content_hash": "b8116412412663d6489459935bba247d231b8b913550f033b635faed9ee12842",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:09.427641+00:00",
+      "input_hash": "f18238ab4ebe2005ecdec1c393b6a2f32c56a9b31c4955749742ce8529c08b65",
+      "previous_revision": null,
+      "revision_id": "rev-f18238ab4ebe2005ecdec1c3",
+      "saved_at": "2026-10-09T12:34:55.792189+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "85f2087348824f71ccad7d2f05d0226ba8016874f657359a5b5caa144a1462d7",
+        "record_key": "0001368949",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001368949/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333862",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:09.427641+00:00",
+      "content_hash": "ad84ddbbfbfe27b8f5ba410e03d18ed3a67f544517ccee8fe417d7c2a315d4fb",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:09.427641+00:00",
+      "input_hash": "8f5c84b0327e6e34089eadbea278cf0c1641b9516b071bcf141e42350bd119cf",
+      "previous_revision": null,
+      "revision_id": "rev-8f5c84b0327e6e34089eadbe",
+      "saved_at": "2026-10-09T12:34:55.793002+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "85f2087348824f71ccad7d2f05d0226ba8016874f657359a5b5caa144a1462d7",
+        "record_key": "0001368949",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001368949/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000213918",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0000725485/",
+              "record_hash": "9bd53060d2da4c6c9e8c713928a88adb37b470362207b1ff7f1014ca2bc14e10",
+              "captured_at": "2026-10-10T04:21:46.367Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:21:46.367Z",
+      "captured_at": "2026-10-10T04:21:46.367Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0000725485",
+        "record_hash": "9bd53060d2da4c6c9e8c713928a88adb37b470362207b1ff7f1014ca2bc14e10",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0000725485",
+          "horse_name": "ダイワメジャー",
+          "trainer": "上原 博之",
+          "trainer_location": "美浦",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0000725485/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-5bf111b9584203f4466f6cf6",
+      "input_hash": "5bf111b9584203f4466f6cf60b8d8f9969a16e5211c3442cde439dc03719495d",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:21:46.370Z",
+      "content_hash": "0459ab06a7f4894cfbead86e7afd0e4a5f03b74506614b68760ea7284ef800d1"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

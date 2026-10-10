@@ -1,0 +1,174 @@
+{
+  "horse_key": "jbis-0001228749",
+  "identity": {
+    "aliases": [
+      "ジャンダルム"
+    ],
+    "birth_year": 2015,
+    "external_ids": {
+      "JBIS": "0001228749",
+      "NETKEIBA": "2015110013"
+    },
+    "identity_evidence": {
+      "record_key": "0001228749",
+      "source": "JBIS"
+    },
+    "name": "ジャンダルム(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:32.399842+00:00",
+  "identity_observed_at": "2026-10-09T15:04:32.399842+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "ジャンダルム"
+        ],
+        "birth_year": 2015,
+        "external_ids": {
+          "JBIS": "0001228749",
+          "NETKEIBA": "2015110013"
+        },
+        "identity_evidence": {
+          "record_key": "0001228749",
+          "source": "JBIS"
+        },
+        "name": "ジャンダルム(USA)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:32:47.775061+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2015,
+        "external_ids": {
+          "JBIS": "0001228749"
+        },
+        "identity_evidence": {
+          "record_key": "0001228749",
+          "source": "JBIS"
+        },
+        "name": "ジャンダルム(USA)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "caff91a588fa4341d8bc055772f5bbf2b9829af1cf54d50bb7a3b26db1c5c401",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2015,
+    "external_ids": {
+      "JBIS": "0001228749"
+    },
+    "identity_evidence": {
+      "record_key": "0001228749",
+      "source": "JBIS"
+    },
+    "name": "ジャンダルム(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:45:32.669683+00:00",
+      "content_hash": "841bb043a71815292939fcf6845948de2800893c4364d415910d8a31effa4fc7",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:45:32.669683+00:00",
+      "input_hash": "340855f63453c3c6fe857c7fe8d19ac6a0243b643f6363b64b77b9693bff3eae",
+      "previous_revision": null,
+      "revision_id": "rev-340855f63453c3c6fe857c7f",
+      "saved_at": "2026-10-09T15:05:20.990263+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "b0dde2d33129016d90034ca5d92c488e6c670d327ff4c44f8170cc428d8dfaac",
+        "record_key": "0001396876",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001396876/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000979726",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:45:32.669683+00:00",
+      "content_hash": "c8eba38da3a1a02086cd8d6e4a3e897fe64b6ff91e5aea58c664abe2189c78e2",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:45:32.669683+00:00",
+      "input_hash": "620c3ed99cd4cc4e6c186132a4d94572e924042a13afb36361bb7f05bdb10002",
+      "previous_revision": null,
+      "revision_id": "rev-620c3ed99cd4cc4e6c186132",
+      "saved_at": "2026-10-09T15:05:20.994875+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "b0dde2d33129016d90034ca5d92c488e6c670d327ff4c44f8170cc428d8dfaac",
+        "record_key": "0001396876",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001396876/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000324472",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001228749/",
+              "record_hash": "3436a697477b49046f022829642f374dbf770bc4568bc30d3b5f5212e776d49d",
+              "captured_at": "2026-10-10T04:41:36.423Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:41:36.423Z",
+      "captured_at": "2026-10-10T04:41:36.423Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001228749",
+        "record_hash": "3436a697477b49046f022829642f374dbf770bc4568bc30d3b5f5212e776d49d",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001228749",
+          "horse_name": "ジャンダルム(USA)",
+          "trainer": "池江 泰寿",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001228749/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-b12acda073d14b72da493de5",
+      "input_hash": "b12acda073d14b72da493de558c6ab28f398498429f7eba28f2f558abd780341",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:41:36.425Z",
+      "content_hash": "b5d53e9cb9e77b7993e571ef7c17739a300a0a5dcb7e6aea98c958ff8c0024f5"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

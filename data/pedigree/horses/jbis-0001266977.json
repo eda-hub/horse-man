@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0001266977",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2018,
+    "external_ids": {
+      "JBIS": "0001266977",
+      "NETKEIBA": "2018105027"
+    },
+    "identity_evidence": {
+      "record_key": "0001266977",
+      "source": "JBIS"
+    },
+    "name": "エフフォーリア",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:32.721381+00:00",
+  "identity_observed_at": "2026-10-09T15:04:32.721381+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2018,
+        "external_ids": {
+          "JBIS": "0001266977",
+          "NETKEIBA": "2018105027"
+        },
+        "identity_evidence": {
+          "record_key": "0001266977",
+          "source": "JBIS"
+        },
+        "name": "エフフォーリア",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:32:39.705269+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2018,
+        "external_ids": {
+          "JBIS": "0001266977"
+        },
+        "identity_evidence": {
+          "record_key": "0001266977",
+          "source": "JBIS"
+        },
+        "name": "エフフォーリア",
+        "status": "RESOLVED"
+      },
+      "event_hash": "aa5f29cb82bd6fdd9eee508a26a81d69cf00f1091acea261fe4d376edb82e753",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2018,
+    "external_ids": {
+      "JBIS": "0001266977"
+    },
+    "identity_evidence": {
+      "record_key": "0001266977",
+      "source": "JBIS"
+    },
+    "name": "エフフォーリア",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:40:58.541758+00:00",
+      "content_hash": "d0d9d95534c72999a4e6a3367d83310bd971c96057122a7e01813a2d90e83c31",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:40:58.541758+00:00",
+      "input_hash": "d4c2abc93036860527568a3568332ada3d9ba2e4c78cf549f59944b8b275403a",
+      "previous_revision": null,
+      "revision_id": "rev-d4c2abc93036860527568a35",
+      "saved_at": "2026-10-09T15:05:22.038758+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "7d1f44eda54b37968698b2b5eb09e3f97ba28d5c2322d7ca541745cf245095c1",
+        "record_key": "0001389039",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001389039/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001124297",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:40:58.541758+00:00",
+      "content_hash": "77b22125b99d0b40ec4c1a12b81d10204530875d9b3546a0b064eb19b10d7a4c",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:40:58.541758+00:00",
+      "input_hash": "f56d0d3248ce9491ec7ce28f1c8640e265c7aea7696081dab7c1f56308ba2603",
+      "previous_revision": null,
+      "revision_id": "rev-f56d0d3248ce9491ec7ce28f",
+      "saved_at": "2026-10-09T15:05:22.046159+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "7d1f44eda54b37968698b2b5eb09e3f97ba28d5c2322d7ca541745cf245095c1",
+        "record_key": "0001389039",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001389039/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001105037",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001266977/",
+              "record_hash": "ac08824bd6a516948d7ca49ca2a1112970d204f40763acb32ebaf77df8fc6eb4",
+              "captured_at": "2026-10-10T04:27:15.272Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:27:15.272Z",
+      "captured_at": "2026-10-10T04:27:15.272Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001266977",
+        "record_hash": "ac08824bd6a516948d7ca49ca2a1112970d204f40763acb32ebaf77df8fc6eb4",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001266977",
+          "horse_name": "エフフォーリア",
+          "trainer": "鹿戸 雄一",
+          "trainer_location": "美浦",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001266977/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-c1455253b6ed5591d3f58226",
+      "input_hash": "c1455253b6ed5591d3f58226bc9e8859beed39f3541c455a796d0c7baaf1c03c",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:27:15.274Z",
+      "content_hash": "4add3368305adef6acec472ee28a6ca5055e9d1873a63aa3e965023c2b0d7577"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

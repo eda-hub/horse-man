@@ -1,0 +1,47 @@
+services:
+  codex-init:
+    image: mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm
+    user: root
+    restart: "no"
+    command:
+      - /bin/sh
+      - -lc
+      - |
+        set -eu
+        chown -R node:node /codex-home
+        find /codex-home -type d -exec chmod 700 {} +
+        find /codex-home -type f -exec chmod 600 {} +
+    volumes:
+      - codex-home:/codex-home
+
+  codex:
+    container_name: horse_container
+    image: mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm
+    working_dir: /workspace
+    user: node
+    init: true
+    restart: "no"
+    command: sleep infinity
+
+    depends_on:
+      codex-init:
+        condition: service_completed_successfully
+
+    # Reduce privilege inside the development container.
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+    volumes:
+      # Only the current repository is exposed from the Mac host.
+      - ..:/workspace:cached
+
+      # ChatGPT auth/session/state stays in a Docker-managed volume, not the repo.
+      - codex-home:/home/node/.codex
+
+      # Project-owned configuration is read-only inside CODEX_HOME.
+      - ../.agents/config.toml:/home/node/.codex/config.toml:ro
+
+volumes:
+  codex-home:

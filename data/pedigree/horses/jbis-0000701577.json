@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0000701577",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2000,
+    "external_ids": {
+      "JBIS": "0000701577",
+      "NETKEIBA": "2000101426"
+    },
+    "identity_evidence": {
+      "record_key": "0000701577",
+      "source": "JBIS"
+    },
+    "name": "ネオユニヴァース",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:29.300142+00:00",
+  "identity_observed_at": "2026-10-09T12:33:29.300142+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2000,
+        "external_ids": {
+          "JBIS": "0000701577",
+          "NETKEIBA": "2000101426"
+        },
+        "identity_evidence": {
+          "record_key": "0000701577",
+          "source": "JBIS"
+        },
+        "name": "ネオユニヴァース",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:29.428937+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2000,
+        "external_ids": {
+          "JBIS": "0000701577"
+        },
+        "identity_evidence": {
+          "record_key": "0000701577",
+          "source": "JBIS"
+        },
+        "name": "ネオユニヴァース",
+        "status": "RESOLVED"
+      },
+      "event_hash": "58a4c45ac5539be2882575d907218db3ff3469813323d0fae138057baed0b9ff",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2000,
+    "external_ids": {
+      "JBIS": "0000701577"
+    },
+    "identity_evidence": {
+      "record_key": "0000701577",
+      "source": "JBIS"
+    },
+    "name": "ネオユニヴァース",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:41.425448+00:00",
+      "content_hash": "c5ee9ea3c493d82d9e3c82491a8311ae253d252e1400947774242962b76d9044",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:41.425448+00:00",
+      "input_hash": "5c007fd7d7ab474f7751fd5367efd6b509fb909417f789b6a0e734b9d54cf51e",
+      "previous_revision": null,
+      "revision_id": "rev-5c007fd7d7ab474f7751fd53",
+      "saved_at": "2026-10-09T12:34:53.843806+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "154f202db5972e70cdf71112b6d8dd2cd09e4ff74705404cb02cf2a7ab3a57bd",
+        "record_key": "0001359664",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001359664/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333862",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:41.425448+00:00",
+      "content_hash": "4c05bc6a65f1ada71c141e06f670f7aa62cbd006182ae0fed36c9336f2c88463",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:41.425448+00:00",
+      "input_hash": "8dc24243043354d75f462c13aa34604ba7fcfd32648bd15b3943ee074f47318e",
+      "previous_revision": null,
+      "revision_id": "rev-8dc24243043354d75f462c13",
+      "saved_at": "2026-10-09T12:34:53.844167+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "154f202db5972e70cdf71112b6d8dd2cd09e4ff74705404cb02cf2a7ab3a57bd",
+        "record_key": "0001359664",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001359664/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000383827",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0000701577/",
+              "record_hash": "9dfdbf06efa7b988c33b54419b25a19a9c9b13e055ab591a19f30e0a97744318",
+              "captured_at": "2026-10-10T04:28:29.671Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:28:29.671Z",
+      "captured_at": "2026-10-10T04:28:29.671Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0000701577",
+        "record_hash": "9dfdbf06efa7b988c33b54419b25a19a9c9b13e055ab591a19f30e0a97744318",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0000701577",
+          "horse_name": "ネオユニヴァース",
+          "trainer": "瀬戸口 勉",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0000701577/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-a36b451d423aff0c0fdb211a",
+      "input_hash": "a36b451d423aff0c0fdb211a9eb45f3debf5b5596f70e9ed447d26c8a577af70",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:28:29.672Z",
+      "content_hash": "cb37ff80185ff2acd8b67fd7164c6394988240d1816eaeb8aa69184410f086cb"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

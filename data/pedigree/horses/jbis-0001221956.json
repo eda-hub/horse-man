@@ -1,0 +1,162 @@
+{
+  "horse_key": "jbis-0001221956",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001221956",
+      "NETKEIBA": "2016104422"
+    },
+    "identity_evidence": {
+      "record_key": "0001221956",
+      "source": "JBIS"
+    },
+    "name": "アドマイヤマーズ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:32.182989+00:00",
+  "identity_observed_at": "2026-10-09T15:04:32.182989+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2016,
+        "external_ids": {
+          "JBIS": "0001221956",
+          "NETKEIBA": "2016104422"
+        },
+        "identity_evidence": {
+          "record_key": "0001221956",
+          "source": "JBIS"
+        },
+        "name": "アドマイヤマーズ",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:31:11.045337+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2016,
+        "external_ids": {
+          "JBIS": "0001221956"
+        },
+        "identity_evidence": {
+          "record_key": "0001221956",
+          "source": "JBIS"
+        },
+        "name": "アドマイヤマーズ",
+        "status": "RESOLVED"
+      },
+      "event_hash": "f041877fa7fc6d36e4d67ab8ad4f7fb720e129bb6bc883db3fca4ead1006af92",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001221956"
+    },
+    "identity_evidence": {
+      "record_key": "0001221956",
+      "source": "JBIS"
+    },
+    "name": "アドマイヤマーズ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:40:20.532596+00:00",
+      "content_hash": "ffaa44caecf4f15fdab3d6420ab54c4a9f8c3c4811dfaa1cbe7a814c0c201423",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:40:20.532596+00:00",
+      "input_hash": "8445418b0b8f0e6360f98d40b190d8dc60cfdd080721b04d648ce3f9d6b32802",
+      "previous_revision": null,
+      "revision_id": "rev-8445418b0b8f0e6360f98d40",
+      "saved_at": "2026-10-09T15:05:20.342549+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "00d5d78c9d322164d3b2c71d8f1714e219788f3082f5d17c7ba4f01709ef0b41",
+        "record_key": "0001387311",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001387311/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000725485",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:40:20.532596+00:00",
+      "content_hash": "f0c9d67addabde1a4a1560e85dc0ea1a7230d673d183e8859b55fab33426da6e",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:40:20.532596+00:00",
+      "input_hash": "fcf410cbef30b0026c9d660f45b558ae480c953ac13f775c622e99ed4da4a9d0",
+      "previous_revision": null,
+      "revision_id": "rev-fcf410cbef30b0026c9d660f",
+      "saved_at": "2026-10-09T15:05:20.350843+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "00d5d78c9d322164d3b2c71d8f1714e219788f3082f5d17c7ba4f01709ef0b41",
+        "record_key": "0001387311",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001387311/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001209459",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001221956/",
+              "record_hash": "f8c6007d6a29ad06dfc1d8013078a8edc4fc2c8158cdefa987fe3fb1154faca2",
+              "captured_at": "2026-10-10T04:19:41.998Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:19:41.998Z",
+      "captured_at": "2026-10-10T04:19:41.998Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001221956",
+        "record_hash": "f8c6007d6a29ad06dfc1d8013078a8edc4fc2c8158cdefa987fe3fb1154faca2",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "url": "https://www.jbis.or.jp/horse/0001221956/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-f0ea6175e380582780237a1a",
+      "input_hash": "f0ea6175e380582780237a1a5fefdabff3142f5fa0af245e3a939317c5408003",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:19:41.999Z",
+      "content_hash": "429411ff924e816c923567ff21fffcd127c2b06a11fff6f309e37a1e62da4a3e"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

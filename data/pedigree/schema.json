@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pedigree registry candidate",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "horse_key",
+    "identity",
+    "facts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "pedigree-registry-v1"
+    },
+    "horse_key": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,119}$"
+    },
+    "identity": {
+      "type": "object",
+      "required": [
+        "name",
+        "status",
+        "external_ids"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "birth_year": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parents": {
+          "type": "object"
+        },
+        "external_ids": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "status": {
+          "enum": [
+            "RESOLVED",
+            "IDENTITY_UNRESOLVED"
+          ]
+        },
+        "identity_evidence": {
+          "type": "object",
+          "required": [
+            "source",
+            "record_key"
+          ]
+        }
+      }
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/fact"
+      }
+    }
+  },
+  "$defs": {
+    "fact": {
+      "type": "object",
+      "required": [
+        "field",
+        "value",
+        "status",
+        "source",
+        "first_observed_at",
+        "captured_at"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "pattern": "^(parent:[SD]{1,10}|attribute:(birth_country|training_country|training_start_history|sex))$"
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED",
+            "CONFLICT"
+          ]
+        },
+        "first_observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "captured_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "object",
+          "required": [
+            "source_class",
+            "origin_group",
+            "acquisition_method",
+            "record_hash"
+          ],
+          "anyOf": [
+            {
+              "required": [
+                "url"
+              ]
+            },
+            {
+              "required": [
+                "record_key"
+              ]
+            }
+          ],
+          "properties": {
+            "source_class": {
+              "enum": [
+                "OFFICIAL_JRA_VAN",
+                "OFFICIAL_JRA",
+                "BREEDING_DB",
+                "MEDIA_ORIGINAL",
+                "WEB_AGGREGATOR",
+                "LEGACY_REPOSITORY"
+              ]
+            },
+            "origin_group": {
+              "type": "string",
+              "minLength": 1
+            },
+            "acquisition_method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "record_hash": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1
+            },
+            "record_key": {
+              "type": "string",
+              "minLength": 1
+            },
+            "provider_timestamp": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            }
+          }
+        },
+        "verification": {
+          "type": "object",
+          "required": [
+            "identity_checked",
+            "source_checked",
+            "relationship_checked",
+            "reviewed_by"
+          ],
+          "properties": {
+            "identity_checked": {
+              "const": true
+            },
+            "source_checked": {
+              "const": true
+            },
+            "relationship_checked": {
+              "const": true
+            },
+            "reviewed_by": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "correction_reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "field": {
+                "const": "attribute:training_start_history"
+              }
+            },
+            "required": [
+              "field"
+            ]
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "object",
+                "required": [
+                  "complete",
+                  "total_starts",
+                  "starts"
+                ],
+                "properties": {
+                  "complete": {
+                    "type": "boolean"
+                  },
+                  "total_starts": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "starts": {
+                    "type": "array"
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

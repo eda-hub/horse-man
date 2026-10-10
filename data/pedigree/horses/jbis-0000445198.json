@@ -1,0 +1,86 @@
+{
+  "horse_key": "jbis-0000445198",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1987,
+    "external_ids": {
+      "JBIS": "0000445198"
+    },
+    "identity_evidence": {
+      "record_key": "0000445198",
+      "source": "JBIS"
+    },
+    "name": "Never So Fair(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:24.927314+00:00",
+  "identity_observed_at": "2026-10-09T15:04:24.927314+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1987,
+    "external_ids": {
+      "JBIS": "0000445198"
+    },
+    "identity_evidence": {
+      "record_key": "0000445198",
+      "source": "JBIS"
+    },
+    "name": "Never So Fair(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:50:22.377264+00:00",
+      "content_hash": "4b7813d573ac9155850cb0d4d8745c5125e87d3a3e2f1ef6b29f6b077885946d",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:50:22.377264+00:00",
+      "input_hash": "4671da11891e6dadaa0a599d1dfe9232614ca5cf7f37bbe42804493a25fee703",
+      "previous_revision": null,
+      "revision_id": "rev-4671da11891e6dadaa0a599d",
+      "saved_at": "2026-10-09T15:05:01.850076+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "bd185f96c65f47e0f916accfb8a26915f6d9032f4208136e0ca2a215270656c4",
+        "record_key": "0001336198",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001336198/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000337398",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:50:22.377264+00:00",
+      "content_hash": "b1f43035f333f2a4347126358a0a1bf4c6b3ac2f3bb6070e802e2a65baaf0f72",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:50:22.377264+00:00",
+      "input_hash": "0045ec7534dfdd2b2ee28337e0bbadde06d00c17f1387ccaefbb6a33267c9acf",
+      "previous_revision": null,
+      "revision_id": "rev-0045ec7534dfdd2b2ee28337",
+      "saved_at": "2026-10-09T15:05:01.850295+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "bd185f96c65f47e0f916accfb8a26915f6d9032f4208136e0ca2a215270656c4",
+        "record_key": "0001336198",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001336198/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000394856",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

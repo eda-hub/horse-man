@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0001173702",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2013,
+    "external_ids": {
+      "JBIS": "0001173702",
+      "NETKEIBA": "2013100612"
+    },
+    "identity_evidence": {
+      "record_key": "0001173702",
+      "source": "JBIS"
+    },
+    "name": "ファインニードル",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:42.653806+00:00",
+  "identity_observed_at": "2026-10-09T12:33:42.653806+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2013,
+        "external_ids": {
+          "JBIS": "0001173702",
+          "NETKEIBA": "2013100612"
+        },
+        "identity_evidence": {
+          "record_key": "0001173702",
+          "source": "JBIS"
+        },
+        "name": "ファインニードル",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:38.566864+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2013,
+        "external_ids": {
+          "JBIS": "0001173702"
+        },
+        "identity_evidence": {
+          "record_key": "0001173702",
+          "source": "JBIS"
+        },
+        "name": "ファインニードル",
+        "status": "RESOLVED"
+      },
+      "event_hash": "0cb51deed86f42c4d1d51ccb6b349ee19b0fe653d57a048806c4696e9cf3d654",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2013,
+    "external_ids": {
+      "JBIS": "0001173702"
+    },
+    "identity_evidence": {
+      "record_key": "0001173702",
+      "source": "JBIS"
+    },
+    "name": "ファインニードル",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:25.560551+00:00",
+      "content_hash": "bd703942f3b0d4cce732fe9193d7e8e0fbe69d14dd4ab6136fe1c98798654056",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+      "input_hash": "7fc868c1b2a127f36b14c3e2a058cbf717df47a0d262f0e2a0d8b6f8b6964b15",
+      "previous_revision": null,
+      "revision_id": "rev-7fc868c1b2a127f36b14c3e2",
+      "saved_at": "2026-10-09T12:35:14.301056+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf",
+        "record_key": "0001173702",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001173702/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000760877",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:25.560551+00:00",
+      "content_hash": "072b14a8870f3c5720b4edc5841a21ff33616f0fcc4434c18939a300143c43e9",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+      "input_hash": "38ff707e4916dfe181618c0ad3a195bca8695bd760f7db9f47184e5726cfe0bd",
+      "previous_revision": null,
+      "revision_id": "rev-38ff707e4916dfe181618c0a",
+      "saved_at": "2026-10-09T12:35:14.302622+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf",
+        "record_key": "0001173702",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001173702/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001021454",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001173702/",
+              "record_hash": "634f7cd23634610f2262ecd0ee85ed41f1aefb64c1c3456ac5350451fd72b4df",
+              "captured_at": "2026-10-10T04:33:29.602Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:33:29.602Z",
+      "captured_at": "2026-10-10T04:33:29.602Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001173702",
+        "record_hash": "634f7cd23634610f2262ecd0ee85ed41f1aefb64c1c3456ac5350451fd72b4df",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001173702",
+          "horse_name": "ファインニードル",
+          "trainer": "高橋 義忠",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001173702/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-604d114114237e35cae7d290",
+      "input_hash": "604d114114237e35cae7d29005d6b45cde72d6be004e003f0d563ad1b9bf2860",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:33:29.603Z",
+      "content_hash": "213314a634bd9277d5df4c19f70154eae40551cd84879639ab4e154818916ad6"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

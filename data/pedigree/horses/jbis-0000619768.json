@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0000619768",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1999,
+    "external_ids": {
+      "JBIS": "0000619768",
+      "NETKEIBA": "1999106689"
+    },
+    "identity_evidence": {
+      "record_key": "0000619768",
+      "source": "JBIS"
+    },
+    "name": "ゴールドアリュール",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:25.374225+00:00",
+  "identity_observed_at": "2026-10-09T15:04:25.374225+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 1999,
+        "external_ids": {
+          "JBIS": "0000619768",
+          "NETKEIBA": "1999106689"
+        },
+        "identity_evidence": {
+          "record_key": "0000619768",
+          "source": "JBIS"
+        },
+        "name": "ゴールドアリュール",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:31.131557+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1999,
+        "external_ids": {
+          "JBIS": "0000619768"
+        },
+        "identity_evidence": {
+          "record_key": "0000619768",
+          "source": "JBIS"
+        },
+        "name": "ゴールドアリュール",
+        "status": "RESOLVED"
+      },
+      "event_hash": "19eb5208e7b66971c810d33fba9a134a66d1310fd2c6c7d46818b3cca9528d42",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1999,
+    "external_ids": {
+      "JBIS": "0000619768"
+    },
+    "identity_evidence": {
+      "record_key": "0000619768",
+      "source": "JBIS"
+    },
+    "name": "ゴールドアリュール",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:40:20.626694+00:00",
+      "content_hash": "1a70dd4792d38e8bdc16594cdd6163ecafe2c57cef8c93d15213a6fa5186cf72",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:40:20.626694+00:00",
+      "input_hash": "072c577d25ebe1e1663ca2bfc6964b8a7e1645d47b097719b7afd158a1b808e4",
+      "previous_revision": null,
+      "revision_id": "rev-072c577d25ebe1e1663ca2bf",
+      "saved_at": "2026-10-09T15:05:02.884438+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "9ec6263f34c41927b5e8f068eceae5a3f7ebb599a289bc52336ec113019d4ddd",
+        "record_key": "0001387409",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001387409/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333862",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:40:20.626694+00:00",
+      "content_hash": "cac9929e961924fada8fa52ccab8e5b6278541fe3574ca0b81b394f12ff8f652",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:40:20.626694+00:00",
+      "input_hash": "eb805ef21063931a75c31dfcdc53ce560e3d04a292edff8fe89317a617391c31",
+      "previous_revision": null,
+      "revision_id": "rev-eb805ef21063931a75c31dfc",
+      "saved_at": "2026-10-09T15:05:02.886913+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "9ec6263f34c41927b5e8f068eceae5a3f7ebb599a289bc52336ec113019d4ddd",
+        "record_key": "0001387409",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001387409/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000384028",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0000619768/",
+              "record_hash": "f19248a9d10a145647e4f22c5a379a645ecf7ecaaa92b8b1317d348c2df876f5",
+              "captured_at": "2026-10-10T04:22:23.359Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:22:23.359Z",
+      "captured_at": "2026-10-10T04:22:23.359Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0000619768",
+        "record_hash": "f19248a9d10a145647e4f22c5a379a645ecf7ecaaa92b8b1317d348c2df876f5",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0000619768",
+          "horse_name": "ゴールドアリュール",
+          "trainer": "池江 泰郎",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0000619768/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-a252f8e037e9880e22d5abc4",
+      "input_hash": "a252f8e037e9880e22d5abc450be0ccacdffac18b3ee169583d1ca4c27983477",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:22:23.361Z",
+      "content_hash": "0b43b38f905deac96603710dae81db6bb01c2775a94a3b2cbe871059287dcd7d"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

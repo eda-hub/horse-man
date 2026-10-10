@@ -1,0 +1,156 @@
+{
+  "horse_key": "netkeiba-1999110010",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1999,
+    "country": null,
+    "external_ids": {
+      "NETKEIBA": "1999110010",
+      "UMANITY": "1120002124"
+    },
+    "identity_evidence": {
+      "raw_sha256": "3302ae33dc9f7bbae6d29c7d6fb35ddad969fa409f26fc3865e4b4169de6aba4",
+      "record_hash": "1d3f5f2ade02e49c07430be1f4d19a8abbaff828f3a9b0859c48eabfa61c940b",
+      "record_key": "NETKEIBA:1999110010",
+      "source": "https://db.netkeiba.com/horse/ped/2021101793/"
+    },
+    "name": "スターキングマン",
+    "parents": {
+      "D": "netkeiba-000a009883",
+      "S": "jbis-0000347989"
+    },
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T17:30:48.786651+00:00",
+  "identity_observed_at": "2026-10-09T17:30:48.786651+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1999,
+    "country": null,
+    "external_ids": {
+      "NETKEIBA": "1999110010",
+      "UMANITY": "1120002124"
+    },
+    "identity_evidence": {
+      "raw_sha256": "3302ae33dc9f7bbae6d29c7d6fb35ddad969fa409f26fc3865e4b4169de6aba4",
+      "record_hash": "1d3f5f2ade02e49c07430be1f4d19a8abbaff828f3a9b0859c48eabfa61c940b",
+      "record_key": "NETKEIBA:1999110010",
+      "source": "https://db.netkeiba.com/horse/ped/2021101793/"
+    },
+    "name": "スターキングマン",
+    "parents": {
+      "D": "netkeiba-000a009883",
+      "S": "jbis-0000347989"
+    },
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T17:40:09.939675+00:00",
+      "content_hash": "dd3bec230418fce1ec3902d67b89bfc428fc060e860d8f87f3773ea083231648",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T17:40:09.939675+00:00",
+      "input_hash": "51559903061a97f006ddf2f845a9fd3ff8a923a1b90c37d2e1b6b6282e3cca7c",
+      "previous_revision": null,
+      "revision_id": "rev-51559903061a97f006ddf2f8",
+      "saved_at": "2026-10-09T17:40:09.940572+00:00",
+      "source": {
+        "acquisition_method": "TWO_PROVIDER_MATCH",
+        "captured_at": "2026-10-09T17:04:14.693991+00:00",
+        "corroborating_urls": [
+          "https://db.netkeiba.com/horse/ped/2021101793/",
+          "https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021101793"
+        ],
+        "origin_group": "NETKEIBA",
+        "raw_sha256": "3302ae33dc9f7bbae6d29c7d6fb35ddad969fa409f26fc3865e4b4169de6aba4",
+        "record_hash": "512359d1c9b14a368231501548f50ae23ce0b08da685248c7fa33ad9d1edc433",
+        "record_hash_kind": "canonical-verified-table-position-sha256",
+        "record_key": "2021101793:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/2021101793/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a009883",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "父母ID・5代位置・全原票共通関係照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T17:40:09.941078+00:00",
+      "content_hash": "e65d3b3323e23336102fdb49464bb06bba0e81ad2c9e010216ef93d6430c779e",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T17:40:09.941078+00:00",
+      "input_hash": "c0e30d7f8770ee0cecabb33d4d22aad027de0c688464a11b1b1f24036c3f27fb",
+      "previous_revision": null,
+      "revision_id": "rev-c0e30d7f8770ee0cecabb33d",
+      "saved_at": "2026-10-09T17:40:09.942665+00:00",
+      "source": {
+        "acquisition_method": "TWO_PROVIDER_MATCH",
+        "captured_at": "2026-10-09T17:04:14.693991+00:00",
+        "corroborating_urls": [
+          "https://db.netkeiba.com/horse/ped/2021101793/",
+          "https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2021101793"
+        ],
+        "origin_group": "NETKEIBA",
+        "raw_sha256": "3302ae33dc9f7bbae6d29c7d6fb35ddad969fa409f26fc3865e4b4169de6aba4",
+        "record_hash": "8583fb8b57a76af1aa08c7f2b6216f799d900012c26af0a6e7feeaf1f03a72c4",
+        "record_hash_kind": "canonical-verified-table-position-sha256",
+        "record_key": "2021101793:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/2021101793/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000347989",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "父母ID・5代位置・全原票共通関係照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T07:58:11.708839+00:00",
+      "content_hash": "50f1e7eac7496c32d2a3b894551188fc05643ee18b6a5c1d37f63a029f73d409",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:58:11.708824+00:00",
+      "input_hash": "79c2453257a1b4660ad7c79f5807046b6f06409b2d192ee5abcb836aa43a3e60",
+      "previous_revision": null,
+      "revision_id": "rev-79c2453257a1b4660ad7c79f",
+      "saved_at": "2026-10-10T07:58:11.753552+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "NETKEIBA",
+        "record_hash": "936d0981ac701658ebb6d982c9fdab2ad5e3195e7d5746f2400069fba8676a49",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "netkeiba-1999110010",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://db.sp.netkeiba.com/horse/1999110010/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-10T07:16:25.322679+00:00",
+              "record_hash": "936d0981ac701658ebb6d982c9fdab2ad5e3195e7d5746f2400069fba8676a49",
+              "url": "https://db.sp.netkeiba.com/horse/1999110010/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

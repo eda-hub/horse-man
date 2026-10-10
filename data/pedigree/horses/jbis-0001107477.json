@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0001107477",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001107477",
+      "NETKEIBA": "2009100921"
+    },
+    "identity_evidence": {
+      "record_key": "0001107477",
+      "source": "JBIS"
+    },
+    "name": "ホッコータルマエ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:29.509843+00:00",
+  "identity_observed_at": "2026-10-09T15:04:29.509843+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2009,
+        "external_ids": {
+          "JBIS": "0001107477",
+          "NETKEIBA": "2009100921"
+        },
+        "identity_evidence": {
+          "record_key": "0001107477",
+          "source": "JBIS"
+        },
+        "name": "ホッコータルマエ",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:36.386554+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2009,
+        "external_ids": {
+          "JBIS": "0001107477"
+        },
+        "identity_evidence": {
+          "record_key": "0001107477",
+          "source": "JBIS"
+        },
+        "name": "ホッコータルマエ",
+        "status": "RESOLVED"
+      },
+      "event_hash": "e109e2bbecdb0dfad669c92639539f4b18b6d1f17cf3c88f54f0fe0a26f3bead",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001107477"
+    },
+    "identity_evidence": {
+      "record_key": "0001107477",
+      "source": "JBIS"
+    },
+    "name": "ホッコータルマエ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:42:16.186701+00:00",
+      "content_hash": "970bf347d740025b8589bca93aa025c71edfd5b8e105e437ae904dd5433cfdaa",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:42:16.186701+00:00",
+      "input_hash": "3946fb45ccb5d57e47f76b67540c6e4ed9181a9eec7faea94d4092e91e03b226",
+      "previous_revision": null,
+      "revision_id": "rev-3946fb45ccb5d57e47f76b67",
+      "saved_at": "2026-10-09T15:05:13.312326+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "8c82b1686a6b247e9e8742c09c2719ce969559bf7781713efbc2a4e50982f2b7",
+        "record_key": "0001357121",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001357121/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000729458",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:42:16.186701+00:00",
+      "content_hash": "491c2cc577e3734e977f985e47354cbe8a473ce539c05d2b0cf0781c8bd5d6fd",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:42:16.186701+00:00",
+      "input_hash": "6ca8890e6972ec883170515de860e0a1bd4758f2c715f8f0dd4f9d00a560de1a",
+      "previous_revision": null,
+      "revision_id": "rev-6ca8890e6972ec883170515d",
+      "saved_at": "2026-10-09T15:05:13.316176+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "8c82b1686a6b247e9e8742c09c2719ce969559bf7781713efbc2a4e50982f2b7",
+        "record_key": "0001357121",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001357121/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000722526",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001107477/",
+              "record_hash": "2fa21e5f67af3673c56792aa555c425e4bf5c30b246b8427b6cbacc51920e3d1",
+              "captured_at": "2026-10-10T04:39:31.991Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:39:31.991Z",
+      "captured_at": "2026-10-10T04:39:31.991Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001107477",
+        "record_hash": "2fa21e5f67af3673c56792aa555c425e4bf5c30b246b8427b6cbacc51920e3d1",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001107477",
+          "horse_name": "ホッコータルマエ",
+          "trainer": "西浦 勝一",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001107477/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-cea5f6367e154f26633504fe",
+      "input_hash": "cea5f6367e154f26633504fe8fe94dc96c153dc110f2b90775f95338d98581b0",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:39:31.993Z",
+      "content_hash": "a29fa13846efbb8fdbae63fb1a81c7c2d886758f59b4f7dc87f2f6fbb082f836"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0001206175",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2015,
+    "external_ids": {
+      "JBIS": "0001206175",
+      "NETKEIBA": "2015104688"
+    },
+    "identity_evidence": {
+      "record_key": "0001206175",
+      "source": "JBIS"
+    },
+    "name": "インディチャンプ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:43.873738+00:00",
+  "identity_observed_at": "2026-10-09T12:33:43.873738+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2015,
+        "external_ids": {
+          "JBIS": "0001206175",
+          "NETKEIBA": "2015104688"
+        },
+        "identity_evidence": {
+          "record_key": "0001206175",
+          "source": "JBIS"
+        },
+        "name": "インディチャンプ",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:31:56.921879+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2015,
+        "external_ids": {
+          "JBIS": "0001206175"
+        },
+        "identity_evidence": {
+          "record_key": "0001206175",
+          "source": "JBIS"
+        },
+        "name": "インディチャンプ",
+        "status": "RESOLVED"
+      },
+      "event_hash": "52755a5f3d25eb14bd0886c30558716414cdf50d7495b1468fd5483a8610e5e8",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2015,
+    "external_ids": {
+      "JBIS": "0001206175"
+    },
+    "identity_evidence": {
+      "record_key": "0001206175",
+      "source": "JBIS"
+    },
+    "name": "インディチャンプ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:58.909732+00:00",
+      "content_hash": "264520f8d7c9a5b6c4f21a68e033cbae2631411dc1770f170aa4aab7514cb41f",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:58.909732+00:00",
+      "input_hash": "238a25b37d880a132d7522784df5b5e528c04400b2215de6f0c05278d75b4f3c",
+      "previous_revision": null,
+      "revision_id": "rev-238a25b37d880a132d752278",
+      "saved_at": "2026-10-09T12:35:16.278870+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "97ed6e3a1e8e4cf9a2005846b035233c922d0f51602151ab25bf8c5c457884bc",
+        "record_key": "0001387175",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001387175/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000286968",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:58.909732+00:00",
+      "content_hash": "31f1b22c156b95d47b1b9d5aac6155b9946f464e0087f6270c23e24ef50fc88e",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:58.909732+00:00",
+      "input_hash": "56a7b6fc6fde2ede3f136baa8f2d0aed2d0ae4a871d78220249e9d6e9319b3e8",
+      "previous_revision": null,
+      "revision_id": "rev-56a7b6fc6fde2ede3f136baa",
+      "saved_at": "2026-10-09T12:35:16.280816+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "97ed6e3a1e8e4cf9a2005846b035233c922d0f51602151ab25bf8c5c457884bc",
+        "record_key": "0001387175",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001387175/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001042633",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001206175/",
+              "record_hash": "78cd625dfcea8a178f9b0c391f31e4f70a37a8f2fc5f0da7e8627b28d7241442",
+              "captured_at": "2026-10-10T04:27:15.264Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:27:15.264Z",
+      "captured_at": "2026-10-10T04:27:15.264Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001206175",
+        "record_hash": "78cd625dfcea8a178f9b0c391f31e4f70a37a8f2fc5f0da7e8627b28d7241442",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001206175",
+          "horse_name": "インディチャンプ",
+          "trainer": "音無 秀孝",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001206175/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-48626f993a41bed785177b05",
+      "input_hash": "48626f993a41bed785177b05a4addd6c55a8213a3a5dbe8dd0dc6cf642fa07bd",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:27:15.266Z",
+      "content_hash": "ca3a06f9f983cbe6b7fba71a0783f2fa33ad12c1ae71b596de3e3a7452a29c2b"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

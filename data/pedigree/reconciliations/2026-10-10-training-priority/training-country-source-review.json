@@ -1,0 +1,1296 @@
+{
+  "schema_version": "training-country-source-review-v1",
+  "source_date": "2026-10-10",
+  "scope": "Only sire/damsire subjects in 2089-horse JRA 2026 scope",
+  "count": 30,
+  "raw_body_hash_policy": "R01/R02の追加証跡は保持。R03以降は個体プロフィールと調教国を示すHTML/PDF応答本文のbyte列・SHA-256・取得時刻を別証跡へ保存。既存revisionの初回原文復元ではなく後日の再照合。原国判定の細部を原資料で再確認できない場合は国と今回明記した項目だけを確認範囲にする。",
+  "horses": [
+    {
+      "horse_key": "jbis-0000742976",
+      "horse_name": "ディープインパクト",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/gallery/3minmeiba/horse31/",
+          "training_affiliation_claim": "池江泰郎・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 158,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-bd7f0b930b5668a155c09d74",
+        "record_path": "data/pedigree/horses/jbis-0000742976.json",
+        "record_blob_sha": "f2544e94b0323a289eaf63e9bd9df74fe5788605",
+        "source_url": "https://www.jbis.or.jp/horse/0000742976/",
+        "source_record_hash": "4bf56183eac643f47af64c092a921439179272f28ba12ec0d5ba37db6a90da25",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "source_captured_at": "2026-10-10T04:21:06.675Z",
+        "writer_saved_at": "2026-10-10T04:21:06.678Z",
+        "source_reviewed": true,
+        "registry_readback": true,
+        "raw_html_captured": false
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000742976.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000742976.html",
+        "sha256": "4346b72a2f415ee012a2d6e0f03920007eaa94ac30cee68d89c91f61fa77605e",
+        "captured_at": "2026-10-10T05:27:26.409437+00:00",
+        "supplemental": true
+      }
+    },
+    {
+      "horse_key": "jbis-0000722158",
+      "horse_name": "ハーツクライ",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102001103038%2FF0",
+          "training_affiliation_claim": "橋口弘次郎・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 92,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-d21d9db0db06f0d291c1ab1e",
+        "record_path": "data/pedigree/horses/jbis-0000722158.json",
+        "record_blob_sha": "3bd60dac982b7210b4d476bf86934acbd8806a28",
+        "source_url": "https://www.jbis.or.jp/horse/0000722158/",
+        "source_record_hash": "48757b31907a58c2fd530c962fb8ff97b334d221c0f45d026719f677c224f24f",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "source_captured_at": "2026-10-10T04:21:06.691Z",
+        "writer_saved_at": "2026-10-10T04:21:06.692Z",
+        "source_reviewed": true,
+        "registry_readback": true,
+        "raw_html_captured": false
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000722158.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000722158.html",
+        "sha256": "627c36ae784c038455af1bfb2508655961822ba1253dbef278900905256d32cf",
+        "captured_at": "2026-10-10T05:27:29.249356+00:00",
+        "supplemental": true
+      }
+    },
+    {
+      "horse_key": "jbis-0000729458",
+      "horse_name": "キングカメハメハ",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/gallery/3minmeiba/horse19/",
+          "training_affiliation_claim": "松田国英・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 90,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-f56a16e7cb05280c87c661f6",
+        "record_path": "data/pedigree/horses/jbis-0000729458.json",
+        "record_blob_sha": "941fe850f5bed7aedb0fefd3d3ad28d2d8f30514",
+        "source_url": "https://www.jbis.or.jp/horse/0000729458/",
+        "source_record_hash": "225ad1be4bae02322506c1116110dd1af746bfaf59d479d8c83354a53da03dbe",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "source_captured_at": "2026-10-10T04:21:06.687Z",
+        "writer_saved_at": "2026-10-10T04:21:06.689Z",
+        "source_reviewed": true,
+        "registry_readback": true,
+        "raw_html_captured": false
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000729458.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0000729458.html",
+        "sha256": "c547364ced7089b5c05d7e8fab6d5bf8c9948a7c15928c855e69b3d24a214186",
+        "captured_at": "2026-10-10T05:27:29.206888+00:00",
+        "supplemental": true
+      }
+    },
+    {
+      "horse_key": "jbis-0001089850",
+      "horse_name": "ロードカナロア",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://jra.jp/special/2024_intaitrainer/",
+          "training_affiliation_claim": "安田隆行・栗東、管理馬ロードカナロア（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 77,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-de0f3c0698bdb700fcb96100",
+        "record_path": "data/pedigree/horses/jbis-0001089850.json",
+        "record_blob_sha": "928bd1d6a7b020931786e524a13152ef353230f1",
+        "source_url": "https://www.jbis.or.jp/horse/0001089850/",
+        "source_record_hash": "0cd2c38e87c29b945c6c9c490582eb16cfedba8fa608c24d6a40998a19fa9f7b",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "source_captured_at": "2026-10-10T04:21:06.684Z",
+        "writer_saved_at": "2026-10-10T04:21:06.685Z",
+        "source_reviewed": true,
+        "registry_readback": true,
+        "raw_html_captured": false
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0001089850.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0001089850.html",
+        "sha256": "c67e34ef9080fb9e76165a50b4c1455b3c9f72ae77495d87e203f52807e8c5df",
+        "captured_at": "2026-10-10T05:27:26.419050+00:00",
+        "supplemental": true
+      }
+    },
+    {
+      "horse_key": "jbis-0001120570",
+      "horse_name": "キズナ",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/gallery/3minmeiba/horse15/",
+          "training_affiliation_claim": "佐々木晶三・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 71,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-eac858888f929671a4bae1e6",
+        "record_path": "data/pedigree/horses/jbis-0001120570.json",
+        "record_blob_sha": "a8ee804013c442849ddc2c7a33d0a09a337308a7",
+        "source_url": "https://www.jbis.or.jp/horse/0001120570/",
+        "source_record_hash": "cbf0582102d3f103d99bca2286571b84e3d15acbdbc36ec5648ff8a952f12ce5",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "source_captured_at": "2026-10-10T04:21:06.680Z",
+        "writer_saved_at": "2026-10-10T04:21:06.682Z",
+        "source_reviewed": true,
+        "registry_readback": true,
+        "raw_html_captured": false
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0001120570.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r01-raw/jbis-0001120570.html",
+        "sha256": "4ed0a856b0f94faa3768f1b1304d735882b8b2e2bd9ce8a417ea3a22f3aac3a4",
+        "captured_at": "2026-10-10T05:27:29.490802+00:00",
+        "supplemental": true
+      }
+    },
+    {
+      "horse_key": "jbis-0000725485",
+      "horse_name": "ダイワメジャー",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102001103114%2F35",
+          "training_affiliation_claim": "上原博之・美浦（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 66,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-5bf111b9584203f4466f6cf6",
+        "record_path": "data/pedigree/horses/jbis-0000725485.json",
+        "record_blob_sha": "8a714ce5fc3fdad3206a6d9239e288d3aae0f943",
+        "source_url": "https://www.jbis.or.jp/horse/0000725485/",
+        "source_record_hash": "9bd53060d2da4c6c9e8c713928a88adb37b470362207b1ff7f1014ca2bc14e10",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。",
+        "source_reviewed": true
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0000725485-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0000725485-profile.html",
+        "sha256": "4488102afed30b289edf1297fc525daa6f091b104400fc62769aff5b1fc36400",
+        "captured_at": "2026-10-10T05:39:59.161962+00:00",
+        "supplemental": true,
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0000725485-profile.capture.json"
+        ],
+        "verification_manifest": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "R02",
+        "country": "JP",
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json",
+        "reviewed_at": "2026-10-10T05:41:25.426915+00:00"
+      }
+    },
+    {
+      "horse_key": "jbis-0001124297",
+      "horse_name": "エピファネイア",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102010104155%2FB6",
+          "training_affiliation_claim": "角居勝彦・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 63,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-0975fe20ec6ffe23350832bf",
+        "record_path": "data/pedigree/horses/jbis-0001124297.json",
+        "record_blob_sha": "375ad306ee49d9c60e1e4447582d686ded48e7e7",
+        "source_url": "https://www.jbis.or.jp/horse/0001124297/",
+        "source_record_hash": "d3b37d2d7787d5e98576b6a3f31bceb0c037e57a0d924fa274cd866a1c826ab3",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。",
+        "source_reviewed": true
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001124297-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001124297-profile.html",
+        "sha256": "3dced97639cab38a2ceb65785ea609ade4a7ff7a47fbd4c93792bd884d4c3a4c",
+        "captured_at": "2026-10-10T05:39:58.895990+00:00",
+        "supplemental": true,
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001124297-profile.capture.json"
+        ],
+        "verification_manifest": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "R02",
+        "country": "JP",
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json",
+        "reviewed_at": "2026-10-10T05:41:25.426915+00:00"
+      }
+    },
+    {
+      "horse_key": "jbis-0001042049",
+      "horse_name": "ルーラーシップ",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102007103143%2F3A",
+          "training_affiliation_claim": "角居勝彦・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 62,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-9c674b679eaeea3126c59acd",
+        "record_path": "data/pedigree/horses/jbis-0001042049.json",
+        "record_blob_sha": "15e858c55a9e7ba778c52f0175e4c645c5deebc4",
+        "source_url": "https://www.jbis.or.jp/horse/0001042049/",
+        "source_record_hash": "7d609916b99e3542d0cf7a4eba02fd736e5d31497256b71e12d6efd3a4779df9",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。",
+        "source_reviewed": true
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001042049-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001042049-profile.html",
+        "sha256": "9d2d87a5a3075a4eaa706a907d3671712a8a2de3170865351915c46c7916f4ff",
+        "captured_at": "2026-10-10T05:40:04.754874+00:00",
+        "supplemental": true,
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001042049-profile.capture.json"
+        ],
+        "verification_manifest": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "R02",
+        "country": "JP",
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json",
+        "reviewed_at": "2026-10-10T05:41:25.426915+00:00"
+      }
+    },
+    {
+      "horse_key": "jbis-0001115148",
+      "horse_name": "ハービンジャー(GB)",
+      "selected_country": "GB",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.theguardian.com/sport/2010/aug/07/harbinger-injury-sir-michael-stoute",
+          "training_affiliation_claim": "Sir Michael Stoute・Newmarket（英国の調教）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 62,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-9e60bb12fedfd5c39ff328ce",
+        "record_path": "data/pedigree/horses/jbis-0001115148.json",
+        "record_blob_sha": "e8456063f81d36d9e8e92804998bef54f982f4be",
+        "source_url": "https://www.theguardian.com/sport/2010/jul/06/ryan-moore-workforce-king-george",
+        "source_record_hash": "9d3368db50e2f5a3805c1e125a95d7d73346bfb9e4db429b08bbffd249fc8ce0",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。",
+        "source_reviewed": true
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001115148-training.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001115148-training.html",
+        "sha256": "a863f6a8c0b49d0db5de41bcf2678f07091022f7bc69de9e36cf89318b6b2fdd",
+        "captured_at": "2026-10-10T05:39:58.908883+00:00",
+        "supplemental": true,
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001115148-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001115148-training.capture.json"
+        ],
+        "verification_manifest": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "R02",
+        "country": "GB",
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json",
+        "reviewed_at": "2026-10-10T05:41:25.426915+00:00"
+      }
+    },
+    {
+      "horse_key": "jbis-0001215724",
+      "horse_name": "サートゥルナーリア",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102016104505%2F72",
+          "training_affiliation_claim": "角居勝彦・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_HTML",
+      "parent_references": 61,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-e2f737611fc52f3b8606d138",
+        "record_path": "data/pedigree/horses/jbis-0001215724.json",
+        "record_blob_sha": "9c0f7253f0e47aaeb2fc04e3ff7a40e4a54d049a",
+        "source_url": "https://www.jbis.or.jp/horse/0001215724/",
+        "source_record_hash": "487fa8f63a32b8cd346cac07958271fe3258e2ee0fad598d94e8f9ba4041fb65",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "raw_html_captured": false,
+        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。",
+        "source_reviewed": true
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001215724-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001215724-profile.html",
+        "sha256": "ba163832cda618c92fef7a7986586acf0f22ae657a54c183b21020cb6a6f176f",
+        "captured_at": "2026-10-10T05:39:59.049834+00:00",
+        "supplemental": true,
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r02-raw/jbis-0001215724-profile.capture.json"
+        ],
+        "verification_manifest": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "R02",
+        "country": "JP",
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-verification.json",
+        "reviewed_at": "2026-10-10T05:41:25.426915+00:00"
+      }
+    },
+    {
+      "horse_key": "jbis-0001138240",
+      "horse_name": "モーリス",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102011100655%2F7B",
+          "training_affiliation_claim": "堀宣行・美浦（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 59,
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001138240-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001138240-profile.html",
+        "sha256": "6920edb027b1e5d2f6b38adc28a3adca14f96285e39828e4757623da989d74a3",
+        "captured_at": "2026-10-10T05:50:34.491497+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001138240-profile.capture.json"
+        ],
+        "supplemental": false,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r03",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      },
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-d9b84676644c64e93986eff1",
+        "record_path": "data/pedigree/horses/jbis-0001138240.json",
+        "source_url": "https://www.jbis.or.jp/horse/0001138240/",
+        "source_record_hash": "6920edb027b1e5d2f6b38adc28a3adca14f96285e39828e4757623da989d74a3",
+        "source_record_hash_kind": "http-response-body-bytes-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      }
+    },
+    {
+      "horse_key": "jbis-0000615577",
+      "horse_name": "クロフネ(USA)",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud101998110135%2FD1",
+          "training_affiliation_claim": "松田国英・栗東（JRA、米国産は分類根拠にしない）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 57,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-96a2c7cdf35879dca3f6a9a3",
+        "record_path": "data/pedigree/horses/jbis-0000615577.json",
+        "source_url": "https://www.jbis.or.jp/horse/0000615577/",
+        "source_record_hash": "ed1add366a2f69a00103a1d0d8a3ddde99475866de2863c187b9b8120c3045cd",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0000615577-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0000615577-profile.html",
+        "sha256": "ff3bebba5342347d7896b0a98535ac210d4e4b993a855f8387f79da4ff6af9f5",
+        "captured_at": "2026-10-10T05:50:33.531239+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0000615577-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r03",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0001155349",
+      "horse_name": "キタサンブラック",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102012102013%2F99",
+          "training_affiliation_claim": "清水久詞・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 54,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-2e27fc3742d8d07dc5cb592b",
+        "record_path": "data/pedigree/horses/jbis-0001155349.json",
+        "source_url": "https://www.jbis.or.jp/horse/0001155349/",
+        "source_record_hash": "7aace956c130dc389faf8f35eec0ed13e89ed46e29e772c8327abf2d688e8c04",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001155349-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001155349-profile.html",
+        "sha256": "77f4d25e26d2137d1f84bc3036cd81fc420545840ef3704eee76c924142c251d",
+        "captured_at": "2026-10-10T05:50:30.496306+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001155349-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r03",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0001090360",
+      "horse_name": "オルフェーヴル",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://db.netkeiba.com/horse/2008102636/",
+          "training_affiliation_claim": "池江泰寿・栗東（競走馬調教師）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 48,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-d103aa30c9a48f121b44b137",
+        "record_path": "data/pedigree/horses/jbis-0001090360.json",
+        "source_url": "https://www.jbis.or.jp/horse/0001090360/",
+        "source_record_hash": "c6e2dc8ac7eea9d6fdde4d0d608f217dd267eef58a3cd793f7f9888915ee9f6c",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001090360-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001090360-profile.html",
+        "sha256": "bdb6be842f06b67c9887db396a1bac962ee7c336f5fd21b76b1796be5092da7c",
+        "captured_at": "2026-10-10T05:50:34.241666+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001090360-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r03",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0001189721",
+      "horse_name": "レイデオロ",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/gallery/update/race_horse/jrasho/2018.html",
+          "training_affiliation_claim": "藤沢和雄・美浦（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 42,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-e541c38b45a27e684cb0820f",
+        "record_path": "data/pedigree/horses/jbis-0001189721.json",
+        "source_url": "https://www.jbis.or.jp/horse/0001189721/",
+        "source_record_hash": "37b9f18db54b9524427798909e8e25b55866e35ca27650f3e4e37cf04294e302",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001189721-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001189721-profile.html",
+        "sha256": "6c2063d2fabef9771f8e8c238a45dc7fc201386246d29f29b0c4bf1f6ddad199",
+        "captured_at": "2026-10-10T05:50:33.771920+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r03-raw/jbis-0001189721-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r03-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r03",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0001240055",
+      "horse_name": "ドレフォン(USA)",
+      "selected_country": "US",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.drf.com/news/2016-eclipse-awards-drefong",
+          "training_affiliation_claim": "Bob Baffert・米国調教（DRF、産地ではない）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 41,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-8c87fe9959556c360992ec59",
+        "record_path": "data/pedigree/horses/jbis-0001240055.json",
+        "source_url": "https://www.bobbaffert.com/drefong-gives-baffert-fifth-breeders-cup-sprint-g1/",
+        "source_record_hash": "1b80935862dcaa9ea5d7d0bc93c1b74bff265ef3877e7a688bf4e48d427b8c15",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001240055-country.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001240055-country.html",
+        "sha256": "a3b0da607f4dbb6b51bd9299704567540f610355cd8c9d4a5a7aac01773b366b",
+        "captured_at": "2026-10-10T05:52:12.206154+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001240055-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001240055-country.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r04",
+        "country": "US",
+        "proof_kind": "IFHA_TRAINED_COLUMN"
+      }
+    },
+    {
+      "horse_key": "jbis-0001171845",
+      "horse_name": "シルバーステート",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102013105903%2F9B",
+          "training_affiliation_claim": "藤原英昭・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 38,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-8f30654908305cd055ae1c3f",
+        "record_path": "data/pedigree/horses/jbis-0001171845.json",
+        "source_url": "https://www.jbis.or.jp/horse/0001171845/",
+        "source_record_hash": "367ce8c23091eca10eb9464dfb3df791a4e2ee0ddf1015f1df00dbe4db324aae",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001171845-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001171845-profile.html",
+        "sha256": "b6869077d4acf80ec951868eac278ef63a2429cdb75645b491f5c651a146e2ed",
+        "captured_at": "2026-10-10T05:50:32.228666+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001171845-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r04",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0000619768",
+      "horse_name": "ゴールドアリュール",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud101999106689%2F3A",
+          "training_affiliation_claim": "池江泰郎・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 37,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-a252f8e037e9880e22d5abc4",
+        "record_path": "data/pedigree/horses/jbis-0000619768.json",
+        "source_url": "https://www.jbis.or.jp/horse/0000619768/",
+        "source_record_hash": "f19248a9d10a145647e4f22c5a379a645ecf7ecaaa92b8b1317d348c2df876f5",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0000619768-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0000619768-profile.html",
+        "sha256": "bdd6f991b65503ee7cf65fea62f1d277d58b5521a53f0c6c971e3d8b2d936ef9",
+        "captured_at": "2026-10-10T05:50:30.455526+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0000619768-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r04",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0001104811",
+      "horse_name": "ゴールドシップ",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102009102739%2F2B",
+          "training_affiliation_claim": "須貝尚介・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 37,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-851e4e4d05a41d7dcdf0c305",
+        "record_path": "data/pedigree/horses/jbis-0001104811.json",
+        "source_url": "https://www.jbis.or.jp/horse/0001104811/",
+        "source_record_hash": "07f639c9c1cb24b13f8750b847ec61003df93efb48c0fb0376712bd52aa7b6f1",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001104811-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001104811-profile.html",
+        "sha256": "27aa38b58dfb3a44bf0a63d61339c18c7e9d34b9f6fe88dcdd2ae7bdb9ccd54e",
+        "captured_at": "2026-10-10T05:50:43.005064+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001104811-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r04",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0001293348",
+      "horse_name": "ブリックスアンドモルタル(USA)",
+      "selected_country": "US",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.churchilldowns.com/horses/news/bricks-and-mortar-wears-down-qurbaan-to-win-1-million-old-forester-turf-classic/",
+          "training_affiliation_claim": "Chad Brown・米国厩舎（米国主催者）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 37,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-f4f04ffa28c3d54b6a1726d0",
+        "record_path": "data/pedigree/horses/jbis-0001293348.json",
+        "source_url": "https://www.belmontstakes.com/news/bricks-and-mortar-tops-chad-brown-trained-trifecta-in-g1-manhattan",
+        "source_record_hash": "85be1035899c4341e74544fab8e2ba7480e08356d3afdecd81d6428856780e59",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001293348-country.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001293348-country.html",
+        "sha256": "04198e1e84b887894b7731b82983fe35bc5d1111f8e0d1b22568dd8e1bd2a287",
+        "captured_at": "2026-10-10T05:52:12.432383+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001293348-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001293348-country.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r04-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r04",
+        "country": "US",
+        "proof_kind": "IFHA_TRAINED_COLUMN"
+      }
+    },
+    {
+      "horse_key": "jbis-0001170063",
+      "horse_name": "リオンディーズ",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102013105915%2F91",
+          "training_affiliation_claim": "角居勝彦・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 36,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-2dac7196b397a51af6415c14",
+        "record_path": "data/pedigree/horses/jbis-0001170063.json",
+        "source_url": "https://www.jbis.or.jp/horse/0001170063/",
+        "source_record_hash": "b730579ca27e99dea300f79ebcf3f250474a3ee6429377dff9195d7f7803d106",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001170063-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001170063-profile.html",
+        "sha256": "d4a81bbddfc24bd9742e45808f6e263837c07bc5752d9ea93206155da3e4aeb3",
+        "captured_at": "2026-10-10T05:50:39.725035+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001170063-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r05",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0001025279",
+      "horse_name": "シニスターミニスター(USA)",
+      "selected_country": "US",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.racingpost.com/profile/horse/652319/sinister-minister/progeny/",
+          "training_affiliation_claim": "Bob Baffert・米国調教（Racing Post）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 35,
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001025279-country.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001025279-country.html",
+        "sha256": "d25fca8af14a16ca904759ce5462767216b33bfa36eeef43644a494934b550ae",
+        "captured_at": "2026-10-10T05:52:12.554871+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001025279-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001025279-country.capture.json"
+        ],
+        "supplemental": false,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r05",
+        "country": "US",
+        "proof_kind": "IFHA_2006_TRAINED_COLUMN"
+      },
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-8edb079e8a0339d29ffebd72",
+        "record_path": "data/pedigree/horses/jbis-0001025279.json",
+        "source_url": "https://www.ifhaonline.org/resources/2006Rankings/2006_WorldRankings.asp",
+        "source_record_hash": "d25fca8af14a16ca904759ce5462767216b33bfa36eeef43644a494934b550ae",
+        "source_record_hash_kind": "http-response-body-bytes-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      }
+    },
+    {
+      "horse_key": "jbis-0001302899",
+      "horse_name": "マインドユアビスケッツ(USA)",
+      "selected_country": "US",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.drf.com/news/new-trainer-summers-ready-start-fast-mind-your-biscuits",
+          "training_affiliation_claim": "Chad Summers・米国Palm Meadows、米国調教（DRF）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 34,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-65200f9d1516740e11942147",
+        "record_path": "data/pedigree/horses/jbis-0001302899.json",
+        "source_url": "https://www.drf.com/news/new-trainer-summers-ready-start-fast-mind-your-biscuits",
+        "source_record_hash": "f7bad6a6eddc62bca77bdf322ca4f63f9735514b6b9da89f22925590069448b5",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001302899-country.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001302899-country.html",
+        "sha256": "0233ce805e1bb667b90d1b320f5e790962270446c53ce9ff10ac79baf637dd24",
+        "captured_at": "2026-10-10T05:52:12.225044+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001302899-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001302899-country.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r05",
+        "country": "US",
+        "proof_kind": "IFHA_TRAINED_COLUMN"
+      }
+    },
+    {
+      "horse_key": "jbis-0001157711",
+      "horse_name": "リアルスティール",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102012104889%2F21",
+          "training_affiliation_claim": "矢作芳人・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 33,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-dbd5a39c19d9707cda764d70",
+        "record_path": "data/pedigree/horses/jbis-0001157711.json",
+        "source_url": "https://www.jbis.or.jp/horse/0001157711/",
+        "source_record_hash": "a609b54438cc27d8cb313fea8ea134c66721dd0e9dc227779f7ad70e99933071",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001157711-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001157711-profile.html",
+        "sha256": "e946e1b52ce0593b4c12a392366a4f4730b2954be78a70269251f1716392a6ae",
+        "captured_at": "2026-10-10T05:50:46.032103+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001157711-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r05",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0001205475",
+      "horse_name": "ルヴァンスレーヴ",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102015104189%2F6E",
+          "training_affiliation_claim": "萩原清・美浦（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 33,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-0ebee679f04783ea6ab50e93",
+        "record_path": "data/pedigree/horses/jbis-0001205475.json",
+        "source_url": "https://www.jbis.or.jp/horse/0001205475/",
+        "source_record_hash": "695962c4d0f24f598d57afb7f57d734e1ef3e5bd435247e0cfa3bce273606429",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001205475-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001205475-profile.html",
+        "sha256": "3292a71c7b88acdbee6e39ac4764d1ec4bb49c48da2b3ee0b140f958d7e3e8dc",
+        "captured_at": "2026-10-10T05:50:48.501396+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001205475-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r05",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0000749845",
+      "horse_name": "エンパイアメーカー(USA)",
+      "selected_country": "US",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.latimes.com/archives/la-xpm-2003-may-25-sp-horseside25-story.html",
+          "training_affiliation_claim": "Bobby Frankel・ニューヨークでの調教（LA Times）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 31,
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0000749845-replacement.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0000749845-replacement.pdf",
+        "sha256": "47d5b828a3e33649310555db1d6d3e2cb9200ca5186dec2c151e6962b8552f49",
+        "captured_at": "2026-10-10T05:52:00.135337+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0000749845-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0000749845-replacement.capture.json"
+        ],
+        "supplemental": false,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r06",
+        "country": "US",
+        "proof_kind": "IFHA_2003_TRAINED_COLUMN_PDF"
+      },
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-e70f5cecdf7f6fe84ce29ed4",
+        "record_path": "data/pedigree/horses/jbis-0000749845.json",
+        "source_url": "https://www.ifhaonline.org/resources/Ratings_AlphaList_04.pdf",
+        "source_record_hash": "47d5b828a3e33649310555db1d6d3e2cb9200ca5186dec2c151e6962b8552f49",
+        "source_record_hash_kind": "http-response-body-bytes-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      }
+    },
+    {
+      "horse_key": "jbis-0000286968",
+      "horse_name": "ステイゴールド",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud101994108729%2F2D",
+          "training_affiliation_claim": "池江泰郎・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 30,
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0000286968-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0000286968-profile.html",
+        "sha256": "bfaca43028ccd8b83c29c3fdf162c4a8874145d54cab121894d6082def8c5156",
+        "captured_at": "2026-10-10T05:50:46.234771+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0000286968-profile.capture.json"
+        ],
+        "supplemental": false,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r06",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      },
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-c39b351e878e677ed61a59ae",
+        "record_path": "data/pedigree/horses/jbis-0000286968.json",
+        "source_url": "https://www.jbis.or.jp/horse/0000286968/",
+        "source_record_hash": "bfaca43028ccd8b83c29c3fdf162c4a8874145d54cab121894d6082def8c5156",
+        "source_record_hash_kind": "http-response-body-bytes-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      }
+    },
+    {
+      "horse_key": "jbis-0001328857",
+      "horse_name": "ナダル(USA)",
+      "selected_country": "US",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.kentuckyderby.com/horses/news/kentucky-derby-horse-profile-nadal/",
+          "training_affiliation_claim": "Bob Baffert・米国調教（米国競馬関連媒体）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 30,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-4a0f3fafb05ba9092e71dc4d",
+        "record_path": "data/pedigree/horses/jbis-0001328857.json",
+        "source_url": "https://www.santaanita.com/assets/71tzd15sgbj0/7GkOgKoV59VYcJzUc4AMqy/07bd97713d52eadadf446bd1aaa7d2b6/LATC21_Media-Guide.pdf",
+        "source_record_hash": "697ed3999f15f598d1e9f34ef6fcf7e2a9ed60de01529cab44a5b0d90d21e99c",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0001328857-country.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0001328857-country.html",
+        "sha256": "622324092d2a9d579797f6f299a42832ea5e7e0ab15936a31b3b14482abf9bb9",
+        "captured_at": "2026-10-10T05:53:16.705123+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0001328857-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0001328857-country.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r06",
+        "country": "US",
+        "proof_kind": "RETURN_TO_CALIFORNIA_TRAINING_BASE"
+      }
+    },
+    {
+      "horse_key": "jbis-0000324933",
+      "horse_name": "アグネスタキオン",
+      "selected_country": "JP",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud101998101516%2F09",
+          "training_affiliation_claim": "長浜博之・栗東（JRA）"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 28,
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-7339e52530bf5174e36d5aee",
+        "record_path": "data/pedigree/horses/jbis-0000324933.json",
+        "source_url": "https://www.jbis.or.jp/horse/0000324933/",
+        "source_record_hash": "680407bcfd3339ad19c76c6c86a3236842c2a1a9d029c4fb7810e6ca537154c9",
+        "source_record_hash_kind": "canonical-extracted-fields-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0000324933-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0000324933-profile.html",
+        "sha256": "65b7855973f8a3adf4df141c87f0cbaf65ee1f4d8891dda7ce40f0549b4840a2",
+        "captured_at": "2026-10-10T05:50:46.467229+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0000324933-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r06",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
+      }
+    },
+    {
+      "horse_key": "jbis-0001083691",
+      "horse_name": "マジェスティックウォリアー(USA)",
+      "selected_country": "US",
+      "selection_method": "SINGLE_COUNTRY_IN_REVIEWED_TRAINING_AFFILIATION_SOURCES",
+      "evidence": [
+        {
+          "url": "https://news.sp.netkeiba.com/?no=22698&pid=news_view",
+          "training_affiliation_claim": "米国・W.モット厩舎で2007年の競走を管理。生産国での推定ではない。"
+        }
+      ],
+      "reviewed_on": "2026-10-10",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 30,
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0001083691-training.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0001083691-training.html",
+        "sha256": "aa7c6a8a6666289dc470a96912aec3aeb93bc3a9169242b46d76fe2607be2fec",
+        "captured_at": "2026-10-10T05:50:53.366414+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0001083691-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r06-raw/jbis-0001083691-training.capture.json"
+        ],
+        "supplemental": false,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r06-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r06",
+        "country": "US",
+        "proof_kind": "EXPLICIT_US_TRAINING_STABLE"
+      },
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-901fff69fa2dac55436ff203",
+        "record_path": "data/pedigree/horses/jbis-0001083691.json",
+        "source_url": "https://news.sp.netkeiba.com/?no=22698&pid=news_view",
+        "source_record_hash": "aa7c6a8a6666289dc470a96912aec3aeb93bc3a9169242b46d76fe2607be2fec",
+        "source_record_hash_kind": "http-response-body-bytes-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      }
+    }
+  ],
+  "registry_verified_extracted_fields_count": 30,
+  "registry_raw_html_captured_count": 30,
+  "registry_registration_inventory": {
+    "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-registration-inventory.json",
+    "base_commit": "180c595c5044faaaa231619caee8674038f2d0ec",
+    "reviewed_subjects": 30,
+    "registry_verified_subjects": 25,
+    "no_training_match_fact_subjects": 5,
+    "raw_html_verified_subjects": 10
+  },
+  "current_registration_progress": {
+    "base_commit": "aa3872eaddf7d2c0f8ccbdb71fafea1aee7b0e6c",
+    "completed_batches": [
+      "r03",
+      "r04",
+      "r05",
+      "r06"
+    ],
+    "registry_verified_subjects": 30,
+    "raw_verified_subjects": 30,
+    "remaining_source_reviewed_subjects": 0,
+    "no_training_match_fact_subjects": 0,
+    "unsearched_inventory_subjects": 583
+  }
+}
