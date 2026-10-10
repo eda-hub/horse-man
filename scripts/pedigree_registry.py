@@ -19,7 +19,7 @@ import unicodedata
 
 SCHEMA = 'pedigree-registry-v1'
 SOURCES = {'OFFICIAL_JRA_VAN', 'OFFICIAL_JRA', 'BREEDING_DB', 'MEDIA_ORIGINAL',
-           'WEB_AGGREGATOR', 'LEGACY_REPOSITORY'}
+           'WEB_AGGREGATOR', 'LEGACY_REPOSITORY', 'USER_PROVIDED'}
 STATUSES = {'VERIFIED', 'UNVERIFIED', 'CONFLICT'}
 KEY = re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,119}$')
 
@@ -157,7 +157,7 @@ class Registry:
     def validate_fact(self, fact):
         field = fact['field']
         if not (re.fullmatch(r'parent:[SD]{1,10}', field) or
-                field in {'attribute:birth_country', 'attribute:training_country', 'attribute:training_start_history', 'attribute:sex'}):
+                field in {'attribute:birth_country', 'attribute:training_country', 'attribute:training_country_matches', 'attribute:training_start_history', 'attribute:sex'}):
             raise ValueError('only pedigree edges and ancestor attributes are facts')
         if fact['status'] not in STATUSES:
             raise ValueError('invalid fact status')
@@ -167,6 +167,10 @@ class Registry:
                 raise ValueError('source provenance incomplete')
         if source['source_class'] not in SOURCES or not (source.get('url') or source.get('record_key')):
             raise ValueError('source reference required')
+        if source['source_class'] == 'USER_PROVIDED' and (
+                field != 'attribute:training_country' or
+                source.get('acquisition_method') != 'user-chat'):
+            raise ValueError('user-provided evidence is restricted to chat training country')
         if not re.fullmatch(r'[0-9a-f]{64}', source['record_hash']):
             raise ValueError('source record SHA256 required')
         observed, captured = dt(fact['first_observed_at']), dt(fact['captured_at'])
@@ -187,6 +191,27 @@ class Registry:
                 raise ValueError('ancestor must have an independent record')
             if fact['status'] == 'VERIFIED' and ancestor['identity']['status'] != 'RESOLVED':
                 raise ValueError('ancestor identity unresolved')
+        elif field == 'attribute:training_country_matches':
+            value = fact['value']
+            if not isinstance(value, dict) or value.get('schema_version') != 'training-country-matches-v1' or (
+                    value.get('search_completed') is not True or not isinstance(value.get('matches'), list)):
+                raise ValueError('completed training country search with matches required')
+            for match in value['matches']:
+                if not isinstance(match, dict) or not isinstance(match.get('country'), str) or (
+                        not re.fullmatch(r'[A-Z]{2}', match['country'])):
+                    raise ValueError('training country search needs ISO country code')
+                proof = match.get('source')
+                if not isinstance(proof, dict) or not (proof.get('url') or proof.get('record_key')) or (
+                        not re.fullmatch(r'[0-9a-f]{64}', str(proof.get('record_hash', '')))):
+                    raise ValueError('training country match source required')
+                if not isinstance(proof.get('captured_at'), str):
+                    raise ValueError('training country match capture time required')
+                dt(proof['captured_at'])
+                if match.get('last_trained_on') is not None:
+                    if not isinstance(match['last_trained_on'], str) or not re.fullmatch(
+                            r'\d{4}-\d{2}-\d{2}', match['last_trained_on']):
+                        raise ValueError('last training date required in YYYY-MM-DD')
+                    datetime.strptime(match['last_trained_on'], '%Y-%m-%d')
         elif field == 'attribute:training_start_history':
             value = fact['value']
             if not isinstance(value, dict) or type(value.get('complete')) is not bool or \
@@ -446,7 +471,7 @@ class Registry:
         else:
             key = identity['matches'][0]['horse_key']
             for field in request.get('fields', []):
-                if not (re.fullmatch(r'parent:[SD]{1,10}', field) or field in {'attribute:birth_country', 'attribute:training_country', 'attribute:training_start_history', 'attribute:sex'}):
+                if not (re.fullmatch(r'parent:[SD]{1,10}', field) or field in {'attribute:birth_country', 'attribute:training_country', 'attribute:training_country_matches', 'attribute:training_start_history', 'attribute:sex'}):
                     raise ValueError('unsupported fact field; statistics and scores use a separate API')
                 if field.startswith('parent:'):
                     if not re.fullmatch(r'parent:[SD]{1,10}', field):
