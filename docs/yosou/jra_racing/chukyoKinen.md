@@ -92,7 +92,12 @@ JRA確定情報では、ラヴァンダが1分31秒1のコースレコードで�
 **ラヴァンダ**
 
 - シルバーステート→ディープインパクト
-- 母系にDanzig、Roberto、Nijinsky、Lyphardなどを確認できる構成
+- 母側5代にDanzig、Roberto、Lyphardを確認。Nijinskyは父側5代のSDDSS（父→母→母→父→父）に内包し、母側5代では確認されない
+- 血統事実訂正（2026-10-11）：旧記述のNijinsky「母系」を上記へ訂正。根拠は[固定時点の照合と訂正記録](../../../data/pedigree/reconciliations/2026-10-10-training-priority/legacy-fact-followup/lavanda-correction.json)。父母を1代とする5代の範囲で判定し、適性・持続力補強の仮説は未検証。訂正前の原文は固定commitの原文証跡へ保持する。
+
+> 訂正前の誤記（履歴照合用。今後の血統判断には使用しない）：
+> - 母系にDanzig、Roberto、Nijinsky、Lyphardなどを確認できる構成
+
 - Roberto、Lyphard、Danzigなどのクロスを持ち、日本芝スピード＋持続力補強という仮説に合致
 
 **ミニトランザット**

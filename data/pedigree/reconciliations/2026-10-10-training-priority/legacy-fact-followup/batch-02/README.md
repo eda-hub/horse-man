@@ -10,6 +10,8 @@
 
 前回1不一致はラヴァンダのNijinskyを母側とした旧記述。保存された5代では父側 `SDDSS` にあり、母側5代にはない。5代の範囲内での判定であり、全世代の不在は主張しない。旧原文は変更しない。
 
+2026-10-11、利用者の訂正指示により中京記念の現在の参照本文を父側5代へ訂正した。訂正前原文と元の不一致結果は固定commitの原文証跡・旧台帳・照合記録へ保持し、[訂正記録](../lavanda-correction.json)で対応付けた。上記の「旧原文は変更しない」はこの固定履歴を指す。現在の参照本文は訂正後の説明を使う。適性・持続力補強の仮説は引き続き未検証。
+
 `selection.json` は原文claim ID・個体・側・代数の選定、`checks.json.gz` は観測位置・source revision・cutoff、`identity-sources.json.gz` は取得HTML byteとhash、`subject-import.json` はWriter receipt。`remaining-queue.json` は全482記述を保持する。56記述は事実成分のみ部分照合、426記述は今回追加照合なし。適性・優位性・解釈・歴史的成績の母数は引き続き未検証で、次回はこのキューから再開する。
 
 検証は `python3 scripts/check_legacy_fact_followup.py`。元32ファイルのGit blob SHA・行hash、選定hash、全124照合の固定cutoff再計算、本人原HTML・ID・父役割、全482残件、旧台帳hashを監査する。CIにも追加。全件はREPLAY・Production不適格を維持し、R08の追加集計は今回実施していない。

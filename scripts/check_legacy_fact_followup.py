@@ -169,6 +169,16 @@ def check(root=Path('.')):
     for row, claim in zip(queue['rows'], classified):
         require(all(row[f] == claim[f] for f in ['path', 'line', 'original_text_sha256', 'categories']) and row['fact_checks'] == touched[row['claim_id']] and row['full_claim_status'] == 'UNVERIFIED', 'remaining source and partial fact scope')
     require(queue['remaining_full_claims'] == 482 and queue['partly_fact_checked_claims'] == sum(bool(touched[c['claim_id']]) for c in classified) and queue['no_followup_fact_checks'] == sum(not touched[c['claim_id']] for c in classified), 'remaining queue counts')
+    correction = read(root / BASE / 'legacy-fact-followup/lavanda-correction.json')
+    original = next(r for r in batches[0] if r['claim_id'] == correction['claim_id'] and r['status'] == 'FACT_COMPONENT_CONTRADICTED')
+    require(all(correction[f] == original[f] for f in ['original_path', 'original_line', 'original_sha256', 'subject_key', 'data_cutoff']), 'correction bound to original contradiction')
+    require(correction['original_text'] == claims[correction['claim_id']]['original_text'], 'original text preserved')
+    review = reviews[correction['data_cutoff']]
+    observed = review.evaluate({**original['specification'], 'prefix': ''})
+    require(correction['positions'] == observed['observed']['positions'] == ['SDDSS'] and correction['maternal_positions'] == original['observed']['positions'] == [], 'corrected side in complete five generations')
+    require(correction['ancestor_key'] == original['observed']['ancestor_key'] and correction['fact_evidence'] == review.registry.edge(correction['subject_key'], 'SDDSS', correction['data_cutoff']), 'corrected path provenance')
+    require(correction['corrected_reference_text'] in (root / correction['original_path']).read_text().splitlines(), 'active reference corrected')
+    require(correction['original_check_preserved'] is True and correction['full_claim_status'] == 'UNVERIFIED' and correction['mode'] == 'REPLAY' and correction['production_eligible'] is False, 'correction without claim promotion')
     return progress
 
 if __name__ == '__main__':

@@ -1,0 +1,255 @@
+{
+  "schema_version": "legacy-fact-reference-correction-v1",
+  "corrected_at": "2026-10-10T16:05:16.314022+00:00",
+  "claim_id": "d64eaa51913949de780a1049e0d4aeb247fb04bfa5a5a51d532152b51364bfaa",
+  "original_path": "docs/yosou/jra_racing/chukyoKinen.md",
+  "original_line": 95,
+  "original_sha256": "fcfe1e84ffe27bcf0e44bbcd908f12c3790a71b2d8a990f9f5d448ccac569553",
+  "original_text": "- 母系にDanzig、Roberto、Nijinsky、Lyphardなどを確認できる構成",
+  "corrected_reference_text": "- 母側5代にDanzig、Roberto、Lyphardを確認。Nijinskyは父側5代のSDDSS（父→母→母→父→父）に内包し、母側5代では確認されない",
+  "subject_key": "jbis-0001341405",
+  "ancestor_key": "jbis-0000333996",
+  "data_cutoff": "2026-10-10T12:36:06.630788+00:00",
+  "positions": [
+    "SDDSS"
+  ],
+  "maternal_positions": [],
+  "reason": "5代父側SDDSSにNijinskyが存在し、母側5代の指定は原血統と不一致。",
+  "fact_evidence": {
+    "status": "VERIFIED",
+    "value": "jbis-0000333996",
+    "revision_id": "rev-c79422ada92651fa6d649d11",
+    "content_hash": "fb5af15321061032ac743347ae805d75bd7ab1408eca8fe343472411d277fe64",
+    "first_observed_at": "2026-10-09T12:16:58.453831+00:00",
+    "source": {
+      "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+      "origin_group": "JBIS",
+      "record_hash": "775aa8e638827e06d3efee9daad3f5abffdbb5a9d77623c39c9696dfde91b51d",
+      "record_key": "0001341405",
+      "source_class": "BREEDING_DB",
+      "url": "https://www.jbis.or.jp/horse/0001341405/pedigree/"
+    },
+    "horse_key": "jbis-0000336870",
+    "field": "parent:S",
+    "identity_evidence": {
+      "record_key": "0000336870",
+      "source": "JBIS"
+    },
+    "ancestor_identity_evidence": {
+      "record_key": "0000333996",
+      "source": "JBIS"
+    },
+    "dependencies": [
+      {
+        "status": "VERIFIED",
+        "value": "jbis-0000336870",
+        "revision_id": "rev-b153229021bb9254a6efe5d4",
+        "content_hash": "c2615855f2fa483d8c6584dce01fa51331b041f112802ccc6523cb85eda13533",
+        "first_observed_at": "2026-10-09T12:16:58.453831+00:00",
+        "source": {
+          "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+          "origin_group": "JBIS",
+          "record_hash": "775aa8e638827e06d3efee9daad3f5abffdbb5a9d77623c39c9696dfde91b51d",
+          "record_key": "0001341405",
+          "source_class": "BREEDING_DB",
+          "url": "https://www.jbis.or.jp/horse/0001341405/pedigree/"
+        },
+        "horse_key": "jbis-0000444137",
+        "field": "parent:S",
+        "identity_evidence": {
+          "record_key": "0000444137",
+          "source": "JBIS"
+        },
+        "ancestor_identity_evidence": {
+          "record_key": "0000336870",
+          "source": "JBIS"
+        },
+        "dependencies": [
+          {
+            "status": "VERIFIED",
+            "value": "jbis-0000444137",
+            "revision_id": "rev-d8614768e754ea5b8704b00d",
+            "content_hash": "8cdb57f84ccfe52452dbbd0f53de82b47742e7e98867a56e529d7c1f6a68b2cc",
+            "first_observed_at": "2026-10-09T12:16:58.453831+00:00",
+            "source": {
+              "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+              "origin_group": "JBIS",
+              "record_hash": "775aa8e638827e06d3efee9daad3f5abffdbb5a9d77623c39c9696dfde91b51d",
+              "record_key": "0001341405",
+              "source_class": "BREEDING_DB",
+              "url": "https://www.jbis.or.jp/horse/0001341405/pedigree/"
+            },
+            "horse_key": "jbis-0000853284",
+            "field": "parent:D",
+            "identity_evidence": {
+              "record_key": "0000853284",
+              "source": "JBIS"
+            },
+            "ancestor_identity_evidence": {
+              "record_key": "0000444137",
+              "source": "JBIS"
+            },
+            "dependencies": [
+              {
+                "status": "VERIFIED",
+                "value": "jbis-0000853284",
+                "revision_id": "rev-25d335629fa0a5c750c00139",
+                "content_hash": "bdfc4f4250f68ce0129d668e0014b8ee756950f187b2c84069c2affcd0be096d",
+                "first_observed_at": "2026-10-09T12:16:58.453831+00:00",
+                "source": {
+                  "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+                  "origin_group": "JBIS",
+                  "record_hash": "775aa8e638827e06d3efee9daad3f5abffdbb5a9d77623c39c9696dfde91b51d",
+                  "record_key": "0001341405",
+                  "source_class": "BREEDING_DB",
+                  "url": "https://www.jbis.or.jp/horse/0001341405/pedigree/"
+                },
+                "horse_key": "jbis-0001171845",
+                "field": "parent:D",
+                "identity_evidence": {
+                  "record_key": "0001171845",
+                  "source": "JBIS"
+                },
+                "ancestor_identity_evidence": {
+                  "record_key": "0000853284",
+                  "source": "JBIS"
+                },
+                "dependencies": [
+                  {
+                    "status": "VERIFIED",
+                    "value": "jbis-0001171845",
+                    "revision_id": "rev-5a542dadd7cb692f3dfc1ee1",
+                    "content_hash": "a577cc07214b624bcb4ad55d72506bbc0bbf104801c52a2c6e078becb1bcb392",
+                    "first_observed_at": "2026-10-09T12:16:58.453831+00:00",
+                    "source": {
+                      "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+                      "origin_group": "JBIS",
+                      "record_hash": "775aa8e638827e06d3efee9daad3f5abffdbb5a9d77623c39c9696dfde91b51d",
+                      "record_key": "0001341405",
+                      "source_class": "BREEDING_DB",
+                      "url": "https://www.jbis.or.jp/horse/0001341405/pedigree/"
+                    },
+                    "horse_key": "jbis-0001341405",
+                    "field": "parent:S",
+                    "identity_evidence": {
+                      "record_key": "0001341405",
+                      "source": "JBIS"
+                    },
+                    "ancestor_identity_evidence": {
+                      "record_key": "0001171845",
+                      "source": "JBIS"
+                    }
+                  },
+                  {
+                    "status": "VERIFIED",
+                    "value": "jbis-0000853284",
+                    "revision_id": "rev-25d335629fa0a5c750c00139",
+                    "content_hash": "bdfc4f4250f68ce0129d668e0014b8ee756950f187b2c84069c2affcd0be096d",
+                    "first_observed_at": "2026-10-09T12:16:58.453831+00:00",
+                    "source": {
+                      "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+                      "origin_group": "JBIS",
+                      "record_hash": "775aa8e638827e06d3efee9daad3f5abffdbb5a9d77623c39c9696dfde91b51d",
+                      "record_key": "0001341405",
+                      "source_class": "BREEDING_DB",
+                      "url": "https://www.jbis.or.jp/horse/0001341405/pedigree/"
+                    },
+                    "horse_key": "jbis-0001171845",
+                    "field": "parent:D",
+                    "identity_evidence": {
+                      "record_key": "0001171845",
+                      "source": "JBIS"
+                    },
+                    "ancestor_identity_evidence": {
+                      "record_key": "0000853284",
+                      "source": "JBIS"
+                    }
+                  }
+                ]
+              },
+              {
+                "status": "VERIFIED",
+                "value": "jbis-0000444137",
+                "revision_id": "rev-d8614768e754ea5b8704b00d",
+                "content_hash": "8cdb57f84ccfe52452dbbd0f53de82b47742e7e98867a56e529d7c1f6a68b2cc",
+                "first_observed_at": "2026-10-09T12:16:58.453831+00:00",
+                "source": {
+                  "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+                  "origin_group": "JBIS",
+                  "record_hash": "775aa8e638827e06d3efee9daad3f5abffdbb5a9d77623c39c9696dfde91b51d",
+                  "record_key": "0001341405",
+                  "source_class": "BREEDING_DB",
+                  "url": "https://www.jbis.or.jp/horse/0001341405/pedigree/"
+                },
+                "horse_key": "jbis-0000853284",
+                "field": "parent:D",
+                "identity_evidence": {
+                  "record_key": "0000853284",
+                  "source": "JBIS"
+                },
+                "ancestor_identity_evidence": {
+                  "record_key": "0000444137",
+                  "source": "JBIS"
+                }
+              }
+            ]
+          },
+          {
+            "status": "VERIFIED",
+            "value": "jbis-0000336870",
+            "revision_id": "rev-b153229021bb9254a6efe5d4",
+            "content_hash": "c2615855f2fa483d8c6584dce01fa51331b041f112802ccc6523cb85eda13533",
+            "first_observed_at": "2026-10-09T12:16:58.453831+00:00",
+            "source": {
+              "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+              "origin_group": "JBIS",
+              "record_hash": "775aa8e638827e06d3efee9daad3f5abffdbb5a9d77623c39c9696dfde91b51d",
+              "record_key": "0001341405",
+              "source_class": "BREEDING_DB",
+              "url": "https://www.jbis.or.jp/horse/0001341405/pedigree/"
+            },
+            "horse_key": "jbis-0000444137",
+            "field": "parent:S",
+            "identity_evidence": {
+              "record_key": "0000444137",
+              "source": "JBIS"
+            },
+            "ancestor_identity_evidence": {
+              "record_key": "0000336870",
+              "source": "JBIS"
+            }
+          }
+        ]
+      },
+      {
+        "status": "VERIFIED",
+        "value": "jbis-0000333996",
+        "revision_id": "rev-c79422ada92651fa6d649d11",
+        "content_hash": "fb5af15321061032ac743347ae805d75bd7ab1408eca8fe343472411d277fe64",
+        "first_observed_at": "2026-10-09T12:16:58.453831+00:00",
+        "source": {
+          "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+          "origin_group": "JBIS",
+          "record_hash": "775aa8e638827e06d3efee9daad3f5abffdbb5a9d77623c39c9696dfde91b51d",
+          "record_key": "0001341405",
+          "source_class": "BREEDING_DB",
+          "url": "https://www.jbis.or.jp/horse/0001341405/pedigree/"
+        },
+        "horse_key": "jbis-0000336870",
+        "field": "parent:S",
+        "identity_evidence": {
+          "record_key": "0000336870",
+          "source": "JBIS"
+        },
+        "ancestor_identity_evidence": {
+          "record_key": "0000333996",
+          "source": "JBIS"
+        }
+      }
+    ]
+  },
+  "original_check_preserved": true,
+  "full_claim_status": "UNVERIFIED",
+  "mode": "REPLAY",
+  "production_eligible": false
+}
