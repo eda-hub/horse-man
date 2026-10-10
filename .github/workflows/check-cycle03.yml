@@ -40,6 +40,8 @@ jobs:
         run: python3 scripts/check_foreign_pedigree_review.py
       - name: 追加指定祖先の本人所属原票・追記・時点を検証
         run: python3 scripts/check_training_country_ancestors.py
+      - name: 旧記述分類・原コミット本文・歴史的保存不足の証跡を照合
+        run: python3 scripts/check_remaining_reviews.py
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査
         run: |
           set -o pipefail
