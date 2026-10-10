@@ -198,17 +198,18 @@ def check_batch(root, registry, checkpoint):
                 and registry.fact(key, 'attribute:training_country_matches', checkpoint['data_cutoff'])['status'] == 'NOT_FOUND',
                 'CAS/idempotency/historical cutoff')
     require(batch['remaining_priority_queue'] == queue[10:] and batch['next_batch'] == queue[10:20], 'next ten and remaining queue')
-    inventory = read(root / checkpoint['source_inventory_path'])
-    review_map = {r['horse_key']: r for r in reviews}
-    for row in inventory['subjects']:
-        fact = registry.fact(row['horse_key'], 'attribute:training_country_matches', cutoff)
-        expected = 'VERIFIED_TRAINING_COUNTRY_REGISTRY' if fact['status'] == 'VERIFIED' else 'NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY'
-        require(row['status'] == expected, 'current inventory status')
-        if row['horse_key'] in review_map:
-            require(row['training_country'] == review_map[row['horse_key']]['selected_country'], 'inventory country')
-    require(inventory['scope_count']['registered_sire_damsire'] == 102
-            and inventory['scope_count']['unsearched'] == 511
-            and inventory['scope_count']['previous_source_only_reviews'] == 0, 'current inventory counts')
+    if not (root / BASE / 's5-remaining/progress.json').exists():
+        inventory = read(root / checkpoint['source_inventory_path'])
+        review_map = {r['horse_key']: r for r in reviews}
+        for row in inventory['subjects']:
+            fact = registry.fact(row['horse_key'], 'attribute:training_country_matches', cutoff)
+            expected = 'VERIFIED_TRAINING_COUNTRY_REGISTRY' if fact['status'] == 'VERIFIED' else 'NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY'
+            require(row['status'] == expected, 'current inventory status')
+            if row['horse_key'] in review_map:
+                require(row['training_country'] == review_map[row['horse_key']]['selected_country'], 'inventory country')
+        require(inventory['scope_count']['registered_sire_damsire'] == 102
+                and inventory['scope_count']['unsearched'] == 511
+                and inventory['scope_count']['previous_source_only_reviews'] == 0, 'current inventory counts')
     return dict(reviewed=10, added_revisions=10, registered=102, remaining=511)
 
 
@@ -316,6 +317,9 @@ def check(root=Path('.'), repo=None):
                   stale_statuses_corrected=5)
     if (root / BASE / 's5-batches/batch-01/verification.json').exists():
         result['batch_01'] = check_batch(root, registry, manifest)
+    if (root / BASE / 's5-remaining/progress.json').exists():
+        from check_training_country_remaining import check as remaining_check
+        result['continuation'] = remaining_check(root)
     return result
 
 

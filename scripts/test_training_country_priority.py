@@ -23,6 +23,13 @@ class TrainingCountryPriorityTest(unittest.TestCase):
         for review in batch['reviews']:
             for proof in [review['profile']] + review['affiliations']:
                 paths.update((Path(proof['raw_path']), Path(proof['capture_path'])))
+        continuation = BASE / 's5-remaining/progress.json'
+        if (self.source / continuation).exists():
+            progress = read(self.source / continuation)
+            paths.update((continuation, Path(progress['reference_bundle_path'])))
+            for batch_path in progress['batches']:
+                latest = read(self.source / batch_path)
+                paths.update((Path(batch_path), Path(latest['bundle_path'])))
         for path in paths:
             target = self.root / path
             target.parent.mkdir(parents=True, exist_ok=True)

@@ -220,3 +220,12 @@ S＝父、D＝母。表の経路は同定済み個体への代表例で、元記
 検査：`python3 scripts/check_training_country_priority.py --repo .`。元commitの全613 blob本文、件数・優先順・保存原資料・所属・確認日・旧履歴・cutoff・残りキューを監査。8回帰テストを追加。詳細は `data/pedigree/reconciliations/2026-10-10-training-priority/s5-batches/batch-01/verification.json`。
 
 次の10頭はベンバトル、ニューイヤーズデイ、サンダースノー、カリフォルニアクローム、ミスチヴィアスアレックス、タートルボウル、シスキン、ジャイアンツコーズウェイ、スウェプトオーヴァーボード、ヨハネスブルグ。各個体IDと利用頻度を残りキューに保存済み。追加祖先12頭の手順6、海外42行・旧482記述・過去40件・JSON Schema追随・条件再集計は別工程。WebUIは実施対象外。Draft PR69、現行v1.6.1、Production、旧snapshotは維持する。
+
+
+## 手順5の継続レビュー（2026-10-10）
+
+残り511頭を利用頻度順に10頭ずつ処理する。再開位置と最新件数の正本は `s5-remaining/progress.json`。各バッチにHTTP原票bytesと取得メタデータを圧縮保存し、独立ID・馬名・生年、本人調教師欄または明示されたTrained列、旧revision保持、唯一WriterのCAS・重複保存・過去cutoffを再検査する。
+
+国を1つ確認できた場合は確定し、複数国の実際の最終所属日が不足する場合はUNKNOWNを維持する。原票取得と内容確認、検索しても確認できない状態を区別する。検索一致ゼロは上記資料の本人一致範囲を指し、全世界・全生涯の調教履歴を網羅したとの主張ではない。Wikipediaを補助に用いる場合も本文の生産国は使わず、同名・生年一致のページに明記された調教所属分類だけを照合する。WebUI・新規source adapter・DB・現行Productionは対象外。
+
+`python scripts/check_training_country_priority.py --repo .` で開始時点・固定バッチ01・継続バッチを一括検査できる。バッチ01の102登録・511未検索はその固定時点の履歴として保持し、最新件数へ書き換えない。

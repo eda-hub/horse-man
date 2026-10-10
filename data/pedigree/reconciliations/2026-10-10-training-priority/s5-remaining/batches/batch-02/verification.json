@@ -1,0 +1,488 @@
+{
+  "schema_version": "training-country-remaining-batch-v1",
+  "batch": 2,
+  "data_cutoff": "2026-10-10T07:22:46.191659+00:00",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "webui_in_scope": false,
+  "bundle_path": "data/pedigree/reconciliations/2026-10-10-training-priority/s5-remaining/batches/batch-02/sources.json.gz",
+  "bundle_sha256": "a9779046203cb63bbc39efd2ea4178ce11181ceb4ad4a8bd553a2271566d276d",
+  "reviews": [
+    {
+      "priority": 11,
+      "horse_key": "jbis-0001293778",
+      "horse_name": "ベンバトル(GB)",
+      "sire_uses": 17,
+      "damsire_uses": 0,
+      "use_references": 17,
+      "identity_hash": "fc16a0c5b7e757333d4bbfabaafa46d2a18dd7ef9a372bdafc96f13c5efb262a",
+      "profile_fields": {
+        "heading": "ベンバトル(GB)",
+        "english_name": "Benbatl(GB)",
+        "birth": "2014.02.15 12歳",
+        "trainer": "(海 外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "61a4f22f25828b7ff0943369f4d2891124c8fe8cfc989778f787661f8ce4e7c4",
+      "before_revision_hashes": [
+        "3c6ef51261d437d1bb2324e177bc86c94bd553e75e2d3dcd464a92cb451f731c",
+        "fa5386de52cf34636fed2d92ff20758158e1fd77e9d381889fd414f20f0c2dba"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": null,
+      "matches": [
+        {
+          "country": "AE",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=56",
+            "record_hash": "7b67f49a4974799a387750919f9450628d181b1d5bf71e10c0c1e4733ec77cd0",
+            "captured_at": "2026-10-10T06:57:00.998833+00:00"
+          }
+        },
+        {
+          "country": "GB",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=56",
+            "record_hash": "7b67f49a4974799a387750919f9450628d181b1d5bf71e10c0c1e4733ec77cd0",
+            "captured_at": "2026-10-10T06:57:00.998833+00:00"
+          }
+        },
+        {
+          "country": "AE",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76",
+            "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+            "captured_at": "2026-10-10T06:57:01.244664+00:00"
+          }
+        },
+        {
+          "country": "GB",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=86",
+            "record_hash": "42484eb595178890d208c3a2f18adcb9a015885c95b75aef453a7d0ef12a14d0",
+            "captured_at": "2026-10-10T06:57:08.551469+00:00"
+          }
+        }
+      ],
+      "status": "LATEST_DATE_UNRESOLVED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": true,
+      "writer_added_in_this_resume": 0,
+      "after_record_hash": "9b5cf6dd0483342f372fdeea4f40ba4458dd757cc958180453b24ca3eb7a3823",
+      "added_revision_id": "rev-348f728ba97f11de1e8d392b",
+      "added_revision_content_hash": "6ca041a86d2fdba15be55c01c6b4a8a728f27a46b716c398caa6c072285101a9",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 12,
+      "horse_key": "jbis-0001298815",
+      "horse_name": "ニューイヤーズデイ(USA)",
+      "sire_uses": 17,
+      "damsire_uses": 0,
+      "use_references": 17,
+      "identity_hash": "1aee8ce4ef808161ab64f22117f9dd7e7fbf4aa6a5e3e56056e5f5babe012cf2",
+      "profile_fields": {
+        "heading": "ニューイヤーズデイ(USA)",
+        "english_name": "New Year's Day(USA)",
+        "birth": "2011.04.22 15歳",
+        "trainer": "(海 外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "7726de72c218c8916f0a341f2c6f88ed80ee5d7b41644b8e561a9b3bb9f0bc8c",
+      "before_revision_hashes": [
+        "0029fc8b2c14dde8d335fe41776c4e76c3e21a7ef6cdcd95b72eebb98ebf8e12",
+        "c251bfbdf1500851e62525645de752fae89526f7ebe4dfd729a452053c83dff0"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "US",
+      "matches": [
+        {
+          "country": "US",
+          "source": {
+            "url": "https://en.wikipedia.org/wiki/New_Year's_Day_(horse)",
+            "record_hash": "7ff485e4338ee37465c9b582532157e4b79ade1a3c7467926da00f5f091f52b8",
+            "captured_at": "2026-10-10T07:16:08.385639+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "590c99cdc8840040578ffd29e60e4d8d98633138f135292e8e50feb1a56eaff6",
+      "added_revision_id": "rev-d4f2688aa43f8c613cb6f6dd",
+      "added_revision_content_hash": "949b3181f392c2d1a32cceaf369f874cdc14ae43158872b394c6932ad25b7a81",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 13,
+      "horse_key": "jbis-0001226963",
+      "horse_name": "サンダースノー(IRE)",
+      "sire_uses": 16,
+      "damsire_uses": 0,
+      "use_references": 16,
+      "identity_hash": "d5d9c94474678d8b22856d609515b72a218b3f0f9f46d7f59f73ebd629b11df8",
+      "profile_fields": {
+        "heading": "サンダースノー(IRE)",
+        "english_name": "Thunder Snow(IRE)",
+        "birth": "2014.03.24 12歳",
+        "trainer": "(海 外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "9937314c4ce8c1af4197d3df68d6a094667cfb55723e6c74285aed7c37ac1a07",
+      "before_revision_hashes": [
+        "0e33ac066e6b2789407cc9b5414c6c076579b9f59796ec3b183f58610cf9c3c8",
+        "01dcbb3411884a1153e00595f25070eab2bc25c7d2875b978e9beac81520be1b"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": null,
+      "matches": [
+        {
+          "country": "GB",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=56",
+            "record_hash": "7b67f49a4974799a387750919f9450628d181b1d5bf71e10c0c1e4733ec77cd0",
+            "captured_at": "2026-10-10T06:57:00.998833+00:00"
+          }
+        },
+        {
+          "country": "AE",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=66",
+            "record_hash": "16c24472d3cf46acb39be98ac15c589be49e5744352f0452fda76a96f98cac33",
+            "captured_at": "2026-10-10T06:57:00.922396+00:00"
+          }
+        }
+      ],
+      "status": "LATEST_DATE_UNRESOLVED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "e9b2b3770981940d8f4dcb4884de55b51e18f3367beeb8805c05dcca64e18181",
+      "added_revision_id": "rev-6d964e04e330163893239522",
+      "added_revision_content_hash": "9864da7d50d43ea40c803b23f144f55aa26ead235c8fe1e3be0d53875769a343",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 14,
+      "horse_key": "jbis-0001211258",
+      "horse_name": "カリフォルニアクローム(USA)",
+      "sire_uses": 15,
+      "damsire_uses": 0,
+      "use_references": 15,
+      "identity_hash": "7d94976d628b57ae8337e5973485ac8b2645e964b74f049c7763dcef717d17ae",
+      "profile_fields": {
+        "heading": "カリフォルニアクローム(USA)",
+        "english_name": "California Chrome(USA)",
+        "birth": "2011.02.18 15歳",
+        "trainer": "(海 外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "db64a7747c9faac4f1b4019604a35af0d22beff7611d92a67cc0733473bb1f3a",
+      "before_revision_hashes": [
+        "431904dd36a463174efae5ede04d5f5e0e1f490e4e295bc22172b6c19c93d01b",
+        "8ca3aa9d068748bfef3cb07d71cdddf7a2fdb20203d96fe1ce59a589bad5068a"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "US",
+      "matches": [
+        {
+          "country": "US",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=16",
+            "record_hash": "20ec3866b79010a7ae061a9098e3f47f4dac1eedd55ccf5161ec9e8546f6eb94",
+            "captured_at": "2026-10-10T06:56:53.888250+00:00"
+          }
+        },
+        {
+          "country": "US",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=26",
+            "record_hash": "f8ff867ff279baa945ee25bad144edc96cb8bde43f61e312a8213ca157062b4b",
+            "captured_at": "2026-10-10T06:56:54.065203+00:00"
+          }
+        },
+        {
+          "country": "US",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=36",
+            "record_hash": "f02b5648dfefc95063e493cd2c4d4efd0d6773075e4a89db3295006800da4a96",
+            "captured_at": "2026-10-10T06:56:53.916036+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "9d5a202757413201e042dd836702fa791cb9436b3b47dba7a913c09793436106",
+      "added_revision_id": "rev-3660aba82b76510834acae17",
+      "added_revision_content_hash": "f9cd761847b386ff2644e444f02bfc7d4b2a9075f4f624dce7d43ac1b481152a",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 15,
+      "horse_key": "jbis-0001350527",
+      "horse_name": "ミスチヴィアスアレックス(USA)",
+      "sire_uses": 15,
+      "damsire_uses": 0,
+      "use_references": 15,
+      "identity_hash": "37e0ee3dfe02396622022fb09d055cf4b0ba37007003122707d07dc0978fc2e8",
+      "profile_fields": {
+        "heading": "ミスチヴィアスアレックス(USA)",
+        "english_name": "Mischevious Alex(USA)",
+        "birth": "2017.02.28 9歳",
+        "trainer": "(海 外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "700cb31d9ef3f866f4aa054c36a940ef1ee2f303d489650087849a6289ef860d",
+      "before_revision_hashes": [
+        "b314e0353f172f91fde5694ace6c2bdb7f37f0a5dd3f2afb2354c822b706f0ef",
+        "b7a41d70f4f7a45c1dc65a37baf6542a2b49d1d2c36abc13272b4133198605ce"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "US",
+      "matches": [
+        {
+          "country": "US",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=86",
+            "record_hash": "42484eb595178890d208c3a2f18adcb9a015885c95b75aef453a7d0ef12a14d0",
+            "captured_at": "2026-10-10T06:57:08.551469+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "9abaefdceee3b572683d22e982972dffda8f87ac9a70538e3ea461ed9a164134",
+      "added_revision_id": "rev-525b7effa35c18adfa8cbb0d",
+      "added_revision_content_hash": "3acc2b951bb137fd7beb1421bef13b16e7dad3fdf3fd1f5d7ccb62bfe451ee27",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 16,
+      "horse_key": "jbis-0000905163",
+      "horse_name": "タートルボウル(IRE)",
+      "sire_uses": 0,
+      "damsire_uses": 14,
+      "use_references": 14,
+      "identity_hash": "67734b15d77325c9e29bca654a2b9f9120e5e67eee6dffacbbd2a7baaac3b122",
+      "profile_fields": {
+        "heading": "タートルボウル(IRE)",
+        "english_name": "Turtle Bowl(IRE)",
+        "birth": "2002.04.09",
+        "trainer": "",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "2601611d5f36c987f1ee778cdd4d575a0e4fca448aa07f84dea436caecd1b99d",
+      "before_revision_hashes": [
+        "569ae16ab5c89459d616af3b568adf07f713d48bb4f141530cbad948e69843fa",
+        "9b151bec701788cb96d5bc48d3c78fd2b6b2fbfb4f1a58e8a30d5e5c14de07a3"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "FR",
+      "matches": [
+        {
+          "country": "FR",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/2005Rankings/2005_WorldRankings.asp",
+            "record_hash": "a31aa5f289545cfae6d595cf3c792fdfaf8ce6cca126534484538f6ef0496d5a",
+            "captured_at": "2026-10-10T06:57:16.692334+00:00"
+          }
+        },
+        {
+          "country": "FR",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/2007Rankings/2007_WorldRankings.asp",
+            "record_hash": "7165136bd6ad8317a4b6591e9b56b0f2953dece3fc4b121382e9d1bd2767ebfd",
+            "captured_at": "2026-10-10T06:57:16.718965+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "3da0710ef249c1fcbfcbd9e04a2f017a70bfd30a33d50aedf94f4677c6f73c15",
+      "added_revision_id": "rev-6379a20a2572aba330441176",
+      "added_revision_content_hash": "5a56c6caa7871b034f0002f1aeb9311db3bc1689d06fbfcd418c3b5b416e4676",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 17,
+      "horse_key": "jbis-0001330729",
+      "horse_name": "シスキン(USA)",
+      "sire_uses": 14,
+      "damsire_uses": 0,
+      "use_references": 14,
+      "identity_hash": "555bc12647741213e6e8b0ec744b235a7e689710f35087ee0b9c0609804da2ff",
+      "profile_fields": {
+        "heading": "シスキン(USA)",
+        "english_name": "Siskin(USA)",
+        "birth": "2017.02.25 9歳",
+        "trainer": "Gm Lyons (海 外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "063c75aa4ab8ce3880353a95f382d0cf3af671eb866b0991cedc3442eb0d4c29",
+      "before_revision_hashes": [
+        "39df67c6ef842e818a96862f3c301dcb0e5153e9c0606e630da03d14266ffe7a",
+        "678e8516f3b261e75ee08bbe9ed3f1e6a9fc38593e2da7da47ba87f63ef6dfc5"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "IE",
+      "matches": [
+        {
+          "country": "IE",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76",
+            "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+            "captured_at": "2026-10-10T06:57:01.244664+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "0c57bc447bad92d5df2df2a70d8bcf2c83846f8f4fa5ba81c9fd126e277764ba",
+      "added_revision_id": "rev-19dc42297002209c340ce400",
+      "added_revision_content_hash": "6a9cfd0d8e97cef649d17afd05b032b3cfddef6eb5e886b3520455b1913edbf2",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 18,
+      "horse_key": "jbis-0000372708",
+      "horse_name": "Giant's Causeway(USA)",
+      "sire_uses": 0,
+      "damsire_uses": 13,
+      "use_references": 13,
+      "identity_hash": "d2def5c974a8cd5c9c0ed799b649c3a235afaec06372f8cc7f9e170ef642af31",
+      "profile_fields": {
+        "heading": "Giant's Causeway(USA)",
+        "english_name": "Giant's Causeway(USA)",
+        "birth": "1997.02.14",
+        "trainer": "(海 外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "c133edd3535a2dc5c3bdabb007a0ec4f21b122164ab3bd93e27608af06e40581",
+      "before_revision_hashes": [
+        "7286ececcebe25a0a190b0cfdb5e807ee0b50de280563f4fb32609fc896450e1",
+        "5e6f1c37b87337ae6b4ee96a09df72c29a7cddf1f06eee23448e000f794eb467"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "IE",
+      "matches": [
+        {
+          "country": "IE",
+          "source": {
+            "url": "https://en.wikipedia.org/wiki/Giant's_Causeway_(horse)",
+            "record_hash": "f655ccf6c18b274fe4a7ba95b27705792311abce79905a2e7085d0345fd90c9d",
+            "captured_at": "2026-10-10T07:16:08.217518+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "67c1212c7e00d047ecea23ca99e9c7bb73fe68caea7bf9b6aea3ebaf372e6001",
+      "added_revision_id": "rev-ededa9b628eda138357e5417",
+      "added_revision_content_hash": "8a4afa66a10d8679647994769f4bdaa8f92ae9ace3c1a3f4ccf003e33a28a254",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 19,
+      "horse_key": "jbis-0000375505",
+      "horse_name": "スウェプトオーヴァーボード(USA)",
+      "sire_uses": 0,
+      "damsire_uses": 13,
+      "use_references": 13,
+      "identity_hash": "4541e43e54bf0da32c34677970ae105f038bfc8184a117a1b052b3f462ede055",
+      "profile_fields": {
+        "heading": "スウェプトオーヴァーボード(USA)",
+        "english_name": "Swept Overboard(USA)",
+        "birth": "1997.02.06",
+        "trainer": "",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "6927e1eea4e7a94f5236a91025214b4581d1444462686b6187fb51be3905f00b",
+      "before_revision_hashes": [
+        "22767120590f71c6509c8ea236d894e9d90ee880371f3e4e716271887b9eadf0",
+        "6d5e69699a0d5f9db37ad630a285493c4fe5725937972235554fc036d44b482f"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "US",
+      "matches": [
+        {
+          "country": "US",
+          "source": {
+            "url": "https://www.tjcis.com/pdf/icsc02/EndMaterial2002.pdf",
+            "record_hash": "3caecea2399fb50390eb965ed9a9ce36403ccf00cb3128d0e16f8afbe82e7226",
+            "captured_at": "2026-10-10T06:57:31.494750+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "06a7ca69e19a4d5e53a0acbc9ef6351f1d40a139d1d4959e62aaddba55068628",
+      "added_revision_id": "rev-41f2a060fc62451a60c6a378",
+      "added_revision_content_hash": "7bd43713ddeeaa58c0a3b1b54817d7e3ec03cf0876117e3e8365dd725d165a04",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 20,
+      "horse_key": "jbis-0000719054",
+      "horse_name": "ヨハネスブルグ(USA)",
+      "sire_uses": 0,
+      "damsire_uses": 13,
+      "use_references": 13,
+      "identity_hash": "2e3ff055a089e8c4e3296160f28a37c30a4ce23ab417160d58ac841209906b99",
+      "profile_fields": {
+        "heading": "ヨハネスブルグ(USA)",
+        "english_name": "Johannesburg(USA)",
+        "birth": "1999.02.23",
+        "trainer": "Aidan P． O＇Brien (海 外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "f6235e3be662af9ee3bbcfc06ea23c0b50bcb311e4b1424c42856ccd86cb38ab",
+      "before_revision_hashes": [
+        "3f8a8cecba4b1635b232ef35262b5911107c19713b9297321cabb58da2041df3",
+        "e90b398e3d744171c9f08e0417397fc76a57aee3df83f91a21ea8fa96a08cb63"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "IE",
+      "matches": [
+        {
+          "country": "IE",
+          "source": {
+            "url": "https://www.tjcis.com/pdf/icsc02/EndMaterial2002.pdf",
+            "record_hash": "3caecea2399fb50390eb965ed9a9ce36403ccf00cb3128d0e16f8afbe82e7226",
+            "captured_at": "2026-10-10T06:57:31.494750+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "8b03330ddaf85d4a80d6258b8e09d44c74edffe50876f096bb1d1db2490c5082",
+      "added_revision_id": "rev-bcfddad7cbbb4fbb9942174a",
+      "added_revision_content_hash": "1c6800e8480406e03dc2326d3431b64080cc1be15a1ca2e92a4754ae2adc4ca5",
+      "historical_cutoff_status": "NOT_FOUND"
+    }
+  ]
+}

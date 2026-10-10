@@ -9,9 +9,12 @@
     "damsire_references": 2089,
     "labeled_subjects": 613,
     "unlabeled_subjects": 0,
-    "registered_sire_damsire": 102,
+    "registered_sire_damsire": 110,
     "previous_source_only_reviews": 0,
-    "unsearched": 511
+    "unsearched": 501,
+    "searched_zero_match": 0,
+    "unresolved_latest_date": 2,
+    "acquisition_blocked": 0
   },
   "warning": "馬名の履歴出走表由来ラベルは同定証明にならない。調教国の検索は別途必要。未検索を検索一致ゼロと扱わない。",
   "source_parts": [
@@ -1654,9 +1657,10 @@
       ],
       "label": "ベンバトル(GB)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "LATEST_DATE_UNRESOLVED",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "training_country": null
     },
     {
       "horse_key": "jbis-0001298815",
@@ -1673,9 +1677,10 @@
       ],
       "label": "ニューイヤーズデイ(USA)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "REGISTERED",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "training_country": "US"
     },
     {
       "horse_key": "jbis-0000325200",
@@ -1830,9 +1835,10 @@
       ],
       "label": "サンダースノー(IRE)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "LATEST_DATE_UNRESOLVED",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "training_country": null
     },
     {
       "horse_key": "jbis-0000714343",
@@ -1941,9 +1947,10 @@
       ],
       "label": "カリフォルニアクローム(USA)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "REGISTERED",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "training_country": "US"
     },
     {
       "horse_key": "jbis-0001350527",
@@ -1960,9 +1967,10 @@
       ],
       "label": "ミスチヴィアスアレックス(USA)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "REGISTERED",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "training_country": "US"
     },
     {
       "horse_key": "jbis-0000905163",
@@ -1979,9 +1987,10 @@
       ],
       "label": "タートルボウル(IRE)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "REGISTERED",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "training_country": "FR"
     },
     {
       "horse_key": "jbis-0001137571",
@@ -2044,9 +2053,10 @@
       ],
       "label": "シスキン",
       "label_origin": "HISTORIC_RACE_ENTRY_REPORT_NOT_IDENTITY_PROOF",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "REGISTERED",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "training_country": "IE"
     },
     {
       "horse_key": "jbis-0000372708",
@@ -2063,9 +2073,10 @@
       ],
       "label": "Giant's Causeway(USA)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "REGISTERED",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "training_country": "IE"
     },
     {
       "horse_key": "jbis-0000375505",
@@ -2082,9 +2093,10 @@
       ],
       "label": "スウェプトオーヴァーボード(USA)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "REGISTERED",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "training_country": "US"
     },
     {
       "horse_key": "jbis-0000719054",
@@ -2101,9 +2113,10 @@
       ],
       "label": "ヨハネスブルグ(USA)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "NOT_YET_SEARCHED_FOR_TRAINING_COUNTRY",
+      "status": "REGISTERED",
       "source_confirmed_trained_country": null,
-      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
+      "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
+      "training_country": "IE"
     },
     {
       "horse_key": "jbis-0000721553",
@@ -11566,5 +11579,6 @@
     "registered_sire_damsire": 87,
     "previous_source_only_reviews": 5,
     "unsearched": 521
-  }
+  },
+  "latest_training_country_review_at": "2026-10-10T07:22:46.191659+00:00"
 }
