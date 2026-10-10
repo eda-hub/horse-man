@@ -4,7 +4,7 @@
 
 - 調査対象は保存済み予想期間 2026-08-16〜2026-10-04。JRA159レース・全2,089頭について既存JBIS342頭と別サイト1,747頭の親子関係を**再利用**した。
 - 父2,089参照、母父2,089参照から、異なる父・母父の個体ID **613頭**を同定し、馬名・登場回数を[全件台帳](all-jra-sire-damsire-inventory.json)に保存。抽出元[parts 00〜07](part-00.json)と出馬表由来の馬名ラベル[names 00〜02](names-00.json)を保持する。馬名ラベルは外部IDの独立同定証拠ではない。
-- 30頭の父・母父について、競走馬としての調教所属を説明する公開資料URLと国を[調査中の出所台帳](training-country-source-review.json)へ記録した。**資料URL・調教師と国の抽出記述のみで、取得HTML本文SHA-256・Registry唯一Writerの保存/読戻しは未実施**。したがって30頭はまだ正式な台帳「VERIFIED」に昇格していない。**残り583頭は未検索**。未検索を「検索一致ゼロ」と見なしたり、ユーザーに情報を求めたりしない。
+- 30頭の父・母父について、競走馬としての調教所属を説明する公開資料URLと国を[調査中の出所台帳](training-country-source-review.json)へ記録した。R01対象の先頭5頭（ディープインパクト、ハーツクライ、キングカメハメハ、ロードカナロア、キズナ）は公開JBISプロフィールの調教師・栗東所属と照合済みで、既存Registryに `attribute:training_country_matches` の `VERIFIED` revisionが保存されGitから読戻せる。**5頭のsource hashは抽出項目を正規化したSHA-256であり、取得HTML原文のハッシュではない。原文保存は未完了**。その他の資料確認済み25頭は未登録、残り583頭は未検索。未検索を「検索一致ゼロ」と見なさない。
 - 既に具体的な調教所属エピソードを検証していたCaro、Storm Cat、Bellamy Roadは[既存資料に基づく再評価](training-selected-ancestors-evidence.json)に記録。確認した調教国は順にFR、US、US。**Caroの18走/19走の原資料差は未解決だが、最多出走法を廃止したため国選択に使用しない**。全調教履歴が完了したとは主張しない。
 - 旧535記述・626成分は[検証状態別台帳](legacy-535-claim-review.json)に全行を保管。うち父・母父の106成分は既存JRA公式原票に正確に照合し、53記述の客観項目に出所を紐づけた。その他482記述の解釈・傾向は原文/UNVERIFIEDを保持。自動昇格禁止。
 - [海外4レース42登録行](foreign-42-entry-review.json)は38出走・4取消を保存。うち候補ID31行、ID未取得3行、候補サイト未収録8行。ダリズはJRA原票・JBIS・netkeiba・France Sireで生年/父母/母父を照合済み、残りの個体同定と全42行の5代血統保存は未完了。既存公式結果・過去予想を書き換えない。
@@ -29,7 +29,7 @@
 | 項目 | 判定 | 残作業 |
 | --- | --- | --- |
 | JRA父・母父全件棚卸し | 完了 613/613 | なし |
-| 父・母父の調教国の資料確認 | **部分 30/613** | 583未検索。30頭も正式な原本hash/Registry保存を要する |
+| 父・母父の調教国の資料確認 | **資料URL確認30/613、Registry登録5/613（抽出項目hash）** | 5頭のHTML原文hash未取得、残り25頭のRegistry未登録、583頭未検索 |
 | 指定祖先の候補抽出 | 暫定28表記 | 実際の予想使用範囲の個体同定、全必要祖先の調教国照合 |
 | 既知3祖先の所属エピソード確認 | 3/3再評価 | 旧国別集計の履歴は保全 |
 | 海外4レースの登録行棚卸し | 完了 42/42 | 個体同定41行と全5代血統確認、York公式原票 |
@@ -44,3 +44,9 @@
 PR68の計画とPR69の調査データだけを変更し、現行`docs/manual/README.md`のrelease v1.6.1、過去の予想snapshot・gate・KPI、WebUI、DBは変更しない。PR69はDraftを維持。
 
 チェック項目は`python3 scripts/pedigree_registry.py audit`、`python3 scripts/check_pedigree_alternative.py`、`python3 scripts/check_pedigree_followup.py`、`python3 scripts/pedigree_stats.py --audit`、`python3 scripts/verify_prediction_persistence.py --audit`、`python3 -m unittest discover -s scripts -p 'test_*.py'`。過去の40件監査不足は既知のまま残す。CI successと全調査完了は同義ではない。
+
+## R01：先頭5頭のRegistry確認（2026-10-10）
+
+ディープインパクト、ハーツクライ、キングカメハメハ、ロードカナロア、キズナの公開JBISプロフィールを再確認し、各馬本人の調教師と栗東所属が、Registryに保存済みの国 `JP`・個体ID・抽出項目と一致することを確認した。5頭とも検索一致1国の `SEARCH_MATCH_PRIORITY_V1` で処理可能で、既存のVERIFIED factを重複登録・更新しない。参照元、抽出項目hash、既存revision ID、Git blob SHAは調査中の出所台帳に保存した。
+
+**保存の区別**：Git上のRegistryファイルと抽出項目SHA-256の読戻しは確認済み。ただし当該hashはHTTP応答本文のSHA-256ではなく、HTML原文のbyte列は未収集。R01で当初予定した原文byte hashを使う厳格な出所保存は未達であり、5頭を「原HTML保存完了」と報告しない。raw HTML取得環境が利用可能になった段階で、同一個体・同一資料の原文を別証跡として保存・検査する。既存revisionと旧cutoffは書き換えない。その他25頭/583頭およびWebUI・DB・Productionには触れない。
