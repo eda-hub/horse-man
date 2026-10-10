@@ -403,7 +403,7 @@ class Resolver:
             country, reason = select_training_country(searched["value"], self.cutoff)
             if reason == "TRAINING_COUNTRY_USER_INPUT_REQUIRED":
                 # ユーザー回答は検索不一致時だけ参照。既存の通常国属性を流用しない。
-                answer = self.fact(subject_key, "attribute:training_country")
+                answer = self.fact(subject_key, "attribute:training_country_user")
                 if (answer["status"] == "VERIFIED" and isinstance(answer.get("source"), dict) and
                         answer["source"].get("source_class") == "USER_PROVIDED"):
                     country = answer["value"]
