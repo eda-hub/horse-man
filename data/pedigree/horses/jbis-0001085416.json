@@ -1,0 +1,90 @@
+{
+  "horse_key": "jbis-0001085416",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "JBIS": "0001085416"
+    },
+    "identity_evidence": {
+      "record_key": "0001085416",
+      "source": "JBIS",
+      "source_sheet": "0001423797"
+    },
+    "name": "Dar Re Mi(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:14:52.452066+00:00",
+  "identity_observed_at": "2026-10-10T10:14:52.452066+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "JBIS": "0001085416"
+    },
+    "identity_evidence": {
+      "record_key": "0001085416",
+      "source": "JBIS",
+      "source_sheet": "0001423797"
+    },
+    "name": "Dar Re Mi(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:14:52.466760+00:00",
+      "content_hash": "2bd1abe9d6b6482fc9082955cefd175ee92e5bc1774143d082cc47404cd61c17",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:14:52.466757+00:00",
+      "input_hash": "0d9eceb6c3a065d2fd547f278f47d046f3dcc06aca92c406e9d659167823118b",
+      "previous_revision": null,
+      "revision_id": "rev-0d9eceb6c3a065d2fd547f27",
+      "saved_at": "2026-10-10T10:14:52.468860+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "JBIS",
+        "record_hash": "d577159847954363d2090420f412561c301c9aa87a178217bf31fa149e10c190",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423797:SDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423797/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000263172",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:14:52.470423+00:00",
+      "content_hash": "0a2843fa348dd125dba073b15390a375242e437c8540abfdbe78d00ba5e1d261",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:14:52.470419+00:00",
+      "input_hash": "d5f83ae58c851ec3719269b234b5e7bf3e63af74d3291b6881f5b7fa42da9e24",
+      "previous_revision": null,
+      "revision_id": "rev-d5f83ae58c851ec3719269b2",
+      "saved_at": "2026-10-10T10:14:52.470631+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "JBIS",
+        "record_hash": "d577159847954363d2090420f412561c301c9aa87a178217bf31fa149e10c190",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423797:SDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423797/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000408054",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

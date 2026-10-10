@@ -1,0 +1,90 @@
+{
+  "horse_key": "jbis-0001313862",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001313862"
+    },
+    "identity_evidence": {
+      "record_key": "0001313862",
+      "source": "JBIS",
+      "source_sheet": "0001423797"
+    },
+    "name": "Too Darn Hot(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:14:52.451622+00:00",
+  "identity_observed_at": "2026-10-10T10:14:52.451622+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001313862"
+    },
+    "identity_evidence": {
+      "record_key": "0001313862",
+      "source": "JBIS",
+      "source_sheet": "0001423797"
+    },
+    "name": "Too Darn Hot(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:14:52.459223+00:00",
+      "content_hash": "e6773b35d7335c1fdb3c4f071da6437fdff6d95ff1b32521ee19f095e4b08f52",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:14:52.459220+00:00",
+      "input_hash": "92d2da20f81ab356b31f620e68627efb6203b791ebb1101dbb772e4572a5901d",
+      "previous_revision": null,
+      "revision_id": "rev-92d2da20f81ab356b31f620e",
+      "saved_at": "2026-10-10T10:14:52.463136+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "JBIS",
+        "record_hash": "d577159847954363d2090420f412561c301c9aa87a178217bf31fa149e10c190",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423797:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423797/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001111493",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:14:52.464622+00:00",
+      "content_hash": "e7677e4e7850d10d354d15edf39d63e9e98c7b16128bdf4fa9e8fd40c7f390f2",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:14:52.464619+00:00",
+      "input_hash": "df55b3b3250bb8b3ad6abc2a944d738bc96ba1452e181441d307107a7d6d57d0",
+      "previous_revision": null,
+      "revision_id": "rev-df55b3b3250bb8b3ad6abc2a",
+      "saved_at": "2026-10-10T10:14:52.464826+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "JBIS",
+        "record_hash": "d577159847954363d2090420f412561c301c9aa87a178217bf31fa149e10c190",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423797:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423797/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001085416",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}
