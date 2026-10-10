@@ -341,7 +341,12 @@ def check(root=Path('.')):
             require(review['status'] == expected and review['selected_country'] == selected, 'known multi-country dates stay unknown')
             after = copy.deepcopy(record)
             after['revisions'] = after['revisions'][:n + 1]
-            require(digest(after) == review['after_record_hash'] and len(record['revisions']) == n + 1, 'one appended revision')
+            require(digest(after) == review['after_record_hash'] and len(record['revisions']) >= n + 1, 'one original appended revision')
+            for later in record['revisions'][n + 1:]:
+                require(later['field'] == 'attribute:training_country_user' and
+                        later['source']['source_class'] == 'USER_PROVIDED' and
+                        dt(later['first_observed_at']) > dt(cutoff),
+                        'only later user country answers may follow fixed search review')
             fact = registry.fact(key, 'attribute:training_country_matches', cutoff)
             require(fact['status'] == 'VERIFIED' and fact['value'] == dict(schema_version='training-country-matches-v1', search_completed=True, matches=proved)
                     and fact['revision_id'] == review['added_revision_id'] and fact['content_hash'] == review['added_revision_content_hash'], 'writer readback')
@@ -365,8 +370,11 @@ def check(root=Path('.')):
             require(row['status'] == r['status'] and row['training_country'] == r['selected_country'], 'latest inventory matches reviews')
     require(inventory['scope_count']['registered_sire_damsire'] == 102 + counts['registered']
             and inventory['scope_count']['unsearched'] == 511-len(reviews), 'latest inventory totals')
+    from check_training_country_user_confirmations import check as check_user_confirmations
+    check_user_confirmations(root)
     return progress['counts']
 
 
 if __name__ == '__main__':
     print(json.dumps(check(), ensure_ascii=False, sort_keys=True))
+

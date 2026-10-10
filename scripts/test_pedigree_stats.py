@@ -92,7 +92,7 @@ class PedigreeStatsTest(unittest.TestCase):
                    return_value="2026-10-09T01:00:00+00:00" if current else BASE):
             return self.registry.save(candidate, digest(current) if current else None)
 
-    def fact(self, key, field, value, observed=EARLY, captured=None, source_class="BREEDING_DB"):
+    def fact(self, key, field, value, observed=EARLY, captured=None, source_class="BREEDING_DB", extra_source=None):
         item = {
             "field": field, "value": value, "status": "VERIFIED",
             "first_observed_at": observed, "captured_at": captured or observed,
@@ -108,6 +108,7 @@ class PedigreeStatsTest(unittest.TestCase):
             "verification": {"identity_checked": True, "source_checked": True,
                              "relationship_checked": True, "reviewed_by": "test"},
         }
+        item['source'].update(extra_source or {})
         return self.save(key, [item])
 
     @staticmethod
@@ -588,5 +589,34 @@ class PedigreeStatsTest(unittest.TestCase):
         self.assertEqual(out["horse_trace"]["bob"]["groups"]["horse-eu"]["status"], "NON_MATCH")
 
 
+    def test_37_explicit_suffix_answer_resolves_undated_multiple_countries(self):
+        self.definition['training_classification']['country_selection'] = 'SEARCH_MATCH_PRIORITY_V1'
+        self.fact('bob', 'attribute:training_country_matches', self.matched_countries([('US', None), ('FR', None)]))
+        self.fact('bob', 'attribute:training_country_user', 'FR', source_class='USER_PROVIDED',
+                  extra_source={'resolution_policy': 'USER_CONFIRMED_NAME_SUFFIX_V1', 'subject_name': 'Bob (仏)'})
+        _, result = self.calculate()
+        self.assertEqual(result['horse_trace']['bob']['groups']['horse-eu']['status'], 'MATCH')
+        self.assertEqual(result['horse_trace']['bob']['groups']['horse-eu']['reason'], 'USER_PROVIDED_TRAINING_REGION')
+
+    def test_38_unscoped_answer_does_not_resolve_multiple_countries(self):
+        self.definition['training_classification']['country_selection'] = 'SEARCH_MATCH_PRIORITY_V1'
+        self.fact('bob', 'attribute:training_country_matches', self.matched_countries([('US', None), ('FR', None)]))
+        self.fact('bob', 'attribute:training_country_user', 'FR', source_class='USER_PROVIDED')
+        _, result = self.calculate()
+        self.assertEqual(result['horse_trace']['bob']['groups']['horse-eu']['status'], 'UNKNOWN')
+
+    def test_39_suffix_country_mismatch_rejected(self):
+        with self.assertRaisesRegex(ValueError, 'suffix policy/name/country mismatch'):
+            self.fact('bob', 'attribute:training_country_user', 'US', source_class='USER_PROVIDED',
+                      extra_source={'resolution_policy': 'USER_CONFIRMED_NAME_SUFFIX_V1', 'subject_name': 'Bob (仏)'})
+
+    def test_40_suffix_mapping_and_non_country_parentheses(self):
+        from pedigree_registry import country_name_suffix
+        self.assertEqual(country_name_suffix('Horse（USA）'), 'US')
+        self.assertEqual(country_name_suffix('Horse (米)'), 'US')
+        self.assertIsNone(country_name_suffix('Horse (未確認)'))
+        self.assertIsNone(country_name_suffix('Horse'))
+
 if __name__ == "__main__":
     unittest.main()
+

@@ -401,11 +401,15 @@ class Resolver:
                 return ("CONFLICT" if searched["status"] == "CONFLICT" else "UNKNOWN",
                         "TRAINING_COUNTRY_SEARCH_" + searched["status"])
             country, reason = select_training_country(searched["value"], self.cutoff)
-            if reason == "TRAINING_COUNTRY_USER_INPUT_REQUIRED":
-                # ユーザー回答は検索不一致時だけ参照。既存の通常国属性を流用しない。
+            if reason in {"TRAINING_COUNTRY_USER_INPUT_REQUIRED",
+                          "TRAINING_COUNTRY_RECENT_DATE_REQUIRED",
+                          "TRAINING_COUNTRY_LATEST_TIED_USER_INPUT_REQUIRED"}:
+                # 複数国の保留には今回の明示的な末尾国指定だけ適用する。
                 answer = self.fact(subject_key, "attribute:training_country_user")
                 if (answer["status"] == "VERIFIED" and isinstance(answer.get("source"), dict) and
-                        answer["source"].get("source_class") == "USER_PROVIDED"):
+                        answer["source"].get("source_class") == "USER_PROVIDED" and
+                        (reason == "TRAINING_COUNTRY_USER_INPUT_REQUIRED" or
+                         answer["source"].get("resolution_policy") == "USER_CONFIRMED_NAME_SUFFIX_V1")):
                     country = answer["value"]
                     source_reason = "USER_PROVIDED_TRAINING_REGION"
                 elif answer["status"] == "CONFLICT":
@@ -820,3 +824,4 @@ def main():
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

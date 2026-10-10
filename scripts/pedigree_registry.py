@@ -44,6 +44,20 @@ def norm(value):
     return unicodedata.normalize('NFKC', value).strip().casefold()
 
 
+def country_name_suffix(value):
+    """国末尾はユーザー指定を適用するときだけ解釈する。自動的な所属根拠にはしない。"""
+    countries = {'USA': 'US', 'US': 'US', '米': 'US', 'GB': 'GB', 'GBR': 'GB', '英': 'GB',
+                 'IRE': 'IE', 'IE': 'IE', '愛': 'IE', 'FR': 'FR', 'FRA': 'FR', '仏': 'FR',
+                 'GER': 'DE', 'DE': 'DE', '独': 'DE', 'ARG': 'AR', 'AR': 'AR', '亜': 'AR',
+                 'JPN': 'JP', 'JP': 'JP', '日': 'JP', 'AUS': 'AU', 'AU': 'AU', '豪': 'AU',
+                 'CAN': 'CA', 'CA': 'CA', '加': 'CA', 'NZ': 'NZ', '新': 'NZ',
+                 'ITY': 'IT', 'IT': 'IT', '伊': 'IT', 'UAE': 'AE', 'AE': 'AE',
+                 'BRZ': 'BR', 'BR': 'BR', '伯': 'BR', 'CHI': 'CL', 'CL': 'CL', '智': 'CL',
+                 'SAF': 'ZA', 'ZA': 'ZA', '南': 'ZA'}
+    match = re.search(r'\(([^()]+)\)\s*$', unicodedata.normalize('NFKC', value))
+    return countries.get(match.group(1).strip().upper()) if match else None
+
+
 def safe(value):
     if not isinstance(value, str) or not KEY.fullmatch(value):
         raise ValueError('invalid key')
@@ -176,6 +190,11 @@ class Registry:
                 raise ValueError('user-provided original reply/hash required')
             if not isinstance(fact.get('value'), str) or not re.fullmatch(r'[A-Z]{2}', fact['value']):
                 raise ValueError('user-provided training country must be ISO alpha-2')
+            if source.get('resolution_policy') is not None:
+                if (source['resolution_policy'] != 'USER_CONFIRMED_NAME_SUFFIX_V1' or
+                        not isinstance(source.get('subject_name'), str) or
+                        country_name_suffix(source['subject_name']) != fact['value']):
+                    raise ValueError('user suffix policy/name/country mismatch')
         if not re.fullmatch(r'[0-9a-f]{64}', source['record_hash']):
             raise ValueError('source record SHA256 required')
         observed, captured = dt(fact['first_observed_at']), dt(fact['captured_at'])
@@ -864,4 +883,3 @@ def main():
 
 if __name__ == '__main__':
     raise SystemExit(main())
-
