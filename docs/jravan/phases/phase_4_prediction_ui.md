@@ -1,9 +1,15 @@
 # Phase 4 — Prediction Web UI
 
-## 目的
+## 適用状態：対象外/N/A（2026-10-10 利用者指定）
+
+WebUIの新規作成・改修・画面連携・ホスティングは行わない。本Phaseは後続Phaseの依存条件・未完了残件に含めない。以下の旧設計と画面受入条件は参考として保持し、実施・合格を要求しない。
+
+予想・印・構成の提示はチャットで行う。取得状態、保存・読戻し、監査、Production/Shadow分離、結果照合、改訂前履歴の失効は非UI処理で検証し、WebUI不要を理由に省略しない。
+
+## 参考：旧目的
 MacのブラウザからProduction予想、条件別補正、Shadow比較を混同せず確認・操作できるようにする。
 
-## 対象
+## 参考：旧対象（実施しない）
 - レース一覧 / race detail
 - `manual_release` / module整合性表示
 - `baseline_forecast_id`
@@ -18,7 +24,7 @@ MacのブラウザからProduction予想、条件別補正、Shadow比較を混�
 - 馬体重・馬場・変更eventの取得時刻/source表示
 - 馬体重の発表検知時刻・最終取得時刻・acquisition method・coverage表示
 
-## 受入条件
+## 参考：旧画面受入条件（対象外/N/A）
 - MacからWindows VMへローカル接続できる。
 - Internetへ公開されない。
 - ProductionとShadowが視覚的・操作的に明確に分離される。
@@ -32,3 +38,4 @@ MacのブラウザからProduction予想、条件別補正、Shadow比較を混�
 - `PARTIAL` の場合は欠損馬番を表示できる。
 - `data_readiness=DEGRADED` の場合は欠損項目と最終成功時刻・最終試行時刻を明示し、READYと同じ見た目でFINAL確定しない。
 - `SOURCE_ERROR` の判定自体はingest/readiness層で行い、UIはその状態・根拠・最終試行時刻を表示する。UIが外部サイトを独自に照合して障害判定しない。
+

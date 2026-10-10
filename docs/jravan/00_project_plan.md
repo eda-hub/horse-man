@@ -1,7 +1,7 @@
 # 競馬予想システム開発計画書 v0.2
 
 ## 1. 目的
-JRA-VAN Data Labから取得したデータをローカルPCに蓄積し、Macの専用Web UIからProduction基準予想、Shadow比較、最終オッズ予測、買い目候補、購入/見送り判断、結果記録、回顧、検証を一貫して行う。
+JRA-VAN Data Labから取得したデータをローカルPCに蓄積し、チャットと非UI処理でProduction基準予想、Shadow比較、最終オッズ予測、買い目候補、購入/見送り判断、結果記録、回顧、検証を一貫して行う。
 
 ## 2. 基本原則
 - 競馬判断は `docs/manual/` の現行モジュールを正本とし、システム設計で独自ルールを再定義しない。
@@ -35,7 +35,7 @@ docs/jravan/                 システム設計
 - API: FastAPI
 - DB: DuckDB
 - Archive: Parquet
-- Web UI: Phase 4で技術選定
+- Web UI: 対象外/N/A（利用者指定、2026-10-10）
 - AI: 外部APIをAdapter経由で必要時のみ使用
 - Codex: `.agents/` と `.devcontainer/` を利用
 
@@ -63,7 +63,7 @@ docs/jravan/                 システム設計
 - クラウドDB常時運用
 
 ## 6. 成功条件
-- Macのブラウザだけで日常操作できる。
+- チャットと非UI処理で予想提示・保存・監査・結果照合を完結できる。画面実装は成功条件にしない。
 - Windows VMのJV-Link更新が中断しても再開できる。
 - 過去Predictionを `manual_release`、module hash、data cutoffとともに再現・説明できる。
 - ProductionとShadowを同一 `baseline_forecast_id` で比較でき、逆流しない。
@@ -76,14 +76,14 @@ docs/jravan/                 システム設計
 1. JV-Link ingest
 2. Data expansion
 3. Feature / Rule engine
-4. Prediction Web UI
+4. Prediction Web UI（対象外/N/A・参考設計）
 5. Odds forecast / Betting decision
 6. Result / Settlement / Automation
 7. AI review
 8. Backtest / Rule lifecycle
 
 ## 8. 暫定事項
-- Web UIフレームワーク
+- Web UIフレームワークは選定しない（対象外/N/A）
 - Python依存管理ツールの最終選定
 - MLモデルの採用有無/種類
 - オッズ詳細保存頻度
@@ -92,3 +92,4 @@ docs/jravan/                 システム設計
 
 ## 9. 実装ルール
 Codexには1フェーズずつ実装させる。各フェーズでmigration、テスト、受入条件、rollback方法を確認してから次へ進む。`docs/manual/` の意味変更はJRA-VAN実装PRへ混在させない。
+
