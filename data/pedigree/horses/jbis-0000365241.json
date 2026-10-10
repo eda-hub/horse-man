@@ -80,6 +80,37 @@
         "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:14.739435+00:00",
+      "content_hash": "c15d008cbe2b21a8d25b96624d87a614a5c6529b31c0e69bd8a7c45a582e9fd3",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:14.739412+00:00",
+      "input_hash": "5a0a9b43e785d4e85ef5f50f112b363be1cffd771a9e44c4cd3bbd040da452e2",
+      "previous_revision": null,
+      "revision_id": "rev-5a0a9b43e785d4e85ef5f50f",
+      "saved_at": "2026-10-10T07:57:14.803194+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "JBIS",
+        "record_hash": "395b253040730bf85ff14b1458aaaaaf8ed9fd5980da17b25cca275c76ab10d2",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0000365241",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0000365241/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"
