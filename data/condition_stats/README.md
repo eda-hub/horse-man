@@ -133,7 +133,7 @@
 各候補には出所と確認時刻を付け、複数国の場合は`last_trained_on`で直近を特定する。
 出所不明・同定不明・日付不明・cutoff後取得・同率最終日はUNKNOWN/CONFLICTとして残す。
 
-検索不一致後のチャット回答だけは、既存の`attribute:training_country`に
+検索不一致後のチャット回答だけは、専用の`attribute:training_country_user`に
 `source_class=USER_PROVIDED`、`acquisition_method=user-chat`で保存できる。
 回答の原文を出所キーで一意に識別し、原文SHA-256を`source.record_hash`へ設定し、
 返信受領時刻を`first_observed_at`と`captured_at`へ残す。本人同定を確認し
