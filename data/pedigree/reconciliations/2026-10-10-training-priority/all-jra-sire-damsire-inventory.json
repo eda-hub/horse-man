@@ -9,9 +9,8 @@
     "damsire_references": 2089,
     "labeled_subjects": 613,
     "unlabeled_subjects": 0,
-    "registrations_from_current_run_including_ancestors": 88,
-    "registered_sire_damsire": 87,
-    "previous_source_only_reviews": 5,
+    "registered_sire_damsire": 92,
+    "previous_source_only_reviews": 0,
     "unsearched": 521
   },
   "warning": "馬名の履歴出走表由来ラベルは同定証明にならない。調教国の検索は別途必要。未検索を検索一致ゼロと扱わない。",
@@ -297,12 +296,14 @@
       ],
       "label": "モーリス",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "TRAINING_COUNTRY_SOURCE_REVIEWED_AWAITING_HASH_AND_REGISTRY_WRITER",
+      "status": "VERIFIED_TRAINING_COUNTRY_REGISTRY",
       "source_confirmed_trained_country": null,
       "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
       "source_review_country": "JP",
       "source_review_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102011100655%2F7B",
-      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json"
+      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json",
+      "training_country": "JP",
+      "training_country_verification_source": "attribute:training_country_matches"
     },
     {
       "horse_key": "jbis-0000615577",
@@ -571,12 +572,14 @@
       ],
       "label": "シニスターミニスター(USA)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "TRAINING_COUNTRY_SOURCE_REVIEWED_AWAITING_HASH_AND_REGISTRY_WRITER",
+      "status": "VERIFIED_TRAINING_COUNTRY_REGISTRY",
       "source_confirmed_trained_country": null,
       "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
       "source_review_country": "US",
       "source_review_url": "https://www.racingpost.com/profile/horse/652319/sinister-minister/progeny/",
-      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json"
+      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json",
+      "training_country": "US",
+      "training_country_verification_source": "attribute:training_country_matches"
     },
     {
       "horse_key": "jbis-0001302899",
@@ -670,12 +673,14 @@
       ],
       "label": "エンパイアメーカー(USA)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "TRAINING_COUNTRY_SOURCE_REVIEWED_AWAITING_HASH_AND_REGISTRY_WRITER",
+      "status": "VERIFIED_TRAINING_COUNTRY_REGISTRY",
       "source_confirmed_trained_country": null,
       "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
       "source_review_country": "US",
       "source_review_url": "https://www.latimes.com/archives/la-xpm-2003-may-25-sp-horseside25-story.html",
-      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json"
+      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json",
+      "training_country": "US",
+      "training_country_verification_source": "attribute:training_country_matches"
     },
     {
       "horse_key": "jbis-0000286968",
@@ -692,12 +697,14 @@
       ],
       "label": "ステイゴールド",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "TRAINING_COUNTRY_SOURCE_REVIEWED_AWAITING_HASH_AND_REGISTRY_WRITER",
+      "status": "VERIFIED_TRAINING_COUNTRY_REGISTRY",
       "source_confirmed_trained_country": null,
       "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
       "source_review_country": "JP",
       "source_review_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud101994108729%2F2D",
-      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json"
+      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json",
+      "training_country": "JP",
+      "training_country_verification_source": "attribute:training_country_matches"
     },
     {
       "horse_key": "jbis-0001083691",
@@ -715,12 +722,14 @@
       ],
       "label": "マジェスティックウォリアー(USA)",
       "label_origin": "JBIS_PEDIGREE_SOURCE",
-      "status": "TRAINING_COUNTRY_SOURCE_REVIEWED_AWAITING_HASH_AND_REGISTRY_WRITER",
+      "status": "VERIFIED_TRAINING_COUNTRY_REGISTRY",
       "source_confirmed_trained_country": null,
       "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE",
       "source_review_country": "US",
       "source_review_url": "https://news.sp.netkeiba.com/?no=22698&pid=news_view",
-      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json"
+      "source_review_file": "data/pedigree/reconciliations/2026-10-10-training-priority/training-country-source-review.json",
+      "training_country": "US",
+      "training_country_verification_source": "attribute:training_country_matches"
     },
     {
       "horse_key": "jbis-0001328857",
@@ -11503,5 +11512,19 @@
       "source_confirmed_trained_country": null,
       "required": "PREDICTION_JRA_SIRE_OR_DAM_SIRE"
     }
-  ]
+  ],
+  "status_reconciled_at": "2026-10-10T06:29:08.801029+00:00",
+  "status_reconciliation_checkpoint": "data/pedigree/reconciliations/2026-10-10-training-priority/s5-inventory-checkpoint.json",
+  "historical_scope_count_before_s5": {
+    "entries": 2089,
+    "sire_damsire_subjects": 613,
+    "sire_references": 2089,
+    "damsire_references": 2089,
+    "labeled_subjects": 613,
+    "unlabeled_subjects": 0,
+    "registrations_from_current_run_including_ancestors": 88,
+    "registered_sire_damsire": 87,
+    "previous_source_only_reviews": 5,
+    "unsearched": 521
+  }
 }
