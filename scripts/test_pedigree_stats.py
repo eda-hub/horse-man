@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 from pedigree_registry import Registry, SCHEMA as PEDIGREE_SCHEMA, digest, read, atomic
 from pedigree_stats import (DEFINITION_SCHEMA, INPUT_SCHEMA, RESULT_RULE, audit, main_training_country,
+                            select_training_country,
                             compute, run, verify, validate_manifest, validate_definition,
                             inventory)
 
@@ -91,12 +92,13 @@ class PedigreeStatsTest(unittest.TestCase):
                    return_value="2026-10-09T01:00:00+00:00" if current else BASE):
             return self.registry.save(candidate, digest(current) if current else None)
 
-    def fact(self, key, field, value, observed=EARLY, captured=None):
+    def fact(self, key, field, value, observed=EARLY, captured=None, source_class="BREEDING_DB"):
         item = {
             "field": field, "value": value, "status": "VERIFIED",
             "first_observed_at": observed, "captured_at": captured or observed,
-            "source": {"source_class": "BREEDING_DB",
-                       "origin_group": "fixture", "acquisition_method": "manual-verified",
+            "source": {"source_class": source_class,
+                       "origin_group": "fixture", "acquisition_method":
+                       "user-chat" if source_class == "USER_PROVIDED" else "manual-verified",
                        "record_key": key, "record_hash": digest([key, field, value])},
             "verification": {"identity_checked": True, "source_checked": True,
                              "relationship_checked": True, "reviewed_by": "test"},
@@ -455,6 +457,87 @@ class PedigreeStatsTest(unittest.TestCase):
         history["starts"][0]["source"].pop("record_hash")
         self.assertEqual(main_training_country(history, CUTOFF)[1], "TRAINING_START_SOURCE_MISSING")
 
+
+    @staticmethod
+    def matched_countries(entries):
+        return {
+            "schema_version": "training-country-matches-v1",
+            "search_completed": True,
+            "matches": [
+                {"country": country, "last_trained_on": last,
+                 "source": {"url": "https://example.org/racing/trainer",
+                            "record_hash": digest([country, last, i]),
+                            "captured_at": EARLY}}
+                for i, (country, last) in enumerate(entries)
+            ],
+        }
+
+    def test_29_search_single_match_stops_without_legacy_or_full_history(self):
+        self.definition["training_classification"]["country_selection"] = "SEARCH_MATCH_PRIORITY_V1"
+        self.fact("sire-a", "attribute:training_country_matches",
+                  self.matched_countries([("FR", None)]))
+        _, result = self.calculate()
+        self.assertEqual(result["groups"]["sire-us"]["cohorts"]["NON_MATCH"]["entries"], 4)
+        self.assertEqual(result["groups"]["sire-us"]["cohorts"]["MATCH"]["entries"], 0)
+        self.assertEqual(select_training_country(
+            self.matched_countries([("FR", None)]), CUTOFF),
+            ("FR", "VERIFIED_SINGLE_MATCH_TRAINING_COUNTRY"))
+
+    def test_30_multiple_countries_choose_latest_not_most_frequent(self):
+        self.definition["training_classification"]["country_selection"] = "SEARCH_MATCH_PRIORITY_V1"
+        matches = self.matched_countries([
+            ("FR", "2026-01-01"), ("FR", "2026-02-01"), ("US", "2026-09-01")])
+        self.fact("sire-a", "attribute:training_country_matches", matches)
+        _, result = self.calculate()
+        self.assertEqual(result["groups"]["sire-us"]["cohorts"]["MATCH"]["entries"], 4)
+        self.assertEqual(select_training_country(matches, CUTOFF),
+                         ("US", "VERIFIED_LATEST_MATCH_TRAINING_COUNTRY"))
+
+    def test_31_no_match_requires_user_chat_answer_with_provenance(self):
+        self.definition["training_classification"]["country_selection"] = "SEARCH_MATCH_PRIORITY_V1"
+        no_matches = self.matched_countries([])
+        self.fact("bob", "attribute:training_country_matches", no_matches)
+        _, before = self.calculate()
+        self.assertEqual(before["horse_trace"]["bob"]["groups"]["horse-eu"]["reason"],
+                         "TRAINING_COUNTRY_USER_INPUT_REQUIRED")
+        # "bob" has no prior training_country; user answer is a separate verified revision.
+        self.fact("bob", "attribute:training_country", "FR", source_class="USER_PROVIDED")
+        _, after = self.calculate()
+        self.assertEqual(after["horse_trace"]["bob"]["groups"]["horse-eu"]["status"], "MATCH")
+        # A legacy source is not a substitute for a response to the no-match task.
+        self.fact("d", "attribute:training_country_matches", no_matches)
+        _, out = self.calculate()
+        self.assertEqual(out["horse_trace"]["d"]["groups"]["horse-eu"]["reason"],
+                         "TRAINING_COUNTRY_USER_INPUT_REQUIRED")
+
+    def test_32_multiple_matches_without_dates_or_tied_dates_remain_unknown(self):
+        self.definition["training_classification"]["country_selection"] = "SEARCH_MATCH_PRIORITY_V1"
+        undated = self.matched_countries([("US", None), ("FR", "2026-05-01")])
+        self.assertEqual(select_training_country(undated, CUTOFF)[1],
+                         "TRAINING_COUNTRY_RECENT_DATE_REQUIRED")
+        tied = self.matched_countries([("US", "2026-05-01"), ("FR", "2026-05-01")])
+        self.fact("sire-a", "attribute:training_country_matches", tied)
+        _, result = self.calculate()
+        self.assertEqual(result["horse_trace"]["alice"]["groups"]["sire-us"]["reason"],
+                         "TRAINING_COUNTRY_LATEST_TIED_USER_INPUT_REQUIRED")
+
+    def test_33_search_respects_cutoff_and_requires_source(self):
+        matches = self.matched_countries([("US", None)])
+        matches["matches"][0]["source"]["captured_at"] = "2026-10-08T00:00:00+09:00"
+        self.assertEqual(select_training_country(matches, CUTOFF)[1],
+                         "TRAINING_COUNTRY_MATCH_AFTER_CUTOFF")
+        matches["matches"][0]["source"]["captured_at"] = EARLY
+        matches["matches"][0]["source"].pop("record_hash")
+        self.assertEqual(select_training_country(matches, CUTOFF)[1],
+                         "TRAINING_COUNTRY_MATCH_SOURCE_MISSING")
+
+    def test_34_user_source_restricted_to_chat_country_attribute(self):
+        with self.assertRaisesRegex(ValueError, "user-provided evidence"):
+            self.fact("bob", "attribute:birth_country", "FR", source_class="USER_PROVIDED")
+        with self.assertRaisesRegex(ValueError, "training country match source"):
+            obj = self.matched_countries([("FR", None)])
+            obj["matches"][0]["source"].pop("record_hash")
+            self.fact("bob", "attribute:training_country_matches", obj)
 
 if __name__ == "__main__":
     unittest.main()
