@@ -855,20 +855,34 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
       "parent_references": 36,
       "registry_verification": {
         "field": "attribute:training_country_matches",
         "fact_status": "VERIFIED",
         "revision_id": "rev-2dac7196b397a51af6415c14",
         "record_path": "data/pedigree/horses/jbis-0001170063.json",
-        "record_blob_sha": "c4cad03a7dc967515b92d11c0272a3c878f1e218",
         "source_url": "https://www.jbis.or.jp/horse/0001170063/",
         "source_record_hash": "b730579ca27e99dea300f79ebcf3f250474a3ee6429377dff9195d7f7803d106",
         "source_record_hash_kind": "canonical-extracted-fields-sha256",
         "registry_readback": true,
-        "raw_html_captured": false,
-        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001170063-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001170063-profile.html",
+        "sha256": "d4a81bbddfc24bd9742e45808f6e263837c07bc5752d9ea93206155da3e4aeb3",
+        "captured_at": "2026-10-10T05:50:39.725035+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001170063-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r05",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
       }
     },
     {
@@ -883,8 +897,36 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "SOURCE_REVIEWED_REGISTRY_REVISION_NOT_YET_SAVED",
-      "parent_references": 35
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
+      "parent_references": 35,
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001025279-country.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001025279-country.html",
+        "sha256": "d25fca8af14a16ca904759ce5462767216b33bfa36eeef43644a494934b550ae",
+        "captured_at": "2026-10-10T05:52:12.554871+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001025279-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001025279-country.capture.json"
+        ],
+        "supplemental": false,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r05",
+        "country": "US",
+        "proof_kind": "IFHA_2006_TRAINED_COLUMN"
+      },
+      "registry_verification": {
+        "field": "attribute:training_country_matches",
+        "fact_status": "VERIFIED",
+        "revision_id": "rev-8edb079e8a0339d29ffebd72",
+        "record_path": "data/pedigree/horses/jbis-0001025279.json",
+        "source_url": "https://www.ifhaonline.org/resources/2006Rankings/2006_WorldRankings.asp",
+        "source_record_hash": "d25fca8af14a16ca904759ce5462767216b33bfa36eeef43644a494934b550ae",
+        "source_record_hash_kind": "http-response-body-bytes-sha256",
+        "registry_readback": true,
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      }
     },
     {
       "horse_key": "jbis-0001302899",
@@ -898,20 +940,35 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
       "parent_references": 34,
       "registry_verification": {
         "field": "attribute:training_country_matches",
         "fact_status": "VERIFIED",
         "revision_id": "rev-65200f9d1516740e11942147",
         "record_path": "data/pedigree/horses/jbis-0001302899.json",
-        "record_blob_sha": "1ca14f85f8cb1afd6cd7ac1028916e2b62ab71d5",
         "source_url": "https://www.drf.com/news/new-trainer-summers-ready-start-fast-mind-your-biscuits",
         "source_record_hash": "f7bad6a6eddc62bca77bdf322ca4f63f9735514b6b9da89f22925590069448b5",
         "source_record_hash_kind": "canonical-extracted-fields-sha256",
         "registry_readback": true,
-        "raw_html_captured": false,
-        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001302899-country.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001302899-country.html",
+        "sha256": "0233ce805e1bb667b90d1b320f5e790962270446c53ce9ff10ac79baf637dd24",
+        "captured_at": "2026-10-10T05:52:12.225044+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001302899-profile.capture.json",
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001302899-country.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r05",
+        "country": "US",
+        "proof_kind": "IFHA_TRAINED_COLUMN"
       }
     },
     {
@@ -926,20 +983,34 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
       "parent_references": 33,
       "registry_verification": {
         "field": "attribute:training_country_matches",
         "fact_status": "VERIFIED",
         "revision_id": "rev-dbd5a39c19d9707cda764d70",
         "record_path": "data/pedigree/horses/jbis-0001157711.json",
-        "record_blob_sha": "b43f0f91601125df71d24979883fb904b14905c1",
         "source_url": "https://www.jbis.or.jp/horse/0001157711/",
         "source_record_hash": "a609b54438cc27d8cb313fea8ea134c66721dd0e9dc227779f7ad70e99933071",
         "source_record_hash_kind": "canonical-extracted-fields-sha256",
         "registry_readback": true,
-        "raw_html_captured": false,
-        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001157711-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001157711-profile.html",
+        "sha256": "e946e1b52ce0593b4c12a392366a4f4730b2954be78a70269251f1716392a6ae",
+        "captured_at": "2026-10-10T05:50:46.032103+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001157711-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r05",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
       }
     },
     {
@@ -954,20 +1025,34 @@
         }
       ],
       "reviewed_on": "2026-10-10",
-      "status": "REGISTRY_VERIFIED_EXTRACTED_FIELDS_RAW_HTML_UNCAPTURED",
+      "status": "REGISTRY_VERIFIED_WITH_SUPPLEMENTAL_RAW_EVIDENCE",
       "parent_references": 33,
       "registry_verification": {
         "field": "attribute:training_country_matches",
         "fact_status": "VERIFIED",
         "revision_id": "rev-0ebee679f04783ea6ab50e93",
         "record_path": "data/pedigree/horses/jbis-0001205475.json",
-        "record_blob_sha": "8b9a9c6c77f22f2e9d12aaa34816cecb42567401",
         "source_url": "https://www.jbis.or.jp/horse/0001205475/",
         "source_record_hash": "695962c4d0f24f598d57afb7f57d734e1ef3e5bd435247e0cfa3bce273606429",
         "source_record_hash_kind": "canonical-extracted-fields-sha256",
         "registry_readback": true,
-        "raw_html_captured": false,
-        "verification_basis": "既存RegistryのVERIFIED revisionとhashを照合。今回の原資料再確認対象はR02の5頭だけ。"
+        "verification_basis": "今回原文照合・CAS Writer保存・ローカル読み戻し。Git読戻しはcommit後確認。"
+      },
+      "raw_html_evidence": {
+        "metadata_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001205475-profile.capture.json",
+        "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001205475-profile.html",
+        "sha256": "3292a71c7b88acdbee6e39ac4764d1ec4bb49c48da2b3ee0b140f958d7e3e8dc",
+        "captured_at": "2026-10-10T05:50:48.501396+00:00",
+        "all_metadata_paths": [
+          "data/pedigree/reconciliations/2026-10-10-training-priority/r05-raw/jbis-0001205475-profile.capture.json"
+        ],
+        "supplemental": true,
+        "manifest_path": "data/pedigree/reconciliations/2026-10-10-training-priority/r05-verification.json"
+      },
+      "current_source_verification": {
+        "batch": "r05",
+        "country": "JP",
+        "proof_kind": "JBIS_TRAINER_AFFILIATION"
       }
     },
     {
@@ -1072,8 +1157,8 @@
       "parent_references": 30
     }
   ],
-  "registry_verified_extracted_fields_count": 26,
-  "registry_raw_html_captured_count": 20,
+  "registry_verified_extracted_fields_count": 27,
+  "registry_raw_html_captured_count": 25,
   "registry_registration_inventory": {
     "path": "data/pedigree/reconciliations/2026-10-10-training-priority/r02-registration-inventory.json",
     "base_commit": "180c595c5044faaaa231619caee8674038f2d0ec",
@@ -1086,12 +1171,13 @@
     "base_commit": "aa3872eaddf7d2c0f8ccbdb71fafea1aee7b0e6c",
     "completed_batches": [
       "r03",
-      "r04"
+      "r04",
+      "r05"
     ],
-    "registry_verified_subjects": 26,
-    "raw_verified_subjects": 20,
-    "remaining_source_reviewed_subjects": 10,
-    "no_training_match_fact_subjects": 4,
+    "registry_verified_subjects": 27,
+    "raw_verified_subjects": 25,
+    "remaining_source_reviewed_subjects": 5,
+    "no_training_match_fact_subjects": 3,
     "unsearched_inventory_subjects": 583
   }
 }
