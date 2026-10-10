@@ -1,0 +1,455 @@
+{
+  "schema_version": "training-country-remaining-batch-v1",
+  "batch": 26,
+  "data_cutoff": "2026-10-10T07:57:04.904754+00:00",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "webui_in_scope": false,
+  "bundle_path": "data/pedigree/reconciliations/2026-10-10-training-priority/s5-remaining/batches/batch-26/sources.json.gz",
+  "bundle_sha256": "26207c2c4fc4bc2289e4c03c52473c5860ae06348316a80613b53b64ff12b1c2",
+  "reviews": [
+    {
+      "priority": 251,
+      "horse_key": "netkeiba-000a01a9d3",
+      "horse_name": "Yaupon (米)",
+      "sire_uses": 2,
+      "damsire_uses": 0,
+      "use_references": 2,
+      "identity_hash": "30d9a8fdedecbdcb40193714d60642bcc237a4beba52e9f64abeab38a6db46d8",
+      "profile_fields": {
+        "heading": "Yaupon",
+        "english_name": "Yaupon",
+        "birth": "2017年5月24日",
+        "trainer": "アスムッ (海外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "3c61934df23be58e74617012fc72fea65297827cb560c661334ecf64663444f6",
+      "before_revision_hashes": [
+        "1af149be7722776874a23f45d965a839ff559c1ba2e96af6389e06ca596d959e",
+        "eb1507d35453592b7dd571b2f70b70a44b6915891daac29888f556b199a7e479"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": null,
+      "matches": [],
+      "status": "SEARCHED_WITHOUT_VERIFIED_COUNTRY",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "f76dc1bb4ac96ccc80aaa09fe858d45ea564b8e5f79f1e8cf2ca17ebae0641aa",
+      "added_revision_id": "rev-853a66e7edc53988af57bba3",
+      "added_revision_content_hash": "3cd71f7e1d2d921551ed7646eb053f6d254f6a32ef8a83e170e27ff40be61014",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 252,
+      "horse_key": "netkeiba-000a01bb7f",
+      "horse_name": "Golden Pal (米)",
+      "sire_uses": 2,
+      "damsire_uses": 0,
+      "use_references": 2,
+      "identity_hash": "b8db8dc2f8dc84664f72edabed5102339f6d4d7b8969249dd1453b86251e4864",
+      "profile_fields": {
+        "heading": "Golden Pal",
+        "english_name": "Golden Pal",
+        "birth": "2018年2月23日",
+        "trainer": "ウォード (海外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "2a6e172e8f03242952d719437c4479014331d31b1009e28f02331694397fbda6",
+      "before_revision_hashes": [
+        "7e211789889c0e848e46d65d5dd04d303cc904bcced063d2e2aaa2c926d71a80",
+        "f1318e89850e8081280d1c6ef61a8615d63f7634eb8b82cc6a6485f9dc7dfec6"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "US",
+      "matches": [
+        {
+          "country": "US",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=86",
+            "record_hash": "42484eb595178890d208c3a2f18adcb9a015885c95b75aef453a7d0ef12a14d0",
+            "captured_at": "2026-10-10T06:57:08.551469+00:00"
+          }
+        },
+        {
+          "country": "US",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=96",
+            "record_hash": "a3e721e27e359f205420ce62c43279358f49d70798b6bb156ed40b250b3c72a4",
+            "captured_at": "2026-10-10T06:57:08.473119+00:00"
+          }
+        },
+        {
+          "country": "US",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=86",
+            "record_hash": "42484eb595178890d208c3a2f18adcb9a015885c95b75aef453a7d0ef12a14d0",
+            "captured_at": "2026-10-10T07:43:09.705973+00:00"
+          }
+        },
+        {
+          "country": "US",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=96",
+            "record_hash": "a3e721e27e359f205420ce62c43279358f49d70798b6bb156ed40b250b3c72a4",
+            "captured_at": "2026-10-10T07:43:09.684566+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "a530fa2ec667aad1d49193b4f080175c65f9f71bae2fad0c946287eebd3bd125",
+      "added_revision_id": "rev-67bfffb85053e327f9d7feaf",
+      "added_revision_content_hash": "d15982516c0d8d7bedba6d92e9af49107d5a2288141956b4f39f0c05407115a8",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 253,
+      "horse_key": "netkeiba-1995101767",
+      "horse_name": "メイショウオウドウ",
+      "sire_uses": 0,
+      "damsire_uses": 2,
+      "use_references": 2,
+      "identity_hash": "8d524c8ce0663c57d7e3bb9912c988807bfeb75ebf75c607fd4b858053e0aca6",
+      "profile_fields": {
+        "heading": "メイショウオウドウ",
+        "english_name": "Meisho Odo",
+        "birth": "1995年5月29日",
+        "trainer": "飯田明弘 (栗東)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "9eb85bb12ccfc6805a0c236f23c37e39a54f1bc19bea696b195571e171cce79d",
+      "before_revision_hashes": [
+        "eda3cd7941d345025776a4cca18980cd591ef062249ad8143e2ff709550856d5",
+        "4202cadfdc541490030785c5ee2da996d79dd5700552bcb57dd96c0e792aac15"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "JP",
+      "matches": [
+        {
+          "country": "JP",
+          "source": {
+            "url": "https://db.netkeiba.com/horse/1995101767/",
+            "record_hash": "844237982e17886ed8f97a2661fdd3624b32f3282fd17d92e6768743e0b444ae",
+            "captured_at": "2026-10-10T07:07:50.149580+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "325122a4fd0fdbd8d273085d9db1af4e13acb3be20ef87edf6577e39e3312f4f",
+      "added_revision_id": "rev-71a66afa8f3c065c5329b94d",
+      "added_revision_content_hash": "4ea46d9e299484a634c233103677d45d21f8e4ffa417d1f7823586dcaac4fb66",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 254,
+      "horse_key": "netkeiba-1996102442",
+      "horse_name": "ナリタトップロード",
+      "sire_uses": 0,
+      "damsire_uses": 2,
+      "use_references": 2,
+      "identity_hash": "77cbb9b1c6d1a52750d1e933d464d0a8a4a5420ffcec266a137395849677157e",
+      "profile_fields": {
+        "heading": "ナリタトップロード",
+        "english_name": "Narita Top Road",
+        "birth": "1996年4月4日",
+        "trainer": "沖芳夫 (栗東)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "2011b990905a3d98ff3c89854d3032a84bf2fd81ff853a9fbf50bf7de1592a31",
+      "before_revision_hashes": [
+        "0c25b7d569c49b8e94452b5f967fe3817d6d8a2a50265e79d83e05c03f570f86",
+        "64071fab95fc60ac8248e568935073b62ce4a06b0ed146ed31e18fa4f969e576"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "JP",
+      "matches": [
+        {
+          "country": "JP",
+          "source": {
+            "url": "https://db.netkeiba.com/horse/1996102442/",
+            "record_hash": "be4611e2bfe33d76d19a1fb4343499de21604e0d0be0c88c985e6ce20c050aba",
+            "captured_at": "2026-10-10T07:07:57.106421+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "93ce8badb566b9d043599f78259016a3a509152db169d356938737d46cc5ea2d",
+      "added_revision_id": "rev-4a964d08930341549b37c7f4",
+      "added_revision_content_hash": "9d9248db62010bc9c7514de45b4451a393e63beadb90b33a86ed44feb6daed95",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 255,
+      "horse_key": "netkeiba-1997106560",
+      "horse_name": "スターリングローズ",
+      "sire_uses": 0,
+      "damsire_uses": 2,
+      "use_references": 2,
+      "identity_hash": "8dd99a677d2a48750b13ab7b018fd0aa1ff2f51535cd6bea86d4ea453ebe60f0",
+      "profile_fields": {
+        "heading": "スターリングローズ",
+        "english_name": "Sterling Rose",
+        "birth": "1997年3月20日",
+        "trainer": "北橋修二 (栗東)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "74aa411968351022a4e599a79fbabc411fe8901ac3b636d58ee74772b0199448",
+      "before_revision_hashes": [
+        "d09d7148b1b4cef7e0c6964eb7924c0c7e80222013b037d253b3d60876879b6c",
+        "19a041eebf7402c9001e4e07bd0b885b5606456b371e6fb83a6692ccddd7969d"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "JP",
+      "matches": [
+        {
+          "country": "JP",
+          "source": {
+            "url": "https://db.netkeiba.com/horse/1997106560/",
+            "record_hash": "302aa7259d452dbbfad04cee909012011d2c5877f37b3d9e28b755859a5d7dce",
+            "captured_at": "2026-10-10T07:07:57.256689+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "16cae0dfbf622d987611a2d55c24dc391b285382add9a2704fae5c5a74f403af",
+      "added_revision_id": "rev-bf0515e9e75c4ae4eb8b95fa",
+      "added_revision_content_hash": "e330a487e8174f46c55e70211f7fb04e0fe2bd912b6b7cbf5767b0a57c7cd91f",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 256,
+      "horse_key": "netkeiba-1998101457",
+      "horse_name": "メジロベイリー",
+      "sire_uses": 0,
+      "damsire_uses": 2,
+      "use_references": 2,
+      "identity_hash": "64a92741d175a51721eb70975c94e047992e4ff10af3ffa84dceb9a4acd99b9e",
+      "profile_fields": {
+        "heading": "メジロベイリー",
+        "english_name": "Mejiro Bailey",
+        "birth": "1998年5月30日",
+        "trainer": "武邦彦 (栗東)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "1ab4bd1f20fe19b3fa8b8bb70a6c061d7bb61f71b49a127bbec830c1e18e860e",
+      "before_revision_hashes": [
+        "2f11b6e5b48ebb8847d00b26b738bbacb86c58e475d271c33bc4a6d8d4038f93",
+        "4008287d9cf3a95b84ae409f047de4415d33ed9e43cf5044c053ec6af28cf624"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "JP",
+      "matches": [
+        {
+          "country": "JP",
+          "source": {
+            "url": "https://db.netkeiba.com/horse/1998101457/",
+            "record_hash": "e3b31c25ddd3b00d55ffdbb138f583dcc1101edef86dcf13787387c34af722fc",
+            "captured_at": "2026-10-10T07:07:56.824681+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "accc4cae5d48c3d4f460dd6912b4e2362e3294a3570fa422cbf8002f12bdb4a3",
+      "added_revision_id": "rev-74c72084dc99d9c65877f595",
+      "added_revision_content_hash": "91cf5720dd522316680b4ba9d12ab3bb2f6dddbb2f7f381f8ece3c589b32b389",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 257,
+      "horse_key": "netkeiba-1998102595",
+      "horse_name": "ショウナンカンプ",
+      "sire_uses": 0,
+      "damsire_uses": 2,
+      "use_references": 2,
+      "identity_hash": "b45a3c11dfc140d710adb5b20f62c63bc010e7a5ae00d48548dd89cfe3bfef03",
+      "profile_fields": {
+        "heading": "ショウナンカンプ",
+        "english_name": "Shonan Kampf",
+        "birth": "1998年3月7日",
+        "trainer": "大久保洋 (美浦)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "8f3540292ca8a2e64146c703ffae82e189d45c58003a62a54355c6d43515fd92",
+      "before_revision_hashes": [
+        "d84bf908496f6ffdc86195db6627effca62bfc0270e086f317e2250415d32e54",
+        "3df1f6f4076d8a788e69d5f57e6498d40a42abaa886114940c7558599ef8e7a1"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "JP",
+      "matches": [
+        {
+          "country": "JP",
+          "source": {
+            "url": "https://db.netkeiba.com/horse/1998102595/",
+            "record_hash": "aaad31393eadaa6bdef21f40052b122746b02f6ffb0ed70e4d10e1769e7319ad",
+            "captured_at": "2026-10-10T07:08:03.058378+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "cb06a03d66edc50e64e8b6f1d8361324edaf63850802cc4b7f7100ea5b0d6d93",
+      "added_revision_id": "rev-e0cb87ad58dd4fec04c05a36",
+      "added_revision_content_hash": "07749f87a775cd23caa43e2ec62c036687276fba374b4bdf4190347f1973baf3",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 258,
+      "horse_key": "netkeiba-1999104188",
+      "horse_name": "ヤマニンセラフィム",
+      "sire_uses": 0,
+      "damsire_uses": 2,
+      "use_references": 2,
+      "identity_hash": "cc8f82b31fdd4e7fed49399b0700f7fb0904d9f2cc43d0596387a1bf597a8d99",
+      "profile_fields": {
+        "heading": "ヤマニンセラフィム",
+        "english_name": "Yamanin Seraphim",
+        "birth": "1999年4月13日",
+        "trainer": "浅見秀一 (栗東)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "cffbb97b289abc253d66a6ea28312ff0ecce061e60be5b598b3940b73c84b86b",
+      "before_revision_hashes": [
+        "4580b85baf3c1f8819a63372351d8fad8278d28ea58563db4c0cbc709d66381f",
+        "cd5247c2e21aa90dbcac076692f3420b6762bae3e5b7f8f5a1180c2d19ee39cf"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "JP",
+      "matches": [
+        {
+          "country": "JP",
+          "source": {
+            "url": "https://db.netkeiba.com/horse/1999104188/",
+            "record_hash": "2b5d75b4eadb68aa6f380bc907b1a614d9145a9cd380027611f386b9a24c1eff",
+            "captured_at": "2026-10-10T07:08:03.566798+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "dc0f7a160257f6313b74db87852b10afabe7667fb686cc8a8a2d2748105492f7",
+      "added_revision_id": "rev-7151b7a18aaeeb410fe09dd7",
+      "added_revision_content_hash": "7a39b15c10f578b7647dfb0a6ce7bd82994544affb25048e43b89c663d0e806c",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 259,
+      "horse_key": "netkeiba-2003104100",
+      "horse_name": "バンブーエール",
+      "sire_uses": 1,
+      "damsire_uses": 1,
+      "use_references": 2,
+      "identity_hash": "86fcc198e4a578b6b266c0dcf3d6e36ccc3db97e0dc17cbc62a5a09861ba6994",
+      "profile_fields": {
+        "heading": "バンブーエール",
+        "english_name": "Bamboo Ere",
+        "birth": "2003年4月5日",
+        "trainer": "安達昭夫 (栗東)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "058157c1e261e9e11891ac10c3330a3bc5a98cc6fa64149c79452798b42b7681",
+      "before_revision_hashes": [
+        "a84f747b0c6c181cbbf39697edfbc8a6870476174db2d13d59217c96da9295dc",
+        "682b76c30044d3b5337fc2b7083979afdbf9b6fa243165ac1d7e085f2a583d39"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "JP",
+      "matches": [
+        {
+          "country": "JP",
+          "source": {
+            "url": "https://db.netkeiba.com/horse/2003104100/",
+            "record_hash": "35ce756c1979cdcfeae4ef30740794eea5e80b41a12873313ab2bbcf4df086ad",
+            "captured_at": "2026-10-10T07:08:03.677780+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "14abfa799e33b2338a40c234837bd0cc4398903833aef4c1a97944625f29129f",
+      "added_revision_id": "rev-8c0b15020c1d39d8b0ba7db3",
+      "added_revision_content_hash": "af8f90f65967d22fb0bb202065749efbdefb65e9d786158a8dc1ef8155fdb462",
+      "historical_cutoff_status": "NOT_FOUND"
+    },
+    {
+      "priority": 260,
+      "horse_key": "netkeiba-2005190006",
+      "horse_name": "コンデュイット",
+      "sire_uses": 0,
+      "damsire_uses": 2,
+      "use_references": 2,
+      "identity_hash": "34d114ec6bfaf989b0da35f538fcc295cf31638dae158ba19b14fea8abba0d5c",
+      "profile_fields": {
+        "heading": "コンデュイット",
+        "english_name": "Conduit",
+        "birth": "2005年3月23日",
+        "trainer": "スタウト (海外)",
+        "decoded_encoding": "document-declared-or-strict-fallback"
+      },
+      "before_record_hash": "19d868deebb7897b88bf5d9995d2381a805a868a05c944424fbe2d19b22c624b",
+      "before_revision_hashes": [
+        "c61244d737d932c49527f04cec66f3e754e8cdaa4ff5b1ded00d78d57bc308e2",
+        "efb09719dce60cad83bf29b292e051b341fe3e13a9d0ed76907981313e4ec95d"
+      ],
+      "writer_added": 1,
+      "repeated_save_added": 0,
+      "selected_country": "GB",
+      "matches": [
+        {
+          "country": "GB",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/2008Rankings/2008_WorldRankings.asp",
+            "record_hash": "92249e686975bd499692711ffdd3ad78ded9fdd4cd69d0b3e83376c22a6552a8",
+            "captured_at": "2026-10-10T06:57:16.866709+00:00"
+          }
+        },
+        {
+          "country": "GB",
+          "source": {
+            "url": "https://www.ifhaonline.org/resources/WTRRankings/2009_WorldRankings.asp",
+            "record_hash": "5bcf4c4beaf8172647f4ef501d93a2b6d1fd097906185bfc58885be120a06685",
+            "captured_at": "2026-10-10T06:57:23.624317+00:00"
+          }
+        }
+      ],
+      "status": "REGISTERED",
+      "search_scope": "本人の独立IDプロフィール、共有IFHA年次資料の本人・生年一致行、取得できた補助資料。全世界・全生涯の所属履歴を網羅したとの主張ではない。",
+      "recovered_write_before_checkpoint": false,
+      "writer_added_in_this_resume": 1,
+      "after_record_hash": "2faedec95177c2a998b16c795ff91f345f09bb0618441151a37323a7dce8d3d8",
+      "added_revision_id": "rev-1b9c7f1003de3b5eebbe0641",
+      "added_revision_content_hash": "8695e04c32825d2b08e53573224a37c14e356490aeef01b4ef6c17da095d4634",
+      "historical_cutoff_status": "NOT_FOUND"
+    }
+  ]
+}
