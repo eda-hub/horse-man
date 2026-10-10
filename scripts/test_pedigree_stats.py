@@ -99,7 +99,12 @@ class PedigreeStatsTest(unittest.TestCase):
             "source": {"source_class": source_class,
                        "origin_group": "fixture", "acquisition_method":
                        "user-chat" if source_class == "USER_PROVIDED" else "manual-verified",
-                       "record_key": key, "record_hash": digest([key, field, value])},
+                       "record_key": key,
+                        "record_hash": (
+                            __import__("hashlib").sha256(value.encode()).hexdigest()
+                            if source_class == "USER_PROVIDED"
+                            else digest([key, field, value])),
+                        **({"user_reply_text": value} if source_class == "USER_PROVIDED" else {})},
             "verification": {"identity_checked": True, "source_checked": True,
                              "relationship_checked": True, "reviewed_by": "test"},
         }
