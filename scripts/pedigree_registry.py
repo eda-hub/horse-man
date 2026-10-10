@@ -167,10 +167,15 @@ class Registry:
                 raise ValueError('source provenance incomplete')
         if source['source_class'] not in SOURCES or not (source.get('url') or source.get('record_key')):
             raise ValueError('source reference required')
-        if source['source_class'] == 'USER_PROVIDED' and (
-                field != 'attribute:training_country' or
-                source.get('acquisition_method') != 'user-chat'):
-            raise ValueError('user-provided evidence is restricted to chat training country')
+        if source['source_class'] == 'USER_PROVIDED':
+            if field != 'attribute:training_country' or source.get('acquisition_method') != 'user-chat':
+                raise ValueError('user-provided evidence is restricted to chat training country')
+            reply = source.get('user_reply_text')
+            if (not isinstance(reply, str) or not reply.strip() or
+                    hashlib.sha256(reply.encode('utf-8')).hexdigest() != source.get('record_hash')):
+                raise ValueError('user-provided original reply/hash required')
+            if not isinstance(fact.get('value'), str) or not re.fullmatch(r'[A-Z]{2}', fact['value']):
+                raise ValueError('user-provided training country must be ISO alpha-2')
         if not re.fullmatch(r'[0-9a-f]{64}', source['record_hash']):
             raise ValueError('source record SHA256 required')
         observed, captured = dt(fact['first_observed_at']), dt(fact['captured_at'])
