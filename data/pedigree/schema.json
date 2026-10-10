@@ -92,7 +92,7 @@
       "properties": {
         "field": {
           "type": "string",
-          "pattern": "^(parent:[SD]{1,10}|attribute:(birth_country|training_country|training_start_history|sex))$"
+          "pattern": "^(parent:[SD]{1,10}|attribute:(birth_country|training_country|training_country_matches|training_country_user|training_start_history|sex))$"
         },
         "value": {
           "oneOf": [
@@ -148,7 +148,8 @@
                 "BREEDING_DB",
                 "MEDIA_ORIGINAL",
                 "WEB_AGGREGATOR",
-                "LEGACY_REPOSITORY"
+                "LEGACY_REPOSITORY",
+                "USER_PROVIDED"
               ]
             },
             "origin_group": {
