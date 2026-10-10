@@ -505,8 +505,8 @@ class PedigreeStatsTest(unittest.TestCase):
         _, before = self.calculate()
         self.assertEqual(before["horse_trace"]["bob"]["groups"]["horse-eu"]["reason"],
                          "TRAINING_COUNTRY_USER_INPUT_REQUIRED")
-        # "bob" has no prior training_country; user answer is a separate verified revision.
-        self.fact("bob", "attribute:training_country", "FR", source_class="USER_PROVIDED")
+        # A chat answer stays separate from previous authoritative training_country facts.
+        self.fact("bob", "attribute:training_country_user", "FR", source_class="USER_PROVIDED")
         _, after = self.calculate()
         self.assertEqual(after["horse_trace"]["bob"]["groups"]["horse-eu"]["status"], "MATCH")
         self.assertEqual(after["horse_trace"]["bob"]["groups"]["horse-eu"]["reason"],
@@ -545,6 +545,48 @@ class PedigreeStatsTest(unittest.TestCase):
             obj = self.matched_countries([("FR", None)])
             obj["matches"][0]["source"].pop("record_hash")
             self.fact("bob", "attribute:training_country_matches", obj)
+
+    def test_35_user_answer_is_independent_of_legacy_training_country(self):
+        self.definition["training_classification"]["country_selection"] = "SEARCH_MATCH_PRIORITY_V1"
+        self.fact("sire-a", "attribute:training_country_matches", self.matched_countries([]))
+        # sire-a already has an old verified US attribute, which must remain intact.
+        self.fact("sire-a", "attribute:training_country_user", "FR",
+                  source_class="USER_PROVIDED")
+        _, out = self.calculate()
+        self.assertEqual(out["groups"]["sire-us"]["cohorts"]["NON_MATCH"]["entries"], 4)
+        self.assertEqual(self.registry.fact("sire-a", "attribute:training_country", CUTOFF)["value"],
+                         "US")
+        self.assertEqual(out["horse_trace"]["alice"]["groups"]["sire-us"]["reason"],
+                         "USER_PROVIDED_TRAINING_REGION")
+
+    def test_36_corrected_user_answer_requires_append_only_proof(self):
+        self.definition["training_classification"]["country_selection"] = "SEARCH_MATCH_PRIORITY_V1"
+        self.fact("bob", "attribute:training_country_matches", self.matched_countries([]))
+        self.fact("bob", "attribute:training_country_user", "FR",
+                  source_class="USER_PROVIDED")
+        before = self.registry.fact("bob", "attribute:training_country_user", CUTOFF)
+        corrected = {
+            "field": "attribute:training_country_user",
+            "value": "US", "status": "VERIFIED",
+            "first_observed_at": "2026-10-02T00:00:00+09:00",
+            "captured_at": "2026-10-02T00:00:00+09:00",
+            "source": {
+                "source_class": "USER_PROVIDED", "origin_group": "fixture",
+                "acquisition_method": "user-chat", "record_key": "corrected-message",
+                "user_reply_text": "US",
+                "record_hash": __import__("hashlib").sha256(b"US").hexdigest()},
+            "verification": {
+                "identity_checked": True, "source_checked": True,
+                "relationship_checked": True, "reviewed_by": "test"},
+            "supersedes": [before["revision_id"]],
+            "correction_reason": "ユーザーが前回回答を訂正",
+        }
+        self.save("bob", [corrected])
+        self.assertEqual(self.registry.fact("bob", "attribute:training_country_user", CUTOFF)["value"],
+                         "US")
+        _, out = self.calculate()
+        self.assertEqual(out["horse_trace"]["bob"]["groups"]["horse-eu"]["status"], "NON_MATCH")
+
 
 if __name__ == "__main__":
     unittest.main()
