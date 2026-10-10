@@ -89,10 +89,62 @@
 
 `--audit`は保存済みsnapshotの改ざん等を確認するが、**snapshotが0件でも成功し得る**。これは実集計・出走データ収集・原出所確認の完了を意味しない。既存の過去記述535件は未確認の候補であり、統計用の出走母数ではない。Phase 2の公式出走/結果・実データID整備、Phase 3の実データ照合・DB連携、Phase 4表示、Phase 8検証/正式採用は独立した完了判定を維持する。
 
-## 実データの主な調教国（2026-10-10 利用者指定）
+## 調教国の確定優先順位（2026-10-10 改訂）
 
-`training_classification.country_selection=MOST_STARTS_BY_TRAINING_COUNTRY`を指定し、対象馬の競走馬としての各出走時の**調教所属国**を数え、最多出走国を採用する。開催国・遠征先・生産国・種牡馬供用国を代用しない。最多出走が同率の場合は利用者へ国名の指定を求め、指定を受けるまでUNKNOWNにする。
+新しく確認する父・母父・指定祖先（必要時は本人）の国・地域判定には
+`training_classification.country_selection=SEARCH_MATCH_PRIORITY_V1`を指定する。
+調査と記録は既存のGit台帳で行い、WebUI/DB/自動source adapterは今回実装しない。
 
-入力は唯一Writerで保存した`attribute:training_start_history`。値は`complete=true`、全出走母数`total_starts`、`starts`配列を持つ。各行に`race_id`、`race_date`、`training_country`（ISO二文字）、`source.url/record_hash/captured_at`を保存する。全出走一覧・各出走時の所属の照合前にcompleteを宣言しない。重複レース、母数不一致、所属国不明、出所欠落、cutoff後の出走・取得は分類を保留する。未照合の所属時点はその事実として報告する。
+1. **検索結果に一致した調教国が1カ国**：その国で確定し後続の国調査は不要。同じ国の複数資料も1国として扱う。
+2. **複数国が一致**：実際の調教所属時点が最も新しい国を確定する。出走回数が最多の国ではない。最終所属日の証拠がない、または異なる国で同日となる場合は推測せず保留。
+3. **調教国が一致しない**：`TRAINING_COUNTRY_USER_INPUT_REQUIRED`を返し、他の調査は継続。タスク終了後に対象馬名・識別情報・父/母父/祖先の別・不足内容を**まとめてチャットでユーザーに提示**する。回答を受けたら元の回答・受領時刻・出所を記録し、ユーザー提供の国としてセットする。未回答なら未確認のまま。
 
-過去の固定snapshotの互換性のため、既存の`VERIFIED_COUNTRY`方式は維持する。今回確認した3祖先の単一調教エピソードは全出走履歴ではなく、新方式の入力に自動昇格しない。欧州に含める国の一覧も版付き定義に明記し、未指定国を欧州へ推定しない。
+既存の予想・集計で利用する対象馬のみに調査範囲を限定する。全5代祖先の生涯調教履歴は今回の必須条件ではない。
+生産国、開催国、遠征先、種牡馬供用国、父系名称などを国の代用品にしない。
+地域分類に使用する国→地域対応は版付き定義で固定し、米国型を北米全体へ拡張しない。
+後日取得した結果は過去のFORWARD時点へ遡及流用せず、REPLAYを区別する。
+
+### Git台帳の保存形式
+
+検索結果は対象馬自身の`attribute:training_country_matches`に以下の形式で保存する。
+`search_completed=true`は必要な検索を実施したことを示し、全生涯調教履歴の網羅宣言ではない。
+同一馬の親・子孫には自動転用しない。
+
+~~~json
+{
+  "schema_version": "training-country-matches-v1",
+  "search_completed": true,
+  "matches": [
+    {
+      "country": "US",
+      "last_trained_on": "2020-06-01",
+      "source": {
+        "url": "https://example.org/source",
+        "record_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "captured_at": "2026-10-10T10:00:00+09:00"
+      }
+    }
+  ]
+}
+~~~
+
+これは**架空の構造例**であり、実際の馬の検証済み事実として登録してはならない。
+`matches=[]`は実際に検索して一致がなかった場合だけ保存する。未検索と区別する。
+各候補には出所と確認時刻を付け、複数国の場合は`last_trained_on`で直近を特定する。
+出所不明・同定不明・日付不明・cutoff後取得・同率最終日はUNKNOWN/CONFLICTとして残す。
+
+検索不一致後のチャット回答だけは、既存の`attribute:training_country`に
+`source_class=USER_PROVIDED`、`acquisition_method=user-chat`で保存できる。
+回答の原文を出所キーで一意に識別し、原文SHA-256を`source.record_hash`へ設定し、
+返信受領時刻を`first_observed_at`と`captured_at`へ残す。本人同定を確認し
+`verification`に確認者を記録してから唯一Writerの`save`を使う。
+ユーザー提供値は独立した外部原票と混同せず、提供元を必ず表示する。
+この値は検索不一致の場合だけ参照され、一致した検索結果を上書きしない。
+ユーザーが未回答・不明回答の場合は、値を捏造したり通常の`training_country`属性を代用しない。
+
+### 過去の固定結果との互換性
+
+旧`VERIFIED_COUNTRY`および`MOST_STARTS_BY_TRAINING_COUNTRY`は、
+既に作成したdefinition/snapshotの読戻し・監査のために**互換モードとしてのみ保持**する。
+新規の調教国選択に最多出走国を使用しない。既存の履歴やREPLAY snapshotは
+新方式の結果に書き換えず、独立した定義・新しいsnapshotを作る。
