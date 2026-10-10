@@ -28,3 +28,20 @@
 テスト: `python3 -m unittest discover -s scripts -p 'test_*.py'`。監査: `python3 scripts/pedigree_stats.py --inventory` および `--audit`。最新実行結果はPR69のChecksを参照。GitHub Actionsの成功は**保存済み実データが存在する証明ではない**。
 
 未決項目：集計対象期間・取得元（JRA-VAN契約/APIと全出走母数）・分類対象国と複数地域履歴の確定規則・provider固有の同着/降着/取消・サンプル数下限・Phase 2のDB移行/唯一Writer・実データShadow照合・Phase 4表示・Phase 8効果検証。根拠なしで数値・モデルは補完しない。
+
+
+## 2026-10-10 調教国確定規則の改訂受入（追加）
+
+以前の最多出走国方式は当時の検証履歴として記録を残すが、今回の利用者指定で新規適用を終了した。
+今後の新規調査は`SEARCH_MATCH_PRIORITY_V1`を指定する。
+
+- 一致国1カ国なら追加の国調査を必要とせず採用する。
+- 複数国なら国別最多出走数を無視し、最終調教所属時期が直近の国を採用する。
+- 所属時期不明・同日別国・未同定は推測せず保留する。
+- 一致ゼロはユーザー確認を要する状態を記録し、タスク完了後にチャットで一覧照会する。
+- ユーザー回答は原文・SHA-256・受領時刻・確認者を保持し`USER_PROVIDED`と明示して設定し、検索結果を上書きしない。
+- 既存の`VERIFIED_COUNTRY`/`MOST_STARTS_BY_TRAINING_COUNTRY`の固定記録・snapshotの監査互換は維持する。
+
+対応: `scripts/pedigree_registry.py`、`scripts/pedigree_stats.py`、`scripts/test_pedigree_stats.py`。
+WebUI/DB/自動source adapterは変更せず、未来情報を新規FORWARD入力に流用しない。
+実在する馬の未調査所属国までこのプログラム変更だけで確認済みとしない。
