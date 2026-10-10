@@ -56,6 +56,21 @@ class TrainingCountryRemainingTests(unittest.TestCase):
         raw += b'<a title="Category:Racehorses trained in Ireland">Ireland</a>'
         self.assertEqual(supplementary_countries(raw, source, dict(english_name='Horse'), dict(birth_year=2000), 'WIKIPEDIA_EXPLICIT_TRAINING_CATEGORY'), [])
 
+    def test_japanese_profile_requires_own_name_birth_and_trainer_country(self):
+        raw = '<table><tr><th>欧字表記</th><td>Wild Rush</td></tr><tr><th>生誕</th><td>1994年</td></tr><tr><th>生国</th><td>アメリカ合衆国</td></tr></table>'.encode()
+        meta = dict(final_url='https://ja.wikipedia.org/wiki/Horse')
+        profile = dict(english_name='Wild Rush(USA)')
+        kind = 'WIKIPEDIA_JA_EXPLICIT_TRAINER_AFFILIATION'
+        self.assertEqual(supplementary_countries(raw, meta, profile, dict(birth_year=1994), kind), [])
+        raw += '<table><tr><th>調教師</th><td>Trainer（アメリカ）</td></tr></table>'.encode()
+        self.assertEqual(supplementary_countries(raw, meta, profile, dict(birth_year=1994), kind), ['US'])
+        self.assertEqual(supplementary_countries(raw, meta, profile, dict(birth_year=1995), kind), [])
+
+    def test_annual_race_date_is_not_a_training_affiliation_date(self):
+        raw = self.ranking().replace(b'<th>Run</th>', b'<th>Date</th>').replace(b'<td>GB</td>', b'<td>2020-06-20</td>')
+        rows = ranking_rows(raw, 2020, dict(english_name='Siskin'), dict(birth_year=2017))
+        self.assertIsNone(rows[0]['last_trained_on'])
+
     def test_successful_http_status_does_not_allow_corrupt_bytes(self):
         body=b'original'; now=stamp()
         entry=dict(capture=dict(http_status=200,hash_kind='http-response-body-bytes-sha256',byte_length=len(body),sha256=hashlib.sha256(body).hexdigest(),request_started_at=now,captured_at=now),body_base64=base64.b64encode(b'changed!').decode())

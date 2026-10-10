@@ -27,6 +27,7 @@ class TrainingCountryPriorityTest(unittest.TestCase):
         if (self.source / continuation).exists():
             progress = read(self.source / continuation)
             paths.update((continuation, Path(progress['reference_bundle_path'])))
+            paths.update(Path(a['path']) for a in progress.get('additional_reference_bundles', []))
             for batch_path in progress['batches']:
                 latest = read(self.source / batch_path)
                 paths.update((Path(batch_path), Path(latest['bundle_path'])))
