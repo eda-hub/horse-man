@@ -61,6 +61,13 @@ class PersistenceTest(unittest.TestCase):
         self.receipt()
         self.assertEqual(check_intent(self.root,self.path),SNAP+'-R02')
 
+    def test_escaped_scope_fences_in_historical_snapshot(self):
+        # Preserve the original bytes, including literal backslash-escaped fences.
+        self.snapshot()
+        path=self.root/'docs/validation/snapshots'/f'{DATE}.md'
+        path.write_text(path.read_text(encoding='utf-8').replace('```', '\\`\\`\\`'), encoding='utf-8')
+        self.receipt()
+        self.assertEqual(check_intent(self.root,self.path), SNAP+'-R02')
     def test_mixed_bulleted_and_plain_fields(self):
         content=(f'## one\n- snapshot_id: {SNAP}\n'
                  f'working_branch: prediction/{DATE}\n')
