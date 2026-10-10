@@ -101,3 +101,12 @@
 本人の既存単一国属性4件を固定時点で再利用し、国未調査17件は父/母父キュー共通5と追加祖先12へ分けた。新規検索・国事実・別名・条件定義・集計snapshotの追加は0。未検索を検索ゼロ・ユーザー回答待ちにしない。系統分類、5代内包、母父本人、本人の調教国を独立して扱う。Nasrullahの子孫条件、Danehill Dancerの部分一致、曖昧な枝・代数・旧傾向の優位性は自動昇格しない。
 
 `check_designated_ancestor_scope.py`で原文hash・28表記・21ID・親子関係・cutoff・既存国属性・重複排除を確認、7件の拒否回帰を追加。全613頭の登録/検索状態の再照合、17頭の国調査、全馬該否と追加条件集計は後続。WebUIは実施対象外、REPLAY専用・Draftを維持する。
+
+
+## 手順5の最初の実施単位（完了、全体は継続）
+
+613頭の実レコードを元commitと照合し、開始時点は登録92頭・未検索521頭。資料確認のみ5頭の状態欠落と旧583頭の誤記を訂正。利用頻度順の先頭10頭を既存CAS Writerで登録し、現在は登録102頭・未検索511頭。旧revision・開始cutoff・再保存追加0件を確認した。
+
+詳細と次の10頭は `data/pedigree/reconciliations/2026-10-10-training-priority/README.md` の最新節、固定証跡は `s5-inventory-checkpoint.json` と `s5-batches/batch-01/verification.json` を参照。フレンチデピュティは原PDFの直接取得403のためprovider原文照合後の抽出項目証跡であり、原PDF byte保存を主張しない。その他は取得本文とbyte hashを保存。
+
+`python3 scripts/check_training_country_priority.py --repo .` と8回帰テストで元blob・件数・優先順・個体・所属国/日付・原資料hash・旧履歴・時点・残りキューを照合。CIへ追加。残り511頭と後続工程は未完了。WebUIは実施対象外、現行v1.6.1・Production・旧snapshotは維持。

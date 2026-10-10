@@ -33,6 +33,8 @@ jobs:
           python3 scripts/check_training_country_reviewed_batches.py
       - name: 指定祖先28表記の同定・役割・親子経路・調査キューを検証
         run: python3 scripts/check_designated_ancestor_scope.py
+      - name: 父・母父613頭の開始時点・優先調査10頭・所属原資料を照合
+        run: python3 scripts/check_training_country_priority.py --repo .
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査
         run: |
           set -o pipefail
