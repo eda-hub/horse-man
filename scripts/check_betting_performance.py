@@ -56,10 +56,10 @@ def snapshot_tickets(root, relative, snapshot_id):
         # comparison table must never become a fixed ticket after the event.
         symbols = {ord(char): str(index) for index, char in enumerate(
             '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳', 1)}
-        sections = re.split(r'(?=^###\\s+)', matches[0], flags=re.M)
+        sections = re.split(r'(?=^###\s+)', matches[0], flags=re.M)
         for subsection in sections:
             header = subsection.splitlines()[0] if subsection else ''
-            if not re.match(r'^###\\s+.*(?:仮想|買い目FIX)', header):
+            if not re.match(r'^###\s+.*(?:仮想|買い目FIX)', header):
                 continue
             for line in subsection.splitlines():
                 if not line.startswith('|'):
