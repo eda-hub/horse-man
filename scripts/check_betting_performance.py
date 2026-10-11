@@ -50,6 +50,39 @@ def snapshot_tickets(root, relative, snapshot_id):
                                 'horses': [int(x) for x in horses.split('-')],
                                 'stake_yen': int(amount.replace(',', ''))})
     if not tickets:
+        # Modern FIXED snapshots place amount in the final table column and may
+        # use circled horse numbers or a leading strategy category. Only read
+        # the explicitly titled pre-race virtual-ticket section; a market
+        # comparison table must never become a fixed ticket after the event.
+        symbols = {ord(char): str(index) for index, char in enumerate(
+            '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳', 1)}
+        sections = re.split(r'(?=^###\\s+)', matches[0], flags=re.M)
+        for subsection in sections:
+            header = subsection.splitlines()[0] if subsection else ''
+            if not re.match(r'^###\\s+.*(?:仮想|買い目FIX)', header):
+                continue
+            for line in subsection.splitlines():
+                if not line.startswith('|'):
+                    continue
+                cells = [cell.strip() for cell in line.split('|')[1:-1]]
+                if len(cells) < 4:
+                    continue
+                offset = 0 if cells[0] in kinds else 1
+                if len(cells) <= offset + 2 or cells[offset] not in kinds:
+                    continue
+                kind, horses = cells[offset:offset + 2]
+                amount = cells[-1]
+                if not re.fullmatch(r'[0-9,]+円', amount):
+                    continue
+                horses = horses.translate(symbols).replace('－', '-')
+                if not re.fullmatch(r'[0-9]+(?:-[0-9]+)*', horses):
+                    continue
+                number_list = [int(n) for n in horses.split('-')]
+                if len(set(number_list)) != len(number_list):
+                    raise ValueError('duplicate horse in fixed ticket')
+                tickets.append({'type': kinds[kind], 'horses': number_list,
+                                'stake_yen': int(amount[:-1].replace(',', ''))})
+    if not tickets:
         raise ValueError('fixed tickets missing')
     return tickets
 
