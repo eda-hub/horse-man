@@ -1,0 +1,73 @@
+{
+  "base_inventory_git_blob_sha": "9c50813576bf14f181f423da3759e0d983195c43",
+  "base_inventory_path": "data/pedigree/reconciliations/2026-10-11-delta/inventory.json",
+  "completed_execution_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "completed_subtasks": [
+    "16-01"
+  ],
+  "counts": {
+    "completed_pedigree_batches": 0,
+    "identity_missing": 2,
+    "pedigree_positions_checked": 0,
+    "pedigree_searches": 0,
+    "registry_individuals_added": 0,
+    "registry_revisions_added": 0,
+    "remaining_conditional_pedigree_batches": 93,
+    "remaining_conditional_target_rows": 184,
+    "statistics_snapshots": 0,
+    "targets": 2
+  },
+  "execution_number": 17,
+  "input_commit": "ddba0710d3fb885266ac2f07b881188e73243417",
+  "next_subtasks": {
+    "16": "16-02",
+    "17": "17-01_AFTER_16-06"
+  },
+  "observed_at": "2026-10-11T16:31:01.319651+00:00",
+  "parent_states": {
+    "16": "IN_PROGRESS",
+    "17": "HOLD"
+  },
+  "previous_checkpoint_git_blob_sha": "53469a5880b2db3b5ea9a830afa679ff80a1c755",
+  "previous_checkpoint_path": "data/pedigree/reconciliations/2026-10-11-delta/identities/16-01/checkpoint.json",
+  "production_eligible": false,
+  "reason": "17-01の対象アオイレーギーナ・アクアマーズは16-06の本人同定が未実施。16-01で同定した5頭はこの固定バッチの対象ではない。先頭を飛ばさず同じ17-01に残す。",
+  "schema_version": "oct11-pedigree-checkpoint-v1",
+  "status": "HOLD_DEPENDENCY_NOT_MET",
+  "subtask_id": "17-01",
+  "targets": [
+    {
+      "entry_id": "2026-10-11-KYOTO-09-12",
+      "horse_key": null,
+      "horse_name": "アオイレーギーナ",
+      "pedigree_fields_checked": 0,
+      "required_identity_subtask": "16-06",
+      "status": "WAIT_IDENTITY"
+    },
+    {
+      "entry_id": "2026-10-11-TOKYO-07-15",
+      "horse_key": null,
+      "horse_name": "アクアマーズ",
+      "pedigree_fields_checked": 0,
+      "required_identity_subtask": "16-06",
+      "status": "WAIT_IDENTITY"
+    }
+  ],
+  "usage": "REPLAY_ONLY"
+}
