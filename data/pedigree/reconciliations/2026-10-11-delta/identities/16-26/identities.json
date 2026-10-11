@@ -1,0 +1,66 @@
+{
+  "entries": [
+    {
+      "birth_date": "2023-03-19",
+      "birth_year": 2023,
+      "checks": {
+        "JBIS_profile_name_birth_year": "PASS",
+        "official_result_name_sex_age": "PASS",
+        "profile_and_race_parent_provider_ids": "PASS"
+      },
+      "entry_id": "2026-10-11-TOKYO-08-10",
+      "horse_key": "jbis-0001373094",
+      "horse_name": "ヴォートセレスト",
+      "horse_number": 10,
+      "identity_matched_at": "2026-10-11T18:54:51.202492+00:00",
+      "official_result_path": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-08/result.json",
+      "parents": {
+        "D": {
+          "birth_year": 2006,
+          "id": "0001192998",
+          "name": "アナアメリカーナ(FR)"
+        },
+        "S": {
+          "birth_year": 2017,
+          "id": "0001237042",
+          "name": "コントレイル"
+        }
+      },
+      "profile_source": {
+        "attempts": [],
+        "bytes": 13699,
+        "captured_at": "2026-10-11T18:50:03.638967+00:00",
+        "final_url": "https://www.jbis.or.jp/horse/0001373094/",
+        "path": "data/pedigree/reconciliations/2026-10-11-delta/sources/profile/0001373094.html.gz",
+        "raw_sha256": "15c6e33ef1096ef451e8e955060a6b4c61e7dea7afee8183bb611dbccbb52248",
+        "status": 200,
+        "url": "https://www.jbis.or.jp/horse/0001373094/"
+      },
+      "provider_ids": {
+        "JBIS": "0001373094"
+      },
+      "race_source": {
+        "attempts": [],
+        "bytes": 67844,
+        "captured_at": "2026-10-11T16:40:59.560908+00:00",
+        "final_url": "https://www.jbis.or.jp/race/20261011/105/08/",
+        "path": "data/pedigree/reconciliations/2026-10-11-delta/sources/races/tokyo-08.html.gz",
+        "raw_sha256": "64718067f33602bbf5485eff1f2928eaf1d75a4a6deebce3ca18a3f07a74fa7b",
+        "status": 200,
+        "url": "https://www.jbis.or.jp/race/20261011/105/08/"
+      },
+      "sex": "牡",
+      "status": "RESOLVED_NEW_PROVIDER_ID"
+    }
+  ],
+  "execution_number": 16,
+  "observed_at": "2026-10-11T18:54:51.202492+00:00",
+  "production_eligible": false,
+  "record_hash": "b5fe6ee40ca969544fe236d1bb91525cee0f6d3626f95e5076bf14ce27e739a4",
+  "status": "COMPLETED",
+  "subtask_id": "16-26",
+  "targets": [
+    "2026-10-11-TOKYO-08-10"
+  ],
+  "usage": "REPLAY_ONLY"
+}
