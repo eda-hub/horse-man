@@ -29,18 +29,29 @@ def snapshot_tickets(root, relative, snapshot_id):
         r'^snapshot_id:\s*' + re.escape(snapshot_id) + r'\s*$', s, re.M)]
     if len(matches) != 1:
         raise ValueError('expected exactly one fixed snapshot')
+    selected = matches[0]
+    purpose = re.search(r'^-?\s*ticket_purpose:\s*([^\s]+)', selected, re.M)
+    if purpose and purpose.group(1) != 'OFFICIAL_VIRTUAL':
+        raise ValueError('snapshot is not an official fixed plan')
+    # Research and counterfactual subsections are outside the formal ledger,
+    # including legacy tables with amount in the third column.
+    research = re.compile(r'研究|反実仮想|正式.*(?:対象外|0円)')
+    selected = ''.join(
+        s for s in re.split(r'(?=^###\s+)', selected, flags=re.M)
+        if not research.search(s.splitlines()[0] if s else '')
+    )
     kinds = {'単勝': 'WIN', '複勝': 'PLACE', '馬連': 'QUINELLA',
              'ワイド': 'WIDE', '馬単': 'EXACTA', '三連複': 'TRIO', '三連単': 'TRIFECTA'}
     tickets = []
     for kind, horses, amount in re.findall(
         r'^\|\s*(単勝|複勝|馬連|ワイド|馬単|三連複|三連単)\s*\|\s*([\d-]+)\s*\|\s*([\d,]+)円\s*\|',
-        matches[0], re.M):
+        selected, re.M):
         tickets.append({'type': kinds[kind], 'horses': [int(x) for x in horses.split('-')],
                         'stake_yen': int(amount.replace(',', ''))})
     if not tickets:
         virtual = re.search(
             r'^###\s+検証用仮想購入（正式帳簿）\s*$\n(.*?)(?=^###\s|\Z)',
-            matches[0], re.M | re.S)
+            selected, re.M | re.S)
         if virtual:
             for kind, horses, amount in re.findall(
                     r'^-\s*(単勝|複勝|馬連|ワイド|馬単|3連複|三連複|3連単|三連単)\s+([\d-]+)\s*[:：]\s*([\d,]+)円\s*$',
@@ -56,10 +67,11 @@ def snapshot_tickets(root, relative, snapshot_id):
         # comparison table must never become a fixed ticket after the event.
         symbols = {ord(char): str(index) for index, char in enumerate(
             '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳', 1)}
-        sections = re.split(r'(?=^###\s+)', matches[0], flags=re.M)
+        sections = re.split(r'(?=^###\s+)', selected, flags=re.M)
         for subsection in sections:
             header = subsection.splitlines()[0] if subsection else ''
-            if not re.match(r'^###\s+.*(?:仮想|買い目FIX)', header):
+            if (not re.match(r'^###\s+.*(?:仮想|買い目FIX)', header)
+                    or (not purpose and '正式帳簿' not in header)):
                 continue
             for line in subsection.splitlines():
                 if not line.startswith('|'):
