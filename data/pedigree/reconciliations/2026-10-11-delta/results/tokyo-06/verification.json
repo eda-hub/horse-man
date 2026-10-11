@@ -1,0 +1,35 @@
+{
+  "artifacts": {
+    "checkpoint.json": {
+      "bytes": 11015,
+      "sha256": "b9398a410929a57727e3ff89c884865eedac9f5fcd7300f0b026be1df4a4b1d4"
+    },
+    "official-extract.txt": {
+      "bytes": 5203,
+      "sha256": "fe38f8732f92a53833c891570e2adaa27dd11297e8b6c4fe94eb96c4ecc05340"
+    },
+    "result.json": {
+      "bytes": 11604,
+      "sha256": "bda91f831ae1226f54aac868b201b6023cf24293ab207260b19b8867967cbd46"
+    }
+  },
+  "checks": {
+    "append_child_ids_unchanged_prior_batches": "PASS",
+    "finish_positions_1_to_16_unique_no_dead_heat": "PASS",
+    "full_table_no_cancel_exclude_dnf_disqualify": "PASS",
+    "horse_numbers_1_to_16_unique": "PASS",
+    "official_race_date_course_round_number": "PASS",
+    "only_tokyo_06_fetched": "PASS",
+    "saved_two_names_and_review_results": "PASS",
+    "source_excerpt_hash_and_result_record_hash": "PASS",
+    "unresolved_identity_and_country_not_promoted": "PASS"
+  },
+  "execution_number": 2,
+  "limitations": [
+    "保存hashは公式ページの取得本文/抽出結果に対するもの。JRA原HTML byte保存を主張しない。",
+    "本人同定/血統追記/統計は未実施。"
+  ],
+  "schema_version": "oct11-result-verification-v1",
+  "status": "PASS_WITH_EXPLICIT_HTML_CAPTURE_LIMIT",
+  "verified_at": "2026-10-11T15:35:48.540551+00:00"
+}
