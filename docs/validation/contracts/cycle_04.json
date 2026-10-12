@@ -1,7 +1,7 @@
 {
   "schema_version": "cycle04-contract-v1",
   "cycle_id": "cycle_04",
-  "status": "PREPARED",
+  "status": "ACTIVE",
   "race_dates": [
     "2026-10-17",
     "2026-10-18",
@@ -15,10 +15,11 @@
   ],
   "day_schema": "cycle04-day-v1",
   "current_release": "v1.6.1",
-  "next_release": null,
-  "effective_race_date": null,
+  "next_release": "v1.7.0",
+  "effective_race_date": "2026-10-13",
   "decisions_path": "docs/validation/reviews/cycle_03/decisions.json",
   "acceptance_path": "docs/validation/reviews/cycle_04/acceptance.json",
-  "live_status": "NOT_STARTED",
-  "note": "版と有効日は2026-10-13利用者指示で未定。PREPAREDは正式切替・第4開始認証ではない。"
+  "live_status": "READY_NOT_STARTED",
+  "note": "利用者指定v1.7.0。正式運用はPR79のmainマージ後。予定4日と実測を分け、開始前は実レースを作らない。",
+  "activation_policy": "MAIN_MERGE"
 }

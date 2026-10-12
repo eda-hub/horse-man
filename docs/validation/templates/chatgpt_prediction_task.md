@@ -1,49 +1,32 @@
-# ChatGPT 最終予想タスク標準プロンプト
+# v1.7.0 初回・最終・回顧の標準実行テンプレート
 
-このテンプレートは、ChatGPTの予約タスク・通常チャットで最終予想と固定仮想買い目を実行するときの標準指示として使用する。
+## 開始
 
-## 標準指示
+eda-hub/horse-manのmainからmanual READMEを取得し、同一参照commitで必要Owner・v1.7.0を確認する。`run_release_readiness.py --require-main`でmain有効化を確認する。対象開催日と実発走予定・依頼scope・既存基準を確認し、prediction/YYYY-MM-DDを再利用する。
 
-horse-manリポジトリを使用し、対象レースの最終予想を行う。
+## 初回
 
-- 実際の馬券購入は行わない。
-- 予想本文を作る前に `persistence-intents/README.md` に従い、対象race_id、snapshot_id、実発走予定時刻を事前宣言する。宣言を同じ日次ブランチへ保存・read-backしてから予想を作成する。
-- 買い判定の場合は、現行ルールに従い検証用の固定仮想買い目を作成する。
-- 予想、買い目、判断理由、必要な監査結果を当該予想日の作業ブランチへ保存する。
-- Production / BettingをFIXしたら、ユーザー向け回答より先に保存工程へ進む。
-- 1レースごとに以下を完了してから次レースへ進む。
-  1. 最新のsnapshot/preservation/receiptを同じ作業ブランチから取得する。
-  2. FIX済み内容をsnapshotまたは時刻条件に応じたpreservationへ保存する。
-     発走前snapshotには `prediction-scope-v1` を置く。保存前にFIX済みsection（`snapshot_section` が抽出する単位）のUTF-8 SHA-256を保持し、保存後の内容から作り直して一致したことにしない。
-  3. 同じブランチからread-backし、artifact ID、race_id、印、固定買い目、各金額、合計金額、主要判断がFIX内容と一致することを確認する。
-  4. persistence receiptを保存する。
-  5. 同じブランチからreceiptをread-backし、artifact参照、保存commit、timing eligibility、保存状態の一致を確認する。
-  6. 同じブランチから読戻したファイルへ `python3 scripts/verify_prediction_persistence.py --date YYYY-MM-DD --snapshot-id SNAPSHOT_ID --intent-id INTENT_ID --task-complete --fixed-content-sha256 FIXED_SECTION_SHA256` を実行する。宣言範囲・FIX内容・receipt・発走前確認時刻の全照合成功を完了条件にする。
-- 本体とreceiptの両方をread-backし、直後機械確認に成功した場合だけ `TASK_PERSISTENCE_COMPLETE` とする。発走後preservationは内容保全として報告し、発走前保存完了にはしない。
-- どちらかが未確認なら `TASK_PERSISTENCE_INCOMPLETE` とし、「保存済み」「完了」「記録完了」と報告しない。
-- 書込失敗、stale SHA、競合、read-back不一致の場合は、最新ファイルを再取得し、**FIX済みの同じ内容を変更せず**再度保存する。
-- 再試行時に他レースの既存追記を失わない。
-- 同一ID・同一内容が存在する場合は重複追記せず再利用する。
-- 同一ID・異内容の場合は上書きせず競合として扱う。
-- 再取得を挟んだ再試行は原則2回までとし、発走前回答が危うい場合はfail-softする。ただし保存未完了を完了扱いにしない。
-- 発走後に保存を再開する場合は、結果を見て予想・買い目を変更しない。発走前にFIX済みと追跡できる同一内容のみをLATE_PERSIST / preservationとして保全する。
-- 結果確認後に新しい買い目を作成して、発走前にFIX済みだったものとして扱わない。
+公式番組と依頼scopeから `cycle04-official-scope-v1` の全対象を登録する。予定144Rから勝手に補完しない。開始前に予想/推奨scopeの宣言をGit保存・読戻ししてから予想を作る。全対象馬の事実→評価→全頭確率→順位→印・根拠・確信度を固定し、初回全scopeと選定/未取得を残す。
 
-## 最終回答に必ず含める状態
+## 最終
 
-各対象レースについて最低限、以下を表示する。
+選定候補の既存基準・静的入力を再利用し、当日馬体重/取消/馬場等を取得試行する。候補追加・用途変更は発走前のselection-history revisionと独立receiptを保存する。重賞属性だけで対象を増やさない。
 
-- prediction_status: FIXED / NOT_FIXED
-- snapshot_status: PERSIST_VERIFIED / 各未完了状態
-- receipt_status: RECEIPT_VERIFIED / 各未完了状態
-- task_persistence_status: TASK_PERSISTENCE_COMPLETE / TASK_PERSISTENCE_INCOMPLETE
+1. 宣言の読戻し後、FIX bytesと独立manifestを `seal_prediction.py` で作成する。
+2. FIX manifestをGit保存・読戻してから同じbytesの本体を独立JSONへ保存する。
+3. 本体とreceiptをGit保存・読戻しし、同じartifact/time/hashで個別確認する。
+4. Production固定後、価格なしで `recommendation.py --prepare/--generate/--seal` の独立推奨を保存する。推奨なし/印のみ/未完了を別状態にし、購入確認や予算を入力にしない。
+5. 本体、receipt、FIX hash、個別確認、gate、該当Shadowを独立検査する。全体audit成功を個別完了としない。
+6. `cycle04_workflow.py --record-prediction`で日別台帳へ接続し、検査した台帳を同日branchへGit保存・読戻す。
 
-複数レースの場合、1レースでも `TASK_PERSISTENCE_INCOMPLETE` があれば「全レース保存完了」とは回答しない。
+保存/取得障害でも予想回答を発走時刻まで無限に待たせず、未完了範囲と原因を日本語で示す。結果後に宣言・買い目・時刻を生成して適格にしない。
 
-## 目的
+## 回顧
 
-予想内容の生成成功とGit永続化成功を混同しない。ChatGPTタスクの成功条件を、予想回答の生成ではなく、固定成果物を同一branchへ保存し、本体とreceiptをread-backして一致確認するところまでとする。
-# PR79の次期保存準備（正式切替前）
+公式結果を同じrace/dateと取得時刻で保存し、 `cycle04_workflow.py --review` に誤差分類・良好部分保護・次の検証を与える。初回scope全件を対象に未最終/推奨なしも回顧し、 `--summary` でPrediction/推奨/Shadow/任意市場を独立集計する。回顧完了は日別→サイクル集計のGit読戻しまで。
 
-現行manualの版を先に確認する。第4の準備契約・未定版を現行Productionへ適用しない。次期切替後の新規JSON予想は [第4の是正運用](../contracts/cycle04_operations.md) の宣言読戻し→独立FIX hash保存/読戻し→本体保存/読戻し→個別完了の順に実行する。既存Markdownや過去欠測は遡及修復しない。版・有効日未定なら `check_cycle04.py --require-active` は不合格として開始状態を説明する。
+実購入・払戻なしでPredictionと推奨的中を評価する。0適格・未測定を0%にせず、未来値・旧☆・旧Betting・研究Replayを新KPIへ混ぜない。
 
+## 利用者への回答
+
+順位/印/確率/根拠/確信度、推奨または理由付き推奨なし、対象ごとの本体/個別完了/不足を日本語で示す。内部IDや工程コードをそのまま列挙しない。

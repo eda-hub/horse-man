@@ -41,3 +41,5 @@ jobs:
         run: python3 scripts/check_cycle04.py
       - name: 価格不要推奨の独立保存を監査
         run: python3 scripts/recommendation.py --audit
+      - name: v1.7.0全Owner・入口・Phaseの原子的整合（main有効化とは別）
+        run: python3 scripts/run_release_readiness.py

@@ -21,7 +21,7 @@
 1a. 計画書、未マージPR、将来コード、Shadow検証案を現行Productionルールとして使わない。チャット予想はREADMEから辿れる現行Productionだけを使用する。
 1b. 予想・snapshot・回顧の書込みは `docs/manual/00_core.md` の日次作業ブランチ `prediction/YYYY-MM-DD` 契約に従い、`main` へ直接コミットしない。
 1c. 利用者との会話では、E系 / U系を含む内部検証ID・ルールIDを表示しない。追跡に必要なIDは内部記録だけで保持し、説明は内容を表す平易な日本語で行う。回答は依頼に必要な結論・根拠・判断材料に絞り、依頼されていない内部処理や記録項目を列挙しない。
-2. 現行ルール版は `docs/manual/README.md` の `現行リリース` を正とする。2026-09-13時点は `v1.6.1`。
+2. 現行ルール版は `docs/manual/README.md` の `現行リリース` を正とする。PR79のmainマージ後は `v1.7.0`。
 3. 必須モジュール間で `manual_release` が一致しない場合、予想ロジック実装・予想実行・ルール編集を進めない。
 4. システム設計の正本は `DECISIONS.md` と `docs/jravan/`。実装は `docs/jravan/phases/` の順に1フェーズずつ進める。
 5. JRA重賞の長期記録運用は `docs/yosou/jra_racing/README.md` を正本とし、各重賞は固定パスの1ファイルで管理する。
@@ -29,8 +29,8 @@
 7. ProductionとShadowを完全分離する。Shadow、51B、Experimentalから同一レースのProduction順位・確率・正式買い目へ逆流させない。
 8. `baseline_forecast_id` を予想の同一性キーとして扱う。チャットやオッズ更新だけを理由にProduction基準予想を作り直さない。
 9. PRE / DAY / FINAL はシステム上のデータ時点スナップショットであり、`docs/manual/` のOwner境界やProduction/Shadow境界を上書きする概念にしない。
-10. FINAL予想、買い目候補、ユーザーの購入/見送り判断、結果、回顧は履歴として保存し、結果に合わせて遡及書換えしない。
-11. 見送りレースも予想記録・仮想精算・回顧の対象から除外しない。
+10. FINAL予想、推奨構成・状態、結果、回顧は履歴として保存し、結果に合わせて遡及書換えしない。
+11. 低確信・推奨なしもPrediction回顧から除外しない。新規実購入記録・仮想精算を標準完了条件にしない。
 12. AIは予想システム本体にしない。AIにDBの直接書込権限やルールの自動昇格権限を与えない。
 13. ルールの正式変更は `docs/manual/50_review.md` の検証・昇格手順を経て別PRで行う。
 14. PAT・銀行口座・投票認証情報は扱わず、自動投票を実装しない。
@@ -50,11 +50,15 @@
 旧Node/TypeScript CLIは廃止済みであり、互換性維持や復元を行わない。未決事項をコードで暗黙決定せず、必要なら `docs/jravan/00_project_plan.md` の未決事項へ追記する。
 
 
-27. 利用者が依頼した予想・買い目・見送りの固定と日次snapshot・receiptへの保存を最優先で実行する。Actionsやcheckerの失敗を保存の中止理由にしない。日別台帳で正式KPIを `ELIGIBLE` と宣言する場合、またはsnapshotからゲート認証を明示的に主張する場合は、その日のレースのexecution gateを実際の保存証跡から作り、`scripts/check_prediction_compliance.py` の通常実行で照合する。見送り・不適格・保留についてダミーの印や基準IDを作らない。未登録・不適格は該当レースの状態として残し、保存済み予想を消したり、後から適格に見せたりしない。Actionsの `--audit` は欠落を報告する補助機能であり、正式KPIの適格性を与えない。
-28. 発走後Replay/再演で生成したShadow・価格予測は、checker上で前向きKPIへ適格化しない。非◎縦目は保険・依存率低下・予算消化を理由に採用せず、機械ゲートが要求する独立シナリオ・保守側確率・価格・正の期待値を満たす場合だけ例外候補とする。
+27. 利用者が依頼した予想・買い目・見送りの固定と日次snapshot・receiptへの保存を最優先で実行する。Actionsやcheckerの失敗を保存の中止理由にしない。日別台帳でPrediction/Recommendation/Shadowの正式KPIを `ELIGIBLE` と宣言する場合、またはsnapshotからゲート認証を明示的に主張する場合は、その日のレースのexecution gateを実際の保存証跡から作り、`scripts/check_prediction_compliance.py` の通常実行で照合する。見送り・不適格・保留についてダミーの印や基準IDを作らない。未登録・不適格は該当レースの状態として残し、保存済み予想を消したり、後から適格に見せたりしない。Actionsの `--audit` は欠落を報告する補助機能であり、正式KPIの適格性を与えない。
+28. 発走後Replay/再演で生成したShadow・価格予測は、checker上で前向きKPIへ適格化しない。旧価格付きBetting履歴と任意市場では、非◎縦目は保険・依存率低下・予算消化を理由に採用せず、機械ゲートが要求する独立シナリオ・保守側確率・価格・正の期待値を満たす場合だけ例外候補とする。
 
-29. 非◎縦目をformal `FIXED` にする場合、許可済み `reason_code` と発走前 `betting-evidence-v1` を必須とし、gate内の確率・価格の自己申告だけで監査済みにしない。証跡artifactは同一receiptレコードで `PERSIST_VERIFIED` / `RECEIPT_VERIFIED` / `PRE_RACE_ELIGIBLE` を満たし、保存確認時刻が実発走予定時刻より前であることをcheckerで照合する。
+29. 旧v1.6.1の非◎縦目をformal `FIXED` にする場合、許可済み `reason_code` と発走前 `betting-evidence-v1` を必須とし、gate内の確率・価格の自己申告だけで監査済みにしない。証跡artifactは同一receiptレコードで `PERSIST_VERIFIED` / `RECEIPT_VERIFIED` / `PRE_RACE_ELIGIBLE` を満たし、保存確認時刻が実発走予定時刻より前であることをcheckerで照合する。
 30. 予想依頼を受けたら、予約タスクを含めて予想作成前に `docs/validation/persistence-intents/README.md` の事前宣言を日次作業ブランチへ保存・読戻しする。予想snapshotとreceiptを保存・読戻しした直後に `scripts/verify_prediction_persistence.py` で宣言範囲、同一artifact、発走前確認時刻を照合する。未完了なら発走前に再保存を試み、予想回答を遅らせず実際の保存状態を伝える。Actions成功を保存完了の代わりにしない。
 
-31. `kpi_contract=betting-kpi-split-v1` の日別台帳では、`betting` は発走前FIXの追跡性、`betting_rules` は購入ルール遵守、`betting_evidence` はGit保存品質として独立判定する。27のexecution gate認証は購入ルール・保存品質・Production・Shadowへ適用し、性能には `fixed-plan-source-v1` の原文・時刻・同一買い目照合を適用する。旧契約の台帳を暗黙に新方式と解釈しない。未確認出所は保留にし、固定済み仮想買い目の精算値を消さない。監査違反券だけを結果後に除外してROIを変更しない。
-32. ChatGPT最終予想タスクは標準テンプレートの事前宣言と `--task-complete --intent-id --fixed-content-sha256` を省略しない。宣言は予想作成前に保存・読戻しし、FIX時点のsectionハッシュと読戻し内容の一致を確認する。機械確認成功後のみ保存完了と回答する。過去の宣言欠落を発走前宣言として後から生成しない。
+31. 旧v1.6.1履歴の `kpi_contract=betting-kpi-split-v1` の日別台帳では、`betting` は発走前FIXの追跡性、`betting_rules` は購入ルール遵守、`betting_evidence` はGit保存品質として独立判定する。27のexecution gate認証は購入ルール・保存品質・Production・Shadowへ適用し、性能には `fixed-plan-source-v1` の原文・時刻・同一買い目照合を適用する。旧契約の台帳を暗黙に新方式と解釈しない。未確認出所は保留にし、固定済み仮想買い目の精算値を消さない。監査違反券だけを結果後に除外してROIを変更しない。
+32. ChatGPT最終予想タスクは標準テンプレートの事前宣言と `--task-complete --intent-id --fixed-content-sha256` を省略しない。宣言は予想作成前に保存・読戻しし、FIX時点の独立JSON bytesのハッシュ（旧履歴は当時のsection）と読戻し内容の一致を確認する。機械確認成功後のみ保存完了と回答する。過去の宣言欠落を発走前宣言として後から生成しない。
+
+33. v1.7.0はPR79のmainマージ後に有効。初回/最終/回顧は第4専用契約と標準テンプレートを使用し、mainの正式版・全Owner・保存/推奨/結果照合を同一commitで確認する。`scripts/run_release_readiness.py --require-main` が成功してから新規運用を開始する。
+34. 新規Productionは全対象馬の順位・勝率/連対率/3着内率・根拠を必須とし、確率総和と出所時刻を検査する。実購入・価格・仮想ROIはPrediction/推奨の入力・完了条件へ入れない。30_bettingは価格不要推奨の唯一Owner、60_marketは任意sidecar。
+35. 第4は10/17・18・24・25のJRA東京/京都/新潟。実行日でなく対象開催日で所属し、公式scopeを確認する。予想依頼前にダミー台帳・実測0・事前証跡を作らない。結果後は初回全scopeを回顧し、新旧履歴と独立KPIを照合する。

@@ -5,9 +5,9 @@
   "collection_review": "RECORDED_WITH_LIMITATIONS",
   "individual_change_review": "RECORDED",
   "performance_promotion": "NOT_APPROVED",
-  "formal_rule_cutover": "PENDING",
-  "next_release": null,
-  "effective_race_date": null,
+  "formal_rule_cutover": "MAIN_MERGE",
+  "next_release": "v1.7.0",
+  "effective_race_date": "2026-10-13",
   "changes": [
     {
       "id": "C01",
@@ -519,5 +519,11 @@
     "9/26未実行原因の詳細は未確定として記録、歴史的欠測/保留を保持",
     "原記録/条件統計の後続研究38〜43は本修正の正常開始認証に代用せず、既存番号と内部バッチで継続",
     "Windows/JRA-VANのruntime接続と実入力は未受入。合成試験を実運用成功にしない"
-  ]
+  ],
+  "activation_policy": "MAIN_MERGE",
+  "release_decision": {
+    "status": "USER_APPROVED",
+    "basis": "2026-10-13 利用者指示：次期版v1.7.0、mainマージ後に有効",
+    "scope": "運用是正と既合意の価格不要仕様。性能昇格は行わない。"
+  }
 }

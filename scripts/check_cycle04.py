@@ -241,6 +241,7 @@ def validate_day(root, path, contract):
                 frames = {int(h): f for h, f in op.get('frames', {}).items()}
                 validate_ticket_comparison(op.get('ticket_comparison'), horses=set(op['horse_numbers']), frames=frames)
             else:
+                require(name != 'actual_purchase', 'v1.7.0 does not certify new actual purchase records')
                 # 任意市場・実購入は専用証跡を要求。推奨の適格性を転用しない。
                 payload, _ = verified_artifact(root, row.get(name + '_ref'), row.get('scheduled_post_time_jst'))
                 require(payload.get('race_id') == race and payload.get('race_date_jst') == date,
@@ -272,6 +273,9 @@ def main(argv=None):
         c = check_preparation(root)
         if args.require_active:
             require_active(root, c)
+            if c.get('activation_policy') == 'MAIN_MERGE':
+                from run_release_readiness import check
+                check(root, require_main=True)
         days = []
         directory = root / 'docs/validation/records/cycle_04'
         for path in sorted(directory.glob('*.json')):

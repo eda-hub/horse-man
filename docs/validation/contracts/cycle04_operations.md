@@ -1,15 +1,32 @@
-# 第4サイクル検査契約と是正運用
+# 第4サイクル v1.7.0 実運用契約
 
-2026-10-13の利用者指示により、次期版と有効日は未定のままとする。現行正本はmainのv1.6.1。本書・準備コード・合成試験を現行予想ルールへ読み替えない。
+正式版はv1.7.0、有効化はPR79のmainマージ後。価格不要のPrediction→Recommendation→保存→結果/回顧を標準にする。開催日は10/17・18・24・25、東京・京都・新潟。開始前は実測・性能をnull/未測定とし、予定144Rを未依頼scopeへ補完しない。
 
-## 準備と開始の判定
+## main確認と日別実行
 
-- `python3 scripts/check_cycle04.py`：個別採否、候補集合差、合成受入の入力hash、第4の登録済み日別記録を照合する。日別未登録なら実測0/4日と表示し、開始成功としない。
-- `python3 scripts/check_cycle04.py --require-active`：正式切替・版・有効日と初日への適用を要求する。現在は不合格が正しい。
-- `python3 scripts/check_cycle04.py --require-active --require-complete`：正式切替に加えて4日の実測・全初回対象回顧を要求する。未実施を0件完了としない。
-- `python3 scripts/run_cycle04_acceptance.py --write`：実際に全回帰を実行し、成功時だけ合成受入と対象ソースhashを保存する。版変更・性能昇格・Git保存/読戻しの代用にはならない。
+最新mainを取得し、以下の開始確認を通す。`v170-release.json`の全対象hashがローカルと取得済みmainで同じ場合だけ開始できる。候補branchの受入成功だけでは開始しない。
 
-第4の対象は10/17・18・24・25、東京・京都・新潟。予定144Rから未依頼のscopeを補完しない。初回対象を固定して日別JSON `docs/validation/records/cycle_04/YYYY-MM-DD.json` に記録する。schemaは `cycle04-day-v1`、第3のMarkdown台帳を流用しない。日別記録がない時点では実測・介入数・遅延・性能をnull/未測定とする。
+```bash
+python3 scripts/run_release_readiness.py --require-main
+python3 scripts/check_cycle04.py --require-active
+```
+
+予想依頼時に日次branch `prediction/YYYY-MM-DD` を作り、公式出馬情報から依頼範囲を明示する。scope入力は `cycle04-official-scope-v1`、`race_date_jst`、`source_url`、`observed_at_jst`、`races`（`race_id`とJST発走予定）を持つ。登録は発走前に行い、既存日を上書きしない。
+
+```bash
+python3 scripts/cycle04_workflow.py --register-scope official-scope.json
+python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --record-prediction initial-entry.json
+python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --select selection-entry.json
+python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --record-prediction final-entry.json
+python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --review review-entry.json
+python3 scripts/cycle04_workflow.py --summary
+```
+
+予想entryは`race_id`、`phase=INITIAL/FINAL`、`prediction_gate_path`、`operations`（下記の独立証跡）、`input_complete`、不足理由/影響、`market`を持つ。FINALは`recommendation_gate_path`も必須。selection entryはrace_idとselection_ref。review entryはrace_idとresult_path、review（error_classification / non_degradation / next_validation）。公式結果はOFFICIAL、同一ID/開催日、source_url、発走後retrieved_at_jst、同着をまとめたfinish_groups、place_placesを持つ。着順・non_finishers・scratched_horsesの和は固定予想の全頭と一致させ、不完全な結果を完了へ算入しない。
+
+日別JSONは`docs/validation/records/cycle_04/YYYY-MM-DD.json`。初回・最終の独立固定参照を履歴として保持する。ローカル保存・検査後、従来どおり日次branchへGit保存し、保存先を読戻して同一bytesを確認する。CLI成功だけをGit保存完了とは説明しない。
+
+`run_cycle04_acceptance.py --write`は合成受入を保存する。`check_cycle04.py --require-active --require-complete`は4日の実測・全初回scope回顧が揃ってからのみ成功する。
 
 ## 新規予想の保存
 
@@ -24,7 +41,7 @@
 
 ## 用途・入力・市場
 
-`selection-history-v1` の既存revision chainを使う。検証用、正式仮想、実購入に加え、価格不要推奨と任意市場を別用途にする。各イベントは原文JSON/hashと同一artifact receiptを持ち、締切前・連続revision・追加選定・変更/取消の根拠を検査する。履歴内の `BUY` は当該用途の案固定イベントであり、投票実行を意味しない。実購入には別の本人確認明細が必要。用途を移すには新用途のSELECTが必要で、旧案を変えず履歴を残す。
+`selection-history-v1` の既存revision chainを使う。検証用、正式仮想、実購入に加え、価格不要推奨と任意市場を別用途にする。各イベントは原文JSON/hashと同一artifact receiptを持ち、締切前・連続revision・追加選定・変更/取消の根拠を検査する。履歴内の `BUY` は当該用途の案固定イベントであり、投票実行を意味しない。新規実購入はこの運用では扱わない。用途を移すには新用途のSELECTが必要で、旧案を変えず履歴を残す。
 
 入力JSONは `race-input-coverage-v1`、race_id・cutoff・全出走馬番号を持つ。馬体重と近5走の全頭行を記録し、状態を取得済み/不足/初出走による近走対象外に分ける。取得済みは出所・公式/代替・観測/取得/読戻し時刻を必須とし、cutoff後の入力を拒否する。代替元は公式取得できなかった理由を残す。近5走は利用可能な過去実走数に応じて最大5走、クラス・相手レベルの根拠を記録する。初古馬混合・昇級の事実は元入力から判断し、一律年齢減点を作らない。
 
@@ -40,15 +57,15 @@ PR69の価格不要推奨生成・独立保存・結果照合を再利用する�
 
 ## 日別契約
 
-日別JSONは初回/選定/最終/回顧scope、未最終理由、全初回レース行と独立KPIを持つ。Production対象は全初回、推奨対象は全最終を記録する。各KPIの対象は適格∪不適格∪保留（相互排他）、理由を全件要求する。任意市場と実購入を推奨KPIから認証しない。
+日別JSONは初回/選定/最終/回顧scope、未最終理由、全初回レース行と独立KPIを持つ。Production対象は全初回、推奨対象は全最終を記録する。各KPIの対象は適格∪不適格∪保留（相互排他）、理由を全件要求する。任意市場を推奨KPIから認証しない。互換用actual_purchase集合は空にする。
 
-適格を宣言する行には `operations` 内の宣言・FIX・本体・入力・選定履歴の参照、全出走馬番号、枠対応、8券種比較を添付する。予想/推奨の機械gateは同じレース・本文・版・発走予定へ接続する。実購入は本人確認、券明細合計と総額の一致を別artifactで要求する。Replayは前向き適格にできない。未登録・欠測は保持し、過去21Rとの差を第4の有効例へ合算しない。
+適格を宣言する行には `operations` 内の宣言・FIX・本体・入力・選定履歴の参照、全出走馬番号、枠対応、8券種比較を添付する。予想/推奨の機械gateは同じレース・本文・版・発走予定へ接続する。新規実購入の適格認証は拒否する。Replayは前向き適格にできない。未登録・欠測は保持し、過去21Rとの差を第4の有効例へ合算しない。
 
 ## 切替・切り戻し
 
-正式切替は未実施。版/有効日の利用者確定後、採用済み運用改修と既合意次期仕様を、全Owner・README・AGENTS・DECISIONS・保存schema/監査・テンプレート・Phase文書・契約状態へ1commitで反映して再受入する。準備コード内のv1.7.0はPR69から継承した試験候補識別子であり、確定した次期版ではない。性能改訂は別の既存昇格基準を満たす必要がある。
+利用者は次期版v1.7.0、有効化をmainマージ後と指定した。全Owner・README・AGENTS・DECISIONS・監査・テンプレート・Phase・機械契約は同一commitで切り替える。合成受入は性能昇格・実レース・Windows/JRA-VAN接続を認証しない。
 
-切替commitのrevertで全入口/Owner/機械監査を同時に戻し、新規保存済みJSONと旧履歴は削除しない。本PRの取込みだけで第4が正常開始したと説明しない。Windows/JRA-VAN接続、未追加研究、前向き実測はそれぞれ既存計画/Phaseに残す。
+切替commitのrevertで全入口/Owner/監査を同時に戻し、新規保存済みJSONと旧履歴は削除しない。新しいサイクルを未実施のまま完了と表示しない。
 
 ## 追加受入：FIX参照・発走予定・相手情報の同一性
 
