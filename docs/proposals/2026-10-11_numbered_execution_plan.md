@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜17番完了、18番実施中（18-01完了・未検索29個体）、19〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜17番完了、18番実施中（18-01〜18-02完了・未検索24個体）、19〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -281,3 +281,12 @@ PR69成果commit `1f91dd4884b815ee55c6676dd67c719d1f472014`。162原票と全バ
 18-01のタマモクロスJP・ゴールドヘイローJP・デヒアUS・Pulpit US・Solon DEを、本人識別・実際の調教師所属/調教施設/厩舎沿革で確認。単一国一致で終了し、所属国の検索属性5revisionを唯一Writer/CASで追記。出所取得本文/抽出字段hash、検索語・取得成否、採否、旧cutoff不変、読戻しを保存。原HTML未保存を区別し、生産国/開催国/供用国/末尾国を所属根拠へ流用しない。利用者回答待ち0、未検索29を検索ゼロと扱わない。
 
 成果PR69 commit `20141cccc0afae31e4cff8f6a71b79bf1cee4dc5`。17変更ファイルの内容をGit blobで保存、Registry horsesおよびcountries treeの保存先/ローカル照合を実施。全5頭・キュー・抽出hash・5revision・CAS・旧時点・country selectorの独立照合PASS。通常CIはPR69の最新記録で確認する。**親18番は実施中、次は18-02：Banker's Gold（1994）、チチカステナンゴ（1998）、メイショウボーラー（2001）、キャプテントゥーレ（2005）、Harlington（2002）の最大5頭**。19〜53番は未実施。REPLAY_ONLY・現行v1.6.1・Draft/PENDINGを維持。
+
+
+### 18番 / 18-02：固定次5頭の確認（2026-10-12 JST）
+
+固定キューと18-01を保持し、Banker's Gold（1994）US、チチカステナンゴ（1998）FR、メイショウボーラー（2001）JP、キャプテントゥーレ（2005）JP、Harlington（2002）USを原資料から確認。本人の生年・父母・独立IDを照合し、調教師所属/調教施設で単一国一致した段階で終了。Banker's GoldはTDN 1997-04-03のBelmont調教コース・Allen Jerkens、HarlingtonはPalm Meadowsの本人調教記事/調教欄、チチカステナンゴは2001年Chantillyの本人厩舎記事を採用。調教師自身の過去Tunisia滞在・繁殖移動・生産国・開催国をこの馬の所属へ流用しない。
+
+Registry唯一Writer/CASで5revisionを追記。固定5対象・出所抽出hash・旧revision不変・過去cutoff・国selector・読戻しPASS。成果PR69 commit `fae64ab4169406787796df808d08c6d5045ea57b`、15ファイル。horses tree `80866ad97324826c23f310148b24a2acb2f2a7da` とcountries tree `c52f12c432b01e38e1abd47be513231fbfbe4700` がローカル/リモート一致。通常CIはPR69最新記録を参照。累計10/34確認、未検索24、利用者確認待ち0。
+
+**親18番は実施中。次は18-03：Holy Roman Emperor、Myboycharlie、コンデュイット、ラブリーデイ、Wootton Bassettの最大5頭。** 既存212個体のscopeと7バッチの子番号を維持、19以降・Stage切替・マージは未実施。REPLAY_ONLY・v1.6.1・Draft/PENDINGを維持する。
