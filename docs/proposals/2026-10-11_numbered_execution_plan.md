@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜26番完了、27〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-13 JST）: **1〜27番完了、28〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -458,3 +458,18 @@ PR78監査のsnapshot欠落についても、旧Markdown専用lookupとJSON対�
 最終成果commit `f2c7198338acad2542dc6b4cb357f5bdb6fc39b1`、互換最終修正3ファイルの内容/Git blob SHAをreadback一致。[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38250503321)はsuccess、全28ステップ・全343回帰成功。PR78実履歴監査、Registry・原票・全26集計snapshot・予想/推奨/保存・第3サイクル監査が通過。初回2種類の統合失敗と修正理由を受入JSONへ保持し、失敗を無かったことにしていない。
 
 **26番の全受入と統合検証完了。1〜26番完了、27〜53番未着手。次は27番。** 元の日次予想・receipt・過去の不適格判定を保持し、現行v1.6.1・Draft/PENDINGを維持。
+
+
+### 27番：用途・選定revisionの履歴検査と11日5BUY既存証跡監査完了（2026-10-13 JST）
+
+`scripts/selection_history.py` に未有効の `selection-history-v1` 読取専用検査を追加。発走前の追加選定なしのBUY、検証/正式仮想/実購入の用途混在、revision欠落・前hash不一致・古い選定参照、取消済plan再使用、直前planを参照しない変更/取消、発走時刻以降・逆行時刻、原本内容/hash不一致を拒否する。取消・変更イベントを保持し、原本・台帳を変更しない。履歴の連続性成功は `kpi_certified=false` とし、独立した発走前保存・正式KPIの認証へ代用しない。
+
+11日朝の購入候補0、最終5BUY/OFFICIAL_VIRTUAL、7券・50,000円→0円、旧Betting適格0・保留5・正式ROI nullを既存原本だけで照合。追加選定/目的移行revision未確認を保持し、発走前イベント生成0。参考精算と旧正式KPI、次期Recommendation KPI（旧サンプル非適用）を分離。元の課題R-20261011-06はOPENのまま。
+
+原本・receipt・10宣言・引継ぎの14ファイルを開始HEADのGit blob SHAでreadback照合。FIX元5commitの本文も確認し、4件は後続追記の区切り行のみ差分、1件はsection完全一致。元買い目本文は一致するが、生section hashの相違を成功へ置換しない。仕様 `docs/validation/selection-history.md`、受入・固定出所 `docs/validation/implementation/2026-10-11-task27.json` を保存。
+
+開始PR69 `f2c7198338acad2542dc6b4cb357f5bdb6fc39b1`、最新main `d164153c27431e0be901e042e359fecbc568994a`。既取込みmainから13commit・5ファイル（9/27記録、cycle台帳、性能checkerと関連回帰）の差分を記録。今回の変更は新規4ファイルだけで、main取込みは別に実施していない。通常CIは最新mainとの統合検証を含む。
+
+初回成果 `d51f9424298bc269404ecab1ede5b21465b97f0a`、セルフレビューで初回の前revision hashを明示null必須へ補強した最終成果 `11f4f339391be34bb6fbbc15edbd812e4b0641df`。変更4ファイルの内容readback一致。新規25回帰・関連51件成功。[最終通常CI](https://github.com/eda-hub/horse-man/actions/runs/38285665015) はsuccess、全28ステップ・372テスト成功。Registry、全26集計snapshot、旧履歴・PR78・保存・予想/推奨・第3サイクル監査も成功。
+
+**1〜27番完了、28〜53番未着手。次は28番（任意市場sidecarの価格状態分類の準備）。** 準備実装と旧実測欠測を区別し、現行v1.6.1・Draft/PENDINGを維持。
