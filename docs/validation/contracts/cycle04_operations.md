@@ -49,3 +49,11 @@ PR69の価格不要推奨生成・独立保存・結果照合を再利用する�
 正式切替は未実施。版/有効日の利用者確定後、採用済み運用改修と既合意次期仕様を、全Owner・README・AGENTS・DECISIONS・保存schema/監査・テンプレート・Phase文書・契約状態へ1commitで反映して再受入する。準備コード内のv1.7.0はPR69から継承した試験候補識別子であり、確定した次期版ではない。性能改訂は別の既存昇格基準を満たす必要がある。
 
 切替commitのrevertで全入口/Owner/機械監査を同時に戻し、新規保存済みJSONと旧履歴は削除しない。本PRの取込みだけで第4が正常開始したと説明しない。Windows/JRA-VAN接続、未追加研究、前向き実測はそれぞれ既存計画/Phaseに残す。
+
+## 追加受入：FIX参照・発走予定・相手情報の同一性
+
+FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先行保存・読戻しした `intent_ref` を保持する。日別operationsのintentと同一参照であることを検査し、宣言の保存先・deadline・日次branchも本体と照合する。単に同じsnapshot IDを記載した別宣言で代用しない。
+
+各レース行の `scheduled_post_time_jst` は開催日（JST）と一致し、適格gateの実発走予定と同じ時刻であることを必須とする。別日・別時刻のreceipt/gateで認証しない。
+
+近5走の `opponent_level` は `{status, value, source_ref, observed_at_jst}` の構造化属性にする。ACQUIREDにはcutoff以前の情報時点・出所・値が必要。MISSINGは値nullとreasonを保持し、入力充足へ含めない。近走の開催日が過去でも、その対戦相手の未来結果を現在の評価に利用しない。

@@ -100,7 +100,8 @@ class Cycle04Acceptance(unittest.TestCase):
         intent = json.loads((root / intent_path).read_text())
         i_ref = self.artifact('intent-final', intent_path, intent, at='09:39')
         manifest = {'schema_version': 'prediction-fix-manifest-v1', 'snapshot_id': pred['snapshot_id'],
-                    'artifact_path': ref['artifact_path'], 'fixed_content_sha256': fingerprint(raw)}
+                    'artifact_path': ref['artifact_path'], 'fixed_content_sha256': fingerprint(raw),
+                    'fixed_at_jst': pred['fixed_at_jst'], 'intent_ref': i_ref}
         fix_ref = self.artifact('fix', f'docs/validation/fix-manifests/{DATE}/p.json', manifest, at='09:56')
         data = self.input(tuple(x['horse_no'] for x in pred['probabilities']), gate['data_cutoff'])
         input_ref = self.artifact('inputs', 'inputs.json', data)
@@ -114,6 +115,7 @@ class Cycle04Acceptance(unittest.TestCase):
              'reviewed_scope': [], 'unfinished_reasons': {}, 'kpis': {},
              'races': {RACE: {'mode': 'FORWARD', 'prediction_gate_path':
                         f'docs/validation/execution-gates/{DATE}/{RACE}.json',
+                        'scheduled_post_time_jst': POST,
                         'recommendation_gate_path': rec_path, 'operations': operation,
                         'input_complete': False, 'input_gap_reason': '全頭馬体重/近走未取得',
                         'uncertainty_effect': '状態評価は未判定として明示', 'market': self.market()}}}
@@ -133,6 +135,70 @@ class Cycle04Acceptance(unittest.TestCase):
     def test_end_to_end_prediction_recommendation_input_gap_no_price(self):
         d, c = self.complete_day()
         self.assertEqual(self.day(d, c), d)
+
+    def test_fix_manifest_must_reference_the_same_intent_and_fixed_time(self):
+        for field, value in [('intent_ref', {}), ('fixed_at_jst', DATE+'T09:54:00+09:00')]:
+            d, c = self.complete_day()
+            op = d['races'][RACE]['operations']
+            manifest = json.loads((self.root/op['fix_ref']['artifact_path']).read_text())
+            manifest[field] = value
+            op['fix_ref'] = self.artifact('changed-fix', f'docs/validation/fix-manifests/{DATE}/changed.json',
+                                          manifest, at='09:56')
+            with self.subTest(field=field), self.assertRaisesRegex(ComplianceError, 'FIX manifest mismatch'):
+                self.day(d, c)
+
+    def test_intent_path_and_deadline_must_match_the_fixed_prediction(self):
+        for field, value in [('artifact_path', f'docs/validation/snapshots/{DATE}/another.json'),
+                             ('deadline_jst', DATE+'T10:11:00+09:00')]:
+            d, c = self.complete_day(); op = d['races'][RACE]['operations']
+            intent = json.loads((self.root/op['intent_ref']['artifact_path']).read_text())
+            intent[field] = value
+            op['intent_ref'] = self.artifact('changed-intent', f'intents/{field}.json', intent, at='09:39')
+            manifest = json.loads((self.root/op['fix_ref']['artifact_path']).read_text())
+            manifest['intent_ref'] = op['intent_ref']
+            op['fix_ref'] = self.artifact('new-fix', f'docs/validation/fix-manifests/{DATE}/new.json', manifest, at='09:56')
+            with self.subTest(field=field), self.assertRaisesRegex(ComplianceError, 'predeclaration scope/path/deadline'):
+                self.day(d, c)
+
+    def test_row_scheduled_post_cannot_differ_from_gate_or_race_day(self):
+        for value in (DATE+'T10:11:00+09:00', '2026-10-18T10:10:00+09:00'):
+            d, c = self.complete_day(); d['races'][RACE]['scheduled_post_time_jst'] = value
+            with self.subTest(value=value), self.assertRaisesRegex(ComplianceError, 'scheduled post'):
+                self.day(d, c)
+
+    def test_opponent_level_requires_information_available_by_cutoff(self):
+        d = self.input()
+        row = d['recent_five_runs'][0]
+        row.update(status='ACQUIRED', prior_start_count=1, provider='OFFICIAL', source_ref='official',
+                   observed_at_jst=DATE+'T09:00:00+09:00', acquired_at_jst=DATE+'T09:10:00+09:00',
+                   readback_at_jst=DATE+'T09:12:00+09:00', value=[{
+                       'race_at_jst': '2026-09-20T15:00:00+09:00', 'source_ref': 'official', 'class': '3歳限定',
+                       'opponent_level': {'status': 'ACQUIRED', 'value': '古馬OP相当', 'source_ref': 'official',
+                                          'observed_at_jst': DATE+'T11:00:00+09:00'}}])
+        with self.assertRaisesRegex(ComplianceError, 'opponent level uses future'):
+            self.inputs(d)
+        opponent = row['value'][0]['opponent_level']
+        opponent['observed_at_jst'] = DATE+'T09:00:00+09:00'
+        self.inputs(d)
+        opponent.pop('observed_at_jst')
+        with self.assertRaises(ComplianceError): self.inputs(d)
+
+    def test_acquired_runs_with_missing_opponent_level_are_not_complete(self):
+        d = self.input()
+        for field in ('body_weight', 'recent_five_runs'):
+            for row in d[field]:
+                row.update(status='ACQUIRED', provider='OFFICIAL', source_ref='official',
+                           observed_at_jst=DATE+'T09:00:00+09:00', acquired_at_jst=DATE+'T09:10:00+09:00',
+                           readback_at_jst=DATE+'T09:12:00+09:00')
+                if field == 'body_weight': row['value'] = 480
+                else:
+                    row['prior_start_count'] = 1
+                    row['value'] = [{'race_at_jst': '2026-09-20T15:00:00+09:00', 'source_ref': 'official',
+                                     'class': '混合1勝', 'opponent_level': {'status': 'MISSING', 'value': None,
+                                                                          'reason': '相手格未評価'}}]
+        result = self.inputs(d)
+        self.assertEqual(result['opponent_level_missing_horses'], sorted(d['horse_numbers']))
+        self.assertFalse(result['complete'])
 
     def test_missing_inputs_remain_unknown_not_zero(self):
         result = self.inputs(self.input())
@@ -175,7 +241,9 @@ class Cycle04Acceptance(unittest.TestCase):
                 observed_at_jst=DATE+'T09:00:00+09:00', acquired_at_jst=DATE+'T09:10:00+09:00',
                 readback_at_jst=DATE+'T09:12:00+09:00', value=[
                     {'race_at_jst': date+'T15:00:00+09:00', 'source_ref': 'official',
-                     'class': '3歳限定', 'opponent_level': '未評価を明示'} for date in ('2026-09-20','2026-08-10')])
+                     'class': '3歳限定', 'opponent_level': {'status': 'MISSING', 'value': None,
+                                                           'reason': '未評価を明示'}}
+                    for date in ('2026-09-20','2026-08-10')])
         self.inputs(d)
         d['recent_five_runs'][1]['value'].pop()
         with self.assertRaises(ComplianceError): self.inputs(d)

@@ -135,6 +135,11 @@ def validate_day(root, path, contract):
             all(isinstance(v, str) and v.strip() for v in missing.values()), 'all unfinal races require reasons')
     rows = d.get('races')
     require(isinstance(rows, dict) and set(rows) == initial, 'all initial races require a record')
+    for race, row in rows.items():
+        require(isinstance(row, dict), 'race record object required')
+        post = iso(row.get('scheduled_post_time_jst'), 'race scheduled post')
+        require(post.astimezone(iso(date + 'T00:00:00+09:00', 'race date').tzinfo).date().isoformat() == date,
+                'race scheduled post date mismatch')
     for race in reviewed:
         row = rows[race]
         ref = row.get('result_ref')
@@ -171,6 +176,8 @@ def validate_day(root, path, contract):
                 gate = validate_gate(root, gate_path)
                 require(gate['race_id'] == race and gate['race_date_jst'] == date,
                         'gate race mismatch')
+                require(iso(gate['scheduled_post_time_jst'], 'gate post') ==
+                        iso(row['scheduled_post_time_jst'], 'race post'), 'race/gate scheduled post mismatch')
                 if name == 'recommendation':
                     rec = verify_recommendation(root, safe_path(root, row.get('recommendation_gate_path')))
                     require(rec['race_id'] == race, 'recommendation race mismatch')
@@ -199,11 +206,17 @@ def validate_day(root, path, contract):
                 require(fix.get('schema_version') == 'prediction-fix-manifest-v1' and
                         fix.get('snapshot_id') == snapshot['snapshot_id'] and
                         fix.get('artifact_path') == op['prediction_ref']['artifact_path'] and
-                        fix.get('fixed_content_sha256') == op['prediction_ref']['sha256'],
+                        fix.get('fixed_content_sha256') == op['prediction_ref']['sha256'] and
+                        fix.get('fixed_at_jst') == snapshot.get('fixed_at_jst') and
+                        fix.get('intent_ref') == op.get('intent_ref'),
                         'independent FIX manifest mismatch')
                 require(intent.get('schema_version') == 'prediction-persistence-intent-v1' and
                         intent.get('snapshot_id') == snapshot['snapshot_id'] and
-                        intent.get('required_race_ids') == [race], 'predeclaration scope mismatch')
+                        intent.get('required_race_ids') == [race] and
+                        intent.get('artifact_path') == op['prediction_ref']['artifact_path'] and
+                        iso(intent.get('deadline_jst'), 'intent deadline') == iso(post, 'post') and
+                        intent.get('working_branch') == 'prediction/' + date,
+                        'predeclaration scope/path/deadline mismatch')
                 require(iso(intent_receipt['receipt_verified_at_jst'], 'intent readback') <=
                         iso(snapshot['fixed_at_jst'], 'FIX') <=
                         iso(fix_receipt['persist_verified_at_jst'], 'FIX hash save') <=

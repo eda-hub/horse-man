@@ -73,6 +73,7 @@ def validate_inputs(data, *, race_id, horses, cutoff, post):
     limit = iso(cutoff, 'cutoff')
     require(limit < iso(post, 'post'), 'input cutoff at/after post')
     result = {}
+    opponent_missing = set()
     for field in ('body_weight', 'recent_five_runs'):
         rows = data.get(field)
         require(isinstance(rows, list) and len(rows) == len(expected), field + ': all-horse rows required')
@@ -113,9 +114,23 @@ def validate_inputs(data, *, race_id, horses, cutoff, post):
                         'recent runs contain duplicate/future/out-of-order races')
                 require(all(r.get('source_ref') and r.get('class') and r.get('opponent_level')
                             for r in runs), 'recent runs require class/opponent evidence')
+                for run in runs:
+                    opponent = run['opponent_level']
+                    require(isinstance(opponent, dict) and opponent.get('status') in {'ACQUIRED', 'MISSING'},
+                            'opponent level requires explicit acquired/missing status')
+                    if opponent['status'] == 'MISSING':
+                        require(opponent.get('value') is None and opponent.get('reason'),
+                                'missing opponent level must remain null with reason')
+                        opponent_missing.add(row['horse_no'])
+                    else:
+                        require(opponent.get('value') is not None and opponent.get('source_ref') and
+                                iso(opponent.get('observed_at_jst'), 'opponent information time') <= limit,
+                                'opponent level uses future or unverified information')
         result[field] = {'target_count': len(expected), 'missing_horses': missing,
                          'acquired_count': sum(r['status'] == 'ACQUIRED' for r in rows)}
-    result['complete'] = not any(result[f]['missing_horses'] for f in ('body_weight', 'recent_five_runs'))
+    result['opponent_level_missing_horses'] = sorted(opponent_missing)
+    result['complete'] = (not any(result[f]['missing_horses'] for f in ('body_weight', 'recent_five_runs'))
+                          and not opponent_missing)
     return result
 
 
