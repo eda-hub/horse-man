@@ -1,0 +1,1117 @@
+{
+  "components_checked": 5,
+  "data_cutoff": "2026-10-12T08:10:07.467554+00:00",
+  "execution_number": 19,
+  "hypotheses_verified": 0,
+  "input_commit": "b6ea6f915e20d9362fc2a76e4324fe6ca7610b5c",
+  "matched": 5,
+  "mismatched": 0,
+  "next_subtask_id": "19-05",
+  "production_eligible": false,
+  "record_hash": "6fd34c45330faa6f55235d5b2590c808b8f53cf2f34e7cd2f7a984dabd6653df",
+  "registry_revisions_added": 0,
+  "remaining_components": 28,
+  "results": [
+    {
+      "actual": "ミッキーアイル",
+      "ancestor_position_proof": {},
+      "complete_5gen": true,
+      "component": "SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-06",
+      "expected": "ミッキーアイル",
+      "horse_key": "jbis-0001359461",
+      "horse_name": "ムイ",
+      "line_sha256": "66d1215948e2f40198abbad80b7df07a2cc2e7f2c4650655abbfda4bb88dedca",
+      "original_line": "| 6 | [ムイ](https://db.netkeiba.com/horse/ped/2022102408/) | ミッキーアイル | ルーラーシップ | あり | 近走ダート・短距離、今回条件に不安 |",
+      "paths": [
+        "S"
+      ],
+      "positions_available": 62,
+      "production_eligible": false,
+      "relationship_facts": [
+        {
+          "ancestor_identity_evidence": {
+            "record_key": "0001141719",
+            "source": "JBIS"
+          },
+          "content_hash": "d29a4df808be68613b5cc7cc507fcf4372292059e2202beaf5223741a33d55bc",
+          "field": "parent:S",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0001359461",
+          "identity_evidence": {
+            "raw_sha256": "8203ece64388c257929e57dfb754da93cc53ade547754278cbea4ff67acdad4f",
+            "record_key": "0001359461",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001359461/"
+          },
+          "revision_id": "rev-4b6bc38e26003b8d591aa0b4",
+          "source": {
+            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+            "origin_group": "JBIS",
+            "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+            "record_hash_kind": "response-body-sha256",
+            "record_key": "0001359461:S",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0001141719"
+        }
+      ],
+      "scope_note": "本人・父母経路・独立IDの事実照合。適性仮説や近走列は照合範囲外。",
+      "snapshot_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "snapshot_sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "source_line": 86,
+      "status": "MATCH"
+    },
+    {
+      "actual": "ルーラーシップ",
+      "ancestor_position_proof": {},
+      "complete_5gen": true,
+      "component": "DAM_SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-06",
+      "expected": "ルーラーシップ",
+      "horse_key": "jbis-0001359461",
+      "horse_name": "ムイ",
+      "line_sha256": "66d1215948e2f40198abbad80b7df07a2cc2e7f2c4650655abbfda4bb88dedca",
+      "original_line": "| 6 | [ムイ](https://db.netkeiba.com/horse/ped/2022102408/) | ミッキーアイル | ルーラーシップ | あり | 近走ダート・短距離、今回条件に不安 |",
+      "paths": [
+        "DS"
+      ],
+      "positions_available": 62,
+      "production_eligible": false,
+      "relationship_facts": [
+        {
+          "ancestor_identity_evidence": {
+            "ancestor_path": "D",
+            "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+            "record_key": "0001208757",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+          },
+          "content_hash": "687b273004edd9c8f6aa4add2ebf237cba10ddaeab557a3bc50e9f2d452f1d6d",
+          "field": "parent:D",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0001359461",
+          "identity_evidence": {
+            "raw_sha256": "8203ece64388c257929e57dfb754da93cc53ade547754278cbea4ff67acdad4f",
+            "record_key": "0001359461",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001359461/"
+          },
+          "revision_id": "rev-4c762b77bca9a0ac3431da80",
+          "source": {
+            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+            "origin_group": "JBIS",
+            "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+            "record_hash_kind": "response-body-sha256",
+            "record_key": "0001359461:D",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0001208757"
+        },
+        {
+          "ancestor_identity_evidence": {
+            "record_key": "0001042049",
+            "source": "JBIS"
+          },
+          "content_hash": "704badb11349421eb69a4773a175a88613fca9d8f1129e1b519b21c0df507c67",
+          "field": "parent:S",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0001208757",
+          "identity_evidence": {
+            "ancestor_path": "D",
+            "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+            "record_key": "0001208757",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+          },
+          "revision_id": "rev-e30123238f03b784ed7f201b",
+          "source": {
+            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+            "origin_group": "JBIS",
+            "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+            "record_hash_kind": "response-body-sha256",
+            "record_key": "0001359461:DS",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0001042049"
+        }
+      ],
+      "scope_note": "本人・父母経路・独立IDの事実照合。適性仮説や近走列は照合範囲外。",
+      "snapshot_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "snapshot_sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "source_line": 86,
+      "status": "MATCH"
+    },
+    {
+      "actual": "あり",
+      "ancestor_position_proof": {
+        "D": {
+          "content_hash": "687b273004edd9c8f6aa4add2ebf237cba10ddaeab557a3bc50e9f2d452f1d6d",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0001208757",
+          "identity_hash": "5f0f0fffbf4abcd758a7e74bd54285e3d122b5bdbc48e341ccfd6f8433d375dc",
+          "revision_id": "rev-4c762b77bca9a0ac3431da80",
+          "source_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979"
+        },
+        "DD": {
+          "content_hash": "ee2cfd3f13732dd978ea105843ae67428ed49d3f9d8e24573b7808f6f7630bed",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0001121981",
+          "identity_hash": "d4d7ea17558b31b9b5cb46439c9b07d2abfe0b0cb49e3d03e6af224c119430ed",
+          "revision_id": "rev-902bc8c734365d9a9ede97fe",
+          "source_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979"
+        },
+        "DDD": {
+          "content_hash": "c22dc6b63f797d3107a6ee66d27d91d2fdb01e0b021e7b311fb94538d8dd1e02",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0000701480",
+          "identity_hash": "ae79c5a93b8f17421964c6703e3e6efe304fb5f5fd650748152f606b62ff479a",
+          "revision_id": "rev-047789eac1b4322811e3697c",
+          "source_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979"
+        },
+        "DDDD": {
+          "content_hash": "c0b77ea3880952d189d73b83cc2f4474ee1c6fc37860c67f5484413242a223ee",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0000225110",
+          "identity_hash": "5f5a91b986157c8850577b60dcf3ee9b0c14b0176ffeeb309dd3c32724a58836",
+          "revision_id": "rev-29012ee76400e4ce70255785",
+          "source_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979"
+        },
+        "DDDDD": {
+          "content_hash": "acfb211e9710c9631c4d568021e50b22394a827c3177c1e4d7b1c914c1d0ef69",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0000115374",
+          "identity_hash": "6d1a83de6ac8b8dced6884fc9c86637bc94c8674cfeed8a05a5e867cf71c4d92",
+          "revision_id": "rev-70a9d15e95e3bf49d97c7292",
+          "source_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979"
+        },
+        "DDDDS": {
+          "content_hash": "516abb88c2cd3fd225d203000d439d75361f663cd13b392604b2cd0e75dde22b",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0000333707",
+          "identity_hash": "e89fa3bc6c96bc80ad63a4ac7737f78b787b0042ac33afc4c55fc956878a3530",
+          "revision_id": "rev-e5ae45c82a1956a2d8bd3bf0",
+          "source_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979"
+        },
+        "DDDS": {
+          "content_hash": "c9aa9686a77a4d4d4db1a4564b05d59194f24fb9d396cb9223b6e47437cf5258",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0000333862",
+          "identity_hash": "dfbb51d72c947232c08f6da2bcb7c6c6d995fe40a8b25b4dc3959782fe2d0608",
+          "revision_id": "rev-e1213e884078c2d3ba55d6c8",
+          "source_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979"
+        },
+        "DDDSD": {
+          "content_hash": "ce318e2ce5b7508863c72853c87dc6ead64db59a1146148653709783d44a9034",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000393162",
+          "identity_hash": "ccc790c5c9d70d4df1e9330276c9b23d4b120cd5baae4435113c784d3f9c4e68",
+          "revision_id": "rev-5c577a8b995870fca8800520",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "DDDSS": {
+          "content_hash": "73af8b6bf75ac82f6e2189d1b2c2f859449e9e8808599d7389d63830a72cb8b1",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000335154",
+          "identity_hash": "10537527f10f2ab26f23e2dd6316f433c5e2074f17ca7cde82fa1f2ffe7a1022",
+          "revision_id": "rev-2db97142f464383d09af8c7e",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "DDS": {
+          "content_hash": "e23459cbda8c0510671fcb4fd4ec3202b55d62da6d630b6cd0f60ce68e04812f",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0000299089",
+          "identity_hash": "7e8ce5d2c68640a71238a977512bbfe4802312caaf06148d448d651250730554",
+          "revision_id": "rev-ca5c78af9d3087fa4e23f2df",
+          "source_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979"
+        },
+        "DDSD": {
+          "content_hash": "2301b5f79812e157060d81e2ddbe58ab4ad9f9507216c09daeae9044474cd449",
+          "first_observed_at": "2026-10-09T12:16:41.514469+00:00",
+          "horse_key": "jbis-0000397140",
+          "identity_hash": "93aec04ab407f36a03250193a35235519164f5eaff214c0fa80d3899451aaf19",
+          "revision_id": "rev-bc668885606ac1eabd46d249",
+          "source_hash": "a9aa1a1699498461fc8f33690ccbf3c66500255d5220f9287ebe18a606f2b3ba"
+        },
+        "DDSDD": {
+          "content_hash": "a365feff29e9e45014de13b48d0cac6575d802a58a609553dae9ae19418e20da",
+          "first_observed_at": "2026-10-09T12:16:41.514469+00:00",
+          "horse_key": "jbis-0000411440",
+          "identity_hash": "80f181f429ec1e0893594fc7a957ba409040bfd11b663cab2987bb69f220862b",
+          "revision_id": "rev-87ee86505059ef79d950a2df",
+          "source_hash": "a9aa1a1699498461fc8f33690ccbf3c66500255d5220f9287ebe18a606f2b3ba"
+        },
+        "DDSDS": {
+          "content_hash": "a86d90b24ead5ff4266f29737538116bb1ea50dcd1d5484dbf62dc3960e7c731",
+          "first_observed_at": "2026-10-09T12:16:41.514469+00:00",
+          "horse_key": "jbis-0000336082",
+          "identity_hash": "cdc93f475bca1a62e0ba93fe0296b65327444980cf5205684f7807bae5e79f68",
+          "revision_id": "rev-c640c75f469e768e81cc7c98",
+          "source_hash": "a9aa1a1699498461fc8f33690ccbf3c66500255d5220f9287ebe18a606f2b3ba"
+        },
+        "DDSS": {
+          "content_hash": "3796707ef73e58fb549dce701511ef33be0a054007d54f3d215ad2e1c46765e9",
+          "first_observed_at": "2026-10-09T12:16:41.514469+00:00",
+          "horse_key": "jbis-0000336890",
+          "identity_hash": "56b671e4741cd784454840da8c14954cf05b5b815a531b8d6d6efa34dec1789d",
+          "revision_id": "rev-61c0088e3c0a5866a66e6748",
+          "source_hash": "a9aa1a1699498461fc8f33690ccbf3c66500255d5220f9287ebe18a606f2b3ba"
+        },
+        "DDSSD": {
+          "content_hash": "ea1d490ff0b551ee258084196d5ba9db2ed0b1a3fe9c343191a0076d2373d6c0",
+          "first_observed_at": "2026-10-09T12:16:41.514469+00:00",
+          "horse_key": "jbis-0000393146",
+          "identity_hash": "fd471b8e088e0832ffbe3dce5a207f454449859c1bec48d86e166b6daa7b9bf6",
+          "revision_id": "rev-a243f8d59e0267de54d5f17b",
+          "source_hash": "a9aa1a1699498461fc8f33690ccbf3c66500255d5220f9287ebe18a606f2b3ba"
+        },
+        "DDSSS": {
+          "content_hash": "bed1b8c6bdedf73560b148becc57a352ecf31fa94b1fe290393643ea87f992c7",
+          "first_observed_at": "2026-10-09T12:16:41.514469+00:00",
+          "horse_key": "jbis-0000335167",
+          "identity_hash": "2edab8e4dd923eb2edbf54572e54b420c22acee6754d5014ea7d1dca0e9fdaf6",
+          "revision_id": "rev-de8c52108e76f418fef1f21f",
+          "source_hash": "a9aa1a1699498461fc8f33690ccbf3c66500255d5220f9287ebe18a606f2b3ba"
+        },
+        "DS": {
+          "content_hash": "704badb11349421eb69a4773a175a88613fca9d8f1129e1b519b21c0df507c67",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0001042049",
+          "identity_hash": "eefd8359af362c1e40b30b444521b3d97b3a4cb573c84f53ed444d5426d17913",
+          "revision_id": "rev-e30123238f03b784ed7f201b",
+          "source_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979"
+        },
+        "DSD": {
+          "content_hash": "6827bf7f50ef4932652a38a8f088d5a6e7c163a0e190ca7a7a36a2d9a6174f84",
+          "first_observed_at": "2026-10-09T12:17:12.664149+00:00",
+          "horse_key": "jbis-0000274849",
+          "identity_hash": "b2096982b64fb11aca78bf235898af02bb8c291c489a55a317e60c2ae10fb419",
+          "revision_id": "rev-9e4c7665a1bd379eaf314c6a",
+          "source_hash": "652c59afac18f2ef3ce40a37c613a28ba621a8f161c822320c1808a96758f523"
+        },
+        "DSDD": {
+          "content_hash": "cd4003ce9fb42d0204ef6e289ee186252e6f35124fcad10042a1a6911f9b2d01",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000125485",
+          "identity_hash": "eb31c7c49a626cbabd8cf9832ba889df5e04b5b7e69e61f9bbee5c05bbe7e842",
+          "revision_id": "rev-2eee4b9b317ba10b5dd13ea9",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "DSDDD": {
+          "content_hash": "4f23ce1166ac92f3cc729d703be0bdefe2cb708cad4d5d1c7dc2bb5e101aa24e",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000062813",
+          "identity_hash": "e26ebfe4ecebcd83f5bd2365f631fefde4a05e1242d12b9d2e02f3f0e61697f8",
+          "revision_id": "rev-0885300d3e5f9d32e781d444",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "DSDDS": {
+          "content_hash": "e433c6064f01a4e02ccfe163603bca64c121c136c13dcbdc99e3a24b94530025",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000333544",
+          "identity_hash": "8267f79d9de341bb9b9693ca1fdfbbe7beeb7859880e6668a24a45be7ed84412",
+          "revision_id": "rev-aa88afb898f4ab7f772dba0d",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "DSDS": {
+          "content_hash": "28f83b85d54d3780d9b6530dade19b8f139a0bc5eebcc6455e652c3a29d1e006",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000161740",
+          "identity_hash": "11c583873ad30ba84484aebd7f8f45ed1247228fa8f46ebe2770508204d77955",
+          "revision_id": "rev-f356d7286a164850fe9bfd3a",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "DSDSD": {
+          "content_hash": "69bbb8747f453defc35e802cea7125dbaf0e789a3c18906c1188d9bd27618caf",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000391504",
+          "identity_hash": "ff00f7447b6ad6cf6d3491875f2cd6afe78cf4719d76fe6f1e0a351cf018b5fd",
+          "revision_id": "rev-37dbf1038008b7a04d2d7f84",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "DSDSS": {
+          "content_hash": "0cac6923eee3f7ce0f5e642508f7dd47ce6b4decee6e654392fe37c87f67f092",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000336378",
+          "identity_hash": "871a30723dc8cf89c8b39c22e577584d6d2b40d54ad14a284bda0d001dfe3b0d",
+          "revision_id": "rev-d372d71b06b1c450a86e618c",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "DSS": {
+          "content_hash": "48e7631b25396bcfbc7a7b8697caafccd95c6b105900bd298b62741ed8a6a0dc",
+          "first_observed_at": "2026-10-09T12:17:12.664149+00:00",
+          "horse_key": "jbis-0000729458",
+          "identity_hash": "77bbb874c54109bd8597e1bf721dddf08dd424216712532b0909881be1f6255f",
+          "revision_id": "rev-3a31af1b5420f17213a9edd0",
+          "source_hash": "652c59afac18f2ef3ce40a37c613a28ba621a8f161c822320c1808a96758f523"
+        },
+        "DSSD": {
+          "content_hash": "c4cce9e97e46e52b31e9c4882355f5e8fd2f74e3857bacf4bffe752a05ce8fab",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000440324",
+          "identity_hash": "75ecebe15a8fd6eb678a2e301a3cf8dad1ffd9fb94822edd4f7b5fb12eda5cde",
+          "revision_id": "rev-4459a2b0deaa69a95487a7a5",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "DSSDD": {
+          "content_hash": "4e3aa61e060a5e6004bc3a1d7938ea8758354e0149094febae52f81016c61c98",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000435166",
+          "identity_hash": "879159dbd10c122ea713ee775023638f341aaa9babbe0f812d4b8bb0c672e206",
+          "revision_id": "rev-c8f8071891e8ffa2b61bbc52",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "DSSDS": {
+          "content_hash": "6a4e4ff05be6efce4a4cc5568f03621520145249f786d09f9ebe0a61f0384612",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000337436",
+          "identity_hash": "ca45bcd5a5ac59f3732d1635d09ece84fd634998e431fa37545fa1715d742fae",
+          "revision_id": "rev-5e34796cfe1defe2e80d22f8",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "DSSS": {
+          "content_hash": "a89c38cacd72d557b2e2c0180c8a5e2091842b2fac37cb86fc7f92907eddd7b2",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000347989",
+          "identity_hash": "fbba7afa8818a9c5037f88d666dbfc82421a8d27ddbe389a96f5e1aea828c381",
+          "revision_id": "rev-a1e8f6073a31631daaba99a0",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "DSSSD": {
+          "content_hash": "f43e3d69e486433dc7fc4055881be641bffd2a54b852dfb4501ab8ff9c9ef176",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000411358",
+          "identity_hash": "542ef59e89997c17398bd6cb23c04ce20c19f1166284cd69bdaeb0fa5a898910",
+          "revision_id": "rev-3a93d422429e5e292ea1efe2",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "DSSSS": {
+          "content_hash": "53f579f45c76148c6dc6901d321d341fd3e83f25457347e8c3e1fd7ec6499349",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000335975",
+          "identity_hash": "d393d469c573fee54b3d84c094ee3a4654c1ec890fa81201d035ac04c97f4659",
+          "revision_id": "rev-4cd6ec5a2a640c335a7c386e",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "S": {
+          "content_hash": "d29a4df808be68613b5cc7cc507fcf4372292059e2202beaf5223741a33d55bc",
+          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+          "horse_key": "jbis-0001141719",
+          "identity_hash": "7ba20f642cd6b381389162a79b6de02aaf197f265a25342a9dbb86183d27b6d3",
+          "revision_id": "rev-4b6bc38e26003b8d591aa0b4",
+          "source_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979"
+        },
+        "SD": {
+          "content_hash": "38c3a4d5f8efa7a3a819127b7dbb0065fe5c5fdda40b45846565e0e1dd79b719",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000899522",
+          "identity_hash": "a4878423410223c12bded613f748c78163673ed12c56ce648d1810298f322380",
+          "revision_id": "rev-53caef8293e6793f6476bf85",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDD": {
+          "content_hash": "d65f6989d2f350576aa159a4a9e8dbbbd54802506d00a46eeaf5cbc8448a0fe1",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000444253",
+          "identity_hash": "97ff5b6768fc0ad59a3865fd60f1cd1fd8dd8be0c30680304a4320f6eff33640",
+          "revision_id": "rev-b85ad6c75695f996e2b006a2",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDDD": {
+          "content_hash": "419c8d17ad03b7707ad4582f7ee1e5fe15787d91f048482fb1cdf40b948d5718",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000408749",
+          "identity_hash": "3012ba8d830f1e3ebabaddcc0153701665f18fbef8bf34710b1328cd7683c186",
+          "revision_id": "rev-14c4cc4877e75c46d7c12dfe",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDDDD": {
+          "content_hash": "835c9ab1f120282c95289d9f721ca4423bcc7d820f3dfe543494a8663a5c9f5e",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000408271",
+          "identity_hash": "dec026fa9064696e1b41d7c9694ad7dfb43a5cac880f1460a485c45c09a7cd8a",
+          "revision_id": "rev-879a9d8b495f0a55a37c7f10",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDDDS": {
+          "content_hash": "241f5f9d8353d35ef14262175404f3b0fe5af57579f584e90e55f347fc42891e",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000336305",
+          "identity_hash": "2ec14e30a15be9060f3a044c8309f995912b257ba35e9c9cea45148c04853017",
+          "revision_id": "rev-db4a4c80f613593afee0cc4e",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDDS": {
+          "content_hash": "e531c7589852824021026cc17f4af47088d7b4de61a7084d053ac3a8497f6b88",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000336085",
+          "identity_hash": "e8c3fcfd9a049f9c66059be1e647091fcd5a937d0a170f97af46dbaea59f22b5",
+          "revision_id": "rev-bc2e22746b3ec87b2b3f4a31",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDDSD": {
+          "content_hash": "c2bf49fcf3f6b1b266f78fe3d8fec212737cbc41049746a403352b5f71b554a8",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000390581",
+          "identity_hash": "e04b68854c297f4da078752e4075be852e6e6b3ea1296b6f5656f490761235f4",
+          "revision_id": "rev-81d7430d7eb97c12a45a1bd4",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SDDSS": {
+          "content_hash": "b824c1f4133776c43f04719c23c6265fdc752722e3f824651faa8b28320271ae",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000334002",
+          "identity_hash": "fd44d904073176a33dad796e72b055edc81ac7cb206fa316e1adebd889cd0d66",
+          "revision_id": "rev-9795de6e4492e6ec9e18e99c",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SDS": {
+          "content_hash": "0ee143f29b697368096fd18c3171e248c04df299f4965427aca310beca71705b",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000714421",
+          "identity_hash": "fc1c8f5da52bc39f0d64c747308ec44d5d5a91b845a2a1bafeb32849ad48e116",
+          "revision_id": "rev-3b3f78cf9498d6cb225d9d90",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDSD": {
+          "content_hash": "dded72b7228826d5ae4c9078d420361c38cd1a31155e529593fa716379de7a4a",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000426859",
+          "identity_hash": "615017bbba602bc23fa52a5be378180e0661f608f5b86538db614ee0fdfcabe2",
+          "revision_id": "rev-4dd171b14ac0e7852c96b288",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDSDD": {
+          "content_hash": "6e927807da2f99fbbf9556f33e72abf4633085d5c2eec2231227aff04bc11f7c",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000421552",
+          "identity_hash": "152ac59c89466f8bbdb7e29b73c6948c58dbd61bb7fd7c1d2b2e56cd4c56238d",
+          "revision_id": "rev-9efc7b3fbe379682cfc6bfd3",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDSDS": {
+          "content_hash": "5e6eb420600aca376ca39c929839469fdb48426b582d4dbe26f1a0e90d8352ad",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000335936",
+          "identity_hash": "6acc15e8472c58373e0f37620be796c659e5456913c1b8fcd8d39517dd963f1b",
+          "revision_id": "rev-02c1584771a29836e1def7e0",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDSS": {
+          "content_hash": "b7c77a6fdb7b345a5caccf7814b6bd4746f7d056f145fbcacbf86a8821e09659",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000337424",
+          "identity_hash": "67c384d001a86ecbaf649e55bd012fa760ed54f2a6ceb5dd0c0ce02b9674e203",
+          "revision_id": "rev-9ab0e27d06a77739b75ed0eb",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDSSD": {
+          "content_hash": "2828cb63521e0fc2713aa8d95e3cfaa0b45d57b59731d9ed94a895a9e3f15e59",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000394662",
+          "identity_hash": "06b75baceed1896d7ab5e3aba85272fbcd4a2c0c0a2f31506cad9186cfd74b93",
+          "revision_id": "rev-6a456fcddc9ee1621d6e7490",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SDSSS": {
+          "content_hash": "6c813b882bf3c4a72076c53434ea5267821a3363537c2ef034ad22695cca5508",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000336082",
+          "identity_hash": "cdc93f475bca1a62e0ba93fe0296b65327444980cf5205684f7807bae5e79f68",
+          "revision_id": "rev-35cb44c5f58f474456c4f06c",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SS": {
+          "content_hash": "468b684a2af148439677a68873a5341b2290e21b1232342bfe2a9689d3e19285",
+          "first_observed_at": "2026-10-09T12:16:24.864872+00:00",
+          "horse_key": "jbis-0000742976",
+          "identity_hash": "1f6f9237da3dda98ab34e4d7ce100a59917d5bead04602fd77b2c0a465693035",
+          "revision_id": "rev-26af25c37df2b19ba65f94cf",
+          "source_hash": "be6df6eff530af8f39017fe690b88c591a17a655bbacca6c181b632c952fc43f"
+        },
+        "SSD": {
+          "content_hash": "21dabbc89a70d25669ed3f7b87faa03561a3cb7bc4f14c11e1c15fc2be284cb9",
+          "first_observed_at": "2026-10-09T12:16:08.033718+00:00",
+          "horse_key": "jbis-0000430846",
+          "identity_hash": "6186fd61b616e749bd7a86f63efa7defd3bdbd663f5344a807edb592b97895b5",
+          "revision_id": "rev-0ad696789a8269ad97db35e1",
+          "source_hash": "688856fcff62405fa8077f845d35e232a10b569a62acf73193c25295736fcaf0"
+        },
+        "SSDD": {
+          "content_hash": "f27a73c06fdd603541aaab8aa5c53208ee1724446e8a5a80f05e29a3dfbad2e4",
+          "first_observed_at": "2026-10-09T12:16:08.033718+00:00",
+          "horse_key": "jbis-0000394655",
+          "identity_hash": "1d94e66bea9b5adf0c16e0026afae41b3029db9abdbeeb6a7af5a45328ffff2a",
+          "revision_id": "rev-98f04f71f08356092eff9e65",
+          "source_hash": "688856fcff62405fa8077f845d35e232a10b569a62acf73193c25295736fcaf0"
+        },
+        "SSDDD": {
+          "content_hash": "5443a980b6756d73b44b1518eb3886e2528238ef9678f684aed60be3e68e2ad6",
+          "first_observed_at": "2026-10-09T12:16:08.033718+00:00",
+          "horse_key": "jbis-0000390924",
+          "identity_hash": "cc5b1149e14e1d18bb67053811ac99e9a45b46a0cee2b00c427ca3d9cd4be2e2",
+          "revision_id": "rev-848b7f5a02548ba5283bb2a0",
+          "source_hash": "688856fcff62405fa8077f845d35e232a10b569a62acf73193c25295736fcaf0"
+        },
+        "SSDDS": {
+          "content_hash": "2ad8ea832f10e565df1a58dc08d4de5c32c63f313473131410779bf7430c3d48",
+          "first_observed_at": "2026-10-09T12:16:08.033718+00:00",
+          "horse_key": "jbis-0000334011",
+          "identity_hash": "48980af445beb0994da0d9ce565c9c09a022ce5de448d2278d8bc3a0fdb5f3c5",
+          "revision_id": "rev-321c543023328efa69817876",
+          "source_hash": "688856fcff62405fa8077f845d35e232a10b569a62acf73193c25295736fcaf0"
+        },
+        "SSDS": {
+          "content_hash": "8652a0764aee2e8be6362c6bd93104b9f38acc7f83a289732bbda017fb5fa943",
+          "first_observed_at": "2026-10-09T12:16:08.033718+00:00",
+          "horse_key": "jbis-0000339659",
+          "identity_hash": "122f427f656796a3f9e2f59f5179e37eb3d7f0a323df6d2177f05195e21c631b",
+          "revision_id": "rev-876e48ba2bcc2fb8a0d731ab",
+          "source_hash": "688856fcff62405fa8077f845d35e232a10b569a62acf73193c25295736fcaf0"
+        },
+        "SSDSD": {
+          "content_hash": "ce03b0737946fb7f076060c53fe031481ed076f337d9c173bb5f95edb41d03db",
+          "first_observed_at": "2026-10-09T12:16:08.033718+00:00",
+          "horse_key": "jbis-0000394467",
+          "identity_hash": "5a08c10b5260c6e1e77aef58e5796a43a079a02236c21452ffabf990bf322645",
+          "revision_id": "rev-fe71e39447f6e017bf89a571",
+          "source_hash": "688856fcff62405fa8077f845d35e232a10b569a62acf73193c25295736fcaf0"
+        },
+        "SSDSS": {
+          "content_hash": "f98fa2ca5ff54cea4bf08e43bc4fed43cee3b735d35afdfaa148e532a6297e85",
+          "first_observed_at": "2026-10-09T12:16:08.033718+00:00",
+          "horse_key": "jbis-0000334968",
+          "identity_hash": "66d7815b1c48faa17bb4ea18436a60052136cfb9928c54368b68a3de6271291a",
+          "revision_id": "rev-e996682df0a9da50da261b08",
+          "source_hash": "688856fcff62405fa8077f845d35e232a10b569a62acf73193c25295736fcaf0"
+        },
+        "SSS": {
+          "content_hash": "37d8d758cd5784d8bdf7d082b7641e059a80ff93551bc048215c1af58471077f",
+          "first_observed_at": "2026-10-09T12:16:08.033718+00:00",
+          "horse_key": "jbis-0000333862",
+          "identity_hash": "dfbb51d72c947232c08f6da2bcb7c6c6d995fe40a8b25b4dc3959782fe2d0608",
+          "revision_id": "rev-dcf8792a443904c7511ed884",
+          "source_hash": "688856fcff62405fa8077f845d35e232a10b569a62acf73193c25295736fcaf0"
+        },
+        "SSSD": {
+          "content_hash": "ce318e2ce5b7508863c72853c87dc6ead64db59a1146148653709783d44a9034",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000393162",
+          "identity_hash": "ccc790c5c9d70d4df1e9330276c9b23d4b120cd5baae4435113c784d3f9c4e68",
+          "revision_id": "rev-5c577a8b995870fca8800520",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SSSDD": {
+          "content_hash": "16b45bb9abd18f4f8dc10eccf45e537e31af12f661dc5abfb1da0593b169001d",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000393161",
+          "identity_hash": "043542a024cecdc9f2a00916fd68ac8dc16ca5d296d25c1c27eb87cbada14e0a",
+          "revision_id": "rev-836f2a0cf990b2955825d157",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SSSDS": {
+          "content_hash": "392cea16b17d9895dc85ba12a61120f2ae72e329a8e6070ca59732bb691dc415",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000336892",
+          "identity_hash": "c4b235435a99221268fbf87a4693ea869e8116dbf7025dd02231b1e464c8ae73",
+          "revision_id": "rev-33b808c27190bd1dd6973378",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SSSS": {
+          "content_hash": "73af8b6bf75ac82f6e2189d1b2c2f859449e9e8808599d7389d63830a72cb8b1",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000335154",
+          "identity_hash": "10537527f10f2ab26f23e2dd6316f433c5e2074f17ca7cde82fa1f2ffe7a1022",
+          "revision_id": "rev-2db97142f464383d09af8c7e",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SSSSD": {
+          "content_hash": "1e351e72053b4a447c31bffc6a13ee3973a8500fc1a04f9291c4941b9d42a3f4",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000387273",
+          "identity_hash": "542ee67d09f184f98dc52bd5b25dd51dfec71e919795b72ba56771cbd6ffa389",
+          "revision_id": "rev-5476cda0d0ee1670b76cd487",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SSSSS": {
+          "content_hash": "8822e03aa10bb1a463493717ac992c990c980ac9d3320454502021ee46587841",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000334286",
+          "identity_hash": "3322a81567d8502d1ed52e3a8caa27cbf83f90710ae5a32d568c914de48bec54",
+          "revision_id": "rev-76583f9e3f5c03cc4b2eaa31",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        }
+      },
+      "complete_5gen": true,
+      "component": "ROBERTO_WITHIN_5GEN",
+      "entry_id": "2026-10-11-TOKYO-11-06",
+      "expected": "あり",
+      "horse_key": "jbis-0001359461",
+      "horse_name": "ムイ",
+      "line_sha256": "66d1215948e2f40198abbad80b7df07a2cc2e7f2c4650655abbfda4bb88dedca",
+      "original_line": "| 6 | [ムイ](https://db.netkeiba.com/horse/ped/2022102408/) | ミッキーアイル | ルーラーシップ | あり | 近走ダート・短距離、今回条件に不安 |",
+      "paths": [
+        "DDSSS"
+      ],
+      "positions_available": 62,
+      "production_eligible": false,
+      "relationship_facts": [
+        {
+          "ancestor_identity_evidence": {
+            "record_key": "0000335167",
+            "source": "JBIS"
+          },
+          "content_hash": "bed1b8c6bdedf73560b148becc57a352ecf31fa94b1fe290393643ea87f992c7",
+          "dependencies": [
+            {
+              "ancestor_identity_evidence": {
+                "record_key": "0000336890",
+                "source": "JBIS"
+              },
+              "content_hash": "3796707ef73e58fb549dce701511ef33be0a054007d54f3d215ad2e1c46765e9",
+              "dependencies": [
+                {
+                  "ancestor_identity_evidence": {
+                    "record_key": "0000299089",
+                    "source": "JBIS"
+                  },
+                  "content_hash": "e23459cbda8c0510671fcb4fd4ec3202b55d62da6d630b6cd0f60ce68e04812f",
+                  "dependencies": [
+                    {
+                      "ancestor_identity_evidence": {
+                        "ancestor_path": "DD",
+                        "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                        "record_key": "0001121981",
+                        "source": "JBIS",
+                        "source_url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                      },
+                      "content_hash": "ee2cfd3f13732dd978ea105843ae67428ed49d3f9d8e24573b7808f6f7630bed",
+                      "dependencies": [
+                        {
+                          "ancestor_identity_evidence": {
+                            "ancestor_path": "D",
+                            "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                            "record_key": "0001208757",
+                            "source": "JBIS",
+                            "source_url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                          },
+                          "content_hash": "687b273004edd9c8f6aa4add2ebf237cba10ddaeab557a3bc50e9f2d452f1d6d",
+                          "field": "parent:D",
+                          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+                          "horse_key": "jbis-0001359461",
+                          "identity_evidence": {
+                            "raw_sha256": "8203ece64388c257929e57dfb754da93cc53ade547754278cbea4ff67acdad4f",
+                            "record_key": "0001359461",
+                            "source": "JBIS",
+                            "source_url": "https://www.jbis.or.jp/horse/0001359461/"
+                          },
+                          "revision_id": "rev-4c762b77bca9a0ac3431da80",
+                          "source": {
+                            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+                            "origin_group": "JBIS",
+                            "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                            "record_hash_kind": "response-body-sha256",
+                            "record_key": "0001359461:D",
+                            "source_class": "BREEDING_DB",
+                            "url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                          },
+                          "status": "VERIFIED",
+                          "value": "jbis-0001208757"
+                        },
+                        {
+                          "ancestor_identity_evidence": {
+                            "ancestor_path": "DD",
+                            "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                            "record_key": "0001121981",
+                            "source": "JBIS",
+                            "source_url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                          },
+                          "content_hash": "ee2cfd3f13732dd978ea105843ae67428ed49d3f9d8e24573b7808f6f7630bed",
+                          "field": "parent:D",
+                          "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+                          "horse_key": "jbis-0001208757",
+                          "identity_evidence": {
+                            "ancestor_path": "D",
+                            "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                            "record_key": "0001208757",
+                            "source": "JBIS",
+                            "source_url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                          },
+                          "revision_id": "rev-902bc8c734365d9a9ede97fe",
+                          "source": {
+                            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+                            "origin_group": "JBIS",
+                            "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                            "record_hash_kind": "response-body-sha256",
+                            "record_key": "0001359461:DD",
+                            "source_class": "BREEDING_DB",
+                            "url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                          },
+                          "status": "VERIFIED",
+                          "value": "jbis-0001121981"
+                        }
+                      ],
+                      "field": "parent:D",
+                      "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+                      "horse_key": "jbis-0001208757",
+                      "identity_evidence": {
+                        "ancestor_path": "D",
+                        "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                        "record_key": "0001208757",
+                        "source": "JBIS",
+                        "source_url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                      },
+                      "revision_id": "rev-902bc8c734365d9a9ede97fe",
+                      "source": {
+                        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+                        "origin_group": "JBIS",
+                        "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                        "record_hash_kind": "response-body-sha256",
+                        "record_key": "0001359461:DD",
+                        "source_class": "BREEDING_DB",
+                        "url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                      },
+                      "status": "VERIFIED",
+                      "value": "jbis-0001121981"
+                    },
+                    {
+                      "ancestor_identity_evidence": {
+                        "record_key": "0000299089",
+                        "source": "JBIS"
+                      },
+                      "content_hash": "e23459cbda8c0510671fcb4fd4ec3202b55d62da6d630b6cd0f60ce68e04812f",
+                      "field": "parent:S",
+                      "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+                      "horse_key": "jbis-0001121981",
+                      "identity_evidence": {
+                        "ancestor_path": "DD",
+                        "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                        "record_key": "0001121981",
+                        "source": "JBIS",
+                        "source_url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                      },
+                      "revision_id": "rev-ca5c78af9d3087fa4e23f2df",
+                      "source": {
+                        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+                        "origin_group": "JBIS",
+                        "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                        "record_hash_kind": "response-body-sha256",
+                        "record_key": "0001359461:DDS",
+                        "source_class": "BREEDING_DB",
+                        "url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                      },
+                      "status": "VERIFIED",
+                      "value": "jbis-0000299089"
+                    }
+                  ],
+                  "field": "parent:S",
+                  "first_observed_at": "2026-10-12T06:24:04.630995+00:00",
+                  "horse_key": "jbis-0001121981",
+                  "identity_evidence": {
+                    "ancestor_path": "DD",
+                    "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                    "record_key": "0001121981",
+                    "source": "JBIS",
+                    "source_url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                  },
+                  "revision_id": "rev-ca5c78af9d3087fa4e23f2df",
+                  "source": {
+                    "acquisition_method": "original-pedigree-explicit-id-parent-path",
+                    "origin_group": "JBIS",
+                    "record_hash": "9caa81a1f2c22f015242382ad9cee76ed281ec21db3e45163160780701271979",
+                    "record_hash_kind": "response-body-sha256",
+                    "record_key": "0001359461:DDS",
+                    "source_class": "BREEDING_DB",
+                    "url": "https://www.jbis.or.jp/horse/0001359461/pedigree/"
+                  },
+                  "status": "VERIFIED",
+                  "value": "jbis-0000299089"
+                },
+                {
+                  "ancestor_identity_evidence": {
+                    "record_key": "0000336890",
+                    "source": "JBIS"
+                  },
+                  "content_hash": "3796707ef73e58fb549dce701511ef33be0a054007d54f3d215ad2e1c46765e9",
+                  "field": "parent:S",
+                  "first_observed_at": "2026-10-09T12:16:41.514469+00:00",
+                  "horse_key": "jbis-0000299089",
+                  "identity_evidence": {
+                    "record_key": "0000299089",
+                    "source": "JBIS"
+                  },
+                  "revision_id": "rev-61c0088e3c0a5866a66e6748",
+                  "source": {
+                    "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+                    "origin_group": "JBIS",
+                    "record_hash": "a9aa1a1699498461fc8f33690ccbf3c66500255d5220f9287ebe18a606f2b3ba",
+                    "record_key": "0001232540",
+                    "source_class": "BREEDING_DB",
+                    "url": "https://www.jbis.or.jp/horse/0001232540/pedigree/"
+                  },
+                  "status": "VERIFIED",
+                  "value": "jbis-0000336890"
+                }
+              ],
+              "field": "parent:S",
+              "first_observed_at": "2026-10-09T12:16:41.514469+00:00",
+              "horse_key": "jbis-0000299089",
+              "identity_evidence": {
+                "record_key": "0000299089",
+                "source": "JBIS"
+              },
+              "revision_id": "rev-61c0088e3c0a5866a66e6748",
+              "source": {
+                "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+                "origin_group": "JBIS",
+                "record_hash": "a9aa1a1699498461fc8f33690ccbf3c66500255d5220f9287ebe18a606f2b3ba",
+                "record_key": "0001232540",
+                "source_class": "BREEDING_DB",
+                "url": "https://www.jbis.or.jp/horse/0001232540/pedigree/"
+              },
+              "status": "VERIFIED",
+              "value": "jbis-0000336890"
+            },
+            {
+              "ancestor_identity_evidence": {
+                "record_key": "0000335167",
+                "source": "JBIS"
+              },
+              "content_hash": "bed1b8c6bdedf73560b148becc57a352ecf31fa94b1fe290393643ea87f992c7",
+              "field": "parent:S",
+              "first_observed_at": "2026-10-09T12:16:41.514469+00:00",
+              "horse_key": "jbis-0000336890",
+              "identity_evidence": {
+                "record_key": "0000336890",
+                "source": "JBIS"
+              },
+              "revision_id": "rev-de8c52108e76f418fef1f21f",
+              "source": {
+                "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+                "origin_group": "JBIS",
+                "record_hash": "a9aa1a1699498461fc8f33690ccbf3c66500255d5220f9287ebe18a606f2b3ba",
+                "record_key": "0001232540",
+                "source_class": "BREEDING_DB",
+                "url": "https://www.jbis.or.jp/horse/0001232540/pedigree/"
+              },
+              "status": "VERIFIED",
+              "value": "jbis-0000335167"
+            }
+          ],
+          "field": "parent:S",
+          "first_observed_at": "2026-10-09T12:16:41.514469+00:00",
+          "horse_key": "jbis-0000336890",
+          "identity_evidence": {
+            "record_key": "0000336890",
+            "source": "JBIS"
+          },
+          "revision_id": "rev-de8c52108e76f418fef1f21f",
+          "source": {
+            "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+            "origin_group": "JBIS",
+            "record_hash": "a9aa1a1699498461fc8f33690ccbf3c66500255d5220f9287ebe18a606f2b3ba",
+            "record_key": "0001232540",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001232540/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0000335167"
+        }
+      ],
+      "scope_note": "本人・父母経路・独立IDの事実照合。適性仮説や近走列は照合範囲外。",
+      "snapshot_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "snapshot_sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "source_line": 86,
+      "status": "MATCH"
+    },
+    {
+      "actual": "キズナ",
+      "ancestor_position_proof": {},
+      "complete_5gen": true,
+      "component": "SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-07",
+      "expected": "キズナ",
+      "horse_key": "jbis-0001332925",
+      "horse_name": "ミラビリスマジック",
+      "line_sha256": "22d54d316c11b7d9987b1bf026b2bc7b54a6be602149e6518df0cc8c3db26d5f",
+      "original_line": "| 7 | [ミラビリスマジック](https://db.netkeiba.com/horse/ped/2021105105/) | キズナ | シンボリクリスエス | あり | 母父経由でRoberto、近走比較は限定的 |",
+      "paths": [
+        "S"
+      ],
+      "positions_available": 62,
+      "production_eligible": false,
+      "relationship_facts": [
+        {
+          "ancestor_identity_evidence": {
+            "record_key": "0001120570",
+            "source": "JBIS"
+          },
+          "content_hash": "d7baa82db34bfc2f503a6a2c08786779963cb078eb8d127fbd3514beb7c29813",
+          "field": "parent:S",
+          "first_observed_at": "2026-10-12T06:24:03.749707+00:00",
+          "horse_key": "jbis-0001332925",
+          "identity_evidence": {
+            "raw_sha256": "9ef4f59fa0ad9df739f8ac0fe080769c67ccb4d02302b839fc4d32f3f1b615c9",
+            "record_key": "0001332925",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001332925/"
+          },
+          "revision_id": "rev-614a8618ce27fdfed5f6ee36",
+          "source": {
+            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+            "origin_group": "JBIS",
+            "record_hash": "cb573e8225460b215293eeb52b41bf5b2a16fc464e472fc265d78365f0a24ffe",
+            "record_hash_kind": "response-body-sha256",
+            "record_key": "0001332925:S",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001332925/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0001120570"
+        }
+      ],
+      "scope_note": "本人・父母経路・独立IDの事実照合。適性仮説や近走列は照合範囲外。",
+      "snapshot_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "snapshot_sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "source_line": 87,
+      "status": "MATCH"
+    },
+    {
+      "actual": "シンボリクリスエス",
+      "ancestor_position_proof": {},
+      "complete_5gen": true,
+      "component": "DAM_SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-07",
+      "expected": "シンボリクリスエス",
+      "horse_key": "jbis-0001332925",
+      "horse_name": "ミラビリスマジック",
+      "line_sha256": "22d54d316c11b7d9987b1bf026b2bc7b54a6be602149e6518df0cc8c3db26d5f",
+      "original_line": "| 7 | [ミラビリスマジック](https://db.netkeiba.com/horse/ped/2021105105/) | キズナ | シンボリクリスエス | あり | 母父経由でRoberto、近走比較は限定的 |",
+      "paths": [
+        "DS"
+      ],
+      "positions_available": 62,
+      "production_eligible": false,
+      "relationship_facts": [
+        {
+          "ancestor_identity_evidence": {
+            "ancestor_path": "D",
+            "record_hash": "cb573e8225460b215293eeb52b41bf5b2a16fc464e472fc265d78365f0a24ffe",
+            "record_key": "0000890077",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001332925/pedigree/"
+          },
+          "content_hash": "45bf2d44782582128335f20a24a12e860c23ed4d3a8247ca09f73d1b2164b0ba",
+          "field": "parent:D",
+          "first_observed_at": "2026-10-12T06:24:03.749707+00:00",
+          "horse_key": "jbis-0001332925",
+          "identity_evidence": {
+            "raw_sha256": "9ef4f59fa0ad9df739f8ac0fe080769c67ccb4d02302b839fc4d32f3f1b615c9",
+            "record_key": "0001332925",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001332925/"
+          },
+          "revision_id": "rev-25064e2dbf727d0d57d257ab",
+          "source": {
+            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+            "origin_group": "JBIS",
+            "record_hash": "cb573e8225460b215293eeb52b41bf5b2a16fc464e472fc265d78365f0a24ffe",
+            "record_hash_kind": "response-body-sha256",
+            "record_key": "0001332925:D",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001332925/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0000890077"
+        },
+        {
+          "ancestor_identity_evidence": {
+            "record_key": "0000700008",
+            "source": "JBIS"
+          },
+          "content_hash": "aaae4bc76805d82fd217a5b51df9aa6e3b84613313c0162abadf7246bba4cb64",
+          "field": "parent:S",
+          "first_observed_at": "2026-10-12T06:24:03.749707+00:00",
+          "horse_key": "jbis-0000890077",
+          "identity_evidence": {
+            "ancestor_path": "D",
+            "record_hash": "cb573e8225460b215293eeb52b41bf5b2a16fc464e472fc265d78365f0a24ffe",
+            "record_key": "0000890077",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001332925/pedigree/"
+          },
+          "revision_id": "rev-19bb2244b6d198ef861eaae6",
+          "source": {
+            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+            "origin_group": "JBIS",
+            "record_hash": "cb573e8225460b215293eeb52b41bf5b2a16fc464e472fc265d78365f0a24ffe",
+            "record_hash_kind": "response-body-sha256",
+            "record_key": "0001332925:DS",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001332925/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0000700008"
+        }
+      ],
+      "scope_note": "本人・父母経路・独立IDの事実照合。適性仮説や近走列は照合範囲外。",
+      "snapshot_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "snapshot_sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "source_line": 87,
+      "status": "MATCH"
+    }
+  ],
+  "schema_version": "oct11-note-component-batch-v1",
+  "source_note_modified": false,
+  "status": "COMPLETED",
+  "subtask_id": "19-04",
+  "targets": [
+    {
+      "component": "SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-06",
+      "ref": {
+        "line": 86,
+        "path": "docs/validation/snapshots/2026-10-11.md"
+      }
+    },
+    {
+      "component": "DAM_SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-06",
+      "ref": {
+        "line": 86,
+        "path": "docs/validation/snapshots/2026-10-11.md"
+      }
+    },
+    {
+      "component": "ROBERTO_WITHIN_5GEN",
+      "entry_id": "2026-10-11-TOKYO-11-06",
+      "ref": {
+        "line": 86,
+        "path": "docs/validation/snapshots/2026-10-11.md"
+      }
+    },
+    {
+      "component": "SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-07",
+      "ref": {
+        "line": 87,
+        "path": "docs/validation/snapshots/2026-10-11.md"
+      }
+    },
+    {
+      "component": "DAM_SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-07",
+      "ref": {
+        "line": 87,
+        "path": "docs/validation/snapshots/2026-10-11.md"
+      }
+    }
+  ],
+  "usage": "REPLAY_ONLY"
+}
