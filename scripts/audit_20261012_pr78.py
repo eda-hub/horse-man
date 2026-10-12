@@ -142,4 +142,3 @@ if __name__ == "__main__":
     except (AssertionError, FileNotFoundError, ValueError) as exc:
         print(f"PR78_AUDIT_FAILED: {exc}", file=sys.stderr)
         raise SystemExit(1)
-
