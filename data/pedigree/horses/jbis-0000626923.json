@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:17:15.677041+00:00",
+      "content_hash": "890088c31f771204b15f09ffa83c3b43e311b118a5d254108a4ed239a0505bc1",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:17:15.677041+00:00",
+      "input_hash": "6e3d0af2d57b328e208ae479783dd8faac4e3a3607a54fc71342ec169bd1713c",
+      "previous_revision": null,
+      "revision_id": "rev-6e3d0af2d57b328e208ae479",
+      "saved_at": "2026-10-12T07:17:23.559315+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "2001-09-26の当時報道がChantillyのDemercastel厩舎に本人が在籍し、Arcへ向けた準備中に不調で回避したことを記述。Smadoun/Smalaの1998年産馬・Grand Prix de Paris/Jockey Club実績と本人対応を照合。調教師の過去Tunisia滞在をこの馬の所属国へ流用しない。",
+          "birth_year": 1998,
+          "country": "FR",
+          "horse": "Chichicastenango",
+          "trainer": "Philippe Demercastel",
+          "training_location": "Chantilly"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-02/jbis-0000626923-source.json",
+        "record_hash": "dc37b056297df4439d68a1911bdac733d6c343d6c5758d774c29b95a99784a26",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0000626923",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.independent.co.uk/sport/general/rough-route-to-arc-summit-for-chantilly-aces-9140352.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "FR",
+            "source": {
+              "captured_at": "2026-10-12T07:17:15.677041+00:00",
+              "record_hash": "dc37b056297df4439d68a1911bdac733d6c343d6c5758d774c29b95a99784a26",
+              "url": "https://www.independent.co.uk/sport/general/rough-route-to-arc-summit-for-chantilly-aces-9140352.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18-02 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

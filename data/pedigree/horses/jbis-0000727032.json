@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:17:15.677041+00:00",
+      "content_hash": "9204a79ea5cdc8111fbd5d1532b607b97019ee8ba6084e0758eb103a4431fc4c",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:17:15.677041+00:00",
+      "input_hash": "6e58ed0923f27b226991b83b8aa6301d26e022bbaa769f13fa9de4b25da95dbc",
+      "previous_revision": null,
+      "revision_id": "rev-6e58ed0923f27b226991b83b",
+      "saved_at": "2026-10-12T07:17:23.562136+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "JRA本人プロフィールの調教師白井寿昭（栗東）。2001-04-16・父タイキシャトル・母ナイスレイズと独立IDを照合。",
+          "birth_year": 2001,
+          "country": "JP",
+          "horse": "メイショウボーラー",
+          "trainer": "白井寿昭",
+          "training_location": "栗東"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-02/jbis-0000727032-source.json",
+        "record_hash": "b97cc708a73e3e6cdf30fdb9932e89436f505ea1067397ca6a6bef8879f99969",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0000727032",
+        "source_class": "OFFICIAL_JRA",
+        "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102001100650/D1"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-12T07:17:15.677041+00:00",
+              "record_hash": "b97cc708a73e3e6cdf30fdb9932e89436f505ea1067397ca6a6bef8879f99969",
+              "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102001100650/D1"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18-02 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

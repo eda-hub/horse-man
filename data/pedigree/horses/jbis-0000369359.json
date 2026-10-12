@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:17:15.677041+00:00",
+      "content_hash": "037e6723e472a1489afc702d4f6c1d7013f6d044916bb69712e584974ffc5ec8",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:17:15.677041+00:00",
+      "input_hash": "9483d93f822fa02c60743b203892d6c09d9a1b3b7d78ebcf8f6b059dd773ee4c",
+      "previous_revision": null,
+      "revision_id": "rev-9483d93f822fa02c60743b20",
+      "saved_at": "2026-10-12T07:17:23.552010+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "TDN 1997-04-03 p.3はGeorgia Hofmann所有・Forty Niner産駒の本人がBelmontの調教コースで5f 1:00.64を記録したAllen Jerkens所属馬と明記。1994年3月1日・Forty Niner/Banker's Ladyの独立プロフィールと照合。競走開催地を所属根拠へ流用しない。",
+          "birth_year": 1994,
+          "country": "US",
+          "horse": "Banker's Gold",
+          "trainer": "H. Allen Jerkens",
+          "training_location": "Belmont Park training track, New York"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-02/jbis-0000369359-source.json",
+        "record_hash": "0de9c790826c470bf46e69dde45411df34c738b463e10d230d4ff715bf6a83aa",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0000369359",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.thoroughbreddailynews.com/pdf/tdn/1997/tdn970403.pdf"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:17:15.677041+00:00",
+              "record_hash": "0de9c790826c470bf46e69dde45411df34c738b463e10d230d4ff715bf6a83aa",
+              "url": "https://www.thoroughbreddailynews.com/pdf/tdn/1997/tdn970403.pdf"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18-02 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

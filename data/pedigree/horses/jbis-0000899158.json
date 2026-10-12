@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:17:15.677041+00:00",
+      "content_hash": "3c250b75cbae58523e39d35dda212e18319dbdabdf4d85241fa0a6f549af13a4",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:17:15.677041+00:00",
+      "input_hash": "f88b312467a95c83ad1dc84f5fd1dca41e0c08e6c772470d18c3bf7ed4dcaa5a",
+      "previous_revision": null,
+      "revision_id": "rev-f88b312467a95c83ad1dc84f",
+      "saved_at": "2026-10-12T07:17:23.569445+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "2006-02-05本人の復帰記事はPletcher所属の本人がPalm Meadowsで調教し2006年の復帰へ備えたことを明記。Unbridled/Serena’s Songの2002年産馬と照合。TDN 2006-02-20の本人Unbridled産駒の5f調教欄で施設の一致を補足。",
+          "birth_year": 2002,
+          "country": "US",
+          "horse": "Harlington",
+          "trainer": "Todd Pletcher",
+          "training_location": "Palm Meadows, Florida"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-02/jbis-0000899158-source.json",
+        "record_hash": "04484b5b4afe3b356afc4cde590c8aabf5df1ad28565ffd7e3d97646b10c7b47",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0000899158",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.bloodhorse.com/horse-racing/articles/166732/harlington-makes-return-in-gulf-allowance"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:17:15.677041+00:00",
+              "record_hash": "04484b5b4afe3b356afc4cde590c8aabf5df1ad28565ffd7e3d97646b10c7b47",
+              "url": "https://www.bloodhorse.com/horse-racing/articles/166732/harlington-makes-return-in-gulf-allowance"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18-02 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

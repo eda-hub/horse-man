@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:17:15.677041+00:00",
+      "content_hash": "2f5def3fe34ff948e83dba37aeed4a74a339e83d90d228d9ed3cae1a3e3ac835",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:17:15.677041+00:00",
+      "input_hash": "605ad7a2e7c4b47b70bd40ee97c9dfa4ea2e47502079d81532084b854adc51c1",
+      "previous_revision": null,
+      "revision_id": "rev-605ad7a2e7c4b47b70bd40ee",
+      "saved_at": "2026-10-12T07:17:23.566079+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "JBIS本人プロフィールの調教師森秀行（栗東）。2005-04-05・父アグネスタキオン・母エアトゥーレと独立IDを照合。",
+          "birth_year": 2005,
+          "country": "JP",
+          "horse": "キャプテントゥーレ",
+          "trainer": "森秀行",
+          "training_location": "栗東"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-02/jbis-0000887465-source.json",
+        "record_hash": "c62ad7d0db57b7fe18b9b80ab8b42dae9a83297ebec5d5c072582de392f50c7d",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0000887465",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0000887465/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-12T07:17:15.677041+00:00",
+              "record_hash": "c62ad7d0db57b7fe18b9b80ab8b42dae9a83297ebec5d5c072582de392f50c7d",
+              "url": "https://www.jbis.or.jp/horse/0000887465/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18-02 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"
