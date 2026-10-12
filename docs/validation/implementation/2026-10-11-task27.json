@@ -1,0 +1,306 @@
+{
+  "task": 27,
+  "status": "PREPARATION_AND_LEGACY_AUDIT_COMPLETE",
+  "stage_activation": false,
+  "manual_release": "v1.6.1",
+  "inputs": {
+    "implementation_head": "f2c7198338acad2542dc6b4cb357f5bdb6fc39b1",
+    "main": "d164153c27431e0be901e042e359fecbc568994a",
+    "previous_integrated_main": "0520dc25437358df459e7e08219965f9b1e0f732",
+    "main_changes": [
+      "docs/validation/cycle_03.md",
+      "docs/validation/records/2026-09-27.md",
+      "scripts/check_betting_performance.py",
+      "scripts/test_check_betting_performance.py",
+      "scripts/test_check_cycle03.py"
+    ],
+    "main_integration_performed": false,
+    "main_change_note": "9月27日記録と既存性能checker等の5ファイル。今回の準備差分は別新規ファイルのみ。後続の終了scope審査で最新版を参照。"
+  },
+  "tests": {
+    "new": 25,
+    "related": 51,
+    "result": "PASS",
+    "modules": [
+      "test_selection_history",
+      "test_check_betting_performance",
+      "test_check_cycle03",
+      "test_betting_kpi_split"
+    ],
+    "ci": "通常CIは成果commitに紐づけPR68・PR69で最終記録"
+  },
+  "legacy_audit": {
+    "audit_type": "READ_ONLY_LEGACY_EVIDENCE",
+    "manual_release": "v1.6.1",
+    "initial_purchase_candidates": [],
+    "races": [
+      {
+        "race_id": "2026-10-11-KYOTO-09",
+        "snapshot_id": "20261011-KYO-09-P001-S01",
+        "claimed_fixed_commit": "c15077bf6cdffc33f6afb4498b562b884afbcb7c",
+        "ticket_count": 1,
+        "stake_yen": 10000,
+        "return_yen": 0,
+        "purpose": "OFFICIAL_VIRTUAL",
+        "additional_selection_verified": false,
+        "formal_count_allowed": false,
+        "reason": "発走前の追加選定revision未確認。元記録の保留を維持。",
+        "section_sha256": "20467178e375ee53dce60e8390cb5aa348856e4172f895cf022197fcda52bf75"
+      },
+      {
+        "race_id": "2026-10-11-KYOTO-11",
+        "snapshot_id": "20261011-KYO-11-P001-S01",
+        "claimed_fixed_commit": "c1e77df3c6b0d0ea87e97385b754ec9ab65a738e",
+        "ticket_count": 1,
+        "stake_yen": 10000,
+        "return_yen": 0,
+        "purpose": "OFFICIAL_VIRTUAL",
+        "additional_selection_verified": false,
+        "formal_count_allowed": false,
+        "reason": "発走前の追加選定revision未確認。元記録の保留を維持。",
+        "section_sha256": "8c195b469796b51459c8e1e5cba7afd41f8f78057c8f658f9f50af6725c79bc9"
+      },
+      {
+        "race_id": "2026-10-11-TOKYO-08",
+        "snapshot_id": "20261011-TOK-08-P001-S02",
+        "claimed_fixed_commit": "3018e7a202347fd87820eae47bea81f02ccda6b5",
+        "ticket_count": 1,
+        "stake_yen": 10000,
+        "return_yen": 0,
+        "purpose": "OFFICIAL_VIRTUAL",
+        "additional_selection_verified": false,
+        "formal_count_allowed": false,
+        "reason": "発走前の追加選定revision未確認。元記録の保留を維持。",
+        "section_sha256": "c4c493c09f98f735d6f22f73186dee0604c04699955244110f70a38f97296750"
+      },
+      {
+        "race_id": "2026-10-11-TOKYO-09",
+        "snapshot_id": "20261011-TOK-09-P001-S01",
+        "claimed_fixed_commit": "57e785633285c753f43f9d72923142c99c7f9257",
+        "ticket_count": 2,
+        "stake_yen": 10000,
+        "return_yen": 0,
+        "purpose": "OFFICIAL_VIRTUAL",
+        "additional_selection_verified": false,
+        "formal_count_allowed": false,
+        "reason": "発走前の追加選定revision未確認。元記録の保留を維持。",
+        "section_sha256": "228a05d83670caca8f3f2196a9ec73c59d731d770e050df561763532e21e3f95"
+      },
+      {
+        "race_id": "2026-10-11-TOKYO-11",
+        "snapshot_id": "20261011-TOK-11-P001-S01",
+        "claimed_fixed_commit": "094efaee5ade680f0e2baabb39f650383cc1a801",
+        "ticket_count": 2,
+        "stake_yen": 10000,
+        "return_yen": 0,
+        "purpose": "OFFICIAL_VIRTUAL",
+        "additional_selection_verified": false,
+        "formal_count_allowed": false,
+        "reason": "発走前の追加選定revision未確認。元記録の保留を維持。",
+        "section_sha256": "947ec0a5d2334dc761b6cd46142f27cd9ba51bf3b636e21eecd7216bf8510500"
+      }
+    ],
+    "reference_settlement": {
+      "stake_yen": 50000,
+      "return_yen": 0
+    },
+    "legacy_formal_betting": {
+      "eligible": 0,
+      "pending": 5,
+      "roi": null
+    },
+    "next_recommendation_kpi": "NOT_APPLICABLE_TO_LEGACY",
+    "issue_status": "OPEN",
+    "historical_events_created": 0,
+    "sources": [
+      {
+        "path": "docs/validation/records/2026-10-11.md",
+        "sha256": "42a64b22e9a5089aa9d0287223aa6baf1c569c56e66313ceb3defc3203b3184c"
+      },
+      {
+        "path": "docs/validation/snapshots/2026-10-11.md",
+        "sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118"
+      },
+      {
+        "path": "docs/validation/persistence-receipts/2026-10-11.md",
+        "sha256": "d7b5dee3e9525ef942a473a4b7ad31a1bdb933c93de932368f0a354a7bd8d4e8"
+      },
+      {
+        "path": "docs/validation/handoffs/2026-10-11-seven-open-issues.md",
+        "sha256": "5213416826688340e774a9f79d05610aa80c30827ac66a41ff373878d9ffcc54"
+      },
+      {
+        "path": "docs/validation/persistence-intents/2026-10-11/kyoto-07-final.json",
+        "sha256": "a44580d7eb25954bd013d5ea2dbe0737eff0e4c23a7ead368068154bbc8ce26e"
+      },
+      {
+        "path": "docs/validation/persistence-intents/2026-10-11/kyoto-08-final.json",
+        "sha256": "27e71e40e77e954ff0fe7160f7b179b47753bc9a63624ecfae408ddcfd2955d7"
+      },
+      {
+        "path": "docs/validation/persistence-intents/2026-10-11/kyoto-09-final.json",
+        "sha256": "12889906d0441087ea27b6e4c3beaa0c22c6ffacc71bbcd2905795585895e658"
+      },
+      {
+        "path": "docs/validation/persistence-intents/2026-10-11/kyoto-10-final.json",
+        "sha256": "bb9e2e2ca2c2ae350349ab65e71d499252c7b6695841e68b9b065884b8aacd86"
+      },
+      {
+        "path": "docs/validation/persistence-intents/2026-10-11/kyoto-11-final.json",
+        "sha256": "f881e00d7495d569889de73239575612d67456d93468729ebaba2c7d8a7abc26"
+      },
+      {
+        "path": "docs/validation/persistence-intents/2026-10-11/morning.json",
+        "sha256": "9471850b5674541b06f23feb0bedc1fcd09b788cfa78b549ab88d5aeb273da27"
+      },
+      {
+        "path": "docs/validation/persistence-intents/2026-10-11/tokyo-08-final-price.json",
+        "sha256": "6235a46e029b752698f07a6f5890c9e2ea43ea8ac84aaef2f4de89a7c3ba23b6"
+      },
+      {
+        "path": "docs/validation/persistence-intents/2026-10-11/tokyo-08-final.json",
+        "sha256": "fc1f8270a5893864a64e66ac1df7492c806e5134eca19204326d05056ee58c4c"
+      },
+      {
+        "path": "docs/validation/persistence-intents/2026-10-11/tokyo-09-final.json",
+        "sha256": "9951b4024586ecc83d82c8ab239bf840486dcae4e3bd5a6e84ec0e2274e72e27"
+      },
+      {
+        "path": "docs/validation/persistence-intents/2026-10-11/tokyo-11-final.json",
+        "sha256": "eccab451eab00bc6035c875a9a254c43ac829c0f4ce4d4f1f3a64d43d1f36136"
+      }
+    ]
+  },
+  "source_readbacks": [
+    {
+      "path": "docs/validation/records/2026-10-11.md",
+      "match": true,
+      "blob_sha": "c4aaa3cc356af40ac5ac25335bf6c88862488f7e"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-10-11.md",
+      "match": true,
+      "blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-10-11.md",
+      "match": true,
+      "blob_sha": "05d715d06543d3ea1a30b45677dc72f09a4ac71e"
+    },
+    {
+      "path": "docs/validation/handoffs/2026-10-11-seven-open-issues.md",
+      "match": true,
+      "blob_sha": "392fcfbdcbf8d2f50df079df89407089925e4d19"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/kyoto-07-final.json",
+      "match": true,
+      "blob_sha": "c4a75f67e69a1377ae9416c66a1931d5b1ef8891"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/kyoto-08-final.json",
+      "match": true,
+      "blob_sha": "d52457ede91b9cb02744d051f97c9ccbc027b052"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/kyoto-09-final.json",
+      "match": true,
+      "blob_sha": "f5f990c882e1558ba226ed2250c9ebefd5689bdb"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/kyoto-10-final.json",
+      "match": true,
+      "blob_sha": "51efe04ccc75067d578d650c5d4fe94195b8f315"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/kyoto-11-final.json",
+      "match": true,
+      "blob_sha": "bbcd253f797a8d38cc7b201dfc4adf429fed96bf"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/morning.json",
+      "match": true,
+      "blob_sha": "00c57b2e1c33add6a505557c8889551ec7af6102"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/tokyo-08-final-price.json",
+      "match": true,
+      "blob_sha": "ef0d8ee4a4b5f5a60c491a08817e8def5d7426cf"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/tokyo-08-final.json",
+      "match": true,
+      "blob_sha": "94c75eef8c97d24df1c757d76bc2f28a2c9c8c0a"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/tokyo-09-final.json",
+      "match": true,
+      "blob_sha": "7b8885c9ba73413865378cbfd33141becc1d77a2"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/tokyo-11-final.json",
+      "match": true,
+      "blob_sha": "7d0550762498fb153d79aad95f4bf437c4cfadc6"
+    }
+  ],
+  "original_fixed_sections": [
+    {
+      "snapshot": "20261011-KYO-09-P001-S01",
+      "section_equal_ignoring_trailing_whitespace": false,
+      "first_difference": 4977,
+      "original_tail": "",
+      "current_tail": "\n---\n\n",
+      "content_prefix_equal": true,
+      "difference_note": "後続snapshot追加時の区切り行のみ。section全体の生hash一致とは扱わない。"
+    },
+    {
+      "snapshot": "20261011-KYO-11-P001-S01",
+      "section_equal_ignoring_trailing_whitespace": false,
+      "first_difference": 6736,
+      "original_tail": "",
+      "current_tail": "\n---\n\n",
+      "content_prefix_equal": true,
+      "difference_note": "後続snapshot追加時の区切り行のみ。section全体の生hash一致とは扱わない。"
+    },
+    {
+      "snapshot": "20261011-TOK-08-P001-S02",
+      "section_equal_ignoring_trailing_whitespace": false,
+      "first_difference": 4528,
+      "original_tail": "",
+      "current_tail": "\n---\n\n",
+      "content_prefix_equal": true,
+      "difference_note": "後続snapshot追加時の区切り行のみ。section全体の生hash一致とは扱わない。"
+    },
+    {
+      "snapshot": "20261011-TOK-09-P001-S01",
+      "section_equal_ignoring_trailing_whitespace": false,
+      "first_difference": 5243,
+      "original_tail": "",
+      "current_tail": "\n---\n\n",
+      "content_prefix_equal": true,
+      "difference_note": "後続snapshot追加時の区切り行のみ。section全体の生hash一致とは扱わない。"
+    },
+    {
+      "snapshot": "20261011-TOK-11-P001-S01",
+      "section_equal_ignoring_trailing_whitespace": true,
+      "first_difference": 10312,
+      "original_tail": "",
+      "current_tail": "",
+      "content_prefix_equal": true,
+      "difference_note": "差分なし"
+    }
+  ],
+  "acceptance": {
+    "missing_additional_selection_rejected": true,
+    "purpose_mix_rejected": true,
+    "cancel_change_history_retained": true,
+    "stale_or_reused_revision_rejected": true,
+    "late_or_reverse_time_rejected": true,
+    "legacy_not_converted": true,
+    "reference_settlement_separate": true,
+    "next_recommendation_not_retroactive": true,
+    "read_only": true
+  },
+  "remaining_real_issue": "OPEN: 発走前追加選定・用途移行・fixed-plan-source正式認証は未確認。事後補造しない。",
+  "next_task": 28
+}

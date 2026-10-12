@@ -110,7 +110,7 @@ def build(root, as_of_date_jst, basis_commit):
             "selected_without_final_ids": missing_final,
             "kpi_contract": day.get("kpi_contract", "LEGACY_UNSPLIT"),
             "kpis": kpi_view(day["kpis"]), "evidence_paths": inventory,
-            "note": "集合差は未実施件数。障害・失敗・利用者許容の区別は元記録を参照。",
+            "note": "集合差は候補和から最終完了を除いた件数。明示的な対象外選別・未実施・利用者許容を元記録と個別採否で分類し、全件を最終欠測と呼ばない。",
         }
 
     contracts = {}

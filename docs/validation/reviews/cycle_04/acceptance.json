@@ -1,0 +1,186 @@
+{
+  "schema_version": "cycle04-acceptance-v1",
+  "mode": "SYNTHETIC",
+  "result": "PASS",
+  "tests_run": 289,
+  "failures": 0,
+  "skipped": 0,
+  "live_race_count": null,
+  "performance_promotion": "NOT_PERFORMED",
+  "formal_cutover": "NOT_PERFORMED",
+  "source_manifest": [
+    {
+      "path": "docs/manual/00_core.md",
+      "sha256": "f06cb685aaada870699e0755ebb428cf7da869bf9ff02bc2cb037f9dd5f85df8"
+    },
+    {
+      "path": "docs/manual/10_prediction.md",
+      "sha256": "a73c536b89049fc19f83ad94cc0802e1fc2232f00ce16b17239cfb98ff2d7156"
+    },
+    {
+      "path": "docs/manual/20_conditional.md",
+      "sha256": "ec880060b8bb0155731e14388e99d431c422ec7c00a348aad121bbf324ffa4bd"
+    },
+    {
+      "path": "docs/manual/30_betting.md",
+      "sha256": "770b332a949a18e15090227a10681e47c42632db7f10535f6fef0f78b2d895a1"
+    },
+    {
+      "path": "docs/manual/40_shadow.md",
+      "sha256": "d52838e00e14eb7a34c0b7d718792373270abaeb468fbc234b7c0c39ba06de35"
+    },
+    {
+      "path": "docs/manual/50_review.md",
+      "sha256": "4fcc8af1a9a7cc2d150081c8f3b8b88d3f305869c909559b706b746bc5a648b2"
+    },
+    {
+      "path": "docs/manual/README.md",
+      "sha256": "09d601c8127d2672e3537c4ed6bf02beb69d90a2e0a82e483e32336119a088f2"
+    },
+    {
+      "path": "docs/validation/contracts/cycle04_operations.md",
+      "sha256": "7669a9c5caf8eb3936796ea81a5e13dc80e8127b1c7b063ee5253932e291a4ff"
+    },
+    {
+      "path": "docs/validation/contracts/cycle_04.json",
+      "sha256": "dac06c4cdc6028c396601802920ec02d9ae9c244206e0282eef94167f1e441f1"
+    },
+    {
+      "path": "docs/validation/execution-gates/contract-state.json",
+      "sha256": "3412dbd0db4e119274e65f0c473387d6603a73bb8d9dd428f66f7a58d4b9cc9c"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/collection.json",
+      "sha256": "d409f29ff376b0b20f432e473a0ec5b6ad4351514ca9dfe3ccfb85e5338fd9c4"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/decisions.json",
+      "sha256": "eee44a7cab30e697c0ceb7771427cf191c1ef2acb22850976012faff2a612dbd"
+    },
+    {
+      "path": "docs/validation/templates/chatgpt_prediction_task.md",
+      "sha256": "15024d0ef4dee36a6f8dd8cc6e1d4d257ce3ff2e85b2fb9b4fe08cc283f2b39c"
+    },
+    {
+      "path": "scripts/audit_20261012_pr78.py",
+      "sha256": "4eb9d7b215af1bd8c8d36c1986da2bd2d8388b70833f0f3d80b924595c6e916e"
+    },
+    {
+      "path": "scripts/build_cycle03_review.py",
+      "sha256": "4433a02ac48f24e9ee917d410e5aa3102344c6ffb906d07ded5321e08ce3262e"
+    },
+    {
+      "path": "scripts/check_betting_performance.py",
+      "sha256": "443977e86411c4e227b03dc3328ac9712a558f62e39b1c4afefe0b00d35cc923"
+    },
+    {
+      "path": "scripts/check_cycle03.py",
+      "sha256": "09d2301b5fa1a15c4abc4a914a727caf129eb745e32141bf15f8fe038cdafc3f"
+    },
+    {
+      "path": "scripts/check_cycle03_advisory.py",
+      "sha256": "43e98ff04420ef1003d1065ef00a5c73e9ae71d8e1e541f9be114d877d3e027d"
+    },
+    {
+      "path": "scripts/check_cycle04.py",
+      "sha256": "5873a56230831b341150d098628ca3d2709e6ff0581a3a3ce1317061852166c5"
+    },
+    {
+      "path": "scripts/check_prediction_compliance.py",
+      "sha256": "215964c65ddadf7677f7d46cb6a9191d8e067a3212ed6dacf90780a933bbecee"
+    },
+    {
+      "path": "scripts/cycle04_operations.py",
+      "sha256": "04f809added965b3792d972e80f0ae073328f43a7876f189c7eb657cb7355288"
+    },
+    {
+      "path": "scripts/persistence_status.py",
+      "sha256": "ddd973ae03b04f755be75df4cbffbdf69e88f6bdf7c58facef656d31e0eb2854"
+    },
+    {
+      "path": "scripts/recommendation.py",
+      "sha256": "86dff5340bd0dce098e35de8707e167ac9ea8f6d586087f630149847294e3db6"
+    },
+    {
+      "path": "scripts/run_cycle04_acceptance.py",
+      "sha256": "ec441a17d73ee091bb9eeab3d113f555b9a6b03c3e22f68f30f70b5a6f2ca3c9"
+    },
+    {
+      "path": "scripts/seal_prediction.py",
+      "sha256": "9062cb536482a9b842fc22ee7238aa0af894380903eab35089e525873c31bb68"
+    },
+    {
+      "path": "scripts/selection_history.py",
+      "sha256": "9f881fbb424b86318190e979f9f97d23a6b5906dd3d14431b0fba1336e2438ed"
+    },
+    {
+      "path": "scripts/task_completion.py",
+      "sha256": "fce9426ec7314188c15d8622e58bbb862dbf706c928c111ca00b1f441916215f"
+    },
+    {
+      "path": "scripts/test_betting_kpi_split.py",
+      "sha256": "eb816815c806deb31e050ee04fadb541906875772a3c13a1c7e236f0e618e94e"
+    },
+    {
+      "path": "scripts/test_build_cycle03_review.py",
+      "sha256": "9556243255b6036540c2d651cbb8de7e8af5e32ab4a4a4b43a5a774a73faf9df"
+    },
+    {
+      "path": "scripts/test_check_betting_performance.py",
+      "sha256": "c253c27268422328dd51d5ff340de537a12a166f4927cf363c54e0eb8411512f"
+    },
+    {
+      "path": "scripts/test_check_cycle03.py",
+      "sha256": "d94ae1e1100ebabb892383289de2d0aba1362a5d7c433078871a0963a4686d76"
+    },
+    {
+      "path": "scripts/test_check_cycle03_advisory.py",
+      "sha256": "237d43fc98ff934dd3332466e210ebed1dfe2eb0d9c7d79ad8c3362d51a2139b"
+    },
+    {
+      "path": "scripts/test_check_prediction_compliance.py",
+      "sha256": "27bbf11ea8264f9b0e400115b6396c383ccc295634b03d0ca26967281604323d"
+    },
+    {
+      "path": "scripts/test_cycle04_acceptance.py",
+      "sha256": "5d74d927b432fd0942215d0f2ba35b7721412fd50a4a84785d5f30d9a7084e5e"
+    },
+    {
+      "path": "scripts/test_next_prediction_compliance.py",
+      "sha256": "a55930fc502be49a7b0ca45329b122a5aacd9c420de0cf45c1e23722a69dd71b"
+    },
+    {
+      "path": "scripts/test_next_prediction_persistence.py",
+      "sha256": "3866d80a035357fe7133cef313887c6ef897be112ac975fdafb510db91332e8d"
+    },
+    {
+      "path": "scripts/test_persistence_status.py",
+      "sha256": "0df3b830bbee7198513708ca6d9f725a1d069c1b698228f77c0bb2a38557b2d2"
+    },
+    {
+      "path": "scripts/test_pr78_historical_audit.py",
+      "sha256": "5f8c489119dd2fdbaa100f470a14f2c71e2831f53acc64bb197dd1d0b76cdad6"
+    },
+    {
+      "path": "scripts/test_recommendation.py",
+      "sha256": "d3f1c0003a35c70fdb11927d1676771f5a4a4b19b894d435f250098221d78d9c"
+    },
+    {
+      "path": "scripts/test_selection_history.py",
+      "sha256": "a86d4abea0b719b6657aabc35f1de39d6e5956683d23e45cd19cbd2657a15b4d"
+    },
+    {
+      "path": "scripts/test_task_completion.py",
+      "sha256": "1076de10f2ddcfb10d5bc0474010a74355407511370ef5f1eb9407440b5301a9"
+    },
+    {
+      "path": "scripts/test_verify_prediction_persistence.py",
+      "sha256": "e0ff25eca1b89a2de669da38e254b6d7360ef149eaff44fcfe58b6161af37f2f"
+    },
+    {
+      "path": "scripts/verify_prediction_persistence.py",
+      "sha256": "382feca2c819a65e2d88b7e86375e96192fbec950697ef7c022c4772c39acca7"
+    }
+  ],
+  "note": "正常系・異常系の合成検査。実レース、未完了研究、実runtime接続、正式版/有効日を認証しない。"
+}

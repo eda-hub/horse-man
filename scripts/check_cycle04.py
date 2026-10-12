@@ -1,0 +1,278 @@
+#!/usr/bin/env python3
+"""第4の準備整合と実運用開始を分離。未定版・旧台帳・合成試験で開始認証しない。"""
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+
+from check_prediction_compliance import (ComplianceError, contract_state, iso, release,
+                                         validate_gate, LEGACY_RELEASE)
+from cycle04_operations import (fingerprint, positive_set, require, safe_path,
+                               validate_inputs, validate_market, validate_selection,
+                               validate_ticket_comparison, verified_artifact)
+from recommendation import verify as verify_recommendation
+
+CONTRACT_PATH = 'docs/validation/contracts/cycle_04.json'
+DATES = ['2026-10-17', '2026-10-18', '2026-10-24', '2026-10-25']
+SCHEMA = 'cycle04-day-v1'
+
+
+def load(path):
+    value = json.loads(path.read_text(encoding='utf-8'))
+    require(isinstance(value, dict), 'JSON object required')
+    return value
+
+
+def check_preparation(root):
+    c = load(root / CONTRACT_PATH)
+    require(c.get('schema_version') == 'cycle04-contract-v1' and c.get('cycle_id') == 'cycle_04',
+            'cycle04 contract required')
+    require(c.get('race_dates') == DATES and c.get('venues') == ['TOK', 'KYO', 'NII'], 'cycle04 schedule mismatch')
+    require(c.get('day_schema') == SCHEMA and c.get('status') in {'PREPARED', 'ACTIVE'}, 'invalid cycle04 contract state')
+    require(c.get('current_release') == LEGACY_RELEASE, 'historical baseline release mismatch')
+    if c['status'] == 'PREPARED':
+        require(c.get('next_release') is None and c.get('effective_race_date') is None,
+                'undecided cutover must remain null')
+        require(release(root) == LEGACY_RELEASE and contract_state(root)['status'] == 'PENDING',
+                'prepared contract cannot imply active cutover')
+    else:
+        require_active(root, c)
+    decisions = load(safe_path(root, c.get('decisions_path')))
+    require(decisions.get('schema_version') == 'cycle03-decisions-v1', 'individual decisions required')
+    require(decisions.get('performance_promotion') == 'NOT_APPROVED', 'unsupported performance promotion')
+    proposals = decisions.get('changes')
+    required_ids = {f'C{i:02d}' for i in range(1, 17)}
+    require(isinstance(proposals, list) and len(proposals) == 16 and
+            {x.get('id') for x in proposals} == required_ids, 'all summary proposals require individual decisions')
+    for item in proposals:
+        require(item.get('decision') in {'ADOPT_OPERATION', 'CONTINUE_VALIDATION', 'OBSERVE',
+                                         'RETAIN_FACTS', 'PREPARE_AGREED', 'REJECT'}, 'invalid decision')
+        require(all(item.get(k) for k in ('title', 'owner', 'reason', 'evidence', 'next_test', 'protected')),
+                'decision owner/evidence/retest/protection missing')
+        for p in item['evidence']:
+            require(safe_path(root, p).is_file(), 'decision evidence missing')
+    expected_validation = {f'E-{i:02d}' for i in (3, 4, 7, 8, 9, 10, 11, 12, 13)} | {'51B', 'U-01', 'U-01Q', 'U-02'}
+    validations = decisions.get('validation_items')
+    require(isinstance(validations, list) and len(validations) == len(expected_validation)
+            and {v.get('internal_id') for v in validations} == expected_validation,
+            'individual validation dispositions missing')
+    for v in validations:
+        require(v.get('performance_promotion') == 'NOT_APPROVED' and v.get('next_test')
+                and safe_path(root, v.get('owner')).is_file(), 'validation owner/retest missing')
+    collection = load(root / 'docs/validation/reviews/cycle_03/collection.json')
+    difference = {(date, race) for date, day in collection['daily'].items()
+                  for race in day['selected_without_final_ids']}
+    classifications = decisions.get('candidate_difference_classification')
+    require(isinstance(classifications, list) and len(classifications) == len(difference)
+            and {(r.get('race_date_jst'), r.get('race_id')) for r in classifications} == difference,
+            'candidate difference classification missing/duplicated')
+    for r in classifications:
+        require(r.get('reason') and r.get('status') in {'DESELECTED_BY_USER', 'NOT_EXECUTED_CAUSE_UNRECORDED',
+                'FINAL_STAGE_NOT_EXECUTED', 'OPERATIONAL_SELECTION_NOT_CLOSED', 'OMISSION_ACCEPTED_BY_USER'}
+                and safe_path(root, r.get('evidence_path')).is_file(), 'candidate difference evidence missing')
+    excluded = sum(r['status'] == 'DESELECTED_BY_USER' for r in classifications)
+    require(decisions.get('candidate_difference_counts') == {'raw_difference': len(difference),
+            'deselected_by_user': excluded, 'not_executed': len(difference) - excluded,
+            'user_accepted_omissions_within_not_executed': sum(r['status'] == 'OMISSION_ACCEPTED_BY_USER' for r in classifications)},
+            'candidate difference count mismatch')
+    acceptance = load(safe_path(root, c.get('acceptance_path')))
+    require(acceptance.get('schema_version') == 'cycle04-acceptance-v1' and
+            acceptance.get('mode') == 'SYNTHETIC' and acceptance.get('live_race_count') is None,
+            'synthetic acceptance must not claim live races')
+    require(acceptance.get('result') == 'PASS' and acceptance.get('failures') == 0 and
+            type(acceptance.get('tests_run')) is int and acceptance['tests_run'] > 0,
+            'acceptance not passed')
+    manifest = acceptance.get('source_manifest')
+    require(isinstance(manifest, list) and bool(manifest), 'acceptance input hashes required')
+    required_sources = {'scripts/check_cycle04.py', 'scripts/cycle04_operations.py',
+                        'scripts/test_cycle04_acceptance.py', 'scripts/task_completion.py',
+                        'scripts/check_prediction_compliance.py', 'scripts/recommendation.py',
+                        'scripts/selection_history.py', 'scripts/verify_prediction_persistence.py',
+                        'scripts/seal_prediction.py',
+                        c['decisions_path']}
+    require(required_sources.issubset({x.get('path') for x in manifest}), 'acceptance source coverage missing')
+    require(len({x.get('path') for x in manifest}) == len(manifest), 'duplicate acceptance source')
+    for item in manifest:
+        require(fingerprint(safe_path(root, item.get('path')).read_bytes()) == item.get('sha256'),
+                'stale acceptance: source hash mismatch')
+    return c
+
+
+def require_active(root, contract):
+    state = contract_state(root)
+    require(contract['status'] == 'ACTIVE' and state['status'] == 'ACTIVE',
+            '第4サイクル開始不可：正式切替・版・有効日が未確定です')
+    require(contract.get('next_release') == state.get('next_release') == release(root) and
+            contract.get('effective_race_date') == state.get('effective_race_date'),
+            'release/effective date cutover mismatch')
+    require(state['effective_race_date'] <= DATES[0], 'cutover is not effective on first cycle04 race day')
+
+
+def string_set(value, label):
+    require(isinstance(value, list) and all(isinstance(x, str) and x for x in value)
+            and len(set(value)) == len(value), label + ': unique string list required')
+    return set(value)
+
+
+def validate_day(root, path, contract):
+    d = load(path)
+    require(d.get('schema_version') == SCHEMA and d.get('cycle_id') == 'cycle_04',
+            '第3台帳・旧契約を第4へ流用できません')
+    date = d.get('race_date_jst')
+    require(date in DATES and path.stem == date, 'cycle04 date/path mismatch')
+    initial = string_set(d.get('initial_scope'), 'initial')
+    require(bool(initial), 'empty scope is not a completed day')
+    for race in initial:
+        require(re.fullmatch(date.replace('-', '') + r'-(TOK|KYO|NII)-(0[1-9]|1[0-2])', race),
+                'race outside declared day/venues')
+    selected = string_set(d.get('selected_scope'), 'selected')
+    final = string_set(d.get('final_scope'), 'final')
+    reviewed = string_set(d.get('reviewed_scope'), 'reviewed')
+    require(final <= selected <= initial and reviewed <= initial, 'cycle04 stage scope mismatch')
+    missing = d.get('unfinished_reasons')
+    require(isinstance(missing, dict) and set(missing) == (selected - final) and
+            all(isinstance(v, str) and v.strip() for v in missing.values()), 'all unfinal races require reasons')
+    rows = d.get('races')
+    require(isinstance(rows, dict) and set(rows) == initial, 'all initial races require a record')
+    for race in reviewed:
+        row = rows[race]
+        ref = row.get('result_ref')
+        require(isinstance(ref, dict), 'reviewed race requires an official result artifact')
+        raw = safe_path(root, ref.get('artifact_path')).read_bytes()
+        require(fingerprint(raw) == ref.get('sha256'), 'official result hash mismatch')
+        result = json.loads(raw)
+        require(result.get('status') == 'OFFICIAL' and result.get('race_id') == race
+                and result.get('race_date_jst') == date and result.get('source_url'),
+                'official result identity/source mismatch')
+        require(iso(result.get('retrieved_at_jst'), 'result acquisition') >=
+                iso(row.get('scheduled_post_time_jst'), 'result post'), 'future result used before post')
+        require(isinstance(result.get('finish_groups'), list) and bool(result['finish_groups']),
+                'official finish groups missing')
+    for name, scope in [('production', initial), ('recommendation', final), ('shadow', initial),
+                        ('market', final), ('actual_purchase', initial)]:
+        k = d.get('kpis', {}).get(name)
+        require(isinstance(k, dict), 'independent KPI required: ' + name)
+        target = string_set(k.get('target_ids'), name + '/target')
+        require(target <= scope, 'KPI outside stage scope')
+        if name in {'production', 'recommendation'}:
+            require(target == scope, 'production/final recommendation KPI cannot omit declared targets')
+        groups = [string_set(k.get(s), name + '/' + s) for s in
+                  ('eligible_ids', 'ineligible_ids', 'pending_ids')]
+        require(set().union(*groups) == target and sum(map(len, groups)) == len(target), 'KPI partition mismatch')
+        require(isinstance(k.get('reasons'), dict) and set(k['reasons']) == target
+                and all(isinstance(v, str) and v.strip() for v in k['reasons'].values()), 'KPI reasons missing')
+        for race in groups[0]:
+            require_active(root, contract)
+            row = rows[race]
+            require(row.get('mode') == 'FORWARD', 'Replay cannot certify a forward KPI')
+            if name in {'production', 'shadow', 'recommendation'}:
+                gate_path = safe_path(root, row.get('prediction_gate_path'))
+                gate = validate_gate(root, gate_path)
+                require(gate['race_id'] == race and gate['race_date_jst'] == date,
+                        'gate race mismatch')
+                if name == 'recommendation':
+                    rec = verify_recommendation(root, safe_path(root, row.get('recommendation_gate_path')))
+                    require(rec['race_id'] == race, 'recommendation race mismatch')
+                    rec_gate = load(safe_path(root, row['recommendation_gate_path']))
+                    require(rec_gate.get('kpi_eligibility') == 'ELIGIBLE', 'recommendation not certified')
+                else:
+                    require(gate['kpi_eligibility'][name] == 'ELIGIBLE', 'KPI gate not eligible')
+                op = row.get('operations')
+                require(isinstance(op, dict), 'input/FIX/selection contract required')
+                horses = positive_set(op.get('horse_numbers'), 'active horse scope')
+                require(horses == set(gate['production']['ranking']), 'all active horses must have a ranking')
+                probs = gate['production']['probabilities']
+                require({p['horse_no'] for p in probs} == horses and len(probs) == len(horses),
+                        'all-horse probabilities required; top3-only cannot certify full prediction')
+                for field, total in [('win_probability', 1), ('top2_probability', 2), ('top3_probability', 3)]:
+                    require(abs(sum(p[field] for p in probs) - total) < 1e-6, 'probability total mismatch: ' + field)
+                require({e['horse_no'] for e in gate['production']['evidence_items']} == horses,
+                        'all-horse prediction evidence required')
+                post = gate['scheduled_post_time_jst']
+                snapshot, body_receipt = verified_artifact(root, op.get('prediction_ref'), post,
+                                                           expected_id=gate['production']['evidence_ref']['artifact_id'])
+                require(op['prediction_ref']['artifact_path'] == gate['production']['evidence_ref']['artifact_path'],
+                        'operations refer to another prediction')
+                fix, fix_receipt = verified_artifact(root, op.get('fix_ref'), post)
+                intent, intent_receipt = verified_artifact(root, op.get('intent_ref'), post)
+                require(fix.get('schema_version') == 'prediction-fix-manifest-v1' and
+                        fix.get('snapshot_id') == snapshot['snapshot_id'] and
+                        fix.get('artifact_path') == op['prediction_ref']['artifact_path'] and
+                        fix.get('fixed_content_sha256') == op['prediction_ref']['sha256'],
+                        'independent FIX manifest mismatch')
+                require(intent.get('schema_version') == 'prediction-persistence-intent-v1' and
+                        intent.get('snapshot_id') == snapshot['snapshot_id'] and
+                        intent.get('required_race_ids') == [race], 'predeclaration scope mismatch')
+                require(iso(intent_receipt['receipt_verified_at_jst'], 'intent readback') <=
+                        iso(snapshot['fixed_at_jst'], 'FIX') <=
+                        iso(fix_receipt['persist_verified_at_jst'], 'FIX hash save') <=
+                        iso(fix_receipt['receipt_verified_at_jst'], 'FIX hash readback') <=
+                        iso(body_receipt['persist_verified_at_jst'], 'body save'),
+                        'FIX hash/intent must be saved independently before body persistence')
+                data, input_receipt = verified_artifact(root, op.get('inputs_ref'), post)
+                require(iso(input_receipt['receipt_verified_at_jst'], 'inputs readback') <=
+                        iso(gate['data_cutoff'], 'cutoff'), 'inputs saved after prediction cutoff')
+                coverage = validate_inputs(data, race_id=race, horses=op.get('horse_numbers'),
+                                           cutoff=gate['data_cutoff'], post=post)
+                require(row.get('input_complete') is coverage['complete'], 'input completeness misreported')
+                if not coverage['complete']:
+                    require(row.get('input_gap_reason') and row.get('uncertainty_effect'),
+                            'missing input requires explicit uncertainty/impact')
+                validate_market(row.get('market'), gate['data_cutoff'])
+                history, _ = verified_artifact(root, op.get('selection_ref'), post)
+                selection = validate_selection(root, history, {race: post})
+                if race in final:
+                    require(any(p['race_id'] == race and p['purpose'] == 'RECOMMENDATION' and p['active']
+                                for p in selection['plans'].values()), 'final recommendation lacks selection revision')
+                frames = {int(h): f for h, f in op.get('frames', {}).items()}
+                validate_ticket_comparison(op.get('ticket_comparison'), horses=set(op['horse_numbers']), frames=frames)
+            else:
+                # 任意市場・実購入は専用証跡を要求。推奨の適格性を転用しない。
+                payload, _ = verified_artifact(root, row.get(name + '_ref'), row.get('scheduled_post_time_jst'))
+                require(payload.get('race_id') == race and payload.get('race_date_jst') == date,
+                        'market/actual artifact race mismatch')
+                if name == 'market':
+                    require(payload.get('schema_version') == 'market-analysis-v1' and
+                            payload.get('market') == row.get('market'), 'market artifact mismatch')
+                    require(validate_market(row.get('market'), row.get('data_cutoff')) == 'ACQUIRED',
+                            'market KPI needs acquired price')
+                else:
+                    require(payload.get('schema_version') == 'actual-purchase-v1'
+                            and payload.get('confirmation') == 'USER_CONFIRMED', 'actual purchase must be confirmed')
+                    tickets = payload.get('tickets')
+                    require(isinstance(tickets, list) and tickets and
+                            all(type(t.get('amount_yen')) is int and t['amount_yen'] > 0 for t in tickets)
+                            and sum(t['amount_yen'] for t in tickets) == payload.get('total_amount_yen'),
+                            'actual purchase ticket total mismatch')
+    return d
+
+
+def main(argv=None):
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
+    p.add_argument('--require-active', action='store_true')
+    p.add_argument('--require-complete', action='store_true')
+    args = p.parse_args(argv)
+    try:
+        root = args.root.resolve()
+        c = check_preparation(root)
+        if args.require_active:
+            require_active(root, c)
+        days = []
+        directory = root / 'docs/validation/records/cycle_04'
+        for path in sorted(directory.glob('*.json')):
+            days.append(validate_day(root, path, c))
+        if args.require_complete:
+            require({d['race_date_jst'] for d in days} == set(DATES) and
+                    all(set(d['reviewed_scope']) == set(d['initial_scope']) for d in days),
+                    '第4の日別実測・全対象回顧が未完了です')
+        print(f'第4検査契約の準備照合成功。実測{len(days)}/4日。正式切替状態：{c["status"]}。')
+        return 0
+    except (ValueError, OSError, TypeError, KeyError, AttributeError) as exc:
+        print(f'第4検査不合格：{exc}', file=sys.stderr)
+        return 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

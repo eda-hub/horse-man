@@ -346,3 +346,7 @@ P/A/Bは同じ `race_evidence_bundle` と情報締切を使い、A/Bのために
 
 同一内容を `40_shadow.md` や `docs/yosou/` の個別重賞ファイルへ重複保存しない。**正式回顧の詳細はvalidation側へ保持する。** `docs/yosou/` には、過去傾向から見た当年予想・結果の照合、傾向更新、翌年予想課題だけを抽出して残す。保存境界は `docs/yosou/README.md` と `docs/manual/50_review.md` 0.7.1.2 を参照する。
 
+# PR79の個別採否と第4検査契約（2026-10-13）
+
+[第3の個別採否](reviews/cycle_03/decisions.json)で運用改修・継続検証・観察・未採用を記録した。[第4の検査契約/是正手順](contracts/cycle04_operations.md)と [機械契約](contracts/cycle_04.json) を準備し、保存/用途/入力/市場状態を個別証跡へ接続する。現行v1.6.1は維持、次期版/有効日は未定。`python3 scripts/check_cycle04.py` の準備照合と `--require-active` の正式開始判定を区別する。合成受入成功で実測・性能・正式切替を認証しない。
+

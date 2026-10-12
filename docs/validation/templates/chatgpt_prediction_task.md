@@ -43,3 +43,7 @@ horse-manリポジトリを使用し、対象レースの最終予想を行う�
 ## 目的
 
 予想内容の生成成功とGit永続化成功を混同しない。ChatGPTタスクの成功条件を、予想回答の生成ではなく、固定成果物を同一branchへ保存し、本体とreceiptをread-backして一致確認するところまでとする。
+# PR79の次期保存準備（正式切替前）
+
+現行manualの版を先に確認する。第4の準備契約・未定版を現行Productionへ適用しない。次期切替後の新規JSON予想は [第4の是正運用](../contracts/cycle04_operations.md) の宣言読戻し→独立FIX hash保存/読戻し→本体保存/読戻し→個別完了の順に実行する。既存Markdownや過去欠測は遡及修復しない。版・有効日未定なら `check_cycle04.py --require-active` は不合格として開始状態を説明する。
+
