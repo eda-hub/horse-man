@@ -1,0 +1,861 @@
+{
+  "components_checked": 5,
+  "data_cutoff": "2026-10-12T07:44:40.845571+00:00",
+  "execution_number": 19,
+  "hypotheses_verified": 0,
+  "input_commit": "8bd1cfe0a97fe8b9fb8759227ca936a054f9e2d7",
+  "matched": 5,
+  "mismatched": 0,
+  "next_subtask_id": "19-02",
+  "production_eligible": false,
+  "record_hash": "8c7a025062c2d9851843687187b8a2974430207fe4d1efeb8a8143f8d6083fb8",
+  "registry_revisions_added": 0,
+  "remaining_components": 43,
+  "results": [
+    {
+      "actual": "ドゥラメンテ",
+      "ancestor_position_proof": {},
+      "complete_5gen": true,
+      "component": "SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-01",
+      "expected": "ドゥラメンテ",
+      "horse_key": "jbis-0001338873",
+      "horse_name": "ニシノティアモ",
+      "line_sha256": "e8f4f634ecef1e0f842660c2e3b393b7851a096d12c6d0b5942fd71bd5d7c100",
+      "original_line": "| 1 | [ニシノティアモ](https://db.netkeiba.com/horse/ped/2021100244/) | ドゥラメンテ | コンデュイット | なし | 6月の府中牝馬S10着、東京既走経験は豊富 |",
+      "paths": [
+        "S"
+      ],
+      "positions_available": 62,
+      "production_eligible": false,
+      "relationship_facts": [
+        {
+          "ancestor_identity_evidence": {
+            "record_key": "0001151936",
+            "source": "JBIS"
+          },
+          "content_hash": "4b522d7a19c2ccaf51fd7beb4b9e77f4ffe9097f3e2a265a13c4229708eff56b",
+          "field": "parent:S",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0001338873",
+          "identity_evidence": {
+            "raw_sha256": "0e4f58e5ecc5c186d0c519a751dc0ef141b9339922f9bbab6a7167d101001837",
+            "record_key": "0001338873",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001338873/"
+          },
+          "revision_id": "rev-b8dc4edcc68aef30bb77048f",
+          "source": {
+            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+            "origin_group": "JBIS",
+            "record_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385",
+            "record_hash_kind": "response-body-sha256",
+            "record_key": "0001338873:S",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001338873/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0001151936"
+        }
+      ],
+      "scope_note": "本人・父母経路・独立IDの事実照合。適性仮説や近走列は照合範囲外。",
+      "snapshot_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "snapshot_sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "source_line": 81,
+      "status": "MATCH"
+    },
+    {
+      "actual": "コンデュイット",
+      "ancestor_position_proof": {},
+      "complete_5gen": true,
+      "component": "DAM_SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-01",
+      "expected": "コンデュイット",
+      "horse_key": "jbis-0001338873",
+      "horse_name": "ニシノティアモ",
+      "line_sha256": "e8f4f634ecef1e0f842660c2e3b393b7851a096d12c6d0b5942fd71bd5d7c100",
+      "original_line": "| 1 | [ニシノティアモ](https://db.netkeiba.com/horse/ped/2021100244/) | ドゥラメンテ | コンデュイット | なし | 6月の府中牝馬S10着、東京既走経験は豊富 |",
+      "paths": [
+        "DS"
+      ],
+      "positions_available": 62,
+      "production_eligible": false,
+      "relationship_facts": [
+        {
+          "ancestor_identity_evidence": {
+            "ancestor_path": "D",
+            "record_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385",
+            "record_key": "0001187603",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001338873/pedigree/"
+          },
+          "content_hash": "3022cbaaba843d522223901098524763501fa7e9c308aaec26a8464a63b08f9b",
+          "field": "parent:D",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0001338873",
+          "identity_evidence": {
+            "raw_sha256": "0e4f58e5ecc5c186d0c519a751dc0ef141b9339922f9bbab6a7167d101001837",
+            "record_key": "0001338873",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001338873/"
+          },
+          "revision_id": "rev-5ddc7c6212e107d30a0ef49c",
+          "source": {
+            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+            "origin_group": "JBIS",
+            "record_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385",
+            "record_hash_kind": "response-body-sha256",
+            "record_key": "0001338873:D",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001338873/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0001187603"
+        },
+        {
+          "ancestor_identity_evidence": {
+            "ancestor_path": "DS",
+            "record_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385",
+            "record_key": "0001099904",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001338873/pedigree/"
+          },
+          "content_hash": "aeb531f3ed7e3aee748cb2299dc26c27ff40f3c2be7cded0c91ec69bd1e46a09",
+          "field": "parent:S",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0001187603",
+          "identity_evidence": {
+            "ancestor_path": "D",
+            "record_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385",
+            "record_key": "0001187603",
+            "source": "JBIS",
+            "source_url": "https://www.jbis.or.jp/horse/0001338873/pedigree/"
+          },
+          "revision_id": "rev-f6c7413918f3fd76e568f80b",
+          "source": {
+            "acquisition_method": "original-pedigree-explicit-id-parent-path",
+            "origin_group": "JBIS",
+            "record_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385",
+            "record_hash_kind": "response-body-sha256",
+            "record_key": "0001338873:DS",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001338873/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0001099904"
+        }
+      ],
+      "scope_note": "本人・父母経路・独立IDの事実照合。適性仮説や近走列は照合範囲外。",
+      "snapshot_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "snapshot_sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "source_line": 81,
+      "status": "MATCH"
+    },
+    {
+      "actual": "なし",
+      "ancestor_position_proof": {
+        "D": {
+          "content_hash": "3022cbaaba843d522223901098524763501fa7e9c308aaec26a8464a63b08f9b",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0001187603",
+          "identity_hash": "bbcc18309be495ed53c0e0199813880a0401edb00638228a4f156fe5aed209b9",
+          "revision_id": "rev-5ddc7c6212e107d30a0ef49c",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DD": {
+          "content_hash": "ea1e068320831f9105ba28b4b440d0d11ea4ca37fa0ce5095e275f32ec5043f4",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000798787",
+          "identity_hash": "7d7377bfe1481ddc5985bbbb2c8292ac6b9c33375fc4a00e6aea47a6b0705fb3",
+          "revision_id": "rev-44bc311ea5cc97ae7ff417e1",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DDD": {
+          "content_hash": "e76c76d3448b3d45b04e3bfba88e40e2b79d269a85020d11ffb803bbf84c3d99",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000224549",
+          "identity_hash": "372cd3469482f9879083f9f771e18c7800cfe1f07530b3960505d1b0adf6ea64",
+          "revision_id": "rev-7f3e83aea197e184862544e0",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DDDD": {
+          "content_hash": "c33e23dd20a6d9f39919cc0a395dd5ed1eae142290f62cd928e203139c8e6bbd",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000382984",
+          "identity_hash": "90de55699f96c18423995ef2364f385f74caab2fb983a9a540892286c203d394",
+          "revision_id": "rev-6f22c48fd9a87ae94a4b57d9",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DDDDD": {
+          "content_hash": "16fee80bc99cc7f1421f4994755b64ba4759360536e6ecaf4f65833548fdf8f8",
+          "first_observed_at": "2026-10-09T14:45:29.253581+00:00",
+          "horse_key": "jbis-0000392337",
+          "identity_hash": "b9eea5588e91f5f12a34c00e4c46a54362ace82549a91e560ebfedfb5cfc42c3",
+          "revision_id": "rev-f3347d6b06b3bd25bd9c6623",
+          "source_hash": "a905ff51a7092af9b78fd10fd4b7870d0d170c2820575be323c11f3a85ff5082"
+        },
+        "DDDDS": {
+          "content_hash": "88437282b33bcbfe22816c6b7ef61dd37bd22b0d130e42fa3c314c1425648ceb",
+          "first_observed_at": "2026-10-09T14:45:29.253581+00:00",
+          "horse_key": "jbis-0000336082",
+          "identity_hash": "cdc93f475bca1a62e0ba93fe0296b65327444980cf5205684f7807bae5e79f68",
+          "revision_id": "rev-c274dc8ece91071ffb0c3168",
+          "source_hash": "a905ff51a7092af9b78fd10fd4b7870d0d170c2820575be323c11f3a85ff5082"
+        },
+        "DDDS": {
+          "content_hash": "796aa44339ba0cdadb68c0eb52beb75b337d0f0568fe7716e6763f750c395a91",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000336090",
+          "identity_hash": "ee0a28fad1a66714b85688b1e5125ea6d1d27af0beae1a1aec3d4f2840b072b6",
+          "revision_id": "rev-1f7e122487e85e3d986c3a0f",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DDDSD": {
+          "content_hash": "7750cdad9f655d4ce8030c400bba4efeefbcbc0cb54842fd810bd149abf22765",
+          "first_observed_at": "2026-10-09T14:44:43.531433+00:00",
+          "horse_key": "jbis-0000390585",
+          "identity_hash": "9d26104ad40d7af95696562fd9e5dee81b4bd608ba207afd8d2c4d8a511ec27a",
+          "revision_id": "rev-f52f7124c5f56492882583a2",
+          "source_hash": "e3c960a61503ec60605fa30e439eadbc665094c99a4102e34295ab4acca9d1bd"
+        },
+        "DDDSS": {
+          "content_hash": "83b545cc7c7a9b2cd1d1b6f59421aff347f42baca0693be8eeb0fa4cd298724b",
+          "first_observed_at": "2026-10-09T14:44:43.531433+00:00",
+          "horse_key": "jbis-0000346574",
+          "identity_hash": "e024aafb44bc787cc92648c60d7fb4081b5487fc50c4b44bf3bb58e087490165",
+          "revision_id": "rev-d70a592c99bfdb979f9b7a8c",
+          "source_hash": "e3c960a61503ec60605fa30e439eadbc665094c99a4102e34295ab4acca9d1bd"
+        },
+        "DDS": {
+          "content_hash": "f10d943465d9e9a6d674d7c994e6704618ade4cb12b4961cb19308af8ff12971",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000324933",
+          "identity_hash": "ef721e9ae6c7ac4f27da75a9d42428c51b737ce78e2826a1e36b28b54d0e2d8c",
+          "revision_id": "rev-fc21153806ccfed21cf9eac3",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DDSD": {
+          "content_hash": "512dfaf11db1abea58ca12953581283018d29a6b126ffa65cad8ad299fca9742",
+          "first_observed_at": "2026-10-09T12:16:09.488302+00:00",
+          "horse_key": "jbis-0000199926",
+          "identity_hash": "60b56eaa85d37cf1653590de9028fba70282c39e2a9af276426b568b25266847",
+          "revision_id": "rev-836ce1d08a4e385f72fbb9b9",
+          "source_hash": "e2d7e374570287401a899bf9760500e8e3ea96b0a8a9cf3874b4f0a53820532a"
+        },
+        "DDSDD": {
+          "content_hash": "0be19bd7e0cdc107a26b101a18fc3b19634ddacc95b382e8d30170a4130d5ba2",
+          "first_observed_at": "2026-10-09T12:16:09.488302+00:00",
+          "horse_key": "jbis-0000091738",
+          "identity_hash": "d9a9b6a3625d7411ec9453ca8003aa0d0c7df086c11d81b81d868e3f936de40a",
+          "revision_id": "rev-529e4d9912120e8b8cc4a6c5",
+          "source_hash": "e2d7e374570287401a899bf9760500e8e3ea96b0a8a9cf3874b4f0a53820532a"
+        },
+        "DDSDS": {
+          "content_hash": "9cac28f717bf117a7ad3eac88e62a31d84d01338e199cf6b5b9941adaf58ffe7",
+          "first_observed_at": "2026-10-09T12:16:09.488302+00:00",
+          "horse_key": "jbis-0000333637",
+          "identity_hash": "5889905b3d769ab83d1ae932a20791af9cb410cde4ea240bce5c63e4b8215e68",
+          "revision_id": "rev-252abe0d1e21ce515f34e3af",
+          "source_hash": "e2d7e374570287401a899bf9760500e8e3ea96b0a8a9cf3874b4f0a53820532a"
+        },
+        "DDSS": {
+          "content_hash": "8968e911468af9b149e3d49f03613868903a1a595bbbc5b3592a1066fbd393cd",
+          "first_observed_at": "2026-10-09T12:16:09.488302+00:00",
+          "horse_key": "jbis-0000333862",
+          "identity_hash": "dfbb51d72c947232c08f6da2bcb7c6c6d995fe40a8b25b4dc3959782fe2d0608",
+          "revision_id": "rev-d8fc6b3f4d4430f998fb7b42",
+          "source_hash": "e2d7e374570287401a899bf9760500e8e3ea96b0a8a9cf3874b4f0a53820532a"
+        },
+        "DDSSD": {
+          "content_hash": "ce318e2ce5b7508863c72853c87dc6ead64db59a1146148653709783d44a9034",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000393162",
+          "identity_hash": "ccc790c5c9d70d4df1e9330276c9b23d4b120cd5baae4435113c784d3f9c4e68",
+          "revision_id": "rev-5c577a8b995870fca8800520",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "DDSSS": {
+          "content_hash": "73af8b6bf75ac82f6e2189d1b2c2f859449e9e8808599d7389d63830a72cb8b1",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000335154",
+          "identity_hash": "10537527f10f2ab26f23e2dd6316f433c5e2074f17ca7cde82fa1f2ffe7a1022",
+          "revision_id": "rev-2db97142f464383d09af8c7e",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "DS": {
+          "content_hash": "aeb531f3ed7e3aee748cb2299dc26c27ff40f3c2be7cded0c91ec69bd1e46a09",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0001099904",
+          "identity_hash": "7b938f05bf871f8300a874c6c5ed94a1f24deebd66ec29a9e8fe5a4dc794cde7",
+          "revision_id": "rev-f6c7413918f3fd76e568f80b",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DSD": {
+          "content_hash": "6cda874e09cea3c44b8c9568b618fbd8c7de3a218c50c4fffb899c51e755e263",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000785050",
+          "identity_hash": "da8ed7bbb7188ac0164622703f9196932534df9987388bf0ab357840d61bd984",
+          "revision_id": "rev-e909b77711741fa7fe93cb08",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DSDD": {
+          "content_hash": "a7214137e3c5e38ec4241715c723bb415cbde56f30a8323642c73a3fa1cabd06",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000414756",
+          "identity_hash": "23c73f51be27bd32e8e002e3991c2eb0773955d7aa218c186b9cadf75258efdb",
+          "revision_id": "rev-e272c345d2857e7d75629ca1",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DSDDD": {
+          "content_hash": "80e8d1499ac7ad68d176d118e3260ea3b1108aafddbd325d5ec0e8464fb6a41d",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000405799",
+          "identity_hash": "f963cea5f1efa5b0043591aa27f1e554fa295695bb1b6126d4250024136d74bd",
+          "revision_id": "rev-c7f5f283caccbfde4ba4b402",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DSDDS": {
+          "content_hash": "d983ef645246a04962ff1765d518894b3d2ddc44831bc649477dee3afc611203",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000336421",
+          "identity_hash": "42c340a0dacda96287661c54724535404e3af09daa05c834ad8012f21b655c37",
+          "revision_id": "rev-422e34e91d06833c15bec799",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DSDS": {
+          "content_hash": "0fe555ad4f463ce23e87abebf63ff3a88e625e7cb16dfd5319ace3e1a8e6c9a4",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000336572",
+          "identity_hash": "61fb250d8a45ed82fc9600cfc643295275b45ba858d7e39d18d3b71523bc65cf",
+          "revision_id": "rev-749a57a9fe2ff6dabe9bb1ba",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DSDSD": {
+          "content_hash": "e1d633503c0b157ed48a532a5e4dbc4903461a5dcb2f845d44ca497d3a0bf32f",
+          "first_observed_at": "2026-10-09T12:16:41.695909+00:00",
+          "horse_key": "jbis-0000392264",
+          "identity_hash": "4419cfbc8aa2e3ae82d792bd6f2ddcaecb4a95d1d76df3d6e7d60ea061bb20e3",
+          "revision_id": "rev-b79804a9f2ef2135575baedc",
+          "source_hash": "93d54f88c482b8e6a30d6bfb4058027fa7373b24cf2891d33b0c07c72beba42b"
+        },
+        "DSDSS": {
+          "content_hash": "64d70ff42ec26b2a4ecdc7118730ac355aaa1a47a073cb5a18e55603fe8332a8",
+          "first_observed_at": "2026-10-09T12:16:41.695909+00:00",
+          "horse_key": "jbis-0000334002",
+          "identity_hash": "fd44d904073176a33dad796e72b055edc81ac7cb206fa316e1adebd889cd0d66",
+          "revision_id": "rev-8f8fadd0c8d4672af80f9819",
+          "source_hash": "93d54f88c482b8e6a30d6bfb4058027fa7373b24cf2891d33b0c07c72beba42b"
+        },
+        "DSS": {
+          "content_hash": "a27ecd45e6eebfe0eb9eaad87b479e81ef07c1498aabe003c3781b79c0940136",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0000745340",
+          "identity_hash": "f4f7b9890d1c67702b40e06ccd72bab309d965835ceacb2d8194e4962afc48be",
+          "revision_id": "rev-045a013f2271e170818fb4a6",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "DSSD": {
+          "content_hash": "c4ed4cfff4e1feddf01507901d6f67b643615aa03e11c3102cdac41c942d6fae",
+          "first_observed_at": "2026-10-09T12:16:25.012325+00:00",
+          "horse_key": "jbis-0000406340",
+          "identity_hash": "222c09062140c03d7c8c7e1fa571069739906992200622eae14cc7288b1d9a30",
+          "revision_id": "rev-a287fe44e6a95ec80a4edbf4",
+          "source_hash": "1138cdd25414a521e875672be7849eb4d107d099befeada85c8b694973832142"
+        },
+        "DSSDD": {
+          "content_hash": "d27cf88d9c9b33b2040a12b1535be64494ba5eb16ef417acd94e491a07bf0d08",
+          "first_observed_at": "2026-10-09T12:16:25.012325+00:00",
+          "horse_key": "jbis-0000406339",
+          "identity_hash": "336b1f39a6466705819051761a265e34e8074f9786a5bd587de99174155e8cc8",
+          "revision_id": "rev-cd52b4593f00938c49f4d31c",
+          "source_hash": "1138cdd25414a521e875672be7849eb4d107d099befeada85c8b694973832142"
+        },
+        "DSSDS": {
+          "content_hash": "21b23b1696627bed2a900d408e43bae74a09ca3900f395528f0dfa6c72b5d016",
+          "first_observed_at": "2026-10-09T12:16:25.012325+00:00",
+          "horse_key": "jbis-0000336395",
+          "identity_hash": "50dbcaec21af7ff27c719a10890bb2d3adceb05e90188778f3549edf3fa72eb5",
+          "revision_id": "rev-6c775c9aa48cfa815b5b1a7e",
+          "source_hash": "1138cdd25414a521e875672be7849eb4d107d099befeada85c8b694973832142"
+        },
+        "DSSS": {
+          "content_hash": "6c24e7d12dd9cbb895280379024a7b497039b7428c64e7bffbe0346f76df0e81",
+          "first_observed_at": "2026-10-09T12:16:25.012325+00:00",
+          "horse_key": "jbis-0000336887",
+          "identity_hash": "fe047ef5e21c61fd831fc620020e55b1c8a4a003b1cbeb901086627c835971c8",
+          "revision_id": "rev-b9de67d2545feed43ec1b891",
+          "source_hash": "1138cdd25414a521e875672be7849eb4d107d099befeada85c8b694973832142"
+        },
+        "DSSSD": {
+          "content_hash": "6414855e53583d063d08f45b7abed145706461abb427c3472b78d07dfe841a48",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000393126",
+          "identity_hash": "9083346cf0bef0fd973a3472fae08ccb98c3de66203b730c5e430f4954244e00",
+          "revision_id": "rev-5a264aa89089d904f2d36495",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "DSSSS": {
+          "content_hash": "a26792c0c33f1bfe736ce976218ce2f6162ac11f3fb654ef4c18141e81c60702",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000335305",
+          "identity_hash": "184564fc448c6df54d3fe9904ed10a6570782a01212c9962f9407c2d49f7e513",
+          "revision_id": "rev-ff5a7e5e959bb9332f0979c5",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "S": {
+          "content_hash": "4b522d7a19c2ccaf51fd7beb4b9e77f4ffe9097f3e2a265a13c4229708eff56b",
+          "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+          "horse_key": "jbis-0001151936",
+          "identity_hash": "24a5189a150ba7eab3d3b136c1fd3541589804451994fcf3a86e457f93e4fd43",
+          "revision_id": "rev-b8dc4edcc68aef30bb77048f",
+          "source_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385"
+        },
+        "SD": {
+          "content_hash": "d626112356d22cdec8116693a29c4ba1bc90e6380c746b2d320aaa779351d045",
+          "first_observed_at": "2026-10-09T14:43:33.117212+00:00",
+          "horse_key": "jbis-0000713851",
+          "identity_hash": "766666c770af2f89cf5d460188dc1da0faf2ac03a3fe2fb0e178f36be64bce71",
+          "revision_id": "rev-ccce42de677499af60810e6d",
+          "source_hash": "0c0cf21cc721dc68526de6076a0b09d6daaec88460085293c284127df3cf63b4"
+        },
+        "SDD": {
+          "content_hash": "6808d293c5e709a329a83d5dd268821da2380ccac12805de07b79a713399d2e9",
+          "first_observed_at": "2026-10-09T14:43:33.117212+00:00",
+          "horse_key": "jbis-0000274849",
+          "identity_hash": "b2096982b64fb11aca78bf235898af02bb8c291c489a55a317e60c2ae10fb419",
+          "revision_id": "rev-efa551d0d35e4c5f4b10c9d5",
+          "source_hash": "0c0cf21cc721dc68526de6076a0b09d6daaec88460085293c284127df3cf63b4"
+        },
+        "SDDD": {
+          "content_hash": "cd4003ce9fb42d0204ef6e289ee186252e6f35124fcad10042a1a6911f9b2d01",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000125485",
+          "identity_hash": "eb31c7c49a626cbabd8cf9832ba889df5e04b5b7e69e61f9bbee5c05bbe7e842",
+          "revision_id": "rev-2eee4b9b317ba10b5dd13ea9",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "SDDDD": {
+          "content_hash": "4f23ce1166ac92f3cc729d703be0bdefe2cb708cad4d5d1c7dc2bb5e101aa24e",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000062813",
+          "identity_hash": "e26ebfe4ecebcd83f5bd2365f631fefde4a05e1242d12b9d2e02f3f0e61697f8",
+          "revision_id": "rev-0885300d3e5f9d32e781d444",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "SDDDS": {
+          "content_hash": "e433c6064f01a4e02ccfe163603bca64c121c136c13dcbdc99e3a24b94530025",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000333544",
+          "identity_hash": "8267f79d9de341bb9b9693ca1fdfbbe7beeb7859880e6668a24a45be7ed84412",
+          "revision_id": "rev-aa88afb898f4ab7f772dba0d",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "SDDS": {
+          "content_hash": "28f83b85d54d3780d9b6530dade19b8f139a0bc5eebcc6455e652c3a29d1e006",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000161740",
+          "identity_hash": "11c583873ad30ba84484aebd7f8f45ed1247228fa8f46ebe2770508204d77955",
+          "revision_id": "rev-f356d7286a164850fe9bfd3a",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "SDDSD": {
+          "content_hash": "69bbb8747f453defc35e802cea7125dbaf0e789a3c18906c1188d9bd27618caf",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000391504",
+          "identity_hash": "ff00f7447b6ad6cf6d3491875f2cd6afe78cf4719d76fe6f1e0a351cf018b5fd",
+          "revision_id": "rev-37dbf1038008b7a04d2d7f84",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "SDDSS": {
+          "content_hash": "0cac6923eee3f7ce0f5e642508f7dd47ce6b4decee6e654392fe37c87f67f092",
+          "first_observed_at": "2026-10-09T12:16:08.309884+00:00",
+          "horse_key": "jbis-0000336378",
+          "identity_hash": "871a30723dc8cf89c8b39c22e577584d6d2b40d54ad14a284bda0d001dfe3b0d",
+          "revision_id": "rev-d372d71b06b1c450a86e618c",
+          "source_hash": "c61d1b4da576c8100a3c98caedd2a43c85fbe63420f96a47776ab7eaef0c7bc8"
+        },
+        "SDS": {
+          "content_hash": "f1c0ab7b4d14c95e6ace086b71629ced25246541a236760dab75ef0a1fbb2924",
+          "first_observed_at": "2026-10-09T14:43:33.117212+00:00",
+          "horse_key": "jbis-0000333862",
+          "identity_hash": "dfbb51d72c947232c08f6da2bcb7c6c6d995fe40a8b25b4dc3959782fe2d0608",
+          "revision_id": "rev-286216c0d81d3e878071cdce",
+          "source_hash": "0c0cf21cc721dc68526de6076a0b09d6daaec88460085293c284127df3cf63b4"
+        },
+        "SDSD": {
+          "content_hash": "ce318e2ce5b7508863c72853c87dc6ead64db59a1146148653709783d44a9034",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000393162",
+          "identity_hash": "ccc790c5c9d70d4df1e9330276c9b23d4b120cd5baae4435113c784d3f9c4e68",
+          "revision_id": "rev-5c577a8b995870fca8800520",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SDSDD": {
+          "content_hash": "16b45bb9abd18f4f8dc10eccf45e537e31af12f661dc5abfb1da0593b169001d",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000393161",
+          "identity_hash": "043542a024cecdc9f2a00916fd68ac8dc16ca5d296d25c1c27eb87cbada14e0a",
+          "revision_id": "rev-836f2a0cf990b2955825d157",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SDSDS": {
+          "content_hash": "392cea16b17d9895dc85ba12a61120f2ae72e329a8e6070ca59732bb691dc415",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000336892",
+          "identity_hash": "c4b235435a99221268fbf87a4693ea869e8116dbf7025dd02231b1e464c8ae73",
+          "revision_id": "rev-33b808c27190bd1dd6973378",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SDSS": {
+          "content_hash": "73af8b6bf75ac82f6e2189d1b2c2f859449e9e8808599d7389d63830a72cb8b1",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000335154",
+          "identity_hash": "10537527f10f2ab26f23e2dd6316f433c5e2074f17ca7cde82fa1f2ffe7a1022",
+          "revision_id": "rev-2db97142f464383d09af8c7e",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SDSSD": {
+          "content_hash": "1e351e72053b4a447c31bffc6a13ee3973a8500fc1a04f9291c4941b9d42a3f4",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000387273",
+          "identity_hash": "542ee67d09f184f98dc52bd5b25dd51dfec71e919795b72ba56771cbd6ffa389",
+          "revision_id": "rev-5476cda0d0ee1670b76cd487",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SDSSS": {
+          "content_hash": "8822e03aa10bb1a463493717ac992c990c980ac9d3320454502021ee46587841",
+          "first_observed_at": "2026-10-09T12:16:25.560551+00:00",
+          "horse_key": "jbis-0000334286",
+          "identity_hash": "3322a81567d8502d1ed52e3a8caa27cbf83f90710ae5a32d568c914de48bec54",
+          "revision_id": "rev-76583f9e3f5c03cc4b2eaa31",
+          "source_hash": "f471430ec15500018d1d580f9a0ca0cac93d4b0641f3ab082753e11db1abeddf"
+        },
+        "SS": {
+          "content_hash": "68a4eacf452eeaf300ee07b2eed99e9f9acaab681106334bb55e86a991d747b0",
+          "first_observed_at": "2026-10-09T14:43:33.117212+00:00",
+          "horse_key": "jbis-0000729458",
+          "identity_hash": "77bbb874c54109bd8597e1bf721dddf08dd424216712532b0909881be1f6255f",
+          "revision_id": "rev-d63feed50d2dc45f3b46ac43",
+          "source_hash": "0c0cf21cc721dc68526de6076a0b09d6daaec88460085293c284127df3cf63b4"
+        },
+        "SSD": {
+          "content_hash": "c4cce9e97e46e52b31e9c4882355f5e8fd2f74e3857bacf4bffe752a05ce8fab",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000440324",
+          "identity_hash": "75ecebe15a8fd6eb678a2e301a3cf8dad1ffd9fb94822edd4f7b5fb12eda5cde",
+          "revision_id": "rev-4459a2b0deaa69a95487a7a5",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSDD": {
+          "content_hash": "4e3aa61e060a5e6004bc3a1d7938ea8758354e0149094febae52f81016c61c98",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000435166",
+          "identity_hash": "879159dbd10c122ea713ee775023638f341aaa9babbe0f812d4b8bb0c672e206",
+          "revision_id": "rev-c8f8071891e8ffa2b61bbc52",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSDDD": {
+          "content_hash": "4dfc9022752c37638ee48fc2c68075d8e1fbf02bc5fe5b348ee7be812ef2a23f",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000405632",
+          "identity_hash": "706d6ade96c2acf9ca0f0057b4e34484d2f0319d556d95947611e572a60b03fe",
+          "revision_id": "rev-ce40d55c3ff99d3a23f94621",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSDDS": {
+          "content_hash": "0bd033cfed5eb39c3bac55c4b350a53844f2152193e540196d3eddf76bb48f58",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000335413",
+          "identity_hash": "12d712b952a15e584f55edef07bab26be1429c1741c2ba6117e94da566bd163b",
+          "revision_id": "rev-d9afc5158470a392e210b261",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSDS": {
+          "content_hash": "6a4e4ff05be6efce4a4cc5568f03621520145249f786d09f9ebe0a61f0384612",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000337436",
+          "identity_hash": "ca45bcd5a5ac59f3732d1635d09ece84fd634998e431fa37545fa1715d742fae",
+          "revision_id": "rev-5e34796cfe1defe2e80d22f8",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSDSD": {
+          "content_hash": "76df3c500d68317366a1beca1a6e9196dd07a9423619df63621f30273e7a4da3",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000394676",
+          "identity_hash": "57e0082ae060f96c92c286fa7230a2f550d6f23f24a94f442d4afd77c2c4242c",
+          "revision_id": "rev-2afb0af99c25442caff4f2c3",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSDSS": {
+          "content_hash": "54e2cddde5dfe5786d7e75b74f69dc48a1a9789362e053e37ed66ea11d0d4fab",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000336129",
+          "identity_hash": "88cc1e01366dcd2b6dfdbea19b4f4810d20fc30608266a6da07f7a3c8be2381a",
+          "revision_id": "rev-b3e77ffcd1ccaae2c00eb3d9",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSS": {
+          "content_hash": "a89c38cacd72d557b2e2c0180c8a5e2091842b2fac37cb86fc7f92907eddd7b2",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000347989",
+          "identity_hash": "fbba7afa8818a9c5037f88d666dbfc82421a8d27ddbe389a96f5e1aea828c381",
+          "revision_id": "rev-a1e8f6073a31631daaba99a0",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSSD": {
+          "content_hash": "f43e3d69e486433dc7fc4055881be641bffd2a54b852dfb4501ab8ff9c9ef176",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000411358",
+          "identity_hash": "542ef59e89997c17398bd6cb23c04ce20c19f1166284cd69bdaeb0fa5a898910",
+          "revision_id": "rev-3a93d422429e5e292ea1efe2",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSSDD": {
+          "content_hash": "df46f291269dcd386cecbf81fe2d0f833187a9b676f14223945a9ac986993f8a",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000391295",
+          "identity_hash": "d7ca376e4c6cf58905a9c9fb15833e3a02af3ea5c5340995606d945e8106dba7",
+          "revision_id": "rev-43e31be3ca4c8501397a50c2",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSSDS": {
+          "content_hash": "fa0ba7e9d6d367392d91d757f8aba9b2a3d3d5025dd2ecf72f0f1121dcbac5a7",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000336085",
+          "identity_hash": "e8c3fcfd9a049f9c66059be1e647091fcd5a937d0a170f97af46dbaea59f22b5",
+          "revision_id": "rev-0a7c0518eb61c1cbfa8a31cc",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSSS": {
+          "content_hash": "53f579f45c76148c6dc6901d321d341fd3e83f25457347e8c3e1fd7ec6499349",
+          "first_observed_at": "2026-10-09T12:16:25.552231+00:00",
+          "horse_key": "jbis-0000335975",
+          "identity_hash": "d393d469c573fee54b3d84c094ee3a4654c1ec890fa81201d035ac04c97f4659",
+          "revision_id": "rev-4cd6ec5a2a640c335a7c386e",
+          "source_hash": "39815633dcf8d0afc0bc13af9a469d9d6252a7f639007838f13446489fec9b62"
+        },
+        "SSSSD": {
+          "content_hash": "9f606d211b1eca1d01eeb4ec5cbd2473f263b376b44965be747785ce69677a25",
+          "first_observed_at": "2026-10-09T12:16:09.491099+00:00",
+          "horse_key": "jbis-0000389632",
+          "identity_hash": "aee75058f6211811fe77ea24008127d3bcba3043674b79f22084359f8a4c5633",
+          "revision_id": "rev-3ec62d53fcbb2c3277e0ced4",
+          "source_hash": "d5ac7afc7418374ed473a28d79a484042bc909dc3742a8fc27cc35dcf16d9378"
+        },
+        "SSSSS": {
+          "content_hash": "58dcaf948c03f616b57c6dbc3a4dabb99d1476fd5fefce2ce224e6c124194851",
+          "first_observed_at": "2026-10-09T12:16:09.491099+00:00",
+          "horse_key": "jbis-0000334066",
+          "identity_hash": "4f44c64d665695d35bab9e40551ba19b65c68be7029f686c73efe1078f607e8e",
+          "revision_id": "rev-b3f680083baa85260bc716c1",
+          "source_hash": "d5ac7afc7418374ed473a28d79a484042bc909dc3742a8fc27cc35dcf16d9378"
+        }
+      },
+      "complete_5gen": true,
+      "component": "ROBERTO_WITHIN_5GEN",
+      "entry_id": "2026-10-11-TOKYO-11-01",
+      "expected": "なし",
+      "horse_key": "jbis-0001338873",
+      "horse_name": "ニシノティアモ",
+      "line_sha256": "e8f4f634ecef1e0f842660c2e3b393b7851a096d12c6d0b5942fd71bd5d7c100",
+      "original_line": "| 1 | [ニシノティアモ](https://db.netkeiba.com/horse/ped/2021100244/) | ドゥラメンテ | コンデュイット | なし | 6月の府中牝馬S10着、東京既走経験は豊富 |",
+      "paths": [],
+      "positions_available": 62,
+      "production_eligible": false,
+      "relationship_facts": [],
+      "scope_note": "Robertoなしは確認済み5代62位置内の不在。全血統の不在を主張しない。",
+      "snapshot_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "snapshot_sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "source_line": 81,
+      "status": "MATCH"
+    },
+    {
+      "actual": "ロードカナロア",
+      "ancestor_position_proof": {},
+      "complete_5gen": true,
+      "component": "SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-02",
+      "expected": "ロードカナロア",
+      "horse_key": "netkeiba-2022105778",
+      "horse_name": "チェルビアット",
+      "line_sha256": "a578377377cd5ec63fef5cdeec56b94ce6e965e932ed808f101593e4fd318d7a",
+      "original_line": "| 2 | [チェルビアット](https://db.netkeiba.com/horse/ped/2022105778/) | ロードカナロア | フレンチデピュティ | なし | 1800mの勝利実績なし |",
+      "paths": [
+        "S"
+      ],
+      "positions_available": 62,
+      "production_eligible": false,
+      "relationship_facts": [
+        {
+          "ancestor_identity_evidence": {
+            "record_key": "0001089850",
+            "source": "JBIS"
+          },
+          "content_hash": "baebc86ce27d8ba104b8300de6ad6b0409b270e26bbad3db671bdad6d60aaa9b",
+          "field": "parent:S",
+          "first_observed_at": "2026-10-09T17:40:29.668530+00:00",
+          "horse_key": "netkeiba-2022105778",
+          "identity_evidence": {
+            "raw_sha256": "175f8506c5b8dfe22f4ef4c7d08b90a37271d2552de17dfefdf329a71a02dd6d",
+            "record_hash": "d0a2d9a46a6cda0d39572bacab3320a9882e68edd22e1a3dfd404c8ae958f21a",
+            "record_key": "NETKEIBA:2022105778",
+            "source": "https://db.netkeiba.com/horse/ped/2022105778/"
+          },
+          "revision_id": "rev-054d060aeb9b600419cc4bde",
+          "source": {
+            "acquisition_method": "TWO_PROVIDER_MATCH",
+            "captured_at": "2026-10-09T17:11:54.946536+00:00",
+            "corroborating_urls": [
+              "https://db.netkeiba.com/horse/ped/2022105778/",
+              "https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2022105778"
+            ],
+            "origin_group": "NETKEIBA",
+            "raw_sha256": "175f8506c5b8dfe22f4ef4c7d08b90a37271d2552de17dfefdf329a71a02dd6d",
+            "record_hash": "05e9c8681b06c003fa5c04f9ab9e22a250c44f7a763e51a3cc5a96a572e7a099",
+            "record_hash_kind": "canonical-verified-table-position-sha256",
+            "record_key": "2022105778:S",
+            "source_class": "BREEDING_DB",
+            "url": "https://db.netkeiba.com/horse/ped/2022105778/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0001089850"
+        }
+      ],
+      "scope_note": "本人・父母経路・独立IDの事実照合。適性仮説や近走列は照合範囲外。",
+      "snapshot_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "snapshot_sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "source_line": 82,
+      "status": "MATCH"
+    },
+    {
+      "actual": "フレンチデピュティ",
+      "ancestor_position_proof": {},
+      "complete_5gen": true,
+      "component": "DAM_SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-02",
+      "expected": "フレンチデピュティ",
+      "horse_key": "netkeiba-2022105778",
+      "horse_name": "チェルビアット",
+      "line_sha256": "a578377377cd5ec63fef5cdeec56b94ce6e965e932ed808f101593e4fd318d7a",
+      "original_line": "| 2 | [チェルビアット](https://db.netkeiba.com/horse/ped/2022105778/) | ロードカナロア | フレンチデピュティ | なし | 1800mの勝利実績なし |",
+      "paths": [
+        "DS"
+      ],
+      "positions_available": 62,
+      "production_eligible": false,
+      "relationship_facts": [
+        {
+          "ancestor_identity_evidence": {
+            "record_key": "0000798372",
+            "source": "JBIS"
+          },
+          "content_hash": "5082014a5c6581f51760617014114379626f35b4c06f10f033bfe843e2cded59",
+          "field": "parent:D",
+          "first_observed_at": "2026-10-09T17:40:29.665653+00:00",
+          "horse_key": "netkeiba-2022105778",
+          "identity_evidence": {
+            "raw_sha256": "175f8506c5b8dfe22f4ef4c7d08b90a37271d2552de17dfefdf329a71a02dd6d",
+            "record_hash": "d0a2d9a46a6cda0d39572bacab3320a9882e68edd22e1a3dfd404c8ae958f21a",
+            "record_key": "NETKEIBA:2022105778",
+            "source": "https://db.netkeiba.com/horse/ped/2022105778/"
+          },
+          "revision_id": "rev-22274f8d26a73046a6df0c18",
+          "source": {
+            "acquisition_method": "TWO_PROVIDER_MATCH",
+            "captured_at": "2026-10-09T17:11:54.946536+00:00",
+            "corroborating_urls": [
+              "https://db.netkeiba.com/horse/ped/2022105778/",
+              "https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2022105778"
+            ],
+            "origin_group": "NETKEIBA",
+            "raw_sha256": "175f8506c5b8dfe22f4ef4c7d08b90a37271d2552de17dfefdf329a71a02dd6d",
+            "record_hash": "82c626957f8a01002a669f82dbad1e7e919f743ee7f2f58935a805abca3a8d00",
+            "record_hash_kind": "canonical-verified-table-position-sha256",
+            "record_key": "2022105778:D",
+            "source_class": "BREEDING_DB",
+            "url": "https://db.netkeiba.com/horse/ped/2022105778/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0000798372"
+        },
+        {
+          "ancestor_identity_evidence": {
+            "record_key": "0000362799",
+            "source": "JBIS"
+          },
+          "content_hash": "49f2a79efff6bfe38989d6a403a3268c4f5275a6f1cc01aefd2f8072bbb1c812",
+          "field": "parent:S",
+          "first_observed_at": "2026-10-09T14:52:09.798877+00:00",
+          "horse_key": "jbis-0000798372",
+          "identity_evidence": {
+            "record_key": "0000798372",
+            "source": "JBIS"
+          },
+          "revision_id": "rev-b161ea4a781f747749d12694",
+          "source": {
+            "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+            "origin_group": "JBIS",
+            "record_hash": "6526944a338c461eb15346eb15abbb745dc3042111c0ed26703d5e5b9e3a1f48",
+            "record_key": "0001359711",
+            "source_class": "BREEDING_DB",
+            "url": "https://www.jbis.or.jp/horse/0001359711/pedigree/"
+          },
+          "status": "VERIFIED",
+          "value": "jbis-0000362799"
+        }
+      ],
+      "scope_note": "本人・父母経路・独立IDの事実照合。適性仮説や近走列は照合範囲外。",
+      "snapshot_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "snapshot_sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "source_line": 82,
+      "status": "MATCH"
+    }
+  ],
+  "schema_version": "oct11-note-component-batch-v1",
+  "source_note_modified": false,
+  "status": "COMPLETED",
+  "subtask_id": "19-01",
+  "targets": [
+    {
+      "component": "SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-01",
+      "ref": {
+        "line": 81,
+        "path": "docs/validation/snapshots/2026-10-11.md"
+      }
+    },
+    {
+      "component": "DAM_SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-01",
+      "ref": {
+        "line": 81,
+        "path": "docs/validation/snapshots/2026-10-11.md"
+      }
+    },
+    {
+      "component": "ROBERTO_WITHIN_5GEN",
+      "entry_id": "2026-10-11-TOKYO-11-01",
+      "ref": {
+        "line": 81,
+        "path": "docs/validation/snapshots/2026-10-11.md"
+      }
+    },
+    {
+      "component": "SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-02",
+      "ref": {
+        "line": 82,
+        "path": "docs/validation/snapshots/2026-10-11.md"
+      }
+    },
+    {
+      "component": "DAM_SIRE",
+      "entry_id": "2026-10-11-TOKYO-11-02",
+      "ref": {
+        "line": 82,
+        "path": "docs/validation/snapshots/2026-10-11.md"
+      }
+    }
+  ],
+  "usage": "REPLAY_ONLY"
+}
