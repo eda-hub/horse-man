@@ -182,6 +182,12 @@ class SelectionHistoryTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'evidence object'):
             self.check()
 
+    def test_initial_previous_hash_must_be_explicit(self):
+        self.add('SELECT')
+        del self.history['events'][0]['previous_sha256']
+        with self.assertRaisesRegex(ValueError, 'explicit previous'):
+            self.check()
+
     def test_read_only(self):
         self.add('SELECT')
         self.buy()

@@ -33,4 +33,4 @@ python scripts/selection_history.py --root . --audit-oct11
 
 旧正式Bettingは適格0・保留5・正式ROI null。参考精算を別に保持し、実購入0円を仮想購入へ混ぜない。次期Recommendation KPIは旧サンプルに非適用。Prediction/Recommendationの価格不要の完了とは独立した任意市場sidecarの準備である。
 
-受入・固定出所は `docs/validation/implementation/2026-10-11-task27.json`。既存FIX元5commitも照合し、4件は後続追記の区切り行だけが差分、1件はsection完全一致。元買い目本文は一致するが、生section hashの不一致を一致に言い換えない。追加選定revision・目的移行証跡の欠測は元の課題OPENとして残し、今回の合成・実証跡24回帰と既存証跡監査の完了を、実履歴課題の解消と混同しない。
+受入・固定出所は `docs/validation/implementation/2026-10-11-task27.json`。既存FIX元5commitも照合し、4件は後続追記の区切り行だけが差分、1件はsection完全一致。元買い目本文は一致するが、生section hashの不一致を一致に言い換えない。追加選定revision・目的移行証跡の欠測は元の課題OPENとして残し、今回の合成・実証跡25回帰と既存証跡監査の完了を、実履歴課題の解消と混同しない。

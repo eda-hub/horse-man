@@ -43,6 +43,8 @@ def validate_history(history, root):
     for revision, event in enumerate(events, 1):
         if not isinstance(event, dict):
             raise ValueError('event must be an object')
+        if 'previous_sha256' not in event:
+            raise ValueError('explicit previous revision hash required')
         core = {key: value for key, value in event.items() if key != 'evidence'}
         if type(event.get('revision')) is not int or event['revision'] != revision:
             raise ValueError('revision gap or duplicate')
