@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜17番完了、18番実施中（18-01〜18-02完了・未検索24個体）、19〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜18番完了、19〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -290,3 +290,14 @@ PR69成果commit `1f91dd4884b815ee55c6676dd67c719d1f472014`。162原票と全バ
 Registry唯一Writer/CASで5revisionを追記。固定5対象・出所抽出hash・旧revision不変・過去cutoff・国selector・読戻しPASS。成果PR69 commit `fae64ab4169406787796df808d08c6d5045ea57b`、15ファイル。horses tree `80866ad97324826c23f310148b24a2acb2f2a7da` とcountries tree `c52f12c432b01e38e1abd47be513231fbfbe4700` がローカル/リモート一致。通常CIはPR69最新記録を参照。累計10/34確認、未検索24、利用者確認待ち0。
 
 **親18番は実施中。次は18-03：Holy Roman Emperor、Myboycharlie、コンデュイット、ラブリーデイ、Wootton Bassettの最大5頭。** 既存212個体のscopeと7バッチの子番号を維持、19以降・Stage切替・マージは未実施。REPLAY_ONLY・v1.6.1・Draft/PENDINGを維持する。
+
+
+### 18番の全残件・完了確認（2026-10-12 JST）
+
+利用者の全残件実施指定に従い、固定18-03〜18-07を順次実施。残24個体を外部原資料から調査し、既存Registryの唯一Writer/CAS・追記・readback・cutoffを保持して属性24revisionを保存。18-01/02と合わせ全7バッチ・不足34個体を外部証跡で確認、未検索/国未確定/利用者確認待ち0。必要scope212個体は既存178＋新規34で全件選択可能。全5代祖先へ無差別調査を広げない。
+
+MyboycharlieはTommy StackのIE所属観測2008-04-18と米国移籍後Cody AutreyのUS所属観測2008-12-16を別matchとして記録し直近USを選択。文書上の所属観測日と全生涯最終調教日を区別し、Wiki等の競走日と記事中の日付相違を最終所属日の根拠にしない。Nishiken Mononofu/ヘンリーバローズの国内転厩、Swiss SpiritのElsworth→Gosden、Reckless Abandonの繁殖中断後Applebyへの調教復帰は国と厩舎を区別。供用/生産/開催/評価国を所属へ流用しない。
+
+成果PR69 commit `94bd40f2967f982fc1f1c8ff4c4f26542e6e4454`、変更78ファイル。全horses tree `26aeb23d19a1a6d0490d960b4fcbb1eeb98efd94`、countries tree `dda737f273183473fd812c6e9ea1561678e8e186` のローカル/保存先readback一致。全7固定対象・34国revision・212selector結果・旧cutoff・CAS・抽出hash・複数国時系列の独立照合PASS。通常CIの最終結果はPR69の最新実施記録を参照する。
+
+**18番完了、次は19-01（アイルランドTノートの事実成分照合、固定最大5成分）。** 20番の全体coverage・追加集計・19〜53番・Stage合格/切替・Production昇格・マージは未実施。REPLAY_ONLY・現行v1.6.1・Draft/PENDINGを維持。
