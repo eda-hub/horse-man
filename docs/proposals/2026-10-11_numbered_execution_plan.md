@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜25番完了、26〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜26番完了、27〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -423,3 +423,20 @@ Robertoは独立JBIS/NETKEIBA IDと表記候補を全62位置で照合し、欠�
 成果PR69 commit `9ebba86d797a561b6d932eb1c26874201a0da7a9`、追加4ファイルの内容/Git blob SHAを保存先readback照合。個別Prediction/Recommendationゲートへの接続と独立した不足判定は26番に保持し、引継ぎ課題全体の解消や過去欠落の修復として数えない。既存checkerの判定・原票/予想・manual/releaseを変更しない。通常CI結果はPR69最新記録を参照。
 
 **1〜25番完了、26〜53番未着手。次は26番（Prediction/Recommendation個別ゲートの不足検出と状態出力の整合）。** 現行v1.6.1・Draft/PENDINGを維持。
+
+
+### 26番：Prediction/Recommendation個別完了の独立判定完了（2026-10-12 JST）
+
+`scripts/task_completion.py` を実装し、予想・推奨の既存CLIへ `--completion-status` / `--status-json` を接続。本体、同一artifactのreceipt、FIX時内容hash、個別完了確認、対象実行ゲート、適用Shadow、全体監査を独立表示。全体監査の成功や本体の存在だけでは個別完了にしない。宣言ID/FIX hashなしは未実施、失敗・証跡不足・不一致は成功へ変換しない。
+
+Predictionは既存事前宣言/scope/receipt/hash検証と全対象の実行ゲートを照合。適用Shadowは明示scopeと実際の証跡を確認し、保留/未実施/証跡欠落はその項目だけを不足とする。本体の保存成功や既存KPIを失敗へ書き換えない。推奨は本体pathとgateを独立指定し、gate欠落時も本体/receiptの結果を保持。現在の独立推奨契約にShadowはなくPrediction側の不足を転用しない。元Productionの正式性は既存固定gate検証を維持。
+
+新モードは個別必須工程完了時のみ終了0、不足は終了1。通常表示を日本語とし、原文diagnostic/内部IDは明示した監査用JSONに保持。従来の `--task-complete` と推奨 `--verify` の検証範囲・終了値を保持し、その表示が全工程完了と誤認されないよう保存工程の日本語説明へ整合。確認実行時刻は現在JSTで記録し、過去証跡や時刻を生成しない。
+
+新規16回帰で監査だけ成功、本体/receipt/gate欠落、FIX内容不一致、個別確認未実施、Shadow保留/証跡欠落/成功/scope欠落、Predictionと推奨の独立性、既存CLI接続、JSON異常、読取専用性を検査。関連83テスト成功。仕様 `docs/validation/individual-completion.md`、合成受入記録 `docs/validation/implementation/2026-10-11-task26.json` を保存。過去11/12日の未認証をこの合成検査で修復・昇格しない。引継ぎ課題の実データ採否は後続番号へ保持。
+
+開始時mainは `0520dc25437358df459e7e08219965f9b1e0f732`（PR78の12日成果16ファイル追加/更新）。以前のmain `00fed628290e4abd47c09f63439d7098ddb64bca` からの差分を確認し、今回の共通処理との編集ファイル重複なし。開始PR69は `9ebba86d797a561b6d932eb1c26874201a0da7a9`。日次成果の取込みや12日実履歴の追認を今回の実装と混同しない。
+
+成果PR69 commit `b766ac8235c6f8de08b14a8afc23730f99d98a24`、変更7ファイルのGit blob SHAを保存先readback照合。manual/release/原票/予想/receipt/血統/集計snapshotは変更しない。通常CI結果はPR69最新記録を参照。
+
+**1〜26番完了、27〜53番未着手。次は27番（用途・選定revisionの履歴検査と11日5BUYの既存証跡監査）。** 現行v1.6.1・Draft/PENDINGを維持。
