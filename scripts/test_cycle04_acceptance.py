@@ -334,9 +334,12 @@ class Cycle04Acceptance(unittest.TestCase):
         with self.assertRaises(ComplianceError):self.day(d,c)
         row=d['races'][RACE];row['scheduled_post_time_jst']=POST
         result={'status':'OFFICIAL','race_id':RACE,'race_date_jst':DATE,'source_url':'https://example.invalid/official',
-                'retrieved_at_jst':DATE+'T11:00:00+09:00','finish_groups':[[5],[2],[6],[4],[1],[3]]}
+                'retrieved_at_jst':DATE+'T11:00:00+09:00','finish_groups':[[5],[2],[6],[4],[1],[3]],'place_places':3}
         path='result.json';write(self.root,path,json.dumps(result))
         row['result_ref']={'artifact_path':path,'sha256':fingerprint((self.root/path).read_bytes())}
+        row['review']={'error_classification':'test','non_degradation':'test','next_validation':'test'}
+        from recommendation import settle,verify
+        row['recommendation_result']=settle(verify(self.root,self.root/row['recommendation_gate_path']),result)
         self.day(d,c)
         result['retrieved_at_jst']=DATE+'T09:00:00+09:00';write(self.root,path,json.dumps(result))
         row['result_ref']['sha256']=fingerprint((self.root/path).read_bytes())

@@ -217,3 +217,30 @@ def validate_ticket_comparison(rows, *, horses, frames):
             require(method == 'CALIBRATED' or t.get('calibrated_lower_bound') is None,
                     'uncalibrated probability cannot claim a calibrated lower bound')
     return {'event_count': len(keys), 'optimality_certified': False}
+
+
+def validate_official_result(result, *, race, date, post, horses=None):
+    """通常の公式確定結果の形・時点・全頭対応を共通検査する。"""
+    require(isinstance(result,dict) and result.get('status')=='OFFICIAL' and
+            result.get('race_id')==race and result.get('race_date_jst')==date,
+            'official result identity mismatch')
+    require(isinstance(result.get('source_url'),str) and result['source_url'].startswith('https://'),
+            'official result source URL required')
+    require(iso(result.get('retrieved_at_jst'),'official acquisition')>=iso(post,'post'),
+            'future result used before post')
+    groups=result.get('finish_groups')
+    require(isinstance(groups,list) and groups and all(isinstance(g,list) and g for g in groups),
+            'official finish groups missing')
+    finished=[h for group in groups for h in group]
+    other=[]
+    for field in ('non_finishers','scratched_horses'):
+        values=result.get(field,[])
+        require(isinstance(values,list),'official '+field+' list required')
+        other.extend(values)
+    require(all(type(h) is int and h>0 for h in finished+other) and
+            len(set(finished+other))==len(finished+other),'official duplicate/invalid horse')
+    if horses is not None:
+        require(set(finished+other)==set(horses) or
+                set(finished+result.get('non_finishers',[]))==set(horses),
+                'official full-field result coverage mismatch')
+    return result

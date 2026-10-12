@@ -143,7 +143,7 @@
       "decision": "CONTINUE_VALIDATION",
       "owner": "30_betting / 50_review",
       "reason": "阪神10Rの◎勝利と実購入不的中を構築層へ局所化",
-      "next_test": "仮想/実購入の券種・相手・配分を別採点",
+      "next_test": "新規は印の捕捉と価格不要推奨構成を別採点。実購入・配分の比較は旧履歴の読取診断に限定。",
       "protected": "能力評価・ユーザー購入報告の原本",
       "evidence": [
         "docs/validation/records/2026-09-27.md"
@@ -177,10 +177,10 @@
     {
       "id": "C14",
       "title": "星印廃止・重賞通常化・価格不要推奨",
-      "decision": "PREPARE_AGREED",
+      "decision": "ADOPT_OPERATION",
       "owner": "README / 全Owner",
-      "reason": "既合意次期仕様の準備実装を継承。現行manualは切替しない",
-      "next_test": "版/有効日確定後に全Owner/入口/schema/Phase原子整合",
+      "reason": "既合意次期仕様の準備実装を継承。現行manualは切替しない。利用者の版指定後、PR79で正式切替を完了。",
+      "next_test": "v1.7.0の全Owner/入口/監査/Phase整合と取得済みmainを継続照合",
       "protected": "旧印・固定資金/買い目の履歴",
       "evidence": [
         "scripts/recommendation.py",
