@@ -440,3 +440,12 @@ Predictionは既存事前宣言/scope/receipt/hash検証と全対象の実行ゲ
 成果PR69 commit `b766ac8235c6f8de08b14a8afc23730f99d98a24`、変更7ファイルのGit blob SHAを保存先readback照合。manual/release/原票/予想/receipt/血統/集計snapshotは変更しない。通常CI結果はPR69最新記録を参照。
 
 **1〜26番完了、27〜53番未着手。次は27番（用途・選定revisionの履歴検査と11日5BUYの既存証跡監査）。** 現行v1.6.1・Draft/PENDINGを維持。
+
+
+#### 26番のmain統合時の互換修正・最終保存（2026-10-12 JST）
+
+初回CI `38249111855` の回帰で、main PR78の実履歴監査が標準checkerの旧stdout `PERSISTENCE_VERIFIED` を機械判定していることを検出。判定を緩めず、標準checkerへ明示的な `--machine-log` を追加し、PR78監査の直接検証呼出しだけへこの指定を追加。通常利用者向け日本語表示と明示した内部ログを分離し、元のFIX commit/hash・receipt・標準検証の成功/失敗判定を保持。
+
+main `0520dc25437358df459e7e08219965f9b1e0f732` の12日成果を、PR69の準備実装と三方統合してcommit `cf131dc39f33ad9d37ec8b7ef5d4ba1de221a967` へ取込み。日次予想/receipt原本を保持し、cycle_03は双方の記録を保持。血統・集計を含むdata treeは取込み前と同一。PR69をmainへマージしたものではなく、Draft/PENDINGと現行releaseを維持。
+
+最終保存commit `4bb6fa56031ba535ad226482160622796a0264b0`。新規回帰17件、関連84件成功。初回7ファイルと互換修正5ファイル/最終1ファイルを内容・Git blob SHAでreadback照合し、初回CI失敗理由を実装受入JSONへ保持。PR78監査との統合CIを再実行し、結果はPR69最新記録に記載する。次は27番。過去の不適格を今回の再検査で昇格しない。
