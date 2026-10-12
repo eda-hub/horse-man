@@ -61,6 +61,20 @@ def original_commit_file(root, sha):
         raise AssertionError(f"Cannot read original snapshot {sha}: {original.stderr}")
     return original.stdout
 
+def require_audit_markers(output):
+    # 旧Markdownのみの検索とJSON対応検索は、同じsnapshot欠落を別文言で報告する。
+    # 対象IDと「欠落」の判定を維持し、成功や別対象のエラーは代用しない。
+    missing_whole = (
+        '20261012-WHOLE-S01: expected one snapshot section, found 0',
+        '20261012-WHOLE-S01: snapshot file missing:',
+    )
+    if not any(marker in output for marker in missing_whole):
+        raise AssertionError('Missing standard checker audit marker: whole24 snapshot absent')
+    for marker in ('20261012-REMAINING-S01',
+                   '20261012-TOK-11-WEIGHT-S01: verified pre-race receipt missing'):
+        if marker not in output:
+            raise AssertionError(f'Missing standard checker audit marker: {marker}')
+
 def audit(root):
     s = (root / SNAPSHOT).read_text(encoding="utf-8")
     receipts_text = (root / RECEIPTS).read_text(encoding="utf-8")
@@ -112,14 +126,7 @@ def audit(root):
                            "--audit", "--date", DATE)
     if audit_result.returncode != 0:
         raise AssertionError("standard audit unexpectedly returned nonzero")
-    required = (
-        "20261012-WHOLE-S01: expected one snapshot section, found 0",
-        "20261012-REMAINING-S01",
-        "20261012-TOK-11-WEIGHT-S01: verified pre-race receipt missing",
-    )
-    for marker in required:
-        if marker not in audit_result.stdout:
-            raise AssertionError(f"Missing standard checker audit marker: {marker}")
+    require_audit_markers(audit_result.stdout)
     compliance = command(root, "scripts/check_prediction_compliance.py", "--audit")
     if compliance.returncode:
         raise AssertionError("compliance checker returned unexpected nonzero")

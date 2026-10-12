@@ -205,6 +205,17 @@ class TaskCompletionTests(unittest.TestCase):
             self.assertEqual(prediction_main(), 0)
             self.assertIn('PERSISTENCE_VERIFIED ', out.getvalue())
 
+    def test_historical_audit_keeps_absence_check_with_both_lookup_protocols(self):
+        from audit_20261012_pr78 import require_audit_markers
+        rest = '\n20261012-REMAINING-S01\n20261012-TOK-11-WEIGHT-S01: verified pre-race receipt missing'
+        for missing in ('20261012-WHOLE-S01: expected one snapshot section, found 0',
+                        '20261012-WHOLE-S01: snapshot file missing: docs/validation/snapshots/2026-10-12.md'):
+            require_audit_markers(missing + rest)
+        for other in ('PERSISTENCE_VERIFIED 20261012-WHOLE-S01',
+                      'other-snapshot: snapshot file missing: file.md'):
+            with self.subTest(other=other), self.assertRaises(AssertionError):
+                require_audit_markers(other + rest)
+
 
 if __name__ == '__main__':
     unittest.main()
