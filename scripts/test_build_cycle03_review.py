@@ -186,10 +186,14 @@ class CycleReviewTests(unittest.TestCase):
         saved = json.loads((root / DEFAULT_REPORT).read_text(encoding="utf-8"))
         r = build(root, saved["as_of_date_jst"], saved["basis_commit"])
         self.assertEqual(r, saved)
-        self.assertEqual(r["collection"]["missing_dates"], ["2026-09-27"])
-        self.assertEqual(r["scope_totals_recorded_days_only"]["initial"], 134)
-        self.assertEqual(r["scope_totals_recorded_days_only"]["selected_without_final"], 17)
-        self.assertEqual(r["split_fixed_plan_reference"]["return_yen"], 101050)
+        self.assertEqual(r["collection"]["missing_dates"], [])
+        self.assertEqual(r["collection"]["status"], "REVIEW_REQUIRED")
+        self.assertEqual(r["scope_totals_recorded_days_only"]["initial"], 158)
+        self.assertEqual(r["scope_totals_recorded_days_only"]["selected_without_final"], 21)
+        self.assertEqual(r["split_fixed_plan_reference"]["return_yen"], 191750)
+        self.assertEqual(r["daily"]["2026-09-27"]["scope_counts"]["selected"], 13)
+        self.assertEqual(r["daily"]["2026-09-27"]["scope_counts"]["final_completed"], 9)
+        self.assertEqual(r["pending_kpi_decision_count"], 57)
 
 
 if __name__ == "__main__":

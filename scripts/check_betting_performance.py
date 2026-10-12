@@ -60,6 +60,23 @@ def snapshot_tickets(root, relative, snapshot_id):
                 tickets.append({'type': kinds[normalized],
                                 'horses': [int(x) for x in horses.split('-')],
                                 'stake_yen': int(amount.replace(',', ''))})
+    if not tickets and purpose and purpose.group(1) == 'OFFICIAL_VIRTUAL':
+        # 2026-09-27の旧形式は正式仮想券を箇条書きで固定している。
+        # 実購入案や研究用券を読み込まないように節見出しを限定する。
+        for subsection in re.split(r'(?=^###\s+)', selected, flags=re.M):
+            header = subsection.splitlines()[0] if subsection else ''
+            if not re.match(r'^###\s+(?:Production)?検証用仮想ベット(?:\s|$)', header):
+                continue
+            for kind, horses, amount in re.findall(
+                    r'^-\s*(単勝|複勝|馬連|ワイド|馬単|三連複|三連単)\s+'
+                    r'(\d+(?:-\d+)*)(?:[ \t]+[^:：\d\n][^:：\n]*)?'
+                    r'[ \t]*[:：][ \t]*([\d,]+)円[ \t]*$',
+                    subsection, re.M):
+                horse_list = [int(n) for n in horses.split('-')]
+                if len(set(horse_list)) != len(horse_list):
+                    raise ValueError('duplicate horse in fixed ticket')
+                tickets.append({'type': kinds[kind], 'horses': horse_list,
+                                'stake_yen': int(amount.replace(',', ''))})
     if not tickets:
         # Modern FIXED snapshots place amount in the final table column and may
         # use circled horse numbers or a leading strategy category. Only read

@@ -34,6 +34,6 @@ jobs:
             echo '~~~'
           } >> "$GITHUB_STEP_SUMMARY"
       - name: 日別記録と集計の照合（登録データ必須）
-        run: python3 scripts/check_cycle03.py --require-data
+        run: python3 scripts/check_cycle03.py --require-data --require-complete
       - name: 第3サイクル終了資料の入力hash・集合・精算を照合
-        run: python3 scripts/build_cycle03_review.py --check
+        run: python3 scripts/build_cycle03_review.py --check --require-complete
