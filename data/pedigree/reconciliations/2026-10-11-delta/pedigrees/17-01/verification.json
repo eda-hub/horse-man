@@ -1,17 +1,13 @@
 {
-  "artifacts": {
-    "checkpoint.json": {
-      "bytes": 2106,
-      "sha256": "3a15bcf3b08844d14f850e2ab2179d2e0c1949fabfb07be4a1dee292aa26000c"
-    }
-  },
-  "checks": {
-    "dependency_subtask_identified": "PASS",
-    "fixed_two_targets": "PASS",
-    "no_branch_number_skip": "PASS",
-    "unidentified_targets_not_promoted": "PASS",
-    "zero_pedigree_or_registry_changes": "PASS"
-  },
-  "schema_version": "oct11-batch-verification-v1",
-  "status": "DEPENDENCY_CHECK_PASS_EXECUTION_HELD"
+  "checks": [
+    "固定対象・本人同定・62位置と独立ID",
+    "出所原本hash・取得時刻・固定cutoff",
+    "唯一Writer・CAS・追記revision・readback"
+  ],
+  "entries": 2,
+  "positions_checked": 124,
+  "production_eligible": false,
+  "record_hash": "a33fa6e711404cba1a8adf622da1fff08b4987348401877c2c3a274cc9ad064d",
+  "status": "PASS",
+  "subtask_id": "17-01"
 }

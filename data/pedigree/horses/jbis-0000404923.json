@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000404923",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1979,
+    "external_ids": {
+      "JBIS": "0000404923"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "37beb806b0325a6b8fa94f62a669b0b2411cbe3746ed78d3bb56cbbc2dfb4924",
+      "record_key": "0000404923",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001369020/pedigree/"
+    },
+    "name": "Rezagante(ARG)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.030355+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.030355+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1979,
+    "external_ids": {
+      "JBIS": "0000404923"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "37beb806b0325a6b8fa94f62a669b0b2411cbe3746ed78d3bb56cbbc2dfb4924",
+      "record_key": "0000404923",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001369020/pedigree/"
+    },
+    "name": "Rezagante(ARG)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:21:53.428769+00:00",
+      "content_hash": "d46258a9fead4e86e5b5fb0ce813e5e9e7edcfe32d13f5aab018028c45d5ac9d",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:21:53.428769+00:00",
+      "input_hash": "2244f554d78a2875040d0a78358d8b48c280888f118e03d805dcfc156a8a458c",
+      "previous_revision": null,
+      "revision_id": "rev-2244f554d78a2875040d0a78",
+      "saved_at": "2026-10-12T06:30:43.742294+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "37beb806b0325a6b8fa94f62a669b0b2411cbe3746ed78d3bb56cbbc2dfb4924",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001369020:DDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001369020/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000339683",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:21:53.428769+00:00",
+      "content_hash": "661e3cd4678c7a87ca16d320d5531b58a09af36d0814f4ded94b79f2fabc5b69",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:21:53.428769+00:00",
+      "input_hash": "31fd9c47809f33bd0ff25fbabfb8cd080c945b0515397c8ba47211f7049f89ab",
+      "previous_revision": null,
+      "revision_id": "rev-31fd9c47809f33bd0ff25fba",
+      "saved_at": "2026-10-12T06:30:43.743441+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "37beb806b0325a6b8fa94f62a669b0b2411cbe3746ed78d3bb56cbbc2dfb4924",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001369020:DDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001369020/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000404922",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

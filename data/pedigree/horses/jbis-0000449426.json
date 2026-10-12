@@ -1,1 +1,128 @@
-{"horse_key":"jbis-0000449426","identity":{"aliases":["Special Portion (米)"],"birth_year":1985,"external_ids":{"JBIS":"0000449426","NETKEIBA":"000a0123fb"},"identity_evidence":{"record_key":"0000449426","source":"JBIS"},"name":"Special Portion(USA)","status":"RESOLVED"},"identity_confirmed_at":"2026-10-09T15:04:25.139458+00:00","identity_observed_at":"2026-10-09T15:04:25.139458+00:00","identity_revisions":[{"after":{"aliases":["Special Portion (米)"],"birth_year":1985,"external_ids":{"JBIS":"0000449426","NETKEIBA":"000a0123fb"},"identity_evidence":{"record_key":"0000449426","source":"JBIS"},"name":"Special Portion(USA)","status":"RESOLVED"},"at":"2026-10-09T17:31:28.217437+00:00","before":{"aliases":[],"birth_year":1985,"external_ids":{"JBIS":"0000449426"},"identity_evidence":{"record_key":"0000449426","source":"JBIS"},"name":"Special Portion(USA)","status":"RESOLVED"},"event_hash":"9894cde15444ee42acf4019722f4aef82fe266632978777b5f6b17e96b0fd9e2","reason":"取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。","reviewed_by":"原票同定照合"}],"initial_identity":{"aliases":[],"birth_year":1985,"external_ids":{"JBIS":"0000449426"},"identity_evidence":{"record_key":"0000449426","source":"JBIS"},"name":"Special Portion(USA)","status":"RESOLVED"},"revisions":[],"schema_version":"pedigree-registry-v1"}
+{
+  "horse_key": "jbis-0000449426",
+  "identity": {
+    "aliases": [
+      "Special Portion (米)"
+    ],
+    "birth_year": 1985,
+    "external_ids": {
+      "JBIS": "0000449426",
+      "NETKEIBA": "000a0123fb"
+    },
+    "identity_evidence": {
+      "record_key": "0000449426",
+      "source": "JBIS"
+    },
+    "name": "Special Portion(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:25.139458+00:00",
+  "identity_observed_at": "2026-10-09T15:04:25.139458+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "Special Portion (米)"
+        ],
+        "birth_year": 1985,
+        "external_ids": {
+          "JBIS": "0000449426",
+          "NETKEIBA": "000a0123fb"
+        },
+        "identity_evidence": {
+          "record_key": "0000449426",
+          "source": "JBIS"
+        },
+        "name": "Special Portion(USA)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:31:28.217437+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1985,
+        "external_ids": {
+          "JBIS": "0000449426"
+        },
+        "identity_evidence": {
+          "record_key": "0000449426",
+          "source": "JBIS"
+        },
+        "name": "Special Portion(USA)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "9894cde15444ee42acf4019722f4aef82fe266632978777b5f6b17e96b0fd9e2",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1985,
+    "external_ids": {
+      "JBIS": "0000449426"
+    },
+    "identity_evidence": {
+      "record_key": "0000449426",
+      "source": "JBIS"
+    },
+    "name": "Special Portion(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:24:04.645990+00:00",
+      "content_hash": "f17d3d609a6f046051a877e46b541e03e5e9461def582dfbfb56c448d9f246fd",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:24:04.645990+00:00",
+      "input_hash": "c928f0deaabdd6846c95cb48df38d300332123e6ad3b66b3ca6504ff583bfc0d",
+      "previous_revision": null,
+      "revision_id": "rev-c928f0deaabdd6846c95cb48",
+      "saved_at": "2026-10-12T06:30:46.823459+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "bd2e99e9b4c093218a41113394071a52ce3643cb42892f9ac447610c1ca37fdc",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001339219:DDDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001339219/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336552",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:24:04.645990+00:00",
+      "content_hash": "df3e94c08b041ff00892cb0a9e28ba09992cdcb9048c74c949e99b4d7869a905",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:24:04.645990+00:00",
+      "input_hash": "f6a720944d81b73baaeded7ee9e346ce9f778c15d85e5f60b8fafb0cd553daef",
+      "previous_revision": null,
+      "revision_id": "rev-f6a720944d81b73baaeded7e",
+      "saved_at": "2026-10-12T06:30:46.826504+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "bd2e99e9b4c093218a41113394071a52ce3643cb42892f9ac447610c1ca37fdc",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001339219:DDDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001339219/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000437796",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

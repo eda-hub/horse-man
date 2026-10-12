@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000852989",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2001,
+    "external_ids": {
+      "JBIS": "0000852989"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DSD",
+      "record_hash": "160ec4aee570b4c1d17b8f031563675e3e864e6432b55d8cd027ddef5adf0c2e",
+      "record_key": "0000852989",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001375466/pedigree/"
+    },
+    "name": "Galloping Gal(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.518721+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.518721+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2001,
+    "external_ids": {
+      "JBIS": "0000852989"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DSD",
+      "record_hash": "160ec4aee570b4c1d17b8f031563675e3e864e6432b55d8cd027ddef5adf0c2e",
+      "record_key": "0000852989",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001375466/pedigree/"
+    },
+    "name": "Galloping Gal(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:26:23.566383+00:00",
+      "content_hash": "48ffb12b7840acd352cde927ea7be64c773a4782f8e1818cc4836119b1f17c5c",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:26:23.566383+00:00",
+      "input_hash": "3a3cf138ed3c400df2163ceb2d70bfb19112770a1c98629c5b03e2c4f1475760",
+      "previous_revision": null,
+      "revision_id": "rev-3a3cf138ed3c400df2163ceb",
+      "saved_at": "2026-10-12T06:30:41.484012+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "160ec4aee570b4c1d17b8f031563675e3e864e6432b55d8cd027ddef5adf0c2e",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001375466:DSDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001375466/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000369047",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:26:23.566383+00:00",
+      "content_hash": "9c5d628dec39b5102bb98a91e82905c004378b9483d5029629c912b3988490d6",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:26:23.566383+00:00",
+      "input_hash": "4477b96757befc6d6805e78346613c5c216092dfc1e3dfb949057efbda539003",
+      "previous_revision": null,
+      "revision_id": "rev-4477b96757befc6d6805e783",
+      "saved_at": "2026-10-12T06:30:41.485629+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "160ec4aee570b4c1d17b8f031563675e3e864e6432b55d8cd027ddef5adf0c2e",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001375466:DSDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001375466/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000446351",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

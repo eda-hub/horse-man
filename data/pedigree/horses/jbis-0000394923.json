@@ -1,1 +1,128 @@
-{"horse_key":"jbis-0000394923","identity":{"aliases":["Boulevard (愛)"],"birth_year":1968,"external_ids":{"JBIS":"0000394923","NETKEIBA":"000a009338"},"identity_evidence":{"record_key":"0000394923","source":"JBIS"},"name":"Boulevard(IRE)","status":"RESOLVED"},"identity_confirmed_at":"2026-10-09T12:33:11.753030+00:00","identity_observed_at":"2026-10-09T12:33:11.753030+00:00","identity_revisions":[{"after":{"aliases":["Boulevard (愛)"],"birth_year":1968,"external_ids":{"JBIS":"0000394923","NETKEIBA":"000a009338"},"identity_evidence":{"record_key":"0000394923","source":"JBIS"},"name":"Boulevard(IRE)","status":"RESOLVED"},"at":"2026-10-09T17:30:29.445743+00:00","before":{"aliases":[],"birth_year":1968,"external_ids":{"JBIS":"0000394923"},"identity_evidence":{"record_key":"0000394923","source":"JBIS"},"name":"Boulevard(IRE)","status":"RESOLVED"},"event_hash":"71748519df9cfc2b898f64ce8179abf9779e9ee7eabbcf9ffd890d806fa2aedd","reason":"取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。","reviewed_by":"原票同定照合"}],"initial_identity":{"aliases":[],"birth_year":1968,"external_ids":{"JBIS":"0000394923"},"identity_evidence":{"record_key":"0000394923","source":"JBIS"},"name":"Boulevard(IRE)","status":"RESOLVED"},"revisions":[],"schema_version":"pedigree-registry-v1"}
+{
+  "horse_key": "jbis-0000394923",
+  "identity": {
+    "aliases": [
+      "Boulevard (愛)"
+    ],
+    "birth_year": 1968,
+    "external_ids": {
+      "JBIS": "0000394923",
+      "NETKEIBA": "000a009338"
+    },
+    "identity_evidence": {
+      "record_key": "0000394923",
+      "source": "JBIS"
+    },
+    "name": "Boulevard(IRE)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:11.753030+00:00",
+  "identity_observed_at": "2026-10-09T12:33:11.753030+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "Boulevard (愛)"
+        ],
+        "birth_year": 1968,
+        "external_ids": {
+          "JBIS": "0000394923",
+          "NETKEIBA": "000a009338"
+        },
+        "identity_evidence": {
+          "record_key": "0000394923",
+          "source": "JBIS"
+        },
+        "name": "Boulevard(IRE)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:29.445743+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1968,
+        "external_ids": {
+          "JBIS": "0000394923"
+        },
+        "identity_evidence": {
+          "record_key": "0000394923",
+          "source": "JBIS"
+        },
+        "name": "Boulevard(IRE)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "71748519df9cfc2b898f64ce8179abf9779e9ee7eabbcf9ffd890d806fa2aedd",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1968,
+    "external_ids": {
+      "JBIS": "0000394923"
+    },
+    "identity_evidence": {
+      "record_key": "0000394923",
+      "source": "JBIS"
+    },
+    "name": "Boulevard(IRE)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:24:56.155058+00:00",
+      "content_hash": "5d395731698d38ad31b42051ca496353803b8e42fbe9864d338cebcb881f558d",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:24:56.155058+00:00",
+      "input_hash": "05b8e10110955f69b1e842f9d4652a578777fc6ed8aca1885ebe0e2e5b901d50",
+      "previous_revision": null,
+      "revision_id": "rev-05b8e10110955f69b1e842f9",
+      "saved_at": "2026-10-12T06:30:43.340356+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "e1ae8a194c2681d9b197c53752af121f3084e3ebc1a427f61c6dd540ee979b1d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001337932:SDDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001337932/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000334016",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:24:56.155058+00:00",
+      "content_hash": "6b49796eda1c1ee5f777b791c5ba02fb7f342a86856e10f22cbd01354a577a6c",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:24:56.155058+00:00",
+      "input_hash": "b7557d9030950aef19ac72c685126efff5a9641f15cbe97ba9c0e8303819b1f5",
+      "previous_revision": null,
+      "revision_id": "rev-b7557d9030950aef19ac72c6",
+      "saved_at": "2026-10-12T06:30:43.343444+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "e1ae8a194c2681d9b197c53752af121f3084e3ebc1a427f61c6dd540ee979b1d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001337932:SDDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001337932/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000389203",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000714785",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1994,
+    "external_ids": {
+      "JBIS": "0000714785"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "ab207a82de87feed360c62cd1c361df45aad6de44741cb0e08263480cd2ed5ae",
+      "record_key": "0000714785",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001357142/pedigree/"
+    },
+    "name": "Katanning(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.885736+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.885736+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1994,
+    "external_ids": {
+      "JBIS": "0000714785"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "ab207a82de87feed360c62cd1c361df45aad6de44741cb0e08263480cd2ed5ae",
+      "record_key": "0000714785",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001357142/pedigree/"
+    },
+    "name": "Katanning(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:24:24.246679+00:00",
+      "content_hash": "1210e7b997f0550904615886257fc22a6f28695968331cfab5a9f33c07c829b4",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:24:24.246679+00:00",
+      "input_hash": "d11d371167b73cf263743d47e125c9fd6bd364bd32d236ac3d5036cf9fdee4e5",
+      "previous_revision": null,
+      "revision_id": "rev-d11d371167b73cf263743d47",
+      "saved_at": "2026-10-12T06:30:46.901566+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "ab207a82de87feed360c62cd1c361df45aad6de44741cb0e08263480cd2ed5ae",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001357142:DDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001357142/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336430",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:24:24.246679+00:00",
+      "content_hash": "3eba507bc23a9129be38105515449c5955af36b73951994a83831675eba26150",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:24:24.246679+00:00",
+      "input_hash": "3a85af15737631ef3cc87aa93ea41b6ba1a0ca77adaec42bbf981878b8335d6e",
+      "previous_revision": null,
+      "revision_id": "rev-3a85af15737631ef3cc87aa9",
+      "saved_at": "2026-10-12T06:30:46.903393+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "ab207a82de87feed360c62cd1c361df45aad6de44741cb0e08263480cd2ed5ae",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001357142:DDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001357142/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000405649",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

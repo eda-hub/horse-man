@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000404896",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1989,
+    "external_ids": {
+      "JBIS": "0000404896"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "c86550c4a2a10680930ace8128c6ae7c9653820bc50c39b8f233e184e08ba1c0",
+      "record_key": "0000404896",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001334296/pedigree/"
+    },
+    "name": "Spectacular Sue(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.483232+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.483232+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1989,
+    "external_ids": {
+      "JBIS": "0000404896"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "c86550c4a2a10680930ace8128c6ae7c9653820bc50c39b8f233e184e08ba1c0",
+      "record_key": "0000404896",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001334296/pedigree/"
+    },
+    "name": "Spectacular Sue(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:25:07.374668+00:00",
+      "content_hash": "326a814ac4991a93487159c89ddb230cc0d42c475cd09cd4462b1ddd08227f5d",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:25:07.374668+00:00",
+      "input_hash": "f4d9f48c51c8cbe3a792353613691415b2e2b1ff9040490a9235d5c2658f193f",
+      "previous_revision": null,
+      "revision_id": "rev-f4d9f48c51c8cbe3a7923536",
+      "saved_at": "2026-10-12T06:30:45.575663+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "c86550c4a2a10680930ace8128c6ae7c9653820bc50c39b8f233e184e08ba1c0",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001334296:DDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001334296/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336402",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:25:07.374668+00:00",
+      "content_hash": "d1d0f4223852b4a9597b14055cf1fdc9fa6943d5d4897207fcbb2f0beb4d2bc5",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:25:07.374668+00:00",
+      "input_hash": "fc77986c8975ddd95279320687769ffe41d82f60729844eb1ddab96e3e633e37",
+      "previous_revision": null,
+      "revision_id": "rev-fc77986c8975ddd952793206",
+      "saved_at": "2026-10-12T06:30:45.577570+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "c86550c4a2a10680930ace8128c6ae7c9653820bc50c39b8f233e184e08ba1c0",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001334296:DDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001334296/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000404895",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

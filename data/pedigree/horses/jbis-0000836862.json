@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000836862",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1993,
+    "external_ids": {
+      "JBIS": "0000836862"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDDD",
+      "record_hash": "fe9c2b8d5e163d2f06f8328951d6c297e44a3de5ab4304cfe286783f7a745ffa",
+      "record_key": "0000836862",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001365965/pedigree/"
+    },
+    "name": "Holy Wish(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.668447+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.668447+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1993,
+    "external_ids": {
+      "JBIS": "0000836862"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDDD",
+      "record_hash": "fe9c2b8d5e163d2f06f8328951d6c297e44a3de5ab4304cfe286783f7a745ffa",
+      "record_key": "0000836862",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001365965/pedigree/"
+    },
+    "name": "Holy Wish(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:55.204206+00:00",
+      "content_hash": "b36bd1d0a346f8a2097ed246f48f47ccf28db210ceb026b2f85ecb9fe673f1e2",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:55.204206+00:00",
+      "input_hash": "878a18aff681a5d480475260a7a20eb0b487524bde5b14cc0f9d615e05a2876a",
+      "previous_revision": null,
+      "revision_id": "rev-878a18aff681a5d480475260",
+      "saved_at": "2026-10-12T06:30:38.226977+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9c2b8d5e163d2f06f8328951d6c297e44a3de5ab4304cfe286783f7a745ffa",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001365965:DDDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001365965/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336772",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:55.204206+00:00",
+      "content_hash": "dc4af833bbf5ae1f60225e2102d347d990bf3b22a5a4fd28caf191a054564712",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:55.204206+00:00",
+      "input_hash": "f8de14ea0757a59b21da82e1c347a50b37bd7fbb15ce63b106727bbea2ce9a74",
+      "previous_revision": null,
+      "revision_id": "rev-f8de14ea0757a59b21da82e1",
+      "saved_at": "2026-10-12T06:30:38.228384+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9c2b8d5e163d2f06f8328951d6c297e44a3de5ab4304cfe286783f7a745ffa",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001365965:DDDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001365965/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000824888",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

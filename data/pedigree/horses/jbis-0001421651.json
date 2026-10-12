@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0001421651",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2013,
+    "external_ids": {
+      "JBIS": "0001421651"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DD",
+      "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+      "record_key": "0001421651",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+    },
+    "name": "Thyme For Roses(AUS)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.875128+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.875128+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2013,
+    "external_ids": {
+      "JBIS": "0001421651"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DD",
+      "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+      "record_key": "0001421651",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+    },
+    "name": "Thyme For Roses(AUS)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:45.479720+00:00",
+      "content_hash": "852581196f264facb50cd10edc2527bc455121aa2326b80987a80602e581b72f",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:45.479720+00:00",
+      "input_hash": "0b117b18cda5773f06c4134351bc01fb24861b564b6b9a355b33b6677ec0562f",
+      "previous_revision": null,
+      "revision_id": "rev-0b117b18cda5773f06c41343",
+      "saved_at": "2026-10-12T06:30:43.148474+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423340:DDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000375619",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:45.479720+00:00",
+      "content_hash": "d0f7ce90e731252a817e66e63eb1868d294182ee955b52b683a3af95f7d8551e",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:45.479720+00:00",
+      "input_hash": "242740e99daa30c2427e042b6c289fdefd2df61640c1cb767afba7e59e6fc947",
+      "previous_revision": null,
+      "revision_id": "rev-242740e99daa30c2427e042b",
+      "saved_at": "2026-10-12T06:30:43.149727+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423340:DDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001081786",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000383922",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1991,
+    "external_ids": {
+      "JBIS": "0000383922"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "014af82cfac80198fc8e2657d53e38dd641c8d2a1ee2aa2142c01b6fd962adba",
+      "record_key": "0000383922",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001359227/pedigree/"
+    },
+    "name": "シルヴァーキャップ(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:36.078663+00:00",
+  "identity_observed_at": "2026-10-12T06:30:36.078663+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1991,
+    "external_ids": {
+      "JBIS": "0000383922"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "014af82cfac80198fc8e2657d53e38dd641c8d2a1ee2aa2142c01b6fd962adba",
+      "record_key": "0000383922",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001359227/pedigree/"
+    },
+    "name": "シルヴァーキャップ(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:25:45.032435+00:00",
+      "content_hash": "e887e07b02f3466492f88a89d4f9841e6fd26d29bf9610317611ca7b74253e89",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:25:45.032435+00:00",
+      "input_hash": "2da5a97be41600c29047f300ae43383635b7321119e03e09b821e9486742df71",
+      "previous_revision": null,
+      "revision_id": "rev-2da5a97be41600c29047f300",
+      "saved_at": "2026-10-12T06:30:47.678661+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "014af82cfac80198fc8e2657d53e38dd641c8d2a1ee2aa2142c01b6fd962adba",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001359227:DDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001359227/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000342645",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:25:45.032435+00:00",
+      "content_hash": "0a89a8ad2a4d66cf2ee3929ff1b0159c1221efaeaac6504a6367d6df350e7e98",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:25:45.032435+00:00",
+      "input_hash": "bc74b26467153e6e5297d6aec89805a41d564b8fa96dade3287fdcd85d18718c",
+      "previous_revision": null,
+      "revision_id": "rev-bc74b26467153e6e5297d6ae",
+      "saved_at": "2026-10-12T06:30:47.681378+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "014af82cfac80198fc8e2657d53e38dd641c8d2a1ee2aa2142c01b6fd962adba",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001359227:DDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001359227/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000405158",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

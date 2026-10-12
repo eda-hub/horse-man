@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0001226316",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001226316"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "36b230f0bdad274850da16bd3927ff70b128b890d71b8de72ea6a43acd5500ab",
+      "record_key": "0001226316",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001341858/pedigree/"
+    },
+    "name": "Swiss Spirit(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.969285+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.969285+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001226316"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "36b230f0bdad274850da16bd3927ff70b128b890d71b8de72ea6a43acd5500ab",
+      "record_key": "0001226316",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001341858/pedigree/"
+    },
+    "name": "Swiss Spirit(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:23:05.172622+00:00",
+      "content_hash": "ae37ef36229a0d667d8e9da42533666f6db0aca1936c63282d1da3fe2e4dced0",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:23:05.172622+00:00",
+      "input_hash": "89c943f77ea2b06185380e7a13c3a18717bc2d3e53f47eddb43b704da67656da",
+      "previous_revision": null,
+      "revision_id": "rev-89c943f77ea2b06185380e7a",
+      "saved_at": "2026-10-12T06:30:39.345578+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "36b230f0bdad274850da16bd3927ff70b128b890d71b8de72ea6a43acd5500ab",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001341858:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001341858/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000372680",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:23:05.172622+00:00",
+      "content_hash": "f57df97896a7f9e8f82f189bebb3bf4c8ffab6bba01870f402870e38d48389fd",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:23:05.172622+00:00",
+      "input_hash": "0a73f069a69bc120d233bada43f3b91b2099da45f1f9f632ccc4af2c0a75937d",
+      "previous_revision": null,
+      "revision_id": "rev-0a73f069a69bc120d233bada",
+      "saved_at": "2026-10-12T06:30:39.346820+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "36b230f0bdad274850da16bd3927ff70b128b890d71b8de72ea6a43acd5500ab",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001341858:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001341858/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000719702",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

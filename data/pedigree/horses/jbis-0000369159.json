@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000369159",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1995,
+    "external_ids": {
+      "JBIS": "0000369159"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDS",
+      "record_hash": "51121166e94fd4dbca45f9797d109e72b13d3c2a9495c62748921203493922fb",
+      "record_key": "0000369159",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001355392/pedigree/"
+    },
+    "name": "Gold Away(IRE)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.314481+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.314481+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1995,
+    "external_ids": {
+      "JBIS": "0000369159"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDS",
+      "record_hash": "51121166e94fd4dbca45f9797d109e72b13d3c2a9495c62748921203493922fb",
+      "record_key": "0000369159",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001355392/pedigree/"
+    },
+    "name": "Gold Away(IRE)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:03.953507+00:00",
+      "content_hash": "e504260387710f4ec2d5849a80591c2150c555252195a48518583604ad32dfac",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:03.953507+00:00",
+      "input_hash": "2f7328580289598135ec4488388666a9a35e157e6624032111f0b6c37e8e82b8",
+      "previous_revision": null,
+      "revision_id": "rev-2f7328580289598135ec4488",
+      "saved_at": "2026-10-12T06:30:44.760896+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "51121166e94fd4dbca45f9797d109e72b13d3c2a9495c62748921203493922fb",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001355392:DDSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001355392/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000342910",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:03.953507+00:00",
+      "content_hash": "32d3a4204ef72097352e7c72acf0d654d1691b163cc7e6ae720297d247854474",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:03.953507+00:00",
+      "input_hash": "a6cf803bd13bd21806d36dea4b9753aee50fc54ab47e8fa7f8817012f8938a57",
+      "previous_revision": null,
+      "revision_id": "rev-a6cf803bd13bd21806d36dea",
+      "saved_at": "2026-10-12T06:30:44.765974+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "51121166e94fd4dbca45f9797d109e72b13d3c2a9495c62748921203493922fb",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001355392:DDSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001355392/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000422367",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

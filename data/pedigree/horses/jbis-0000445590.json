@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000445590",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1994,
+    "external_ids": {
+      "JBIS": "0000445590"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DD",
+      "record_hash": "6af6ee8e5f0927e6f64557dceedd007de4cdd05947fd3c83c3af196e94b8c84d",
+      "record_key": "0000445590",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001354758/pedigree/"
+    },
+    "name": "Macarena Macarena(CAN)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.682830+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.682830+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1994,
+    "external_ids": {
+      "JBIS": "0000445590"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DD",
+      "record_hash": "6af6ee8e5f0927e6f64557dceedd007de4cdd05947fd3c83c3af196e94b8c84d",
+      "record_key": "0000445590",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001354758/pedigree/"
+    },
+    "name": "Macarena Macarena(CAN)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:03.923866+00:00",
+      "content_hash": "5108597b15716bce9a35ddc6fcc22e80fa619b7a72b3ac6b311b5e0c57172569",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:03.923866+00:00",
+      "input_hash": "4e6b54721c04cbb97abeeffcf2a9536bc861a38e0d33ff546b56a6c4c7922706",
+      "previous_revision": null,
+      "revision_id": "rev-4e6b54721c04cbb97abeeffc",
+      "saved_at": "2026-10-12T06:30:38.276819+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "6af6ee8e5f0927e6f64557dceedd007de4cdd05947fd3c83c3af196e94b8c84d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001354758:DDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001354758/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000337432",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:03.923866+00:00",
+      "content_hash": "ca354c44a3e2fc08daec201219bb51a8f13f85df13ba6c13bd4fc1c7997f4b5b",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:03.923866+00:00",
+      "input_hash": "df38aa29c08cd57bfbcd3a5c2229c818ef6a34b4d5df2ce04a1a6784e674bcb0",
+      "previous_revision": null,
+      "revision_id": "rev-df38aa29c08cd57bfbcd3a5c",
+      "saved_at": "2026-10-12T06:30:38.279161+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "6af6ee8e5f0927e6f64557dceedd007de4cdd05947fd3c83c3af196e94b8c84d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001354758:DDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001354758/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000442937",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

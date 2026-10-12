@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0001013197",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1996,
+    "external_ids": {
+      "JBIS": "0001013197"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DSDD",
+      "record_hash": "0b48c317ede7cec86bb96756942e8b0809a0d5d4fcba91532e5202cf064a0a9c",
+      "record_key": "0001013197",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001340027/pedigree/"
+    },
+    "name": "Argent Du Bois(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.382439+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.382439+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1996,
+    "external_ids": {
+      "JBIS": "0001013197"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DSDD",
+      "record_hash": "0b48c317ede7cec86bb96756942e8b0809a0d5d4fcba91532e5202cf064a0a9c",
+      "record_key": "0001013197",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001340027/pedigree/"
+    },
+    "name": "Argent Du Bois(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:45.506460+00:00",
+      "content_hash": "ce475aa1500f0711de33c7f7585792864bbc3b43829b21d9e4e3d3a0f3cba65d",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:45.506460+00:00",
+      "input_hash": "4025ba316be4786616b88b1ee1139895706df8c87a00d24dd2080bf9edf5e649",
+      "previous_revision": null,
+      "revision_id": "rev-4025ba316be4786616b88b1e",
+      "saved_at": "2026-10-12T06:30:45.101647+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "0b48c317ede7cec86bb96756942e8b0809a0d5d4fcba91532e5202cf064a0a9c",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001340027:DSDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001340027/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336890",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:45.506460+00:00",
+      "content_hash": "81139379fcd143cc0a10223d56736113ac6565c6045e02c51fa7f681e72f467b",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:45.506460+00:00",
+      "input_hash": "daa6fa6a3faa15558d1663feff6e97aae97ab486a64dd65ce0b8757bfa463ef4",
+      "previous_revision": null,
+      "revision_id": "rev-daa6fa6a3faa15558d1663fe",
+      "saved_at": "2026-10-12T06:30:45.104049+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "0b48c317ede7cec86bb96756942e8b0809a0d5d4fcba91532e5202cf064a0a9c",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001340027:DSDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001340027/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000744355",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

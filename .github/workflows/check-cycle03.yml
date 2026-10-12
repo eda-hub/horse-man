@@ -48,6 +48,8 @@ jobs:
         run: python3 scripts/check_legacy_fact_followup.py
       - name: R08の公式成績・調教国・条件別集計と固定時点を再照合
         run: python3 scripts/check_r08_acceptance.py
+      - name: 11日追加血統の固定対象・原票・62位置・追記時点を照合
+        run: python3 scripts/check_oct11_pedigree_delta.py
       - name: 血統候補の未確認棚卸しと条件集計snapshot監査
         run: |
           set -o pipefail

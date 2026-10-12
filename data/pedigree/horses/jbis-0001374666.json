@@ -32,6 +32,61 @@
     "name": "ダークマルス",
     "status": "RESOLVED"
   },
-  "revisions": [],
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:23:15.676460+00:00",
+      "content_hash": "3bbe206e58dd0102b6ee9149d579dfb1af0d0f8386dd2db4713dcee7ce0a1185",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:23:15.676460+00:00",
+      "input_hash": "16464c73d1c6b8a51616ead197b738d681f8cb7646a6b867f5e6e0b9532ce4b4",
+      "previous_revision": null,
+      "revision_id": "rev-16464c73d1c6b8a51616ead1",
+      "saved_at": "2026-10-12T06:30:41.322642+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "cc32b136a046be2ab03766658cc30e5081f3114be84f3545391fe48586ec685b",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001374666:S",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001374666/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001124297",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:23:15.676460+00:00",
+      "content_hash": "6e1c123ecc116cbfbae1f449c7e31fd0928ca789df419121affc0455b3314ae3",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:23:15.676460+00:00",
+      "input_hash": "11b8204731dd0f00eaad7fbb6bcaa6444b0b204b3df9d56dea053291f5927490",
+      "previous_revision": null,
+      "revision_id": "rev-11b8204731dd0f00eaad7fbb",
+      "saved_at": "2026-10-12T06:30:41.332189+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "cc32b136a046be2ab03766658cc30e5081f3114be84f3545391fe48586ec685b",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001374666:D",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001374666/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001222373",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
   "schema_version": "pedigree-registry-v1"
 }

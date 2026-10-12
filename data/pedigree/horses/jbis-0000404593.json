@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000404593",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1980,
+    "external_ids": {
+      "JBIS": "0000404593"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDSD",
+      "record_hash": "52360e682983e49dfb9129b622af7ef88f767629eb22b76310aa0d13ad6aa6d9",
+      "record_key": "0000404593",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001352610/pedigree/"
+    },
+    "name": "Hot Princess(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.767621+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.767621+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1980,
+    "external_ids": {
+      "JBIS": "0000404593"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDSD",
+      "record_hash": "52360e682983e49dfb9129b622af7ef88f767629eb22b76310aa0d13ad6aa6d9",
+      "record_key": "0000404593",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001352610/pedigree/"
+    },
+    "name": "Hot Princess(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:24.292698+00:00",
+      "content_hash": "7bfea5d909c2a829c2c565d484fec5c9be6f3b1e1b37adae1a51e68b56126b41",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:24.292698+00:00",
+      "input_hash": "d0b9f7ca7b7b7e68bc65e9d754038e106cc20cce18bf2743c84887772b4accf6",
+      "previous_revision": null,
+      "revision_id": "rev-d0b9f7ca7b7b7e68bc65e9d7",
+      "saved_at": "2026-10-12T06:30:38.564247+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "52360e682983e49dfb9129b622af7ef88f767629eb22b76310aa0d13ad6aa6d9",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001352610:DDSDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001352610/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333695",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:24.292698+00:00",
+      "content_hash": "0b06e781ff01aca10164ffd1e5f9a3b2ce301742e9bc04cd17970a3da7a6e5c6",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:24.292698+00:00",
+      "input_hash": "2eccc20fcf2812d5518ee2ad23bd6b58754326c1b615c6e9a6c9ae31d29fe413",
+      "previous_revision": null,
+      "revision_id": "rev-2eccc20fcf2812d5518ee2ad",
+      "saved_at": "2026-10-12T06:30:38.565964+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "52360e682983e49dfb9129b622af7ef88f767629eb22b76310aa0d13ad6aa6d9",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001352610:DDSDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001352610/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000404669",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

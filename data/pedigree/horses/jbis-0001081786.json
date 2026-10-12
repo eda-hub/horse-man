@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0001081786",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "JBIS": "0001081786"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+      "record_key": "0001081786",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+    },
+    "name": "Augusta Proud(AUS)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.876779+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.876779+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "JBIS": "0001081786"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+      "record_key": "0001081786",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+    },
+    "name": "Augusta Proud(AUS)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:45.479720+00:00",
+      "content_hash": "fae450041f381485b46979f65ee8cee9a40d83a8bc429c2abd8e0d09539cc858",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:45.479720+00:00",
+      "input_hash": "c00649b0ebce41031c9b39ecbc2eaf5ae2ae471a42862b0d99bc842f7340c7c4",
+      "previous_revision": null,
+      "revision_id": "rev-c00649b0ebce41031c9b39ec",
+      "saved_at": "2026-10-12T06:30:43.159572+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423340:DDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000372626",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:45.479720+00:00",
+      "content_hash": "d434b76e55cd55f5110455f993daad664bff86ab7c3d2949c203a58178991622",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:45.479720+00:00",
+      "input_hash": "e25b9406ee7d30285832f8186fc297b16b2e54fa18381284fcb2089c8561f7ca",
+      "previous_revision": null,
+      "revision_id": "rev-e25b9406ee7d30285832f818",
+      "saved_at": "2026-10-12T06:30:43.163967+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423340:DDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000976593",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

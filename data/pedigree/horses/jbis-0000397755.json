@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000397755",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1987,
+    "external_ids": {
+      "JBIS": "0000397755"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "cb573e8225460b215293eeb52b41bf5b2a16fc464e472fc265d78365f0a24ffe",
+      "record_key": "0000397755",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001332925/pedigree/"
+    },
+    "name": "Bold Starlet(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.799653+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.799653+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1987,
+    "external_ids": {
+      "JBIS": "0000397755"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "cb573e8225460b215293eeb52b41bf5b2a16fc464e472fc265d78365f0a24ffe",
+      "record_key": "0000397755",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001332925/pedigree/"
+    },
+    "name": "Bold Starlet(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:24:03.749707+00:00",
+      "content_hash": "8c9fd69c333d420001e1029df4732c3cb45c2108b6bd522a64a655ec477ab772",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:24:03.749707+00:00",
+      "input_hash": "6564a97c73c601364da84eefd1f9fdbf87faf7df7b196deb118ff5d3be3f890c",
+      "previous_revision": null,
+      "revision_id": "rev-6564a97c73c601364da84eef",
+      "saved_at": "2026-10-12T06:30:46.510267+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "cb573e8225460b215293eeb52b41bf5b2a16fc464e472fc265d78365f0a24ffe",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001332925:DDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001332925/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000340150",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:24:03.749707+00:00",
+      "content_hash": "0066bb340e522c442a43e8461c4f7c06b8154412e7dce3f79d5dd95f44b511cb",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:24:03.749707+00:00",
+      "input_hash": "1c300016c8ad57a4cf8474247040de86bad203ec14afee592b9e095c7898853b",
+      "previous_revision": null,
+      "revision_id": "rev-1c300016c8ad57a4cf847424",
+      "saved_at": "2026-10-12T06:30:46.511533+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "cb573e8225460b215293eeb52b41bf5b2a16fc464e472fc265d78365f0a24ffe",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001332925:DDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001332925/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000397754",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}
