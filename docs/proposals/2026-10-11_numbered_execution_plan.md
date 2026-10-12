@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜21番完了、22〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜21番完了、22番実施中（22-01の5条件完了・残16条件）、23〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -356,3 +356,16 @@ Robertoは独立JBIS/NETKEIBA IDと表記候補を全62位置で照合し、欠�
 成果PR69 commit `3e97ff0d67855689ee9b49312c6c14f0f96b793c`、追加9ファイルのGit blob SHAを保存先readback照合。集計関連テスト45件成功、全17snapshot監査invalid 0。[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38225686693)はsuccess。固定snapshotは `data/condition_stats/snapshots/jra-training-regions-delta-20261011-task21/9b292e18f412c79be362113730c2925694bde891ce7eaddfca6d36324f1b87ad.json`、受入記録は `data/pedigree/reconciliations/2026-10-11-delta/statistics/21/completion.json`。
 
 **1〜21番完了、22〜53番未着手。次は22番の先頭固定5条件（既存指定祖先21条件）。** REPLAY_ONLY（既存snapshot契約RESEARCH_SHADOW_ONLY）・現行v1.6.1・Draft/PENDINGを維持。
+
+
+### 22番 / 22-01：指定祖先の先頭固定5条件完了（2026-10-12 JST）
+
+固定22-01のCaro `jbis-0000334731`、Storm Cat `jbis-0000337102`、Bellamy Road `jbis-0001127392`、Danzig `jbis-0000336082`、Roberto `jbis-0000335167`を、20番固定14R・215出走行・cutoffで5代内包集計。既存構造条件の独立ID/深度5/比較NON_MATCHを保持し、地域条件と混同しない。
+
+該当出走数/勝利/2着内/3着内は順に37/2/5/9、92/4/9/16、0/0/0/0、86/2/9/17、73/8/11/18。Bellamy Roadの該当0は率null。全5条件COMPLETE、UNKNOWN/CONFLICT/結果保留0。全13,330位置を再展開し、祖先の独立provider IDとkeyで該当経路集合を照合。全1,075分類の経路/父母側/世代/依存revisionを保存し、不在を欠けのない5代62位置内に限定。複数経路該当の2/8/0/16/5頭は、群別出走数に各1回だけ計上する。
+
+20番の血統経路hashから独立に群別件数/率/母数を検算し、通常計算の再実行でも全群/依存trace一致。21番の入力archiveを再利用し、定義archiveと固定snapshotを追加。全18snapshot監査invalid 0、外部取得0、Registry追記0、旧snapshot上書き0。
+
+成果PR69 commit `ac35be08a1ec7f05978c66d1739aae34f0d74c4e`、追加7ファイルのGit blob SHAを保存先readback照合。固定snapshot `data/condition_stats/snapshots/jra-designated-ancestors-delta-20261011-22-01/f7bf0047af179ef4cd9f82390759261dc0d3bac2492bfe8fa7f82a972ee2c738.json`、受入記録 `data/pedigree/reconciliations/2026-10-11-delta/statistics/22-01/completion.json`。通常CI結果はPR69最新記録を参照。
+
+**親22番は実施中、5/21条件完了・残16。次は22-02の固定5条件。** 23番以降・Stage切替・マージは未実施。REPLAY_ONLY（snapshot契約RESEARCH_SHADOW_ONLY）・現行v1.6.1・Draft/PENDINGを維持。
