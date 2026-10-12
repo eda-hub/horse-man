@@ -61,9 +61,8 @@ def snapshot_tickets(root, relative, snapshot_id):
                                 'horses': [int(x) for x in horses.split('-')],
                                 'stake_yen': int(amount.replace(',', ''))})
     if not tickets and purpose and purpose.group(1) == 'OFFICIAL_VIRTUAL':
-        # 2026-09-27の旧式snapshotは、正式仮想の券面を表ではなく
-        # 「- 馬連 2-10: 2,500円」の箇条書きで固定している。
-        # 購入予定・実購入・研究/反実仮想は絶対に読み込まない。
+        # 2026-09-27の旧形式では正式仮想券を箇条書きで保存していた。
+        # 明示した正式仮想節だけを読み、実購入案・研究用券から隔離する。
         for subsection in re.split(r'(?=^###\s+)', selected, flags=re.M):
             header = subsection.splitlines()[0] if subsection else ''
             if not re.match(r'^###\s+(?:Production)?検証用仮想ベット(?:\s|$)', header):
@@ -147,10 +146,10 @@ def validate_source(root, ref, race_id):
     return source
 ,
                     subsection, re.M):
-                number_list = [int(n) for n in horses.split('-')]
-                if len(set(number_list)) != len(number_list):
+                horse_list = [int(n) for n in horses.split('-')]
+                if len(set(horse_list)) != len(horse_list):
                     raise ValueError('duplicate horse in fixed ticket')
-                tickets.append({'type': kinds[kind], 'horses': number_list,
+                tickets.append({'type': kinds[kind], 'horses': horse_list,
                                 'stake_yen': int(amount.replace(',', ''))})
     if not tickets:
         # Modern FIXED snapshots place amount in the final table column and may
