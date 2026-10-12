@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜24番完了、25〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜25番完了、26〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -410,3 +410,16 @@ Robertoは独立JBIS/NETKEIBA IDと表記候補を全62位置で照合し、欠�
 `data/condition_stats/acceptance.md` の先頭に既存参照＋日次差分の受入表を登録し、旧受入履歴を保持。固定参照/集合差/hash/未追加日/全期間再生成の判断を `data/pedigree/reconciliations/2026-10-11-delta/acceptance/connection.json` へ保存。成果PR69 commit `a0738c204f89881f9681c65b596eb3d8fca17def`、変更5ファイルのGit blob SHAを保存先readback照合。全受入項目PASS、残0。通常CI結果はPR69最新記録を参照。
 
 **1〜24番完了、25〜53番未着手。次は25番（保存状態の日本語変換と5状態の検査）。** REPLAY_ONLY（snapshot契約RESEARCH_SHADOW_ONLY）・現行v1.6.1・Draft/PENDINGを維持。
+
+
+### 25番：保存状態の共通日本語表示と5状態検査完了（2026-10-12 JST）
+
+`scripts/persistence_status.py` に共通API `describe_persistence` と利用者向け `render_persistence`、確認結果JSONを読むCLIを実装。未試行・書込失敗・読戻し不一致・本体保存済みで個別完了未確認・保存工程の全完了を区別し、対象/原因/影響/次の確認を日本語で出力。内部コードは通常表示へ出さず、APIまたは明示した監査用JSONに保持。
+
+未実施nullと実際の失敗falseを分離。書込成功後の読戻し未実施は「本体書込済み」とし、読戻し一致済みと混同しない。個別検証の未実施と失敗も別文言。書込結果不明・矛盾した工程・真偽値でない結果を拒否し、CI監査成功を個別完了へ代用できない。書込/読戻し/個別確認がすべて成功した場合だけ対象の保存工程を完了と表示する。
+
+新規回帰14件で必須5状態、読戻し未実施、個別確認失敗、不明/矛盾入力、監査誤用、CLIの日本語/内部コード非表示を検査。既存保存・Recommendationを含む関連67件成功。標準CIのtest探索へ自動追加。仕様 `docs/validation/persistence-status.md`、合成受入記録 `docs/validation/implementation/2026-10-11-task25.json` を保存。過去の実予想の保存状態を合成検査で認証しない。
+
+成果PR69 commit `9ebba86d797a561b6d932eb1c26874201a0da7a9`、追加4ファイルの内容/Git blob SHAを保存先readback照合。個別Prediction/Recommendationゲートへの接続と独立した不足判定は26番に保持し、引継ぎ課題全体の解消や過去欠落の修復として数えない。既存checkerの判定・原票/予想・manual/releaseを変更しない。通常CI結果はPR69最新記録を参照。
+
+**1〜25番完了、26〜53番未着手。次は26番（Prediction/Recommendation個別ゲートの不足検出と状態出力の整合）。** 現行v1.6.1・Draft/PENDINGを維持。
