@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜15番完了、16番は実施中（16-01完了）、17番は前提待ち、18〜53番は未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜17番完了、18〜53番は未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -263,3 +263,12 @@ R10のコード実装は棚卸しで具体化した子タスクと既存Phase契
 - 完了読戻し記録をPR69 commit `3724bcc4ad9495349bbfbb60fd94a30da429f25b` の[completion-readback.json](https://github.com/eda-hub/horse-man/blob/3724bcc4ad9495349bbfbb60fd94a30da429f25b/data/pedigree/reconciliations/2026-10-11-delta/identities/completion-readback.json)へ保存。
 
 **16番完了。17番は17-01から再開可能（16-06本人同定の前提成立）。** 17番の血統取得/位置検査完了や18〜53番の実施としては数えない。Stage切替・Production昇格・マージは行わず、REPLAY・v1.6.1・Draft/PENDINGを維持する。過去の小バッチ記録は当時の状態として保持する。
+
+
+### 17番の全残件・保存読戻し完了（2026-10-12 JST）
+
+利用者の全残件実施指定に従い、固定順17-01〜17-93を継続。184行・11,408祖先位置を確認し、既存22行再利用、不足162行のJBIS原HTML、910追加個体、1,748親子revisionを保存しました。別サイトIDの59祖先・68位置は既存独立IDを保持して対応証跡で照合。未解決0。専用原票/位置/時点/CAS監査と回帰310件成功。
+
+PR69成果commit `1f91dd4884b815ee55c6676dd67c719d1f472014`。162原票と全バッチ・Registryを含むpedigree tree `bd2e79f528e1fc57e7c131fc86a87179c26b333f` がローカルGit treeとリモートreadbackで一致。変更1630 entry（一時取得workflow削除を含む）、過去docs/releaseと条件集計を保持。通常CI結果はPR69の最新実施記録を参照。ローカル復元checkoutには過去commit履歴がないため、履歴を要するRegistry監査は通常CIで確認する。
+
+**17番完了。次は18-01（必要父・母父・既存指定祖先の調教国不足調査）。** 18〜53番、Stage切替、Production昇格、マージは未実施。REPLAY_ONLY・v1.6.1・Draft/PENDINGを維持する。
