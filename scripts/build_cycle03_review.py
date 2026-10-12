@@ -62,6 +62,8 @@ def build(root, as_of_date_jst, basis_commit):
         sources.add(path)
     if not days:
         raise ValueError("日別台帳がなく、終了総括を実測として作成できません")
+    if max(days) > as_of_date_jst:
+        raise ValueError("確認日より後の開催日の台帳を含めることはできません")
     race_ids = [r for day in days.values() for r in day["initial_scope"]]
     if len(race_ids) != len(set(race_ids)):
         raise ValueError("同じレースが異なる開催日の台帳に含まれています")
@@ -80,7 +82,9 @@ def build(root, as_of_date_jst, basis_commit):
             if path.exists():
                 evidence.append(path)
         for folder in ("persistence-intents", "execution-gates"):
-            evidence.extend(sorted((root / "docs/validation" / folder / day_date).glob("*.json")))
+            evidence.extend(sorted((root / "docs/validation" / folder / day_date).rglob("*.json")))
+        evidence.extend(sorted((root / "docs/validation/persistence-intents/failed-attempts")
+                               .glob(f"{day_date}-*.json")))
         sources.update(evidence)
         inventory = [p.relative_to(root).as_posix() for p in sorted(evidence)]
         if day_date not in days:

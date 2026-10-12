@@ -136,6 +136,22 @@ class CycleReviewTests(unittest.TestCase):
         source.write_text(source.read_text() + "\n結果後追補\n", encoding="utf-8")
         self.assertEqual(self.cli("--check"), 1)
 
+    def test_archived_failed_declaration_is_part_of_source_manifest(self):
+        path = self.root / "docs/validation/persistence-intents/failed-attempts/2026-09-26-morning.json"
+        path.parent.mkdir(parents=True)
+        path.write_text('{"failed": true}', encoding="utf-8")
+        self.assertEqual(self.write_report(), 0)
+        r = self.report()
+        self.assertIn(path.relative_to(self.root).as_posix(), r["daily"]["2026-09-26"]["evidence_paths"])
+        path.write_text('{"failed": false}', encoding="utf-8")
+        self.assertEqual(self.cli("--check"), 1)
+
+    def test_as_of_date_cannot_include_later_race_ledgers(self):
+        self.days["2026-10-12"] = example("2026-10-12", "last-day-race")
+        write_inputs(self.root, self.days)
+        with self.assertRaisesRegex(ValueError, "確認日より後"):
+            self.report("2026-10-11")
+
     def test_generation_is_deterministic_and_inputs_unchanged(self):
         before = {p: p.read_bytes() for p in self.root.rglob("*.md")}
         self.assertEqual(self.report(), self.report())
