@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜18番完了、19〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜18番完了、19番実施中（19-01の5成分完了・残43成分）、20〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -301,3 +301,12 @@ MyboycharlieはTommy StackのIE所属観測2008-04-18と米国移籍後Cody Autr
 成果PR69 commit `94bd40f2967f982fc1f1c8ff4c4f26542e6e4454`、変更78ファイル。全horses tree `26aeb23d19a1a6d0490d960b4fcbb1eeb98efd94`、countries tree `dda737f273183473fd812c6e9ea1561678e8e186` のローカル/保存先readback一致。全7固定対象・34国revision・212selector結果・旧cutoff・CAS・抽出hash・複数国時系列の独立照合PASS。通常CIの最終結果はPR69の最新実施記録を参照する。
 
 **18番完了、次は19-01（アイルランドTノートの事実成分照合、固定最大5成分）。** 20番の全体coverage・追加集計・19〜53番・Stage合格/切替・Production昇格・マージは未実施。REPLAY_ONLY・現行v1.6.1・Draft/PENDINGを維持。
+
+
+### 19番 / 19-01：アイルランドTノートの先頭5成分（2026-10-12 JST）
+
+固定81行ニシノティアモのSIRE=ドゥラメンテ、DAM_SIRE=コンデュイット、ROBERTO_WITHIN_5GEN=なし、82行チェルビアットのSIRE=ロードカナロア、DAM_SIRE=フレンチデピュティを照合。全5一致。原snapshot blob `0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81` と原文/行/hash、16番本人ID、17番62位置、JBIS本人原HTML再hash・二provider照合記録・Registry父母経路/依存revisionを保存済み原票から照合。
+
+Robertoは独立JBIS/NETKEIBA IDと表記候補を全62位置で照合し、欠測0の5代内不在を確認。全血統の不在とは主張しない。近走列や適性仮説は今回の5成分に含めず、仮説昇格0。Registry追記0、元ノート訂正0、外部再取得0。既存同定済み親を重複登録しない。
+
+成果PR69 commit `b55b18f6e33ac6bfd755b05353fd4e40296963c2`、追加5ファイルのGit blob SHAを保存先readback照合。固定対象・原文hash・父母経路・62位置不在・事実/仮説分離の独立検証PASS。通常CI結果はPR69最新記録を参照。**親19番は実施中、5/48成分完了・残43、次は19-02（チェルビアットRoberto、クイーンズウォーク父/母父/Roberto、クランフォード父）**。20〜53番・Stage切替・マージは未実施。REPLAY_ONLY・v1.6.1・Draft/PENDINGを維持。
