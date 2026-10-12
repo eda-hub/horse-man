@@ -1,0 +1,2579 @@
+{
+  "all_runners_included": true,
+  "provenance": {
+    "coverage_manifest_path": "data/pedigree/reconciliations/2026-10-11-delta/coverage/input-manifest.json",
+    "coverage_manifest_record_hash": "e83f07ce43f43db678bf0d22a6bdf646d123a090dc91334737b62dd7c28ecbae",
+    "coverage_manifest_sha256": "b1030d1868ac2416b907b1ab170c7e101615c0db04752aaf9e2ac2c68fe2e393",
+    "coverage_rows_hash": "595005769c24f9e1c505f49bbfac56a9060be57c0e842eb7d2a801cbc490a38e",
+    "data_cutoff": "2026-10-12T08:29:17.321478+00:00",
+    "execution_number": 21,
+    "input_commit": "8b60854daaf3af355ab61500d0849a57e075ffcc",
+    "mode": "REPLAY",
+    "production_eligible": false
+  },
+  "races": [
+    {
+      "class": "1_WIN",
+      "dead_heats": [],
+      "declared_starters": 16,
+      "distance_m": 1400,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "e0a1b0db46495d88b85a019a0fb451c67dbae16a052820fb69d0b613b3232a29",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+        "retrieval_limit": "HTML直接取得403。公式ページの取得本文L347〜452を保存し、本文hashを原HTML byteのhashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/official-extract.txt",
+        "source_excerpt_sha256": "fe38f8732f92a53833c891570e2adaa27dd11297e8b6c4fe94eb96c4ecc05340",
+        "source_lines": [
+          347,
+          452
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604040620261011/C1"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202605040406",
+      "race_incidents": [],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T15:35:48.540551+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-TOKYO-06-01",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 16,
+          "horse_key": "netkeiba-2022102791",
+          "horse_name": "ドルンレースツェン",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-02",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 15,
+          "horse_key": "jbis-0001375009",
+          "horse_name": "グラスハーティー",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-03",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 13,
+          "horse_key": "jbis-0001358241",
+          "horse_name": "パッションディーバ",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-04",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001356172",
+          "horse_name": "ミュークチェルシー",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-05",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 1,
+          "horse_key": "netkeiba-2021103776",
+          "horse_name": "ベルメサイア",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-06",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001371117",
+          "horse_name": "ブルームコード",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-07",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001371822",
+          "horse_name": "プリプリプリン",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-08",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 11,
+          "horse_key": "netkeiba-2023100583",
+          "horse_name": "フュルスティン",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-09",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001375635",
+          "horse_name": "スタートレイン",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-10",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 3,
+          "horse_key": "netkeiba-2022104644",
+          "horse_name": "ペンテリコン",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-11",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 14,
+          "horse_key": "jbis-0001361678",
+          "horse_name": "ティピティーナ",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-12",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001378022",
+          "horse_name": "ラエトゥス",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-13",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001370512",
+          "horse_name": "テンハートビート",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-14",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001370344",
+          "horse_name": "エスシーレイジュ",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-15",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001370989",
+          "horse_name": "カーボフリオ",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-06-16",
+          "entry_observed_at": "2026-10-11T15:35:48.540551+00:00",
+          "finish_position": 5,
+          "horse_key": "netkeiba-2021102784",
+          "horse_name": "ノアスペシャル",
+          "horse_number": 16,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": "FEMALE",
+      "surface": "DIRT",
+      "venue": "TOKYO"
+    },
+    {
+      "class": "1_WIN",
+      "dead_heats": [],
+      "declared_starters": 16,
+      "distance_m": 1600,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "707c1dd25a30cd0f31e0b80dda9bda4b6794e21da9ee555cce9852d630d6a103",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-07/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-07/official-extract.txt",
+        "source_excerpt_sha256": "e6f301e2a2985aa649f01c5e49ff008149834a11f6a4568e4dfa25005665cf94",
+        "source_lines": [
+          [
+            347,
+            452
+          ],
+          [
+            561,
+            563
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604040720261011/76"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202605040407",
+      "race_incidents": [
+        {
+          "finish_status": "FINISHED",
+          "horse_name": "ロジリッキー",
+          "horse_number": 11,
+          "kind": "TIME_OVER_RACING_RESTRICTION",
+          "restricted_through_date": "2026-11-11",
+          "source_line": 563
+        }
+      ],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T15:45:25.412129+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-TOKYO-07-01",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001323546",
+          "horse_name": "サムワンライクユー",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-02",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001423340",
+          "horse_name": "サマーマッドネス(USA)",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-03",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001370804",
+          "horse_name": "ヴァンデスペランス",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-04",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001368430",
+          "horse_name": "アンシュウマト",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-05",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001337932",
+          "horse_name": "カーマンライン",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-06",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 15,
+          "horse_key": "netkeiba-2023103240",
+          "horse_name": "ワルトシュタイン",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-07",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001397128",
+          "horse_name": "ブレスドナイル(USA)",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-08",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001377676",
+          "horse_name": "ライカ",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-09",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001375053",
+          "horse_name": "ブルーミーティア",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-10",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 8,
+          "horse_key": "netkeiba-2023102182",
+          "horse_name": "タイキプレジール",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-11",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 16,
+          "horse_key": "jbis-0001361467",
+          "horse_name": "ロジリッキー",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-12",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 3,
+          "horse_key": "jbis-0001368878",
+          "horse_name": "タケルムサシ",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-13",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 13,
+          "horse_key": "netkeiba-2023100741",
+          "horse_name": "ムーランオランジュ",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-14",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001401356",
+          "horse_name": "マリブオレンジ(USA)",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-15",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001373158",
+          "horse_name": "アクアマーズ",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-07-16",
+          "entry_observed_at": "2026-10-11T15:45:25.412129+00:00",
+          "finish_position": 14,
+          "horse_key": "netkeiba-2020100307",
+          "horse_name": "オブシディアン",
+          "horse_number": 16,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "DIRT",
+      "venue": "TOKYO"
+    },
+    {
+      "class": "1_WIN",
+      "dead_heats": [],
+      "declared_starters": 17,
+      "distance_m": 2400,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "09b3151a93b2ed6d5ef5ac8bbadd2a69a003cf443aa91d882b7258e72f6e1cdd",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-08/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-08/official-extract.txt",
+        "source_excerpt_sha256": "08eafbd30a669799e127d417dc1ca4772790e651693b269572f741c1f32b06a8",
+        "source_lines": [
+          [
+            347,
+            492
+          ],
+          [
+            602,
+            604
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604040820261011/2B"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202605040408",
+      "race_incidents": [
+        {
+          "changed_post_time_jst": "2026-10-11T14:01:00+09:00",
+          "kind": "POST_TIME_CHANGED",
+          "source_line": 604
+        }
+      ],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T15:53:59.606635+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-TOKYO-08-01",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001369020",
+          "horse_name": "イブキ",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-02",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001358161",
+          "horse_name": "イフルジャンス",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-03",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001339216",
+          "horse_name": "サンセットビュー",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-04",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 5,
+          "horse_key": "netkeiba-2022106811",
+          "horse_name": "マイネルアウルム",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-05",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 8,
+          "horse_key": "netkeiba-2020101916",
+          "horse_name": "ペネトレイトゴー",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-06",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001332536",
+          "horse_name": "ピースヒロフェイス",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-07",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 16,
+          "horse_key": "jbis-0001367816",
+          "horse_name": "オニノウタゲ",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-08",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 14,
+          "horse_key": "jbis-0001371078",
+          "horse_name": "ポッドクロス",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-09",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001371327",
+          "horse_name": "ゴンファロニエーレ",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-10",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001373094",
+          "horse_name": "ヴォートセレスト",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-11",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 9,
+          "horse_key": "netkeiba-2022106634",
+          "horse_name": "アンビアンス",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-12",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 15,
+          "horse_key": "jbis-0001360096",
+          "horse_name": "オメガストリーム",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-13",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 3,
+          "horse_key": "netkeiba-2023105371",
+          "horse_name": "ボンボンベイビー",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-14",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 13,
+          "horse_key": "jbis-0001369773",
+          "horse_name": "ウルフマン",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-15",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 17,
+          "horse_key": "jbis-0001372285",
+          "horse_name": "シェンロン(IRE)",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-16",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001371372",
+          "horse_name": "パーヴォ",
+          "horse_number": 16,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-08-17",
+          "entry_observed_at": "2026-10-11T15:53:59.606635+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001339376",
+          "horse_name": "トラストボス",
+          "horse_number": 17,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "TURF",
+      "venue": "TOKYO"
+    },
+    {
+      "class": "2_WIN",
+      "dead_heats": [],
+      "declared_starters": 12,
+      "distance_m": 1600,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "4617a3e60a9b0cefdf587568fee405746ccd0b2829354bd27c50fe1ceaff6734",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-09/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-09/official-extract.txt",
+        "source_excerpt_sha256": "7c2120ab6b8880b94540a879769d8663d0b31d21eab846ecae0921aea3b6cca1",
+        "source_lines": [
+          [
+            347,
+            440
+          ],
+          [
+            549,
+            551
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604040920261011/E0"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202605040409",
+      "race_incidents": [
+        {
+          "affected_horse_numbers": [
+            12
+          ],
+          "fine_yen": 30000,
+          "horse_number": 11,
+          "kind": "JOCKEY_FINE_FOR_INWARD_INTERFERENCE",
+          "source_line": 551
+        }
+      ],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T15:56:01.331179+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-TOKYO-09-01",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001333971",
+          "horse_name": "ツルマウカタチ",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-02",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001303278",
+          "horse_name": "ジッピーレーサー(USA)",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-03",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001377639",
+          "horse_name": "ポペット",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-04",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 3,
+          "horse_key": "jbis-0001355392",
+          "horse_name": "エーデルヴェーグ",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-05",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001369505",
+          "horse_name": "クールデイトナ",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-06",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001336686",
+          "horse_name": "ソニックライン",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-07",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001323149",
+          "horse_name": "フミサウンド",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-08",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001336623",
+          "horse_name": "レッドレナート",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-09",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001373400",
+          "horse_name": "クレパスキュラー",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-10",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001340027",
+          "horse_name": "シャンパンマーク",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-11",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001370687",
+          "horse_name": "フジガイフウ",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-09-12",
+          "entry_observed_at": "2026-10-11T15:56:01.331179+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001398707",
+          "horse_name": "エラルディーク(FR)",
+          "horse_number": 12,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "TURF",
+      "venue": "TOKYO"
+    },
+    {
+      "class": "3_WIN",
+      "dead_heats": [],
+      "declared_starters": 16,
+      "distance_m": 1400,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "97ab37ccf9686db9452b481a128de5535e779b15ff41992743ef3a5395fdbad3",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-10/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-10/official-extract.txt",
+        "source_excerpt_sha256": "7c28f45fa580d35c490792243a1a463303e63219492f9edba7d976865b24ce22",
+        "source_lines": [
+          [
+            347,
+            456
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604041020261011/D5"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202605040410",
+      "race_incidents": [],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T15:56:49.970816+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-TOKYO-10-01",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001339195",
+          "horse_name": "キョウエイカンセ",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-02",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 15,
+          "horse_key": "jbis-0001333874",
+          "horse_name": "アスクアイルビゼア",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-03",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001334296",
+          "horse_name": "クインズデネブ",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-04",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 16,
+          "horse_key": "jbis-0001341534",
+          "horse_name": "スペイドアン",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-05",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001364690",
+          "horse_name": "ガンウルフ(USA)",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-06",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001333899",
+          "horse_name": "メイショウタムシバ",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-07",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 3,
+          "horse_key": "netkeiba-2021105736",
+          "horse_name": "カルパ",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-08",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001355788",
+          "horse_name": "セギレエルビエント",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-09",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001333624",
+          "horse_name": "ゴールデンオスカー",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-10",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001333335",
+          "horse_name": "シャパリュ",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-11",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 14,
+          "horse_key": "jbis-0001358437",
+          "horse_name": "フウセツ",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-12",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001306829",
+          "horse_name": "レッドラパルマ",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-13",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001356361",
+          "horse_name": "エイプリルインパリ",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-14",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001334746",
+          "horse_name": "サンドブラスト",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-15",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001336555",
+          "horse_name": "ヤマニンアストロン",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-10-16",
+          "entry_observed_at": "2026-10-11T15:56:49.970816+00:00",
+          "finish_position": 13,
+          "horse_key": "jbis-0001336749",
+          "horse_name": "アジアミッション",
+          "horse_number": 16,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "DIRT",
+      "venue": "TOKYO"
+    },
+    {
+      "class": "G2",
+      "dead_heats": [],
+      "declared_starters": 16,
+      "distance_m": 1800,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "4f924a0631e045daf737ba5bae2ff9f52f2a1e66306986a20d9e24b70bdd1298",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-11/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-11/official-extract.txt",
+        "source_excerpt_sha256": "dee31bace35508bbc72eda4f7b21aca68b3f3cb5f4591640c0b9891bce00356f",
+        "source_lines": [
+          [
+            347,
+            473
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604041120261011/8A"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202605040411",
+      "race_incidents": [],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T15:58:21.884313+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-TOKYO-11-01",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001338873",
+          "horse_name": "ニシノティアモ",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-02",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 12,
+          "horse_key": "netkeiba-2022105778",
+          "horse_name": "チェルビアット",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-03",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001340155",
+          "horse_name": "クイーンズウォーク",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-04",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 16,
+          "horse_key": "netkeiba-2021100139",
+          "horse_name": "クランフォード",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-05",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 4,
+          "horse_key": "netkeiba-2022104839",
+          "horse_name": "カネラフィーナ",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-06",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001359461",
+          "horse_name": "ムイ",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-07",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001332925",
+          "horse_name": "ミラビリスマジック",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-08",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 13,
+          "horse_key": "jbis-0001358128",
+          "horse_name": "ルージュソリテール",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-09",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 14,
+          "horse_key": "jbis-0001354292",
+          "horse_name": "ウイントワイライト",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-10",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 15,
+          "horse_key": "jbis-0001338603",
+          "horse_name": "セキトバイースト",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-11",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 3,
+          "horse_key": "jbis-0001341405",
+          "horse_name": "ラヴァンダ",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-12",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001339219",
+          "horse_name": "ミアネーロ",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-13",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001357142",
+          "horse_name": "ワタシマツワ",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-14",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001340705",
+          "horse_name": "ハワイアンティアレ",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-15",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001354405",
+          "horse_name": "ジョスラン",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-11-16",
+          "entry_observed_at": "2026-10-11T15:58:21.884313+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001355965",
+          "horse_name": "カムニャック",
+          "horse_number": 16,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": "FEMALE",
+      "surface": "TURF",
+      "venue": "TOKYO"
+    },
+    {
+      "class": "2_WIN",
+      "dead_heats": [],
+      "declared_starters": 16,
+      "distance_m": 1300,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "b1357131d2ff2d9978f4a84c349abbdb79304834f6e1ff07fc5498ec20eb010c",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-12/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-12/official-extract.txt",
+        "source_excerpt_sha256": "1eafb4b0bd738f8fe53586d56b3cbf49ad4f2c5829a7b963531481ec644fe53b",
+        "source_lines": [
+          [
+            347,
+            455
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604041220261011/3F"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202605040412",
+      "race_incidents": [],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T15:59:17.340021+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-TOKYO-12-01",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 3,
+          "horse_key": "jbis-0001401317",
+          "horse_name": "ピコテンダー(AUS)",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-02",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001337046",
+          "horse_name": "ズバットマサムネ",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-03",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 13,
+          "horse_key": "jbis-0001354827",
+          "horse_name": "キョウエイスレーヴ",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-04",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001374946",
+          "horse_name": "レディサン",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-05",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 14,
+          "horse_key": "jbis-0001333681",
+          "horse_name": "アルジェンタージョ",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-06",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001373131",
+          "horse_name": "ジャスティンルマン",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-07",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001372451",
+          "horse_name": "ラインジーク",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-08",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 2,
+          "horse_key": "netkeiba-2023100803",
+          "horse_name": "ジャックナダル",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-09",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001359227",
+          "horse_name": "メイショウドライブ",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-10",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001356665",
+          "horse_name": "オカメノコイ",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-11",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001353089",
+          "horse_name": "イノキ",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-12",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001361853",
+          "horse_name": "マサノユニコーン",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-13",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001359144",
+          "horse_name": "ドントゥザムーン",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-14",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 15,
+          "horse_key": "jbis-0001355009",
+          "horse_name": "ベルビースタローン",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-15",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 16,
+          "horse_key": "jbis-0001354151",
+          "horse_name": "レイアポポ",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-TOKYO-12-16",
+          "entry_observed_at": "2026-10-11T15:59:17.340021+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001327066",
+          "horse_name": "キョウエイカンフ",
+          "horse_number": 16,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "DIRT",
+      "venue": "TOKYO"
+    },
+    {
+      "class": "1_WIN",
+      "dead_heats": [
+        {
+          "finish_position": 4,
+          "horse_numbers": [
+            2,
+            6
+          ]
+        }
+      ],
+      "declared_starters": 16,
+      "distance_m": 1800,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "bd73b359ef20adad567217a8fe94aededec601832f2a6409169e956b4963b7e7",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-06/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-06/official-extract.txt",
+        "source_excerpt_sha256": "fce1cb5796e8dc3133c1a3c31a89d2ec70dd87f11848d3c867a6e1928ae21f07",
+        "source_lines": [
+          [
+            347,
+            486
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604040620261011/9F"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202608040406",
+      "race_incidents": [],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T16:08:04.057451+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-KYOTO-06-01",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001370484",
+          "horse_name": "ブラックレジェンド",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-02",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 4,
+          "horse_key": "netkeiba-2023105041",
+          "horse_name": "ココロヅヨサ",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-03",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 15,
+          "horse_key": "jbis-0001373438",
+          "horse_name": "キタノシャカール",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-04",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001371176",
+          "horse_name": "ミヤジオズ",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-05",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 13,
+          "horse_key": "netkeiba-2021106078",
+          "horse_name": "ブルーストレイル",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-06",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 4,
+          "horse_key": "netkeiba-2023104339",
+          "horse_name": "ルファーダ",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-07",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001375386",
+          "horse_name": "アルビオン",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-08",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 16,
+          "horse_key": "jbis-0001376113",
+          "horse_name": "コルヴァス",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-09",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 3,
+          "horse_key": "jbis-0001369085",
+          "horse_name": "クリュギスト",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-10",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001386218",
+          "horse_name": "ジャスティンダラス",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-11",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001373844",
+          "horse_name": "ゴールデンスラム",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-12",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001311088",
+          "horse_name": "メイショウオグマ",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-13",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001374955",
+          "horse_name": "ダイメイクマモト",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-14",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001373913",
+          "horse_name": "レザーアンドレース",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-15",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 14,
+          "horse_key": "jbis-0001353950",
+          "horse_name": "ブレイジングスター",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-06-16",
+          "entry_observed_at": "2026-10-11T16:08:04.057451+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001368053",
+          "horse_name": "ハイロード",
+          "horse_number": 16,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "DIRT",
+      "venue": "KYOTO"
+    },
+    {
+      "class": "1_WIN",
+      "dead_heats": [],
+      "declared_starters": 11,
+      "distance_m": 1800,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "580961f70daf8cbe0f04cefae70be86c0dadcccc82a5c073b6bb60292561d401",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-07/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-07/official-extract.txt",
+        "source_excerpt_sha256": "481abce5a0140d8d2a705656f70d64ac34a1c37dc9d39237c6de38febff670ff",
+        "source_lines": [
+          [
+            347,
+            429
+          ],
+          [
+            538,
+            541
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604040720261011/54"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202608040407",
+      "race_incidents": [
+        {
+          "affected_horse_numbers": [
+            5
+          ],
+          "horse_name": "メイショウハンター",
+          "horse_number": 7,
+          "kind": "JOCKEY_REPRIMAND_FOR_OUTWARD_INTERFERENCE",
+          "source_line": 540
+        },
+        {
+          "finish_status": "FINISHED",
+          "horse_name": "グリュイエール",
+          "horse_number": 1,
+          "kind": "TIME_OVER_RACING_RESTRICTION",
+          "restricted_through_date": "2026-11-11",
+          "source_line": 541
+        }
+      ],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T16:09:53.245127+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-KYOTO-07-01",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 11,
+          "horse_key": "netkeiba-2023109082",
+          "horse_name": "グリュイエール",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-07-02",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001370496",
+          "horse_name": "ダイチノナポリ",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-07-03",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 6,
+          "horse_key": "netkeiba-2022101608",
+          "horse_name": "オーシンエス",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-07-04",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001319212",
+          "horse_name": "カフジキアッキエレ",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-07-05",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001374126",
+          "horse_name": "ラパンドール",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-07-06",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001372215",
+          "horse_name": "ラヴェニュー",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-07-07",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001378417",
+          "horse_name": "メイショウハンター",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-07-08",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001352631",
+          "horse_name": "ブルーミングローズ",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-07-09",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 1,
+          "horse_key": "netkeiba-2022104793",
+          "horse_name": "サラコスティ",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-07-10",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 3,
+          "horse_key": "netkeiba-2023106785",
+          "horse_name": "マイリトルヒーロー",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-07-11",
+          "entry_observed_at": "2026-10-11T16:09:53.245127+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001337822",
+          "horse_name": "カーメルタザイト",
+          "horse_number": 11,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "TURF",
+      "venue": "KYOTO"
+    },
+    {
+      "class": "2_WIN",
+      "dead_heats": [],
+      "declared_starters": 16,
+      "distance_m": 1800,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "c52faa1ce5cc96138fb54d3299d275076b1b4e9cbe1cb225af159346398c8288",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-08/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-08/official-extract.txt",
+        "source_excerpt_sha256": "e9f0de1c7fc7c91ca06323200b3aa9afda7def8e4268baa54bb7a15442131d19",
+        "source_lines": [
+          [
+            347,
+            486
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604040820261011/09"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202608040408",
+      "race_incidents": [],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T16:10:13.511521+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-KYOTO-08-01",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001318417",
+          "horse_name": "コスモマルーン",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-02",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001377981",
+          "horse_name": "ヴンダーバール",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-03",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001355991",
+          "horse_name": "ヴァンアグレアブル",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-04",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 3,
+          "horse_key": "jbis-0001361385",
+          "horse_name": "エターナルプロミス",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-05",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 15,
+          "horse_key": "jbis-0001357060",
+          "horse_name": "ラヴァブル",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-06",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001318735",
+          "horse_name": "プウスカンドゥール",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-07",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001356023",
+          "horse_name": "ハギノコラソン",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-08",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001354493",
+          "horse_name": "オデット",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-09",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 10,
+          "horse_key": "netkeiba-2023102252",
+          "horse_name": "マクノス",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-10",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 16,
+          "horse_key": "jbis-0001353714",
+          "horse_name": "オーケアニス",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-11",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 13,
+          "horse_key": "jbis-0001365965",
+          "horse_name": "ステアハート",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-12",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001354758",
+          "horse_name": "エアニゲラ",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-13",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001376111",
+          "horse_name": "ロイスター",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-14",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 14,
+          "horse_key": "netkeiba-2021105919",
+          "horse_name": "ゼットレジーナ",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-15",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001352032",
+          "horse_name": "カルミアクラウン",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-08-16",
+          "entry_observed_at": "2026-10-11T16:10:13.511521+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001360551",
+          "horse_name": "カスバートテソーロ",
+          "horse_number": 16,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": "FEMALE",
+      "surface": "DIRT",
+      "venue": "KYOTO"
+    },
+    {
+      "class": "2_WIN",
+      "dead_heats": [],
+      "declared_starters": 16,
+      "distance_m": 1200,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "a30b8da79dcb83625a3b3142621163dda3d41db586f9d63c35a6ab564046952b",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-09/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-09/official-extract.txt",
+        "source_excerpt_sha256": "f82dee0813f542f9ceed268b1c90963b9e885e31baec42b14207fec3a446a66e",
+        "source_lines": [
+          [
+            347,
+            456
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604040920261011/BE"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202608040409",
+      "race_incidents": [],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T16:10:51.396252+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-KYOTO-09-01",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001373983",
+          "horse_name": "メイショウバルク",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-02",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 7,
+          "horse_key": "netkeiba-2023101900",
+          "horse_name": "レッドレベンディス",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-03",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 15,
+          "horse_key": "jbis-0001358351",
+          "horse_name": "ストラテージュ",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-04",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001372474",
+          "horse_name": "ルクスレイモンド",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-05",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001352610",
+          "horse_name": "クインズシフォン",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-06",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 14,
+          "horse_key": "jbis-0001356087",
+          "horse_name": "セルヴァンス",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-07",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 3,
+          "horse_key": "netkeiba-2023110103",
+          "horse_name": "タカスタカスタカス(USA)",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-08",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 2,
+          "horse_key": "netkeiba-2022107082",
+          "horse_name": "タイセイディアマン",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-09",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001375507",
+          "horse_name": "フェアリーライズ",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-10",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001358735",
+          "horse_name": "ダノンプリマ",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-11",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001370428",
+          "horse_name": "フレンズプラス",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-12",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 13,
+          "horse_key": "jbis-0001357253",
+          "horse_name": "アオイレーギーナ",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-13",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001365013",
+          "horse_name": "バッハアルプゼー",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-14",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001357445",
+          "horse_name": "カワキタマナレア",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-15",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001357455",
+          "horse_name": "パールフロント",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-09-16",
+          "entry_observed_at": "2026-10-11T16:10:51.396252+00:00",
+          "finish_position": 16,
+          "horse_key": "jbis-0001341858",
+          "horse_name": "セールヴォラン",
+          "horse_number": 16,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "DIRT",
+      "venue": "KYOTO"
+    },
+    {
+      "class": "3_WIN",
+      "dead_heats": [],
+      "declared_starters": 17,
+      "distance_m": 1600,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "92eae35e3c7d989ed08248396e0ccef7ea85220e9fa122045f4272aa33f0fc61",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-10/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-10/official-extract.txt",
+        "source_excerpt_sha256": "252f9fb013f1c00ceb8aef608844450ece86ab5cd9814661e28a0a602093c0f8",
+        "source_lines": [
+          [
+            347,
+            461
+          ],
+          [
+            570,
+            572
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604041020261011/B3"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202608040410",
+      "race_incidents": [
+        {
+          "affected_horse_numbers": [
+            12,
+            9,
+            6,
+            5
+          ],
+          "fine_yen": 10000,
+          "horse_name": "マトラコーニッシュ",
+          "horse_number": 17,
+          "kind": "JOCKEY_FINE_FOR_INWARD_INTERFERENCE",
+          "source_line": 572
+        }
+      ],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T16:15:10.922076+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-KYOTO-10-01",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 4,
+          "horse_key": "netkeiba-2021105746",
+          "horse_name": "アルトゥーム",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-02",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 13,
+          "horse_key": "jbis-0001314506",
+          "horse_name": "スーサンアッシャー",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-03",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001376400",
+          "horse_name": "リゾートアイランド",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-04",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001371281",
+          "horse_name": "トミーバローズ",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-05",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 14,
+          "horse_key": "jbis-0001321715",
+          "horse_name": "ハギノアルデバラン",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-06",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 17,
+          "horse_key": "jbis-0001353865",
+          "horse_name": "モズカトレア",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-07",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001383814",
+          "horse_name": "アヴィオン",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-08",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001359471",
+          "horse_name": "ミッキージュエリー",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-09",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001327820",
+          "horse_name": "サクセスアイ",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-10",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 16,
+          "horse_key": "jbis-0001340695",
+          "horse_name": "モアリジット",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-11",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 3,
+          "horse_key": "jbis-0001359872",
+          "horse_name": "フェアリーライク",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-12",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001357394",
+          "horse_name": "キングメーカー",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-13",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001332894",
+          "horse_name": "クスクス",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-14",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 15,
+          "horse_key": "jbis-0001355418",
+          "horse_name": "ノクナレア",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-15",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 7,
+          "horse_key": "netkeiba-2022103345",
+          "horse_name": "ウォータークラーク",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-16",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001332753",
+          "horse_name": "エポックヴィーナス",
+          "horse_number": 16,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-10-17",
+          "entry_observed_at": "2026-10-11T16:15:10.922076+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001355226",
+          "horse_name": "マトラコーニッシュ",
+          "horse_number": 17,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "TURF",
+      "venue": "KYOTO"
+    },
+    {
+      "class": "OPEN",
+      "dead_heats": [],
+      "declared_starters": 14,
+      "distance_m": 1800,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "b5dbd7fc935641e6a4a4ead49f86a0e7e7c17c9e6690fefc8bf8433fef252803",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-11/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-11/official-extract.txt",
+        "source_excerpt_sha256": "c578a7a2238c010fa645a0247cdb24892ba60d261a8e314783ddcc3a06652e34",
+        "source_lines": [
+          [
+            347,
+            476
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604041120261011/68"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202608040411",
+      "race_incidents": [],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T16:16:37.850914+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-KYOTO-11-01",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001319252",
+          "horse_name": "モックモック",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-02",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 6,
+          "horse_key": "jbis-0001340403",
+          "horse_name": "パシアンジャン",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-03",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001337712",
+          "horse_name": "バスタードサフラン",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-04",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 3,
+          "horse_key": "netkeiba-2022102874",
+          "horse_name": "ハナウマビーチ",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-05",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 14,
+          "horse_key": "jbis-0001352664",
+          "horse_name": "タガノバビロン",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-06",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001335872",
+          "horse_name": "ブルーサン",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-07",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001361488",
+          "horse_name": "ヴィンセンシオ",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-08",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001357642",
+          "horse_name": "シュラザック",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-09",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001336616",
+          "horse_name": "ベルウェザー",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-10",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 11,
+          "horse_key": "netkeiba-2021100836",
+          "horse_name": "レアンダー",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-11",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001304721",
+          "horse_name": "マリオロード",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-12",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001325656",
+          "horse_name": "ペイシャモノノフ",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-13",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 8,
+          "horse_key": "jbis-0001368147",
+          "horse_name": "メルカントゥール",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-11-14",
+          "entry_observed_at": "2026-10-11T16:16:37.850914+00:00",
+          "finish_position": 13,
+          "horse_key": "netkeiba-2021105112",
+          "horse_name": "ミッキークレスト",
+          "horse_number": 14,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "DIRT",
+      "venue": "KYOTO"
+    },
+    {
+      "class": "1_WIN",
+      "dead_heats": [],
+      "declared_starters": 16,
+      "distance_m": 1600,
+      "going": "GOOD",
+      "official_source": {
+        "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+        "raw_html_saved": false,
+        "raw_html_sha256": null,
+        "record_hash": "e31d0f5f179a9df8dcc9544be1624aeaacaa9e80c7547931565ca78189343b6a",
+        "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+        "record_key": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-12/result.json",
+        "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+        "source_class": "OFFICIAL_JRA",
+        "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-12/official-extract.txt",
+        "source_excerpt_sha256": "7ea4d8407987bebc836d725babe2f3f930c81a793dbcb31c0f254a1587a09b43",
+        "source_lines": [
+          [
+            347,
+            452
+          ],
+          [
+            561,
+            563
+          ]
+        ],
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1008202604041220261011/FC"
+      },
+      "original_result_status": "OFFICIAL_TEXT_VERIFIED",
+      "race_date_jst": "2026-10-11",
+      "race_id": "202608040412",
+      "race_incidents": [
+        {
+          "horse_name": "マゲバスピード",
+          "horse_number": 11,
+          "kind": "RESTLESS_IN_STARTING_GATE",
+          "source_line": 563
+        }
+      ],
+      "race_type": "FLAT",
+      "result_observed_at": "2026-10-11T16:17:41.788493+00:00",
+      "result_status": "OFFICIAL",
+      "runners": [
+        {
+          "entry_id": "2026-10-11-KYOTO-12-01",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 2,
+          "horse_key": "jbis-0001376542",
+          "horse_name": "メイショウトウコウ",
+          "horse_number": 1,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-02",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 7,
+          "horse_key": "jbis-0001378255",
+          "horse_name": "タイムレスキス",
+          "horse_number": 2,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-03",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 1,
+          "horse_key": "jbis-0001374666",
+          "horse_name": "ダークマルス",
+          "horse_number": 3,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-04",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 3,
+          "horse_key": "netkeiba-2023102997",
+          "horse_name": "ペイシャシス",
+          "horse_number": 4,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-05",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 4,
+          "horse_key": "jbis-0001383905",
+          "horse_name": "サトノセプター",
+          "horse_number": 5,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-06",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 10,
+          "horse_key": "jbis-0001375466",
+          "horse_name": "ルートサーティーン",
+          "horse_number": 6,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-07",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 9,
+          "horse_key": "jbis-0001370758",
+          "horse_name": "ウォーターデライト",
+          "horse_number": 7,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-08",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 5,
+          "horse_key": "jbis-0001375431",
+          "horse_name": "エグジスタンス",
+          "horse_number": 8,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-09",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 12,
+          "horse_key": "jbis-0001357741",
+          "horse_name": "ミッキーコンドル",
+          "horse_number": 9,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-10",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 11,
+          "horse_key": "jbis-0001359107",
+          "horse_name": "ルディシャ",
+          "horse_number": 10,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-11",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 16,
+          "horse_key": "jbis-0001375644",
+          "horse_name": "マゲバスピード",
+          "horse_number": 11,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-12",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 8,
+          "horse_key": "netkeiba-2023106943",
+          "horse_name": "レインボーステート",
+          "horse_number": 12,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-13",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 6,
+          "horse_key": "netkeiba-2022105766",
+          "horse_name": "ドーギッド",
+          "horse_number": 13,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-14",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 14,
+          "horse_key": "netkeiba-2023103615",
+          "horse_name": "エスティヴァリス",
+          "horse_number": 14,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-15",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 15,
+          "horse_key": "netkeiba-2022107012",
+          "horse_name": "ニシノイツキムスメ",
+          "horse_number": 15,
+          "status": "FINISHED"
+        },
+        {
+          "entry_id": "2026-10-11-KYOTO-12-16",
+          "entry_observed_at": "2026-10-11T16:17:41.788493+00:00",
+          "finish_position": 13,
+          "horse_key": "netkeiba-2021106206",
+          "horse_name": "ウインラウダ",
+          "horse_number": 16,
+          "status": "FINISHED"
+        }
+      ],
+      "sex_restriction": null,
+      "surface": "TURF",
+      "venue": "KYOTO"
+    }
+  ],
+  "schema_version": "official-runners-manifest-v1",
+  "source_scope": "2026-10-11 東京・京都各6〜12Rの固定14R。午前・10/10・旧159Rを含まない。"
+}
