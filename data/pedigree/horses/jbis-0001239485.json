@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:06.922872+00:00",
+      "content_hash": "52b4107878c8a681f27e3125ed983f61bf6531deb8aed7356d26ba041ee13e80",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:06.922872+00:00",
+      "input_hash": "ed464cb7f1a5fd2e6bf32eb278bb23e5d18cb7a6b18411fc33dd2ae539091eb5",
+      "previous_revision": null,
+      "revision_id": "rev-ed464cb7f1a5fd2e6bf32eb2",
+      "saved_at": "2026-10-12T07:32:09.031227+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "公式所有者の2015年記事に本人がHannon厩舎でhome workを実施したことを明記。2013年East Everleigh所属経歴と照合。所有者変更で厩舎変更なし、Ireland繁殖移動を所属としない。",
+          "birth_year": 2011,
+          "country": "GB",
+          "horse": "Night of Thunder(IRE)",
+          "trainer": "Richard Hannon",
+          "training_location": "East Everleigh, Wiltshire"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-06/jbis-0001239485-source.json",
+        "record_hash": "46f8abd655dd67a76ed0dc4ac20f126eb38c29ca47c8f8e377a90b682f6312db",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001239485",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.godolphin.com/news/night-of-thunder-ready-to-roll-in-lockinge"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-12T07:32:06.922872+00:00",
+              "record_hash": "46f8abd655dd67a76ed0dc4ac20f126eb38c29ca47c8f8e377a90b682f6312db",
+              "url": "https://www.godolphin.com/news/night-of-thunder-ready-to-roll-in-lockinge"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:31:53.969576+00:00",
+      "content_hash": "d7adcb76552ad0ac38041fd9ad82f7e1a65f7174e5d78bbe283f34c838e31c11",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:31:53.969576+00:00",
+      "input_hash": "f98af09992cedb3e781ed84e65d72cdad3c94938d35eca662d6b6f62b26b1f54",
+      "previous_revision": null,
+      "revision_id": "rev-f98af09992cedb3e781ed84e",
+      "saved_at": "2026-10-12T07:32:01.705369+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人プロフィールの調教師所属欄を直接取得して照合。香港遠征を国変更へ流用しない。",
+          "birth_year": 2010,
+          "country": "JP",
+          "horse": "ラブリーデイ",
+          "trainer": "池江泰寿",
+          "training_location": "栗東"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-03/jbis-0001122040-source.json",
+        "record_hash": "e2cd7542f5a6d80efb79784cc833545c4798b485be8f4c2657e6e12aead76aa6",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001122040",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001122040/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-12T07:31:53.969576+00:00",
+              "record_hash": "e2cd7542f5a6d80efb79784cc833545c4798b485be8f4c2657e6e12aead76aa6",
+              "url": "https://www.jbis.or.jp/horse/0001122040/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:01.959523+00:00",
+      "content_hash": "61b572fc3b294466d709d15cf7423f3e391f5b0e38c8e7c6087126fa2ae75e60",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:01.959523+00:00",
+      "input_hash": "5c60301533e68cafccbb9ec945e075b69dce6cf5db2d781528a8adc38014c41e",
+      "previous_revision": null,
+      "revision_id": "rev-5c60301533e68cafccbb9ec9",
+      "saved_at": "2026-10-12T07:32:04.321760+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人プロフィールの所属欄を直接取得して照合。北海道から栗東への国内転厩は同一JPで扱う。",
+          "birth_year": 2011,
+          "country": "JP",
+          "horse": "ニシケンモノノフ",
+          "trainer": "庄野靖志",
+          "training_location": "栗東"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-04/jbis-0001135217-source.json",
+        "record_hash": "a6d566085e73581ebea32ec096e456f13b911016d2a5ff6d1427ef65a229b223",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001135217",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001135217/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-12T07:32:01.959523+00:00",
+              "record_hash": "a6d566085e73581ebea32ec096e456f13b911016d2a5ff6d1427ef65a229b223",
+              "url": "https://www.jbis.or.jp/horse/0001135217/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

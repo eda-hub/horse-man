@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:06.922872+00:00",
+      "content_hash": "57b6b4b6bec2577c7fb3348284eabd16893e039239b39b6b6bd8fe7629692c46",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:06.922872+00:00",
+      "input_hash": "74dd7f672895852360992b0d335ee1d9f383c7acef3f74941d170026e741c87e",
+      "previous_revision": null,
+      "revision_id": "rev-74dd7f672895852360992b0d",
+      "saved_at": "2026-10-12T07:32:09.027066+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人所有牧場Juddmonte公式のGosdenとNewmarket所属経歴、2014年Cartier Horse of Yearの同一馬を照合。",
+          "birth_year": 2011,
+          "country": "GB",
+          "horse": "Kingman(GB)",
+          "trainer": "John Gosden",
+          "training_location": "Clarehaven, Newmarket"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-06/jbis-0001223183-source.json",
+        "record_hash": "d19a791b7c347a3069015892e309034c874ffb2d06fcc20069b7bc821901063a",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001223183",
+        "source_class": "BREEDING_DB",
+        "url": "https://stallions.juddmonte.com/post/john-gosden-on-the-qualities-that-make-kingman-such-a-successful-sire"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-12T07:32:06.922872+00:00",
+              "record_hash": "d19a791b7c347a3069015892e309034c874ffb2d06fcc20069b7bc821901063a",
+              "url": "https://stallions.juddmonte.com/post/john-gosden-on-the-qualities-that-make-kingman-such-a-successful-sire"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

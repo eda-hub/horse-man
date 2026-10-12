@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:06.922872+00:00",
+      "content_hash": "a53426e3d47a0c648c59bcdbe3ca70c4b689f5dcb30687fca30cf58b6fb9c722",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:06.922872+00:00",
+      "input_hash": "bf69083fc0bd7861639c8a49abe3146c95d18aeb73d1b74ddd975d24b6d082b3",
+      "previous_revision": null,
+      "revision_id": "rev-bf69083fc0bd7861639c8a49",
+      "saved_at": "2026-10-12T07:32:09.024610+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人プロフィール所属欄を直接取得。2018-07-06 JRA公式の角居から中竹への国内転厩一覧に本人が含まれることを補足、国は同一JP。",
+          "birth_year": 2015,
+          "country": "JP",
+          "horse": "ヘンリーバローズ",
+          "trainer": "角居勝彦",
+          "training_location": "栗東"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-06/jbis-0001208483-source.json",
+        "record_hash": "22847db76fb8e883209a90a6932ff83a8fc41da02b6e98c10c0f6faa3983c65e",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001208483",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001208483/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-12T07:32:06.922872+00:00",
+              "record_hash": "22847db76fb8e883209a90a6932ff83a8fc41da02b6e98c10c0f6faa3983c65e",
+              "url": "https://www.jbis.or.jp/horse/0001208483/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

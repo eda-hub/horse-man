@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:31:53.969576+00:00",
+      "content_hash": "53018be129ecc004ab8261ea655e16fda56a9f66e3adbf851073398138c4d12d",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:31:53.969576+00:00",
+      "input_hash": "46ecc02e31b6f7444d91401e44593cb5ca6feede169994ce218271ef380745cb",
+      "previous_revision": null,
+      "revision_id": "rev-46ecc02e31b6f7444d91401e",
+      "saved_at": "2026-10-12T07:32:01.708017+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "調教師公式施設ページの本人所属、公式Hall of FameとMaltonの厩舎経歴を照合。",
+          "birth_year": 2008,
+          "country": "GB",
+          "horse": "Wootton Bassett(GB)",
+          "trainer": "Richard Fahey",
+          "training_location": "Musley Bank, Malton"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-03/jbis-0001132958-source.json",
+        "record_hash": "94753d6d2dbdb3d838613682797f89d37bc76cc3601bed67ab06c739cffa8982",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001132958",
+        "source_class": "BREEDING_DB",
+        "url": "https://richardfaheyracing.com/our-facilities"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-12T07:31:53.969576+00:00",
+              "record_hash": "94753d6d2dbdb3d838613682797f89d37bc76cc3601bed67ab06c739cffa8982",
+              "url": "https://richardfaheyracing.com/our-facilities"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

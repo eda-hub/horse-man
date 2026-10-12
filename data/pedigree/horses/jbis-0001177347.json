@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:04.608074+00:00",
+      "content_hash": "a3c332f74e0f28b21b871c2e97fac9cad96155dc0b324610190559d392394c6a",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:04.608074+00:00",
+      "input_hash": "e647b95d83f2aeab15109b1cc1867e019f224a8845ae6fa6baa1ecd9bccd4565",
+      "previous_revision": null,
+      "revision_id": "rev-e647b95d83f2aeab15109b1c",
+      "saved_at": "2026-10-12T07:32:06.664637+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "2013-11-22公式本人調教欄の5f 1:01とLukas・Unbridled's Song産駒を照合。供用国Uruguay等へ流用しない。",
+          "birth_year": 2010,
+          "country": "US",
+          "horse": "ウィルテイクチャージ(USA)",
+          "trainer": "D. Wayne Lukas",
+          "training_location": "Churchill Downs"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-05/jbis-0001177347-source.json",
+        "record_hash": "c91941994d617adeb45386311662b0c071f4193de64ee02db37c192724bec345",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001177347",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.churchilldowns.com/horses/news/will-take-charge-works-for-clark-handicap-game-on-dude-assigned-126-for-clark/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:32:04.608074+00:00",
+              "record_hash": "c91941994d617adeb45386311662b0c071f4193de64ee02db37c192724bec345",
+              "url": "https://www.churchilldowns.com/horses/news/will-take-charge-works-for-clark-handicap-game-on-dude-assigned-126-for-clark/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

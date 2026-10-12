@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:01.959523+00:00",
+      "content_hash": "bdb45ce0083fa2f3d8c2c8656b3324d9a1f5881b10cdc2246048039e5badfd51",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:01.959523+00:00",
+      "input_hash": "4e348854361f9d8d4ce3346a400235f3a291d629f233acb9f8df9fa15aa4f665",
+      "previous_revision": null,
+      "revision_id": "rev-4e348854361f9d8d4ce3346a",
+      "saved_at": "2026-10-12T07:32:04.329538+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人プロフィールの調教師所属欄を直接取得して照合。",
+          "birth_year": 2012,
+          "country": "JP",
+          "horse": "ヤングマンパワー",
+          "trainer": "手塚貴久",
+          "training_location": "美浦"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-04/jbis-0001151528-source.json",
+        "record_hash": "ecc592411247340c0e6185cf25b84bd464b10cd45a30eb7d051aadd5f991d822",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001151528",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001151528/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-12T07:32:01.959523+00:00",
+              "record_hash": "ecc592411247340c0e6185cf25b84bd464b10cd45a30eb7d051aadd5f991d822",
+              "url": "https://www.jbis.or.jp/horse/0001151528/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

@@ -88,6 +88,83 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:31:53.969576+00:00",
+      "content_hash": "1fb7579110445395108ef789a2e57f9813021e93bd266bd1357391dfd8e2c3f7",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:31:53.969576+00:00",
+      "input_hash": "7d118e6b494f801396f354622905e1e6bc0b74f82bd69a16e0932a001e360c41",
+      "previous_revision": null,
+      "revision_id": "rev-7d118e6b494f801396f35462",
+      "saved_at": "2026-10-12T07:32:01.699580+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "2008-12-16記事の本人が現在Cody Autreyの管理下にあることを確認。2008-04-18のStack所属から米国移籍へ時系列照合し直近USを採用。France highweightは成績評価国、Australia/GB/Turkeyは供用先であり所属へ流用しない。",
+          "birth_year": 2005,
+          "country": "US",
+          "episodes": [
+            {
+              "basis": "記事日現在の本人Stack所属。公式Stack厩舎経歴のGolden拠点と照合。",
+              "country": "IE",
+              "last_trained_on": "2008-04-18",
+              "trainer": "Tommy Stack",
+              "training_location": "Golden, County Tipperary",
+              "url": "https://www.rte.ie/sport/racing/2008/0418/230719-myboycharlie/"
+            },
+            {
+              "basis": "記事日現在の本人Autrey管理。米国移籍後の直近の所属観測日。競走日・繁殖移動日を最終所属日として推測しない。",
+              "country": "US",
+              "last_trained_on": "2008-12-16",
+              "trainer": "Cody Autrey",
+              "training_location": "Fair Grounds, United States",
+              "url": "https://www.brisnet.com/racing/news/macho-again-to-test-the-turf-in-woodchopper/"
+            }
+          ],
+          "horse": "Myboycharlie(IRE)",
+          "trainer": "Cody Autrey（前所属Tommy Stack）",
+          "training_location": "Fair Grounds, United States（前所属Golden, Ireland）"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-03/jbis-0001053656-source.json",
+        "record_hash": "91aac23546456cd82c26369cf54576582a48940ba0b4dfef7164a0af929bfe39",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001053656",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.brisnet.com/racing/news/macho-again-to-test-the-turf-in-woodchopper/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "IE",
+            "last_trained_on": "2008-04-18",
+            "source": {
+              "captured_at": "2026-10-12T07:31:53.969576+00:00",
+              "record_hash": "7511d5af1102aec387ceeaef055daec5881f17de895f5334186e1b1ba1c30794",
+              "url": "https://www.rte.ie/sport/racing/2008/0418/230719-myboycharlie/"
+            }
+          },
+          {
+            "country": "US",
+            "last_trained_on": "2008-12-16",
+            "source": {
+              "captured_at": "2026-10-12T07:31:53.969576+00:00",
+              "record_hash": "591e457a6989d8c434f173283736ad92692608e7b646acd66dbc9e72829ff74f",
+              "url": "https://www.brisnet.com/racing/news/macho-again-to-test-the-turf-in-woodchopper/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

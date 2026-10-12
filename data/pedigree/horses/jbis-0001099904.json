@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:31:53.969576+00:00",
+      "content_hash": "8030dbb2f82cafa5432706e3cb562a2d3601f9eb7cf954881086dc1ae10ad009",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:31:53.969576+00:00",
+      "input_hash": "388974ca52e95c69d8ed46b354563ff90ec826bd1d0205c1b1dd0f8dfc50852a",
+      "previous_revision": null,
+      "revision_id": "rev-388974ca52e95c69d8ed46b3",
+      "saved_at": "2026-10-12T07:32:01.703265+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人をBritish-trainedと明記し、Freemason Lodge所属の2009年継続調教を確認。Japan Cup遠征/日本への繁殖移動を調教所属へ流用しない。",
+          "birth_year": 2005,
+          "country": "GB",
+          "horse": "コンデュイット(IRE)",
+          "trainer": "Michael Stoute",
+          "training_location": "Freemason Lodge, Newmarket"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-03/jbis-0001099904-source.json",
+        "record_hash": "ce7878f7f1c384c439d747fcf8c0c37b83c8a60a470caab0c9a5f84be80e197a",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001099904",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.timeform.com/horse-racing/features/previews/blast-from-the-past-2009-breeders%E2%80%99-cup-turf-2112017"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-12T07:31:53.969576+00:00",
+              "record_hash": "ce7878f7f1c384c439d747fcf8c0c37b83c8a60a470caab0c9a5f84be80e197a",
+              "url": "https://www.timeform.com/horse-racing/features/previews/blast-from-the-past-2009-breeders%E2%80%99-cup-turf-2112017"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

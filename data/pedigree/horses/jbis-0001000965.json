@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:31:53.969576+00:00",
+      "content_hash": "9ff847e82906b3bde122083c84f7b1411354ba260c33f2b30f9736df260809dd",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:31:53.969576+00:00",
+      "input_hash": "ce0ad8d711a909cf60a87d07a5a93a0d9602afd81670c7ad215812fc45f7132c",
+      "previous_revision": null,
+      "revision_id": "rev-ce0ad8d711a909cf60a87d07",
+      "saved_at": "2026-10-12T07:32:01.693313+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人とGeorge WashingtonをBallydoyleで調教したことを明記。HRI公式2006年報告のIrish trained分類と同一馬を照合。",
+          "birth_year": 2004,
+          "country": "IE",
+          "horse": "Holy Roman Emperor(IRE)",
+          "trainer": "Aidan O'Brien",
+          "training_location": "Ballydoyle, County Tipperary"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-03/jbis-0001000965-source.json",
+        "record_hash": "7dc8a87fe22d570fdf4696d9974c78d5984da73771dbc48eda446d2e25f07020",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001000965",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.espn.co.uk/sports/horse/news/story?id=2796199"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "IE",
+            "source": {
+              "captured_at": "2026-10-12T07:31:53.969576+00:00",
+              "record_hash": "7dc8a87fe22d570fdf4696d9974c78d5984da73771dbc48eda446d2e25f07020",
+              "url": "https://www.espn.co.uk/sports/horse/news/story?id=2796199"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:01.959523+00:00",
+      "content_hash": "b417194e20785deee8e9ac71d933d7241ba0d100f4f72219b85d9092249a8b7f",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:01.959523+00:00",
+      "input_hash": "07ae645416c2b3483fde62bfafbcdcfaaea4eb59021a2514073496da658b4a8e",
+      "previous_revision": null,
+      "revision_id": "rev-07ae645416c2b3483fde62bf",
+      "saved_at": "2026-10-12T07:32:04.334719+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "公式競馬場記事の本人Hollywood Park調教・Doug O'Neillを照合。日本への種牡馬移動を所属国変更にしない。",
+          "birth_year": 2009,
+          "country": "US",
+          "horse": "アイルハヴアナザー(USA)",
+          "trainer": "Doug O'Neill",
+          "training_location": "Hollywood Park, California"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-04/jbis-0001163245-source.json",
+        "record_hash": "ba7b02ab3365a19aa69635493bc2a10dc5a037d7be0f098c4ccfbaa7c83c2ba4",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001163245",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.churchilldowns.com/horses/news/ill-have-another-works-at-hollywood-park-saturday-drills-possible-for-hansen-union-rags-dullahan/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:32:01.959523+00:00",
+              "record_hash": "ba7b02ab3365a19aa69635493bc2a10dc5a037d7be0f098c4ccfbaa7c83c2ba4",
+              "url": "https://www.churchilldowns.com/horses/news/ill-have-another-works-at-hollywood-park-saturday-drills-possible-for-hansen-union-rags-dullahan/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

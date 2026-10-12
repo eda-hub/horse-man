@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:09.281321+00:00",
+      "content_hash": "b0a9c835ce369b89fed6ccc06757159eb15d040b496f5bc213b27c57891b7b4d",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:09.281321+00:00",
+      "input_hash": "0cd58c93fc36de1eb4321835a10d2f58b0b4a7fd497e7490ff87789b23f27e9b",
+      "previous_revision": null,
+      "revision_id": "rev-0cd58c93fc36de1eb4321835",
+      "saved_at": "2026-10-12T07:32:11.434964+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "2018-08-17 NYRA公式の本人5f 1:00.44・Brown・e Five/Stonestreetを照合。",
+          "birth_year": 2015,
+          "country": "US",
+          "horse": "Good Magic(USA)",
+          "trainer": "Chad Brown",
+          "training_location": "Saratoga"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-07/jbis-0001295610-source.json",
+        "record_hash": "04ac2725941ece29aa7bc478560bd1389b1313b78961cb23fd61b725da9edd6d",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001295610",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.nyra.com/saratoga/news/good-magic-zips-bullet-five-furlongs-in-preparation-for-g1-travers"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:32:09.281321+00:00",
+              "record_hash": "04ac2725941ece29aa7bc478560bd1389b1313b78961cb23fd61b725da9edd6d",
+              "url": "https://www.nyra.com/saratoga/news/good-magic-zips-bullet-five-furlongs-in-preparation-for-g1-travers"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

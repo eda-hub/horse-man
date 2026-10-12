@@ -1,0 +1,60 @@
+{
+  "acquisition_method": "web-search-and-open-extracted-fields",
+  "adopted_reason": "2008-12-16記事の本人が現在Cody Autreyの管理下にあることを確認。2008-04-18のStack所属から米国移籍へ時系列照合し直近USを採用。France highweightは成績評価国、Australia/GB/Turkeyは供用先であり所属へ流用しない。",
+  "captured_at": "2026-10-12T07:31:53.969576+00:00",
+  "countries_found": [
+    "IE",
+    "US"
+  ],
+  "extracted_fields": {
+    "basis": "2008-12-16記事の本人が現在Cody Autreyの管理下にあることを確認。2008-04-18のStack所属から米国移籍へ時系列照合し直近USを採用。France highweightは成績評価国、Australia/GB/Turkeyは供用先であり所属へ流用しない。",
+    "birth_year": 2005,
+    "country": "US",
+    "episodes": [
+      {
+        "basis": "記事日現在の本人Stack所属。公式Stack厩舎経歴のGolden拠点と照合。",
+        "country": "IE",
+        "last_trained_on": "2008-04-18",
+        "trainer": "Tommy Stack",
+        "training_location": "Golden, County Tipperary",
+        "url": "https://www.rte.ie/sport/racing/2008/0418/230719-myboycharlie/"
+      },
+      {
+        "basis": "記事日現在の本人Autrey管理。米国移籍後の直近の所属観測日。競走日・繁殖移動日を最終所属日として推測しない。",
+        "country": "US",
+        "last_trained_on": "2008-12-16",
+        "trainer": "Cody Autrey",
+        "training_location": "Fair Grounds, United States",
+        "url": "https://www.brisnet.com/racing/news/macho-again-to-test-the-turf-in-woodchopper/"
+      }
+    ],
+    "horse": "Myboycharlie(IRE)",
+    "trainer": "Cody Autrey（前所属Tommy Stack）",
+    "training_location": "Fair Grounds, United States（前所属Golden, Ireland）"
+  },
+  "horse_key": "jbis-0001053656",
+  "identity_hash": "10e6244f5635903b51d274f597a67fe1811b3470f1daf127db7b84c9d71862bb",
+  "last_training_date_required": true,
+  "raw_html_saved": false,
+  "record_hash": "91aac23546456cd82c26369cf54576582a48940ba0b4dfef7164a0af929bfe39",
+  "record_hash_kind": "canonical-extracted-fields-sha256",
+  "rejected_basis": [
+    "生産国",
+    "開催国",
+    "供用国",
+    "名前末尾国の一般的自動採用",
+    "最多出走国"
+  ],
+  "retrieval_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-03/web-retrieval.json",
+  "schema_version": "oct11-training-source-review-v1",
+  "search_completed": true,
+  "search_scope_note": "単一所属国が明示一致した段階で終了。全世界に別情報が存在しないとの断定ではない。",
+  "selected_country": "US",
+  "selection_rule": "最も新しい文書上の本人調教所属日。全生涯の最終日ではない。",
+  "supporting_urls": [
+    "https://www.rte.ie/sport/racing/2008/0418/230719-myboycharlie/",
+    "https://stackracing.ie/about/",
+    "https://www.thoroughbreddailynews.com/pdf/tdn/2008/tdn081205.pdf"
+  ],
+  "url": "https://www.brisnet.com/racing/news/macho-again-to-test-the-turf-in-woodchopper/"
+}

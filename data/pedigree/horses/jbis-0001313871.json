@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:09.281321+00:00",
+      "content_hash": "3bfa23ddc3d9963d001100c8546b1787fd955ddadfde84b7d5a0a8170fb10f01",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:09.281321+00:00",
+      "input_hash": "3a0013445a7f3ee4d60a1190e78b02b55f7db3744f387f11c6f5fe63924d3582",
+      "previous_revision": null,
+      "revision_id": "rev-3a0013445a7f3ee4d60a1190",
+      "saved_at": "2026-10-12T07:32:11.440274+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "2020年France Galop公式の本人SottsassがDeauvilleでRaabihahと調教した記述を確認。退役後Ireland等への繁殖移動を所属変更にしない。",
+          "birth_year": 2016,
+          "country": "FR",
+          "horse": "ソットサス(FR)",
+          "trainer": "Jean-Claude Rouget",
+          "training_location": "Deauville"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-07/jbis-0001313871-source.json",
+        "record_hash": "7e258e4562e5c242ffc66fcdf8f06c11cd470085bb0e48be4c2b9592ea1d4ee4",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001313871",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.france-galop.com/en/content/views-arc-trainer-jean-claude-rouget-talks-horses"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "FR",
+            "source": {
+              "captured_at": "2026-10-12T07:32:09.281321+00:00",
+              "record_hash": "7e258e4562e5c242ffc66fcdf8f06c11cd470085bb0e48be4c2b9592ea1d4ee4",
+              "url": "https://www.france-galop.com/en/content/views-arc-trainer-jean-claude-rouget-talks-horses"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

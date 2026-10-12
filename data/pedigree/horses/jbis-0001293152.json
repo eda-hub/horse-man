@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:06.922872+00:00",
+      "content_hash": "cfde98acedf17861f9c03bad57720b80c6b106d54a3d37dbcc05301e16ebfad4",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:06.922872+00:00",
+      "input_hash": "7dae1fa60cead522fb8503a9e1f6c606ce053083691f96f6d2f548795badb4f9",
+      "previous_revision": null,
+      "revision_id": "rev-7dae1fa60cead522fb8503a9",
+      "saved_at": "2026-10-12T07:32:09.032761+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "2016-10-02 NYRA公式のPractical JokeとFavorable OutcomeのBelmont調教コース併せ馬・Chad Brown管理を本人に照合。",
+          "birth_year": 2014,
+          "country": "US",
+          "horse": "Practical Joke(USA)",
+          "trainer": "Chad Brown",
+          "training_location": "Belmont Park training track"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-06/jbis-0001293152-source.json",
+        "record_hash": "dd353eebea6f966a47aa7ef9a1a95683bd1baaa99961d6be70e4e50528a3dc4f",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001293152",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.nyra.com/belmont/news/belmont-park-notes-10.02.16"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:32:06.922872+00:00",
+              "record_hash": "dd353eebea6f966a47aa7ef9a1a95683bd1baaa99961d6be70e4e50528a3dc4f",
+              "url": "https://www.nyra.com/belmont/news/belmont-park-notes-10.02.16"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

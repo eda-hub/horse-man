@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:04.608074+00:00",
+      "content_hash": "96e1689bf68ae45da9accb54f1de2fb289c3ed14590bdd9cd3ce48c14f707a09",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:04.608074+00:00",
+      "input_hash": "47a005b00a17d5b2d98550a0e04185bbb7ecede60d556e7dc681501b6031df62",
+      "previous_revision": null,
+      "revision_id": "rev-47a005b00a17d5b2d98550a0",
+      "saved_at": "2026-10-12T07:32:06.669551+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "2014年の繁殖供用中断後に本人がCharlie Applebyへ調教復帰したことを確認。Godolphin公式のNewmarket施設と対応。CoxからApplebyは同一GB、Ireland繁殖移動を調教国としない。",
+          "birth_year": 2010,
+          "country": "GB",
+          "horse": "Reckless Abandon(GB)",
+          "trainer": "Charlie Appleby（前所属Clive Cox）",
+          "training_location": "Moulton Paddocks, Newmarket"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-05/jbis-0001177444-source.json",
+        "record_hash": "f965750d2fa14c895aa8f0af9f8c91a5c0383d90e8c63f1a0b5640f67bdfa9c2",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001177444",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.rte.ie/sport/racing/2014/0422/610322-subfertile-reckless-abandons-stallion-duty/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-12T07:32:04.608074+00:00",
+              "record_hash": "f965750d2fa14c895aa8f0af9f8c91a5c0383d90e8c63f1a0b5640f67bdfa9c2",
+              "url": "https://www.rte.ie/sport/racing/2014/0422/610322-subfertile-reckless-abandons-stallion-duty/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"

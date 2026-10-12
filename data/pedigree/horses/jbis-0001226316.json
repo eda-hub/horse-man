@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:06.922872+00:00",
+      "content_hash": "f8977b0008b8a2bfe6bd339222b785d6653ff788756597e89a5b8870bd6f1cc2",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:06.922872+00:00",
+      "input_hash": "256c4d951b37d21f2880c25c69c70443cd324fc9dc340e2fb2756f831282607e",
+      "previous_revision": null,
+      "revision_id": "rev-256c4d951b37d21f2880c25c",
+      "saved_at": "2026-10-12T07:32:09.029316+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人のElsworthからGosdenへの転厩を確認し、Gosden公式の2006年以降Clarehaven所在地、Elsworthの2005年以降Egerton所属と照合。両所属同一GBであり最終日の比較は不要。",
+          "birth_year": 2009,
+          "country": "GB",
+          "horse": "Swiss Spirit(GB)",
+          "trainer": "John Gosden（前所属David Elsworth）",
+          "training_location": "Clarehaven/Egerton House, Newmarket"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-06/jbis-0001226316-source.json",
+        "record_hash": "88a4734536b4f28d27627de8a1c88b114f803cad6258df9f3296992886e0486d",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001226316",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://www.irishracing.com/horse/Swiss-Spirit-GB/423901"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-12T07:32:06.922872+00:00",
+              "record_hash": "88a4734536b4f28d27627de8a1c88b114f803cad6258df9f3296992886e0486d",
+              "url": "https://www.irishracing.com/horse/Swiss-Spirit-GB/423901"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"
