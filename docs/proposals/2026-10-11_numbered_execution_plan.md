@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜23番完了、24〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜24番完了、25〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -397,3 +397,16 @@ Robertoは独立JBIS/NETKEIBA IDと表記候補を全62位置で照合し、欠�
 成果PR69 commit `c77543e6b484fb4b26004e9ea36312531489665f`、追加31ファイルのGit blob SHAを保存先readback照合。全26snapshot監査invalid 0。親完了記録 `data/pedigree/reconciliations/2026-10-11-delta/statistics/23/completion.json` に全18群・4snapshotの入力/定義/content hash・分類record hashを固定。通常CI結果はPR69最新記録を参照。
 
 **1〜23番完了、24〜53番未着手。次は24番（差分入力・21〜23の全成果の受入照合と旧集計との接続記録）。** REPLAY_ONLY（snapshot契約RESEARCH_SHADOW_ONLY）・現行v1.6.1・Draft/PENDINGを維持。
+
+
+### 24番：11日差分全成果の受入・旧集計接続完了（2026-10-12 JST）
+
+19番の48事実成分、20番の14R・215出走・固定cutoff/入力hash、21番地域4条件、22番指定祖先21条件、23番父直系6/母父直系6/クロス6条件を受入照合。全43条件・10追加snapshot・9,245分類がCOMPLETE、UNKNOWN/CONFLICT/結果保留0。全13,330位置・適格経路/同祖先内包・クロス・本人調教国と各分類traceを再照合し、差分43条件のメモリ上の再計算で10snapshotの全群/分類traceが一致。固定条件定義と地域分類は既存定義と同一。
+
+差分追加前PR69 `8b60854daaf3af355ab61500d0849a57e075ffcc` と開始HEADを比較し、旧16snapshotと入力/定義を含む56ファイルのGit blob SHAは不変、保存済みローカル内容も一致。現在全26snapshotの監査invalid 0。旧159R・2,182登録/2,177実出走と追加14R・215登録/実出走の重複0。参照集合和は173R・2,397登録/2,392実出走で、10/10と11日午前を未追加として明示し、連続全期間とは称さない。
+
+固定旧集計と日次差分の参照接続で今回の受入が成立するため、全期間snapshot再生成は不要と判断し実施0。今後必要になれば対象集合/必要性を確認して別子番号を計画登録する。原HTML未保存14Rは公式取得本文hashと区別した取得形式の制限として保持。外部取得0、Registry追記0、旧snapshot/予想上書き0、適性昇格0。
+
+`data/condition_stats/acceptance.md` の先頭に既存参照＋日次差分の受入表を登録し、旧受入履歴を保持。固定参照/集合差/hash/未追加日/全期間再生成の判断を `data/pedigree/reconciliations/2026-10-11-delta/acceptance/connection.json` へ保存。成果PR69 commit `a0738c204f89881f9681c65b596eb3d8fca17def`、変更5ファイルのGit blob SHAを保存先readback照合。全受入項目PASS、残0。通常CI結果はPR69最新記録を参照。
+
+**1〜24番完了、25〜53番未着手。次は25番（保存状態の日本語変換と5状態の検査）。** REPLAY_ONLY（snapshot契約RESEARCH_SHADOW_ONLY）・現行v1.6.1・Draft/PENDINGを維持。
