@@ -41,9 +41,9 @@ def digest(s):
     return hashlib.sha256(s.encode("utf-8")).hexdigest()
 
 def section(content, snapshot_id):
-    matches = [part for part in re.split(r"(?=^##\\s+)", content, flags=re.M)
-               if re.search(r"^(?:-\\s+)?snapshot_id:\\s*" +
-                            re.escape(snapshot_id) + r"\\s*$", part, re.M)]
+    matches = [part for part in re.split(r"(?=^##\s+)", content, flags=re.M)
+               if re.search(r"^(?:-\s+)?snapshot_id:\s*" +
+                            re.escape(snapshot_id) + r"\s*$", part, re.M)]
     if len(matches) != 1:
         raise AssertionError(f"Expected one section for {snapshot_id}; got {len(matches)}")
     return matches[0]
@@ -65,7 +65,7 @@ def audit(root):
     s = (root / SNAPSHOT).read_text(encoding="utf-8")
     receipts_text = (root / RECEIPTS).read_text(encoding="utf-8")
     receipts = [json.loads(block) for block in re.findall(
-        r"^\x60\x60\x60persistence-receipt-v1\\s*\\n(.*?)\\n\x60\x60\x60\\s*$",
+        r"^\x60\x60\x60persistence-receipt-v1\s*\n(.*?)\n\x60\x60\x60\s*$",
         receipts_text, re.M | re.S)]
     for name, _, intent, snapshot_id, sha, original_digest, deadline in ITEMS:
         current = section(s, snapshot_id)
@@ -75,7 +75,7 @@ def audit(root):
         if not current.startswith(history):
             raise AssertionError(f"{name}: FIXED content changed, not just appended delimiters")
         trailing = current[len(history):]
-        if trailing not in ("\\n---\\n\\n", "\\n\\n---\\n\\n"):
+        if trailing not in ("\n---\n\n", "\n\n---\n\n"):
             raise AssertionError(f"{name}: unexpected change following original content: {trailing!r}")
         current_digest = digest(current)
         if current_digest == original_digest:
