@@ -203,7 +203,13 @@ def main():
     parser.add_argument('--recommendation-artifact-path',help='optional predeclared recommendation JSON path')
     parser.add_argument('--task-complete',action='store_true',help='require saved intent and exact fixed-content hash before declaring task complete')
     parser.add_argument('--fixed-content-sha256',help='hash of the FIXED snapshot section before writing')
+    parser.add_argument('--completion-status',action='store_true',help='read-only independent completion checks with Japanese output')
+    parser.add_argument('--status-json',action='store_true',help='machine-readable completion result including internal diagnostics')
     args=parser.parse_args()
+    if args.completion_status and (not args.snapshot_id or args.prepare or args.audit):
+        parser.error('--completion-status requires direct --snapshot-id verification')
+    if args.status_json and not args.completion_status:
+        parser.error('--status-json requires --completion-status')
     if args.task_complete and (not args.snapshot_id or args.prepare or args.audit):
         parser.error('--task-complete requires direct --snapshot-id verification')
     if (args.audit and (args.prepare or args.snapshot_id)) or (not args.audit and not args.prepare and not args.snapshot_id):
@@ -211,6 +217,13 @@ def main():
     if (args.prepare or args.snapshot_id) and not args.date:
         parser.error('--date is required for preparation or direct verification')
     try:
+        if args.completion_status:
+            from task_completion import prediction_completion, render_completion
+            result=prediction_completion(args.root,args.date,args.snapshot_id,
+                intent_id=args.intent_id,fixed_content_sha256=args.fixed_content_sha256,
+                artifact_path=args.artifact_path)
+            print(json.dumps(result,ensure_ascii=False,indent=2) if args.status_json else render_completion(result))
+            return 0 if result['complete'] else 1
         if args.prepare:
             if not re.fullmatch(r'\d{4}-\d{2}-\d{2}',args.date):
                 parser.error('--date must be YYYY-MM-DD')
@@ -267,8 +280,11 @@ def main():
                 if not args.fixed_content_sha256 or digest!=args.fixed_content_sha256:
                     raise ComplianceError('task completion fixed/readback content hash mismatch')
             receipt=verify(args.root,args.date,args.snapshot_id,expected_artifact_path=args.artifact_path)
-            state='TASK_PERSISTENCE_COMPLETE' if args.task_complete else 'PERSISTENCE_VERIFIED'
-            print(f'{state} {args.snapshot_id} receipt={receipt}')
+            from persistence_status import describe_persistence, render_persistence
+            print(render_persistence(describe_persistence('予想本体の保存',write_attempted=True,
+                  write_succeeded=True,readback_matches=True,
+                  verification_succeeded=True if args.task_complete else None)))
+            print('実行ゲート・適用Shadowは個別完了表示で別途確認してください。')
             return 0
         directory=args.root/'docs/validation/persistence-intents'
         paths=declared_intent_paths(directory)

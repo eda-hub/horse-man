@@ -18,6 +18,6 @@
 
 Pythonから`describe_persistence(target, write_attempted=..., write_succeeded=..., readback_matches=..., verification_succeeded=...)`を呼び、`render_persistence(report)`で表示する。CLIでは実際の結果を記録したJSONを`python scripts/persistence_status.py --evidence 確認結果.json`で読み込む。未実施の確認は値を補完しない。
 
-これは保存工程の表示であり、前向きKPI・発走前適格性・Stage切替・適用Shadow・タスク全体の完了を与えない。CIの監査成功や事前宣言ファイルの存在を個別完了成功へ変換しない。26番で既存Prediction/Recommendationの個別ゲートと接続し、必要な確認を対象ごとに独立判定する。過去の欠落した証跡を作成して成功へ変換しない。
+これは保存工程の表示であり、前向きKPI・発走前適格性・Stage切替・適用Shadow・タスク全体の完了を与えない。CIの監査成功や事前宣言ファイルの存在を個別完了成功へ変換しない。26番の[個別完了確認](individual-completion.md)で既存Prediction/Recommendationの個別ゲートへ接続し、必要な確認を対象ごとに独立判定する。過去の欠落した証跡を作成して成功へ変換しない。
 
 受入検査は`scripts/test_persistence_status.py`。必須5状態に加え、読戻し未実施、個別確認失敗、未知の書込結果、矛盾した工程、監査成功の誤用、CLI表示を検査する。既存CIの全`test_*.py`探索に含まれる。現行v1.6.1・Draft/PENDINGを保持する。

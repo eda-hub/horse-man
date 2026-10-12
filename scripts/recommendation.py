@@ -894,13 +894,29 @@ def main():
     parser.add_argument("--intent-id")
     parser.add_argument("--prediction-intent-id")
     parser.add_argument("--receipt-id")
+    parser.add_argument("--completion-status", action="store_true", help="read-only independent completion checks with Japanese output")
+    parser.add_argument("--completion-artifact-path", help="recommendation body to check independently of the gate")
+    parser.add_argument("--fixed-content-sha256", help="exact FIX-time recommendation file hash")
+    parser.add_argument("--status-json", action="store_true", help="machine-readable completion diagnostics")
     args = parser.parse_args()
+    if args.completion_status and (not args.verify or not args.completion_artifact_path):
+        parser.error('--completion-status requires --verify and --completion-artifact-path')
+    if args.status_json and not args.completion_status:
+        parser.error('--status-json requires --completion-status')
     try:
+        if args.completion_status:
+            from task_completion import recommendation_completion, render_completion
+            result = recommendation_completion(args.root, args.completion_artifact_path, args.verify,
+                                                fixed_content_sha256=args.fixed_content_sha256)
+            print(json.dumps(result, ensure_ascii=False, indent=2) if args.status_json else render_completion(result))
+            return 0 if result['complete'] else 1
         if args.audit:
             return 0 if audit(args.root) else 1
         if args.verify:
             rec = verify(args.root, args.root / args.verify)
-            print(f"RECOMMENDATION_VERIFIED {rec['recommendation_id']} {rec['status']}")
+            from persistence_status import describe_persistence, render_persistence
+            print(render_persistence(describe_persistence('推奨本体の保存',write_attempted=True,
+                  write_succeeded=True,readback_matches=True,verification_succeeded=None)))
             return 0
         if args.display:
             rec = validate_snapshot(args.root, read_json(args.root / args.display))

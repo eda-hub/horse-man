@@ -1,0 +1,28 @@
+{
+  "execution_number": 26,
+  "status": "COMPLETED",
+  "input_commit": "9ebba86d797a561b6d932eb1c26874201a0da7a9",
+  "scope": "Prediction/Recommendation個別完了の独立不足検出と日本語表示",
+  "new_tests": 16,
+  "related_tests_passed": 83,
+  "checks": [
+    "本体",
+    "receipt",
+    "FIX時内容hash",
+    "個別完了確認",
+    "実行ゲート",
+    "適用Shadow",
+    "全体監査（代用不可）"
+  ],
+  "read_only": true,
+  "fixture_only_acceptance": true,
+  "evidence_created": 0,
+  "historical_eligibility_promoted": 0,
+  "release_changed": false,
+  "prediction_recommendation_independent": true,
+  "missing_or_unperformed_not_success": true,
+  "next_execution_number": 27,
+  "main_at_start": "0520dc25437358df459e7e08219965f9b1e0f732",
+  "main_difference": "PR78の12日予想・保存・回顧等16ファイルの更新。今回編集する共通処理とのファイル重複なし。次期切替ではない。",
+  "documentation": "docs/validation/individual-completion.md"
+}
