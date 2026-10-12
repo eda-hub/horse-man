@@ -26,6 +26,32 @@ def fenced(tag, obj):
 
 
 class LedgerChecks(unittest.TestCase):
+    def test_saved_seven_day_cycle_and_20260927_settlement(self):
+        # 実記録を最終資料と一緒に読込み、欠落日の回帰を検出する。
+        root = Path(__file__).resolve().parents[1]
+        records = root / "docs/validation/records"
+        cycle = root / "docs/validation/cycle_03.md"
+        day_file = records / "2026-09-27.md"
+        if not day_file.is_file():
+            self.skipTest("9月27日の正式回顧が未登録")
+        from check_cycle03 import DAY_TAG, SUMMARY_TAG, EXPECTED_DATES, block
+        day = block(day_file, DAY_TAG)
+        self.assertEqual(day["race_date_jst"], "2026-09-27")
+        validate_day(day, day_file)
+        self.assertEqual(len(day["initial_scope"]), 24)
+        self.assertEqual(len(day["reviewed_scope"]), 24)
+        self.assertEqual(len(set(day["validation_candidates"]) | set(day["purchase_candidates"])), 13)
+        self.assertEqual(len(day["final_completed_scope"]), 9)
+        self.assertEqual(len(day["kpis"]["betting"]["pending_ids"]), 7)
+        self.assertEqual(day["fixed_plan_settlement"]["stake_yen"], 70000)
+        self.assertEqual(day["fixed_plan_settlement"]["return_yen"], 90700)
+        summary = block(cycle, SUMMARY_TAG)
+        self.assertEqual(set(summary["recorded_dates"]), EXPECTED_DATES)
+        self.assertEqual(len(summary["kpis"]["production"]["target_ids"]), 158)
+        self.assertEqual(summary["fixed_plan_settlement"]["stake_yen"], 220000)
+        self.assertEqual(summary["fixed_plan_settlement"]["return_yen"], 191750)
+        run(records, cycle, True, True)
+
     def test_consistent_but_incomplete_cycle(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
