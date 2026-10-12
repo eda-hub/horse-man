@@ -24,6 +24,60 @@ class FixedTicketReadbackTests(unittest.TestCase):
             self.root, "docs/validation/snapshots/2026-10-11.md", "TEST-S01"
         )
 
+    def test_legacy_official_virtual_bullets_exclude_actual_purchase(self):
+        tickets = self.read(
+            "ticket_purpose: OFFICIAL_VIRTUAL\n"
+            "### 検証用仮想ベット 10,000円\n"
+            "- 単勝 10 サブマリーナ: 3,000円\n"
+            "- 馬連 1-10: 3,000円\n"
+            "- 馬連 10-13: 2,500円\n"
+            "- 馬連 1-13: 1,500円\n"
+            "### 実購入用 8,000円\n"
+            "- 馬連 1-10: 8,000円\n"
+            "### 研究用仮想ベット 10,000円\n"
+            "- 馬連 1-13: 10,000円\n"
+        )
+        self.assertEqual(tickets, [
+            {"type": "WIN", "horses": [10], "stake_yen": 3000},
+            {"type": "QUINELLA", "horses": [1, 10], "stake_yen": 3000},
+            {"type": "QUINELLA", "horses": [10, 13], "stake_yen": 2500},
+            {"type": "QUINELLA", "horses": [1, 13], "stake_yen": 1500},
+        ])
+
+    def test_legacy_validation_only_cannot_be_official_virtual(self):
+        with self.assertRaisesRegex(ValueError, "not an official"):
+            self.read(
+                "ticket_purpose: VALIDATION_ONLY\n"
+                "### 検証用仮想ベット 10,000円\n"
+                "- 馬連 6-7: 10,000円\n"
+            )
+
+    def test_20260927_seven_official_fixed_plans_read_exactly(self):
+        # 既存発走前snapshotは変更せず、7Rの正式固定券だけを照合する。
+        repository = Path(__file__).resolve().parents[1]
+        source = "docs/validation/snapshots/2026-09-27.md"
+        if not (repository / source).exists():
+            self.skipTest("発走前snapshot未登録")
+        expected_counts = {
+            "20260927-NAK-08-FINAL-S01": 6,
+            "20260927-NAK-10-FINAL-S01": 6,
+            "20260927-NAK-11-FINAL-S01": 5,
+            "20260927-HAN-08-FINAL-S01": 5,
+            "20260927-HAN-09-FINAL-S01": 5,
+            "20260927-HAN-10-FINAL-S01": 6,
+            "20260927-HAN-11-FINAL-S01": 4,
+        }
+        for snapshot_id, count in expected_counts.items():
+            with self.subTest(snapshot_id=snapshot_id):
+                fixed = snapshot_tickets(repository, source, snapshot_id)
+                self.assertEqual(len(fixed), count)
+                self.assertEqual(sum(t["stake_yen"] for t in fixed), 10000)
+        for snapshot_id in ("20260927-HAN-07-FINAL-S01",
+                            "20260927-NAK-09-FINAL-S01"):
+            with self.subTest(validation_only=snapshot_id):
+                with self.assertRaisesRegex(ValueError, "not an official"):
+                    snapshot_tickets(repository, source, snapshot_id)
+
     def test_single_trio_from_last_column(self):
         result = self.read(
             "ticket_purpose: OFFICIAL_VIRTUAL\n"
