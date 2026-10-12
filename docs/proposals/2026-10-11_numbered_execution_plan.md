@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜21番完了、22番実施中（22-01の5条件完了・残16条件）、23〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜22番完了、23〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -369,3 +369,16 @@ Robertoは独立JBIS/NETKEIBA IDと表記候補を全62位置で照合し、欠�
 成果PR69 commit `ac35be08a1ec7f05978c66d1739aae34f0d74c4e`、追加7ファイルのGit blob SHAを保存先readback照合。固定snapshot `data/condition_stats/snapshots/jra-designated-ancestors-delta-20261011-22-01/f7bf0047af179ef4cd9f82390759261dc0d3bac2492bfe8fa7f82a972ee2c738.json`、受入記録 `data/pedigree/reconciliations/2026-10-11-delta/statistics/22-01/completion.json`。通常CI結果はPR69最新記録を参照。
 
 **親22番は実施中、5/21条件完了・残16。次は22-02の固定5条件。** 23番以降・Stage切替・マージは未実施。REPLAY_ONLY（snapshot契約RESEARCH_SHADOW_ONLY）・現行v1.6.1・Draft/PENDINGを維持。
+
+
+### 22番の全残件・全21指定祖先条件完了（2026-10-12 JST）
+
+利用者の全件指定により固定22-02〜22-05の残16条件を順に集計し、前回22-01の5条件を保持。20番固定14R・215出走行・cutoff、既存指定祖先21条件の独立ID・深度5・比較NON_MATCHを維持。全5バッチ・21条件COMPLETE、UNKNOWN/CONFLICT/結果保留0。
+
+残16祖先の該当出走数：Nureyev85、Lyphard92、Northern Dancer162、Mr. Prospector175、Nasrullah1、Nijinsky64、Sadler's Wells57、Galileo14、Kingmambo58、サンデーサイレンス177、Bold Ruler13、Never Bend7、デインヒル34、ジェネラス1、トニービン28、Grey Sovereign2。複数経路の共通祖先は各1出走として計上、群の合計を全出走母数にしない。不在は欠けのない5代62位置内に限定し、適性仮説へ昇格しない。
+
+全4,515分類を祖先の独立provider ID/key・出現経路/依存revision・20番の経路hashと照合。群別件数/率/母数を独立検算し、通常計算の再実行でも全群/依存trace一致。読取専用固定cutoffの実行内でJSON/経路を再利用し、集計ソースコードは変更していない。定義archive・入力archive・5固定snapshotを保持し、外部取得0、Registry追記0、旧snapshot/予想上書き0。
+
+成果PR69 commit `d9054647f52904f85a27a703d966837ba5bde2ec`、追加31ファイルのGit blob SHAを保存先readback照合。全22snapshot監査invalid 0。親完了記録 `data/pedigree/reconciliations/2026-10-11-delta/statistics/22/completion.json` に全21群、5snapshotの入力/定義/content hashと分類record hashを固定。通常CI結果はPR69最新記録を参照。
+
+**1〜22番完了、23〜53番未着手。次は23番の先頭固定5条件（父直系6・母父直系6・クロス6条件の固定順）。** REPLAY_ONLY（snapshot契約RESEARCH_SHADOW_ONLY）・現行v1.6.1・Draft/PENDINGを維持。
