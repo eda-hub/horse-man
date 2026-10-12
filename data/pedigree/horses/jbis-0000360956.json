@@ -88,6 +88,55 @@
         "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
         "source_checked": true
       }
+    },
+    {
+      "captured_at": "2026-10-12T07:07:26.462213+00:00",
+      "content_hash": "99c6f486d1e133a1efc4f7925b2929872818a54f4f0e03c7369143efcc2b6dc7",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:07:26.462213+00:00",
+      "input_hash": "2c17d42e632156ebdba79c1a3fef7901d65a62ae4ab8ef0bb936feb2313e0993",
+      "previous_revision": null,
+      "revision_id": "rev-2c17d42e632156ebdba79c1a",
+      "saved_at": "2026-10-12T07:07:33.252512+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "公式競馬場プログラムの本人調教師とLocal Suitor産駒の経歴を、本人1992年・Scilla/Alpenkönigのプロフィールと照合。公式厩舎沿革で1959-1997/98のJentzschの所属厩舎Kölnを確認。開催国・生産国GERを根拠にしない。",
+          "birth_year": 1992,
+          "country": "DE",
+          "horse": "Solon",
+          "trainer": "Heinz Jentzsch",
+          "training_location": "Rennstall Asterblüte, Köln"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-01/jbis-0000360956-source.json",
+        "record_hash": "f0744c3cdfaeb360a5f41249969c333dbd22c264102bb3337a572c9ee2574766",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0000360956",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://galopprennbahn-dresden-seidnitz.de/wp-content/uploads/2022/09/Programmheft_24September22.pdf"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "DE",
+            "source": {
+              "captured_at": "2026-10-12T07:07:26.462213+00:00",
+              "record_hash": "f0744c3cdfaeb360a5f41249969c333dbd22c264102bb3337a572c9ee2574766",
+              "url": "https://galopprennbahn-dresden-seidnitz.de/wp-content/uploads/2022/09/Programmheft_24September22.pdf"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18-01 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
     }
   ],
   "schema_version": "pedigree-registry-v1"
