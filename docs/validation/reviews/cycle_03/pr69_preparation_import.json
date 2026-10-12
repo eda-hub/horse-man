@@ -1,0 +1,98 @@
+{
+  "schema_version": "pr69-preparation-import-v1",
+  "source_commit": "11f4f339391be34bb6fbbc15edbd812e4b0641df",
+  "target_parent": "3d9014723a7fdaff1d6c981bdfb3d516490a4719",
+  "scope": "保存・個別完了・用途履歴・価格不要推奨の依存だけ再利用。PR69全体・血統研究・runtime・正式manual切替は取り込まない",
+  "files": [
+    {
+      "source_path": "scripts/check_prediction_compliance.py",
+      "source_blob_sha": "939c4d07dc715c161607822a9d4e51b52c41301a",
+      "target_path": "scripts/check_prediction_compliance.py",
+      "adaptation": "PENDING next_release=nullを許容、ACTIVE未定拒否"
+    },
+    {
+      "source_path": "scripts/verify_prediction_persistence.py",
+      "source_blob_sha": "286172c642c847c7851e88364a6599c1a627d663",
+      "target_path": "scripts/verify_prediction_persistence.py",
+      "adaptation": "準備成果を再利用"
+    },
+    {
+      "source_path": "scripts/persistence_status.py",
+      "source_blob_sha": "f38a184840b6c14f88bbc98bdf791c52e0349cf3",
+      "target_path": "scripts/persistence_status.py",
+      "adaptation": "準備成果を再利用"
+    },
+    {
+      "source_path": "scripts/task_completion.py",
+      "source_blob_sha": "76ba7f1a8c925885c3cd83c71816bbee875e808c",
+      "target_path": "scripts/task_completion.py",
+      "adaptation": "準備成果を再利用"
+    },
+    {
+      "source_path": "scripts/selection_history.py",
+      "source_blob_sha": "08842e415f4cc38f009e7403c946be3d6ddfab90",
+      "target_path": "scripts/selection_history.py",
+      "adaptation": "推奨/任意市場の独立用途を追加"
+    },
+    {
+      "source_path": "scripts/recommendation.py",
+      "source_blob_sha": "dfce05f996d3291a9a08156f7729e9bcfe87f745",
+      "target_path": "scripts/recommendation.py",
+      "adaptation": "準備成果を再利用"
+    },
+    {
+      "source_path": "scripts/audit_20261012_pr78.py",
+      "source_blob_sha": "921ff5147e6eaba5142fb76e30be6d07e605c2c6",
+      "target_path": "scripts/audit_20261012_pr78.py",
+      "adaptation": "既存audit markerの新旧互換と固定commit/blob読取adapter"
+    },
+    {
+      "source_path": "scripts/test_persistence_status.py",
+      "source_blob_sha": "5ee170d7e5d744442dba06ae6bb8cce2e0cc0505",
+      "target_path": "scripts/test_persistence_status.py",
+      "adaptation": "既存main回帰を保持し、準備fixture参照を分離"
+    },
+    {
+      "source_path": "scripts/test_task_completion.py",
+      "source_blob_sha": "0d9ecad5d40f895652772329b34453711580f98e",
+      "target_path": "scripts/test_task_completion.py",
+      "adaptation": "既存main回帰を保持し、準備fixture参照を分離"
+    },
+    {
+      "source_path": "scripts/test_selection_history.py",
+      "source_blob_sha": "716be393be7a627fa4e745374ac41218a40e63bf",
+      "target_path": "scripts/test_selection_history.py",
+      "adaptation": "推奨/任意市場の独立用途を追加"
+    },
+    {
+      "source_path": "scripts/test_recommendation.py",
+      "source_blob_sha": "c55c65bc6c3137574899f5951e843aaf0d96c2b4",
+      "target_path": "scripts/test_recommendation.py",
+      "adaptation": "既存main回帰を保持し、準備fixture参照を分離"
+    },
+    {
+      "source_path": "scripts/test_check_prediction_compliance.py",
+      "source_blob_sha": "bddece008b536f0c0b1158f3225536bcb9c3476b",
+      "target_path": "scripts/test_next_prediction_compliance.py",
+      "adaptation": "mainの旧回帰を維持し、次期契約fixtureを別ファイルへ配置"
+    },
+    {
+      "source_path": "scripts/test_verify_prediction_persistence.py",
+      "source_blob_sha": "92176f22b1739feaf95fe4c1217371176394f511",
+      "target_path": "scripts/test_next_prediction_persistence.py",
+      "adaptation": "既存main回帰を保持し、準備fixture参照を分離"
+    },
+    {
+      "source_path": "docs/validation/handoffs/2026-10-11-seven-open-issues.md",
+      "source_blob_sha": "392fcfbdcbf8d2f50df079df89407089925e4d19",
+      "target_path": "docs/validation/handoffs/2026-10-11-seven-open-issues.md",
+      "adaptation": "準備成果を再利用"
+    },
+    {
+      "source_path": "docs/validation/implementation/2026-10-11-task27.json",
+      "source_blob_sha": "773fc14767c87d26dec6f19a49aa8ee6d6c75636",
+      "target_path": "docs/validation/implementation/2026-10-11-task27.json",
+      "adaptation": "準備成果を再利用"
+    }
+  ]
+}

@@ -1,0 +1,529 @@
+{
+  "schema_version": "cycle03-decisions-v1",
+  "review_date_jst": "2026-10-13",
+  "basis_commit": "3d9014723a7fdaff1d6c981bdfb3d516490a4719",
+  "collection_review": "RECORDED_WITH_LIMITATIONS",
+  "individual_change_review": "RECORDED",
+  "performance_promotion": "NOT_APPROVED",
+  "formal_rule_cutover": "MAIN_MERGE",
+  "next_release": "v1.7.0",
+  "effective_race_date": "2026-10-13",
+  "changes": [
+    {
+      "id": "C01",
+      "title": "保存状態・予想/推奨の個別完了",
+      "decision": "ADOPT_OPERATION",
+      "owner": "00_core / 保存CLI",
+      "reason": "監査成功と対象の保存完了の混同を是正。PR69の25/26を再利用",
+      "next_test": "本体/receipt/hash/gate/Shadowの独立不足を再試験",
+      "protected": "能力順位と過去の適格性",
+      "evidence": [
+        "scripts/task_completion.py",
+        "docs/validation/records/2026-10-12.md"
+      ]
+    },
+    {
+      "id": "C02",
+      "title": "FIX前hash独立保存・本文境界不変",
+      "decision": "ADOPT_OPERATION",
+      "owner": "00_core / 保存CLI",
+      "reason": "12日の3FIXは区切り追記でhash不一致。新規JSONと独立manifestで是正",
+      "next_test": "新規保存/改変/読戻し差/締切/同bytes再試行",
+      "protected": "過去のMarkdown原本・発走前欠測",
+      "evidence": [
+        "scripts/seal_prediction.py",
+        "docs/validation/records/2026-10-12.md"
+      ]
+    },
+    {
+      "id": "C03",
+      "title": "初回候補から最終用途への変更履歴",
+      "decision": "ADOPT_OPERATION",
+      "owner": "00_core / 用途履歴",
+      "reason": "追加選定なしの正式用途移行を拒否。10/3の明示除外を未実施から分ける",
+      "next_test": "revision断絶・用途変更・取消・同一artifact receipt",
+      "protected": "初回scopeと検証用/実購入帳簿",
+      "evidence": [
+        "scripts/selection_history.py",
+        "docs/validation/records/2026-10-03.md",
+        "docs/validation/records/2026-10-11.md"
+      ]
+    },
+    {
+      "id": "C04",
+      "title": "価格取得状態と見送り理由",
+      "decision": "ADOPT_OPERATION",
+      "owner": "30_betting / 任意市場",
+      "reason": "未取得を期待値不足へ変換しない。価格なし予想/推奨の完結は準備契約",
+      "next_test": "未試行/失敗/締切/取得済みを独立検査、次回2開催以上で実測",
+      "protected": "非価格能力順位と利用者の見送り判断",
+      "evidence": [
+        "scripts/cycle04_operations.py",
+        "docs/validation/records/2026-10-12.md"
+      ]
+    },
+    {
+      "id": "C05",
+      "title": "馬体重・近5走の全頭入力充足",
+      "decision": "ADOPT_OPERATION",
+      "owner": "10_prediction / 入力",
+      "reason": "FIX時0/18と事後7頭を分離。欠測/初出走/代替元/取得時刻を検査",
+      "next_test": "全頭集合・未来値・0埋め・近5走/相手レベル不足・公式失敗後fallback",
+      "protected": "直接実走優先と不足による不確実性",
+      "evidence": [
+        "scripts/cycle04_operations.py",
+        "docs/validation/records/2026-10-12.md"
+      ]
+    },
+    {
+      "id": "C06",
+      "title": "同時確率・集中・8券種事象",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "30_betting / 推奨構築",
+      "reason": "構造欠陥/欠測検査は採用、精度・最適配分の有効性は未証明",
+      "next_test": "8券種・枠内2頭・順序・取消・未校正下限。集中/全損率は第4で実測",
+      "protected": "校正前中心値・裁量縮小と実測校正の区別",
+      "evidence": [
+        "scripts/cycle04_operations.py",
+        "docs/validation/records/2026-10-11.md"
+      ]
+    },
+    {
+      "id": "C07",
+      "title": "二頭軸三連系",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "30_betting / 比較推奨",
+      "reason": "既合意70%/30%は試験トリガーであり性能採用根拠ではない",
+      "next_test": "条件成立/非成立・6n/m点・取消・同時率不足",
+      "protected": "結果後17点例を過去精算へ加えない",
+      "evidence": [
+        "docs/proposals/2026-10-12_cycle03_summary_application_plan.md"
+      ]
+    },
+    {
+      "id": "C08",
+      "title": "3歳初古馬戦・昇級・相手レベル",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "10_prediction / 40_shadow",
+      "reason": "必要入力の収集契約を是正、年齢属性の一律減点を採用しない",
+      "next_test": "年齢限定/混合既経験・クラス・斤量/休養/直近実走別の同時点比較",
+      "protected": "能力順位と事実/仮説の分離",
+      "evidence": [
+        "docs/validation/records/2026-10-12.md"
+      ]
+    },
+    {
+      "id": "C09",
+      "title": "個体適性・年齢斤量・枠/展開・相手層",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "20_conditional / 40_shadow",
+      "reason": "共通前向き比較が不足。性能昇格を保留",
+      "next_test": "同一cutoff基準/比較、適用条件別・全馬結果・非劣化",
+      "protected": "現行Ownerの直接実走・重複適用禁止",
+      "evidence": [
+        "docs/manual/40_shadow.md",
+        "docs/validation/records/2026-10-12.md"
+      ]
+    },
+    {
+      "id": "C10",
+      "title": "最終候補絞り込み・先行維持",
+      "decision": "OBSERVE",
+      "owner": "10_prediction / 40_shadow",
+      "reason": "9/27の1重賞観測のみ。結果を理由に一律先行/外枠加点しない",
+      "next_test": "除外理由・尾部候補・隊列/馬場の事前確率と持続根拠を固定",
+      "protected": "正常な能力評価",
+      "evidence": [
+        "docs/validation/records/2026-09-27.md"
+      ]
+    },
+    {
+      "id": "C11",
+      "title": "印の捕捉と実購入券の差",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "30_betting / 50_review",
+      "reason": "阪神10Rの◎勝利と実購入不的中を構築層へ局所化",
+      "next_test": "仮想/実購入の券種・相手・配分を別採点",
+      "protected": "能力評価・ユーザー購入報告の原本",
+      "evidence": [
+        "docs/validation/records/2026-09-27.md"
+      ]
+    },
+    {
+      "id": "C12",
+      "title": "各継続Shadow・未知度・騎手厩舎・根拠比較",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "40_shadow / 50_review",
+      "reason": "個別状態はvalidation_itemsへ展開。未実施を無効としない",
+      "next_test": "条件/未実施/同一入力ペア・非劣化、追加3分上限",
+      "protected": "Production/Shadow境界と既存目安",
+      "evidence": [
+        "docs/manual/40_shadow.md",
+        "docs/validation/README.md"
+      ]
+    },
+    {
+      "id": "C13",
+      "title": "血統Registry・条件統計の事実基盤",
+      "decision": "RETAIN_FACTS",
+      "owner": "20_conditional / データ基盤",
+      "reason": "PR69の受入済み173Rを固定参照で再利用。適性効果は未採用",
+      "next_test": "依存hashと入力scope、未追加10/10・11午前・12日の研究を別管理",
+      "protected": "既存個体ID・26snapshot・内部バッチ",
+      "evidence": [
+        "docs/proposals/2026-10-12_cycle03_summary_application_plan.md"
+      ]
+    },
+    {
+      "id": "C14",
+      "title": "星印廃止・重賞通常化・価格不要推奨",
+      "decision": "PREPARE_AGREED",
+      "owner": "README / 全Owner",
+      "reason": "既合意次期仕様の準備実装を継承。現行manualは切替しない",
+      "next_test": "版/有効日確定後に全Owner/入口/schema/Phase原子整合",
+      "protected": "旧印・固定資金/買い目の履歴",
+      "evidence": [
+        "scripts/recommendation.py",
+        "docs/proposals/2026-10-12_cycle03_summary_application_plan.md"
+      ]
+    },
+    {
+      "id": "C15",
+      "title": "新馬専用・開催傾向・コース条件・近走相手",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "10_prediction / 20_conditional / JRA-VAN Phase",
+      "reason": "データ設計とShadow導入候補。実runtime/入力接続は未受入",
+      "next_test": "取得/唯一Writer→予想/推奨→結果/回顧のPhase受入",
+      "protected": "市場/Shadow逆流禁止・直接実走優先",
+      "evidence": [
+        "docs/proposals/2026-10-12_cycle03_summary_application_plan.md",
+        "DECISIONS.md"
+      ]
+    },
+    {
+      "id": "C16",
+      "title": "価格順位変更・保険非本命券・過剰分散・事後適格化",
+      "decision": "REJECT",
+      "owner": "00_core / 30_betting",
+      "reason": "独立性・正の期待値・履歴不変・非劣化に反する案を棄却",
+      "next_test": "逆流・未校正下限・Replay適格宣言を拒否",
+      "protected": "能力順位と発走前の同一性",
+      "evidence": [
+        "docs/manual/00_core.md",
+        "docs/manual/30_betting.md"
+      ]
+    }
+  ],
+  "validation_items": [
+    {
+      "internal_id": "E-03",
+      "title": "最終価格再確認",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-04",
+      "title": "展開形成馬/位置取り",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-07",
+      "title": "高確信度活用",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-08",
+      "title": "最終オッズ予測",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-09",
+      "title": "個体適性",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-10",
+      "title": "年齢/性別構造",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-11",
+      "title": "集中投資",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-12",
+      "title": "人気構造別券種",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-13",
+      "title": "根拠優先順位比較",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "51B",
+      "title": "重賞傾向",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "U-01",
+      "title": "能力未知度",
+      "owner": "docs/validation/README.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "U-01Q",
+      "title": "未知度品質",
+      "owner": "docs/validation/README.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "U-02",
+      "title": "騎手厩舎プロファイル",
+      "owner": "docs/validation/README.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    }
+  ],
+  "candidate_difference_classification": [
+    {
+      "race_date_jst": "2026-09-26",
+      "race_id": "202606040812",
+      "status": "NOT_EXECUTED_CAUSE_UNRECORDED",
+      "reason": "最終未実施と運用不備は記録済み。個々の未実行の原因・時刻は元記録で未確定。保存障害と断定しない",
+      "evidence_path": "docs/validation/records/2026-09-26.md"
+    },
+    {
+      "race_date_jst": "2026-09-26",
+      "race_id": "202609040808",
+      "status": "NOT_EXECUTED_CAUSE_UNRECORDED",
+      "reason": "最終未実施と運用不備は記録済み。個々の未実行の原因・時刻は元記録で未確定。保存障害と断定しない",
+      "evidence_path": "docs/validation/records/2026-09-26.md"
+    },
+    {
+      "race_date_jst": "2026-09-26",
+      "race_id": "202609040812",
+      "status": "NOT_EXECUTED_CAUSE_UNRECORDED",
+      "reason": "最終未実施と運用不備は記録済み。個々の未実行の原因・時刻は元記録で未確定。保存障害と断定しない",
+      "evidence_path": "docs/validation/records/2026-09-26.md"
+    },
+    {
+      "race_date_jst": "2026-09-27",
+      "race_id": "202606040906",
+      "status": "FINAL_STAGE_NOT_EXECUTED",
+      "reason": "12:41再予想はあるが馬体重等最終確認・買い目FIXの個別最終工程は未実施",
+      "evidence_path": "docs/validation/records/2026-09-27.md"
+    },
+    {
+      "race_date_jst": "2026-09-27",
+      "race_id": "202606040907",
+      "status": "FINAL_STAGE_NOT_EXECUTED",
+      "reason": "12:41再予想はあるが馬体重等最終確認・買い目FIXの個別最終工程は未実施",
+      "evidence_path": "docs/validation/records/2026-09-27.md"
+    },
+    {
+      "race_date_jst": "2026-09-27",
+      "race_id": "202606040912",
+      "status": "FINAL_STAGE_NOT_EXECUTED",
+      "reason": "12:41再予想はあるが馬体重等最終確認・買い目FIXの個別最終工程は未実施",
+      "evidence_path": "docs/validation/records/2026-09-27.md"
+    },
+    {
+      "race_date_jst": "2026-09-27",
+      "race_id": "202609040912",
+      "status": "FINAL_STAGE_NOT_EXECUTED",
+      "reason": "12:41再予想はあるが馬体重等最終確認・買い目FIXの個別最終工程は未実施",
+      "evidence_path": "docs/validation/records/2026-09-27.md"
+    },
+    {
+      "race_date_jst": "2026-10-03",
+      "race_id": "2026-10-03-KYOTO-11",
+      "status": "DESELECTED_BY_USER",
+      "reason": "京都11Rは利用者判断で優先度最下位として最終対象外へ明示選別。最終欠測ではない",
+      "evidence_path": "docs/validation/records/2026-10-03.md"
+    },
+    {
+      "race_date_jst": "2026-10-04",
+      "race_id": "2026-10-04-KYOTO-01",
+      "status": "OPERATIONAL_SELECTION_NOT_CLOSED",
+      "reason": "優先上位5R以外を対象外へ落とすrevisionがなく、残10Rは運用不備による未完了",
+      "evidence_path": "docs/validation/records/2026-10-04.md"
+    },
+    {
+      "race_date_jst": "2026-10-04",
+      "race_id": "2026-10-04-KYOTO-02",
+      "status": "OPERATIONAL_SELECTION_NOT_CLOSED",
+      "reason": "優先上位5R以外を対象外へ落とすrevisionがなく、残10Rは運用不備による未完了",
+      "evidence_path": "docs/validation/records/2026-10-04.md"
+    },
+    {
+      "race_date_jst": "2026-10-04",
+      "race_id": "2026-10-04-KYOTO-05",
+      "status": "OPERATIONAL_SELECTION_NOT_CLOSED",
+      "reason": "優先上位5R以外を対象外へ落とすrevisionがなく、残10Rは運用不備による未完了",
+      "evidence_path": "docs/validation/records/2026-10-04.md"
+    },
+    {
+      "race_date_jst": "2026-10-04",
+      "race_id": "2026-10-04-KYOTO-06",
+      "status": "OPERATIONAL_SELECTION_NOT_CLOSED",
+      "reason": "優先上位5R以外を対象外へ落とすrevisionがなく、残10Rは運用不備による未完了",
+      "evidence_path": "docs/validation/records/2026-10-04.md"
+    },
+    {
+      "race_date_jst": "2026-10-04",
+      "race_id": "2026-10-04-KYOTO-09",
+      "status": "OPERATIONAL_SELECTION_NOT_CLOSED",
+      "reason": "優先上位5R以外を対象外へ落とすrevisionがなく、残10Rは運用不備による未完了",
+      "evidence_path": "docs/validation/records/2026-10-04.md"
+    },
+    {
+      "race_date_jst": "2026-10-04",
+      "race_id": "2026-10-04-TOKYO-01",
+      "status": "OPERATIONAL_SELECTION_NOT_CLOSED",
+      "reason": "優先上位5R以外を対象外へ落とすrevisionがなく、残10Rは運用不備による未完了",
+      "evidence_path": "docs/validation/records/2026-10-04.md"
+    },
+    {
+      "race_date_jst": "2026-10-04",
+      "race_id": "2026-10-04-TOKYO-06",
+      "status": "OPERATIONAL_SELECTION_NOT_CLOSED",
+      "reason": "優先上位5R以外を対象外へ落とすrevisionがなく、残10Rは運用不備による未完了",
+      "evidence_path": "docs/validation/records/2026-10-04.md"
+    },
+    {
+      "race_date_jst": "2026-10-04",
+      "race_id": "2026-10-04-TOKYO-07",
+      "status": "OPERATIONAL_SELECTION_NOT_CLOSED",
+      "reason": "優先上位5R以外を対象外へ落とすrevisionがなく、残10Rは運用不備による未完了",
+      "evidence_path": "docs/validation/records/2026-10-04.md"
+    },
+    {
+      "race_date_jst": "2026-10-04",
+      "race_id": "2026-10-04-TOKYO-08",
+      "status": "OPERATIONAL_SELECTION_NOT_CLOSED",
+      "reason": "優先上位5R以外を対象外へ落とすrevisionがなく、残10Rは運用不備による未完了",
+      "evidence_path": "docs/validation/records/2026-10-04.md"
+    },
+    {
+      "race_date_jst": "2026-10-04",
+      "race_id": "2026-10-04-TOKYO-09",
+      "status": "OPERATIONAL_SELECTION_NOT_CLOSED",
+      "reason": "優先上位5R以外を対象外へ落とすrevisionがなく、残10Rは運用不備による未完了",
+      "evidence_path": "docs/validation/records/2026-10-04.md"
+    },
+    {
+      "race_date_jst": "2026-10-12",
+      "race_id": "2026-10-12-KYOTO-09",
+      "status": "OMISSION_ACCEPTED_BY_USER",
+      "reason": "都合による最終未実施、利用者が今回省略許容。正式見送りへ変換しない",
+      "evidence_path": "docs/validation/records/2026-10-12.md"
+    },
+    {
+      "race_date_jst": "2026-10-12",
+      "race_id": "2026-10-12-TOKYO-08",
+      "status": "OMISSION_ACCEPTED_BY_USER",
+      "reason": "都合による最終未実施、利用者が今回省略許容。正式見送りへ変換しない",
+      "evidence_path": "docs/validation/records/2026-10-12.md"
+    },
+    {
+      "race_date_jst": "2026-10-12",
+      "race_id": "2026-10-12-TOKYO-10",
+      "status": "OMISSION_ACCEPTED_BY_USER",
+      "reason": "都合による最終未実施、利用者が今回省略許容。正式見送りへ変換しない",
+      "evidence_path": "docs/validation/records/2026-10-12.md"
+    }
+  ],
+  "candidate_difference_counts": {
+    "raw_difference": 21,
+    "deselected_by_user": 1,
+    "not_executed": 20,
+    "user_accepted_omissions_within_not_executed": 3
+  },
+  "limits": [
+    "個別性能の必須集計は不足入力・認証不足で未算定。採否は運用改修/継続/観察の審査であり性能昇格ではない",
+    "9/26未実行原因の詳細は未確定として記録、歴史的欠測/保留を保持",
+    "原記録/条件統計の後続研究38〜43は本修正の正常開始認証に代用せず、既存番号と内部バッチで継続",
+    "Windows/JRA-VANのruntime接続と実入力は未受入。合成試験を実運用成功にしない"
+  ],
+  "activation_policy": "MAIN_MERGE",
+  "release_decision": {
+    "status": "USER_APPROVED",
+    "basis": "2026-10-13 利用者指示：次期版v1.7.0、mainマージ後に有効",
+    "scope": "運用是正と既合意の価格不要仕様。性能昇格は行わない。"
+  }
+}

@@ -66,3 +66,13 @@ JRA重賞の長期記録は `docs/yosou/jra_racing/`、進行中Shadow検証は 
 
 ## ADR-021 買い目数値根拠とreceiptは発走前構造化証跡で確定する
 非◎縦目の例外理由はallowlist方式とし、現行は `INDEPENDENT_POSITIVE_EV` のみを許可する。価格・保守側成立確率・EVはgate JSON内の相互整合だけでは正式監査済みとせず、発走前に保存した `betting-evidence-v1` と完全一致させる。証跡artifact自身のreceiptは `persistence-receipt-v1` の独立レコードとして保存し、同じ `receipt_id` レコード内のartifact ID/path、保存状態、`PRE_RACE_ELIGIBLE`、保存確認時刻と発走予定時刻をcheckerが照合する。発走後Replayで新規算出した価格・確率は前向き数値証跡へ昇格させない。
+
+## ADR-022 v1.7.0標準運用とPR79での原子的切替
+
+PR79のmainマージ後、正式版をv1.7.0とする。ADR-005/006/010/020/021の新規Betting/実購入必須を置き換え、Prediction→価格不要Recommendation→結果/回顧を中核とする。実購入・予算・購入確認・実購入ROIを新規台帳へ作らない。旧記録は当時のschema/releaseで読取検査する。
+
+30_bettingは名前を維持した推奨の唯一Owner、価格観測・予測・任意仮想収益は60_marketへ分離する。☆は新規廃止し、順位から◎○▲△を導出。通常/重賞は同じProduction骨格で、集団傾向は固定後Shadow。効果未証明の候補を性能昇格しない。
+
+全Owner、AGENTS、manifest、保存/推奨gate、schema/checker、テンプレート、Phaseを同一切替commitで整合する。有効化時刻はmainへの統合で確定し、未マージbranchの受入を実運用開始に代用しない。rollbackは切替commitをrevertし、新版で保存したartifactは削除しない。
+
+チャット/Git/非UI CLIの運用開始と、Windows/JRA-VAN/DB runtimeの実接続は別受入。画面や任意市場を標準運用の依存にしない。

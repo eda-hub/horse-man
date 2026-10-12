@@ -34,4 +34,12 @@ jobs:
             echo '~~~'
           } >> "$GITHUB_STEP_SUMMARY"
       - name: 日別記録と集計の照合（登録データ必須）
-        run: python3 scripts/check_cycle03.py --require-data
+        run: python3 scripts/check_cycle03.py --require-data --require-complete
+      - name: 第3サイクル終了資料の入力hash・集合・精算を照合
+        run: python3 scripts/build_cycle03_review.py --check --require-complete
+      - name: 第4検査契約・個別採否・受入入力hashを照合（正式開始認証とは別）
+        run: python3 scripts/check_cycle04.py
+      - name: 価格不要推奨の独立保存を監査
+        run: python3 scripts/recommendation.py --audit
+      - name: v1.7.0全Owner・入口・Phaseの原子的整合（main有効化とは別）
+        run: python3 scripts/run_release_readiness.py

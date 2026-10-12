@@ -1,3 +1,5 @@
+> v1.7.0 / PR79のmainマージ後の正式境界：標準はPrediction→価格不要Recommendation→公式結果/回顧。実購入・予算・購入確認・実購入ROIは中核対象外。市場は60_marketの任意sidecar、WebUIは対象外/N/A。以下の旧BET/SKIP/実購入設計は履歴であり新規runtimeへ移植しない。正式Ownerはdocs/manual、関連Phase3/5/6を参照。Windows/JRA-VAN実接続の受入をチャット/Git運用成功で代用しない。
+
 # 競馬予想システム開発計画書 v0.2
 
 ## 1. 目的

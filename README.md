@@ -1,13 +1,13 @@
 # horse-man
 
-JRA-VAN Data Lab を利用し、個人のMacからWeb UIで操作するローカル競馬予想・記録・回顧システムを構築するリポジトリです。
+JRA-VAN Data Lab を利用し、価格不要の予想・推奨・記録・回顧運用と、Windows側のローカル競馬システムを構築するリポジトリです。
 
 ## 正本
 
 | 対象 | 正本 |
 |---|---|
 | 競馬予想ルール | `docs/manual/README.md` と `docs/manual/*.md` |
-| 現行ルール版 | `docs/manual/README.md` の `現行リリース`（現在 `v1.6.1`） |
+| 現行ルール版 | `docs/manual/README.md` の `現行リリース`（PR79のmainマージ後 `v1.7.0`） |
 | JRA重賞の長期予想記録 | `docs/yosou/jra_racing/README.md` と各 `<race>.md` |
 | 進行中Shadow検証 | `docs/validation/` |
 | システム設計 | `DECISIONS.md` と `docs/jravan/` |
@@ -19,11 +19,11 @@ JRA-VAN Data Lab を利用し、個人のMacからWeb UIで操作するローカ
 
 - Windows 11 VM上のJV-LinkからJRA-VANデータを取得
 - DuckDB + Parquetへ蓄積
-- Macのブラウザから予想・市場評価・買い目候補を確認
+- ChatGPT/GitとCLIで予想・価格不要推奨・独立保存・回顧を実施（WebUIは対象外）
 - Production基準予想とShadow比較を分離して記録
-- 最終オッズを予測し、買い目候補と買い条件/見送り条件を提示
-- ユーザーが購入 / 見送りを最終判断
-- 見送りを含む全FINAL予想を保存・結果精算・回顧
+- 市場価格・最終オッズ予測は任意sidecarで検証
+- 推奨の有無と予想確信度を独立記録
+- 初回全scopeと選定済み最終を保存し、公式結果照合・回顧
 - AIは回顧、仮説生成、ルール改善候補の作成に使用
 - バックアップと結果記録を自動化
 

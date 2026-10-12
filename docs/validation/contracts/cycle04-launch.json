@@ -1,0 +1,42 @@
+{
+  "schema_version": "cycle04-launch-v1",
+  "manual_release": "v1.7.0",
+  "activation_policy": "MAIN_MERGE",
+  "cycle_id": "cycle_04",
+  "race_dates": [
+    "2026-10-17",
+    "2026-10-18",
+    "2026-10-24",
+    "2026-10-25"
+  ],
+  "venues": [
+    "TOK",
+    "KYO",
+    "NII"
+  ],
+  "days": {
+    "2026-10-17": {
+      "status": "READY_NOT_REQUESTED",
+      "initial_scope": null,
+      "measured_races": null
+    },
+    "2026-10-18": {
+      "status": "READY_NOT_REQUESTED",
+      "initial_scope": null,
+      "measured_races": null
+    },
+    "2026-10-24": {
+      "status": "READY_NOT_REQUESTED",
+      "initial_scope": null,
+      "measured_races": null
+    },
+    "2026-10-25": {
+      "status": "READY_NOT_REQUESTED",
+      "initial_scope": null,
+      "measured_races": null
+    }
+  },
+  "runbook": "docs/validation/contracts/cycle04_operations.md",
+  "entrypoint": "scripts/cycle04_workflow.py",
+  "note": "開始準備のみ。予約・予想生成・実測・自動投票は実行していない。"
+}

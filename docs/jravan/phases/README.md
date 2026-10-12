@@ -6,9 +6,9 @@ Codexは原則として番号順に実装する。各Phaseは独立したPRに�
 - Phase 1: JV-Link ingest
 - Phase 2: Data expansion
 - Phase 3: Feature / Rule engine
-- Phase 4: Prediction Web UI
-- Phase 5: Odds forecast / Betting decision
-- Phase 6: Result / Settlement / Automation
+- Phase 4: N/A（WebUIは対象外）
+- Phase 5: 任意市場sidecar
+- Phase 6: 公式結果・Prediction/推奨照合・回顧
 - Phase 7: AI review
 - Phase 8: Backtest / Rule lifecycle
 
