@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜19番完了、20〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜20番完了、21〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -330,3 +330,16 @@ Robertoは独立JBIS/NETKEIBA IDと表記候補を全62位置で照合し、欠�
 成果PR69 commit `c0a4b5e876dcaf34b0df44246fef2bfa233841c1`、追加43ファイルのGit blob SHAを保存先readback照合。全10固定キュー・48成分の一意性/一致・全Roberto経路・原文hash・checkpoint残数・record hashの独立照合PASS。通常CI結果はPR69最新記録を参照。
 
 **1〜19番完了、20〜53番未着手。次は20番（11日14Rの結果・血統coverageの統合照合、外部取得なし）。** REPLAY_ONLY・現行v1.6.1・Draft/PENDINGを維持。
+
+
+### 20番：11日14Rの結果・血統coverage統合完了（2026-10-12 JST）
+
+東京・京都6〜12Rの全14R・215登録/実出走行・215個体を固定。全215頭完走、取消/除外/中止/失格/結果未確認0、重複entry/個体0。京都6Rの4着同着（馬番2・6）と保存済み裁決・発走変更等7件を分離して保持。本人215行、5代13,330位置、父/母父194個体と該当指定祖先20個体を重複除外した必要調教国212個体を再検査。不足/UNKNOWN/CONFLICTは0、coverageはCOMPLETE。
+
+保存済み公式取得本文・結果・検証・checkpoint・完了証跡63ファイルのGit blob SHAをPR69固定HEADと照合し、全参照Registryレコードは保存先horses tree `26aeb23d19a1a6d0490d960b4fcbb1eeb98efd94` と一致。原HTML未保存14Rという取得形式の制限は公式取得本文hashと区別して保持し、結果coverageの欠測へ混同しない。別サイトIDの対応証跡と国末尾表記を保持し、既存個体IDを付け替えない。
+
+差分入力正本 `data/pedigree/reconciliations/2026-10-11-delta/coverage/input-manifest.json` を固定commit/cutoff、行・レース・国・参照入力hashと共に保存。旧159Rとの重複0、集合和173R・2,397登録行。10/10や11日午前は追加せず連続全期間とは主張しない。外部取得0、Registry追記0、旧原票/予想変更0、集計snapshot生成0。
+
+成果PR69 commit `8b60854daaf3af355ab61500d0849a57e075ffcc`、追加4ファイルの保存先readback一致。215行・13,330位置の再展開とhash、全参照Registry blob、212国選択、固定母数/状態/同着、旧入力・重複・原資料hashの独立照合PASS。通常CI結果はPR69最新記録を参照。
+
+**1〜20番完了、21〜53番未着手。次は21番（父/母父EU・US地域4条件の11日差分集計）。** REPLAY_ONLY・現行v1.6.1・Draft/PENDINGを維持。
