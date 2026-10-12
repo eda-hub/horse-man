@@ -51,7 +51,7 @@ def main(argv=None):
             path.parent.mkdir(parents=True, exist_ok=True)
             # 保存先の読戻しはGit側で別途行う。ここではローカル合成試験のみ。
             path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-        print(f'合成受入成功：全{report["tests_run"]}回帰、失敗0、skip0。正式切替は未実施です。')
+        print(f'合成受入成功：全{report["tests_run"]}回帰、失敗0、skip0。合成受入はmain反映・実測を認証しません。')
         return 0
     except (ValueError, OSError) as exc:
         print(f'合成受入不合格：{exc}', file=sys.stderr)

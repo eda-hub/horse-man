@@ -10,8 +10,8 @@ from check_prediction_compliance import (ComplianceError, contract_state, iso, r
                                          validate_gate, LEGACY_RELEASE)
 from cycle04_operations import (fingerprint, positive_set, require, safe_path,
                                validate_inputs, validate_market, validate_selection,
-                               validate_ticket_comparison, verified_artifact)
-from recommendation import verify as verify_recommendation
+                               validate_ticket_comparison, verified_artifact, validate_official_result)
+from recommendation import verify as verify_recommendation, settle
 
 CONTRACT_PATH = 'docs/validation/contracts/cycle_04.json'
 DATES = ['2026-10-17', '2026-10-18', '2026-10-24', '2026-10-25']
@@ -140,6 +140,27 @@ def validate_day(root, path, contract):
         post = iso(row.get('scheduled_post_time_jst'), 'race scheduled post')
         require(post.astimezone(iso(date + 'T00:00:00+09:00', 'race date').tzinfo).date().isoformat() == date,
                 'race scheduled post date mismatch')
+    if contract_state(root).get('full_horse_contract')=='REQUIRED':
+        require(d.get('manual_release')==release(root),'day release mismatch')
+        registrations=d.get('scope_history',[d.get('official_scope')])
+        require(isinstance(registrations,list) and registrations,'official scope registration history required')
+        declared=[]
+        for registration in registrations:
+            require(isinstance(registration,dict) and registration.get('schema_version')=='cycle04-official-scope-v1' and
+                    registration.get('race_date_jst')==date and isinstance(registration.get('source_url'),str) and
+                    registration['source_url'].startswith('https://'),'official scope/date/source mismatch')
+            observed=iso(registration.get('observed_at_jst'),'official observed')
+            registered=iso(registration.get('registered_at_jst'),'scope registered')
+            require(observed<=registered,'scope registration precedes observation')
+            require(isinstance(registration.get('races'),list) and registration['races'],'official race scope missing')
+            for item in registration['races']:
+                race=item.get('race_id');declared.append(race)
+                require(race in rows and item.get('scheduled_post_time_jst')==rows[race]['scheduled_post_time_jst'] and
+                        registered<iso(item['scheduled_post_time_jst'],'post'),'scope/post registration mismatch')
+        require(len(declared)==len(set(declared)) and set(declared)==initial,'official scope/initial mismatch')
+        for race,row in rows.items():
+            require(not row.get('prediction_gate_path') or row.get('prediction_history'),
+                    'saved prediction requires immutable history')
     for race in reviewed:
         row = rows[race]
         ref = row.get('result_ref')
@@ -147,19 +168,44 @@ def validate_day(root, path, contract):
         raw = safe_path(root, ref.get('artifact_path')).read_bytes()
         require(fingerprint(raw) == ref.get('sha256'), 'official result hash mismatch')
         result = json.loads(raw)
-        require(result.get('status') == 'OFFICIAL' and result.get('race_id') == race
-                and result.get('race_date_jst') == date and result.get('source_url'),
-                'official result identity/source mismatch')
-        require(iso(result.get('retrieved_at_jst'), 'result acquisition') >=
-                iso(row.get('scheduled_post_time_jst'), 'result post'), 'future result used before post')
-        require(isinstance(result.get('finish_groups'), list) and bool(result['finish_groups']),
-                'official finish groups missing')
+        prediction=validate_gate(root,safe_path(root,row['prediction_gate_path'])) if row.get('prediction_gate_path') else None
+        validate_official_result(result,race=race,date=date,post=row['scheduled_post_time_jst'],
+                                horses=prediction['production']['ranking'] if prediction else None)
+        review=row.get('review')
+        require(isinstance(review,dict) and all(isinstance(review.get(k),(str,dict)) and bool(review[k])
+                    for k in ('error_classification','non_degradation','next_validation')),
+                'reviewed scope requires error/non-degradation/next validation')
+        if row.get('recommendation_gate_path'):
+            rec=verify_recommendation(root,safe_path(root,row['recommendation_gate_path']))
+            require(row.get('recommendation_result')==settle(rec,result),'recommendation settlement mismatch')
+    for race,row in rows.items():
+        history=row.get('prediction_history',[])
+        require(isinstance(history,list),'prediction history list required')
+        for entry in history:
+            require(entry.get('phase') in {'INITIAL','FINAL'},'prediction history phase invalid')
+            gate_path=safe_path(root,entry.get('prediction_gate_path'))
+            require(fingerprint(gate_path.read_bytes())==entry.get('prediction_gate_sha256'),
+                    'prediction history gate hash mismatch')
+            gate=validate_gate(root,gate_path)
+            require(gate['race_id']==race and gate['race_date_jst']==date and
+                    gate['production']['baseline_forecast_id']==entry.get('baseline_forecast_id'),
+                    'prediction history identity mismatch')
+            body,_=verified_artifact(root,entry.get('prediction_ref'),row['scheduled_post_time_jst'],
+                                    expected_id=gate['production']['evidence_ref']['artifact_id'])
+            require(entry['prediction_ref']['artifact_path']==gate['production']['evidence_ref']['artifact_path'],
+                    'prediction history body mismatch')
+        if history:
+            require(history[-1]['prediction_gate_path']==row.get('prediction_gate_path') and
+                    history[-1]['prediction_ref']==row.get('operations',{}).get('prediction_ref'),
+                    'latest prediction/history mismatch')
+            require((history[-1]['phase']=='FINAL')==(race in final),'final/history scope mismatch')
     for name, scope in [('production', initial), ('recommendation', final), ('shadow', initial),
                         ('market', final), ('actual_purchase', initial)]:
         k = d.get('kpis', {}).get(name)
         require(isinstance(k, dict), 'independent KPI required: ' + name)
         target = string_set(k.get('target_ids'), name + '/target')
         require(target <= scope, 'KPI outside stage scope')
+        if name=='actual_purchase':require(not target,'new actual purchase scope must remain empty')
         if name in {'production', 'recommendation'}:
             require(target == scope, 'production/final recommendation KPI cannot omit declared targets')
         groups = [string_set(k.get(s), name + '/' + s) for s in
@@ -181,6 +227,8 @@ def validate_day(root, path, contract):
                 if name == 'recommendation':
                     rec = verify_recommendation(root, safe_path(root, row.get('recommendation_gate_path')))
                     require(rec['race_id'] == race, 'recommendation race mismatch')
+                    if 'recommendation_state' in row:
+                        require(row['recommendation_state']==rec['status'],'recommendation state mismatch')
                     rec_gate = load(safe_path(root, row['recommendation_gate_path']))
                     require(rec_gate.get('kpi_eligibility') == 'ELIGIBLE', 'recommendation not certified')
                 else:
@@ -193,7 +241,7 @@ def validate_day(root, path, contract):
                 require({p['horse_no'] for p in probs} == horses and len(probs) == len(horses),
                         'all-horse probabilities required; top3-only cannot certify full prediction')
                 for field, total in [('win_probability', 1), ('top2_probability', 2), ('top3_probability', 3)]:
-                    require(abs(sum(p[field] for p in probs) - total) < 1e-6, 'probability total mismatch: ' + field)
+                    require(abs(sum(p[field] for p in probs) - min(total,len(horses))) < 1e-6, 'probability total mismatch: ' + field)
                 require({e['horse_no'] for e in gate['production']['evidence_items']} == horses,
                         'all-horse prediction evidence required')
                 post = gate['scheduled_post_time_jst']
@@ -232,7 +280,9 @@ def validate_day(root, path, contract):
                 if not coverage['complete']:
                     require(row.get('input_gap_reason') and row.get('uncertainty_effect'),
                             'missing input requires explicit uncertainty/impact')
-                validate_market(row.get('market'), gate['data_cutoff'])
+                market_cutoff=row.get('market_cutoff',gate['data_cutoff'])
+                require(iso(market_cutoff,'market cutoff')<iso(post,'post'),'market cutoff must precede post')
+                validate_market(row.get('market'),market_cutoff)
                 history, _ = verified_artifact(root, op.get('selection_ref'), post)
                 selection = validate_selection(root, history, {race: post})
                 if race in final:
@@ -249,7 +299,11 @@ def validate_day(root, path, contract):
                 if name == 'market':
                     require(payload.get('schema_version') == 'market-analysis-v1' and
                             payload.get('market') == row.get('market'), 'market artifact mismatch')
-                    require(validate_market(row.get('market'), row.get('data_cutoff')) == 'ACQUIRED',
+                    require(payload.get('data_cutoff',row.get('data_cutoff'))==row.get('market_cutoff',row.get('data_cutoff')),
+                            'independent market cutoff mismatch')
+                    require(iso(row.get('market_cutoff',row.get('data_cutoff')),'market cutoff')<
+                            iso(row['scheduled_post_time_jst'],'post'),'market cutoff must precede post')
+                    require(validate_market(row.get('market'), row.get('market_cutoff',row.get('data_cutoff'))) == 'ACQUIRED',
                             'market KPI needs acquired price')
                 else:
                     require(payload.get('schema_version') == 'actual-purchase-v1'

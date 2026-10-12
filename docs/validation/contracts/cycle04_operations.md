@@ -11,10 +11,12 @@ python3 scripts/run_release_readiness.py --require-main
 python3 scripts/check_cycle04.py --require-active
 ```
 
-予想依頼時に日次branch `prediction/YYYY-MM-DD` を作り、公式出馬情報から依頼範囲を明示する。scope入力は `cycle04-official-scope-v1`、`race_date_jst`、`source_url`、`observed_at_jst`、`races`（`race_id`とJST発走予定）を持つ。登録は発走前に行い、既存日を上書きしない。
+予想依頼時に日次branch `prediction/YYYY-MM-DD` を作り、公式出馬情報から依頼範囲を明示する。scope入力は `cycle04-official-scope-v1`、`race_date_jst`、`source_url`、`observed_at_jst`、`races`（`race_id`とJST発走予定）を持つ。登録は発走前に行い、既存日を上書きしない。同日追加依頼は`--extend-scope`で新規レースだけ追記し、既存の対象・発走時刻・予想・回顧を保持する。追加レース自身の締切で確認する。
 
 ```bash
 python3 scripts/cycle04_workflow.py --register-scope official-scope.json
+# 同日の追加依頼時のみ
+python3 scripts/cycle04_workflow.py --extend-scope additional-official-scope.json
 python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --record-prediction initial-entry.json
 python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --select selection-entry.json
 python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --record-prediction final-entry.json
@@ -22,9 +24,11 @@ python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --review review-entry.json
 python3 scripts/cycle04_workflow.py --summary
 ```
 
-予想entryは`race_id`、`phase=INITIAL/FINAL`、`prediction_gate_path`、`operations`（下記の独立証跡）、`input_complete`、不足理由/影響、`market`を持つ。FINALは`recommendation_gate_path`も必須。selection entryはrace_idとselection_ref。review entryはrace_idとresult_path、review（error_classification / non_degradation / next_validation）。公式結果はOFFICIAL、同一ID/開催日、source_url、発走後retrieved_at_jst、同着をまとめたfinish_groups、place_placesを持つ。着順・non_finishers・scratched_horsesの和は固定予想の全頭と一致させ、不完全な結果を完了へ算入しない。
+予想entryは`race_id`、`phase=INITIAL/FINAL`、`prediction_gate_path`、`operations`（下記の独立証跡）、`input_complete`、不足理由/影響、`market`を持つ。FINALは`recommendation_gate_path`も必須。selection entryはrace_idとselection_ref。SELECTだけで候補を登録でき、買い目固定を先に要求しない。同じ入口でCANCEL→DESELECTまたは再SELECTの連続履歴を適用する。履歴の巻戻し・分岐は拒否し、最終は最新の選定履歴へ買い目固定イベントを追記した連続履歴も受け取り、独立証跡を照合して保存する。選定後に買い目を作る通常の順序で完了できる。review entryはrace_idとresult_path、review（error_classification / non_degradation / next_validation）。公式結果はOFFICIAL、同一ID/開催日、source_url、発走後retrieved_at_jst、同着をまとめたfinish_groups、place_placesを持つ。着順・non_finishers・scratched_horsesの和は固定予想の全頭と一致させ、不完全な結果を完了へ算入しない。
 
-日別JSONは`docs/validation/records/cycle_04/YYYY-MM-DD.json`。初回・最終の独立固定参照を履歴として保持する。ローカル保存・検査後、従来どおり日次branchへGit保存し、保存先を読戻して同一bytesを確認する。CLI成功だけをGit保存完了とは説明しない。
+日別JSONは`docs/validation/records/cycle_04/YYYY-MM-DD.json`。初回・最終の独立固定参照を履歴として保持する。書込みCLIは対象日の`prediction/YYYY-MM-DD`だけを許可し、main・別日・detachedでは拒否する。writerロックと一時ファイル読戻し→原子的置換で中途半端な台帳を残さない。異常終了後にロックが残る場合はwriterが終了したことを確認してから除去する。
+
+ローカル保存・検査後、従来どおり日次branchへGit保存し、保存先を読戻して同一bytesを確認する。CLI成功だけをGit保存完了とは説明しない。
 
 `run_cycle04_acceptance.py --write`は合成受入を保存する。`check_cycle04.py --require-active --require-complete`は4日の実測・全初回scope回顧が揃ってからのみ成功する。
 
@@ -74,3 +78,13 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 各レース行の `scheduled_post_time_jst` は開催日（JST）と一致し、適格gateの実発走予定と同じ時刻であることを必須とする。別日・別時刻のreceipt/gateで認証しない。
 
 近5走の `opponent_level` は `{status, value, source_ref, observed_at_jst}` の構造化属性にする。ACQUIREDにはcutoff以前の情報時点・出所・値が必要。MISSINGは値nullとreasonを保持し、入力充足へ含めない。近走の開催日が過去でも、その対戦相手の未来結果を現在の評価に利用しない。
+
+## 再レビューで追加した保全・集計
+
+公式scope登録時刻と追加履歴、全対象・発走予定を検査し、初回/最終のgate bytesと固定本体参照を履歴ごとに照合する。回顧済みの予想・結果・回顧を上書きせず、正式訂正は元記録を保持した別の訂正履歴で扱う。通常CLIで事後変更しない。
+
+日別JSONを直接編集した場合も、全頭の公式結果・誤差/非劣化/次回検証の回顧・推奨結果の再計算一致を要求する。的中数の自己申告を集計しない。新規actual_purchase集合は空を要求する。
+
+確信度別、入力完備/不足別、午前/午後別の◎成績、初回→最終の順位変更と◎的中の改善/悪化、回顧ラベルの件数を集計する。初回比較がないレースは不足IDを残す。固定予想に取消馬が残る場合は精度の分母へ入れず比較不能の理由を記録し、推奨の取消券判定は独立して実施する。取消後に再固定済みの予想は実出走集合で照合する。
+
+任意市場を依頼された場合だけ`--date YYYY-MM-DD --record-market market-entry.json`を使う。entryはrace_idとmarket_ref、独立artifactはmarket-analysis-v1・race_id/race_date_jst・data_cutoff・marketを持つ。価格はPrediction固定後の独立cutoffで取得可能だが、cutoff・保存/読戻しは発走前を要求する。Predictionの順位・確率・基準・推奨・cutoffを変更しない。

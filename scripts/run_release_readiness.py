@@ -32,6 +32,9 @@ def check(root, require_main=False):
                 'docs/validation/execution-gates/contract-state.json', 'docs/validation/contracts/cycle_04.json',
                 'scripts/check_prediction_compliance.py', 'scripts/check_cycle04.py', 'scripts/cycle04_workflow.py',
                 'scripts/recommendation.py', 'scripts/verify_prediction_persistence.py',
+                'docs/validation/README.md', 'docs/validation/cycle_04.md',
+                'docs/jravan/phases/phase_3_rule_engine.md', 'docs/jravan/phases/phase_4_prediction_ui.md',
+                'docs/jravan/phases/phase_5_odds_betting.md', 'docs/jravan/phases/phase_6_settlement_automation.md',
                 'docs/validation/templates/chatgpt_prediction_task.md'}
     require(required <= {s['path'] for s in sources}, 'atomic release source coverage missing')
     for s in sources:
@@ -59,7 +62,7 @@ def check(root, require_main=False):
             require(hashlib.sha256(deployed).hexdigest() == source['sha256'],
                     'main/local release source mismatch: '+source['path'])
         result.update(operational_ready=True, main_ref_commit=main_sha,
-                      main_commit_time=git('show', '-s', '--format=%cI', main_sha).strip())
+                      main_commit_time=git('log', '-1', '--format=%cI', main_sha).strip())
     return result
 
 

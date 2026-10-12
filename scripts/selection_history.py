@@ -122,6 +122,8 @@ def validate_history(history, root):
         previous, last_time = digest(core), at
     return {'history_valid': True, 'kpi_certified': False, 'event_count': len(events),
             'head_sha256': previous, 'plans': plans,
+            'active_selections': [{'race_id':race,'purpose':purpose,'revision':revision}
+                                  for (race,purpose),revision in sorted(selected.items())],
             'note': '履歴の連続性のみ確認。発走前保存・正式KPI認証は別途必要。'}
 
 

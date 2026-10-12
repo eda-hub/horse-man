@@ -2,7 +2,7 @@
 
 - 利用者指定日程：2026-10-17〜2026-10-25（JST）。2026-10-13に受領。
 - 対象開催日：10/17（土）・18（日）・24（土）・25（日）。JRAの東京・京都・新潟。海外・地方競馬は別枠。
-- 状態：**期間・対象確定、検査契約と合成受入を準備済み、実測未実施、正式切替は未完了**。
+- 状態：**v1.7.0のmainマージ・開始確認完了、実測未実施**。
 - 管理PR：[PR79](https://github.com/eda-hub/horse-man/pull/79)。[第3サイクル総括・適用実装計画](../proposals/2026-10-12_cycle03_summary_application_plan.md)を正本とする。
 - 正式予想の正本：`main`の[manual README](../manual/README.md)。正式版は利用者指定v1.7.0。PR79のmainマージ後に有効。期間到来だけで版を決めない。
 
@@ -46,7 +46,7 @@
 
 第4の期間・対象は本書で確定している。残る正式適用の前提はPR79の実装順序3以降で管理し、日程を利用者に再確認しない。
 
-2026-10-13の追加指示で次期版と有効日は未定のまま保持する。[機械契約](contracts/cycle_04.json)と[是正運用](contracts/cycle04_operations.md)、[合成受入](reviews/cycle_04/acceptance.json)を実装した。`check_cycle04.py` は準備と日別集合/証跡を検査し、`--require-active` は未確定の正式開始を拒否する。全頭入力/確率、独立FIX hash、用途revision、価格取得状態、8券種事象を接続し、旧台帳・Replay・合成検査から前向きKPIを認証しない。実測2開催以上の価格欠測再発検査と実runtime接続は未実施。
+v1.7.0はPR79のmainマージ（2026-10-13 07:46:10 JST）後から有効。[機械契約](contracts/cycle_04.json)、[実運用](contracts/cycle04_operations.md)、[合成受入](reviews/cycle_04/acceptance.json)を照合する。`check_cycle04.py --require-active` は取得済みmainと全正式契約が一致する場合に成功する。合成受入と開始準備を実測・性能へ転用しない。
 
 ## 4. 日別実測と終了審査
 
@@ -63,6 +63,6 @@
 
 ## v1.7.0の正式開始準備（2026-10-13利用者指定）
 
-旧時点の未定/準備記載は履歴。最新版はv1.7.0、有効化条件はPR79のmainマージ後。全Owner、上位契約、保存/推奨/回顧CLIと機械検査を原子的に切り替える。
+旧時点の未定/準備記載は履歴。最新版はv1.7.0、有効化条件はPR79のmainマージ後。全Owner、上位契約、保存/推奨/回顧CLIと機械検査はPR79で切替済み。
 
 `run_release_readiness.py --require-main` の成功後、開催の予想依頼を受けた際に公式scopeを確認して `cycle04_workflow.py --register-scope` を実行する。初回全件の基準・候補を保存し、選定revision→最終推奨→公式結果/全件回顧→独立集計まで同日branchで継続する。現時点で未来レースの予想や空台帳を作らない。開始準備と実レース実測を区別する。
