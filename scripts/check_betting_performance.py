@@ -61,8 +61,8 @@ def snapshot_tickets(root, relative, snapshot_id):
                                 'horses': [int(x) for x in horses.split('-')],
                                 'stake_yen': int(amount.replace(',', ''))})
     if not tickets and purpose and purpose.group(1) == 'OFFICIAL_VIRTUAL':
-        # 2026-09-27の旧形式では正式仮想券を箇条書きで保存していた。
-        # 明示した正式仮想節だけを読み、実購入案・研究用券から隔離する。
+        # 2026-09-27の旧形式は正式仮想券を箇条書きで固定している。
+        # 実購入案や研究用券を読み込まないように節見出しを限定する。
         for subsection in re.split(r'(?=^###\s+)', selected, flags=re.M):
             header = subsection.splitlines()[0] if subsection else ''
             if not re.match(r'^###\s+(?:Production)?検証用仮想ベット(?:\s|$)', header):
@@ -70,81 +70,7 @@ def snapshot_tickets(root, relative, snapshot_id):
             for kind, horses, amount in re.findall(
                     r'^-\s*(単勝|複勝|馬連|ワイド|馬単|三連複|三連単)\s+'
                     r'(\d+(?:-\d+)*)(?:[ \t]+[^:：\d\n][^:：\n]*)?'
-                    r'[ \t]*[:：][ \t]*([\d,]+)円[ \t]* and may
-        # use circled horse numbers or a leading strategy category. Only read
-        # the explicitly titled pre-race virtual-ticket section; a market
-        # comparison table must never become a fixed ticket after the event.
-        symbols = {ord(char): str(index) for index, char in enumerate(
-            '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳', 1)}
-        sections = re.split(r'(?=^###\s+)', selected, flags=re.M)
-        for subsection in sections:
-            header = subsection.splitlines()[0] if subsection else ''
-            if (not re.match(r'^###\s+.*(?:仮想|買い目FIX)', header)
-                    or (not purpose and '正式帳簿' not in header)):
-                continue
-            for line in subsection.splitlines():
-                if not line.startswith('|'):
-                    continue
-                cells = [cell.strip() for cell in line.split('|')[1:-1]]
-                if len(cells) < 4:
-                    continue
-                offset = 0 if cells[0] in kinds else 1
-                if len(cells) <= offset + 2 or cells[offset] not in kinds:
-                    continue
-                kind, horses = cells[offset:offset + 2]
-                amount = cells[-1]
-                if not re.fullmatch(r'[0-9,]+円', amount):
-                    continue
-                horses = horses.translate(symbols).replace('－', '-')
-                if not re.fullmatch(r'[0-9]+(?:-[0-9]+)*', horses):
-                    continue
-                number_list = [int(n) for n in horses.split('-')]
-                if len(set(number_list)) != len(number_list):
-                    raise ValueError('duplicate horse in fixed ticket')
-                tickets.append({'type': kinds[kind], 'horses': number_list,
-                                'stake_yen': int(amount[:-1].replace(',', ''))})
-    if not tickets:
-        raise ValueError('fixed tickets missing')
-    return tickets
-
-
-def validate_source(root, ref, race_id):
-    from check_prediction_compliance import iso
-    if ref.get('source_type') not in SOURCE_TYPES:
-        raise ValueError('unknown performance source type')
-    path = local_path(root, ref.get('source_path'))
-    source = json.loads(path.read_text(encoding='utf-8'))
-    if source.get('schema_version') != 'fixed-plan-source-v1':
-        raise ValueError('fixed-plan source schema mismatch')
-    for key in ('source_type', 'source_ref', 'working_branch'):
-        if source.get(key) != ref.get(key):
-            raise ValueError(f'performance source {key} mismatch')
-    if source.get('race_id') != race_id or source.get('verification_status') != 'VERIFIED':
-        raise ValueError('performance source not verified for race')
-    fixed = iso(source.get('source_sent_at_jst'), 'source sent time')
-    post = iso(source.get('scheduled_post_time_jst'), 'scheduled post time')
-    result = iso(source.get('result_checked_at_jst'), 'result checked time')
-    if fixed >= post or fixed >= result:
-        raise ValueError('source was not fixed before race and result')
-    location = source.get('source_ref', '')
-    if source['source_type'] == 'GIT_PRE_RACE_SNAPSHOT':
-        if not re.fullmatch(r'https://github\.com/eda-hub/horse-man/blob/[0-9a-f]{40}/[^\s]+', location):
-            raise ValueError('immutable Git source reference required')
-    elif not re.fullmatch(r'https://chatgpt\.com/[^\s]+', location) or not source.get('message_id'):
-        raise ValueError('chat conversation and message reference required')
-    raw = local_path(root, source.get('original_path')).read_bytes()
-    if hashlib.sha256(raw).hexdigest() != source.get('original_sha256'):
-        raise ValueError('original source hash mismatch')
-    original = json.loads(raw)
-    if original.get('race_id') != race_id or original.get('source_sent_at_jst') != source.get('source_sent_at_jst'):
-        raise ValueError('original source race/time mismatch')
-    tickets = snapshot_tickets(root, source.get('snapshot_path'), source.get('snapshot_id', ''))
-    if original.get('tickets') != tickets or tickets_hash(tickets) != source.get('tickets_sha256'):
-        raise ValueError('original and preserved tickets differ')
-    if not source.get('verified_by') or not source.get('verification_note'):
-        raise ValueError('source verification attribution required')
-    return source
-,
+                    r'[ \t]*[:：][ \t]*([\d,]+)円[ \t]*$',
                     subsection, re.M):
                 horse_list = [int(n) for n in horses.split('-')]
                 if len(set(horse_list)) != len(horse_list):
