@@ -194,6 +194,17 @@ class TaskCompletionTests(unittest.TestCase):
             self.assertEqual(recommendation_main(), 0)
             self.assertTrue(json.loads(out.getvalue())['complete'])
 
+    def test_automated_legacy_caller_explicitly_selects_machine_log(self):
+        root, prediction, _, _, _, _ = self.fixture()
+        argv = ['verify_prediction_persistence.py', '--root', str(root), '--date', fixtures.DATE,
+                '--snapshot-id', prediction['snapshot_id']]
+        with patch.object(sys, 'argv', argv), redirect_stdout(io.StringIO()) as out:
+            self.assertEqual(prediction_main(), 0)
+            self.assertNotIn('PERSISTENCE_VERIFIED', out.getvalue())
+        with patch.object(sys, 'argv', argv + ['--machine-log']), redirect_stdout(io.StringIO()) as out:
+            self.assertEqual(prediction_main(), 0)
+            self.assertIn('PERSISTENCE_VERIFIED ', out.getvalue())
+
 
 if __name__ == '__main__':
     unittest.main()

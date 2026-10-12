@@ -38,6 +38,8 @@ python scripts/recommendation.py --root . --verify GATE_PATH \
 
 新モードは個別対象の必須工程が完了したとき終了0、不足があれば終了1。`--status-json`は新モードでだけ使用できる。既存`--audit`は監査ログの機能と判定を維持する。全体監査の未実施や他対象の不足を、独立した個別対象の結果へ混ぜない。
 
+従来の内部状態行を機械判定する保存監査は、直接検証に`--machine-log`を明示する。通常の利用者向け表示には内部コードを戻さない。PR78の履歴監査もこの互換経路を使い、元のFIX commit・hashと標準checkerの成否判定を保持する。新しい個別完了モードの機械出力には`--status-json`を使う。
+
 ## 検証・境界
 
 `scripts/test_task_completion.py`は実際のfixtureファイルと既存validatorを使い、監査だけ成功/本体欠落/receipt欠落/内容不一致/ゲート欠落/適用Shadow未実施・証跡欠落・成功/Shadow scope欠落/推奨独立性/両CLIを検査する。合成fixtureのACTIVE契約は実リポジトリの切替ではない。v1.6.1・Draft/PENDING・既存予想・receipt・manualを保持し、欠落した過去証跡を生成しない。

@@ -205,11 +205,14 @@ def main():
     parser.add_argument('--fixed-content-sha256',help='hash of the FIXED snapshot section before writing')
     parser.add_argument('--completion-status',action='store_true',help='read-only independent completion checks with Japanese output')
     parser.add_argument('--status-json',action='store_true',help='machine-readable completion result including internal diagnostics')
+    parser.add_argument('--machine-log',action='store_true',help='legacy internal state log for explicit automated callers')
     args=parser.parse_args()
     if args.completion_status and (not args.snapshot_id or args.prepare or args.audit):
         parser.error('--completion-status requires direct --snapshot-id verification')
     if args.status_json and not args.completion_status:
         parser.error('--status-json requires --completion-status')
+    if args.machine_log and args.completion_status:
+        parser.error('use --status-json with --completion-status')
     if args.task_complete and (not args.snapshot_id or args.prepare or args.audit):
         parser.error('--task-complete requires direct --snapshot-id verification')
     if (args.audit and (args.prepare or args.snapshot_id)) or (not args.audit and not args.prepare and not args.snapshot_id):
@@ -280,11 +283,15 @@ def main():
                 if not args.fixed_content_sha256 or digest!=args.fixed_content_sha256:
                     raise ComplianceError('task completion fixed/readback content hash mismatch')
             receipt=verify(args.root,args.date,args.snapshot_id,expected_artifact_path=args.artifact_path)
-            from persistence_status import describe_persistence, render_persistence
-            print(render_persistence(describe_persistence('予想本体の保存',write_attempted=True,
-                  write_succeeded=True,readback_matches=True,
-                  verification_succeeded=True if args.task_complete else None)))
-            print('実行ゲート・適用Shadowは個別完了表示で別途確認してください。')
+            if args.machine_log:
+                state='TASK_PERSISTENCE_COMPLETE' if args.task_complete else 'PERSISTENCE_VERIFIED'
+                print(f'{state} {args.snapshot_id} receipt={receipt}')
+            else:
+                from persistence_status import describe_persistence, render_persistence
+                print(render_persistence(describe_persistence('予想本体の保存',write_attempted=True,
+                      write_succeeded=True,readback_matches=True,
+                      verification_succeeded=True if args.task_complete else None)))
+                print('実行ゲート・適用Shadowは個別完了表示で別途確認してください。')
             return 0
         directory=args.root/'docs/validation/persistence-intents'
         paths=declared_intent_paths(directory)

@@ -3,8 +3,8 @@
   "status": "COMPLETED",
   "input_commit": "9ebba86d797a561b6d932eb1c26874201a0da7a9",
   "scope": "Prediction/Recommendation個別完了の独立不足検出と日本語表示",
-  "new_tests": 16,
-  "related_tests_passed": 83,
+  "new_tests": 17,
+  "related_tests_passed": 84,
   "checks": [
     "本体",
     "receipt",
@@ -24,5 +24,13 @@
   "next_execution_number": 27,
   "main_at_start": "0520dc25437358df459e7e08219965f9b1e0f732",
   "main_difference": "PR78の12日予想・保存・回顧等16ファイルの更新。今回編集する共通処理とのファイル重複なし。次期切替ではない。",
-  "documentation": "docs/validation/individual-completion.md"
+  "documentation": "docs/validation/individual-completion.md",
+  "main_imported": true,
+  "main_import_commit": "0520dc25437358df459e7e08219965f9b1e0f732",
+  "integration_fix": "PR78監査の旧stdoutプロトコルへ--machine-logを明示。通常日本語表示と機械ログを分離し原FIX/hash判定を保持。",
+  "first_ci": {
+    "run_id": 38249111855,
+    "conclusion": "failure",
+    "reason": "PR78監査が通常stdoutにPERSISTENCE_VERIFIEDを期待していたため。新しい個別判定テストは成功。"
+  }
 }
