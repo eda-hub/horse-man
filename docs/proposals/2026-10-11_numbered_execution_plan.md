@@ -250,3 +250,16 @@ R10のコード実装は棚卸しで具体化した子タスクと既存Phase契
 
 [本人同定の成果](https://github.com/eda-hub/horse-man/blob/ddba0710d3fb885266ac2f07b881188e73243417/data/pedigree/reconciliations/2026-10-11-delta/identities/16-01/README.md) / [17-01の前提待ち](https://github.com/eda-hub/horse-man/blob/dea7fbaf7e670cee20307a8a82ca669494159ecf/data/pedigree/reconciliations/2026-10-11-delta/pedigrees/17-01/checkpoint.json)。
 
+
+
+### 16番の全残件・保存確認完了（2026-10-12 JST）
+
+前回の全残件実施指示で保存済みのcommit `1c3443d02c313a3923e9d4ce993a431a32f593e4` を読み戻し、再開前と同じ固定対象順・本人同定ファイル・checkpoint・Git blob照合で確認した。16-02〜16-44の残り206行を処理済み。16-01と既存同定4行を保持し、全14R・215行の本人同定が完了。新規本人162、既存本人再利用53、未同定0。
+
+- inventoryと結果checkpointの全44固定バッチは対象順が一致。バッチ211行＋既存同定4行で全215行を一意に網羅。
+- 公式14Rの馬番・馬名・性齢と一致。外国産馬9頭のJBIS名末尾国は本人名表記として分離して照合し、調教国推定には使用していない。
+- 全215本人レコードの存在、追加162レコードと原票229ファイルのリモートGit blob SHAが一致。全44バッチのcheckpoint/verificationを読戻し、状態と対応を照合。
+- 成果commitの[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38166351994)はsuccess。回帰310件、Registry・原票・既存集計・予想/推奨・サイクル監査を通過。今回の読戻しでは外部原票再取得・gzip展開再検査は行っていない。
+- 完了読戻し記録をPR69 commit `3724bcc4ad9495349bbfbb60fd94a30da429f25b` の[completion-readback.json](https://github.com/eda-hub/horse-man/blob/3724bcc4ad9495349bbfbb60fd94a30da429f25b/data/pedigree/reconciliations/2026-10-11-delta/identities/completion-readback.json)へ保存。
+
+**16番完了。17番は17-01から再開可能（16-06本人同定の前提成立）。** 17番の血統取得/位置検査完了や18〜53番の実施としては数えない。Stage切替・Production昇格・マージは行わず、REPLAY・v1.6.1・Draft/PENDINGを維持する。過去の小バッチ記録は当時の状態として保持する。
