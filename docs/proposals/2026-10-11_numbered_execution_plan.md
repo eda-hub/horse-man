@@ -449,3 +449,12 @@ Predictionは既存事前宣言/scope/receipt/hash検証と全対象の実行ゲ
 main `0520dc25437358df459e7e08219965f9b1e0f732` の12日成果を、PR69の準備実装と三方統合してcommit `cf131dc39f33ad9d37ec8b7ef5d4ba1de221a967` へ取込み。日次予想/receipt原本を保持し、cycle_03は双方の記録を保持。血統・集計を含むdata treeは取込み前と同一。PR69をmainへマージしたものではなく、Draft/PENDINGと現行releaseを維持。
 
 最終保存commit `4bb6fa56031ba535ad226482160622796a0264b0`。新規回帰17件、関連84件成功。初回7ファイルと互換修正5ファイル/最終1ファイルを内容・Git blob SHAでreadback照合し、初回CI失敗理由を実装受入JSONへ保持。PR78監査との統合CIを再実行し、結果はPR69最新記録に記載する。次は27番。過去の不適格を今回の再検査で昇格しない。
+
+
+#### 26番の最終統合検証成功（2026-10-12 JST）
+
+PR78監査のsnapshot欠落についても、旧Markdown専用lookupとJSON対応lookupの文言差を、対象ID＋実際の欠落判定を維持したまま整合。成功メッセージや別snapshotの欠落では代用できない拒否回帰を追加。最終新規回帰18件、関連85件成功。元の3FIX commit/hash検査、現在sectionのhash不一致、weight receipt欠落、3R実行ゲート欠落を既存標準checkerで検査する機能を維持した。
+
+最終成果commit `f2c7198338acad2542dc6b4cb357f5bdb6fc39b1`、互換最終修正3ファイルの内容/Git blob SHAをreadback一致。[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38250503321)はsuccess、全28ステップ・全343回帰成功。PR78実履歴監査、Registry・原票・全26集計snapshot・予想/推奨/保存・第3サイクル監査が通過。初回2種類の統合失敗と修正理由を受入JSONへ保持し、失敗を無かったことにしていない。
+
+**26番の全受入と統合検証完了。1〜26番完了、27〜53番未着手。次は27番。** 元の日次予想・receipt・過去の不適格判定を保持し、現行v1.6.1・Draft/PENDINGを維持。
