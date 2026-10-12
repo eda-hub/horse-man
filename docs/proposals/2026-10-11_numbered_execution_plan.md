@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-12 JST）: **1〜20番完了、21〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
+- 最新実施状態（2026-10-12 JST）: **1〜21番完了、22〜53番未着手**。完了証跡と子番号は末尾の実施台帳を正とする。棚卸しをデータ補完・課題解消・審査合格と数えない。
 
 ## 今回取り込んだ基準
 
@@ -343,3 +343,16 @@ Robertoは独立JBIS/NETKEIBA IDと表記候補を全62位置で照合し、欠�
 成果PR69 commit `8b60854daaf3af355ab61500d0849a57e075ffcc`、追加4ファイルの保存先readback一致。215行・13,330位置の再展開とhash、全参照Registry blob、212国選択、固定母数/状態/同着、旧入力・重複・原資料hashの独立照合PASS。通常CI結果はPR69最新記録を参照。
 
 **1〜20番完了、21〜53番未着手。次は21番（父/母父EU・US地域4条件の11日差分集計）。** REPLAY_ONLY・現行v1.6.1・Draft/PENDINGを維持。
+
+
+### 21番：父・母父のEU/US地域4条件完了（2026-10-12 JST）
+
+20番固定manifestの東京・京都各6〜12R、14R・215実出走行だけを既存集計入力へ対応付け、父EU/US・母父EU/USの4条件を集計。既存分類のEU=GB/IE/FR/DE/IT、US=US、本人調教国のSEARCH_MATCH_PRIORITY_V1、比較NON_MATCHを保持。期間は11日のみ、cutoffは20番固定時点を使用。旧159R・10/10・11日午前を追加しない。
+
+該当出走数/勝利/2着内/3着内は、父EU=16/0/1/2、父US=47/4/7/10、母父EU=39/2/9/12、母父US=61/4/6/11。全4条件COMPLETE、血統coverage100%、UNKNOWN/CONFLICT/結果保留0。同着は公式着順のまま計算し、重複し得る群の合計を全出走母数としない。
+
+入力・定義の内容アドレスarchiveと固定snapshot、定義/入力/分類hash・Registry依存traceを保存。20番の保存済み調教国から独立に全860分類・群別件数/率/母数を検算し、通常計算の再実行でも全群/依存trace一致。外部取得0、Registry追記0、旧snapshot上書き0。
+
+成果PR69 commit `3e97ff0d67855689ee9b49312c6c14f0f96b793c`、追加9ファイルのGit blob SHAを保存先readback照合。集計関連テスト45件成功、全17snapshot監査invalid 0。[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38225686693)はsuccess。固定snapshotは `data/condition_stats/snapshots/jra-training-regions-delta-20261011-task21/9b292e18f412c79be362113730c2925694bde891ce7eaddfca6d36324f1b87ad.json`、受入記録は `data/pedigree/reconciliations/2026-10-11-delta/statistics/21/completion.json`。
+
+**1〜21番完了、22〜53番未着手。次は22番の先頭固定5条件（既存指定祖先21条件）。** REPLAY_ONLY（既存snapshot契約RESEARCH_SHADOW_ONLY）・現行v1.6.1・Draft/PENDINGを維持。
