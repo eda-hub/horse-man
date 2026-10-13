@@ -1,0 +1,43 @@
+{
+  "schema_version": "numbered-task-acceptance-v1",
+  "task": 28,
+  "status": "IMPLEMENTED_PENDING_FULL_CI",
+  "inputs": {
+    "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "pr69": "e8d875cb843c815d6e40e38fbcf908c65e99dfda",
+    "pr68": "e10ecb56d9a6dce0f9787da419fb68ce742c251d"
+  },
+  "reuse": [
+    "validate_market",
+    "record_market",
+    "verified_artifact",
+    "FINAL_scope",
+    "independent_KPI"
+  ],
+  "changes": [
+    "v2 mandatory acquisition history",
+    "acquired unevaluated EV null",
+    "all saved markets including pending readback",
+    "Japanese read-only display"
+  ],
+  "tests": {
+    "new": 18,
+    "existing_cycle04": 56,
+    "result": "PASS"
+  },
+  "manifest_sources": 109,
+  "protected": {
+    "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "historical_records_changed": false,
+    "owner_changed": false,
+    "existing_workflow_changed": false,
+    "live_market_acquisition": false,
+    "performance_promoted": false
+  },
+  "residual": {
+    "task": 29,
+    "status": "OPEN",
+    "reason": "過去原因不明・実取得1経路/代替1経路・応答hash/リトライ/2開催実測"
+  },
+  "next_task": 29
+}

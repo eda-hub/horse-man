@@ -13,7 +13,7 @@ from pathlib import Path
 
 from check_cycle04 import CONTRACT_PATH, DATES, SCHEMA, validate_day
 from check_prediction_compliance import iso, validate_gate
-from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_market
+from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_market, validate_market_payload
 from recommendation import verify as verify_recommendation, settle
 from run_release_readiness import check as check_release
 from two_axis_candidates import compare as compare_two_axis
@@ -202,11 +202,11 @@ def record_market(root,date,entry):
     require(race in day['final_scope'],'optional market requires a fixed FINAL scope')
     require(race not in day['reviewed_scope'],'reviewed market is immutable')
     row=day['races'][race];payload,_=verified_artifact(root,entry.get('market_ref'),row['scheduled_post_time_jst'])
-    require(payload.get('schema_version')=='market-analysis-v1' and payload.get('race_id')==race and
+    require(payload.get('race_id')==race and
             payload.get('race_date_jst')==date,'independent market identity mismatch')
     cutoff=payload.get('data_cutoff')
     require(iso(cutoff,'market cutoff')<iso(row['scheduled_post_time_jst'],'post'),'market cutoff must precede post')
-    state=validate_market(payload.get('market'),cutoff)
+    state=validate_market_payload(payload,cutoff)
     row['market_ref']=copy.deepcopy(entry['market_ref']);row['market']=copy.deepcopy(payload['market'])
     row['market_cutoff']=cutoff
     set_state(day['kpis']['market'],race,'ELIGIBLE' if state=='ACQUIRED' else 'PENDING',

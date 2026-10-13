@@ -9,7 +9,7 @@ from pathlib import Path
 from check_prediction_compliance import (ComplianceError, contract_state, iso, release,
                                          validate_gate, LEGACY_RELEASE)
 from cycle04_operations import (fingerprint, positive_set, require, safe_path,
-                               validate_inputs, validate_market, validate_selection,
+                               validate_inputs, validate_market, validate_market_payload, validate_selection,
                                validate_ticket_comparison, verified_artifact, validate_official_result)
 from recommendation import verify as verify_recommendation, settle
 
@@ -140,6 +140,15 @@ def validate_day(root, path, contract):
         post = iso(row.get('scheduled_post_time_jst'), 'race scheduled post')
         require(post.astimezone(iso(date + 'T00:00:00+09:00', 'race date').tzinfo).date().isoformat() == date,
                 'race scheduled post date mismatch')
+        if row.get('market_ref'):
+            require(race in final, 'optional market requires fixed FINAL scope')
+            payload, _ = verified_artifact(root, row['market_ref'], row['scheduled_post_time_jst'])
+            cutoff = row.get('market_cutoff')
+            require(payload.get('race_id') == race and payload.get('race_date_jst') == date
+                    and payload.get('market') == row.get('market') and
+                    payload.get('data_cutoff') == cutoff, 'independent market record mismatch')
+            require(iso(cutoff, 'market cutoff') < post, 'market cutoff must precede post')
+            validate_market_payload(payload, cutoff)
     if contract_state(root).get('full_horse_contract')=='REQUIRED':
         require(d.get('manual_release')==release(root),'day release mismatch')
         registrations=d.get('scope_history',[d.get('official_scope')])
@@ -297,7 +306,7 @@ def validate_day(root, path, contract):
                 require(payload.get('race_id') == race and payload.get('race_date_jst') == date,
                         'market/actual artifact race mismatch')
                 if name == 'market':
-                    require(payload.get('schema_version') == 'market-analysis-v1' and
+                    require(payload.get('schema_version') in {'market-analysis-v1', 'market-analysis-v2'} and
                             payload.get('market') == row.get('market'), 'market artifact mismatch')
                     require(payload.get('data_cutoff',row.get('data_cutoff'))==row.get('market_cutoff',row.get('data_cutoff')),
                             'independent market cutoff mismatch')

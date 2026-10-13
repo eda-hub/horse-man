@@ -153,11 +153,81 @@ def validate_market(market, cutoff):
                 'future/reversed market acquisition')
         odds, ev = market.get('odds'), market.get('expected_value')
         require(type(odds) in (int, float) and math.isfinite(odds) and odds > 0 and
-                type(ev) in (int, float) and math.isfinite(ev) and market.get('source_ref'),
+                ((decision == 'NOT_EVALUATED' and ev is None) or
+                 (type(ev) in (int, float) and math.isfinite(ev))) and market.get('source_ref'),
                 'acquired price/EV/source required')
         require(decision == 'NOT_EVALUATED' or (decision == 'POSITIVE_EV') == (ev > 0),
                 'market decision contradicts expected value')
+    if 'acquisition' in market:
+        validate_market_acquisition(market, cutoff)
     return state
+
+
+def validate_market_acquisition(market, cutoff):
+    """新規任意市場の出所・時点・全試行を検査。旧欠測履歴を補造しない。"""
+    history = market.get('acquisition')
+    require(isinstance(history, dict) and history.get('schema_version') == 'market-acquisition-v1',
+            'market acquisition history required')
+    attempts = history.get('attempts')
+    require(isinstance(attempts, list), 'market attempt list required')
+    limit = iso(cutoff, 'market cutoff')
+    deadline_raw = history.get('deadline_at_jst')
+    deadline = iso(deadline_raw, 'market deadline') if deadline_raw is not None else None
+    previous = None
+    for n, attempt in enumerate(attempts, 1):
+        require(isinstance(attempt, dict) and type(attempt.get('attempt_no')) is int
+                and attempt['attempt_no'] == n, 'market attempt sequence mismatch')
+        require(isinstance(attempt.get('source_ref'), str) and attempt['source_ref'].strip()
+                and isinstance(attempt.get('reason'), str) and attempt['reason'].strip(),
+                'market attempt source/reason required')
+        start = iso(attempt.get('started_at_jst'), 'market attempt start')
+        finish = iso(attempt.get('finished_at_jst'), 'market attempt finish')
+        require(start <= finish <= limit and (previous is None or previous <= start),
+                'future/reversed/overlapping market attempts')
+        require(deadline is None or finish <= deadline, 'market attempt exceeds deadline')
+        result = attempt.get('result')
+        require(result in {'FAILED', 'ACQUIRED'}, 'market attempt result required')
+        require(result != 'ACQUIRED' or n == len(attempts), 'market attempt after acquisition')
+        if result == 'ACQUIRED':
+            observed = iso(attempt.get('observed_at_jst'), 'market price observed')
+            require(observed <= finish, 'market observed after acquisition')
+        else:
+            require(attempt.get('observed_at_jst') is None, 'failed attempt cannot claim observed price')
+        previous = finish
+    state = market['status']
+    stopped_raw = history.get('stopped_at_jst')
+    if state == 'NOT_ATTEMPTED':
+        require(not attempts and market.get('attempted_at_jst') is None
+                and market.get('acquired_at_jst') is None and market.get('source_ref') is None
+                and stopped_raw is None, 'unattempted market has acquisition evidence')
+    else:
+        require(bool(attempts) and market.get('attempted_at_jst') == attempts[0]['started_at_jst'],
+                'market first attempt mismatch')
+        require((state == 'ACQUIRED') == (attempts[-1]['result'] == 'ACQUIRED'),
+                'market acquisition status/history mismatch')
+        if state == 'ACQUIRED':
+            require(market.get('acquired_at_jst') == attempts[-1]['finished_at_jst']
+                    and market.get('source_ref') == attempts[-1]['source_ref']
+                    and stopped_raw is None, 'market acquired source/time mismatch')
+        else:
+            require(market.get('acquired_at_jst') is None, 'unacquired market has acquisition time')
+        if state == 'DEADLINE_STOPPED':
+            stopped = iso(stopped_raw, 'market stopped')
+            require(deadline is not None and previous <= deadline <= stopped <= limit,
+                    'market deadline stop time mismatch')
+        else:
+            require(stopped_raw is None, 'market stop time without deadline stop')
+    return history
+
+
+def validate_market_payload(payload, cutoff):
+    require(isinstance(payload, dict) and payload.get('schema_version') in
+            {'market-analysis-v1', 'market-analysis-v2'}, 'independent market schema required')
+    market = payload.get('market')
+    if payload['schema_version'] == 'market-analysis-v2':
+        require(isinstance(market, dict) and 'acquisition' in market,
+                'v2 market acquisition history required')
+    return validate_market(market, cutoff)
 
 
 def validate_selection(root, history, post_by_race):
