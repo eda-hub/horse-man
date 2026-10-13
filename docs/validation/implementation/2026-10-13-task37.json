@@ -1,7 +1,7 @@
 {
   "schema_version": "task37-checkpoint-v1",
   "task": 37,
-  "status": "IMPLEMENTED_LOCAL_VERIFIED_FORWARD_MEASUREMENT_OPEN_CI_PENDING",
+  "status": "IMPLEMENTATION_VERIFIED_ACCEPTANCE_CI_PENDING_FORWARD_MEASUREMENT_OPEN",
   "input_pr69_sha": "f05c80ee70c04d0fa113f773ac30183bb24b01b4",
   "input_pr68_sha": "134d32c06a41273ddc1a0669608b0ea85c2c7900",
   "tasks": {
@@ -55,7 +55,21 @@
       "CLI/元ファイル不変"
     ],
     "local_fixture_compatibility_fix": "初回5エラーはProduction evidence_refに存在しないhash keyの参照。検証済み基準bytesを実hash化し既存receiptと照合する形へ修正、最終全成功",
-    "ci": "PENDING"
+    "ci": {
+      "basis_commit": "b2901c4587d9fb18d987da5ffeaef8033df844b9",
+      "integration_run": 38395230627,
+      "research_run": 38395230754,
+      "tests_run": 688,
+      "failures": 0,
+      "skipped": 0,
+      "source_count": 115,
+      "source_manifest_sha256": "a1595da49a059d0f8ca0d735b054c5d5585ea47927d38bd67a1a6edffb6f89e9",
+      "manifest_source_count": 134,
+      "result": "INTEGRATION_RESEARCH_SUCCESS",
+      "initial_normal_run": 38395230370,
+      "initial_normal_status": "FAILED_STALE_ACCEPTANCE_HASH_VERIFIED",
+      "initial_normal_reason": "旧受入hashのみ。実統合成功115入力へ更新"
+    }
   },
   "historical_records": {
     "path": "docs/validation/records/2026-10-12.md",
@@ -81,5 +95,6 @@
     "task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
   },
   "next_independent": "38-01",
-  "next_forward": "37-05"
+  "next_forward": "37-05",
+  "implementation_commit": "b2901c4587d9fb18d987da5ffeaef8033df844b9"
 }
