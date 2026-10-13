@@ -1,0 +1,72 @@
+{
+  "schema_version": "task36-checkpoint-v1",
+  "task": 36,
+  "status": "IMPLEMENTED_LOCAL_VERIFIED_CI_PENDING",
+  "input_pr69_sha": "b5be8481f127d5d00c6a84e0cf07dd6d5b5fd700",
+  "input_pr68_sha": "af6c45d87627216e3c7cc06547338f9e4afdbb5d",
+  "tasks": {
+    "36-01": "LIFETIME_OLDER_ENCOUNTER_ZERO_POSITIVE_UNKNOWN_AND_CUTOFF_VERIFIED",
+    "36-02": "FIRST_OLDER_ENCOUNTER_AND_CLASS_PROMOTION_SEPARATED",
+    "36-03": "DIRECT_STRONG_SUBSTITUTE_REFERENCE_NOT_COMPARABLE_AND_WEIGHT_VERIFIED"
+  },
+  "implementation": {
+    "entry": "scripts/class_transition.py",
+    "procedure": "docs/validation/contracts/cycle04_operations.md",
+    "input_schema": "class-transition-assessment-v1",
+    "mode": "PREPARATION_READ_ONLY",
+    "core_required_input_changed": false,
+    "lifetime_count_coverage_required": "ALL_PRIOR_STARTS",
+    "recent_five_not_lifetime_zero": true,
+    "first_older_encounter_and_promotion_independent": true,
+    "comparison_sufficiency": [
+      "DIRECT",
+      "STRONG_SUBSTITUTE",
+      "REFERENCE",
+      "NOT_COMPARABLE"
+    ],
+    "evidence_authentication": false,
+    "automatic_ability_score": false,
+    "blanket_age_penalty": false
+  },
+  "validation": {
+    "new_tests": 23,
+    "local_related_tests": 89,
+    "failures": 0,
+    "skipped": 0,
+    "command": "PYTHONPATH=scripts python3 -m unittest test_class_transition test_cycle04_acceptance test_cycle04_workflow test_release_readiness -q",
+    "synthetic": true,
+    "live_races_executed": null,
+    "coverage": [
+      "古馬既対戦0/正数/不明",
+      "初古馬対戦×昇級の独立4組合せ",
+      "混合という出走資格と実際の古馬出走を分離",
+      "全過去確認と近5走の範囲/件数整合",
+      "年齢限定/混合・クラス・斤量・相手レベルを独立保持",
+      "未来情報/逆順取得/出走重複/実走前情報を拒否",
+      "相手のcutoff後の後日成績の逆流を拒否",
+      "全過去件数と近5走の矛盾を拒否",
+      "4種の根拠充足と直接比較の実走参照",
+      "下級クラス/古馬未対戦だけの直接ラベルは参考",
+      "出所付き上位クラス比較と同一/上下関係矛盾",
+      "斤量/年齢構成/対象クラス/比較方法/比較軸の不足は参考",
+      "未算定null保持・CLI読取のみ・原本不変"
+    ],
+    "ci": "PENDING"
+  },
+  "protected": {
+    "production_values_changed": false,
+    "recommendation_tickets_changed": false,
+    "owner_changed": false,
+    "formal_schema_changed": false,
+    "workflow_files_changed": false,
+    "data_changed": false,
+    "main_changed": false
+  },
+  "remaining": {
+    "comparison_method_effectiveness": "CONTINUE_VALIDATION",
+    "forward_non_degradation": "NOT_EXECUTED_TASK37",
+    "performance_promotion": "NOT_APPROVED",
+    "task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
+  },
+  "next": "37-01"
+}

@@ -1,5 +1,19 @@
 # 第4サイクル v1.7.0 実運用契約
 
+## 初古馬対戦・昇級の準備用読取監査
+
+`python3 scripts/class_transition.py INPUT.json`で`class-transition-assessment-v1`を照合する。任意の準備用入力で、既存Production/推奨の必須入力や正式schemaを変更しない。出力は比較材料の不足・時点・整合の確認であり、能力点/確率/年齢減点を生成しない。第37項の比較へ引き継ぐ準備機能で、前向き性能は未受入。
+
+入力は`race_id`、`horse_no`、`horse_age`、`data_cutoff`、`target`、`prior_start_count`、`older_encounters`、`previous_class`、`class_promotion`、`recent_five_runs`、`comparison_evidence`を持つ。各事実は`status=ACQUIRED/MISSING`、`value`、`reason`を持ち、ACQUIREDは`source_ref`と`observed_at_jst <= acquired_at_jst <= cutoff`を要求する。MISSINGはnullを保持する。
+
+`target`は年齢条件`age_condition=AGE_RESTRICTED/MIXED`、実際の古馬出走`older_horses_present`、クラス`class`、斤量`carried_weight_kg`を別々の事実で持つ。混合戦という出走資格だけで実際の古馬対戦を断定しない。古馬既対戦数を確定するには`coverage=ALL_PRIOR_STARTS`と全過去走数の整合が必要。近5走に古馬がいないことだけから全過去の0を推測しない。3歳初古馬対戦は対象の実古馬出走と0/正数/不明から判定し、昇級true/false/不明は前走/対象クラスと別に保持する。クラス名の文字列から序列や昇級を推測しない。
+
+近5走は利用可能な`min(5, prior_start_count)`走を新しい順に保持し、各走の`run_id`、`race_at_jst`、`source_ref`、当時の`horse_age`、年齢条件、古馬対戦の有無、クラス、斤量、相手レベルを照合する。実走時刻・情報観測/取得時刻はcutoff以下で、古いレースの相手の後日成績でもcutoff後の情報を逆輸入しない。確認済み近5走の古馬対戦数が全過去件数より多い矛盾を拒否する。
+
+比較根拠は`evidence_id`、提出区分`kind=DIRECT/STRONG_SUBSTITUTE/REFERENCE`、`source_ref`、`claim`、`limitations`、`evidence_at_jst <= observed_at_jst <= acquired_at_jst <= cutoff`を持つ。対象クラスが一致し、年齢構成・斤量が取得済みで、`comparison_dimensions`がCLASS/AGE_CONTEXT/WEIGHTを網羅する場合に構造上の充足を検査する。直接比較は確認済み実走`run_id`と、その実走のクラス/相手レベル/斤量/年齢構成/古馬対戦を必要とする。対象と同クラス、または出所・時点付き`class_relation=HIGHER`の実走が必要で、古馬相手の対象には実古馬対戦も必要。強い代替は`comparison_method`と比較条件/限界を明記する。3歳・軽斤量・連勝というラベルだけを直接証拠にしない。
+
+出力は直接比較→強い代替→参考→比較不能の順で提出根拠の充足を表示する。前2区分の条件を満たさない提出根拠は参考として残し、根拠なしは比較不能。不足項目と`input_complete`は別表示し、直接比較が1件あることだけで他の欠測を消さない。これは提出根拠の構造・情報時点の照合で、出所の真正性・代替方法の実効性・校正・性能の認証ではない。一律3歳減点やProduction値/順位/印・正式推奨への逆流を行わない。
+
 ## 2頭軸の比較候補と取消・欠測
 
 `two_axis_candidates.compare`は固定Productionの3着内率70%以上が2頭以上の場合だけ上位2頭を軸候補にする。70%/30%は試験トリガーで、標準採用条件や校正済み同時率ではない。三連複は取消後の固定順位上位6頭から軸以外のm頭でm点、三連単は取消後の3着内率30%以上の軸以外n頭で6n点。順位・確率・旧原本を変更しない。
