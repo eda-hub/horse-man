@@ -916,3 +916,5 @@ mainと同一bytesのv1.7.0 README/30_betting/60_marketおよび既存運用契�
 新規12回帰・関連132件成功。実統合CI全645件/失敗0/skip0・109入力hash一致・128source整合。初回通常CIは旧受入hashのstaleを検出し、実統合CI成功の入力hashで更新。失敗履歴をcheckpointへ保持。
 
 [受入記録](https://github.com/eda-hub/horse-man/blob/da9727f98f8f690d1e45bfb61ae63c9e30db0ab4/docs/validation/implementation/2026-10-13-task35.json)。実装 feebca15dbf4e55bc84fbaa4c9c609ae2caef3b2、受入更新 da9727f98f8f690d1e45bfb61ae63c9e30db0ab4。実同時率/校正/前向き性能は継続検証、結果後再演を前向きKPI外として維持。次36-01、29実測OPEN。Owner/正式schema/推奨券/Prediction値/data/既存workflow保持、main更新/マージなし。
+
+35番最終受入：[checkpoint](https://github.com/eda-hub/horse-man/blob/b5be8481f127d5d00c6a84e0cf07dd6d5b5fd700/docs/validation/implementation/2026-10-13-task35.json)。受入基準 da9727f98f8f690d1e45bfb61ae63c9e30db0ab4 の通常38387923260・統合38387923099・研究38387923278は全success、全645回帰/skip0。最終記録commitはcheckpointのみ、コード/manifest/受入入力不変。
