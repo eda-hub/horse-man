@@ -42,4 +42,4 @@ python scripts/recommendation.py --root . --verify GATE_PATH \
 
 ## 検証・境界
 
-`scripts/test_task_completion.py`は実際のfixtureファイルと既存validatorを使い、監査だけ成功/本体欠落/receipt欠落/内容不一致/ゲート欠落/適用Shadow未実施・証跡欠落・成功/Shadow scope欠落/推奨独立性/両CLIを検査する。合成fixtureのACTIVE契約は実リポジトリの切替ではない。v1.6.1・Draft/PENDING・既存予想・receipt・manualを保持し、欠落した過去証跡を生成しない。
+`scripts/test_task_completion.py`は実際のfixtureファイルと既存validatorを使い、監査だけ成功/本体欠落/receipt欠落/内容不一致/ゲート欠落/適用Shadow未実施・証跡欠落・成功/Shadow scope欠落/推奨独立性/両CLIを検査する。合成fixtureのACTIVE契約は実リポジトリの切替ではない。26番の初回受入時はv1.6.1・Draft/PENDINGを保持した。現在はPR79のmainマージ後のv1.7.0へ接続済みで、[第4運用契約](contracts/cycle04_operations.md)に従う。旧予想・receiptを当時の契約で読み、欠落した過去証跡を生成しない。PR69のDraftはmainの正式版を未有効に戻すものではない。

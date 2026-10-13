@@ -20,4 +20,4 @@ Pythonから`describe_persistence(target, write_attempted=..., write_succeeded=.
 
 これは保存工程の表示であり、前向きKPI・発走前適格性・Stage切替・適用Shadow・タスク全体の完了を与えない。CIの監査成功や事前宣言ファイルの存在を個別完了成功へ変換しない。26番の[個別完了確認](individual-completion.md)で既存Prediction/Recommendationの個別ゲートへ接続し、必要な確認を対象ごとに独立判定する。過去の欠落した証跡を作成して成功へ変換しない。
 
-受入検査は`scripts/test_persistence_status.py`。必須5状態に加え、読戻し未実施、個別確認失敗、未知の書込結果、矛盾した工程、監査成功の誤用、CLI表示を検査する。既存CIの全`test_*.py`探索に含まれる。現行v1.6.1・Draft/PENDINGを保持する。
+受入検査は`scripts/test_persistence_status.py`。必須5状態に加え、読戻し未実施、個別確認失敗、未知の書込結果、矛盾した工程、監査成功の誤用、CLI表示を検査する。既存CIの全`test_*.py`探索に含まれる。25番の初回受入は切替前のv1.6.1・Draft/PENDINGで実施した履歴。現在の正式版はv1.7.0（PR79のmainマージ後）で、[第4運用契約](contracts/cycle04_operations.md)の個別保存へ接続済み。PR69のDraft状態をmainの未有効状態と混同せず、旧証跡の欠測は保持する。

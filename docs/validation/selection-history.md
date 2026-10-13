@@ -1,12 +1,12 @@
-# 用途・選定revisionの履歴検査（27番・未有効の準備）
+# 用途・選定revisionの履歴検査（v1.7.0と旧履歴）
 
-現行v1.6.1を変更せず、`scripts/selection_history.py` で追加選定・用途・取消変更の不連続を検出する。履歴の連続性の成功は、発走前保存の認証、旧Betting KPI、次期Recommendation KPIの認証を与えない。Stage採否と正式接続は後続番号で扱う。
+`scripts/selection_history.py` で追加選定・用途・取消変更の不連続を検出する。現在はPR79のmainマージ後のv1.7.0に接続済み。[第4運用契約](contracts/cycle04_operations.md)に従い、価格不要推奨の選定から最終固定、取消・再選定を連続履歴で保存する。履歴の連続性の成功だけでは、発走前保存、旧Betting KPI、Recommendation KPIを認証しない。旧v1.6.1の記録は当時の契約で読み、追加選定証跡を後付けしない。
 
 ## 明示した新規履歴
 
 `selection-history-v1` のJSONに `scheduled_posts`（race_id→時差付き発走時刻）と非空の `events` を持つ。全イベントに1から連続した整数 `revision`、前イベント原本の `previous_sha256`（初回null）、`race_id`、`purpose`、`action`、時差付き `at`、非空 `reason`、`evidence` が必要。発走時刻以降と時刻の逆行を拒否する。
 
-用途は `VALIDATION_ONLY` / `OFFICIAL_VIRTUAL` / `ACTUAL_PURCHASE`。用途ごとの選定とplan IDを分離し、同じplanを別用途・別レースへ転用しない。検証から正式仮想へ移すには別用途の明示SELECTが必要。古いBUYの用途を書き換える操作はない。
+用途は旧履歴の `VALIDATION_ONLY` / `OFFICIAL_VIRTUAL` / `ACTUAL_PURCHASE` に加え、新規の `RECOMMENDATION` / `MARKET_ANALYSIS`。新規第4では実購入を作らず、旧実購入の読取を新規KPIへ混ぜない。用途ごとの選定とplan IDを分離し、同じplanを別用途・別レースへ転用しない。検証から正式仮想へ移すには別用途の明示SELECTが必要。古いBUYの用途を書き換える操作はない。
 
 | action | 必要な参照・判定 |
 |---|---|
@@ -18,7 +18,7 @@
 
 ticketsは券オブジェクトの配列。重複した同一券と異なるpurposeの券を拒否する。本検査は履歴連続性を担当し、券種・確率・購入ルールは既存または後続の担当checkerで検査する。取消済plan IDの再使用、取消後の変更、古い選定・plan revisionの参照を拒否。全イベントを入力に残し、検査処理は原本・台帳を変更しない。
 
-各イベントの `evidence={"path":相対パス,"sha256":原本bytesのSHA256}` はリポジトリ内のJSON原本を参照する。原本はeventからevidenceだけ除いたオブジェクトと同一であることを照合。前イベントhashは同じ原本オブジェクトをキー順・コンパクトJSON・UTF-8で正規化したSHA256（`digest`）を使う。原本の読戻しと変更鎖を検査するが、自己記載のatだけで発走前保存を証明できない。正式採用時には独立した固定commit・receipt・cutoff・担当契約検査が別途必須。結果後作成の原本を過去の発走前証拠にできない。
+各イベントの `evidence={"path":相対パス,"sha256":原本bytesのSHA256}` はリポジトリ内のJSON原本を参照する。原本はeventからevidenceだけ除いたオブジェクトと同一であることを照合。前イベントhashは同じ原本オブジェクトをキー順・コンパクトJSON・UTF-8で正規化したSHA256（`digest`）を使う。原本の読戻しと変更鎖を検査するが、自己記載のatだけで発走前保存を証明できない。v1.7.0の正式接続では独立した固定commit・receipt・cutoff・担当契約検査が別途必須。結果後作成の原本を過去の発走前証拠にできない。
 
 ```sh
 python scripts/selection_history.py --root . --history /path/to/history.json
@@ -31,6 +31,6 @@ python scripts/selection_history.py --root . --audit-oct11
 
 `audit_oct11` は既存朝snapshotの空購入候補、最終5BUY/OFFICIAL_VIRTUAL、原本の7券、日別台帳の保留5と固定参考精算50,000円→0円を読取専用で照合する。旧契約を新規履歴schemaへ変換せず、追加選定イベントを生成しない。receiptと10事前宣言は出所hashを固定するが、この監査だけで個別保存・実行ゲート・fixed-plan-source認証を与えない。
 
-旧正式Bettingは適格0・保留5・正式ROI null。参考精算を別に保持し、実購入0円を仮想購入へ混ぜない。次期Recommendation KPIは旧サンプルに非適用。Prediction/Recommendationの価格不要の完了とは独立した任意市場sidecarの準備である。
+旧正式Bettingは適格0・保留5・正式ROI null。参考精算を別に保持し、実購入0円を仮想購入へ混ぜない。v1.7.0のRecommendation KPIは旧サンプルに非適用。この旧履歴監査を新規の推奨保存・任意市場取得の完了へ代用しない。
 
 受入・固定出所は `docs/validation/implementation/2026-10-11-task27.json`。既存FIX元5commitも照合し、4件は後続追記の区切り行だけが差分、1件はsection完全一致。元買い目本文は一致するが、生section hashの不一致を一致に言い換えない。追加選定revision・目的移行証跡の欠測は元の課題OPENとして残し、今回の合成・実証跡25回帰と既存証跡監査の完了を、実履歴課題の解消と混同しない。
