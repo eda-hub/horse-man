@@ -1,0 +1,105 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "48",
+  "status": "READ_ONLY_ACCEPTED_RESIDUALS_RETAINED",
+  "basis_commit": "e247838e4bbe672e5a0ffb93dce5d302ee6f3d44",
+  "main_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+  "plan_ref": "0bfa36c26de6a059374d3a453ddef40c31f6465c",
+  "completed_subtasks": [
+    "48-01",
+    "48-02"
+  ],
+  "source_manifest": [
+    {
+      "path": "docs/manual/README.md",
+      "git_blob_sha": "a17319b68e699351908a07848a1b7ab06d161ec8",
+      "main_git_blob_sha": "a17319b68e699351908a07848a1b7ab06d161ec8",
+      "match": true
+    },
+    {
+      "path": "docs/manual/00_core.md",
+      "git_blob_sha": "541693ef8383784897dbdbe9456958389c48a2c9",
+      "main_git_blob_sha": "541693ef8383784897dbdbe9456958389c48a2c9",
+      "match": true
+    },
+    {
+      "path": "docs/manual/10_prediction.md",
+      "git_blob_sha": "6c0abac96d526a4dcdcb012c3eab4ad4700058d3",
+      "main_git_blob_sha": "6c0abac96d526a4dcdcb012c3eab4ad4700058d3",
+      "match": true
+    },
+    {
+      "path": "docs/manual/20_conditional.md",
+      "git_blob_sha": "95fb9cc9f78f0fb27c56005cc1b8ad377d3a7b85",
+      "main_git_blob_sha": "95fb9cc9f78f0fb27c56005cc1b8ad377d3a7b85",
+      "match": true
+    },
+    {
+      "path": "docs/manual/30_betting.md",
+      "git_blob_sha": "1055d9dba9644df05a0184155d7e57e2fd85f0d5",
+      "main_git_blob_sha": "1055d9dba9644df05a0184155d7e57e2fd85f0d5",
+      "match": true
+    },
+    {
+      "path": "docs/manual/40_shadow.md",
+      "git_blob_sha": "79901e1449414e5f504b9932b6b8e9de02c6ac52",
+      "main_git_blob_sha": "79901e1449414e5f504b9932b6b8e9de02c6ac52",
+      "match": true
+    },
+    {
+      "path": "docs/manual/50_review.md",
+      "git_blob_sha": "239108488e969c6bc78c267991e4f4da02a3013f",
+      "main_git_blob_sha": "239108488e969c6bc78c267991e4f4da02a3013f",
+      "match": true
+    },
+    {
+      "path": "docs/manual/60_market.md",
+      "git_blob_sha": "909697f26bca4390806a526d4b37c2834ce96811",
+      "main_git_blob_sha": "909697f26bca4390806a526d4b37c2834ce96811",
+      "match": true
+    },
+    {
+      "path": "AGENTS.md",
+      "git_blob_sha": "51d2f5fe43c97026f78e2e5d7b8b3dd515b53e0d",
+      "main_git_blob_sha": "51d2f5fe43c97026f78e2e5d7b8b3dd515b53e0d",
+      "match": true
+    },
+    {
+      "path": "DECISIONS.md",
+      "git_blob_sha": "bd2cb2b145b95cfab51a5c2c46ff24d16b4644f6",
+      "main_git_blob_sha": "bd2cb2b145b95cfab51a5c2c46ff24d16b4644f6",
+      "match": true
+    },
+    {
+      "path": "docs/validation/execution-gates/contract-state.json",
+      "git_blob_sha": "5f99c2860f22aca865702214393b3c61d8145dd2",
+      "main_git_blob_sha": "5f99c2860f22aca865702214393b3c61d8145dd2",
+      "match": true
+    }
+  ],
+  "checks": {
+    "manual_release": "v1.7.0",
+    "owners": 7,
+    "activation": "PR79 mainマージ後",
+    "formal_cutover_commit": "fd47babd38deea46439c2a7e500c3937c63cb5d7",
+    "operation_correction_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "legacy": "第3以前は当時のv1.6.1/schemaで読取。新KPIへ変換しない。",
+    "rollback": "DECISIONS ADR-022：切替commitをrevertし、新版artifactを削除しない。",
+    "owner_boundary": "30_bettingは価格不要推奨、60_marketは任意。Shadow/価格はProductionへ逆流しない。",
+    "atomic_contract_verified": true
+  },
+  "validation": {
+    "command": "python3 -m unittest discover -s scripts -p test_release_readiness.py -v",
+    "tests_run": 9,
+    "failures": 0,
+    "skipped": 0,
+    "local_main_check": "Git管理のない部分コピーにつきrequire-mainは実行せず、完全repoの統合CIで正式mainを確認。原子的整合単独checkはPASS。",
+    "postcommit_ci": "当該HEADのActionsとPR本文で確認"
+  },
+  "source_changes": 0,
+  "formal_recutover": false,
+  "performance_promoted": false,
+  "live_races_executed": null,
+  "residuals": "47番の研究PARTIAL・歴史的保存不足40・旧KPI保留57・29/37実測待ち・実確率/校正/性能/runtime未受入を維持。",
+  "next_independent_task": "49-01"
+}
