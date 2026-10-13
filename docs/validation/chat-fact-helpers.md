@@ -85,3 +85,6 @@ FORWARD/REPLAY/SYNTHETICの区分を結果sidecarへ引き継ぎ、合成/Replay
 
 ## 53-I13 固定参照から非UI回顧資料を生成
 `python3 scripts/chat_review_package.py manifest.json --root . --as-of <時点>`。固定day_refsの初回scope全件、未最終/推奨なし/未確認、独立保存の予想hash/race/date/cutoff/baseline、全頭公式結果、誤差分類・良好部分保全/次検証を読取出力。結果本文真正性はI07の別再照合。各日の独立KPIを保持し、historical_purchase_refsは歴史診断に分離。外部AI API/DB/UIを実行せず、実行成功も認証しない。
+
+## 53-I14 改善候補の引継ぎ
+`python3 scripts/chat_improvement_handoff.py request.json --root .`。固定Review Package/必要時校正資料のpath/hashとJSON pointerを根拠に、ADOPTION_CANDIDATE/CONTINUE_VALIDATION/REJECTED/DEFERRED、Owner・不足・良好部分の保護・次試験を引継ぐ。未解決pointer/重複ID/未知採否/直接manual更新命令は拒否。AIの自動採用、固定原本/DB/manual更新をせず、人間Owner審査・非劣化審査・別PRを保持。

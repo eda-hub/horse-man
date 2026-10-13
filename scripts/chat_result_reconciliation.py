@@ -14,7 +14,9 @@ def fixed_json(root, ref):
     require(isinstance(ref, dict) and set(ref) == {'artifact_path','sha256'}, 'explicit frozen path/hash required')
     raw = safe_path(root, ref['artifact_path']).read_bytes()
     require(fingerprint(raw) == ref['sha256'], 'frozen artifact hash mismatch')
-    return json.loads(raw)
+    data = json.loads(raw)
+    require(isinstance(data,dict), 'fixed JSON object required')
+    return data
 
 
 def reconcile(bundle, conversion, result, *, gate=None, recommendation=None, as_of=None):

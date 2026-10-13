@@ -1,0 +1,30 @@
+{
+  "schema_version": "numbered-implementation-v1",
+  "task": "53-I14",
+  "message": "53-I14：固定回顧から改善候補の採否・不足・Owner・次試験を引継ぐ",
+  "status": "IMPLEMENTATION_ACCEPTED",
+  "new_tests": 4,
+  "automatic_adoption": false,
+  "manual_updated": false,
+  "database_updated": false,
+  "formal_schema_changed": false,
+  "dependency_guard": "固定JSON参照のobject形を拒否理由付き検査し候補引継ぎを安全に保留",
+  "global_tests": 741,
+  "source_manifest_sha256": "41dbd39181cdf62652a2ee9f93ab0a04278a74d77753f0f23b7c3caaa2a9408b",
+  "source_count": 142,
+  "validation_basis_commit": "0ad28415676d368097fb60e721667fe1d0b95abe",
+  "ci": [
+    {
+      "id": 38449136352,
+      "conclusion": "success"
+    },
+    {
+      "id": 38449136243,
+      "conclusion": "success"
+    },
+    {
+      "id": 38449136258,
+      "conclusion": "failure"
+    }
+  ]
+}
