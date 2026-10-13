@@ -1,7 +1,7 @@
 {
   "schema_version": "numbered-task-acceptance-v1",
   "task": 29,
-  "status": "OFFICIAL_PROVIDER_IMPLEMENTATION_ACCEPTED_WINDOWS_AND_TWO_MEETINGS_OPEN",
+  "status": "CHAT_CONFIGURATION_FIXED_LIVE_VALIDATION_OPEN",
   "inputs": {
     "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
     "pr69": "4b7651acb589a8f4881d1ec4752e567ccae4f960",
@@ -43,10 +43,11 @@
     "status": "OPEN",
     "required_meetings": 2,
     "measured_meetings": null,
-    "endpoints_and_normalization_confirmed": true,
+    "endpoints_and_normalization_confirmed": false,
     "past_20261011_cause": "UNKNOWN",
-    "reason": "公式SDKで呼出し方式/要求key/データspec/レコード形式を確定して実装・合成検証。実機はLinux/pywin32なし・利用者Windows接続設定なし。2開催の発走前実測は将来条件でOPEN。",
-    "actual_service_connection_verified": false
+    "reason": "チャット経路の実取得・時刻照合・保存接続・2開催の発走前実測が未受入。Windows接続は対象外。",
+    "actual_service_connection_verified": false,
+    "previous_reason": "公式SDKで呼出し方式/要求key/データspec/レコード形式を確定して実装・合成検証。実機はLinux/pywin32なし・利用者Windows接続設定なし。2開催の発走前実測は将来条件でOPEN。"
   },
   "next_code_task": 30,
   "full_acceptance": {
@@ -294,5 +295,77 @@
       }
     ],
     "refresh_verified": true
+  },
+  "previous_status": "OFFICIAL_PROVIDER_IMPLEMENTATION_ACCEPTED_WINDOWS_AND_TWO_MEETINGS_OPEN",
+  "current_configuration": {
+    "schema_version": "chat-market-acquisition-policy-v1",
+    "effective_instruction_date_jst": "2026-10-13",
+    "task": 29,
+    "execution": "CHAT_AVAILABLE_PUBLIC_SEARCH_AND_READ",
+    "policy_scope": "CHAT_OPERATION_POLICY_NOT_AUTOMATIC_CLI_RUNTIME_CONFIGURATION",
+    "requires": {
+      "webui": false,
+      "dedicated_server": false,
+      "windows": false,
+      "jvlink": false,
+      "user_pc_command": false,
+      "inbound_network": false,
+      "login": false
+    },
+    "primary_source": "JRA_PUBLIC_ODDS_PAGE",
+    "alternate_source_status": "NOT_VERIFIED",
+    "comparison_ticket_types": [
+      "WIN",
+      "PLACE",
+      "BRACKET_QUINELLA",
+      "QUINELLA",
+      "WIDE",
+      "EXACTA",
+      "TRIO",
+      "TRIFECTA"
+    ],
+    "prediction_requires_market": false,
+    "recommendation_requires_market": false,
+    "max_sources": 2,
+    "max_attempts_per_source": 2,
+    "required_observation_fields": [
+      "race_id",
+      "ticket",
+      "source_url",
+      "source_updated_at_jst",
+      "retrieved_at_jst",
+      "odds_or_range",
+      "retrieved_excerpt",
+      "retrieval_kind"
+    ],
+    "accept_only_pre_race_verified_observation": true,
+    "unknown_source_time_is_ineligible": true,
+    "search_snippet_is_price_evidence": false,
+    "raw_http_bytes_must_not_be_inferred": true,
+    "authentication_bypass": false,
+    "windows_followup": "OUT_OF_SCOPE_BY_USER_CHANGE",
+    "chat_writer_integration": "OPEN",
+    "live_meetings": null,
+    "required_live_meetings": 2,
+    "status": "CONFIGURATION_FIXED_LIVE_VALIDATION_OPEN",
+    "procedure": "docs/validation/market-chat-acquisition.md"
+  },
+  "configuration_change": {
+    "instruction": "専用サーバー・Windows不要。ChatGPTチャットから取得する構成へ変更",
+    "historical_acceptance_preserved": true,
+    "legacy_windows_connection": "OUT_OF_SCOPE_BY_USER_CHANGE",
+    "legacy_jvlink_checker": "NOT_APPLICABLE_TO_CHAT_TRANSPORT",
+    "chat_observed_prices": null,
+    "chat_live_meetings": null,
+    "chat_runtime_adapter": "NOT_IMPLEMENTED",
+    "remaining_tasks": [
+      "29-C02",
+      "29-C03",
+      "29-C04",
+      "29-C05",
+      "29-C06",
+      "29-C07",
+      "29-C08"
+    ]
   }
 }

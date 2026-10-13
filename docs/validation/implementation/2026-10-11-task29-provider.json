@@ -78,7 +78,7 @@
     "performance_promoted": false
   },
   "live_remaining": {
-    "windows_service_connection": "OPEN",
+    "windows_service_connection": "OUT_OF_SCOPE_BY_USER_CHANGE",
     "two_future_meetings": "OPEN",
     "not_fabricated": true
   },
@@ -120,7 +120,7 @@
     "acceptance_basis_run": 38349639228,
     "acceptance_manifest_sha256": "b0f2dc77b15194a91b6d85e31301c4ffe615ff1ea76f56375e927410e9f79800"
   },
-  "status": "IMPLEMENTATION_ACCEPTED_WINDOWS_AND_TWO_MEETINGS_OPEN",
+  "status": "CHAT_CONFIGURATION_FIXED_LIVE_VALIDATION_OPEN",
   "ci": [
     {
       "run": 38353772353,
@@ -199,5 +199,77 @@
       }
     ],
     "refresh_verified": true
+  },
+  "previous_status": "IMPLEMENTATION_ACCEPTED_WINDOWS_AND_TWO_MEETINGS_OPEN",
+  "current_configuration": {
+    "schema_version": "chat-market-acquisition-policy-v1",
+    "effective_instruction_date_jst": "2026-10-13",
+    "task": 29,
+    "execution": "CHAT_AVAILABLE_PUBLIC_SEARCH_AND_READ",
+    "policy_scope": "CHAT_OPERATION_POLICY_NOT_AUTOMATIC_CLI_RUNTIME_CONFIGURATION",
+    "requires": {
+      "webui": false,
+      "dedicated_server": false,
+      "windows": false,
+      "jvlink": false,
+      "user_pc_command": false,
+      "inbound_network": false,
+      "login": false
+    },
+    "primary_source": "JRA_PUBLIC_ODDS_PAGE",
+    "alternate_source_status": "NOT_VERIFIED",
+    "comparison_ticket_types": [
+      "WIN",
+      "PLACE",
+      "BRACKET_QUINELLA",
+      "QUINELLA",
+      "WIDE",
+      "EXACTA",
+      "TRIO",
+      "TRIFECTA"
+    ],
+    "prediction_requires_market": false,
+    "recommendation_requires_market": false,
+    "max_sources": 2,
+    "max_attempts_per_source": 2,
+    "required_observation_fields": [
+      "race_id",
+      "ticket",
+      "source_url",
+      "source_updated_at_jst",
+      "retrieved_at_jst",
+      "odds_or_range",
+      "retrieved_excerpt",
+      "retrieval_kind"
+    ],
+    "accept_only_pre_race_verified_observation": true,
+    "unknown_source_time_is_ineligible": true,
+    "search_snippet_is_price_evidence": false,
+    "raw_http_bytes_must_not_be_inferred": true,
+    "authentication_bypass": false,
+    "windows_followup": "OUT_OF_SCOPE_BY_USER_CHANGE",
+    "chat_writer_integration": "OPEN",
+    "live_meetings": null,
+    "required_live_meetings": 2,
+    "status": "CONFIGURATION_FIXED_LIVE_VALIDATION_OPEN",
+    "procedure": "docs/validation/market-chat-acquisition.md"
+  },
+  "configuration_change": {
+    "instruction": "専用サーバー・Windows不要。ChatGPTチャットから取得する構成へ変更",
+    "historical_acceptance_preserved": true,
+    "legacy_windows_connection": "OUT_OF_SCOPE_BY_USER_CHANGE",
+    "legacy_jvlink_checker": "NOT_APPLICABLE_TO_CHAT_TRANSPORT",
+    "chat_observed_prices": null,
+    "chat_live_meetings": null,
+    "chat_runtime_adapter": "NOT_IMPLEMENTED",
+    "remaining_tasks": [
+      "29-C02",
+      "29-C03",
+      "29-C04",
+      "29-C05",
+      "29-C06",
+      "29-C07",
+      "29-C08"
+    ]
   }
 }

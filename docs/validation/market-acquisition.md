@@ -1,5 +1,10 @@
 # 29番：任意価格の2経路HTTP取得・障害再現
 
+> **2026-10-13 利用者指定の構成変更：** 現在の29番は[チャット取得構成](market-chat-acquisition.md)と[取得方針](contracts/chat-market-acquisition.json)を使用する。専用サーバー・Windows・JV-Link・PC側実行・WebUIは前提にしない。以下のHTTP/JV-Link手順とCIは過去実装の保存記録であり、現在のチャット経路の取得成功/受入を証明しない。Windows接続待ちは対象外、チャット取得/保存接続と将来2開催実測はOPEN。
+
+## 旧実装の履歴（現在の取得方式ではない）
+
+
 28番の状態・独立保存APIを再利用する。取得先の正規化済みHTTP JSON endpointを主経路1つ・代替1つ設定し、同じrace/券種/組合せの観測価格を取得する。追加の公式JV-Link COM・8券種正規化は [残件対応](market-jvlink.md) へ実装済み。サービス固有HTMLは未実装。Windows実機への接続と2開催以上の実測はOPEN。HTTP経路と公式SDK経路の実装受入は合成試験で、実サービス接続の成功とは区別する。
 
 ## 取得要求と応答

@@ -1,5 +1,10 @@
 # 29番残件：公式JV-Link経路・正規化・実測受入
 
+> **2026-10-13 利用者指定の構成変更：** 現在の29番は[チャット取得構成](market-chat-acquisition.md)と[取得方針](contracts/chat-market-acquisition.json)を使用する。専用サーバー・Windows・JV-Link・PC側実行・WebUIは前提にしない。以下のHTTP/JV-Link手順とCIは過去実装の保存記録であり、現在のチャット経路の取得成功/受入を証明しない。Windows接続待ちは対象外、チャット取得/保存接続と将来2開催実測はOPEN。
+
+## 旧実装の履歴（現在の取得方式ではない）
+
+
 公式SDK5.0.0の配布物とPythonサンプルを実取得してhashを固定し、前回残った取得元/呼出し方式を確定した。主経路は全賭式速報0B30、代替は券種別0B31〜0B36。異なるデータ要求の代替であり同一提供元、JV-Link未導入/認証/サービス全体障害は両方に影響する。公開WebのPC/SP入口は200でもオッズ本文のGETは専用エラー、正規化JSON endpointとは扱わず、独立した代替接続の成功に数えない。
 
 [公式SDK](https://developer.jra-van.jp/t/topic/45)、[JV-Data仕様](https://jra-van.jp/dlb/sdv/sdk/JV-Data4901.pdf) p15〜16、[JV-Link仕様](https://jra-van.jp/dlb/sdv/sdk/JV-Link4901.pdf) p22/25/27を基準にする。[出所・応答hash・接続制限](implementation/2026-10-11-task29-provider.json) に実probe runとSDK/archive/sampleのhashを保存。SDK原ソースや27MBの配布物はリポジトリへ複製しない。取得確認だけのworkflowは除去する。
