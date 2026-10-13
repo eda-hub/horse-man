@@ -57,7 +57,8 @@
     "pywin32_available": false,
     "user_windows_vm_reachable": "NOT_CONFIGURED",
     "service_connection_verified": false,
-    "live_meeting_dates": null
+    "live_meeting_dates": null,
+    "prior_context_lookup": "No usable horse-man Windows VM connection settings found; unrelated Azure hosts excluded"
   },
   "tests": {
     "native": 16,
@@ -65,7 +66,7 @@
     "existing_acquisition": 22,
     "sidecar": 18,
     "cycle04": 56,
-    "result": "FULL_ACCEPTANCE_PASS_PENDING_FINAL_CI",
+    "result": "PASS",
     "full": 563,
     "skipped": 0
   },
@@ -118,5 +119,30 @@
     "initial_formal_failure": "stale acceptance: source hash mismatch",
     "acceptance_basis_run": 38349639228,
     "acceptance_manifest_sha256": "b0f2dc77b15194a91b6d85e31301c4ffe615ff1ea76f56375e927410e9f79800"
-  }
+  },
+  "status": "IMPLEMENTATION_ACCEPTED_WINDOWS_AND_TWO_MEETINGS_OPEN",
+  "ci": [
+    {
+      "run_id": 38349990174,
+      "job_id": 115139957139,
+      "steps": 13,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38349990174"
+    },
+    {
+      "run_id": 38349990393,
+      "job_id": 115139958286,
+      "steps": 6,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38349990393"
+    },
+    {
+      "run_id": 38349990159,
+      "job_id": 115139957238,
+      "steps": 22,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38349990159"
+    }
+  ],
+  "verification_basis_commit": "8bb4dc25696f5e084ee3fb9db4e0ff14859170aa"
 }

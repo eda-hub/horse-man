@@ -1,7 +1,7 @@
 {
   "schema_version": "numbered-task-acceptance-v1",
   "task": 29,
-  "status": "NATIVE_IMPLEMENTATION_PASS_PENDING_FINAL_CI_WINDOWS_LIVE_OPEN",
+  "status": "OFFICIAL_PROVIDER_IMPLEMENTATION_ACCEPTED_WINDOWS_AND_TWO_MEETINGS_OPEN",
   "inputs": {
     "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
     "pr69": "4b7651acb589a8f4881d1ec4752e567ccae4f960",
@@ -24,8 +24,9 @@
     "readiness": 9,
     "local_http_failure_fallback": "PASS",
     "result": "PASS",
-    "full": 540,
-    "skipped": 0
+    "full": 563,
+    "skipped": 0,
+    "additional_provider": 23
   },
   "protected": {
     "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
@@ -116,8 +117,8 @@
     "method": "実CI全540回帰/skip0と一致する96入力manifestを保存"
   },
   "implementation_commit": "19875177de7c8fc60b50f1a9357dcb28d0804a77",
-  "verification_basis_commit": "d2de3699328178eea2bd52ee28a5b681dd5e5ae3",
-  "manifest_sources": 111,
+  "verification_basis_commit": "8bb4dc25696f5e084ee3fb9db4e0ff14859170aa",
+  "manifest_sources": 115,
   "requirements": [
     {
       "requirement": "主/代替のHTTP取得・障害再現・出力一致",
@@ -143,6 +144,14 @@
     {
       "requirement": "11日当時の原因不明を保持",
       "result": "PASS"
+    },
+    {
+      "requirement": "公式SDKに基づくJV-Link2経路・8券種正規化",
+      "result": "PASS_SPEC_IMPLEMENTATION_AND_SYNTHETIC_REGRESSION"
+    },
+    {
+      "requirement": "2開催の原応答/独立receipt/発走前Git/公式scope受入",
+      "result": "CHECKER_IMPLEMENTED_REAL_MEETINGS_OPEN"
     }
   ],
   "ci": [
@@ -204,6 +213,31 @@
     "initial_formal_run": 38349639239,
     "initial_formal_failure": "stale acceptance: source hash mismatch",
     "acceptance_basis_run": 38349639228,
-    "acceptance_manifest_sha256": "b0f2dc77b15194a91b6d85e31301c4ffe615ff1ea76f56375e927410e9f79800"
+    "acceptance_manifest_sha256": "b0f2dc77b15194a91b6d85e31301c4ffe615ff1ea76f56375e927410e9f79800",
+    "ci": [
+      {
+        "run_id": 38349990174,
+        "job_id": 115139957139,
+        "steps": 13,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38349990174"
+      },
+      {
+        "run_id": 38349990393,
+        "job_id": 115139958286,
+        "steps": 6,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38349990393"
+      },
+      {
+        "run_id": 38349990159,
+        "job_id": 115139957238,
+        "steps": 22,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38349990159"
+      }
+    ],
+    "verification_basis_commit": "8bb4dc25696f5e084ee3fb9db4e0ff14859170aa",
+    "implementation_acceptance": "PASS"
   }
 }
