@@ -2,7 +2,7 @@
 
 ### 29番チャット方式の実装結果（2026-10-13、最新状態）
 
-利用者指示「29を実施しろ」により29-C02→C04→C05を実施。PR69実装commit `28309091799e12aab81f46aa1ff0acead2e81ad6`。公開本文の8券種正規化、本文/URL/掲載・閲覧時刻の保存と再計算、独立receipt・既存市場writerへの接続、日本語表示、チャット専用2開催checkerを実装した。新規33件・既存市場47件、関連113件と原子的整合はローカル成功。14変更ファイルのGitHub保存readback一致。統合CI全597件・skip0と研究CIは成功。通常CIの旧受入hash検出を実CIの105入力へ更新した受入commitは `39abfb2824a11d9d984a4534a9e99f13d71ce448`。最終3系統の結果は追補記録で固定する。
+利用者指示「29を実施しろ」により29-C02→C04→C05を実施。PR69実装commit `28309091799e12aab81f46aa1ff0acead2e81ad6`。公開本文の8券種正規化、本文/URL/掲載・閲覧時刻の保存と再計算、独立receipt・既存市場writerへの接続、日本語表示、チャット専用2開催checkerを実装した。新規33件・既存市場47件、関連113件と原子的整合はローカル成功。14変更ファイルのGitHub保存readback一致。統合CI全597件・skip0と研究CIは成功。通常CIの旧受入hash検出を実CIの105入力へ更新した受入commitは `39abfb2824a11d9d984a4534a9e99f13d71ce448`。同受入HEADの[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38366564646)13step・[統合CI](https://github.com/eda-hub/horse-man/actions/runs/38366564707)6step・[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38366564574)22stepは全success。全597回帰・skip0、105入力hash一致、122source原子的整合。最終記録commit `399a294b98ec4aa0df388ad26f8bfbd05085fb33`。
 
 | 子タスク | 現在状態・受入境界 |
 |---|---|
@@ -13,7 +13,7 @@
 | 29-C06/C07 | 公式scope・対象券/締切/保存先を実測前に固定し、別の2開催で取得・当時Git/独立receiptを照合する。今日のダミーscope/事前証跡は作らない |
 | 29-C08 | 専用checkerを準備、真正な2開催・8券種網羅・別提供元の実接続確認が揃うまで継続検証 |
 
-[操作と残条件](https://github.com/eda-hub/horse-man/blob/28309091799e12aab81f46aa1ff0acead2e81ad6/docs/validation/market-chat-acquisition.md) / [checkpoint](https://github.com/eda-hub/horse-man/blob/28309091799e12aab81f46aa1ff0acead2e81ad6/docs/validation/implementation/2026-10-13-task29-chat.json)。実測日・件数はnull。Windows/サーバー/WebUIは対象外、親29はOPEN。次の29内入口は実開催の29-C03/C06、独立作業入口は30-01。旧29-C02/C04/C05未着手記述より本節を優先する。
+[操作と残条件](https://github.com/eda-hub/horse-man/blob/28309091799e12aab81f46aa1ff0acead2e81ad6/docs/validation/market-chat-acquisition.md) / [checkpoint](https://github.com/eda-hub/horse-man/blob/28309091799e12aab81f46aa1ff0acead2e81ad6/docs/validation/implementation/2026-10-13-task29-chat.json)。実測日・件数はnull。Windows/サーバー/WebUIは対象外、親29はOPEN。今回の29-C02は調査完了として固定し、発走前実測へ代用しない。次の29内入口は実開催の29-C03/C06、独立作業入口は30-01。旧29-C02/C04/C05未着手記述より本節を優先する。
 
 
 
