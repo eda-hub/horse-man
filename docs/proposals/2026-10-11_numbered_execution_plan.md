@@ -588,3 +588,8 @@ PR69旧workflow固定commit `11f4f339391be34bb6fbbc15edbd812e4b0641df` から研
 最終checkpoint commit `e8d875cb843c815d6e40e38fbcf908c65e99dfda` にCOMPLETE・実main/branch別結果・CI基準commit/run・初回失敗・受入更新を保存。[checkpoint](https://github.com/eda-hub/horse-man/blob/e8d875cb843c815d6e40e38fbcf908c65e99dfda/docs/validation/handoffs/2026-10-13-s03.json)。正式/研究workflowの既存bytes、Owner、旧記録/receipt/KPI/研究dataを保持。実レース実行、性能昇格、Windows/JRA-VAN接続を合成成功へ混ぜない。PR69 Draft維持、mainへのマージなし。
 
 **S03の全受入完了。既往1〜27番とS01〜S03完了。次は28番。** 28〜53を一括完了とせず、上段の差分対応と元番号/前提/小バッチに従って実施する。
+
+
+#### S03の最終HEAD確認
+
+完了証跡のみを更新したPR69 HEAD `e8d875cb843c815d6e40e38fbcf908c65e99dfda` の自動通常CI [38343152352](https://github.com/eda-hub/horse-man/actions/runs/38343152352) 初回は、旧readiness回帰のTemporaryDirectory cleanupでGit objectsの `OSError: Directory not empty` が発生。契約/Owner/hash判定の失敗ではない。同一commitの統合受入 [38343152351](https://github.com/eda-hub/horse-man/actions/runs/38343152351) は全500件/skip0、研究 [38343152369](https://github.com/eda-hub/horse-man/actions/runs/38343152369) はsuccess。ソース・検査を変更せず通常CIの失敗jobだけ再実行し、attempt 2 / job `115118951431` は全13step・500回帰success。初回終了処理エラーを隠さずここへ保持する。最終HEADのdata/scripts/workflow/Ownerは検証基準commitから不変、完了checkpointと計画・PR本文のreadback一致。main更新なし、PR69 Draft・未マージ。次は28番。
