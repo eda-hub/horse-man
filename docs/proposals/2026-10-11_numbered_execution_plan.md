@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-13 JST）: **既往1〜27番とS01〜S02完了。S03は未着手。次はS03。28〜53番は下記の既存実装/差分対応に従う。**
+- 最新実施状態（2026-10-13 JST）: **既往1〜27番とS01〜S03完了。次は28番。28〜53番は下記の既存実装/差分対応に従う。**
 
 
 ## 2026-10-13 main更新による差分実装計画（現在の実行入口）
@@ -27,13 +27,13 @@ PR79はPR69の25〜27と推奨等を対象選択して再利用し、PR81は候�
 
 ### 先に行う順序（S01〜S03）
 
-「続き」「順に実施」の次の入口は **S03**。28番等の実装はS01〜S03完了後に行う。明示された単独番号で前提が未成立なら、その前提と理由を記録する。S番号は追加の統合単位であり、元の1〜53を振り直さない。
+「続き」「順に実施」の次の入口は **28番**。S01〜S03の統合受入は完了。明示された単独番号で前提が未成立なら、その前提と理由を記録する。S番号は追加の統合単位であり、元の1〜53を振り直さない。
 
 | 順序 | 作業・対象 | 前提 | 完了条件 |
 |---|---|---|---|
 | S01 | **完了（2026-10-13）** 最新mainをPR69へ三方統合。AGENTS/DECISIONS/README/Phase/validation/contract-state/共通checker・CIの競合を解消 | 開始直前にmainとPR69 HEADを再固定 | 現在mainの正式契約を採用し、PR69のRegistry/26snapshot/原票/1〜27証跡を保持。両親commit、競合解消内容、path別blob/readback、研究data不変を保存。mainへPR69をマージしない |
 | S02 | **完了（2026-10-13）** 監査・台帳入口の統合。正式v1.7.0 manifest対象はmainの同一bytesを基準にし、研究監査を保全 | S01 | mainの第3終了/第4/推奨/正式版監査を保持。PR69の血統・統計監査は独立workflow等へ接続し、既存正式workflowのhashを無言変更しない。次期Markdown `prediction-day-v2` checkerは準備/履歴readerとして区分し、第4JSON writerへ二重登録しない。manifest対象を変更する場合は全依存の再生成・readback・受入が必須 |
-| S03 | 新旧回帰fixtureを整合し、再利用コードの接続を再検証 | S02 | mainの旧 `test_check_prediction_compliance.py` / `test_verify_prediction_persistence.py` を保持し、PR69からコピー済みの新版fixtureはmainの `test_next_*` と照合。重複移植による旧回帰消失を防ぐ。`test_task_completion.py` / `test_recommendation.py` の参照差をmainへ合わせ、Registry回帰を保持。全回帰・通常CI・第3資料再計算・第4合成受入・正式版readinessを確認。実運用開始認証は取得済みmainとの一致を独立検査 |
+| S03 | **完了（2026-10-13）** 新旧回帰fixtureを整合し、再利用コードの接続を再検証 | S02 | mainの旧 `test_check_prediction_compliance.py` / `test_verify_prediction_persistence.py` を保持し、PR69からコピー済みの新版fixtureはmainの `test_next_*` と照合。重複移植による旧回帰消失を防ぐ。`test_task_completion.py` / `test_recommendation.py` の参照差をmainへ合わせ、Registry回帰を保持。全回帰・通常CI・第3資料再計算・第4合成受入・正式版readinessを確認。実運用開始認証は取得済みmainとの一致を独立検査 |
 
 S01で同じpathが異なる候補は、workflow、AGENTS、DECISIONS、README、JRA-VAN文書/Phase、validation README/cycle03/contract-state、compliance、selection、PR78 auditと一部回帰。全候補がテキスト競合するとは断定しない。実際の競合は三方統合時に列挙する。README/manifest/全Ownerがv1.7.0、契約がACTIVEであることを同一commitで整合する。
 
@@ -573,3 +573,18 @@ PR69旧workflow固定commit `11f4f339391be34bb6fbbc15edbd812e4b0641df` から研
 最終checkpoint commit `9c9daf1be40e7b44a59ec91c474edca583e0f680` でS02 COMPLETEと両CIの検証基準commit・run IDを保存、本文readback一致。これはcheckpointだけの更新で、コード/正式workflow/manifest/研究dataは実装commitから不変。入口一覧 [audit-entrypoints](https://github.com/eda-hub/horse-man/blob/9c9daf1be40e7b44a59ec91c474edca583e0f680/docs/validation/audit-entrypoints.md)、[checkpoint](https://github.com/eda-hub/horse-man/blob/9c9daf1be40e7b44a59ec91c474edca583e0f680/docs/validation/handoffs/2026-10-13-s02.json) を参照。
 
 **S02の全受入完了。既往1〜27番とS01を維持。S03は未着手、次はS03。** 準備reader/研究成功を正式KPIや前向き性能へ混ぜず、未依頼第4台帳・実測0・事前証跡を作成しない。PR69 Draft維持、mainへのマージなし。
+
+
+### S03完了：新旧回帰・全入口合成受入・実main開始確認（2026-10-13 JST）
+
+開始main `38dcd3266613e52ced2b6d144d6da8a54fb4a675`、開始PR69 `9c9daf1be40e7b44a59ec91c474edca583e0f680`。S02からmain更新なし。旧compliance/persistence、新版test_next_*、task_completion/recommendationの6fixtureはmainとGit blob同一。旧回帰を削除せず、新版を重複移植しない。readinessの旧4回帰を保持し、実Git worktreeの一致/cleanup・未マージ拒否・main参照欠落・固定SHA違い・入力改変の5回帰を追加。関連247件成功。
+
+`check_integration_acceptance.py --full` と独立workflowを追加し、第3再計算・全合成受入・取得したorigin/mainの実SHAをdetach worktreeで検証。Git参照の模擬差替えなし。main `38dcd3266613e52ced2b6d144d6da8a54fb4a675` の66source契約は標準require_mainでoperational_ready=true、PR69の107source契約は正確な未マージ条件でUNMERGED_CONTRACT_REJECTED/false。参照欠落やOwner改変等は期待した開始拒否として受理しない。対象入力bytes不変。
+
+実装commit `515426c54a54dc54f7e5bd4a5c0ecd7fb48e9ecf` の通常CIは保存済み受入のstale source hashで失敗。全500回帰と独立合成受入は既に成功していた。失敗を保存し、独立CIで検証した92入力manifestのcanonical SHA256 `6af5e4a6e6b687a544fa0127c2bc6e9650c5298c9d9422b575c05f1d27c0724c` と保存用入力manifestの完全一致を確認して、commit `d532e1e63e514df9cca380b5d172217694b7f069` に500件の合成受入を再保存した。部分ローカルコピーでは研究data不足により全回帰を再現できないため、成功証跡は実CIの全checkout実行を根拠とする。
+
+再検証：[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38342971946) 全13step・500回帰、[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38342971949) 全22step・17監査、[統合受入CI](https://github.com/eda-hub/horse-man/actions/runs/38342971988) 全6step・500合成回帰/skip0、すべてsuccess。第3終了資料7/7日、入力hash/集合/精算、第4契約と個別採否・受入hash、独立推奨、正式版原子整合が成功。Registry15,321個体・26snapshot/invalid0、data tree `0691e0fee7bfdf4671042e99c465c10a451d1ac9` 不変。
+
+最終checkpoint commit `e8d875cb843c815d6e40e38fbcf908c65e99dfda` にCOMPLETE・実main/branch別結果・CI基準commit/run・初回失敗・受入更新を保存。[checkpoint](https://github.com/eda-hub/horse-man/blob/e8d875cb843c815d6e40e38fbcf908c65e99dfda/docs/validation/handoffs/2026-10-13-s03.json)。正式/研究workflowの既存bytes、Owner、旧記録/receipt/KPI/研究dataを保持。実レース実行、性能昇格、Windows/JRA-VAN接続を合成成功へ混ぜない。PR69 Draft維持、mainへのマージなし。
+
+**S03の全受入完了。既往1〜27番とS01〜S03完了。次は28番。** 28〜53を一括完了とせず、上段の差分対応と元番号/前提/小バッチに従って実施する。
