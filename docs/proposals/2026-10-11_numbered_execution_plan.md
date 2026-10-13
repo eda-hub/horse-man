@@ -942,3 +942,5 @@ Brier・◎勝利・上位1/3/6捕捉・差・改善/中立/悪化を読取計�
 新規18・関連109回帰成功。実統合CI全688件/失敗0/skip0、115入力hash一致、134source整合。初回通常CIのstaleは成功hashで受入更新し履歴を保持。[checkpoint](https://github.com/eda-hub/horse-man/blob/16b81dc11ef74a1b95c78d0740c3a84bfb71a640/docs/validation/implementation/2026-10-13-task37.json)。実装 b2901c4587d9fb18d987da5ffeaef8033df844b9、受入更新 16b81dc11ef74a1b95c78d0740c3a84bfb71a640。
 
 37番のコード/合成固定例/試験準備受入と、37-05の実測・非劣化受入を区別。37-05は将来実データ待ちOPEN、実例効果/校正/全対象coverageも継続検証。Owner/正式schema/Prediction値/推奨券/data/既存workflow・旧履歴保持、main更新/マージなし。次の独立入口38-01。29実測OPENを維持。
+
+37番最終実装受入：[checkpoint](https://github.com/eda-hub/horse-man/blob/14b575eb60fca373d0dfe977cf2b7f4239d709e1/docs/validation/implementation/2026-10-13-task37.json)。受入基準 16b81dc11ef74a1b95c78d0740c3a84bfb71a640 の通常38395509639・統合38395509599・研究38395509618は全success。688回帰/skip0、115入力hash・134source整合。最終記録はcheckpointのみ、コード/manifest/受入入力不変。37番の実装/試験準備受入と、将来実測37-05/非劣化/校正/実例効果のOPENを明確に分離。次の独立入口38-01。
