@@ -287,15 +287,8 @@ def validate_ticket_comparison(rows, *, horses, frames):
             key = ticket_event(t, horses=horses, frames=frames)
             require(key not in keys, 'duplicate ticket event')
             keys.add(key)
-            method, probability = t.get('probability_method'), t.get('probability')
-            require(method in {'MISSING', 'UNCALIBRATED', 'DISCRETIONARY', 'CALIBRATED'},
-                    'explicit probability calibration state required')
-            require((method == 'MISSING' and probability is None) or
-                    (method != 'MISSING' and type(probability) in (int, float) and
-                     math.isfinite(probability) and 0 <= probability <= 1), 'invalid joint probability')
-            require(method != 'CALIBRATED' or bool(t.get('calibration_ref')), 'calibration evidence required')
-            require(method == 'CALIBRATED' or t.get('calibrated_lower_bound') is None,
-                    'uncalibrated probability cannot claim a calibrated lower bound')
+            from probability_presentation import validate as validate_probability
+            validate_probability(t)
     return {'event_count': len(keys), 'optimality_certified': False}
 
 

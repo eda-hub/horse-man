@@ -16,7 +16,8 @@ def build(root):
         'docs/validation/contracts/cycle04-launch.json','docs/validation/execution-gates/contract-state.json',
         'docs/validation/reviews/cycle_03/decisions.json','docs/validation/templates/chatgpt_prediction_task.md',
         'docs/validation/market-chat-acquisition.md','docs/validation/contracts/chat-market-acquisition.json',
-        'docs/validation/market-chat-research/2026-10-13/replay-pages.json')}
+        'docs/validation/market-chat-research/2026-10-13/replay-pages.json',
+        'docs/validation/probability-presentation.md')}
     return {'schema_version':'manual-release-readiness-v1','manual_release':'v1.7.0',
             'activation_policy':'MAIN_MERGE','cycle_id':'cycle_04','performance_promotion':'NOT_APPROVED',
             'source_manifest':[{'path':p.relative_to(root).as_posix(),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}

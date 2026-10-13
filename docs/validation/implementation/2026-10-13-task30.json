@@ -1,0 +1,42 @@
+{
+  "schema_version": "task30-checkpoint-v1",
+  "task": 30,
+  "input_pr69_sha": "399a294b98ec4aa0df388ad26f8bfbd05085fb33",
+  "input_pr68_sha": "3ca5c1994c686d533c472459ba13ea04184ac44d",
+  "status": "IMPLEMENTED_LOCAL_ACCEPTANCE_CI_PENDING",
+  "tasks": {
+    "30-01": "CENTER_AND_BASIS_DISPLAY_VERIFIED",
+    "30-02": "NULL_VERSUS_ZERO_VERIFIED",
+    "30-03": "RANGE_AND_CALIBRATED_LOWER_SEPARATION_VERIFIED"
+  },
+  "implementation": {
+    "entry": "scripts/probability_presentation.py",
+    "existing_entry": "cycle04_operations.validate_ticket_comparison",
+    "procedure": "docs/validation/probability-presentation.md",
+    "production_formal_schema_changed": false,
+    "production_basis_not_recorded": "既存Productionの校正区分・レンジは未記録として表示し、比較券の区分を移植しない",
+    "calibration_reference_existence_is_authentication": false
+  },
+  "validation": {
+    "new_tests": 15,
+    "local_related_tests": 131,
+    "failures": 0,
+    "skipped": 0,
+    "local_history_inputs_retrieved": true,
+    "ci": "PENDING"
+  },
+  "protected": {
+    "prediction_values_changed": false,
+    "recommendation_changed": false,
+    "old_artifacts_changed": false,
+    "owner_changed": false,
+    "workflow_changed": false,
+    "data_changed": false
+  },
+  "remaining": {
+    "actual_calibration": "CONTINUE_VALIDATION",
+    "performance_promoted": false,
+    "market_task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
+  },
+  "next": "31-01"
+}
