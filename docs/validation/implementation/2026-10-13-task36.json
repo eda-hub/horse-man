@@ -1,7 +1,7 @@
 {
   "schema_version": "task36-checkpoint-v1",
   "task": 36,
-  "status": "IMPLEMENTED_LOCAL_VERIFIED_CI_PENDING",
+  "status": "IMPLEMENTATION_VERIFIED_ACCEPTANCE_CI_PENDING",
   "input_pr69_sha": "b5be8481f127d5d00c6a84e0cf07dd6d5b5fd700",
   "input_pr68_sha": "af6c45d87627216e3c7cc06547338f9e4afdbb5d",
   "tasks": {
@@ -52,7 +52,23 @@
       "未算定null保持・CLI読取のみ・原本不変",
       "3歳以外の対象外を不明と区別"
     ],
-    "ci": "PENDING"
+    "ci": {
+      "basis_commit": "3886b3444a576e97fb8c52f9f35aeb0dda244166",
+      "integration_run": 38390575060,
+      "research_run": 38390575054,
+      "tests_run": 669,
+      "failures": 0,
+      "skipped": 0,
+      "source_count": 111,
+      "source_manifest_sha256": "9be540a93632f43034cd161ad726f022386312361e5bd25ae4bb36ebd389f8a6",
+      "manifest_source_count": 130,
+      "result": "INTEGRATION_RESEARCH_SUCCESS",
+      "initial_normal_run": 38390337602,
+      "review_normal_run": 38390575285,
+      "normal_failure_reason": "旧受入hashのstaleのみ。実統合CI成功111入力に更新",
+      "first_integration_run": 38390337870,
+      "first_research_run": 38390337885
+    }
   },
   "protected": {
     "production_values_changed": false,
@@ -69,5 +85,7 @@
     "performance_promotion": "NOT_APPROVED",
     "task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
   },
-  "next": "37-01"
+  "next": "37-01",
+  "implementation_commit": "afc6f4bb3d07751023190e2e1d7c31504a8ee4bc",
+  "review_commit": "3886b3444a576e97fb8c52f9f35aeb0dda244166"
 }
