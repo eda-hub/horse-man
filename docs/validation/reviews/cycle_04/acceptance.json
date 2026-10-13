@@ -8,7 +8,7 @@
   "result": "PASS",
   "schema_version": "cycle04-acceptance-v1",
   "skipped": 0,
-  "tests_run": 564,
+  "tests_run": 597,
   "source_manifest": [
     {
       "path": "docs/manual/00_core.md",
@@ -55,6 +55,10 @@
       "sha256": "92ba46759c3c1771a0025c9cfda277c8c12ec42d638c791f3776cf5cef222dc9"
     },
     {
+      "path": "docs/validation/market-chat-research/2026-10-13/replay-pages.json",
+      "sha256": "748653e00d1dbd1c4ed111fbe67531bac0e9ce869f1e880e189eda618f1b99ec"
+    },
+    {
       "path": "docs/validation/reviews/cycle_03/collection.json",
       "sha256": "d409f29ff376b0b20f432e473a0ec5b6ad4351514ca9dfe3ccfb85e5338fd9c4"
     },
@@ -76,11 +80,19 @@
     },
     {
       "path": "scripts/build_v170_manifest.py",
-      "sha256": "a33b550470b487370ebeed18fdc5cc8ca50721ef98f64a8ae0e7e7744eba9b3e"
+      "sha256": "712c7d1916e18fb9308272c52c5168be1ab7ee92364cea5c4e0ed1ca6e585ae4"
+    },
+    {
+      "path": "scripts/chat_market_acquisition.py",
+      "sha256": "b38cfe956676df6bf5675643bb1e61343e61b92678b604e633e21c8ac14de211"
     },
     {
       "path": "scripts/check_betting_performance.py",
       "sha256": "443977e86411c4e227b03dc3328ac9712a558f62e39b1c4afefe0b00d35cc923"
+    },
+    {
+      "path": "scripts/check_chat_market_live_validation.py",
+      "sha256": "cac018f4953e96ca978fbd7ce918400e39c75092654b15378776257348bf214b"
     },
     {
       "path": "scripts/check_cycle03.py",
@@ -180,7 +192,7 @@
     },
     {
       "path": "scripts/cycle04_operations.py",
-      "sha256": "459db17beab06aab4281be9386bf43e2dc450a03160838b9635c75b580aa461b"
+      "sha256": "df91c7b71d134fb70a5d7aca4845ca15c757539aa65a938bc665907073178521"
     },
     {
       "path": "scripts/cycle04_workflow.py",
@@ -196,11 +208,11 @@
     },
     {
       "path": "scripts/market_acquisition.py",
-      "sha256": "51f7baaf3a2935740ac161abdd2ad42cb8fdb62bae7ef4e38c3608e32334e9ac"
+      "sha256": "7acc5330b81c856e03dc4026879431fbd3b0310523ce117a7f9a6304ca79041b"
     },
     {
       "path": "scripts/market_sidecar.py",
-      "sha256": "5fc4d0bd3f20dd7b4aae92d6fef012bb47503059254ac0099d3fe413291d4f1e"
+      "sha256": "7ed95c1f00aff751ce3b74873cfda46daa2e69e4a5e88faba071f3158dd31229"
     },
     {
       "path": "scripts/pedigree_batch.py",
@@ -224,7 +236,7 @@
     },
     {
       "path": "scripts/run_cycle04_acceptance.py",
-      "sha256": "9059a11b468b476fac4a277491fa52c5d44c7a8d2fd173e7214be8bf54d96277"
+      "sha256": "cce8d2f014bba367ca3c3476b629dd4eab398d46e38f08820214e4f6d741033b"
     },
     {
       "path": "scripts/run_release_readiness.py",
@@ -249,6 +261,14 @@
     {
       "path": "scripts/test_build_cycle03_review.py",
       "sha256": "9556243255b6036540c2d651cbb8de7e8af5e32ab4a4a4b43a5a774a73faf9df"
+    },
+    {
+      "path": "scripts/test_chat_market_acquisition.py",
+      "sha256": "0b4498c123520c921982b99bcdadce800a4f791da07b4b2dbcbafb36364b0a0b"
+    },
+    {
+      "path": "scripts/test_chat_market_live_validation.py",
+      "sha256": "d564caf28e4acb052993748f4fa7cf8263186e0df583d9bf85167adb978b9281"
     },
     {
       "path": "scripts/test_check_betting_performance.py",

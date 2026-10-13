@@ -3,7 +3,7 @@
   "task": 29,
   "input_pr69_sha": "d1d050b8337f61bbb234df79a6918555b3ae5461",
   "input_pr68_sha": "e793f0f4d796941a476e5bd9d949e41aac8f4f4c",
-  "status": "IMPLEMENTATION_VERIFIED_LIVE_VALIDATION_OPEN",
+  "status": "IMPLEMENTATION_INTEGRATION_CI_VERIFIED_LIVE_VALIDATION_OPEN",
   "tasks": {
     "29-C02": "SOURCE_RESEARCH_COMPLETE_FORWARD_OPEN",
     "29-C04-01": "IMPLEMENTED",
@@ -32,7 +32,27 @@
     },
     "real_replay_ticket_types": 8,
     "real_replay_forward_registered": false,
-    "ci": "PENDING"
+    "ci": {
+      "integration": {
+        "run_id": 38366064708,
+        "result": "SUCCESS",
+        "tests_run": 597,
+        "skipped": 0,
+        "source_count": 105,
+        "source_manifest_sha256": "757618d7970f2d22a3212c2d54c185ba632b12b9bfd1470418ea3b2002f97ba9"
+      },
+      "research": {
+        "run_id": 38366064659,
+        "result": "SUCCESS"
+      },
+      "initial_normal": {
+        "run_id": 38366064776,
+        "result": "FAILED_STALE_ACCEPTANCE_HASH",
+        "regression_tests": 597,
+        "action": "統合CIの実成功に一致する105入力hashでacceptanceを更新"
+      },
+      "final": "PENDING"
+    }
   },
   "review_fixes": [
     "三連単上限を999999.9へ是正",
@@ -55,5 +75,7 @@
   "prediction_recommendation_changed": false,
   "performance_promoted": false,
   "windows_followup": "OUT_OF_SCOPE_BY_USER_CHANGE",
-  "next": "29-C03/06の実開催待ち。独立作業30-01"
+  "next": "29-C03/06の実開催待ち。独立作業30-01",
+  "implementation_commit": "28309091799e12aab81f46aa1ff0acead2e81ad6",
+  "remote_readback_files": 14
 }
