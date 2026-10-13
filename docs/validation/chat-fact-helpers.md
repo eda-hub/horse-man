@@ -70,3 +70,6 @@ FORWARD/REPLAY/SYNTHETICの区分を結果sidecarへ引き継ぎ、合成/Replay
 ## 53-I08 公式結果訂正の追加履歴
 `python3 scripts/chat_result_correction.py request.json --root . --as-of <時点>`で旧新の本文再照合・固定参照・訂正通知・観測順序・差分を確認。`--append`は専用result-corrections配下へ排他的に追加し、同IDの上書きを拒否。旧回顧/KPI参照を保持し、KPI採用はOwner審査待ち。旧予想/推奨の差替えや正式訂正のない実レースへの履歴作成は不可。
 訂正元の取り違え防止として、I06注釈へrace_identity引用を追加。日付/場/レース番号/予定発走と一致する同一取得本文から確定・全頭行を照合する。対応場は東京/京都/新潟、未知形式は保留。
+
+## 53-I09 前向き対象の網羅
+`python3 scripts/chat_forward_coverage.py manifest.json --root . --as-of <時点>`。既存第4日の固定day_refsから初回scopeを全件保持。独立事前保存のchat-forward-assessments-v1（全頭assessment）と固定gate/result参照付きitemsを照合。未確認を非該当化せず、重複/選択的除外/別scope/別assessmentを拒否。空データは件数nullの待機。網羅・期間・校正・性能昇格を分離しtrial_completeはfalse。未来のscopeや実測を生成しない。
