@@ -79,3 +79,6 @@ FORWARD/REPLAY/SYNTHETICの区分を結果sidecarへ引き継ぎ、合成/Replay
 
 ## 53-I11 既存29番の実測再開（受入はOPEN）
 `python3 scripts/chat_market_live_resume.py --root .`は証跡待ちを表示し、実測件数をnullに保持。真正な既存chat-market-live-validation-v1の固定path/hashを`--manifest-ref ref.json`で渡すと、既存checkerの公式scope・当時Git・本文・独立receipt・8券種・2提供元・2開催を再利用して照合。空manifestや未来取得を実測としない。新しい実測日/予定対象数/ダミー台帳を作らない。53-I11の実測受入は未完了、29-C03/C06/C07/C08と同じ残件。市場待ちでPrediction/推奨を止めない。
+
+## 53-I12 任意市場と入力補助の独立性
+`test_chat_helper_market_independence.py`は新規組立入口を実day validatorへ接続し、未依頼/未試行/失敗/締切停止/取得済みを検査。市場登録前後で入力/固定Prediction/推奨bytesとproduction/recommendation KPIを保持し、市場cutoffは別時点に維持。取得本文保存と正式登録の既存分離、価格なし完了を保全。合成回帰で実価格受入を認証しない。
