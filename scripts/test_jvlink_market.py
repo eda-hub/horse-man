@@ -2,6 +2,7 @@
 import copy
 import json
 import os
+import itertools
 import tempfile
 import unittest
 from datetime import datetime
@@ -15,14 +16,40 @@ from test_market_acquisition import Clock, request
 from test_recommendation import DATE, RACE
 
 
+# 公式SDKの位置に固定した独立fixture。実装LAYOUT/LENGTHSを参照しない。
+SDK_FIXTURES = {
+    'WIN':('O1',962,43,8,2,4,False),
+    'PLACE':('O1',962,267,12,2,4,True),
+    'BRACKET_QUINELLA':('O1',962,603,9,2,5,False),
+    'QUINELLA':('O2',2042,40,13,4,6,False),
+    'WIDE':('O3',2654,40,17,4,5,True),
+    'EXACTA':('O4',4031,40,13,4,6,False),
+    'TRIO':('O5',12293,40,15,6,6,False),
+    'TRIFECTA':('O6',83285,40,17,6,7,False)}
+
+
+def fixture_position(kind, numbers):
+    spec,length,base,stride,key_size,width,ranged=SDK_FIXTURES[kind]
+    if kind in {'WIN','PLACE'}:
+        index=numbers[0]-1
+    elif kind=='BRACKET_QUINELLA':
+        index=list(itertools.combinations_with_replacement(range(1,9),2)).index(tuple(numbers))
+    elif kind in {'EXACTA','TRIFECTA'}:
+        index=list(itertools.permutations(range(1,19),len(numbers))).index(tuple(numbers))
+    else:
+        index=list(itertools.combinations(range(1,19),len(numbers))).index(tuple(numbers))
+    return base+index*stride
+
+
 def record(kind='QUINELLA', numbers=None, date=DATE, code=None, price=125):
-    spec, offset, count, stride, key_size, width, ranged = jv.LAYOUT[kind]
-    raw = bytearray(b' ' * jv.LENGTHS[spec]); raw[-2:] = b'\r\n'
+    spec,length,base,stride,key_size,width,ranged=SDK_FIXTURES[kind]
+    raw = bytearray(b' ' * length); raw[-2:] = b'\r\n'
     raw[:3] = (spec+'1').encode(); raw[3:11] = date.replace('-','').encode()
     raw[11:27] = (date.replace('-','')+'05'+'04'+'01'+'01').encode()
     raw[27:35] = (date[5:7]+date[8:10]+'0859').encode()
     raw[39:42] = b'777'
     if numbers is None: numbers = [2] if kind in {'WIN','PLACE'} else ([2,5,6] if kind in {'TRIO','TRIFECTA'} else [2,5])
+    offset=fixture_position(kind,numbers)
     field = ''.join(str(v) if kind == 'BRACKET_QUINELLA' else f'{v:02d}' for v in numbers)
     raw[offset:offset+key_size] = field.encode()
     raw[offset+key_size:offset+key_size+width] = f'{price:0{width}d}'.encode()
@@ -52,7 +79,7 @@ class NativeTests(unittest.TestCase):
                                    now=self.clock.now,sleep=self.clock.sleep)
 
     def test_all_eight_ticket_types_and_observed_range(self):
-        for kind in jv.LAYOUT:
+        for kind in SDK_FIXTURES:
             req = native_request(kind)
             data = jv.normalize(record(kind),req,self.clock.now())
             self.assertEqual(data['odds'],12.5)
@@ -78,15 +105,15 @@ class NativeTests(unittest.TestCase):
 
     def test_unavailable_price_and_sale_flag_rejected(self):
         for value in [b'000000',b'------',b'******',b'      ',b'999999',b'099999']:
-            raw = bytearray(record()); raw[44:50] = value
+            raw = bytearray(record()); pos=fixture_position('QUINELLA',[2,5]); raw[pos+4:pos+10] = value
             with self.assertRaises(ComplianceError): jv.normalize(bytes(raw),self.req,self.clock.now())
         raw = bytearray(record()); raw[39:40] = b'0'
         with self.assertRaises(ComplianceError): jv.normalize(bytes(raw),self.req,self.clock.now())
 
     def test_duplicate_combination_and_reversed_range_rejected(self):
-        raw = bytearray(record()); raw[53:66] = raw[40:53]
+        raw = bytearray(record()); pos=fixture_position('QUINELLA',[2,5]); raw[pos+13:pos+26] = raw[pos:pos+13]
         with self.assertRaises(ComplianceError): jv.normalize(bytes(raw),self.req,self.clock.now())
-        raw = bytearray(record('WIDE')); raw[49:54] = b'00001'
+        raw = bytearray(record('WIDE')); pos=fixture_position('WIDE',[2,5]); raw[pos+9:pos+14] = b'00001'
         with self.assertRaises(ComplianceError): jv.normalize(bytes(raw),native_request('WIDE'),self.clock.now())
 
     def test_whole_and_specific_routes_are_frozen_and_manual_urls_unnecessary(self):
@@ -162,3 +189,11 @@ class NativeTests(unittest.TestCase):
         with patch('jvlink_market.os.name','nt'), patch('jvlink_market.subprocess.run',
                 side_effect=subprocess.TimeoutExpired('worker',.1)):
             self.assertEqual(jv.fetch(self.req['routes'][0]['source_url'],.1),(None,None,None,'TRANSPORT_ERROR'))
+
+    def test_windows_capture_paths_remain_git_portable(self):
+        from pathlib import PureWindowsPath
+        with patch('market_acquisition.Path',PureWindowsPath):
+            p,raws=self.capture()
+        self.assertTrue(all('\\' not in path and path.startswith('evidence/run/responses/') for path in raws))
+        acquisition.save(self.root,'evidence/run',p,raws)
+        acquisition.verify_responses(self.root,p)

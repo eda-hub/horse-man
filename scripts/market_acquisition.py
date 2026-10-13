@@ -148,7 +148,7 @@ def collect(request, evidence_dir, *, fetch=None,
             if raw is not None:
                 require(isinstance(raw, bytes), 'raw response bytes required')
                 sha = hashlib.sha256(raw).hexdigest()
-                path = str(Path(evidence_dir)/'responses'/(sha+'.bin'))
+                path = (Path(evidence_dir)/'responses'/(sha+'.bin')).as_posix()
                 responses[path] = raw
                 ref = {'artifact_path': path, 'sha256': sha, 'bytes': len(raw), 'complete': complete}
             data = None
