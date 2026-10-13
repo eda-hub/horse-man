@@ -76,3 +76,6 @@ FORWARD/REPLAY/SYNTHETICの区分を結果sidecarへ引き継ぎ、合成/Replay
 
 ## 53-I10 校正・非劣化審査の読取入力
 `python3 scripts/chat_calibration_review.py manifest.json --root . --as-of <時点>`。I09と同じscope/同一cutoff/固定基準/共通入力/公式結果から全頭確率と0/1結果、Brier/捕捉、条件層別、固定券の点数・依存監査を出力。未提出/未確認を保持。実測なしの件数・指標はnull。旧購入ROI/任意市場ROIを混ぜず、下限や新閾値を作らない。校正/非劣化は既存50_reviewの別審査で未受入。
+
+## 53-I11 既存29番の実測再開（受入はOPEN）
+`python3 scripts/chat_market_live_resume.py --root .`は証跡待ちを表示し、実測件数をnullに保持。真正な既存chat-market-live-validation-v1の固定path/hashを`--manifest-ref ref.json`で渡すと、既存checkerの公式scope・当時Git・本文・独立receipt・8券種・2提供元・2開催を再利用して照合。空manifestや未来取得を実測としない。新しい実測日/予定対象数/ダミー台帳を作らない。53-I11の実測受入は未完了、29-C03/C06/C07/C08と同じ残件。市場待ちでPrediction/推奨を止めない。
