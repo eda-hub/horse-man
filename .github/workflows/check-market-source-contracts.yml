@@ -1,0 +1,38 @@
+name: 29番の公式取得先とSDK形式の照合
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/check-market-source-contracts.yml'
+permissions:
+  contents: read
+jobs:
+  source-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: 公式SDKと公開オッズ入口の応答を照合
+        run: |
+          python3 - <<'PY'
+          import urllib.request,urllib.error,json,hashlib,zipfile,io,re
+          urls=['https://jra-van.jp/dlb/sdv/sdk/JVDTLABSDK500_64bit.zip','https://www.jra.go.jp/','https://sp.jra.jp/']
+          for url in urls:
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'horse-man-source-contract-check/1'}),timeout=40) as r:
+                      raw=r.read(100000001)
+                      print('SOURCE_CHECK_JSON '+json.dumps({'url':url,'status':r.status,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}))
+                  if url.endswith('.zip'):
+                      z=zipfile.ZipFile(io.BytesIO(raw))
+                      names=[n for n in z.namelist() if n.endswith('.py')]
+                      print('SDK_PYTHON_FILES '+json.dumps(names))
+                      for n in names:
+                          if any(k.lower() in n.lower() for k in ['sample','jvlink','JVData']):
+                              data=z.read(n).decode('utf-8-sig',errors='replace')
+                              lines=[x.strip() for x in data.splitlines() if any(k in x for k in ['JVRTOpen','JVRead','JVInit','JVGets','WinDLL','LoadLibrary','Dispatch','def read','class JV','class JV_','ProgID'])]
+                              print('SDK_INTERFACE '+json.dumps({'file':n,'sha256':hashlib.sha256(z.read(n)).hexdigest(),'symbols':lines[:35]},ensure_ascii=False))
+                  else:
+                      html=raw.decode('utf-8',errors='replace')
+                      links=re.findall(r'(?:src|href)=["\x27]([^"\x27]+)',html)
+                      print('JRA_LINKS '+json.dumps([x for x in links if any(k in x.lower() for k in ['js','odds','accesso'])][:35]))
+              except Exception as e:
+                  print('SOURCE_CHECK_JSON '+json.dumps({'url':url,'error':type(e).__name__,'diagnostic':str(e)}))
+          PY
