@@ -1,11 +1,13 @@
 import json
+import io
+from contextlib import redirect_stdout, redirect_stderr
 import tempfile
 import unittest
 from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).parent))
-from check_prediction_cycle import CycleValidationError, run
+from check_prediction_cycle import CycleValidationError, run, preparation_report, main
 
 
 def write(root, rel, content):
@@ -323,6 +325,57 @@ class PredictionCycleV2Test(unittest.TestCase):
         save(root, obj)
         with self.assertRaisesRegex(CycleValidationError, "status scope mismatch"):
             run(root)
+
+    def test_preparation_report_does_not_certify_empty_data(self):
+        result = preparation_report(self.root())
+        self.assertEqual(result['record_count'], 0)
+        self.assertTrue(result['read_only'])
+        self.assertFalse(result['official_cycle04_checked'])
+        self.assertFalse(result['formal_completion_certified'])
+        self.assertFalse(result['evidence_created'])
+
+    def test_formal_json_is_outside_reader_scope(self):
+        root = self.root()
+        path = write(root, 'docs/validation/records/cycle_04/2026-10-17.json', 'not valid JSON')
+        before = path.read_bytes()
+        self.assertEqual(preparation_report(root)['record_count'], 0)
+        self.assertEqual(path.read_bytes(), before)
+
+    def test_same_date_preparation_and_formal_are_not_combined_or_written(self):
+        root = self.root()
+        save(root, record())
+        write(root, 'docs/validation/records/cycle_04/2026-10-17.json', '{}')
+        before = {str(p.relative_to(root)): p.read_bytes() for p in root.rglob('*') if p.is_file()}
+        result = preparation_report(root)
+        self.assertEqual(result['record_count'], 1)
+        self.assertFalse(result['formal_completion_certified'])
+        self.assertEqual(before, {str(p.relative_to(root)): p.read_bytes() for p in root.rglob('*') if p.is_file()})
+
+    def test_cli_json_exposes_reader_boundary(self):
+        root = self.root()
+        output = io.StringIO()
+        with redirect_stdout(output):
+            self.assertEqual(main(['--root', str(root), '--json']), 0)
+        report = json.loads(output.getvalue())
+        self.assertEqual(report['record_contract'], 'prediction-day-v2')
+        self.assertFalse(report['official_cycle04_checked'])
+        self.assertFalse(report['formal_completion_certified'])
+
+    def test_invalid_preparation_fails_cli_without_repair(self):
+        root = self.root()
+        path = write(root, 'docs/validation/records/2026-10-17.md', '```prediction-day-v2\n{invalid}\n```\n')
+        before = path.read_bytes()
+        with redirect_stderr(io.StringIO()):
+            self.assertEqual(main(['--root', str(root), '--json']), 1)
+        self.assertEqual(path.read_bytes(), before)
+
+    def test_reader_cli_rejects_write_operation(self):
+        root = self.root()
+        before = {str(p.relative_to(root)): p.read_bytes() for p in root.rglob('*') if p.is_file()}
+        with redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
+            main(['--root', str(root), '--write'])
+        self.assertEqual(error.exception.code, 2)
+        self.assertEqual(before, {str(p.relative_to(root)): p.read_bytes() for p in root.rglob('*') if p.is_file()})
 
 
 

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Read-only preparation/history Markdown reader; cycle_04 JSON uses check_cycle04."""
+import argparse
 import json
 import re
 import sys
@@ -8,6 +10,7 @@ from check_prediction_compliance import NEXT_RELEASE, NEXT_SCHEMA, ComplianceErr
 
 RELEASE = NEXT_RELEASE
 TAG = "prediction-day-v2"
+READER_CONTRACT = "preparation-history-reader-v1"
 KPI_STATES = ("eligible_ids", "ineligible_ids", "pending_ids")
 
 
@@ -206,7 +209,7 @@ def validate_day(record, path, gates=None, recommendation_gates=None, recommenda
     return record
 
 
-def run(root=Path(".")):
+def run(root=Path("."), *, emit_status=True):
     records_dir = root / "docs/validation/records"
     gates = load_next_gates(root)
     state_file = root / "docs/validation/execution-gates/contract-state.json"
@@ -225,15 +228,32 @@ def run(root=Path(".")):
                 validate_day(record, path, gates, recommendation_gates, effective)
                 seen.add(key)
                 count += 1
-    print(f"PREDICTION_CYCLE_V2_OK: {count} day record(s) validated")
+    if emit_status:
+        print(f"準備・履歴のMarkdown台帳を{count}件検査しました。第4JSON台帳の正式完了は判定していません。")
     return count
 
 
-def main():
+def preparation_report(root=Path(".")):
+    count = run(root, emit_status=False)
+    return {"schema_version": READER_CONTRACT, "read_only": True,
+            "record_contract": TAG, "record_count": count,
+            "official_cycle04_checked": False, "formal_completion_certified": False,
+            "evidence_created": False}
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(
+        description="準備・履歴のMarkdown台帳を読取検査。第4の正式JSONはcheck_cycle04.pyで検査。")
+    parser.add_argument("--root", type=Path, default=Path("."))
+    parser.add_argument("--json", action="store_true", help="読取範囲と正式認証なしを監査用JSONで出力")
+    args = parser.parse_args(argv)
     try:
-        run()
+        if args.json:
+            print(json.dumps(preparation_report(args.root), ensure_ascii=False, indent=2))
+        else:
+            run(args.root)
     except (CycleValidationError, json.JSONDecodeError, OSError) as exc:
-        print(f"NON_COMPLIANT: {exc}", file=sys.stderr)
+        print(f"準備・履歴台帳の検査失敗：{exc}", file=sys.stderr)
         return 1
     return 0
 
