@@ -1,0 +1,303 @@
+{
+  "schema_version": "oct11-supplement-review-v1",
+  "task": 38,
+  "reviewed_at_jst": "2026-10-13",
+  "status": "VERIFIED_READ_ONLY",
+  "basis_pr69_commit": "14b575eb60fca373d0dfe977cf2b7f4239d709e1",
+  "basis_main_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+  "historical_record": {
+    "original_commit": "cf3aec8db0780d15c42241bc2c5cc67910881733",
+    "matches_original": true
+  },
+  "historical_snapshot": {
+    "last_fixed_commit": "094efaee5ade680f0e2baabb39f650383cc1a801",
+    "matches_original": true
+  },
+  "precycle_review": {
+    "path": "docs/validation/stage_transition_review_2026-10-11.md",
+    "observed_at_jst": "2026-10-11T02:19:25+09:00",
+    "recorded_verdict": "WAIT_CYCLE_END",
+    "historical_reference": "ecfdfd85b08c831508ab194546a75dec3d8b92fa",
+    "git_blob_sha": "90b64a046f3ef1fdc1a1b1cc1d9e9054f77f90f9",
+    "historical_bytes_unchanged": true,
+    "present_in_main": false,
+    "note": "PR69側の歴史資料。mainの現行v1.7.0状態をこの事前審査へ書き戻さない。"
+  },
+  "counts": {
+    "initial": 14,
+    "unique_final": 8,
+    "final_sections": 9,
+    "reviewed": 14,
+    "buy": 5,
+    "open_issues": 7
+  },
+  "sets": {
+    "initial_scope": [
+      "2026-10-11-KYOTO-06",
+      "2026-10-11-KYOTO-07",
+      "2026-10-11-KYOTO-08",
+      "2026-10-11-KYOTO-09",
+      "2026-10-11-KYOTO-10",
+      "2026-10-11-KYOTO-11",
+      "2026-10-11-KYOTO-12",
+      "2026-10-11-TOKYO-06",
+      "2026-10-11-TOKYO-07",
+      "2026-10-11-TOKYO-08",
+      "2026-10-11-TOKYO-09",
+      "2026-10-11-TOKYO-10",
+      "2026-10-11-TOKYO-11",
+      "2026-10-11-TOKYO-12"
+    ],
+    "validation_candidates": [
+      "2026-10-11-KYOTO-07",
+      "2026-10-11-KYOTO-08",
+      "2026-10-11-KYOTO-09",
+      "2026-10-11-KYOTO-10",
+      "2026-10-11-KYOTO-11",
+      "2026-10-11-TOKYO-08",
+      "2026-10-11-TOKYO-09",
+      "2026-10-11-TOKYO-11"
+    ],
+    "purchase_candidates": [
+      "2026-10-11-KYOTO-09",
+      "2026-10-11-KYOTO-11",
+      "2026-10-11-TOKYO-08",
+      "2026-10-11-TOKYO-09",
+      "2026-10-11-TOKYO-11"
+    ],
+    "final_completed_scope": [
+      "2026-10-11-KYOTO-07",
+      "2026-10-11-KYOTO-08",
+      "2026-10-11-KYOTO-09",
+      "2026-10-11-KYOTO-10",
+      "2026-10-11-KYOTO-11",
+      "2026-10-11-TOKYO-08",
+      "2026-10-11-TOKYO-09",
+      "2026-10-11-TOKYO-11"
+    ],
+    "reviewed_scope": [
+      "2026-10-11-KYOTO-06",
+      "2026-10-11-KYOTO-07",
+      "2026-10-11-KYOTO-08",
+      "2026-10-11-KYOTO-09",
+      "2026-10-11-KYOTO-10",
+      "2026-10-11-KYOTO-11",
+      "2026-10-11-KYOTO-12",
+      "2026-10-11-TOKYO-06",
+      "2026-10-11-TOKYO-07",
+      "2026-10-11-TOKYO-08",
+      "2026-10-11-TOKYO-09",
+      "2026-10-11-TOKYO-10",
+      "2026-10-11-TOKYO-11",
+      "2026-10-11-TOKYO-12"
+    ]
+  },
+  "kpi_state_counts": {
+    "production": {
+      "target_ids": 14,
+      "eligible_ids": 0,
+      "ineligible_ids": 6,
+      "pending_ids": 8
+    },
+    "betting": {
+      "target_ids": 5,
+      "eligible_ids": 0,
+      "ineligible_ids": 0,
+      "pending_ids": 5
+    },
+    "betting_evidence": {
+      "target_ids": 5,
+      "eligible_ids": 0,
+      "ineligible_ids": 0,
+      "pending_ids": 5
+    },
+    "betting_rules": {
+      "target_ids": 5,
+      "eligible_ids": 0,
+      "ineligible_ids": 5,
+      "pending_ids": 0
+    },
+    "shadow": {
+      "target_ids": 8,
+      "eligible_ids": 0,
+      "ineligible_ids": 8,
+      "pending_ids": 0
+    }
+  },
+  "sources": [
+    {
+      "path": "docs/validation/records/2026-10-11.md",
+      "bytes": 36634,
+      "sha256": "42a64b22e9a5089aa9d0287223aa6baf1c569c56e66313ceb3defc3203b3184c",
+      "git_blob_sha": "c4aaa3cc356af40ac5ac25335bf6c88862488f7e"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-10-11.md",
+      "bytes": 118210,
+      "sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118",
+      "git_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-10-11.md",
+      "bytes": 29544,
+      "sha256": "d7b5dee3e9525ef942a473a4b7ad31a1bdb933c93de932368f0a354a7bd8d4e8",
+      "git_blob_sha": "05d715d06543d3ea1a30b45677dc72f09a4ac71e"
+    },
+    {
+      "path": "docs/validation/handoffs/2026-10-11-seven-open-issues.md",
+      "bytes": 12591,
+      "sha256": "5213416826688340e774a9f79d05610aa80c30827ac66a41ff373878d9ffcc54",
+      "git_blob_sha": "392fcfbdcbf8d2f50df079df89407089925e4d19"
+    },
+    {
+      "path": "docs/validation/stage_transition_review_2026-10-11.md",
+      "bytes": 10531,
+      "sha256": "b64b681955507beecfe88121b6099e2813d2cec5c7bab23302d1caaf879054cf",
+      "git_blob_sha": "90b64a046f3ef1fdc1a1b1cc1d9e9054f77f90f9"
+    }
+  ],
+  "final_snapshot_ids": {
+    "2026-10-11-KYOTO-07": [
+      "20261011-KYO-07-P001-S01"
+    ],
+    "2026-10-11-KYOTO-08": [
+      "20261011-KYO-08-P001-S01"
+    ],
+    "2026-10-11-TOKYO-08": [
+      "20261011-TOK-08-P001-S01",
+      "20261011-TOK-08-P001-S02"
+    ],
+    "2026-10-11-KYOTO-09": [
+      "20261011-KYO-09-P001-S01"
+    ],
+    "2026-10-11-TOKYO-09": [
+      "20261011-TOK-09-P001-S01"
+    ],
+    "2026-10-11-KYOTO-10": [
+      "20261011-KYO-10-P001-S01"
+    ],
+    "2026-10-11-KYOTO-11": [
+      "20261011-KYO-11-P001-S01"
+    ],
+    "2026-10-11-TOKYO-11": [
+      "20261011-TOK-11-P001-S01"
+    ]
+  },
+  "buy_snapshot_ids": {
+    "2026-10-11-KYOTO-09": "20261011-KYO-09-P001-S01",
+    "2026-10-11-KYOTO-11": "20261011-KYO-11-P001-S01",
+    "2026-10-11-TOKYO-08": "20261011-TOK-08-P001-S02",
+    "2026-10-11-TOKYO-09": "20261011-TOK-09-P001-S01",
+    "2026-10-11-TOKYO-11": "20261011-TOK-11-P001-S01"
+  },
+  "seven_open_issues": [
+    {
+      "id": "R-20261011-01",
+      "priority": "P0",
+      "historical_status": "OPEN"
+    },
+    {
+      "id": "R-20261011-02",
+      "priority": "P0",
+      "historical_status": "OPEN"
+    },
+    {
+      "id": "R-20261011-03",
+      "priority": "P0",
+      "historical_status": "OPEN"
+    },
+    {
+      "id": "R-20261011-04",
+      "priority": "P0",
+      "historical_status": "OPEN"
+    },
+    {
+      "id": "R-20261011-05",
+      "priority": "P0",
+      "historical_status": "OPEN"
+    },
+    {
+      "id": "R-20261011-06",
+      "priority": "P0",
+      "historical_status": "OPEN"
+    },
+    {
+      "id": "R-20261011-07",
+      "priority": "P1",
+      "historical_status": "OPEN"
+    }
+  ],
+  "reference_settlement": {
+    "stake_yen": 50000,
+    "return_yen": 0,
+    "profit_yen": -50000,
+    "official_performance_certified": false
+  },
+  "review_reperformed": false,
+  "source_fingerprint_crosschecks": {
+    "main_matches": [
+      "record",
+      "snapshot",
+      "receipt",
+      "handoff"
+    ],
+    "cycle03_collection_source_manifest_matches": [
+      "record",
+      "snapshot",
+      "receipt"
+    ],
+    "daily_kpi_sets_match_saved_collection": true,
+    "legacy_task27_races_and_five_section_hashes_match": true
+  },
+  "legacy_purpose_boundary": {
+    "initial_purchase_candidates": [],
+    "final_declared_buy_count": 5,
+    "additional_selection_verified": false,
+    "formal_betting_eligible": 0,
+    "formal_betting_pending": 5,
+    "formal_betting_roi": null,
+    "reference_only_ticket_count": 7,
+    "reference_only_stake_yen": 50000,
+    "reference_only_return_yen": 0,
+    "formal_reclassification_performed": false
+  },
+  "new_preparation_vs_legacy": [
+    {
+      "issue_content": "価格取得不足と見送りの分離",
+      "new_work": "29番の取得状態/保存接続を実装受入",
+      "remaining": "8券種発走前実取得・2開催実測はOPEN。11日の原因はログ欠測につき未確定"
+    },
+    {
+      "issue_content": "保存状態の日本語表示",
+      "new_work": "既存persistence_status/task_completionを再利用",
+      "remaining": "新規表示の実装と、当時の表示/完了証明は別。元課題記録を改変しない"
+    },
+    {
+      "issue_content": "同時確率と集中依存",
+      "new_work": "30/31番の区分・依存読取を実装受入",
+      "remaining": "実校正/共同モデル妥当性・性能は継続検証。旧仮想精算を昇格しない"
+    },
+    {
+      "issue_content": "8券種比較と順序つき事象",
+      "new_work": "32〜35番の比較/境界/準備を受入",
+      "remaining": "枠連推奨生成・実確率/性能は未受入。過去の比較不足を補完しない"
+    },
+    {
+      "issue_content": "初古馬対戦と昇級の証拠充足",
+      "new_work": "36/37番の読取監査と固定合成検査・試験方針を受入",
+      "remaining": "指定4開催日の前向き実測と効果/非劣化はOPEN"
+    },
+    {
+      "issue_content": "候補追加・用途の不連続",
+      "new_work": "既存新規用途履歴/独立Recommendationで遮断",
+      "remaining": "11日の追加選定なしを事後修復せず、5参考BUYの正式認証は保留"
+    },
+    {
+      "issue_content": "保存と個別完了・Shadowの独立判定",
+      "new_work": "既存独立gate/receipt/完了検査を再利用",
+      "remaining": "過去の個別完了・ゲート・Shadow欠測を新コードやCI成功で認証しない"
+    }
+  ],
+  "interpretation": "11日分の追補照合の受入。再回顧・旧KPI真正性の再認証・7課題全解決・サイクル終了の再決定・正式切替の再実施ではない。後続45〜52で既存終了審査/切替との対応を照合。",
+  "historical_files_modified": false
+}

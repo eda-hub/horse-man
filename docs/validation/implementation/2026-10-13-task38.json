@@ -1,0 +1,47 @@
+{
+  "schema_version": "task38-checkpoint-v1",
+  "task": 38,
+  "status": "READ_ONLY_VERIFIED_CI_PENDING",
+  "input_pr69_sha": "14b575eb60fca373d0dfe977cf2b7f4239d709e1",
+  "input_pr68_sha": "f9f10413910909f6b7ef4ef3cd098327d6758266",
+  "tasks": {
+    "38-01": "OCT11_14_INITIAL_8_UNIQUE_FINAL_14_REVIEW_ORIGINAL_HASH_VERIFIED",
+    "38-02": "FIVE_REFERENCE_BUY_SEVEN_TICKETS_SEVEN_OPEN_ISSUES_AND_LEGACY_HOLDS_VERIFIED"
+  },
+  "report": "docs/validation/reviews/cycle_03/2026-10-13-oct11-supplement.json",
+  "validation": {
+    "actual_day_validator": "PASS",
+    "legacy_audit_recalculation": "PASS_5_BUY_7_TICKETS_5_SECTION_HASHES",
+    "collection_day_and_source_hash_match": true,
+    "local_related_tests": 20,
+    "local_tests_result": "PASS",
+    "local_initial_failure": {
+      "tests_run": 22,
+      "errors": 3,
+      "reason": "ローカル作業コピーにcycle_03.mdと旧Git根拠gzがない。実repoの欠陥ではない。該当依存を持たない20回帰と原台帳直接照合は成功、完全なrepoのCIで全件確認"
+    },
+    "ci": "PENDING"
+  },
+  "preserved": {
+    "old_kpi_eligibility": true,
+    "seven_historical_issues_open": true,
+    "old_snapshot_and_receipt": true,
+    "old_precycle_review": true,
+    "reference_settlement_not_formal_roi": true,
+    "code_changed": false,
+    "owner_changed": false,
+    "workflow_changed": false,
+    "data_changed": false,
+    "main_changed": false,
+    "review_reperformed": false
+  },
+  "remaining": {
+    "legacy_buy_additional_selection": "UNVERIFIED",
+    "legacy_prediction_completion": "PENDING_8",
+    "legacy_shadow": "INELIGIBLE_8",
+    "seven_issue_original_acceptance": "OPEN_HISTORICAL_RECORD",
+    "task29": "PRE_RACE_LIVE_VALIDATION_OPEN",
+    "task37": "FORWARD_MEASUREMENTS_OPEN"
+  },
+  "next": "39-01"
+}
