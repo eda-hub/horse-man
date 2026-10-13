@@ -1,0 +1,20 @@
+name: 新旧契約の統合受入と取得済みmain開始確認
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches:
+      - main
+permissions:
+  contents: read
+jobs:
+  integration-acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # origin/mainの実commitと原票履歴を取得
+      - name: PDF原資料検査の依存準備
+        run: command -v pdftotext >/dev/null || { sudo apt-get update && sudo apt-get install -y poppler-utils; }
+      - name: 全入口合成受入・第3再計算・実mainとbranchの開始確認
+        run: python3 scripts/check_integration_acceptance.py --full

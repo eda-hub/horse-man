@@ -1,0 +1,88 @@
+{
+  "schema_version": "integration-acceptance-checkpoint-v1",
+  "task": "S03",
+  "status": "LOCAL_ACCEPTANCE_PASS_PENDING_CI",
+  "inputs": {
+    "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "pr69_head": "9c9daf1be40e7b44a59ec91c474edca583e0f680",
+    "manual_release": "v1.7.0"
+  },
+  "fixture_comparison": [
+    {
+      "path": "scripts/test_check_prediction_compliance.py",
+      "main_sha": "56aa93fca3be91fbc6ffa0ecde519597c4dec1ad",
+      "pr_sha": "56aa93fca3be91fbc6ffa0ecde519597c4dec1ad",
+      "matched": true
+    },
+    {
+      "path": "scripts/test_verify_prediction_persistence.py",
+      "main_sha": "a529a8c707a60fb816d81a1f434d888429869a04",
+      "pr_sha": "a529a8c707a60fb816d81a1f434d888429869a04",
+      "matched": true
+    },
+    {
+      "path": "scripts/test_next_prediction_compliance.py",
+      "main_sha": "bddece008b536f0c0b1158f3225536bcb9c3476b",
+      "pr_sha": "bddece008b536f0c0b1158f3225536bcb9c3476b",
+      "matched": true
+    },
+    {
+      "path": "scripts/test_next_prediction_persistence.py",
+      "main_sha": "92176f22b1739feaf95fe4c1217371176394f511",
+      "pr_sha": "92176f22b1739feaf95fe4c1217371176394f511",
+      "matched": true
+    },
+    {
+      "path": "scripts/test_task_completion.py",
+      "main_sha": "5ca98114ef3ba4c9af9adfb880fd51026b709a8a",
+      "pr_sha": "5ca98114ef3ba4c9af9adfb880fd51026b709a8a",
+      "matched": true
+    },
+    {
+      "path": "scripts/test_recommendation.py",
+      "main_sha": "83a59a83ad16e148995f9dda52454680a85214e2",
+      "pr_sha": "83a59a83ad16e148995f9dda52454680a85214e2",
+      "matched": true
+    }
+  ],
+  "fixture_reimplementation_required": false,
+  "tests": {
+    "new": 5,
+    "readiness": 9,
+    "related": 247,
+    "result": "PASS",
+    "local_copy_restoration": "保存済み原本106参照、回顧/採否/collection/acceptanceを固定commitから復元。部分コピー不足をfixtureの省略で回避しない。"
+  },
+  "manifest": {
+    "sources": 107,
+    "all_hashes_match": true,
+    "regenerated": true
+  },
+  "start_checks": {
+    "method": "AUTHENTIC_FETCHED_ORIGIN_MAIN_DETACHED_WORKTREE",
+    "actual_ci_result_pending": true,
+    "synthetic_tests_not_actual_main_proof": true,
+    "expected_main_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "expected_main_sources": 66,
+    "expected_branch_sources": 107,
+    "main_success_and_branch_rejection_separate": true,
+    "unexpected_rejections_not_accepted": true,
+    "standard_require_main_not_bypassed": true
+  },
+  "full_acceptance": {
+    "cycle03_recompute": true,
+    "cycle04_all_regressions_skip0_inputs_unchanged": true,
+    "formal_and_research_workflows_retained": true,
+    "ci_result_location": "新統合受入workflowのINTEGRATION_ACCEPTANCE_JSONとPR68/PR69"
+  },
+  "protected": {
+    "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "historical_records_changed": false,
+    "manual_owner_changed": false,
+    "existing_workflows_changed": false,
+    "live_races_created": false,
+    "performance_promoted": false,
+    "runtime_connected": false
+  },
+  "next_task": 28
+}
