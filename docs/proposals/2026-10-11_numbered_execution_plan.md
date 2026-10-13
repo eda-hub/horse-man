@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-13 JST）: **既往1〜27番とS01〜S03完了。次は28番。28〜53番は下記の既存実装/差分対応に従う。**
+- 最新実施状態（2026-10-13 JST）: **既往1〜28番とS01〜S03完了。次は29番。29〜53番は下記の既存実装/差分対応に従う。**
 
 
 ## 2026-10-13 main更新による差分実装計画（現在の実行入口）
@@ -27,7 +27,7 @@ PR79はPR69の25〜27と推奨等を対象選択して再利用し、PR81は候�
 
 ### 先に行う順序（S01〜S03）
 
-「続き」「順に実施」の次の入口は **28番**。S01〜S03の統合受入は完了。明示された単独番号で前提が未成立なら、その前提と理由を記録する。S番号は追加の統合単位であり、元の1〜53を振り直さない。
+「続き」「順に実施」の次の入口は **29番**。S01〜S03の統合受入は完了。明示された単独番号で前提が未成立なら、その前提と理由を記録する。S番号は追加の統合単位であり、元の1〜53を振り直さない。
 
 | 順序 | 作業・対象 | 前提 | 完了条件 |
 |---|---|---|---|
@@ -45,7 +45,7 @@ S01で同じpathが異なる候補は、workflow、AGENTS、DECISIONS、README�
 | 25 | `persistence_status.py` と回帰はmain/PR69でblob同一 | 再実装不要、S03で接続再検証 |
 | 26 | `task_completion.py`、`verify_prediction_persistence.py`、`recommendation.py` はblob同一。一部fixtureはmainで旧/新に分離 | コード再作成なし。S03で独立JSON/FIX/receipt/適用Shadow・推奨の接続を再検証。不足が判明した箇所だけ修正 |
 | 27 | 元5BUY監査JSON/回帰は同一。mainのselectionはRECOMMENDATION/MARKET_SIDECAR用途を追加し、独立receiptを第4へ接続 | mainの拡張を採用し再実装しない。取消→再選定、用途分離・revision接続をS03で再検証。旧5件保留を維持 |
-| 28 | `cycle04_operations.validate_market` が未試行/失敗/締切/取得済と判断を分離。任意市場writerも既存 | 既存APIを再利用。元28のsource/時刻/試行履歴と受入を対応付け、不足分だけ追加 |
+| 28 | `cycle04_operations.validate_market` が未試行/失敗/締切/取得済と判断を分離。任意市場writerも既存 | **完了（2026-10-13）** 既存APIを再利用し、source/時刻/全試行のv2保存・読戻しと日本語表示を追加。詳細は末尾28番の受入 |
 | 29 | 実際の価格取得1経路＋代替1経路、応答hash/リトライ/締切と2開催以上の実測は未完了 | 28の差分受入後に実装・再現。現場実測待ちをOPENで引継ぎ、価格不要予想/推奨の完了を阻害しない |
 | 30 | 8券種比較にMISSING/UNCALIBRATED/DISCRETIONARY/CALIBRATEDと未校正下限拒否あり | 表示/不確実性範囲/未算定と0の元受入を照合し、不足だけ補完。性能校正は継続検証 |
 | 31 | 券事象の構造検査は存在するが、元31の馬・展開・券依存監査と同じではない | オッズ不要の候補/軸依存を追加検証。任意市場の金額集中/全損率を独立管理 |
@@ -155,7 +155,7 @@ S01で同じpathが異なる候補は、workflow、AGENTS、DECISIONS、README�
 | 25 | 保存状態を日本語へ変換する共通処理と5状態の検査 | なし | 未試行/書込失敗/読戻し不一致/本体保存済で個別検証未実施/全完了を区別。原因・対象・次の確認を出力。R-02 |
 | 26 | Prediction/Recommendationの個別完了ゲートの不足検出と状態出力を整合 | 25 | audit成功、本体、receipt、個別完了、適用Shadowを独立判定。未実施を成功へ変換しない。R-07 |
 | 27 | 用途と選定revisionの不連続を防ぐ履歴検査。11日5BUYは既存証跡だけで監査 | なし | 追加選定なし/用途混在/取消変更を拒否・識別。旧正式KPIと参考精算、次期推奨KPIを分離。R-06 |
-| 28 | 任意市場sidecarの価格状態分類を準備 | なし | 未試行/取得失敗/締切/取得済・期待値不足を区別し、source/時刻/試行を保存。価格なしのPrediction/推奨は完結。R-01 |
+| 28 | **完了（2026-10-13）** 任意市場sidecarの価格状態分類を準備 | なし | 未試行/取得失敗/締切/取得済・期待値不足を区別し、source/時刻/試行を保存。価格なしのPrediction/推奨は完結。R-01 |
 | 29 | 価格取得経路1つの障害再現と代替経路1つを検証 | 28 | 応答hash・再試行・締切と出力一致。2開催以上の実測がなければ課題は継続検証。11日当時の原因不明を残す。R-01 |
 | 30 | 確率の中心値・未校正・不確実性の表示と検査を準備 | なし | 裁量縮小を統計下限と称さない。未算定と0%を分離。独立レース校正は後続。R-03 |
 | 31 | 馬・展開・券単位の依存監査を準備 | 30 | オッズ不要の候補点数/軸依存を記録。任意sidecarの金額集中・全損率は別。恣意的上限を追加しない。R-03 |
@@ -593,3 +593,22 @@ PR69旧workflow固定commit `11f4f339391be34bb6fbbc15edbd812e4b0641df` から研
 #### S03の最終HEAD確認
 
 完了証跡のみを更新したPR69 HEAD `e8d875cb843c815d6e40e38fbcf908c65e99dfda` の自動通常CI [38343152352](https://github.com/eda-hub/horse-man/actions/runs/38343152352) 初回は、旧readiness回帰のTemporaryDirectory cleanupでGit objectsの `OSError: Directory not empty` が発生。契約/Owner/hash判定の失敗ではない。同一commitの統合受入 [38343152351](https://github.com/eda-hub/horse-man/actions/runs/38343152351) は全500件/skip0、研究 [38343152369](https://github.com/eda-hub/horse-man/actions/runs/38343152369) はsuccess。ソース・検査を変更せず通常CIの失敗jobだけ再実行し、attempt 2 / job `115118951431` は全13step・500回帰success。初回終了処理エラーを隠さずここへ保持する。最終HEADのdata/scripts/workflow/Ownerは検証基準commitから不変、完了checkpointと計画・PR本文のreadback一致。main更新なし、PR69 Draft・未マージ。次は28番。
+
+
+### 28番：任意市場の価格状態・全試行履歴・独立保存完了（2026-10-13 JST）
+
+開始main `38dcd3266613e52ced2b6d144d6da8a54fb4a675`、PR69 `e8d875cb843c815d6e40e38fbcf908c65e99dfda`、PR68 `e10ecb56d9a6dce0f9787da419fb68ce742c251d`。S03からmain更新なし。既存validate_market・任意市場writer・独立artifact/receipt・FINAL scope・KPIを再利用し、再実装しない。
+
+不足分として新 `market-analysis-v2` へ `market-acquisition-v1` の全試行を必須化。未試行/取得失敗/締切停止/取得済と、未評価/正の期待値/不足を別判定。取得済み未評価の期待値nullを許容し、未取得を0や期待値不足へ変換しない。各試行のsource・理由・開始/終了/観測、連番、上位source/取得時刻、締切/停止を照合し、未来/逆行/重複/成功後再試行・矛盾を拒否。
+
+保存済み市場は適格/保留の双方で原本hash/receipt/履歴を読戻し検査。既存writerは不正入力時に日次台帳を書き換えない。旧v1の読取互換を保持し、履歴なしは未確認表示。新CLI `market_sidecar.py` は取得状態・判断・理由・全試行を日本語で読取表示し、取得や書込を実行しない。
+
+新規18回帰、既存第4回帰56件、readiness9件成功。価格なしでPrediction/Recommendation完結と、任意市場の6状態組合せを保存しても両者の原bytes/KPIが不変であることを確認。実装 `6479ba0dc7498748155660e86473590194af372a` の8ファイルは内容/Git blob readback一致。既存builderで109source manifestを再生成し全hash一致。
+
+初回通常CI [38345045910](https://github.com/eda-hub/horse-man/actions/runs/38345045910) は全518回帰成功後、旧合成受入のstale source hashを検出。独立統合受入 [38345045909](https://github.com/eda-hub/horse-man/actions/runs/38345045909) は518件/skip0・入力不変成功。実CIと完全一致する94入力manifest SHA256 `989ab29dfdd6c5f02fe78cca394f60d1118b88fd1342bb9894a4e12c1e8dce4f` を根拠に、commit `6cc39c8a70fcaca3944dba2e5a9a56fdfc720ea2` へ受入を更新。部分ローカルコピーの未実行試験を成功としない。
+
+更新後 [通常CI](https://github.com/eda-hub/horse-man/actions/runs/38345257282) 全13step・518回帰、[統合受入CI](https://github.com/eda-hub/horse-man/actions/runs/38345257283) 全6step・518合成回帰/skip0、[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38345257521) 全22step・17工程、すべてsuccess。第3資料7/7日・第4契約/個別採否/受入hash/独立推奨/原子整合、Registry15,321個体・26snapshot/invalid0を照合。取得済み実mainの標準開始確認成功とPR69未マージ開始拒否を別検査。
+
+最終完了checkpoint `4b7651acb589a8f4881d1ec4752e567ccae4f960`：[受入記録](https://github.com/eda-hub/horse-man/blob/4b7651acb589a8f4881d1ec4752e567ccae4f960/docs/validation/implementation/2026-10-11-task28.json)、[操作/仕様](https://github.com/eda-hub/horse-man/blob/4b7651acb589a8f4881d1ec4752e567ccae4f960/docs/validation/market-sidecar.md)。正式Owner・既存workflow・data tree `0691e0fee7bfdf4671042e99c465c10a451d1ac9` 不変。旧予想/receipt/KPI/研究data、過去の原因不明と未実測を保持。PR69 Draft維持、mainへのマージなし。
+
+**1〜28番とS01〜S03完了。次は29番。** 今回は価格状態分類の実装受入完了。価格取得課題全体はOPENで、実取得1経路＋代替1経路、応答hash/再試行/締切と出力一致、2開催以上の実測は29番へ引き継ぐ。11日当時の未確認原因や性能/runtimeを合成結果で認証しない。
