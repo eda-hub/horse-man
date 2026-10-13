@@ -184,11 +184,12 @@ def record_prediction(root,date,entry):
     if gate.get('shadow_items'):
         set_state(day['kpis']['shadow'],race,shadow_state,'該当Shadowの独立状態')
     if phase == 'FINAL':
-        row['two_axis_comparison'] = compare_two_axis(gate['production'])
         rec_path = entry.get('recommendation_gate_path')
         require(rec_path, 'FINAL requires recommendation state and independent gate')
         rec = verify_recommendation(root,safe_path(root,rec_path))
         require(rec['race_id'] == race and rec['race_date_jst'] == date, 'recommendation identity mismatch')
+        row['two_axis_comparison'] = compare_two_axis(gate['production'],
+                                                    cancelled_horses=rec.get('cancelled_horses',[]))
         row['recommendation_gate_path'] = rec_path; row['recommendation_state'] = rec['status']
         rec_gate = load(safe_path(root,rec_path))
         set_state(day['kpis']['recommendation'],race,rec_gate['kpi_eligibility'],'固定推奨の独立状態：'+rec['status'])

@@ -63,6 +63,15 @@ class OperationalWorkflow(unittest.TestCase):
         self.assertEqual(after['kpis']['market']['eligible_ids'],0)
         self.assertEqual(len(workflow.read_day(self.root,DATE)[0]['races'][RACE]['prediction_history']),2)
 
+    def test_two_axis_comparison_uses_verified_recommendation_cancellations(self):
+        from unittest.mock import patch
+        self.register();self.select();self.entry['phase']='FINAL'
+        verified=workflow.verify_recommendation(self.root,self.root/self.entry['recommendation_gate_path'])
+        verified=copy.deepcopy(verified);verified['cancelled_horses']=[2]
+        with patch.object(workflow,'verify_recommendation',return_value=verified), patch.object(workflow,'compare_two_axis',wraps=workflow.compare_two_axis) as compare:
+            workflow.record_prediction(self.root,DATE,self.entry)
+        self.assertEqual(compare.call_args.kwargs,{'cancelled_horses':[2]})
+
     def test_final_before_selection_is_rejected_without_ledger_write(self):
         path=self.register();original=path.read_bytes()
         self.entry['phase']='FINAL'
