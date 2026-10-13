@@ -73,3 +73,6 @@ FORWARD/REPLAY/SYNTHETICの区分を結果sidecarへ引き継ぎ、合成/Replay
 
 ## 53-I09 前向き対象の網羅
 `python3 scripts/chat_forward_coverage.py manifest.json --root . --as-of <時点>`。既存第4日の固定day_refsから初回scopeを全件保持。独立事前保存のchat-forward-assessments-v1（全頭assessment）と固定gate/result参照付きitemsを照合。未確認を非該当化せず、重複/選択的除外/別scope/別assessmentを拒否。空データは件数nullの待機。網羅・期間・校正・性能昇格を分離しtrial_completeはfalse。未来のscopeや実測を生成しない。
+
+## 53-I10 校正・非劣化審査の読取入力
+`python3 scripts/chat_calibration_review.py manifest.json --root . --as-of <時点>`。I09と同じscope/同一cutoff/固定基準/共通入力/公式結果から全頭確率と0/1結果、Brier/捕捉、条件層別、固定券の点数・依存監査を出力。未提出/未確認を保持。実測なしの件数・指標はnull。旧購入ROI/任意市場ROIを混ぜず、下限や新閾値を作らない。校正/非劣化は既存50_reviewの別審査で未受入。
