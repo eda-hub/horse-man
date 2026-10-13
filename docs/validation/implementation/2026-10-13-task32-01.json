@@ -1,0 +1,83 @@
+{
+  "schema_version": "task32-01-checkpoint-v1",
+  "task": "32-01",
+  "status": "COMPARISON_STATE_ACCEPTANCE_COMPLETE",
+  "input_pr69_sha": "db712d661fd97c9106d2a93c77748c04c0056c45",
+  "input_pr68_sha": "c5c5f7d7d3e236a7ec699dd2e914efa06f02307b",
+  "scope": "単勝・複勝・枠連・馬連・ワイド・馬単・三連複・三連単の比較状態と理由の照合",
+  "implementation": {
+    "validator": "scripts/cycle04_operations.py::validate_ticket_comparison",
+    "display": "scripts/probability_presentation.py::describe_comparison",
+    "code_changed": false,
+    "reason": "既存検査と表示で32-01を満たすため再実装しない"
+  },
+  "validation": {
+    "synthetic": true,
+    "live_races_evaluated": false,
+    "existing_tests": {
+      "command": "PYTHONPATH=scripts python3 -m unittest test_cycle04_acceptance test_probability_presentation -q",
+      "tests_run": 47,
+      "failures": 0,
+      "skipped": 0
+    },
+    "matrix": {
+      "types": [
+        "WIN",
+        "PLACE",
+        "BRACKET_QUINELLA",
+        "QUINELLA",
+        "WIDE",
+        "EXACTA",
+        "TRIO",
+        "TRIFECTA"
+      ],
+      "states": {
+        "COMPARED": "比較済み",
+        "NOT_APPLICABLE": "非該当",
+        "MISSING": "情報不足"
+      },
+      "positive_cases": 24,
+      "negative_cases": 99,
+      "reason_retained": true,
+      "input_unchanged": true,
+      "negative_cases_per_type_per_state": [
+        "理由key欠落",
+        "理由空文字",
+        "未知状態SELECTED",
+        "比較済みの券なし／非該当・情報不足の券あり"
+      ],
+      "additional_negative_cases": [
+        "7券種への欠落",
+        "9行への重複",
+        "8行で1券種欠落と別券種重複"
+      ],
+      "compared_probability_missing_allowed": true,
+      "optimality_certified": false
+    },
+    "source_git_blob_sha": {
+      "scripts/cycle04_operations.py": "c8470b606838d53fba7262c1c041158a61adbea7",
+      "scripts/probability_presentation.py": "5845a04dd2c286d4e81cef5ce87ca455e1bca85c",
+      "scripts/test_cycle04_acceptance.py": "e865eea82e8e6c5ed80f77ab40d5fb0da00482db",
+      "scripts/test_probability_presentation.py": "fd2b3d24579af62150116019a4746e0911693786"
+    },
+    "ci": "新記録HEADで確認"
+  },
+  "interpretation": [
+    "比較済みは検討対象が存在する状態で、確率算定・校正・最適性・推奨採用の認証ではない",
+    "情報不足と非該当は空の対象券と理由を保持",
+    "合成確認を実レースの比較完了へ代用しない"
+  ],
+  "protected": {
+    "code_changed": false,
+    "owner_changed": false,
+    "workflow_changed": false,
+    "data_changed": false,
+    "formal_schema_changed": false,
+    "main_changed": false
+  },
+  "remaining": {
+    "32-02": "OPEN",
+    "task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
+  },
+  "next": "32-02"
+}
