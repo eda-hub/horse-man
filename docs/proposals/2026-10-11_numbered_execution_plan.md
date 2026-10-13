@@ -656,3 +656,14 @@ O1〜O6・8券種の原bytes/長さ/終端、race/場/R、中間区分/発売/�
 最終記録commit `934a10d9454b4f61c5398038539e2e129fa7edbd`：[公式経路と接続手順](https://github.com/eda-hub/horse-man/blob/934a10d9454b4f61c5398038539e2e129fa7edbd/docs/validation/market-jvlink.md)、[固定出所/SDK hash/制約](https://github.com/eda-hub/horse-man/blob/934a10d9454b4f61c5398038539e2e129fa7edbd/docs/validation/implementation/2026-10-11-task29-provider.json)。旧操作文書と29本体checkpointを追加実装済みへ整合。既存workflow/Owner/旧予想/receipt/KPI/data tree `0691e0fee7bfdf4671042e99c465c10a451d1ac9` 不変、PR69 Draft維持・mainマージなし。
 
 **残実装の公式取得先・正規化・実測受入処理は完了。残るのは利用者Windows VMへの実接続と将来2開催の発走前実測。** この実行環境はLinux/pywin32なし、Windows VMの接続先/実行経路はrepoと過去作業にも確認できない。実機へアクセスできる接続情報/実行環境が必要。10/17以降の実測は今日捏造せず、実測日/件数はnull、29の親状態は継続検証を維持する。独立コード作業30番の前提にはしない。
+
+
+##### 29番残件の最終セルフレビュー・Windows証跡是正
+
+WindowsのPathをそのままJSONへ保存するとbackslashを含み、Git内部path/Linux CIの読戻しが成立しない箇所を是正。`response_ref.artifact_path` をPOSIX表記で固定し、PureWindowsPathの回帰で原応答保存→Git共通path→読戻しを確認。公式byte位置と組合せ順をfixture内に独立固定し、実装LAYOUT/LENGTHSを参照して誤位置を追認する試験を避けた。
+
+是正commit `3ee5003252b941c544ffc7485a5717fa72335276`。native回帰17＋live受入7＝追加24件、全564件/skip0。初回通常CIのstale受入を保存し、実CIと一致する100入力manifest hash `3c52989e937e837d8c0e5a2caf67afa95b07b63b28d4ba6a04591e0d62732dce` へ更新。検証基準commit `5e5ad67d7ac807d3fd69e36e9c091ce8f00fea6b`。
+
+[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38352143883) 全13step・564回帰、[統合受入](https://github.com/eda-hub/horse-man/actions/runs/38352143801) 全6step・564件/skip0、[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38352143806) 全22stepがすべてsuccess。第3/第4・保存/推奨・原子整合・実main開始確認とPR69開始拒否、15,321個体/26snapshot保全を維持。
+
+最終受入記録commit `ec6d449708d7fcee144343b5eb5fbd569e17dcfd` に564件・Windows是正・独立fixture・CI基準/runを固定。[最新記録](https://github.com/eda-hub/horse-man/blob/ec6d449708d7fcee144343b5eb5fbd569e17dcfd/docs/validation/implementation/2026-10-11-task29-provider.json)。これは記録のみの更新でコード/manifest/既存workflow/dataは検証基準から不変。実機接続と将来2開催はOPENのまま。Windows VMへアクセスできる接続先/実行方法が必要で、今日の合成検査・公式SDKダウンロードを実測へ代用しない。
