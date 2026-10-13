@@ -633,3 +633,5 @@ PR69旧workflow固定commit `11f4f339391be34bb6fbbc15edbd812e4b0641df` から研
 最終受入記録commit `804a5201fbba997bb7ef7afcf248773392bb3f3b`：[checkpoint](https://github.com/eda-hub/horse-man/blob/804a5201fbba997bb7ef7afcf248773392bb3f3b/docs/validation/implementation/2026-10-11-task29.json)、[仕様・操作](https://github.com/eda-hub/horse-man/blob/804a5201fbba997bb7ef7afcf248773392bb3f3b/docs/validation/market-acquisition.md)。data tree `0691e0fee7bfdf4671042e99c465c10a451d1ac9`、Owner・既存workflow・旧予想/receipt/KPI不変。PR69 Draft維持、mainマージなし。
 
 **29番の共通HTTP処理の実装・合成/loopback受入は完了。親29番の実接続/実測は未完了でOPEN。** 実取得先URL/応答形式と正規化adapterの確認、主/代替の実サービス接続、2開催以上の発走前実測が必要。11日当時の原因不明を保持。未測定件数はnull、架空の実測日・事前価格証跡を生成しない。次の独立コード作業は前提なしの30番で、29のOPENを完了にせず引き継ぐ。
+
+最終受入記録だけを更新したPR69 HEAD `804a5201fbba997bb7ef7afcf248773392bb3f3b` も [通常CI](https://github.com/eda-hub/horse-man/actions/runs/38347374935)・[統合受入CI](https://github.com/eda-hub/horse-man/actions/runs/38347374976)・[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38347374919) がすべてsuccess。コード/正式manifest/既存workflow/dataは検証基準commitから不変。checkpointと操作文書のreadback一致。共通HTTP受入済みと実サービス未接続・2開催実測未完了を区別したまま保持する。
