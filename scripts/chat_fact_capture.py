@@ -62,7 +62,8 @@ def normalize(req, captures, now=None):
                 isinstance(c.get('origin_group'), str) and c['origin_group'].strip(),
                 'provider and upstream origin group required')
         if c['provider'] == 'OFFICIAL':
-            require(url.hostname == 'jra.go.jp' or url.hostname.endswith('.jra.go.jp'),
+            require(url.hostname in {'jra.go.jp', 'jra.jp'} or
+                    url.hostname.endswith('.jra.go.jp') or url.hostname.endswith('.jra.jp'),
                     'official fact source must be JRA')
         require(c.get('mode') in {'FORWARD', 'REPLAY', 'SYNTHETIC'}, 'capture mode required')
         require(c.get('retrieval_kind') in {'PAGE_TEXT', 'SEARCH_SNIPPET', 'ERROR', 'NOT_ATTEMPTED',

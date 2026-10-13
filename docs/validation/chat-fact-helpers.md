@@ -48,3 +48,15 @@ provider/URL/観測・取得時刻は保存本文から導出し、読戻し時�
 FINALの推奨はrecommendation_artifact_path/recommendation_gate_path/recommendation_fix_hashで別確認する。予想側Shadowの不足を推奨へ転用せず、未確認推奨を対象外にしない。既存日別台帳への同一参照も確認する。保存済み本体・構造上の個別完了と、現時点で確認可能な保存時刻を分け、未来/時刻不明receiptを現在の完了へ使わない。
 
 発走後は発走前の再保存を提案せず、読取による不足確認を継続する。本入口は書込み・自動再試行・開始認証・Git読戻しを行わない。保存・読戻し・個別完了・main開始は独立工程のまま保持する。
+
+## 公式結果本文の正規化
+
+`chat_result_conversion.py --capture 本文sidecar.json --annotations 結果注釈.json`は既存結果JSONへ全馬を正規化する。RESULT要求の発走後閲覧本文から、確認引用、各馬のfinish_position/statusと引用、place_basisを渡す。各引用はcapture_id/start/end/quote。着順は「N着」、馬番号は「N番」の字面を照合する限定入口で、未知の表示形式を推測しない。
+
+同着の次の着順、取消/除外、競走中止/失格を区別し、全頭不足・重複・未確定・馬名/装具アイコンの注釈混入を拒否する。馬名は結果schemaへ転記しない。結果の掲載更新時刻が不明でも、公式確認引用と実際の発走後閲覧時刻は照合し、publication_time_unknownを保持する。発走前入力の時刻不明を取得済みへ変換するものではない。
+
+place_basisはOFFICIAL_PLACE_PLACES（公式本文の複勝対象着数）かOFFICIAL_SALES_START_COUNT（公式の発売開始時頭数）。kind/value/quotationを持つ。JRAの[馬券の種類](https://www.jra.go.jp/kouza/beginner/baken/)で発売開始時5頭以上・7頭以下では2着までの規則を確認した。取消後の実出走頭数を発売開始時頭数へ代用しない。根拠不明・不発売など現契約で扱えない状態は推測補完せず照合不合格とする。
+
+FORWARD/REPLAY/SYNTHETICの区分を結果sidecarへ引き継ぎ、合成/Replayを前向き結果へ認証しない。HTTP原bytesや取得元真正性、正式KPIは本補助で認証しない。result本体の保存・Git読戻しと、固定Prediction/推奨との対応は次工程。
+
+保存済みJRA本文のパイプ表は着順・枠・馬番の列を分離し、画像リンク番号やブリンカー表示を馬番へ流用しない。10/12保存原票の15行をREPLAY形式回帰で照合する。保存断片に確定/複勝根拠がなければ単独では全結果へ昇格しない。
