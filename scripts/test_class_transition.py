@@ -64,6 +64,11 @@ class ClassTransitionTest(unittest.TestCase):
             p=fixture();p['target']['age_condition']['value']=condition;p['target']['older_horses_present']['value']=False
             self.assertIs(audit(p)['first_older_encounter'],False)
 
+    def test_non_three_year_old_applicability_not_unknown(self):
+        p=fixture();p['horse_age']=4;r=audit(p)
+        self.assertIsNone(r['first_older_encounter']);self.assertEqual(describe(r)['3歳初古馬対戦'],'対象外')
+        self.assertTrue(r['class_promotion']);self.assertFalse(r['blanket_age_penalty'])
+
     def test_lifetime_count_cannot_be_inferred_from_recent_five(self):
         p=fixture();p['older_encounters']['coverage']='RECENT_FIVE'
         with self.assertRaises(ComplianceError):audit(p)

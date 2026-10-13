@@ -29,8 +29,8 @@
     "blanket_age_penalty": false
   },
   "validation": {
-    "new_tests": 23,
-    "local_related_tests": 89,
+    "new_tests": 24,
+    "local_related_tests": 90,
     "failures": 0,
     "skipped": 0,
     "command": "PYTHONPATH=scripts python3 -m unittest test_class_transition test_cycle04_acceptance test_cycle04_workflow test_release_readiness -q",
@@ -49,7 +49,8 @@
       "下級クラス/古馬未対戦だけの直接ラベルは参考",
       "出所付き上位クラス比較と同一/上下関係矛盾",
       "斤量/年齢構成/対象クラス/比較方法/比較軸の不足は参考",
-      "未算定null保持・CLI読取のみ・原本不変"
+      "未算定null保持・CLI読取のみ・原本不変",
+      "3歳以外の対象外を不明と区別"
     ],
     "ci": "PENDING"
   },

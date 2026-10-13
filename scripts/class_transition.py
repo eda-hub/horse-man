@@ -121,7 +121,8 @@ def audit(data):
     sufficiency='DIRECT' if direct else 'STRONG_SUBSTITUTE' if substitute else 'REFERENCE' if checked else 'NOT_COMPARABLE'
     return {'race_id':data['race_id'],'horse_no':data['horse_no'],'data_cutoff':data['data_cutoff'],
             'older_encounter_count':older_count,'older_encounter_state':'UNKNOWN' if older_count is None else 'ZERO' if older_count==0 else 'POSITIVE',
-            'first_older_encounter':first,'class_promotion':promoted,'previous_class':previous_class,'target_class':current_class,
+            'first_older_encounter':first,'first_older_encounter_applicability':'THREE_YEAR_OLD' if data['horse_age']==3 else 'NOT_APPLICABLE',
+            'class_promotion':promoted,'previous_class':previous_class,'target_class':current_class,
             'target_age_condition':age,'older_horses_present':older_present,'target_weight_kg':weight,
             'recent_age_conditions':conditions,'recent_classes':classes,'recent_weights_kg':weights,'recent_opponent_levels':levels,
             'comparison_sufficiency':sufficiency,'evidence_checks':checked,'missing_fields':sorted(set(gaps)),
@@ -133,7 +134,8 @@ def describe(report):
     labels={'DIRECT':'直接比較','STRONG_SUBSTITUTE':'強い代替証拠','REFERENCE':'参考','NOT_COMPARABLE':'比較不能'}
     state=lambda x:'不明' if x is None else '該当' if x else '非該当'
     return {'古馬既対戦数':'不明' if report['older_encounter_count'] is None else report['older_encounter_count'],
-            '3歳初古馬対戦':state(report['first_older_encounter']),'昇級':state(report['class_promotion']),
+            '3歳初古馬対戦':'対象外' if report['first_older_encounter_applicability']=='NOT_APPLICABLE' else state(report['first_older_encounter']),
+            '昇級':state(report['class_promotion']),
             '比較根拠の充足':labels[report['comparison_sufficiency']],'不足項目':report['missing_fields'],
             '証拠の扱い':'提出根拠の構造・時点確認。真偽・効果・校正の認証ではない'}
 
