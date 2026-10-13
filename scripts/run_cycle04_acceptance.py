@@ -21,6 +21,7 @@ def run(root):
         root / 'docs/validation/contracts/cycle04_operations.md',
         root / 'docs/validation/execution-gates/contract-state.json',
         root / 'docs/validation/templates/chatgpt_prediction_task.md',
+        root / 'docs/validation/market-chat-research/2026-10-13/replay-pages.json',
     })
     before = {p: p.read_bytes() for p in paths}
     sys.path.insert(0, str(root / 'scripts'))

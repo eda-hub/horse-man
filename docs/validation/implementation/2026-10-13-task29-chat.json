@@ -1,0 +1,59 @@
+{
+  "schema_version": "task29-chat-checkpoint-v1",
+  "task": 29,
+  "input_pr69_sha": "d1d050b8337f61bbb234df79a6918555b3ae5461",
+  "input_pr68_sha": "e793f0f4d796941a476e5bd9d949e41aac8f4f4c",
+  "status": "IMPLEMENTATION_VERIFIED_LIVE_VALIDATION_OPEN",
+  "tasks": {
+    "29-C02": "SOURCE_RESEARCH_COMPLETE_FORWARD_OPEN",
+    "29-C04-01": "IMPLEMENTED",
+    "29-C04-02": "REGRESSION_PASS",
+    "29-C04-03": "WRITER_RECEIPT_REGRESSION_PASS",
+    "29-C05-01": "PASS",
+    "29-C05-02": "PASS",
+    "29-C05-03": "PASS",
+    "29-C05-04": "PASS",
+    "29-C03-01〜08": "WAIT_ACTUAL_PRE_RACE",
+    "29-C06": "WAIT_ACTUAL_MEETING",
+    "29-C07": "WAIT_SECOND_MEETING",
+    "29-C08": "CHECKER_IMPLEMENTED_ACTUAL_ACCEPTANCE_OPEN"
+  },
+  "local_validation": {
+    "new_tests": 33,
+    "new_failures": 0,
+    "existing_market_tests": 47,
+    "existing_market_failures": 0,
+    "atomic_contract": true,
+    "full_regression": {
+      "tests_run": 585,
+      "errors": 24,
+      "skipped": 6,
+      "result": "NOT_ACCEPTED_LOCAL_HISTORICAL_INPUTS_MISSING"
+    },
+    "real_replay_ticket_types": 8,
+    "real_replay_forward_registered": false,
+    "ci": "PENDING"
+  },
+  "review_fixes": [
+    "三連単上限を999999.9へ是正",
+    "開催回/日とURLを照合",
+    "後日REPLAY閲覧を発走前時刻へ偽装しない",
+    "2開催だけでは8券種/独立代替を総合受入しない"
+  ],
+  "live_meeting_dates": null,
+  "live_race_count": null,
+  "source_forward_status": {
+    "JRA": "OPEN_BODY_NORMALIZATION_UNSUPPORTED",
+    "SPORTS_NAVI": "REPLAY_TEXT_VERIFIED_FORWARD_OPEN"
+  },
+  "source_urls": [
+    "https://www.jra.go.jp/faq/pop02/1_1.html",
+    "https://www.jra.go.jp/JRADB/accessO.html",
+    "https://support.yahoo-net.jp/PccSports/s/article/H000006045",
+    "https://www.lycorp.co.jp/ja/company/terms/"
+  ],
+  "prediction_recommendation_changed": false,
+  "performance_promoted": false,
+  "windows_followup": "OUT_OF_SCOPE_BY_USER_CHANGE",
+  "next": "29-C03/06の実開催待ち。独立作業30-01"
+}

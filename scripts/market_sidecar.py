@@ -21,6 +21,9 @@ def describe(payload):
     return {'取得状態': labels[state], '判断': decisions[market['decision']],
             '理由': market['reason'], '出所': market.get('source_ref'),
             '取得時刻': market.get('acquired_at_jst'),
+            '掲載更新時刻': next((a.get('observed_at_jst') for a in reversed(history['attempts'])
+                                  if a.get('result') == 'ACQUIRED'), None) if history else None,
+            '価格幅': market.get('price_details'),
             '試行履歴': history['attempts'] if history is not None else None,
             '履歴状態': '試行履歴保存済み' if history is not None else '旧形式の試行履歴は未確認'}
 
@@ -31,7 +34,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         report = describe(json.loads(args.path.read_text(encoding='utf-8')))
-        for name in ('取得状態', '判断', '理由', '出所', '取得時刻', '履歴状態'):
+        for name in ('取得状態', '判断', '理由', '出所', '掲載更新時刻', '取得時刻', '価格幅', '履歴状態'):
             print(f'{name}：{report[name] if report[name] is not None else "未取得"}')
         for attempt in report['試行履歴'] or []:
             result = '取得成功' if attempt['result'] == 'ACQUIRED' else '取得失敗'

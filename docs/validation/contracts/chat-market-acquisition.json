@@ -14,7 +14,7 @@
     "login": false
   },
   "primary_source": "JRA_PUBLIC_ODDS_PAGE",
-  "alternate_source_status": "NOT_VERIFIED",
+  "alternate_source_status": "SPORTS_NAVI_REPLAY_TEXT_VERIFIED_FORWARD_OPEN",
   "comparison_ticket_types": [
     "WIN",
     "PLACE",
@@ -45,9 +45,15 @@
   "raw_http_bytes_must_not_be_inferred": true,
   "authentication_bypass": false,
   "windows_followup": "OUT_OF_SCOPE_BY_USER_CHANGE",
-  "chat_writer_integration": "OPEN",
+  "chat_writer_integration": "IMPLEMENTED_REGRESSION_VERIFIED_CI_PENDING",
   "live_meetings": null,
   "required_live_meetings": 2,
-  "status": "CONFIGURATION_FIXED_LIVE_VALIDATION_OPEN",
-  "procedure": "docs/validation/market-chat-acquisition.md"
+  "status": "CHAT_IMPLEMENTATION_PREPARED_LIVE_VALIDATION_OPEN",
+  "procedure": "docs/validation/market-chat-acquisition.md",
+  "transport_schema": "market-chat-acquisition-v1",
+  "capture_schema": "chat-page-retrieval-v1",
+  "replay_fixture": "docs/validation/market-chat-research/2026-10-13/replay-pages.json",
+  "live_checker": "scripts/check_chat_market_live_validation.py",
+  "primary_source_normalization": "UNSUPPORTED_UNTIL_REAL_PAGE_VERIFIED",
+  "independent_source_forward_validation": "OPEN"
 }

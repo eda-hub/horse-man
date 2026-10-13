@@ -205,6 +205,9 @@ def verify_responses(root, payload, *, require_forward=True):
     """保存原本から価格と固定race/券を再照合。自己申告hashだけでは受理しない。"""
     validate_market_payload(payload, payload['data_cutoff'])
     history = payload['market'].get('acquisition', {})
+    if history.get('transport_schema') == 'market-chat-acquisition-v1':
+        from chat_market_acquisition import verify
+        return verify(root, payload, require_forward=require_forward)
     if history.get('transport_schema') not in {TRANSPORT, PROVIDER_TRANSPORT}:
         require('transport_schema' not in history and 'request' not in history and
                 all('response_ref' not in a for a in history.get('attempts', [])),

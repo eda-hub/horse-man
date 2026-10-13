@@ -189,7 +189,7 @@ def validate_market_acquisition(market, cutoff):
                 'future/reversed/overlapping market attempts')
         result = attempt.get('result')
         late_failure = (market['status'] == 'DEADLINE_STOPPED' and result == 'FAILED'
-                        and history.get('transport_schema') in {'market-http-acquisition-v1','market-provider-acquisition-v1'}
+                        and history.get('transport_schema') in {'market-http-acquisition-v1','market-provider-acquisition-v1','market-chat-acquisition-v1'}
                         and attempt.get('error_code') == 'DEADLINE_EXCEEDED'
                         and deadline is not None and start < deadline)
         require(deadline is None or finish <= deadline or late_failure, 'market attempt exceeds deadline')
