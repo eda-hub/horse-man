@@ -1,7 +1,7 @@
 {
   "schema_version": "task36-checkpoint-v1",
   "task": 36,
-  "status": "IMPLEMENTED_LOCAL_VERIFIED_CI_PENDING",
+  "status": "IMPLEMENTATION_VERIFIED_ACCEPTANCE_CI_PENDING",
   "input_pr69_sha": "b5be8481f127d5d00c6a84e0cf07dd6d5b5fd700",
   "input_pr68_sha": "af6c45d87627216e3c7cc06547338f9e4afdbb5d",
   "tasks": {
@@ -53,7 +53,27 @@
       "3歳以外の対象外を不明と区別",
       "過去走0と前走クラス/昇級確定の矛盾を拒否"
     ],
-    "ci": "REVIEW_FIX_CI_PENDING",
+    "ci": {
+      "basis_commit": "98a67edbdb633d4f643c7a78dfe149fc2f11f0b5",
+      "integration_run": 38391118360,
+      "research_run": 38391118258,
+      "tests_run": 670,
+      "failures": 0,
+      "skipped": 0,
+      "source_count": 111,
+      "source_manifest_sha256": "bf09c8cc7c1be35567ebfe2bea60498a4447edeb8348d4103fdd43c82739c1a3",
+      "manifest_source_count": 130,
+      "result": "INTEGRATION_RESEARCH_SUCCESS",
+      "history_review_normal_run": 38391118539,
+      "normal_failure_reason": "旧受入hashのstaleのみ。実統合成功111入力で更新",
+      "previous_669_acceptance": {
+        "commit": "56fe45713d95979ac01c22c078f2ce424fbd7508",
+        "normal": 38390861093,
+        "integration": 38390861095,
+        "research": 38390861092,
+        "result": "ALL_SUCCESS"
+      }
+    },
     "previous_ci": {
       "basis_commit": "3886b3444a576e97fb8c52f9f35aeb0dda244166",
       "integration_run": 38390575060,
@@ -89,5 +109,6 @@
   },
   "next": "37-01",
   "implementation_commit": "afc6f4bb3d07751023190e2e1d7c31504a8ee4bc",
-  "review_commit": "3886b3444a576e97fb8c52f9f35aeb0dda244166"
+  "review_commit": "3886b3444a576e97fb8c52f9f35aeb0dda244166",
+  "history_review_commit": "98a67edbdb633d4f643c7a78dfe149fc2f11f0b5"
 }
