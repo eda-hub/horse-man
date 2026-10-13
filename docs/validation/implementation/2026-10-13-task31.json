@@ -3,7 +3,7 @@
   "task": 31,
   "input_pr69_sha": "969fbc3faa42b289e2d8277a681ef356148d697e",
   "input_pr68_sha": "94325ec571b831258a3b718b5e28fd075f9381e3",
-  "status": "IMPLEMENTED_LOCAL_ACCEPTANCE_CI_PENDING",
+  "status": "IMPLEMENTATION_ACCEPTED_MODEL_VALIDATION_CONTINUES",
   "tasks": {
     "31-01": "CANDIDATE_SELECTED_AND_HORSE_ANCHOR_DEPENDENCY_VERIFIED",
     "31-02": "SCENARIO_AND_TICKET_OVERLAP_DOUBLE_COUNT_REJECTION_VERIFIED",
@@ -24,7 +24,27 @@
     "local_related_tests": 132,
     "failures": 0,
     "skipped": 0,
-    "ci": "PENDING"
+    "ci": {
+      "basis_commit": "aef9308c6003a4bdd9e3999122274806fe01d449",
+      "integration_run": 38372328046,
+      "research_run": 38372328079,
+      "result": "SUCCESS",
+      "tests_run": 632,
+      "skipped": 0,
+      "source_count": 109,
+      "source_manifest_sha256": "866662ee930c54034db12f4561215ca82ae94cb8283c9e5e28c498424c171a37",
+      "initial_normal_failure": {
+        "run_id": 38372328053,
+        "tests_run": 632,
+        "reason": "旧受入stale hashのみ。実統合CI成功109入力へ更新"
+      },
+      "first_implementation_runs": {
+        "integration": 38372095906,
+        "research": 38372095940,
+        "normal_stale": 38372096031
+      },
+      "final_normal": "PENDING"
+    }
   },
   "protected": {
     "prediction_values_changed": false,
@@ -41,5 +61,7 @@
     "performance_promoted": false,
     "task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
   },
-  "next": "32-01"
+  "next": "32-01",
+  "implementation_commit": "2be36d5a062c92d29b758e1312b1c1bbeff8f302",
+  "review_fix_commit": "aef9308c6003a4bdd9e3999122274806fe01d449"
 }

@@ -8,7 +8,7 @@
   "result": "PASS",
   "schema_version": "cycle04-acceptance-v1",
   "skipped": 0,
-  "tests_run": 612,
+  "tests_run": 632,
   "source_manifest": [
     {
       "path": "docs/manual/00_core.md",
@@ -80,7 +80,7 @@
     },
     {
       "path": "scripts/build_v170_manifest.py",
-      "sha256": "0754aa612ce2165fdd7c4ccea52a8014f103d9b40382b9feec1d569ddd59b24f"
+      "sha256": "89a09f14caff1b98d5df8e0d5cb0a25d2b1e266896fede90bff3797bea93a231"
     },
     {
       "path": "scripts/chat_market_acquisition.py",
@@ -199,6 +199,10 @@
       "sha256": "e53935ae9aeb91a6aee4a8e60f2c739f5d962e045e5e4ff51736813a97cc4f67"
     },
     {
+      "path": "scripts/dependency_risk.py",
+      "sha256": "47c42edd1207319f2e9233d89689aa7248ec6d1606ec554cd23a8b27d8b73154"
+    },
+    {
       "path": "scripts/import_legacy_subjects.py",
       "sha256": "41b401d4b78d35338759685cd71c9b46fb5cbc842651a730bd85fa54c4ee0bcf"
     },
@@ -236,7 +240,7 @@
     },
     {
       "path": "scripts/recommendation.py",
-      "sha256": "86dff5340bd0dce098e35de8707e167ac9ea8f6d586087f630149847294e3db6"
+      "sha256": "88f55c01d835ff975654f29f17e637fba524da97abbe8d019187385553032150"
     },
     {
       "path": "scripts/run_cycle04_acceptance.py",
@@ -301,6 +305,10 @@
     {
       "path": "scripts/test_cycle04_workflow.py",
       "sha256": "4102b4e6f1a321d9d1d1ec2f469cda081a25bd387132fcd1d4d92b1287f285b5"
+    },
+    {
+      "path": "scripts/test_dependency_risk.py",
+      "sha256": "7fd6850a2886e635328dfafa10b353ee397bedc40f3fcda17a36e2811b55249a"
     },
     {
       "path": "scripts/test_designated_ancestor_scope.py",
