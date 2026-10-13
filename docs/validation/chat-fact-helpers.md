@@ -34,3 +34,9 @@ provider/URL/観測・取得時刻は保存本文から導出し、読戻し時�
 引用は1馬の1行を対象にし、馬番号と数値/文字列の一致を必要とする。他馬の行を連結して値を取得できない。馬体重は整数の境界を照合する。近走はquoteにvalue_pointer（value内のJSON Pointer、例`/0/class`）を付け、各走の日付/クラス/取得済み相手格を網羅する。日付や値が引用本文にそのまま存在しない表示形式は本補助では未対応として保持し、暗黙の変換や相手強度の創作をしない。初出走は馬番号と「初出走」の明示引用を必要とする。
 
 出力のextraction_consistency_verifiedは提出引用・値・保存証跡の整合だけ。origin_authenticity_certified/formal_kpi_certifiedはfalse。取得元が実際にその内容を公開したこと、提供元独立性、正式Prediction/推奨の適格性はこの照合だけでは認証しない。入力完備/不足は既存coverageをそのまま表示する。
+
+## 固定参照の組立て・台帳プレビュー
+
+`chat_entry_assembly.py --entry entry.json --capture-ref 本文参照.json --conversion-ref 変換参照.json`で、既存の固定gateとoperationsの参照を検査する。operationsの全頭入力参照は現契約の`inputs_ref`。独立保存した通常のrace-input-coverage-v1本体が、根拠照合済み変換のinputと一致することを要求する。引用変換sidecarそのものを通常入力本体へ代用しない。
+
+既存の公式scope・選定履歴・固定Prediction/推奨・宣言/FIX/receiptを再利用し、実台帳writerと同じ全日validatorでINITIAL/FINALの順序・revision・hash・入力不足・任意市場境界までプレビューする。candidate_dayは検査用の候補で、既存台帳・固定予想・推奨を上書きしない。プレビュー成功はGit保存や正式KPI認証ではない。確認したentryを既存cycle04_workflowの対象日branchで保存し、従来のGit読戻しを別に実施する。

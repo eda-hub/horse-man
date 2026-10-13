@@ -8,7 +8,7 @@
   "result": "PASS",
   "schema_version": "cycle04-acceptance-v1",
   "skipped": 0,
-  "tests_run": 700,
+  "tests_run": 703,
   "source_manifest": [
     {
       "path": "docs/manual/00_core.md",
@@ -89,6 +89,10 @@
     {
       "path": "scripts/build_v170_manifest.py",
       "sha256": "05f66bef47bb6afd56e37bab057cfb1d3815b6e17c7e5f93a60c85d023bbceb9"
+    },
+    {
+      "path": "scripts/chat_entry_assembly.py",
+      "sha256": "f476b0852075960dab1d1bf44ca97cc9238e9ebefaf8a1d736cf04729c95dfa6"
     },
     {
       "path": "scripts/chat_fact_capture.py",
@@ -224,7 +228,7 @@
     },
     {
       "path": "scripts/cycle04_workflow.py",
-      "sha256": "86636c1ec94f405dae85c9986619579c91a578c8236bead5e255370db5ba47f4"
+      "sha256": "4e1557b9acb6312133a7724e6a6160a64323e3ff41e49618cba0bb6f1dcda50e"
     },
     {
       "path": "scripts/dependency_risk.py",
@@ -297,6 +301,10 @@
     {
       "path": "scripts/test_build_cycle03_review.py",
       "sha256": "9556243255b6036540c2d651cbb8de7e8af5e32ab4a4a4b43a5a774a73faf9df"
+    },
+    {
+      "path": "scripts/test_chat_entry_assembly.py",
+      "sha256": "2aac920a8832ccc9dc6f53d3d134857758ab19504596dba075da833cf689b4c6"
     },
     {
       "path": "scripts/test_chat_fact_capture.py",

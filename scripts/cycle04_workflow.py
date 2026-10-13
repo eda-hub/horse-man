@@ -147,7 +147,7 @@ def select(root, date, ref):
     return save(root,day,before)
 
 
-def record_prediction(root,date,entry):
+def record_prediction(root,date,entry,*,preview=False):
     day,before = read_day(root,date);race = entry.get('race_id')
     require(race in day['initial_scope'], 'prediction outside initial scope')
     row = day['races'][race];phase = entry.get('phase')
@@ -195,6 +195,8 @@ def record_prediction(root,date,entry):
         set_state(day['kpis']['recommendation'],race,rec_gate['kpi_eligibility'],'固定推奨の独立状態：'+rec['status'])
         if race not in day['final_scope']: day['final_scope'].append(race)
         day['unfinished_reasons'].pop(race,None)
+    if preview:
+        return path_for_validation(root,day)
     return save(root,day,before)
 
 
