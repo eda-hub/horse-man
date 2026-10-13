@@ -3,7 +3,7 @@
   "task": 29,
   "input_pr69_sha": "d1d050b8337f61bbb234df79a6918555b3ae5461",
   "input_pr68_sha": "e793f0f4d796941a476e5bd9d949e41aac8f4f4c",
-  "status": "IMPLEMENTATION_INTEGRATION_CI_VERIFIED_LIVE_VALIDATION_OPEN",
+  "status": "IMPLEMENTATION_CI_VERIFIED_LIVE_VALIDATION_OPEN",
   "tasks": {
     "29-C02": "SOURCE_RESEARCH_COMPLETE_FORWARD_OPEN",
     "29-C04-01": "IMPLEMENTED",
@@ -51,7 +51,26 @@
         "regression_tests": 597,
         "action": "統合CIの実成功に一致する105入力hashでacceptanceを更新"
       },
-      "final": "PENDING"
+      "final": {
+        "commit_sha": "39abfb2824a11d9d984a4534a9e99f13d71ce448",
+        "normal": {
+          "run_id": 38366564646,
+          "result": "SUCCESS",
+          "steps": 13
+        },
+        "integration": {
+          "run_id": 38366564707,
+          "result": "SUCCESS",
+          "steps": 6
+        },
+        "research": {
+          "run_id": 38366564574,
+          "result": "SUCCESS",
+          "steps": 22
+        },
+        "all_regression_tests": 597,
+        "skipped": 0
+      }
     }
   },
   "review_fixes": [
@@ -77,5 +96,29 @@
   "windows_followup": "OUT_OF_SCOPE_BY_USER_CHANGE",
   "next": "29-C03/06の実開催待ち。独立作業30-01",
   "implementation_commit": "28309091799e12aab81f46aa1ff0acead2e81ad6",
-  "remote_readback_files": 14
+  "remote_readback_files": 14,
+  "acceptance_commit": "39abfb2824a11d9d984a4534a9e99f13d71ce448",
+  "C02": {
+    "status": "COMPLETE_SOURCE_ASSESSMENT",
+    "required_checks": [
+      "公開取得元",
+      "8券種本文形式",
+      "掲載更新時刻",
+      "実閲覧時刻",
+      "運営元",
+      "更新説明",
+      "利用条件とアクセス制約"
+    ],
+    "evidence": "docs/validation/market-chat-research/2026-10-13/replay-pages.json",
+    "procedure": "docs/validation/market-chat-acquisition.md",
+    "official_result": "パラメータエラー。価格本文取得/正規化は未受入",
+    "alternate_result": "スポーツナビで8券種REPLAYの実本文と2026-10-12T10:28:00+09:00掲載時刻を確認。形式を保存・再解析",
+    "cache_risk": "検索/過去中間値と再閲覧した確定値が一致しない例を確認。最新性保証なし",
+    "forward_acceptance": "29-C03/C06/C07/C08で実確認する。今回の後日閲覧は代用不可"
+  },
+  "unexpected_changes": {
+    "data_tree_unchanged": true,
+    "workflow_tree_unchanged": true,
+    "owner_unchanged": true
+  }
 }
