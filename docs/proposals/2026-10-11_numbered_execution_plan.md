@@ -925,6 +925,8 @@ mainと同一bytesのv1.7.0 README/30_betting/60_marketおよび既存運用契�
 
 近5走・相手レベル・斤量と直接実走/強い代替/参考/比較不能の提出根拠を事前cutoffで照合。実走参照/対象クラス/年齢構成/斤量/比較方法が不足する根拠は参考として残し、未来成績・時点逆順・確認件数矛盾を拒否。直接ラベルだけで下級/古馬未対戦の実走を直接比較へ認証しない。強い代替の実効性・出所の真正性・校正/性能は本機能の認証外。一律3歳減点なし。
 
-新規24・関連90回帰成功。実統合CI全669件/失敗0/skip0・111入力hash一致・130source整合。初回通常CIと対象外表示補完後の通常CIは旧受入hashのstaleを検出、実成功hashで受入更新し失敗履歴を保持。
+新規25・関連91回帰成功。実統合CI全670件/失敗0/skip0・111入力hash一致・130source整合。初回通常CIと対象外表示補完後の通常CIは旧受入hashのstaleを検出、実成功hashで受入更新し失敗履歴を保持。
 
-[受入記録](https://github.com/eda-hub/horse-man/blob/56fe45713d95979ac01c22c078f2ce424fbd7508/docs/validation/implementation/2026-10-13-task36.json)。実装 afc6f4bb3d07751023190e2e1d7c31504a8ee4bc、対象外表示補完 3886b3444a576e97fb8c52f9f35aeb0dda244166、受入更新 56fe45713d95979ac01c22c078f2ce424fbd7508。標準入力/正式schema/Owner/Prediction値/推奨券/data/既存workflowを保持。main更新/マージなし。次37-01。前向き非劣化は未実施、29実測はOPEN。以前の36-01入口は履歴。
+[受入記録](https://github.com/eda-hub/horse-man/blob/d5afcbe898f38b1d70d7ca54c03ef7e13d645978/docs/validation/implementation/2026-10-13-task36.json)。実装 afc6f4bb3d07751023190e2e1d7c31504a8ee4bc、対象外表示補完 3886b3444a576e97fb8c52f9f35aeb0dda244166、受入更新 d5afcbe898f38b1d70d7ca54c03ef7e13d645978。標準入力/正式schema/Owner/Prediction値/推奨券/data/既存workflowを保持。main更新/マージなし。次37-01。前向き非劣化は未実施、29実測はOPEN。以前の36-01入口は履歴。
+
+36番最終受入：[checkpoint](https://github.com/eda-hub/horse-man/blob/f05c80ee70c04d0fa113f773ac30183bb24b01b4/docs/validation/implementation/2026-10-13-task36.json)。過去出走0と前走クラス/昇級確定の矛盾も追加拒否し、補完 98a67edbdb633d4f643c7a78dfe149fc2f11f0b5 の実統合CI670件/skip0に一致する111入力hashで更新。受入基準 d5afcbe898f38b1d70d7ca54c03ef7e13d645978 の通常38391370363・統合38391370342・研究38391370359は全success。以前の669件受入も成功履歴として保持し、補完後のstale検出を670件の成功hashで更新。最終記録はcheckpointのみ、コード/manifest/受入入力不変。36番完了、次37-01。前向き非劣化は未実施。
