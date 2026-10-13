@@ -10,12 +10,12 @@
 |---|---|---|
 | NOT_ATTEMPTED | NOT_EVALUATED、価格/期待値null | attempts空、試行/取得/停止時刻null、source_ref null |
 | FAILED | NOT_EVALUATED、価格/期待値null | 1件以上の失敗。試行ごとの取得先・理由・開始/終了を保持、取得時刻null |
-| DEADLINE_STOPPED | NOT_EVALUATED、価格/期待値null | 1件以上の失敗、期限と停止時刻を保存。終了≦期限≦停止≦cutoff |
+| DEADLINE_STOPPED | NOT_EVALUATED、価格/期待値null | 試行前の期限到達は履歴空、試行済みは失敗を保存。期限≦停止≦cutoff |
 | ACQUIRED | NOT_EVALUATED / POSITIVE_EV / INSUFFICIENT_EV | 最後の試行だけ成功、観測≦取得≦cutoff。取得先/取得時刻は最終試行と一致 |
 
 取得済み未評価の期待値はnullを許容し、未算定を0や不足へ変換しない。評価済みには有限の期待値を要求し、POSITIVE_EVは正数、INSUFFICIENT_EVは0以下。市場の取得適格性は価格・出所・保存の独立結果であり、正の期待値や性能を自動認証しない。
 
-`market.acquisition` は `schema_version: market-acquisition-v1`、attempts、deadline_at_jst、stopped_at_jstを持つ。各attemptには1開始の連番attempt_no、source_ref、started_at_jst、finished_at_jst、result（FAILED/ACQUIRED）、reason、observed_at_jstを保存。FAILEDの観測時刻はnull。連番重複・欠番・未来/逆行/重複時間・成功後の追加試行・期限超過を拒否。外部応答hash/自動リトライ/代替取得の実動作は29番。
+`market.acquisition` は `schema_version: market-acquisition-v1`、attempts、deadline_at_jst、stopped_at_jstを持つ。各attemptには1開始の連番attempt_no、source_ref、started_at_jst、finished_at_jst、result（FAILED/ACQUIRED）、reason、observed_at_jstを保存。FAILEDの観測時刻はnull。連番重複・欠番・未来/逆行/重複時間・成功後の追加試行・期限超過を拒否。HTTP原応答hash/再試行/代替取得の実装と締切超過finishの保全は [29番の仕様](market-acquisition.md)。
 
 旧market-analysis-v1は読取互換を保持し、履歴なしを未確認として表示。古い履歴を捏造しない。新v2から履歴を省略したもの、未知schemaは拒否。履歴があるv1にも同じ履歴整合を適用。
 

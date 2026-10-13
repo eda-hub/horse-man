@@ -1,0 +1,43 @@
+{
+  "schema_version": "numbered-task-acceptance-v1",
+  "task": 29,
+  "status": "IMPLEMENTED_PENDING_FULL_CI",
+  "inputs": {
+    "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "pr69": "4b7651acb589a8f4881d1ec4752e567ccae4f960",
+    "pr68": "1ee07b65f120954f22257e6f5ad089e443c5e34e"
+  },
+  "implementation": {
+    "transport": "CONFIGURABLE_PRIMARY_AND_FALLBACK_HTTP_JSON",
+    "actual_provider_endpoints_configured": false,
+    "vendor_specific_html_or_jvlink_adapter_completed": false,
+    "raw_response_sha256_readback": true,
+    "retry_deadline_policy": true,
+    "synthetic_cannot_certify_live_market": true
+  },
+  "tests": {
+    "new": 22,
+    "task28": 18,
+    "cycle04": 56,
+    "readiness": 9,
+    "local_http_failure_fallback": "PASS",
+    "result": "PASS"
+  },
+  "protected": {
+    "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "historical_records_changed": false,
+    "owner_changed": false,
+    "existing_workflow_changed": false,
+    "actual_race_prices_created": false,
+    "performance_promoted": false
+  },
+  "live_validation": {
+    "status": "OPEN",
+    "required_meetings": 2,
+    "measured_meetings": null,
+    "endpoints_and_normalization_confirmed": false,
+    "past_20261011_cause": "UNKNOWN",
+    "reason": "実接続先/正規化形式・代替実接続と2開催以上の実測待ち。合成・loopbackを実価格取得実績に数えない。"
+  },
+  "next_code_task": 30
+}

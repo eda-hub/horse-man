@@ -149,6 +149,8 @@ def validate_day(root, path, contract):
                     payload.get('data_cutoff') == cutoff, 'independent market record mismatch')
             require(iso(cutoff, 'market cutoff') < post, 'market cutoff must precede post')
             validate_market_payload(payload, cutoff)
+            from market_acquisition import verify_responses
+            verify_responses(root, payload)
     if contract_state(root).get('full_horse_contract')=='REQUIRED':
         require(d.get('manual_release')==release(root),'day release mismatch')
         registrations=d.get('scope_history',[d.get('official_scope')])

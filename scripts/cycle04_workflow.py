@@ -207,6 +207,8 @@ def record_market(root,date,entry):
     cutoff=payload.get('data_cutoff')
     require(iso(cutoff,'market cutoff')<iso(row['scheduled_post_time_jst'],'post'),'market cutoff must precede post')
     state=validate_market_payload(payload,cutoff)
+    from market_acquisition import verify_responses
+    verify_responses(root,payload)
     row['market_ref']=copy.deepcopy(entry['market_ref']);row['market']=copy.deepcopy(payload['market'])
     row['market_cutoff']=cutoff
     set_state(day['kpis']['market'],race,'ELIGIBLE' if state=='ACQUIRED' else 'PENDING',

@@ -145,7 +145,10 @@ def validate_market(market, cutoff):
         if state == 'NOT_ATTEMPTED':
             require(market.get('attempted_at_jst') is None, 'unattempted market cannot have attempt time')
         else:
-            require(iso(market.get('attempted_at_jst'), 'market attempt') <= iso(cutoff, 'cutoff'),
+            history = market.get('acquisition')
+            empty_stop = (state == 'DEADLINE_STOPPED' and isinstance(history, dict)
+                          and history.get('attempts') == [] and market.get('attempted_at_jst') is None)
+            require(empty_stop or iso(market.get('attempted_at_jst'), 'market attempt') <= iso(cutoff, 'cutoff'),
                     'future market attempt')
     else:
         require(iso(market.get('attempted_at_jst'), 'market attempt') <=
@@ -184,8 +187,12 @@ def validate_market_acquisition(market, cutoff):
         finish = iso(attempt.get('finished_at_jst'), 'market attempt finish')
         require(start <= finish <= limit and (previous is None or previous <= start),
                 'future/reversed/overlapping market attempts')
-        require(deadline is None or finish <= deadline, 'market attempt exceeds deadline')
         result = attempt.get('result')
+        late_failure = (market['status'] == 'DEADLINE_STOPPED' and result == 'FAILED'
+                        and history.get('transport_schema') == 'market-http-acquisition-v1'
+                        and attempt.get('error_code') == 'DEADLINE_EXCEEDED'
+                        and deadline is not None and start < deadline)
+        require(deadline is None or finish <= deadline or late_failure, 'market attempt exceeds deadline')
         require(result in {'FAILED', 'ACQUIRED'}, 'market attempt result required')
         require(result != 'ACQUIRED' or n == len(attempts), 'market attempt after acquisition')
         if result == 'ACQUIRED':
@@ -201,9 +208,11 @@ def validate_market_acquisition(market, cutoff):
                 and market.get('acquired_at_jst') is None and market.get('source_ref') is None
                 and stopped_raw is None, 'unattempted market has acquisition evidence')
     else:
-        require(bool(attempts) and market.get('attempted_at_jst') == attempts[0]['started_at_jst'],
+        empty_stop = state == 'DEADLINE_STOPPED' and not attempts
+        require((empty_stop and market.get('attempted_at_jst') is None) or
+                (bool(attempts) and market.get('attempted_at_jst') == attempts[0]['started_at_jst']),
                 'market first attempt mismatch')
-        require((state == 'ACQUIRED') == (attempts[-1]['result'] == 'ACQUIRED'),
+        require((state == 'ACQUIRED') == (bool(attempts) and attempts[-1]['result'] == 'ACQUIRED'),
                 'market acquisition status/history mismatch')
         if state == 'ACQUIRED':
             require(market.get('acquired_at_jst') == attempts[-1]['finished_at_jst']
@@ -213,7 +222,8 @@ def validate_market_acquisition(market, cutoff):
             require(market.get('acquired_at_jst') is None, 'unacquired market has acquisition time')
         if state == 'DEADLINE_STOPPED':
             stopped = iso(stopped_raw, 'market stopped')
-            require(deadline is not None and previous <= deadline <= stopped <= limit,
+            require(deadline is not None and deadline <= stopped <= limit and
+                    (previous is None or previous <= stopped),
                     'market deadline stop time mismatch')
         else:
             require(stopped_raw is None, 'market stop time without deadline stop')
