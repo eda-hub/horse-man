@@ -667,3 +667,14 @@ WindowsのPathをそのままJSONへ保存するとbackslashを含み、Git内�
 [通常CI](https://github.com/eda-hub/horse-man/actions/runs/38352143883) 全13step・564回帰、[統合受入](https://github.com/eda-hub/horse-man/actions/runs/38352143801) 全6step・564件/skip0、[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38352143806) 全22stepがすべてsuccess。第3/第4・保存/推奨・原子整合・実main開始確認とPR69開始拒否、15,321個体/26snapshot保全を維持。
 
 最終受入記録commit `ec6d449708d7fcee144343b5eb5fbd569e17dcfd` に564件・Windows是正・独立fixture・CI基準/runを固定。[最新記録](https://github.com/eda-hub/horse-man/blob/ec6d449708d7fcee144343b5eb5fbd569e17dcfd/docs/validation/implementation/2026-10-11-task29-provider.json)。これは記録のみの更新でコード/manifest/既存workflow/dataは検証基準から不変。実機接続と将来2開催はOPENのまま。Windows VMへアクセスできる接続先/実行方法が必要で、今日の合成検査・公式SDKダウンロードを実測へ代用しない。
+
+
+##### 29番残件の一時Git終了競合是正と最終受入
+
+最終記録CI [38352782084](https://github.com/eda-hub/horse-man/actions/runs/38352782084) で既存readinessの `TemporaryDirectory.cleanup / Directory not empty: objects` が再発。S03の同種失敗に続くため再試行だけで閉じず、一時fixture内でのみGitの自動maintenance/GCとdetachを無効化した。assertion・厳格cleanup・全テストを維持し、ユーザー/本体Git設定を変えない。是正commit `2f0eeca4374f388325f0ff6c2aebe44daff8f4e2`、関連9件成功。
+
+[独立統合CI](https://github.com/eda-hub/horse-man/actions/runs/38353608850) の実564件/skip0と一致する100入力hash `9a69c613df07f766f82d50e984d455fc28d353b963f86bebfc73aaeacf7db2da` で受入を更新。是正直後の通常CIは564回帰成功、旧受入stale hashだけで失敗したことも保存。
+
+検証基準 `cc4c78279313c536ed19df1041e13cb42da1114f` の[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38353772384) 全13step/564回帰、[統合受入](https://github.com/eda-hub/horse-man/actions/runs/38353772353) 全6step/564件skip0、[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38353772381) 全22stepがすべてsuccess。115source正式manifest・100入力合成受入・第3/第4・推奨/保存・原子整合・main開始確認/未マージPR69拒否を確認。Registry15,321・26snapshot invalid0、data tree `0691e0fee7bfdf4671042e99c465c10a451d1ac9` 不変。
+
+最終受入保存 `06b4ec07e11b40ee0be6cb295a5fb9778b819935`、[公式経路checkpoint](https://github.com/eda-hub/horse-man/blob/06b4ec07e11b40ee0be6cb295a5fb9778b819935/docs/validation/implementation/2026-10-11-task29-provider.json)。29番の残実装は受入済み、Windows実接続と将来2開催実測はOPEN。Linux環境からアクセスするWindows VMの接続先/実行方法が必要。合成成功やSDK取得を実価格取得の成功へ代用しない。次の独立コード入口30番は維持、main更新/マージなし、PR69 Draft維持。
