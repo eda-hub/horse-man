@@ -1,0 +1,20 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "42",
+  "status": "ACCEPTED_REQUIRED_FOUR_REUSE",
+  "basis_commit": "3be9e494ce477f88b25a783f6358cfcd1e62096a",
+  "completed_subtasks": [
+    "42-01"
+  ],
+  "batch_path": "data/pedigree/reconciliations/2026-10-12-delta/countries/42-01/batch.json",
+  "verified_subjects": 4,
+  "new_external_queries": 0,
+  "registry_revisions_added": 0,
+  "validation": {
+    "existing_country_resolver": "PASS_4",
+    "fact_validation": "PASS_4",
+    "postcommit_ci": "ActionsとPR本文で照合"
+  },
+  "all_oct12_country_completed": false,
+  "next_task": "43-01"
+}
