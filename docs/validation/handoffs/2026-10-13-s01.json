@@ -810,8 +810,8 @@
     "activation_policy": "MAIN_MERGE",
     "activated_on_main_by_pr79": true,
     "new_cutover_performed": false,
-    "release_manifest_sources": 66,
-    "monitored_source_bytes_policy": "EXACT_CURRENT_MAIN",
+    "release_manifest_sources": 106,
+    "monitored_source_bytes_policy": "MAIN_BYTES_BASELINE_WITH_EXPLICIT_CI_DEPENDENCY_RESTORATION_AND_GENERATED_BRANCH_MANIFEST",
     "release_fixture_restorations": [
       {
         "path": "scripts/test_check_prediction_compliance.py",
@@ -825,7 +825,8 @@
         "pr_sha": "92176f22b1739feaf95fe4c1217371176394f511",
         "base_sha": "a529a8c707a60fb816d81a1f434d888429869a04"
       }
-    ]
+    ],
+    "imported_main_manifest_sources": 66
   },
   "local_validation": {
     "tests": 215,
@@ -841,7 +842,8 @@
       "test_persistence_status",
       "test_check_prediction_cycle"
     ],
-    "context": "独立scratch候補。実際に三方比較したmainコードとmain既存旧/新版fixtureを採用。合成受入・前向きKPI・運用開始認証を完了へ転用しない。"
+    "context": "独立scratch候補。実際に三方比較したmainコードとmain既存旧/新版fixtureを採用。合成受入・前向きKPI・運用開始認証を完了へ転用しない。",
+    "followup_validation_location": "PDF原票回帰8件と正式readiness4件は各コードが存在する作業コピーで別に実行。最終結果はPR68/PR69に記録。"
   },
   "ci_result_location": "成果commitのGitHub Actions結果とPR68/PR69本文に記録",
   "deferred": {
@@ -867,5 +869,35 @@
     "performance_promotion": false,
     "runtime_connected": false
   },
-  "next_task": "S02"
+  "next_task": "S02",
+  "integration_adjustments": {
+    "reason": "初回通常CIの489回帰中、研究原PDFを読み取るpdftotext未導入による1 errorを検出。試験/原票検証を省略せず既存PR69の依存準備と過去Git履歴のcheckoutを復元。",
+    "initial_ci": {
+      "run_id": 38330999272,
+      "conclusion": "failure",
+      "tests": 489,
+      "errors": 1,
+      "failing_test": "test_training_country_priority.TrainingCountryPriorityTest.test_accept_saved_checkpoint_and_first_ten",
+      "diagnostic": "FileNotFoundError: pdftotext"
+    },
+    "files": [
+      {
+        "path": ".github/workflows/check-cycle03.yml",
+        "change": "poppler-utilsの依存準備とfetch-depth:0のみ追加。mainの監査ステップを保持。"
+      },
+      {
+        "path": "docs/validation/contracts/v170-release.json",
+        "change": "既存build_v170_manifest.pyで再生成。106入力hash、mainとPR69の全script/Ownerを固定。"
+      }
+    ],
+    "hash_validation": "PASS_ALL_106",
+    "release_readiness": "PASS_ATOMIC_ONLY_OPERATIONAL_READY_FALSE",
+    "release_readiness_tests": {
+      "count": 4,
+      "result": "PASS"
+    },
+    "require_main_policy": "未マージPR69の106-source manifestはmainの66-source manifestと区別する。main開始確認を迂回・緩和しない。",
+    "S02_not_completed": true,
+    "S03_not_completed": true
+  }
 }
