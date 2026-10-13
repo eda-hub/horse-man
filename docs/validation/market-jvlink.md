@@ -23,3 +23,5 @@ O1〜O6原bytesの長さ/終端・race/場/R・中間区分1・発売フラグ�
 `python scripts/check_market_live_validation.py --root ROOT LIVE_MANIFEST_JSON` で検査。2つ以上の開催日と全賭式/券種別の実取得成功が揃うまでCONTINUE_VALIDATION、条件成立時だけPASS。receiptファイルの後続追記は許容するが当時の同一receiptレコードが元Gitで一致することを要求。原応答・分析の後日書換え、発走後commit、未登録scope、合成/REPLAY、同一ID重複は拒否。受入成功をPrediction/Recommendation性能・正式ルール昇格へ転用しない。
 
 現時点ではこの実行環境がLinuxでpywin32なし、利用者Windows VMへの接続設定もないため、実サービス接続はOPEN。10/17・18等の将来2開催の発走前実測は今日生成できない。ダミー台帳・実測0・過去の宣言/価格/receiptを補造しない。公式経路・正規化・実測checkerの実装受入と、この2残件を分けて保持する。
+
+最終セルフレビュー：Windows作成のresponse_refはGit共通のPOSIX pathへ正規化する。実装LAYOUT/LENGTHSを参照しない公式位置・組合せ順の独立fixtureで再照合。native17＋実測受入7＝追加24回帰、全564回帰/skip0と3系統CIが成功。合成試験をWindows実サービス接続や実開催実測へ数えない。

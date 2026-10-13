@@ -24,9 +24,9 @@
     "readiness": 9,
     "local_http_failure_fallback": "PASS",
     "result": "PASS",
-    "full": 563,
+    "full": 564,
     "skipped": 0,
-    "additional_provider": 23
+    "additional_provider": 24
   },
   "protected": {
     "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
@@ -117,7 +117,7 @@
     "method": "実CI全540回帰/skip0と一致する96入力manifestを保存"
   },
   "implementation_commit": "19875177de7c8fc60b50f1a9357dcb28d0804a77",
-  "verification_basis_commit": "8bb4dc25696f5e084ee3fb9db4e0ff14859170aa",
+  "verification_basis_commit": "5e5ad67d7ac807d3fd69e36e9c091ce8f00fea6b",
   "manifest_sources": 115,
   "requirements": [
     {
@@ -185,8 +185,8 @@
     },
     "code_commit": "c0a791327995238046cb9fe6406ddb57de7506e6",
     "provider_receipt": "docs/validation/implementation/2026-10-11-task29-provider.json",
-    "additional_tests": 23,
-    "full_tests": 563,
+    "additional_tests": 24,
+    "full_tests": 564,
     "skip": 0,
     "source_count": 100,
     "release_sources": 115,
@@ -216,28 +216,39 @@
     "acceptance_manifest_sha256": "b0f2dc77b15194a91b6d85e31301c4ffe615ff1ea76f56375e927410e9f79800",
     "ci": [
       {
-        "run_id": 38349990174,
-        "job_id": 115139957139,
+        "run": 38352143883,
+        "job_id": 115146713256,
         "steps": 13,
         "result": "success",
-        "url": "https://github.com/eda-hub/horse-man/actions/runs/38349990174"
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38352143883"
       },
       {
-        "run_id": 38349990393,
-        "job_id": 115139958286,
+        "run": 38352143801,
+        "job_id": 115146712371,
         "steps": 6,
         "result": "success",
-        "url": "https://github.com/eda-hub/horse-man/actions/runs/38349990393"
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38352143801"
       },
       {
-        "run_id": 38349990159,
-        "job_id": 115139957238,
+        "run": 38352143806,
+        "job_id": 115146712284,
         "steps": 22,
         "result": "success",
-        "url": "https://github.com/eda-hub/horse-man/actions/runs/38349990159"
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38352143806"
       }
     ],
-    "verification_basis_commit": "8bb4dc25696f5e084ee3fb9db4e0ff14859170aa",
-    "implementation_acceptance": "PASS"
+    "verification_basis_commit": "5e5ad67d7ac807d3fd69e36e9c091ce8f00fea6b",
+    "implementation_acceptance": "PASS",
+    "final_review": {
+      "code_commit": "3ee5003252b941c544ffc7485a5717fa72335276",
+      "windows_response_path_git_portability": "PASS",
+      "fixture_independent_of_implementation_layout": "PASS",
+      "sdk_official_order_fixture": "PASS",
+      "acceptance_manifest_sha256": "3c52989e937e837d8c0e5a2caf67afa95b07b63b28d4ba6a04591e0d62732dce",
+      "review_formal_run": 38351826992,
+      "review_formal_failure": "stale acceptance: source hash mismatch",
+      "regression_before_refresh": 564,
+      "refresh_verified": true
+    }
   }
 }
