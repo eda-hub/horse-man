@@ -1,7 +1,7 @@
 {
   "schema_version": "task38-checkpoint-v1",
   "task": 38,
-  "status": "READ_ONLY_VERIFIED_CI_PENDING",
+  "status": "READ_ONLY_SUPPLEMENT_ACCEPTANCE_COMPLETE",
   "input_pr69_sha": "14b575eb60fca373d0dfe977cf2b7f4239d709e1",
   "input_pr68_sha": "f9f10413910909f6b7ef4ef3cd098327d6758266",
   "tasks": {
@@ -20,7 +20,20 @@
       "errors": 3,
       "reason": "ローカル作業コピーにcycle_03.mdと旧Git根拠gzがない。実repoの欠陥ではない。該当依存を持たない20回帰と原台帳直接照合は成功、完全なrepoのCIで全件確認"
     },
-    "ci": "PENDING"
+    "ci": {
+      "basis_commit": "57fd8d07324304f732d7b05c253e25b6ca8f03ad",
+      "normal_run": 38397684560,
+      "integration_run": 38397684606,
+      "research_run": 38397684572,
+      "result": "ALL_SUCCESS",
+      "tests_run": 688,
+      "failures": 0,
+      "skipped": 0,
+      "source_count": 115,
+      "source_manifest_sha256": "a1595da49a059d0f8ca0d735b054c5d5585ea47927d38bd67a1a6edffb6f89e9",
+      "manifest_source_count": 134,
+      "local_missing_dependency_tests": "VERIFIED_BY_COMPLETE_REPOSITORY_CI"
+    }
   },
   "preserved": {
     "old_kpi_eligibility": true,
@@ -43,5 +56,6 @@
     "task29": "PRE_RACE_LIVE_VALIDATION_OPEN",
     "task37": "FORWARD_MEASUREMENTS_OPEN"
   },
-  "next": "39-01"
+  "next": "39-01",
+  "implementation_commit": "57fd8d07324304f732d7b05c253e25b6ca8f03ad"
 }
