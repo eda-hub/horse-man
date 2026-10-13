@@ -8,7 +8,7 @@
   "result": "PASS",
   "schema_version": "cycle04-acceptance-v1",
   "skipped": 0,
-  "tests_run": 500,
+  "tests_run": 518,
   "source_manifest": [
     {
       "path": "docs/manual/00_core.md",
@@ -92,7 +92,7 @@
     },
     {
       "path": "scripts/check_cycle04.py",
-      "sha256": "5080675c3ec1556ef0f4989c569c18ec1f8b95930008902488bd6eac71b4564d"
+      "sha256": "1016e8a11aeb807cf97928831e45c391d8393abaf9faa682a3580555601e44a2"
     },
     {
       "path": "scripts/check_designated_ancestor_scope.py",
@@ -176,15 +176,19 @@
     },
     {
       "path": "scripts/cycle04_operations.py",
-      "sha256": "68b038278c3631b0e3addc079662f91f09e063286863b8c85fe02c704e8fc7cc"
+      "sha256": "5813eacb93aefb3760865305e5449beb105c3ec1e83992dfcc687103e6cbfce9"
     },
     {
       "path": "scripts/cycle04_workflow.py",
-      "sha256": "958701d654fe6e7b36a3235e3544f2e5867b13556fc795a8b3e8876b93474fa6"
+      "sha256": "2e0606c8315acf4f6d548efbba12de9245e94e73fc0fa144e060a38a4a066277"
     },
     {
       "path": "scripts/import_legacy_subjects.py",
       "sha256": "41b401d4b78d35338759685cd71c9b46fb5cbc842651a730bd85fa54c4ee0bcf"
+    },
+    {
+      "path": "scripts/market_sidecar.py",
+      "sha256": "5fc4d0bd3f20dd7b4aae92d6fef012bb47503059254ac0099d3fe413291d4f1e"
     },
     {
       "path": "scripts/pedigree_batch.py",
@@ -281,6 +285,10 @@
     {
       "path": "scripts/test_legacy_fact_followup.py",
       "sha256": "b739684128aa52ea5f76adf8def589568e01f8bc132c537408c7b1f5c19795a2"
+    },
+    {
+      "path": "scripts/test_market_sidecar.py",
+      "sha256": "a0e8db537e4cb7d967038a23dff0f7283f6c49c8e8bf0b433ad5e7e2828b60f5"
     },
     {
       "path": "scripts/test_next_prediction_compliance.py",
