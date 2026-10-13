@@ -123,28 +123,28 @@
   "status": "IMPLEMENTATION_ACCEPTED_WINDOWS_AND_TWO_MEETINGS_OPEN",
   "ci": [
     {
-      "run": 38352143883,
-      "job_id": 115146713256,
-      "steps": 13,
-      "result": "success",
-      "url": "https://github.com/eda-hub/horse-man/actions/runs/38352143883"
-    },
-    {
-      "run": 38352143801,
-      "job_id": 115146712371,
+      "run": 38353772353,
+      "job_id": 115151855479,
       "steps": 6,
       "result": "success",
-      "url": "https://github.com/eda-hub/horse-man/actions/runs/38352143801"
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772353"
     },
     {
-      "run": 38352143806,
-      "job_id": 115146712284,
+      "run": 38353772384,
+      "job_id": 115151855271,
+      "steps": 13,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772384"
+    },
+    {
+      "run": 38353772381,
+      "job_id": 115151865970,
       "steps": 22,
       "result": "success",
-      "url": "https://github.com/eda-hub/horse-man/actions/runs/38352143806"
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772381"
     }
   ],
-  "verification_basis_commit": "5e5ad67d7ac807d3fd69e36e9c091ce8f00fea6b",
+  "verification_basis_commit": "cc4c78279313c536ed19df1041e13cb42da1114f",
   "final_review": {
     "code_commit": "3ee5003252b941c544ffc7485a5717fa72335276",
     "windows_response_path_git_portability": "PASS",
@@ -154,6 +154,50 @@
     "review_formal_run": 38351826992,
     "review_formal_failure": "stale acceptance: source hash mismatch",
     "regression_before_refresh": 564,
+    "refresh_verified": true
+  },
+  "git_fixture_stability": {
+    "code_commit": "2f0eeca4374f388325f0ff6c2aebe44daff8f4e2",
+    "acceptance_refresh_commit": "cc4c78279313c536ed19df1041e13cb42da1114f",
+    "observed_failure_run": 38352782084,
+    "observed_failure": "TemporaryDirectory cleanup OSError [Errno 39] Directory not empty: objects",
+    "fixture_fix": "一時Git fixture内だけ maintenance.auto=false / maintenance.autoDetach=false / gc.auto=0 / gc.autoDetach=false。検査assertion・厳格cleanupは維持。",
+    "local_readiness_tests": 9,
+    "independent_full_basis_run": 38353608850,
+    "independent_full_basis_job": 115151341266,
+    "full_tests": 564,
+    "skipped": 0,
+    "source_count": 100,
+    "release_sources": 115,
+    "acceptance_manifest_sha256": "9a69c613df07f766f82d50e984d455fc28d353b963f86bebfc73aaeacf7db2da",
+    "before_refresh_formal_run": 38353608874,
+    "before_refresh_formal_result": "564回帰はPASS、旧受入source hash不一致のみでFAIL",
+    "live_service_connection": "OPEN",
+    "two_future_meetings": "OPEN",
+    "verification_basis_commit": "cc4c78279313c536ed19df1041e13cb42da1114f",
+    "ci": [
+      {
+        "run": 38353772353,
+        "job_id": 115151855479,
+        "steps": 6,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772353"
+      },
+      {
+        "run": 38353772384,
+        "job_id": 115151855271,
+        "steps": 13,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772384"
+      },
+      {
+        "run": 38353772381,
+        "job_id": 115151865970,
+        "steps": 22,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772381"
+      }
+    ],
     "refresh_verified": true
   }
 }
