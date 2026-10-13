@@ -82,3 +82,6 @@ FORWARD/REPLAY/SYNTHETICの区分を結果sidecarへ引き継ぎ、合成/Replay
 
 ## 53-I12 任意市場と入力補助の独立性
 `test_chat_helper_market_independence.py`は新規組立入口を実day validatorへ接続し、未依頼/未試行/失敗/締切停止/取得済みを検査。市場登録前後で入力/固定Prediction/推奨bytesとproduction/recommendation KPIを保持し、市場cutoffは別時点に維持。取得本文保存と正式登録の既存分離、価格なし完了を保全。合成回帰で実価格受入を認証しない。
+
+## 53-I13 固定参照から非UI回顧資料を生成
+`python3 scripts/chat_review_package.py manifest.json --root . --as-of <時点>`。固定day_refsの初回scope全件、未最終/推奨なし/未確認、独立保存の予想hash/race/date/cutoff/baseline、全頭公式結果、誤差分類・良好部分保全/次検証を読取出力。結果本文真正性はI07の別再照合。各日の独立KPIを保持し、historical_purchase_refsは歴史診断に分離。外部AI API/DB/UIを実行せず、実行成功も認証しない。
