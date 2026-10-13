@@ -1,7 +1,7 @@
 {
   "schema_version": "numbered-task-acceptance-v1",
   "task": 29,
-  "status": "IMPLEMENTED_PENDING_FULL_CI",
+  "status": "FULL_ACCEPTANCE_PASS_PENDING_FORMAL_CI",
   "inputs": {
     "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
     "pr69": "4b7651acb589a8f4881d1ec4752e567ccae4f960",
@@ -39,5 +39,72 @@
     "past_20261011_cause": "UNKNOWN",
     "reason": "実接続先/正規化形式・代替実接続と2開催以上の実測待ち。合成・loopbackを実価格取得実績に数えない。"
   },
-  "next_code_task": 30
+  "next_code_task": 30,
+  "full_acceptance": {
+    "atomic": {
+      "activation_policy": "MAIN_MERGE",
+      "atomic_contract_verified": true,
+      "cycle_dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "live_races_executed": null,
+      "manual_release": "v1.7.0",
+      "operational_ready": false
+    },
+    "branch": {
+      "operational_ready": false,
+      "reason": "v1.7.0 has not been merged into the fetched main contract",
+      "status": "UNMERGED_CONTRACT_REJECTED"
+    },
+    "branch_manifest_sources": 111,
+    "live_races_executed": null,
+    "main": {
+      "activation_policy": "MAIN_MERGE",
+      "atomic_contract_verified": true,
+      "cycle_dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "live_races_executed": null,
+      "main_commit_time": "2026-10-13T08:15:30+09:00",
+      "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "manual_release": "v1.7.0",
+      "operational_ready": true
+    },
+    "main_manifest_sources": 66,
+    "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "monitored_sources_unchanged": true,
+    "performance_promoted": false,
+    "read_only": true,
+    "runtime_connected": false,
+    "schema_version": "integration-start-check-v1",
+    "synthetic_acceptance": {
+      "failures": 0,
+      "formal_cutover": "NOT_PERFORMED",
+      "live_race_count": null,
+      "mode": "SYNTHETIC",
+      "note": "正常系・異常系の合成検査。実レース、未完了研究、実runtime接続、正式版/有効日を認証しない。",
+      "performance_promotion": "NOT_PERFORMED",
+      "result": "PASS",
+      "schema_version": "cycle04-acceptance-v1",
+      "skipped": 0,
+      "source_count": 96,
+      "source_manifest_sha256": "7f3c0315a04f4c3cd1611a32040c04f26444e80a3b60fe7d093ae704d3e3d887",
+      "tests_run": 540
+    }
+  },
+  "acceptance_refresh": {
+    "basis_commit": "19875177de7c8fc60b50f1a9357dcb28d0804a77",
+    "basis_run": 38346922500,
+    "source_count": 96,
+    "source_manifest_sha256": "7f3c0315a04f4c3cd1611a32040c04f26444e80a3b60fe7d093ae704d3e3d887",
+    "initial_formal_run": 38346922499,
+    "initial_failure": "stale acceptance: source hash mismatch",
+    "method": "実CI全540回帰/skip0と一致する96入力manifestを保存"
+  }
 }
