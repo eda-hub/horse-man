@@ -1,0 +1,189 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "46",
+  "status": "READ_ONLY_ACCEPTED_WITH_MEASUREMENT_GAPS",
+  "basis_commit": "30bda629293fbd33a1570edd675262b6c8832d8e",
+  "completed_subtasks": [
+    "46-01",
+    "46-02"
+  ],
+  "source_manifest": [
+    {
+      "path": "docs/validation/reviews/cycle_03/collection.json",
+      "git_blob_sha": "4fe64917edb265f9ef750c2d278aa1842a85d26c"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/decisions.json",
+      "git_blob_sha": "b551114714fdc35ec3da1da62d5bd072478391a7"
+    },
+    {
+      "path": "docs/proposals/2026-10-12_cycle03_summary_application_plan.md",
+      "git_blob_sha": "7ee3a999a1c6d8d489a1691590abdbc2b27c8826"
+    }
+  ],
+  "operation_review": {
+    "measurement_status": "UNMEASURED",
+    "intervention_count": null,
+    "persistence_latency_seconds": {
+      "median": null,
+      "max": null,
+      "p95": null
+    },
+    "readback_latency_seconds": {
+      "median": null,
+      "max": null,
+      "p95": null
+    },
+    "reason": "既存資料は工程集合差・保存不足を記録するが、統一した工程開始/保存/読戻し時刻と介入ログの実測分布を持たない。合成処理時間で補完しない。",
+    "observed_evidence": {
+      "selected_without_final": 21,
+      "explicit_exclusion": 1,
+      "not_executed": 20,
+      "user_accepted_omissions": 3,
+      "source": "decisions.json candidate_difference_counts"
+    },
+    "next_test": "第4の依頼対象について工程時刻・介入理由・保存/読戻しreceiptを同一artifactで収集。欠測と取消を区別し中央値/最大/p95を算定。",
+    "owner": "00_core / 保存CLI / 50_review"
+  },
+  "non_degradation_review": {
+    "formal_performance_promotion": "NOT_APPROVED",
+    "formal_roi": null,
+    "old_fixed_virtual": {
+      "stake_yen": 220000,
+      "return_yen": 191750,
+      "scope": "分離契約22固定案の全券参考精算。正式ROI・新推奨性能ではない"
+    },
+    "actual_purchase": {
+      "scope": "9/27確認済み2Rの別帳簿",
+      "stake_yen": 3900,
+      "return_yen": 3330,
+      "required_by_new_prediction": false
+    },
+    "prediction": "全対象・固定基準・共通cutoff・結果・発走前証跡が揃う比較のみ。旧適格主張を再認証しない。",
+    "recommendation": "価格不要の構成検査と、校正・同時率・性能の未受入を分離。",
+    "owner_tests": [
+      {
+        "id": "C01",
+        "owner": "00_core / 保存CLI",
+        "next_test": "本体/receipt/hash/gate/Shadowの独立不足を再試験",
+        "decision": "ADOPT_OPERATION"
+      },
+      {
+        "id": "C02",
+        "owner": "00_core / 保存CLI",
+        "next_test": "新規保存/改変/読戻し差/締切/同bytes再試行",
+        "decision": "ADOPT_OPERATION"
+      },
+      {
+        "id": "C03",
+        "owner": "00_core / 用途履歴",
+        "next_test": "revision断絶・用途変更・取消・同一artifact receipt",
+        "decision": "ADOPT_OPERATION"
+      },
+      {
+        "id": "C04",
+        "owner": "30_betting / 任意市場",
+        "next_test": "未試行/失敗/締切/取得済みを独立検査、次回2開催以上で実測",
+        "decision": "ADOPT_OPERATION"
+      },
+      {
+        "id": "C05",
+        "owner": "10_prediction / 入力",
+        "next_test": "全頭集合・未来値・0埋め・近5走/相手レベル不足・公式失敗後fallback",
+        "decision": "ADOPT_OPERATION"
+      },
+      {
+        "id": "C06",
+        "owner": "30_betting / 推奨構築",
+        "next_test": "8券種・枠内2頭・順序・取消・未校正下限。集中/全損率は第4で実測",
+        "decision": "CONTINUE_VALIDATION"
+      },
+      {
+        "id": "C07",
+        "owner": "30_betting / 比較推奨",
+        "next_test": "条件成立/非成立・6n/m点・取消・同時率不足",
+        "decision": "CONTINUE_VALIDATION"
+      },
+      {
+        "id": "C08",
+        "owner": "10_prediction / 40_shadow",
+        "next_test": "年齢限定/混合既経験・クラス・斤量/休養/直近実走別の同時点比較",
+        "decision": "CONTINUE_VALIDATION"
+      },
+      {
+        "id": "C09",
+        "owner": "20_conditional / 40_shadow",
+        "next_test": "同一cutoff基準/比較、適用条件別・全馬結果・非劣化",
+        "decision": "CONTINUE_VALIDATION"
+      },
+      {
+        "id": "C10",
+        "owner": "10_prediction / 40_shadow",
+        "next_test": "除外理由・尾部候補・隊列/馬場の事前確率と持続根拠を固定",
+        "decision": "OBSERVE"
+      },
+      {
+        "id": "C11",
+        "owner": "30_betting / 50_review",
+        "next_test": "新規は印の捕捉と価格不要推奨構成を別採点。実購入・配分の比較は旧履歴の読取診断に限定。",
+        "decision": "CONTINUE_VALIDATION"
+      },
+      {
+        "id": "C12",
+        "owner": "40_shadow / 50_review",
+        "next_test": "条件/未実施/同一入力ペア・非劣化、追加3分上限",
+        "decision": "CONTINUE_VALIDATION"
+      },
+      {
+        "id": "C13",
+        "owner": "20_conditional / データ基盤",
+        "next_test": "依存hashと入力scope、未追加10/10・11午前・12日の研究を別管理",
+        "decision": "RETAIN_FACTS"
+      },
+      {
+        "id": "C14",
+        "owner": "README / 全Owner",
+        "next_test": "v1.7.0の全Owner/入口/監査/Phase整合と取得済みmainを継続照合",
+        "decision": "ADOPT_OPERATION"
+      },
+      {
+        "id": "C15",
+        "owner": "10_prediction / 20_conditional / JRA-VAN Phase",
+        "next_test": "取得/唯一Writer→予想/推奨→結果/回顧のPhase受入",
+        "decision": "CONTINUE_VALIDATION"
+      },
+      {
+        "id": "C16",
+        "owner": "00_core / 30_betting",
+        "next_test": "逆流・未校正下限・Replay適格宣言を拒否",
+        "decision": "REJECT"
+      }
+    ],
+    "forward_plan": {
+      "path": "docs/validation/implementation/2026-10-13-task37.json",
+      "git_blob_sha": "36d05fc65383d69c9c270381d8e61634100b6824",
+      "dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "status": "OPEN"
+    },
+    "synthetic_acceptance": {
+      "path": "docs/validation/reviews/cycle_04/acceptance.json",
+      "git_blob_sha": "6a60d1cb62fb31f97fa75675733f4424ae420fc4",
+      "mode": "SYNTHETIC",
+      "tests_run": 324,
+      "live_race_count": null
+    }
+  },
+  "validation": {
+    "main_decisions_blob_matches_pr69": true,
+    "all_16_owner_next_test_present": true,
+    "local_tests": "test_build_cycle03_review: 15成功・原資料依存1エラー（部分コピーのrootに資料なし）。完全repoの3系統CIで最終確認。",
+    "original_writes": false,
+    "postcommit_ci": "Actionsで確認"
+  },
+  "next_task": "47-01"
+}
