@@ -25,14 +25,14 @@
     "failures": 0,
     "skipped": 0,
     "ci": {
-      "basis_commit": "1cdc53d104aeaf429439ac5a7b51534cde29bbb1",
-      "integration_run": 38373209169,
-      "research_run": 38373209136,
+      "basis_commit": "f2aa61945b33d21b94d7b0812d89c1a21b44f213",
+      "integration_run": 38373898585,
+      "research_run": 38373898680,
       "result": "SUCCESS",
       "tests_run": 633,
       "skipped": 0,
       "source_count": 109,
-      "source_manifest_sha256": "bcc9d3995b0831395298629a118124068ccba707d11be918bcd663c9ba71c9c6",
+      "source_manifest_sha256": "dbcd1065d490456a901a69e263866a9d006abe0db0b235339e895429e2bc6254",
       "initial_normal_failure": {
         "run_id": 38372328053,
         "tests_run": 632,
@@ -53,7 +53,20 @@
         "tests_run": 632
       },
       "boundary_normal_run": 38373209240,
-      "boundary_normal_status": "PENDING_STALE_ACCEPTANCE_CHECK"
+      "boundary_normal_status": "FAILED_STALE_ACCEPTANCE_VERIFIED",
+      "post_boundary_acceptance": {
+        "commit_sha": "bfb7d725596d6ce57fba6157f58ce7ca13da5c38",
+        "normal_run": 38373537699,
+        "integration_run": 38373537698,
+        "research_run": 38373537731,
+        "result": "ALL_SUCCESS",
+        "tests_run": 633
+      },
+      "frame_normal_failure": {
+        "run_id": 38373898654,
+        "tests_run": 633,
+        "reason": "旧受入hashを検出。実成功の109入力で更新"
+      }
     }
   },
   "protected": {
@@ -74,5 +87,6 @@
   "next": "32-01",
   "implementation_commit": "2be36d5a062c92d29b758e1312b1c1bbeff8f302",
   "review_fix_commit": "aef9308c6003a4bdd9e3999122274806fe01d449",
-  "boundary_review_commit": "1cdc53d104aeaf429439ac5a7b51534cde29bbb1"
+  "boundary_review_commit": "1cdc53d104aeaf429439ac5a7b51534cde29bbb1",
+  "frame_dependency_review_commit": "f2aa61945b33d21b94d7b0812d89c1a21b44f213"
 }
