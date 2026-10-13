@@ -40,3 +40,11 @@ provider/URL/観測・取得時刻は保存本文から導出し、読戻し時�
 `chat_entry_assembly.py --entry entry.json --capture-ref 本文参照.json --conversion-ref 変換参照.json`で、既存の固定gateとoperationsの参照を検査する。operationsの全頭入力参照は現契約の`inputs_ref`。独立保存した通常のrace-input-coverage-v1本体が、根拠照合済み変換のinputと一致することを要求する。引用変換sidecarそのものを通常入力本体へ代用しない。
 
 既存の公式scope・選定履歴・固定Prediction/推奨・宣言/FIX/receiptを再利用し、実台帳writerと同じ全日validatorでINITIAL/FINALの順序・revision・hash・入力不足・任意市場境界までプレビューする。candidate_dayは検査用の候補で、既存台帳・固定予想・推奨を上書きしない。プレビュー成功はGit保存や正式KPI認証ではない。確認したentryを既存cycle04_workflowの対象日branchで保存し、従来のGit読戻しを別に実施する。
+
+## 保存途中からの読取再開表示
+
+`chat_resume.py --request 再開参照.json`は既存個別完了checkerの不足から次の確認だけを日本語表示する。`--json`は監査用。requestはschema_version=chat-resume-request-v1、date、snapshot_id、phase=INITIAL/FINAL、scheduled_post_time_jst、prediction_gate_path、任意のintent_id/artifact_pathを持つ。FIX hashは当時記録したfixed_content_sha256か、発走前独立receipt付きfix_refを渡す。現在の本体から期待hashを新しく算出しない。
+
+FINALの推奨はrecommendation_artifact_path/recommendation_gate_path/recommendation_fix_hashで別確認する。予想側Shadowの不足を推奨へ転用せず、未確認推奨を対象外にしない。既存日別台帳への同一参照も確認する。保存済み本体・構造上の個別完了と、現時点で確認可能な保存時刻を分け、未来/時刻不明receiptを現在の完了へ使わない。
+
+発走後は発走前の再保存を提案せず、読取による不足確認を継続する。本入口は書込み・自動再試行・開始認証・Git読戻しを行わない。保存・読戻し・個別完了・main開始は独立工程のまま保持する。
