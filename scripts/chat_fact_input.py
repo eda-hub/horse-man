@@ -49,15 +49,19 @@ def convert(bundle, annotations, readback_at):
                 # The supplying origin remains explicit. Additional sources must not
                 # silently replace the primary provider/time metadata.
                 c = sources[0]
-                require(all(s['origin_group'] == c['origin_group'] for s in sources),
+                require(all(s['origin_group'] == c['origin_group'] and s['provider'] == c['provider']
+                            for s in sources),
                         'one row must use one upstream origin; preserve conflicts separately')
                 for ref in references:
                     bindings.append({'field': field, 'horse_no': row['horse_no'],
                                      'row_index': index, 'quotation': copy.deepcopy(ref)})
                 row.update(source_ref=c['source_url'], provider=c['provider'],
-                           observed_at_jst=c['source_updated_at_jst'],
-                           acquired_at_jst=c['read_finished_at_jst'], readback_at_jst=readback_at)
-                require(iso(c['read_finished_at_jst'], 'retrieval') <= readback,
+                           observed_at_jst=max((s['source_updated_at_jst'] for s in sources),
+                                              key=lambda t: iso(t, 'observed')),
+                           acquired_at_jst=max((s['read_finished_at_jst'] for s in sources),
+                                              key=lambda t: iso(t, 'retrieved')),
+                           readback_at_jst=readback_at)
+                require(all(iso(s['read_finished_at_jst'], 'retrieval') <= readback for s in sources),
                         'readback before retrieval')
             else:
                 require(not references and row.get('value') is None, 'missing input cannot claim extracted value')

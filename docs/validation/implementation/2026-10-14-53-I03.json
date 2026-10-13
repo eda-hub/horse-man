@@ -1,0 +1,34 @@
+{
+  "schema_version": "numbered-implementation-v1",
+  "task": "53-I03",
+  "message": "53-I03：引用値・馬番号と入力原本/独立receiptの対応を検査",
+  "status": "IMPLEMENTATION_ACCEPTED",
+  "basis_commit": "f9798b77de69b9e66af33d7f3c61803fd472aeab",
+  "local_tests": 4,
+  "failures": 0,
+  "skipped": 0,
+  "origin_authenticity_certified": false,
+  "formal_kpi_certified": false,
+  "limits": "字面がそのまま照合できる提出引用のみ。未知の表示形式を推測解釈しない。",
+  "real_acquisition_performed": false,
+  "integration_correction": "複数本文の最新観測/取得時刻と、近走/相手格の出所・時点を引用へ一致させる。",
+  "global_tests": 700,
+  "source_count": 121,
+  "source_manifest_sha256": "ff7d5cc0329239e69a158a01806064a34f3f9ebeaa133c78cf9c014126452fc7",
+  "validation_basis_commit": "10f54f78d792897c43019cd28643717e85b92cb5",
+  "ci": [
+    {
+      "id": 38436343358,
+      "conclusion": "success"
+    },
+    {
+      "id": 38436343271,
+      "conclusion": "success"
+    },
+    {
+      "id": 38436343249,
+      "conclusion": "failure"
+    }
+  ],
+  "global_ci": "成功統合CIの全入力hashへ受入を更新。最終HEADのCIはPR本文で確認。"
+}

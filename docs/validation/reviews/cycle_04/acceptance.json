@@ -8,7 +8,7 @@
   "result": "PASS",
   "schema_version": "cycle04-acceptance-v1",
   "skipped": 0,
-  "tests_run": 696,
+  "tests_run": 700,
   "source_manifest": [
     {
       "path": "docs/manual/00_core.md",
@@ -96,7 +96,11 @@
     },
     {
       "path": "scripts/chat_fact_input.py",
-      "sha256": "374fa9c144e9f5b1c7b2dfae5025688d1e4a47f75c2d27f67b7c5d1d0b820c26"
+      "sha256": "42c7bd08b376a3a94bd9f6a9976bdd3dbc8ad42b01c573ffc8663d9f05966946"
+    },
+    {
+      "path": "scripts/chat_fact_provenance.py",
+      "sha256": "60fed4b8dbfbe8a031f582a31409590f1e36ac83545f45aca6f908fa0df72198"
     },
     {
       "path": "scripts/chat_market_acquisition.py",
@@ -301,6 +305,10 @@
     {
       "path": "scripts/test_chat_fact_input.py",
       "sha256": "b32c535e1f61c108ac393e7105f09dc3cb62948b68bf3af99e8cb7ebea3fb81e"
+    },
+    {
+      "path": "scripts/test_chat_fact_provenance.py",
+      "sha256": "eb1fea19f1b3dfea147bad1e379055bfb995c64c69dd6b49d807635a4a2cdcb9"
     },
     {
       "path": "scripts/test_chat_market_acquisition.py",

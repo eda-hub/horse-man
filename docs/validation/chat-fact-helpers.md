@@ -26,3 +26,11 @@ NOT_ATTEMPTEDは本文と閲覧時刻なし、ERRORは本文なし。成功本�
 `chat_fact_input.py --capture 本文sidecar.json --annotations 注釈.json --readback-at 実読戻し時刻`で既存`race-input-coverage-v1`へ変換する。注釈JSONはbody_weight/recent_five_runsの全馬行を持つ。取得済み行は既存value/status/reason等に`quotations`の配列を付ける。各引用はcapture_id/start/end/quote（文字単位、endは排他）を持ち、保存本文との完全一致が必要。未取得は理由付きMISSING/null、初出走は既存の出所と0過去走の条件を満たすNOT_APPLICABLEとする。
 
 provider/URL/観測・取得時刻は保存本文から導出し、読戻し時刻は実際の値を渡す。近5走・相手格の構造と未来値、全馬集合、fallback時の公式失敗理由は既存validatorで検査する。出力はinput、bindings、coverageを持つ独立変換sidecarで、値の意味と引用の対応を認証したものではない。semantic_extraction_verified/formal_kpi_certifiedはfalse。後続の根拠照合・独立artifact/receiptと個別gateを省略しない。
+
+## 本文値と独立保存の照合
+
+`chat_fact_provenance.py --capture-ref 本文参照.json --conversion-ref 変換参照.json --post 発走予定`は、同一artifactのhash・発走前receipt・保存順序/cutoffと、引用・入力値・馬番号・coverageを読取照合する。参照JSONは既存verified_artifact形式。
+
+引用は1馬の1行を対象にし、馬番号と数値/文字列の一致を必要とする。他馬の行を連結して値を取得できない。馬体重は整数の境界を照合する。近走はquoteにvalue_pointer（value内のJSON Pointer、例`/0/class`）を付け、各走の日付/クラス/取得済み相手格を網羅する。日付や値が引用本文にそのまま存在しない表示形式は本補助では未対応として保持し、暗黙の変換や相手強度の創作をしない。初出走は馬番号と「初出走」の明示引用を必要とする。
+
+出力のextraction_consistency_verifiedは提出引用・値・保存証跡の整合だけ。origin_authenticity_certified/formal_kpi_certifiedはfalse。取得元が実際にその内容を公開したこと、提供元独立性、正式Prediction/推奨の適格性はこの照合だけでは認証しない。入力完備/不足は既存coverageをそのまま表示する。
