@@ -1,0 +1,82 @@
+{
+  "schema_version": "market-provider-source-contract-v1",
+  "task": 29,
+  "followup": "残件対応",
+  "source_probe": {
+    "run_id": 38348462108,
+    "baseline_run_id": 38348179562,
+    "sdk": {
+      "url": "https://jra-van.jp/dlb/sdv/sdk/JVDTLABSDK500_64bit.zip",
+      "http_status": 200,
+      "bytes": 27244525,
+      "sha256": "21f4d54706ff050e383f21f3571f59ffe8de38ed46a01be3e5b7756ee957f9d7",
+      "struct_sha256": "8994f985fce846f1b4fcbc3ddf2a5c6394c586a458478346891222b3b61e4ee3",
+      "python_sample_form1_sha256": "a370d03d665491a8441fc4def20a2dc21e88ded78c330a5f87b93fd47e5fa3de",
+      "python_sample_form2_sha256": "43caa430de19ffaeed7428ea28aa9a14e42dda70a13f509a984121c0df20f6dc",
+      "verified_interface": "JVDTLab.JVLink / JVInit / JVRTOpen / JVGets(bytearray,size,bytearray) / JVClose"
+    },
+    "public_web": {
+      "pc_index_http": 200,
+      "sp_index_http": 200,
+      "direct_odds_get": "ERR_GETMETHOD",
+      "not_normalized_json": true
+    }
+  },
+  "selected_routes": {
+    "primary": "JVRTOpen 0B30",
+    "fallback": "JVRTOpen 0B31..0B36 by requested ticket",
+    "key": "YYYYMMDDJJRR derived from frozen race_id",
+    "shared_provider_failure": true,
+    "web_mirror_as_independent_source": false
+  },
+  "source_specs": [
+    {
+      "url": "https://developer.jra-van.jp/t/topic/45",
+      "purpose": "current official SDK 5.0.0"
+    },
+    {
+      "url": "https://jra-van.jp/dlb/sdv/sdk/JV-Data4901.pdf",
+      "pages": [
+        15,
+        16
+      ],
+      "purpose": "official record byte layout"
+    },
+    {
+      "url": "https://jra-van.jp/dlb/sdv/sdk/JV-Link4901.pdf",
+      "pages": [
+        22,
+        25,
+        27
+      ],
+      "purpose": "official interface and request key"
+    }
+  ],
+  "runtime": {
+    "host_os": "Linux",
+    "pywin32_available": false,
+    "user_windows_vm_reachable": "NOT_CONFIGURED",
+    "service_connection_verified": false,
+    "live_meeting_dates": null
+  },
+  "tests": {
+    "native": 16,
+    "live_acceptance_contract": 7,
+    "existing_acquisition": 22,
+    "sidecar": 18,
+    "cycle04": 56,
+    "result": "LOCAL_PASS_PENDING_FULL_CI"
+  },
+  "protected": {
+    "historical_records_changed": false,
+    "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "manual_owner_changed": false,
+    "live_evidence_created": false,
+    "performance_promoted": false
+  },
+  "live_remaining": {
+    "windows_service_connection": "OPEN",
+    "two_future_meetings": "OPEN",
+    "not_fabricated": true
+  }
+}

@@ -16,6 +16,7 @@ from check_prediction_compliance import iso
 from cycle04_operations import BET_TYPES, require, safe_path, validate_market_payload
 
 TRANSPORT = 'market-http-acquisition-v1'
+PROVIDER_TRANSPORT = 'market-provider-acquisition-v1'
 MAX_BYTES = 131072
 
 
@@ -50,10 +51,15 @@ def validate_request(request):
     urls = []
     for route in routes:
         require(isinstance(route, dict), 'route object required')
+        require(route.get('provider') in {None,'HTTP_JSON','JV_LINK'}, 'unknown market provider')
         url = route.get('source_url')
         require(isinstance(url, str), 'route source URL required')
         parsed = urlparse(url)
-        require(parsed.scheme == 'https' or (request['mode'] == 'SYNTHETIC' and
+        native = route.get('provider') == 'JV_LINK'
+        if native:
+            from jvlink_market import address
+            address(url, request)
+        require(native or parsed.scheme == 'https' or (request['mode'] == 'SYNTHETIC' and
                 parsed.scheme == 'http' and parsed.hostname in {'127.0.0.1', 'localhost', '::1'}),
                 'HTTPS required; synthetic HTTP is loopback only')
         require(parsed.hostname and parsed.username is None and parsed.password is None and
@@ -90,7 +96,10 @@ def fetch_http(url, timeout):
         return None, None, None, 'TRANSPORT_ERROR'
 
 
-def decode_price(raw, request, acquired_at):
+def decode_price(raw, request, acquired_at, provider=None):
+    if provider == 'JV_LINK':
+        from jvlink_market import normalize
+        return normalize(raw, request, acquired_at)
     data = json.loads(raw)
     require(isinstance(data, dict) and data.get('schema_version') == 'market-price-response-v1'
             and data.get('race_id') == request['race_id']
@@ -104,13 +113,14 @@ def decode_price(raw, request, acquired_at):
     return data
 
 
-def collect(request, evidence_dir, *, fetch=fetch_http,
+def collect(request, evidence_dir, *, fetch=None,
             now=lambda: datetime.now(timezone.utc), sleep=time.sleep):
     deadline, cutoff, post = validate_request(request)
     request = copy.deepcopy(request)
     require(not Path(evidence_dir).is_absolute() and '..' not in Path(evidence_dir).parts,
             'relative response evidence directory required')
-    history = {'schema_version': 'market-acquisition-v1', 'transport_schema': TRANSPORT,
+    marker = PROVIDER_TRANSPORT if any(r.get('provider') == 'JV_LINK' for r in request['routes']) else TRANSPORT
+    history = {'schema_version': 'market-acquisition-v1', 'transport_schema': marker,
                'request': request, 'attempts': [], 'deadline_at_jst': request['deadline_at_jst'],
                'stopped_at_jst': None}
     market = {'status': 'NOT_ATTEMPTED', 'decision': 'NOT_EVALUATED', 'reason': '取得未試行',
@@ -126,7 +136,12 @@ def collect(request, evidence_dir, *, fetch=fetch_http,
             if start >= deadline:
                 stopped = True; last = start; break
             timeout = min(request['timeout_seconds'], (deadline - start).total_seconds())
-            status, raw, complete, error = fetch(route['source_url'], timeout)
+            native = route.get('provider') == 'JV_LINK'
+            if fetch is None and native:
+                from jvlink_market import fetch as transport
+            else:
+                transport = fetch or fetch_http
+            status, raw, complete, error = transport(route['source_url'], timeout)
             finish = now(); last = finish
             require(start <= finish, 'acquisition clock moved backwards')
             ref = None
@@ -141,11 +156,11 @@ def collect(request, evidence_dir, *, fetch=fetch_http,
                 error = 'DEADLINE_EXCEEDED'; stopped = True
             elif complete is not True:
                 error = error or 'INCOMPLETE_RESPONSE'
-            elif type(status) is not int or not 200 <= status < 300:
-                error = error or 'HTTP_ERROR'
+            elif type(status) is not int or not (status == 0 if native else 200 <= status < 300):
+                error = error or ('JV_ERROR' if native else 'HTTP_ERROR')
             elif error is None:
                 try:
-                    data = decode_price(raw, request, finish)
+                    data = decode_price(raw, request, finish, route.get('provider'))
                 except (ValueError, KeyError, TypeError, UnicodeError):
                     error = 'INVALID_RESPONSE'
             attempt = {'attempt_no': len(history['attempts'])+1, 'source_ref': route['source_url'],
@@ -153,7 +168,10 @@ def collect(request, evidence_dir, *, fetch=fetch_http,
                        'result': 'ACQUIRED' if data is not None else 'FAILED',
                        'reason': '取得応答を照合済み' if data is not None else '価格取得失敗：'+str(error),
                        'observed_at_jst': data['observed_at_jst'] if data is not None else None,
-                       'http_status': status, 'response_ref': ref, 'error_code': error}
+                       'http_status': None if native else status,
+                       'response_ref': ref, 'error_code': error}
+            if native:
+                attempt.update(provider='JV_LINK',jv_status=status)
             history['attempts'].append(attempt)
             if market['attempted_at_jst'] is None:
                 market['attempted_at_jst'] = attempt['started_at_jst']
@@ -161,6 +179,8 @@ def collect(request, evidence_dir, *, fetch=fetch_http,
                 market.update(status='ACQUIRED', reason='独立価格取得済み・期待値は未評価',
                               odds=data['odds'], source_ref=route['source_url'],
                               acquired_at_jst=attempt['finished_at_jst'])
+                if 'price_details' in data:
+                    market['price_details'] = data['price_details']
                 break
             if stopped: break
             if route_attempt+1 < route['max_attempts']:
@@ -185,7 +205,7 @@ def verify_responses(root, payload, *, require_forward=True):
     """保存原本から価格と固定race/券を再照合。自己申告hashだけでは受理しない。"""
     validate_market_payload(payload, payload['data_cutoff'])
     history = payload['market'].get('acquisition', {})
-    if history.get('transport_schema') != TRANSPORT:
+    if history.get('transport_schema') not in {TRANSPORT, PROVIDER_TRANSPORT}:
         require('transport_schema' not in history and 'request' not in history and
                 all('response_ref' not in a for a in history.get('attempts', [])),
                 'HTTP acquisition metadata cannot omit transport schema')
@@ -208,6 +228,11 @@ def verify_responses(root, payload, *, require_forward=True):
         source = attempt['source_ref']
         require(source in routes, 'unconfigured response source')
         index = routes.index(source)
+        route = request['routes'][index]
+        native = route.get('provider') == 'JV_LINK'
+        require(not native or attempt.get('provider') == 'JV_LINK' and attempt.get('http_status') is None,
+                'JV acquisition cannot claim HTTP status')
+        status = attempt.get('jv_status') if native else attempt.get('http_status')
         require(index >= route_index, 'primary route resumed after fallback')
         if previous_attempt is not None and index == route_index:
             require((iso(attempt['started_at_jst'], 'retry start') -
@@ -221,8 +246,13 @@ def verify_responses(root, payload, *, require_forward=True):
         ref = attempt.get('response_ref')
         if ref is None:
             require(attempt['result'] == 'FAILED' and attempt.get('http_status') is None
-                    and attempt.get('error_code') in {'TRANSPORT_ERROR', 'DEADLINE_EXCEEDED'},
+                    and attempt.get('error_code') in {'TRANSPORT_ERROR', 'DEADLINE_EXCEEDED',
+                                                     'JV_UNAVAILABLE','JV_ERROR','JV_READ_LIMIT'},
                     'missing raw response is not acquisition success')
+            require(native or attempt.get('error_code') in {'TRANSPORT_ERROR','DEADLINE_EXCEEDED'},
+                    'HTTP route cannot claim native failure')
+            if attempt.get('error_code') == 'JV_ERROR':
+                require(type(status) is int and status != 0, 'false JV error')
             if attempt['error_code'] == 'DEADLINE_EXCEEDED':
                 require(iso(attempt['finished_at_jst'], 'late transport finish') >= deadline and
                         payload['market']['status'] == 'DEADLINE_STOPPED', 'false deadline failure')
@@ -230,31 +260,40 @@ def verify_responses(root, payload, *, require_forward=True):
         raw = safe_path(root, ref.get('artifact_path')).read_bytes()
         require(hashlib.sha256(raw).hexdigest() == ref.get('sha256') and len(raw) == ref.get('bytes'),
                 'market raw response hash/size mismatch')
-        require(type(ref.get('complete')) is bool and type(attempt.get('http_status')) is int,
+        require(type(ref.get('complete')) is bool and
+                (type(status) is int or native and attempt.get('error_code') == 'JV_READ_LIMIT'),
                 'response completeness/status required')
         require(len(raw) <= MAX_BYTES if ref['complete'] else len(raw) == MAX_BYTES+1,
                 'bounded response capture size mismatch')
         if attempt['result'] == 'ACQUIRED':
-            require(ref['complete'] and 200 <= attempt['http_status'] < 300
+            require(ref['complete'] and (status == 0 if native else 200 <= status < 300)
                     and attempt.get('error_code') is None
                     and iso(attempt['finished_at_jst'], 'response finish') < deadline,
                     'invalid acquired HTTP response')
-            data = decode_price(raw, request, iso(attempt['finished_at_jst'], 'response finish'))
+            data = decode_price(raw, request, iso(attempt['finished_at_jst'], 'response finish'),
+                                route.get('provider'))
             require(data['odds'] == payload['market']['odds'] and
                     data['observed_at_jst'] == attempt['observed_at_jst'],
                     'raw response does not match acquired price')
+            require(data.get('price_details') == payload['market'].get('price_details'),
+                    'raw price details mismatch')
         else:
             error = attempt.get('error_code')
             if error == 'HTTP_ERROR':
-                require(not 200 <= attempt['http_status'] < 300, 'false HTTP failure')
+                require(not native and not 200 <= status < 300, 'false HTTP failure')
+            elif error == 'JV_ERROR':
+                require(native and status != 0, 'false JV failure')
+            elif error == 'JV_READ_LIMIT':
+                require(native and status is None, 'false JV read limit')
             elif error == 'INCOMPLETE_RESPONSE':
                 require(not ref['complete'], 'false incomplete response')
             elif error == 'INVALID_RESPONSE':
-                require(ref['complete'] and 200 <= attempt['http_status'] < 300,
+                require(ref['complete'] and (status == 0 if native else 200 <= status < 300),
                         'invalid response diagnostic mismatch')
                 invalid = False
                 try:
-                    decode_price(raw, request, iso(attempt['finished_at_jst'], 'failed response finish'))
+                    decode_price(raw, request, iso(attempt['finished_at_jst'], 'failed response finish'),
+                                 route.get('provider'))
                 except (ValueError, KeyError, TypeError, UnicodeError):
                     invalid = True
                 require(invalid, 'valid response cannot be declared invalid')
@@ -290,9 +329,15 @@ def main(argv=None):
     parser.add_argument('--request', type=Path, required=True)
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--evidence-dir', required=True)
+    parser.add_argument('--jvlink', action='store_true', help='official whole-ticket and ticket-specific routes')
+    parser.add_argument('--alternate-first', action='store_true', help='probe the ticket-specific route first')
     args = parser.parse_args(argv)
     try:
         request = json.loads(args.request.read_text())
+        require(not args.alternate_first or args.jvlink, 'alternate-first requires the JV-Link provider')
+        if args.jvlink:
+            from jvlink_market import routes_for
+            request['routes'] = routes_for(request, args.alternate_first)
         payload, responses = collect(request, args.evidence_dir)
         path = save(args.root, args.evidence_dir, payload, responses)
         print(payload['market']['reason']+'。原応答・分析の保存読戻し：'+str(path))
