@@ -1,7 +1,7 @@
 {
   "schema_version": "audit-routing-checkpoint-v1",
   "task": "S02",
-  "status": "IMPLEMENTED_PENDING_SAVED_CI",
+  "status": "COMPLETE",
   "inputs": {
     "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
     "pr69_head": "bb7ddc055f50155fff45e6775b62d9e675db1a12",
@@ -54,14 +54,35 @@
       "不正準備を失敗として原本保持",
       "書込操作を拒否"
     ],
-    "ci_result_location": "成果commitの両workflowとPR68/PR69本文"
+    "ci_result_location": "成果commitの両workflowとPR68/PR69本文",
+    "ci_results": [
+      {
+        "run_id": 38333543955,
+        "name": "血統研究の原票・Registry・条件集計監査",
+        "conclusion": "success",
+        "job_steps": 22
+      },
+      {
+        "run_id": 38333543928,
+        "name": "予想実行と第3サイクル台帳の機械監査",
+        "conclusion": "success",
+        "job_steps": 13
+      }
+    ],
+    "full_regressions": 495
   },
   "protected": {
     "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
     "registry_and_26_snapshots_changed": false,
     "historical_prediction_and_receipts_changed": false,
     "manual_owner_changed": false,
-    "formal_workflow_changed": false
+    "formal_workflow_changed": false,
+    "research_ci_validation": {
+      "registry_individuals": 15321,
+      "stat_snapshots": 26,
+      "invalid_snapshots": 0,
+      "all_17_audits_passed": true
+    }
   },
   "remaining": {
     "S03": "全入口受入・取得済みmain開始確認。今回のworkflow再接続や合成reader試験で完了としない。",
@@ -69,5 +90,6 @@
     "performance_promotion": "NOT_APPROVED",
     "runtime_connection": "NOT_VERIFIED"
   },
-  "next_task": "S03"
+  "next_task": "S03",
+  "verification_basis_commit": "66710163beba3f5596935ec297642504cb73e0fc"
 }
