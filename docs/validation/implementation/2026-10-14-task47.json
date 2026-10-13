@@ -1,0 +1,785 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "47",
+  "status": "READ_ONLY_ACCEPTED_RESIDUALS_RETAINED",
+  "basis_commit": "4d2c6b1ba618870ed8e14703ddcff85d4313bd4c",
+  "main_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+  "plan_ref": "0bfa36c26de6a059374d3a453ddef40c31f6465c",
+  "source_manifest": [
+    {
+      "path": "docs/validation/reviews/cycle_03/decisions.json",
+      "git_blob_sha": "b551114714fdc35ec3da1da62d5bd072478391a7"
+    },
+    {
+      "path": "docs/validation/handoffs/2026-10-11-seven-open-issues.md",
+      "git_blob_sha": "392fcfbdcbf8d2f50df079df89407089925e4d19"
+    }
+  ],
+  "issue_mapping": [
+    {
+      "issue_id": "R-20261011-01",
+      "original_status": "OPEN",
+      "change_ids": [
+        "C04"
+      ],
+      "preparation_status": "照合済み。元課題の旧状態・実測残件は上記変更案に保持。"
+    },
+    {
+      "issue_id": "R-20261011-02",
+      "original_status": "OPEN",
+      "change_ids": [
+        "C01"
+      ],
+      "preparation_status": "照合済み。元課題の旧状態・実測残件は上記変更案に保持。"
+    },
+    {
+      "issue_id": "R-20261011-03",
+      "original_status": "OPEN",
+      "change_ids": [
+        "C06"
+      ],
+      "preparation_status": "照合済み。元課題の旧状態・実測残件は上記変更案に保持。"
+    },
+    {
+      "issue_id": "R-20261011-04",
+      "original_status": "OPEN",
+      "change_ids": [
+        "C06"
+      ],
+      "preparation_status": "照合済み。元課題の旧状態・実測残件は上記変更案に保持。"
+    },
+    {
+      "issue_id": "R-20261011-05",
+      "original_status": "OPEN",
+      "change_ids": [
+        "C08"
+      ],
+      "preparation_status": "照合済み。元課題の旧状態・実測残件は上記変更案に保持。"
+    },
+    {
+      "issue_id": "R-20261011-06",
+      "original_status": "OPEN",
+      "change_ids": [
+        "C03"
+      ],
+      "preparation_status": "照合済み。元課題の旧状態・実測残件は上記変更案に保持。"
+    },
+    {
+      "issue_id": "R-20261011-07",
+      "original_status": "OPEN",
+      "change_ids": [
+        "C01",
+        "C02"
+      ],
+      "preparation_status": "照合済み。元課題の旧状態・実測残件は上記変更案に保持。"
+    }
+  ],
+  "change_reviews": [
+    {
+      "id": "C01",
+      "title": "保存状態・予想/推奨の個別完了",
+      "decision": "ADOPT_OPERATION",
+      "owner": "00_core / 保存CLI",
+      "reason": "監査成功と対象の保存完了の混同を是正。PR69の25/26を再利用",
+      "next_test": "本体/receipt/hash/gate/Shadowの独立不足を再試験",
+      "protected": "能力順位と過去の適格性",
+      "evidence": [
+        "scripts/task_completion.py",
+        "docs/validation/records/2026-10-12.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "合成検査受入済み。新開催の保存/個別完了と実測負荷は未収集。旧不適格は保持。",
+      "preparation_evidence": [
+        {
+          "key": "2026-10-11-task25",
+          "git_blob_sha": "3378b26edc6b3766f95590ab888698f49a9865d8",
+          "status": "COMPLETED"
+        },
+        {
+          "key": "2026-10-11-task26",
+          "git_blob_sha": "cb566d3bc97d2c2d3ecbb9ec4948ecf16d3ff026",
+          "status": "COMPLETED"
+        }
+      ],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C02",
+      "title": "FIX前hash独立保存・本文境界不変",
+      "decision": "ADOPT_OPERATION",
+      "owner": "00_core / 保存CLI",
+      "reason": "12日の3FIXは区切り追記でhash不一致。新規JSONと独立manifestで是正",
+      "next_test": "新規保存/改変/読戻し差/締切/同bytes再試行",
+      "protected": "過去のMarkdown原本・発走前欠測",
+      "evidence": [
+        "scripts/seal_prediction.py",
+        "docs/validation/records/2026-10-12.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "独立FIX/hash・境界不変の合成受入。10/12の事前hash欠落は復旧しない。",
+      "preparation_evidence": [
+        {
+          "key": "2026-10-11-task26",
+          "git_blob_sha": "cb566d3bc97d2c2d3ecbb9ec4948ecf16d3ff026",
+          "status": "COMPLETED"
+        }
+      ],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C03",
+      "title": "初回候補から最終用途への変更履歴",
+      "decision": "ADOPT_OPERATION",
+      "owner": "00_core / 用途履歴",
+      "reason": "追加選定なしの正式用途移行を拒否。10/3の明示除外を未実施から分ける",
+      "next_test": "revision断絶・用途変更・取消・同一artifact receipt",
+      "protected": "初回scopeと検証用/実購入帳簿",
+      "evidence": [
+        "scripts/selection_history.py",
+        "docs/validation/records/2026-10-03.md",
+        "docs/validation/records/2026-10-11.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "旧11日追加選定未確認5Rを保留。新用途変更の準備受入を過去へ遡及しない。",
+      "preparation_evidence": [
+        {
+          "key": "2026-10-11-task27",
+          "git_blob_sha": "773fc14767c87d26dec6f19a49aa8ee6d6c75636",
+          "status": "PREPARATION_AND_LEGACY_AUDIT_COMPLETE"
+        }
+      ],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C04",
+      "title": "価格取得状態と見送り理由",
+      "decision": "ADOPT_OPERATION",
+      "owner": "30_betting / 任意市場",
+      "reason": "未取得を期待値不足へ変換しない。価格なし予想/推奨の完結は準備契約",
+      "next_test": "未試行/失敗/締切/取得済みを独立検査、次回2開催以上で実測",
+      "protected": "非価格能力順位と利用者の見送り判断",
+      "evidence": [
+        "scripts/cycle04_operations.py",
+        "docs/validation/records/2026-10-12.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "29番の発走前実取得・代替経路・2開催実測OPEN。過去原因不明。",
+      "preparation_evidence": [
+        {
+          "key": "2026-10-11-task28",
+          "git_blob_sha": "d071a814e89ec1ad781b21944cd43b05aabb53e5",
+          "status": "COMPLETE"
+        },
+        {
+          "key": "2026-10-13-task29-chat",
+          "git_blob_sha": "02a1083fd368be2eb9babd892ef38fea0c35dc9f",
+          "status": "IMPLEMENTATION_CI_VERIFIED_LIVE_VALIDATION_OPEN"
+        }
+      ],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C05",
+      "title": "馬体重・近5走の全頭入力充足",
+      "decision": "ADOPT_OPERATION",
+      "owner": "10_prediction / 入力",
+      "reason": "FIX時0/18と事後7頭を分離。欠測/初出走/代替元/取得時刻を検査",
+      "next_test": "全頭集合・未来値・0埋め・近5走/相手レベル不足・公式失敗後fallback",
+      "protected": "直接実走優先と不足による不確実性",
+      "evidence": [
+        "scripts/cycle04_operations.py",
+        "docs/validation/records/2026-10-12.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "全頭馬体重・近5走・相手格の取得時点検査は合成。実入力充足と再発防止実測OPEN。",
+      "preparation_evidence": [],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C06",
+      "title": "同時確率・集中・8券種事象",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "30_betting / 推奨構築",
+      "reason": "構造欠陥/欠測検査は採用、精度・最適配分の有効性は未証明",
+      "next_test": "8券種・枠内2頭・順序・取消・未校正下限。集中/全損率は第4で実測",
+      "protected": "校正前中心値・裁量縮小と実測校正の区別",
+      "evidence": [
+        "scripts/cycle04_operations.py",
+        "docs/validation/records/2026-10-11.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "8券種比較/集中/順序事象の準備受入済み。枠連生成・実確率・校正・性能は未受入。",
+      "preparation_evidence": [
+        {
+          "key": "task30",
+          "git_blob_sha": "a4a79fffc9fc6346a2b1aea86495fd737ad518f0",
+          "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_CALIBRATION_CONTINUES"
+        },
+        {
+          "key": "task31",
+          "git_blob_sha": "8eece245de924feae52204d96128cfbe0faf18de",
+          "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_MODEL_VALIDATION_CONTINUES"
+        },
+        {
+          "key": "2026-10-13-task32-01",
+          "git_blob_sha": "5d9378e2039d4f699090cc00416457d08d759cb1",
+          "status": "COMPARISON_STATE_ACCEPTANCE_COMPLETE"
+        },
+        {
+          "key": "2026-10-13-task32-02",
+          "git_blob_sha": "d0ec758847bee992842042952467a0908aaec866",
+          "status": "OWNER_SCHEMA_BOUNDARY_ACCEPTANCE_COMPLETE"
+        },
+        {
+          "key": "task33",
+          "git_blob_sha": "76d9256d7a2992884fc47e33a9a5a666112e8389",
+          "status": "PREPARATION_ACCEPTANCE_COMPLETE_LIVE_PROBABILITY_PERFORMANCE_OPEN"
+        },
+        {
+          "key": "task34",
+          "git_blob_sha": "7c3e1a8c55aa78396e104a888e78d8fa46683e87",
+          "status": "ORDERED_EVENT_ACCEPTANCE_COMPLETE_PROBABILITY_VALIDATION_CONTINUES"
+        }
+      ],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C07",
+      "title": "二頭軸三連系",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "30_betting / 比較推奨",
+      "reason": "既合意70%/30%は試験トリガーであり性能採用根拠ではない",
+      "next_test": "条件成立/非成立・6n/m点・取消・同時率不足",
+      "protected": "結果後17点例を過去精算へ加えない",
+      "evidence": [
+        "docs/proposals/2026-10-12_cycle03_summary_application_plan.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "35番取消再計算・欠測・境界検査受入。実同時率・校正・前向き性能OPEN。",
+      "preparation_evidence": [
+        {
+          "key": "task35",
+          "git_blob_sha": "c93aee5b9f09a09103930a119c0646220630f78b",
+          "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_JOINT_CALIBRATION_PERFORMANCE_CONTINUES"
+        }
+      ],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C08",
+      "title": "3歳初古馬戦・昇級・相手レベル",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "10_prediction / 40_shadow",
+      "reason": "必要入力の収集契約を是正、年齢属性の一律減点を採用しない",
+      "next_test": "年齢限定/混合既経験・クラス・斤量/休養/直近実走別の同時点比較",
+      "protected": "能力順位と事実/仮説の分離",
+      "evidence": [
+        "docs/validation/records/2026-10-12.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "36番構造検査と37番比較準備受入。37-05の指定4日実測・非劣化審査OPEN。",
+      "preparation_evidence": [
+        {
+          "key": "task36",
+          "git_blob_sha": "ff1026824d960edc29742c8e41ead46cf463df4e",
+          "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_FORWARD_EFFECT_VALIDATION_CONTINUES"
+        },
+        {
+          "key": "task37",
+          "git_blob_sha": "36d05fc65383d69c9c270381d8e61634100b6824",
+          "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_FORWARD_MEASUREMENT_OPEN"
+        }
+      ],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C09",
+      "title": "個体適性・年齢斤量・枠/展開・相手層",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "20_conditional / 40_shadow",
+      "reason": "共通前向き比較が不足。性能昇格を保留",
+      "next_test": "同一cutoff基準/比較、適用条件別・全馬結果・非劣化",
+      "protected": "現行Ownerの直接実走・重複適用禁止",
+      "evidence": [
+        "docs/manual/40_shadow.md",
+        "docs/validation/records/2026-10-12.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "適用条件別の共通cutoff前向きペア不足。37の準備を全補正の性能証明へ代用しない。",
+      "preparation_evidence": [
+        {
+          "key": "task37",
+          "git_blob_sha": "36d05fc65383d69c9c270381d8e61634100b6824",
+          "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_FORWARD_MEASUREMENT_OPEN"
+        }
+      ],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C10",
+      "title": "最終候補絞り込み・先行維持",
+      "decision": "OBSERVE",
+      "owner": "10_prediction / 40_shadow",
+      "reason": "9/27の1重賞観測のみ。結果を理由に一律先行/外枠加点しない",
+      "next_test": "除外理由・尾部候補・隊列/馬場の事前確率と持続根拠を固定",
+      "protected": "正常な能力評価",
+      "evidence": [
+        "docs/validation/records/2026-09-27.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "単一重賞の観測を保持。尾部候補・除外理由・先行持続の事前固定を次試験へ。",
+      "preparation_evidence": [],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C11",
+      "title": "印の捕捉と実購入券の差",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "30_betting / 50_review",
+      "reason": "阪神10Rの◎勝利と実購入不的中を構築層へ局所化",
+      "next_test": "新規は印の捕捉と価格不要推奨構成を別採点。実購入・配分の比較は旧履歴の読取診断に限定。",
+      "protected": "能力評価・ユーザー購入報告の原本",
+      "evidence": [
+        "docs/validation/records/2026-09-27.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "印捕捉と旧実購入不的中を別層で保持。新規価格不要推奨の構成評価待ち。",
+      "preparation_evidence": [],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C12",
+      "title": "各継続Shadow・未知度・騎手厩舎・根拠比較",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "40_shadow / 50_review",
+      "reason": "個別状態はvalidation_itemsへ展開。未実施を無効としない",
+      "next_test": "条件/未実施/同一入力ペア・非劣化、追加3分上限",
+      "protected": "Production/Shadow境界と既存目安",
+      "evidence": [
+        "docs/manual/40_shadow.md",
+        "docs/validation/README.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "13継続項目の適用判定・固有母数未集計。未実施を効果なしへ変換しない。",
+      "preparation_evidence": [],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C13",
+      "title": "血統Registry・条件統計の事実基盤",
+      "decision": "RETAIN_FACTS",
+      "owner": "20_conditional / データ基盤",
+      "reason": "PR69の受入済み173Rを固定参照で再利用。適性効果は未採用",
+      "next_test": "依存hashと入力scope、未追加10/10・11午前・12日の研究を別管理",
+      "protected": "既存個体ID・26snapshot・内部バッチ",
+      "evidence": [
+        "docs/proposals/2026-10-12_cycle03_summary_application_plan.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "旧173Rの事実再利用を保持。12日は1/24R、2頭確認・13頭未確認、5/43条件のPARTIAL。",
+      "preparation_evidence": [
+        {
+          "key": "task43",
+          "git_blob_sha": "3169b15fc5cd19abc2f0b8bd732a07d8c8c37091",
+          "status": "PARTIAL_BATCH_EXECUTED"
+        }
+      ],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C14",
+      "title": "星印廃止・重賞通常化・価格不要推奨",
+      "decision": "ADOPT_OPERATION",
+      "owner": "README / 全Owner",
+      "reason": "既合意次期仕様の準備実装を継承。現行manualは切替しない。利用者の版指定後、PR79で正式切替を完了。",
+      "next_test": "v1.7.0の全Owner/入口/監査/Phase整合と取得済みmainを継続照合",
+      "protected": "旧印・固定資金/買い目の履歴",
+      "evidence": [
+        "scripts/recommendation.py",
+        "docs/proposals/2026-10-12_cycle03_summary_application_plan.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "mainでv1.7.0切替済み。旧採否を変更せず、正式Owner/開始確認は48以降で照合。",
+      "preparation_evidence": [],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C15",
+      "title": "新馬専用・開催傾向・コース条件・近走相手",
+      "decision": "CONTINUE_VALIDATION",
+      "owner": "10_prediction / 20_conditional / JRA-VAN Phase",
+      "reason": "データ設計とShadow導入候補。実runtime/入力接続は未受入",
+      "next_test": "取得/唯一Writer→予想/推奨→結果/回顧のPhase受入",
+      "protected": "市場/Shadow逆流禁止・直接実走優先",
+      "evidence": [
+        "docs/proposals/2026-10-12_cycle03_summary_application_plan.md",
+        "DECISIONS.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "Windows/JRA-VAN/DB runtime・実入力未受入。非UI Phase順で別実装。",
+      "preparation_evidence": [],
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "id": "C16",
+      "title": "価格順位変更・保険非本命券・過剰分散・事後適格化",
+      "decision": "REJECT",
+      "owner": "00_core / 30_betting",
+      "reason": "独立性・正の期待値・履歴不変・非劣化に反する案を棄却",
+      "next_test": "逆流・未校正下限・Replay適格宣言を拒否",
+      "protected": "能力順位と発走前の同一性",
+      "evidence": [
+        "docs/manual/00_core.md",
+        "docs/manual/30_betting.md"
+      ],
+      "review_status": "MATCH_EXISTING_MAIN_DECISION",
+      "acceptance_scope": "禁止案棄却を維持。逆流・保険・事後適格化の拒否検査を継続。",
+      "preparation_evidence": [],
+      "performance_promotion": "NOT_APPROVED"
+    }
+  ],
+  "batches": [
+    {
+      "subtask_id": "47-02",
+      "change_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "status": "MATCHED_MAX_3"
+    },
+    {
+      "subtask_id": "47-03",
+      "change_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "status": "MATCHED_MAX_3"
+    },
+    {
+      "subtask_id": "47-04",
+      "change_ids": [
+        "C07",
+        "C08",
+        "C09"
+      ],
+      "status": "MATCHED_MAX_3"
+    },
+    {
+      "subtask_id": "47-05",
+      "change_ids": [
+        "C10",
+        "C11",
+        "C12"
+      ],
+      "status": "MATCHED_MAX_3"
+    },
+    {
+      "subtask_id": "47-06",
+      "change_ids": [
+        "C13",
+        "C14",
+        "C15"
+      ],
+      "status": "MATCHED_MAX_3"
+    },
+    {
+      "subtask_id": "47-07",
+      "change_ids": [
+        "C16"
+      ],
+      "status": "MATCHED_MAX_3"
+    }
+  ],
+  "validation_items": [
+    {
+      "internal_id": "E-03",
+      "title": "最終価格再確認",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-04",
+      "title": "展開形成馬/位置取り",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-07",
+      "title": "高確信度活用",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-08",
+      "title": "最終オッズ予測",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-09",
+      "title": "個体適性",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-10",
+      "title": "年齢/性別構造",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-11",
+      "title": "集中投資",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-12",
+      "title": "人気構造別券種",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "E-13",
+      "title": "根拠優先順位比較",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "51B",
+      "title": "重賞傾向",
+      "owner": "docs/manual/40_shadow.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "U-01",
+      "title": "能力未知度",
+      "owner": "docs/validation/README.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "U-01Q",
+      "title": "未知度品質",
+      "owner": "docs/validation/README.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    },
+    {
+      "internal_id": "U-02",
+      "title": "騎手厩舎プロファイル",
+      "owner": "docs/validation/README.md",
+      "decision": "CONTINUE_VALIDATION",
+      "applicability_review": "日別記録で適用/未確認/未実施を再確認。項目固有の適格母数は未集計",
+      "comparison_eligible_count": null,
+      "reason": "第3のShadow正式適格0。項目固有の不存在/無効性を推測しない",
+      "next_test": "同一cutoff・同一対象・必要入力・基準/比較証跡と結果の独立照合。既存Ownerの条件/目安と非劣化審査を継続",
+      "performance_promotion": "NOT_APPROVED"
+    }
+  ],
+  "final_residual_review": {
+    "historical_persistence": {
+      "schema_version": "historical-persistence-review-progress-v1",
+      "reviewed_at": "2026-10-10T10:25:53.511541+00:00",
+      "reviewed": 40,
+      "remaining_to_review_in_selected_trees": 0,
+      "resolved_eligible": 0,
+      "unresolved": 40,
+      "results": {
+        "NO_MATCHING_INTENT_IN_REVIEWED_TREE": 38,
+        "HISTORICAL_INTENT_FOUND_INVALID_SCHEMA": 1,
+        "RECEIPT_ABSENT_IN_REVIEWED_TREE": 1
+      },
+      "evidence_path": "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-history-review/historical-evidence.json.gz",
+      "evidence_sha256": "78958faa9f396ae22efdc8e1d6381790b598b6f14a073cf45e592a33fada5cb9",
+      "batches": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-history-review/batch-01.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-history-review/batch-02.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-history-review/batch-03.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-history-review/batch-04.json"
+      ],
+      "scope": "対象4日のsnapshot変更履歴と当日最終snapshot更新commitのdocs全ツリー・当時のintent/receipt本文。全branch・全commitの完全探索とはしない。",
+      "next_scope": "真正な同一artifactの別branch・中間commit証跡の追加探索。過去の宣言・receiptは生成しない。",
+      "source_git_blob_sha": "2adc9ee120e76eca3a243726f7f352e0ad2c9f15"
+    },
+    "legacy_interpretations": {
+      "schema_version": "legacy-remaining-classification-progress-v1",
+      "reviewed_at": "2026-10-10T10:25:53.511541+00:00",
+      "baseline_head": "3ac26543408b5251a2392549cccba2957c880875",
+      "ledger_sha256": "017d51e6629f3c5034eaa3d43a654a9a3651e43c84cbbb4d1d5e6ee906e3b88f",
+      "source_bundle_path": "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/originals.json.gz",
+      "source_bundle_sha256": "6110f1d3b9b329be20b12e3815f5779565a46d9d5b7abab9363d574860148611",
+      "source_files": 32,
+      "claims": 535,
+      "previously_matched_claims": 53,
+      "previously_matched_parent_components": 106,
+      "remaining_claims_classified": 482,
+      "remaining_claims_unclassified": 0,
+      "category_components": {
+        "UNCONFIRMED": 219,
+        "DERIVED_INTERPRETATION": 218,
+        "HYPOTHESIS": 83
+      },
+      "batches": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-01.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-02.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-03.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-04.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-05.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-06.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-07.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-08.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-09.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-10.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-11.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-12.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-13.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-14.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-15.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-16.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-17.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-18.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-19.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-20.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-21.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-22.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-23.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-24.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/legacy-remaining-review/batch-25.json"
+      ],
+      "new_verified_claims": 0,
+      "verification_state": "CLASSIFIED_CONSERVATIVELY_FURTHER_VERIFICATION_REQUIRED",
+      "next_scope": "未確認219成分の個別同定・解釈確認、および派生条件の個別定義と原票経路照合。分類は検証完了・Production採用を意味しない。",
+      "source_git_blob_sha": "c942072726e25e63a337e3d744458a9d5af71b06"
+    },
+    "operation_metrics": "46番未測定nullを維持",
+    "formal_roi": null,
+    "performance_promotion": "NOT_APPROVED",
+    "old_kpi_pending_decisions": 57,
+    "original_issue_state_changed": false,
+    "research_partial": {
+      "schema_version": "numbered-execution-checkpoint-v1",
+      "task": "43",
+      "status": "PARTIAL_BATCH_EXECUTED",
+      "completed_subtasks": [
+        "43-01",
+        "43-02"
+      ],
+      "basis_commit": "aee4eeeca5aa9ac3ba0f4e2863a354724f93908c",
+      "calculated_conditions": 5,
+      "remaining_conditions": 38,
+      "expected_races": 24,
+      "result_races": 1,
+      "unknown_horses_in_result": 13,
+      "overall_research_acceptance": "NOT_ACCEPTED_PARTIAL",
+      "validation": {
+        "repeat_compute_exact_match": true,
+        "unknown_13_preserved_in_all_5_conditions": true,
+        "old_snapshots_changed": 0,
+        "postcommit_ci": "ActionsとPR本文で照合"
+      },
+      "next_independent_task": "44-01",
+      "research_next_tasks": [
+        "40-03",
+        "41-02",
+        "42追加必要分",
+        "43-03（調査入力成立後）",
+        "43-11は全条件/coverage成立後"
+      ]
+    },
+    "forward_measurement": "29番と37-05は実測待ち。新開催の真正な事前保存のみ使用。過去証跡を後付け作成しない。"
+  },
+  "validation": {
+    "unique_changes": 16,
+    "issue_mapping_count": 7,
+    "validation_items": 13,
+    "batch_sizes": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      1
+    ],
+    "main_and_pr69_decision_blobs_match": true,
+    "new_decisions": 0,
+    "original_writes": false,
+    "task46_ci": [
+      {
+        "id": 38423569483,
+        "conclusion": "success"
+      },
+      {
+        "id": 38423569541,
+        "conclusion": "success"
+      },
+      {
+        "id": 38423569652,
+        "conclusion": "success"
+      }
+    ],
+    "postcommit_ci": "ActionsとPR本文で確認"
+  },
+  "next_independent_task": "48-01",
+  "scope_note": "47番は既存終了審査・正式切替との対応照合。全残件の解消や性能受入ではない。"
+}
