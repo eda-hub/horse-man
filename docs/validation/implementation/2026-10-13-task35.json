@@ -1,7 +1,7 @@
 {
   "schema_version": "task35-checkpoint-v1",
   "task": 35,
-  "status": "IMPLEMENTED_LOCAL_VERIFIED_CI_PENDING",
+  "status": "IMPLEMENTATION_VERIFIED_ACCEPTANCE_CI_PENDING",
   "input_pr69_sha": "5c346b4e8d59247f29d19769e114e597fd1ad67a",
   "input_pr68_sha": "3b2df1c4c7cb7ab4518d8f70d178f7127951926d",
   "tasks": {
@@ -38,7 +38,20 @@
       "採用点・同時率未算定/昇格拒否",
       "FINALの検証済み推奨から取消を渡す接続"
     ],
-    "ci": "PENDING"
+    "ci": {
+      "basis_commit": "feebca15dbf4e55bc84fbaa4c9c609ae2caef3b2",
+      "integration_run": 38387684275,
+      "research_run": 38387684273,
+      "tests_run": 645,
+      "failures": 0,
+      "skipped": 0,
+      "source_count": 109,
+      "source_manifest_sha256": "594cfa1cd6202df2a181814b96b51085b45ecdb70805238b36160460f474a7eb",
+      "manifest_source_count": 128,
+      "result": "INTEGRATION_RESEARCH_SUCCESS",
+      "initial_normal_run": 38387684292,
+      "initial_normal_status": "受入hash更新後に再確認"
+    }
   },
   "protected": {
     "prediction_values_changed": false,
@@ -54,5 +67,6 @@
     "forward_performance": "CONTINUE_VALIDATION",
     "task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
   },
-  "next": "36-01"
+  "next": "36-01",
+  "implementation_commit": "feebca15dbf4e55bc84fbaa4c9c609ae2caef3b2"
 }
