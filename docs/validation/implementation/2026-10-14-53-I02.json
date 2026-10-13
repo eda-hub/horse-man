@@ -1,0 +1,32 @@
+{
+  "schema_version": "numbered-implementation-v1",
+  "task": "53-I02",
+  "message": "53-I02：確認済み本文の全頭入力変換と欠測・時点検査を実装",
+  "status": "IMPLEMENTATION_ACCEPTED",
+  "basis_commit": "b7aaf298fd914766df8608c38883f1cee3711ba1",
+  "local_tests": 3,
+  "failures": 0,
+  "skipped": 0,
+  "semantic_certification": false,
+  "real_acquisition_performed": false,
+  "formal_schema_changed": false,
+  "global_tests": 696,
+  "source_count": 119,
+  "source_manifest_sha256": "64eb56d1b7f3e0192c73f74284e3341279d202d66f3f766287663aefc6c27516",
+  "validation_basis_commit": "c0bf13ec54397c77802871ce3527b61744cd1737",
+  "ci": [
+    {
+      "id": 38434823650,
+      "conclusion": "success"
+    },
+    {
+      "id": 38434823699,
+      "conclusion": "success"
+    },
+    {
+      "id": 38434823861,
+      "conclusion": "success"
+    }
+  ],
+  "global_ci": "成功統合CIの全入力hashへ受入を更新。最終HEADのCIはPR本文で確認。"
+}

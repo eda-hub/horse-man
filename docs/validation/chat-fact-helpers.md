@@ -20,3 +20,9 @@ NOT_ATTEMPTEDは本文と閲覧時刻なし、ERRORは本文なし。成功本�
 書込みは対象日のprediction branchだけ。writerロック、一時本文のfsync/読戻し、原子的な非上書き保存を使う。既存artifactへの再試行は全bytes一致だけを許し、内容・記録時刻が変わるときは新revisionへ保存する。CLIのローカル読戻し後、従来どおりGitHubへ保存・読戻しし、同一artifactのreceiptを別に確認する。過去・将来の宣言/receiptを生成しない。
 
 合成テストは実レースの取得実績へ算入しない。未知の提供元本文を自動解釈せず、本文と値の出所は後続の明示変換で照合する。
+
+## 確認済み注釈から全頭入力への変換
+
+`chat_fact_input.py --capture 本文sidecar.json --annotations 注釈.json --readback-at 実読戻し時刻`で既存`race-input-coverage-v1`へ変換する。注釈JSONはbody_weight/recent_five_runsの全馬行を持つ。取得済み行は既存value/status/reason等に`quotations`の配列を付ける。各引用はcapture_id/start/end/quote（文字単位、endは排他）を持ち、保存本文との完全一致が必要。未取得は理由付きMISSING/null、初出走は既存の出所と0過去走の条件を満たすNOT_APPLICABLEとする。
+
+provider/URL/観測・取得時刻は保存本文から導出し、読戻し時刻は実際の値を渡す。近5走・相手格の構造と未来値、全馬集合、fallback時の公式失敗理由は既存validatorで検査する。出力はinput、bindings、coverageを持つ独立変換sidecarで、値の意味と引用の対応を認証したものではない。semantic_extraction_verified/formal_kpi_certifiedはfalse。後続の根拠照合・独立artifact/receiptと個別gateを省略しない。
