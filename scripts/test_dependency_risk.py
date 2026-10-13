@@ -147,5 +147,10 @@ class DependencyRiskTests(unittest.TestCase):
         for items in ([None],[{'type':'WIN','horses':None}], [ticket('WIN',[True])]):
             with self.assertRaises(ValueError):audit(None,items,1)
 
+    def test_rounding_tolerance_never_allows_full_loss_above_one(self):
+        items=[ticket('EXACTA',[2,1])];m=model();m['outcomes'][1]['probability']=.3000005
+        with self.assertRaisesRegex(ValueError,'全損率は0〜1'):
+            audit(None,items,1,field_horses=[1,2,3],allocations=allocations(items,[100]),joint_model=m)
+
 
 if __name__=='__main__':unittest.main()

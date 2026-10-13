@@ -111,7 +111,9 @@ def audit(candidates,selected,anchor,*,field_horses=None,frames=None,allocations
         require(type(p) in (int,float),'未算定の共同結果確率を0へ変換しない');probabilities.append(p)
         if not any(amount>0 and hit(key,order,frames,places) for key,amount in funding.items()):loss.append(p)
     require(abs(math.fsum(probabilities)-1)<=1e-6,'共同結果確率の総和は1が必要')
-    finance.update(full_loss_probability=math.fsum(loss),full_loss_basis='入力した共同結果モデルに条件付く値・証跡認証なし',
+    loss_probability=math.fsum(loss)
+    require(0 <= loss_probability <= 1, '算定した全損率は0〜1の範囲が必要。丸め誤差でも範囲外を採用しない')
+    finance.update(full_loss_probability=loss_probability,full_loss_basis='入力した共同結果モデルに条件付く値・証跡認証なし',
                    probability_method=joint_model['probability_method'],source_ref=joint_model['source_ref'],calibration_authenticated=False)
     return result
 
