@@ -3,7 +3,7 @@
   "task": 30,
   "input_pr69_sha": "399a294b98ec4aa0df388ad26f8bfbd05085fb33",
   "input_pr68_sha": "3ca5c1994c686d533c472459ba13ea04184ac44d",
-  "status": "IMPLEMENTATION_ACCEPTED_PERFORMANCE_VALIDATION_CONTINUES",
+  "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_CALIBRATION_CONTINUES",
   "tasks": {
     "30-01": "CENTER_AND_BASIS_DISPLAY_VERIFIED",
     "30-02": "NULL_VERSUS_ZERO_VERIFIED",
@@ -37,7 +37,16 @@
         "tests_run": 612,
         "reason": "旧受入hashのstaleを検出。統合CIの実成功107入力hashで更新"
       },
-      "final_normal": "PENDING"
+      "final_normal": "SUCCESS",
+      "final": {
+        "commit_sha": "9421b7f7f8662e3e91b13d23d97baf5ec6bd58c7",
+        "normal_run": 38370041074,
+        "integration_run": 38370040981,
+        "research_run": 38370041243,
+        "result": "ALL_SUCCESS",
+        "tests_run": 612,
+        "skipped": 0
+      }
     }
   },
   "protected": {
@@ -54,5 +63,6 @@
     "market_task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
   },
   "next": "31-01",
-  "implementation_commit": "f0ae73a4c89b1fb8cb57a62c9f0b5f7f68d5eb48"
+  "implementation_commit": "f0ae73a4c89b1fb8cb57a62c9f0b5f7f68d5eb48",
+  "remote_readback": "ALL_CHANGED_FILES_MATCH"
 }
