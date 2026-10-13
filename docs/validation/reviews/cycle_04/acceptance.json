@@ -8,7 +8,7 @@
   "result": "PASS",
   "schema_version": "cycle04-acceptance-v1",
   "skipped": 0,
-  "tests_run": 540,
+  "tests_run": 563,
   "source_manifest": [
     {
       "path": "docs/manual/00_core.md",
@@ -115,6 +115,10 @@
       "sha256": "86eed015a7adf9976f7aae11c8949b457232c5bded3a7c17d4221d5459bb274c"
     },
     {
+      "path": "scripts/check_market_live_validation.py",
+      "sha256": "c7f60aa7d82340e899d798e0dd72f813d0b7351a27f4c786efb5f695f9b1ba94"
+    },
+    {
       "path": "scripts/check_oct11_pedigree_delta.py",
       "sha256": "faf7f8059298bc30282aa3c35c10457daf8c7800f8b5b6be8902029a8519b942"
     },
@@ -176,7 +180,7 @@
     },
     {
       "path": "scripts/cycle04_operations.py",
-      "sha256": "fe7f2dbc4ab4bedf6bf40d27ce4cff39d87e33b3d82d3c505e0faad86cab2217"
+      "sha256": "459db17beab06aab4281be9386bf43e2dc450a03160838b9635c75b580aa461b"
     },
     {
       "path": "scripts/cycle04_workflow.py",
@@ -187,8 +191,12 @@
       "sha256": "41b401d4b78d35338759685cd71c9b46fb5cbc842651a730bd85fa54c4ee0bcf"
     },
     {
+      "path": "scripts/jvlink_market.py",
+      "sha256": "0f8afaac18ea72366bf7ab63323e197b03feb5249aa66056824ff07fe4a6a00f"
+    },
+    {
       "path": "scripts/market_acquisition.py",
-      "sha256": "51ba0bf667ac45109a88c6856f90ee18fd4b0ec3401de0f5e002c05db91621db"
+      "sha256": "b7433115e08cceed483606c6a30071670f72d44b43b95386d84737d422659077"
     },
     {
       "path": "scripts/market_sidecar.py",
@@ -287,12 +295,20 @@
       "sha256": "b5a985dcae3010ba92ec18667452e9b15602bbd922510c4166928ae39dcc03fa"
     },
     {
+      "path": "scripts/test_jvlink_market.py",
+      "sha256": "b26cf513d56b5b3982ec6ebf2b16b69d1b747a0e0f665dddb377ea17f00bead6"
+    },
+    {
       "path": "scripts/test_legacy_fact_followup.py",
       "sha256": "b739684128aa52ea5f76adf8def589568e01f8bc132c537408c7b1f5c19795a2"
     },
     {
       "path": "scripts/test_market_acquisition.py",
       "sha256": "ad80bd700d7247a55c921d8ad621ddce5b387efa92dd6d36c00a2187149ba937"
+    },
+    {
+      "path": "scripts/test_market_live_validation.py",
+      "sha256": "5a5e059602d2809d03994a7c701363f59a3e5478e065f1cfce5d4e5b9e4c68af"
     },
     {
       "path": "scripts/test_market_sidecar.py",

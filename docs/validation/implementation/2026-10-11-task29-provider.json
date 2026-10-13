@@ -65,7 +65,9 @@
     "existing_acquisition": 22,
     "sidecar": 18,
     "cycle04": 56,
-    "result": "LOCAL_PASS_PENDING_FULL_CI"
+    "result": "FULL_ACCEPTANCE_PASS_PENDING_FINAL_CI",
+    "full": 563,
+    "skipped": 0
   },
   "protected": {
     "historical_records_changed": false,
@@ -78,5 +80,43 @@
     "windows_service_connection": "OPEN",
     "two_future_meetings": "OPEN",
     "not_fabricated": true
+  },
+  "acceptance": {
+    "instruction": "残件も対応しろ",
+    "inputs": {
+      "pr69": "804a5201fbba997bb7ef7afcf248773392bb3f3b",
+      "pr68": "97e215424946847142d7340441ed42453c1a3aa5"
+    },
+    "code_commit": "c0a791327995238046cb9fe6406ddb57de7506e6",
+    "provider_receipt": "docs/validation/implementation/2026-10-11-task29-provider.json",
+    "additional_tests": 23,
+    "full_tests": 563,
+    "skip": 0,
+    "source_count": 100,
+    "release_sources": 115,
+    "main_start": {
+      "activation_policy": "MAIN_MERGE",
+      "atomic_contract_verified": true,
+      "cycle_dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "live_races_executed": null,
+      "main_commit_time": "2026-10-13T08:15:30+09:00",
+      "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "manual_release": "v1.7.0",
+      "operational_ready": true
+    },
+    "branch_start": {
+      "operational_ready": false,
+      "reason": "v1.7.0 has not been merged into the fetched main contract",
+      "status": "UNMERGED_CONTRACT_REJECTED"
+    },
+    "initial_formal_run": 38349639239,
+    "initial_formal_failure": "stale acceptance: source hash mismatch",
+    "acceptance_basis_run": 38349639228,
+    "acceptance_manifest_sha256": "b0f2dc77b15194a91b6d85e31301c4ffe615ff1ea76f56375e927410e9f79800"
   }
 }

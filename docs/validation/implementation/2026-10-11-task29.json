@@ -1,19 +1,21 @@
 {
   "schema_version": "numbered-task-acceptance-v1",
   "task": 29,
-  "status": "HTTP_IMPLEMENTATION_ACCEPTED_LIVE_SOURCE_AND_MEETINGS_OPEN",
+  "status": "NATIVE_IMPLEMENTATION_PASS_PENDING_FINAL_CI_WINDOWS_LIVE_OPEN",
   "inputs": {
     "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
     "pr69": "4b7651acb589a8f4881d1ec4752e567ccae4f960",
     "pr68": "1ee07b65f120954f22257e6f5ad089e443c5e34e"
   },
   "implementation": {
-    "transport": "CONFIGURABLE_PRIMARY_AND_FALLBACK_HTTP_JSON",
-    "actual_provider_endpoints_configured": false,
-    "vendor_specific_html_or_jvlink_adapter_completed": false,
+    "transport": "JV_LINK_NATIVE_AND_CONFIGURABLE_HTTP_JSON",
+    "actual_provider_endpoints_configured": true,
+    "vendor_specific_html_or_jvlink_adapter_completed": true,
     "raw_response_sha256_readback": true,
     "retry_deadline_policy": true,
-    "synthetic_cannot_certify_live_market": true
+    "synthetic_cannot_certify_live_market": true,
+    "actual_service_connection_verified": false,
+    "provided_by": "Official SDK 5.0.0 / JVDTLab.JVLink / 0B30 and ticket-specific 0B31..0B36"
   },
   "tests": {
     "new": 22,
@@ -40,9 +42,10 @@
     "status": "OPEN",
     "required_meetings": 2,
     "measured_meetings": null,
-    "endpoints_and_normalization_confirmed": false,
+    "endpoints_and_normalization_confirmed": true,
     "past_20261011_cause": "UNKNOWN",
-    "reason": "実接続先/正規化形式・代替実接続と2開催以上の実測待ち。合成・loopbackを実価格取得実績に数えない。"
+    "reason": "公式SDKで呼出し方式/要求key/データspec/レコード形式を確定して実装・合成検証。実機はLinux/pywin32なし・利用者Windows接続設定なし。2開催の発走前実測は将来条件でOPEN。",
+    "actual_service_connection_verified": false
   },
   "next_code_task": 30,
   "full_acceptance": {
@@ -131,7 +134,7 @@
     },
     {
       "requirement": "実取得先・正規化形式の確定と代替実接続",
-      "result": "OPEN"
+      "result": "SPEC_AND_IMPLEMENTATION_PASS_SERVICE_CONNECTION_OPEN"
     },
     {
       "requirement": "2開催以上の発走前実測",
@@ -164,5 +167,43 @@
       "result": "success",
       "url": "https://github.com/eda-hub/horse-man/actions/runs/38347116387"
     }
-  ]
+  ],
+  "followup": {
+    "instruction": "残件も対応しろ",
+    "inputs": {
+      "pr69": "804a5201fbba997bb7ef7afcf248773392bb3f3b",
+      "pr68": "97e215424946847142d7340441ed42453c1a3aa5"
+    },
+    "code_commit": "c0a791327995238046cb9fe6406ddb57de7506e6",
+    "provider_receipt": "docs/validation/implementation/2026-10-11-task29-provider.json",
+    "additional_tests": 23,
+    "full_tests": 563,
+    "skip": 0,
+    "source_count": 100,
+    "release_sources": 115,
+    "main_start": {
+      "activation_policy": "MAIN_MERGE",
+      "atomic_contract_verified": true,
+      "cycle_dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "live_races_executed": null,
+      "main_commit_time": "2026-10-13T08:15:30+09:00",
+      "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "manual_release": "v1.7.0",
+      "operational_ready": true
+    },
+    "branch_start": {
+      "operational_ready": false,
+      "reason": "v1.7.0 has not been merged into the fetched main contract",
+      "status": "UNMERGED_CONTRACT_REJECTED"
+    },
+    "initial_formal_run": 38349639239,
+    "initial_formal_failure": "stale acceptance: source hash mismatch",
+    "acceptance_basis_run": 38349639228,
+    "acceptance_manifest_sha256": "b0f2dc77b15194a91b6d85e31301c4ffe615ff1ea76f56375e927410e9f79800"
+  }
 }
