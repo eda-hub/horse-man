@@ -1,7 +1,7 @@
 {
   "schema_version": "task36-checkpoint-v1",
   "task": 36,
-  "status": "IMPLEMENTATION_VERIFIED_ACCEPTANCE_CI_PENDING",
+  "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_FORWARD_EFFECT_VALIDATION_CONTINUES",
   "input_pr69_sha": "b5be8481f127d5d00c6a84e0cf07dd6d5b5fd700",
   "input_pr68_sha": "af6c45d87627216e3c7cc06547338f9e4afdbb5d",
   "tasks": {
@@ -63,7 +63,7 @@
       "source_count": 111,
       "source_manifest_sha256": "bf09c8cc7c1be35567ebfe2bea60498a4447edeb8348d4103fdd43c82739c1a3",
       "manifest_source_count": 130,
-      "result": "INTEGRATION_RESEARCH_SUCCESS",
+      "result": "ALL_SUCCESS",
       "history_review_normal_run": 38391118539,
       "normal_failure_reason": "旧受入hashのstaleのみ。実統合成功111入力で更新",
       "previous_669_acceptance": {
@@ -71,6 +71,13 @@
         "normal": 38390861093,
         "integration": 38390861095,
         "research": 38390861092,
+        "result": "ALL_SUCCESS"
+      },
+      "acceptance_commit": "d5afcbe898f38b1d70d7ca54c03ef7e13d645978",
+      "acceptance_runs": {
+        "normal": 38391370363,
+        "integration": 38391370342,
+        "research": 38391370359,
         "result": "ALL_SUCCESS"
       }
     },
