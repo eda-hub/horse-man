@@ -1,7 +1,7 @@
 {
   "schema_version": "task35-checkpoint-v1",
   "task": 35,
-  "status": "IMPLEMENTATION_VERIFIED_ACCEPTANCE_CI_PENDING",
+  "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_JOINT_CALIBRATION_PERFORMANCE_CONTINUES",
   "input_pr69_sha": "5c346b4e8d59247f29d19769e114e597fd1ad67a",
   "input_pr68_sha": "3b2df1c4c7cb7ab4518d8f70d178f7127951926d",
   "tasks": {
@@ -48,9 +48,17 @@
       "source_count": 109,
       "source_manifest_sha256": "594cfa1cd6202df2a181814b96b51085b45ecdb70805238b36160460f474a7eb",
       "manifest_source_count": 128,
-      "result": "INTEGRATION_RESEARCH_SUCCESS",
+      "result": "ALL_SUCCESS",
       "initial_normal_run": 38387684292,
-      "initial_normal_status": "受入hash更新後に再確認"
+      "initial_normal_status": "FAILED_STALE_ACCEPTANCE_HASH_VERIFIED",
+      "acceptance_commit": "da9727f98f8f690d1e45bfb61ae63c9e30db0ab4",
+      "acceptance_runs": {
+        "normal": 38387923260,
+        "integration": 38387923099,
+        "research": 38387923278,
+        "result": "ALL_SUCCESS"
+      },
+      "initial_normal_reason": "既存受入の古いsource hashのみ。実統合成功109入力hashで更新"
     }
   },
   "protected": {
