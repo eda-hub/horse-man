@@ -1,17 +1,18 @@
 # 10月11日分取込み後の番号付き実施計画
 
-### 31番：候補・軸・展開依存と任意市場リスク（最新実施）
+### 31番完了：候補・軸・展開依存と任意市場リスク（最新状態）
 
-利用者指示「31を実装しろ」により31-01→02→03を実施。PR69実装 `2be36d5a062c92d29b758e1312b1c1bbeff8f302`、枠別配分表示の是正 `aef9308c6003a4bdd9e3999122274806fe01d449`。新規20件・関連132件ローカル成功。7変更ファイルと表示是正を保存し、[統合CI](https://github.com/eda-hub/horse-man/actions/runs/38372328046)で全632件/skip0、[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38372328079)はsuccess。実成功に一致する109入力hash・128source manifestを固定。旧受入stale検出をcommit `1047ae36994d0feb6104df789db1738c793c2a95` で更新し、通常CIを再確認中。
+利用者指示「31を実装しろ」により31-01→02→03を実装・受入。実装 `2be36d5a062c92d29b758e1312b1c1bbeff8f302`、枠別表示 `aef9308c6003a4bdd9e3999122274806fe01d449`、全損率境界 `1cdc53d104aeaf429439ac5a7b51534cde29bbb1`、枠連軸依存の未算定是正 `f2aa61945b33d21b94d7b0812d89c1a21b44f213`。新規21件・関連133件ローカル成功。実統合CI全633件・失敗0・skip0と一致する109入力hash `dbcd1065d490456a901a69e263866a9d006abe0db0b235339e895429e2bc6254`、128source原子的整合を固定。
 
-| 子タスク | 実装・検査結果 |
+受入基準 `9940898207e468787a33a55d870ad5a758cd2c6a` の[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38374557949)・[統合CI](https://github.com/eda-hub/horse-man/actions/runs/38374557994)・[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38374558006)は全success。各コード更新後の旧受入stale検出は実CI成功と一致するhashで更新し、履歴を保持。最終完了記録 `db712d661fd97c9106d2a93c77748c04c0056c45`。
+
+| 子タスク | 受入結果 |
 |---|---|
-| 31-01 | 候補/採用点数、馬別点数、明示軸馬の点数依存率を分離。未記録候補/軸を推測せず表示 |
-| 31-02 | シナリオ別点数と同一券の重複を区別。順序なし券の反転・異なるシナリオでの同一券・重複配分の二重計上を拒否 |
-| 31-03 | 任意の仮想配分から最大単券額/馬別額/枠別額を算定。未配分/モデルなしの全損率はnull。全頭着順の共同結果モデルに条件付く全損率だけを算定 |
+| 31-01 | 候補/採用点数、馬別点数、明示軸馬の点数依存率を分離。未記録候補/軸、枠連を含む構成の軸依存率を推測しない |
+| 31-02 | シナリオ別点数と券の重複を区別。反転した順序なし券・異なるシナリオでの同一券・重複配分の二重計上を拒否 |
+| 31-03 | 仮想配分から最大単券額/馬別額/枠別額を算定。配分/共同結果モデル不足の全損率はnull。正額券の全不的中確率だけをモデル条件付きで求め、100%超を拒否 |
 
-[仕様](https://github.com/eda-hub/horse-man/blob/aef9308c6003a4bdd9e3999122274806fe01d449/docs/validation/dependency-risk.md) / [checkpoint](https://github.com/eda-hub/horse-man/blob/aef9308c6003a4bdd9e3999122274806fe01d449/docs/validation/implementation/2026-10-13-task31.json)。全損率は正額配分券がすべて不的中となるモデル条件付き確率で、収支赤字率ではない。周辺確率の積・候補の推測・新しい資金上限・実購入/投票を追加しない。モデル妥当性/校正/性能評価は継続検証。Prediction・推奨券・Owner・旧原本・data・既存workflowを保持。次の実装入口は32-01、29の実測はOPEN。
-
+[仕様](https://github.com/eda-hub/horse-man/blob/db712d661fd97c9106d2a93c77748c04c0056c45/docs/validation/dependency-risk.md) / [checkpoint](https://github.com/eda-hub/horse-man/blob/db712d661fd97c9106d2a93c77748c04c0056c45/docs/validation/implementation/2026-10-13-task31.json)。全損率は収支赤字率ではない。周辺確率の積、候補の推測、新しい資金上限、実購入/投票を追加しない。モデル妥当性/校正/性能評価は継続検証。Prediction・推奨券・Owner・旧原本・data・既存workflowを保持し、main更新/マージなし。**31番の実装受入完了。次は32-01。** 29の実測はOPEN。
 
 ### 30番：中心値・根拠区分・不確実性の表示検査（最新実施）
 
