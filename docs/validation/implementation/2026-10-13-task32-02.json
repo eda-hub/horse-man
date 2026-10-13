@@ -1,0 +1,107 @@
+{
+  "schema_version": "task32-02-checkpoint-v1",
+  "task": "32-02",
+  "status": "OWNER_SCHEMA_BOUNDARY_ACCEPTANCE_COMPLETE",
+  "input_pr69_sha": "b9f83967a4a10161a1a0736185131d932fb803af",
+  "input_pr68_sha": "8ec544c9e72f41c43170508b261f414722262496",
+  "scope": "8券種比較と7券種推奨生成のOwner/schema境界",
+  "owners": {
+    "release": "v1.7.0",
+    "manifest": "docs/manual/README.md",
+    "recommendation": "docs/manual/30_betting.md",
+    "optional_market": "docs/manual/60_market.md",
+    "main_owner_bytes_match": true
+  },
+  "boundary": {
+    "comparison": {
+      "entry": "scripts/cycle04_operations.py::validate_ticket_comparison",
+      "types": [
+        "WIN",
+        "PLACE",
+        "BRACKET_QUINELLA",
+        "QUINELLA",
+        "WIDE",
+        "EXACTA",
+        "TRIO",
+        "TRIFECTA"
+      ],
+      "states": [
+        "COMPARED",
+        "MISSING",
+        "NOT_APPLICABLE"
+      ],
+      "does_not_certify_generation": true
+    },
+    "recommendation": {
+      "entry": "scripts/recommendation.py",
+      "schema_version": "recommendation-snapshot-v1",
+      "contract": "odds-free-recommendation-v1",
+      "gate_schema": "recommendation-compliance-v1",
+      "intent_schema": "recommendation-persistence-intent-v1",
+      "types": [
+        "WIN",
+        "PLACE",
+        "QUINELLA",
+        "WIDE",
+        "EXACTA",
+        "TRIO",
+        "TRIFECTA"
+      ],
+      "bracket_generation_supported": false,
+      "bracket_in_candidate_decisions_allowed": false
+    },
+    "frame_comparison_is_generation": false,
+    "future_frame_contract_active": false,
+    "unsupported_generation_or_probability": "理由付き情報不足。比較済みだけで生成済み/確率校正済みとしない",
+    "optional_market_required_for_recommendation": false
+  },
+  "validation": {
+    "synthetic": true,
+    "tests_run": 79,
+    "failures": 0,
+    "skipped": 0,
+    "command": "PYTHONPATH=scripts python3 -m unittest test_recommendation test_cycle04_acceptance test_probability_presentation -q",
+    "seven_types_ticket_key_and_form_tickets": "PASS",
+    "bracket_comparison_event": "PASS",
+    "comparison_preserves_recommendation": "PASS",
+    "rejected_cases": [
+      "ticket_keyの枠連",
+      "採用枠連formation",
+      "不採用枠連formation",
+      "main_ticket_typesの枠連",
+      "推奨券の枠連",
+      "candidate_decisionsの枠連",
+      "未知snapshot版v2",
+      "未知推奨契約版v2"
+    ],
+    "rejected_case_count": 8,
+    "source_git_blob_sha": {
+      "docs/manual/README.md": "a17319b68e699351908a07848a1b7ab06d161ec8",
+      "docs/manual/30_betting.md": "1055d9dba9644df05a0184155d7e57e2fd85f0d5",
+      "docs/manual/60_market.md": "909697f26bca4390806a526d4b37c2834ce96811",
+      "docs/validation/contracts/cycle04_operations.md": "02304a48711eaa237c3612a9245821e0779be5b2",
+      "scripts/recommendation.py": "8fe7d1a679d9da973d17bbc99e29c94e90522e5b",
+      "scripts/test_recommendation.py": "83a59a83ad16e148995f9dda52454680a85214e2",
+      "scripts/cycle04_operations.py": "c8470b606838d53fba7262c1c041158a61adbea7"
+    }
+  },
+  "implementation": {
+    "code_changed": false,
+    "reason": "現行Ownerと既存checker/generatorが境界を満たすため再実装しない"
+  },
+  "protected": {
+    "owner_changed": false,
+    "schema_changed": false,
+    "workflow_changed": false,
+    "data_changed": false,
+    "main_changed": false,
+    "existing_acceptance_inputs_changed": false
+  },
+  "remaining": {
+    "task32": "COMPLETE",
+    "task33": "FRAME_EVENT_PREPARATION_VALIDATION_OPEN",
+    "task29": "PRE_RACE_LIVE_VALIDATION_OPEN",
+    "performance_promoted": false
+  },
+  "next": "33-01"
+}
