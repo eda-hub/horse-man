@@ -1,7 +1,7 @@
 {
   "schema_version": "numbered-task-acceptance-v1",
   "task": 28,
-  "status": "FULL_ACCEPTANCE_PASS_PENDING_FORMAL_REFRESH_CI",
+  "status": "COMPLETE",
   "inputs": {
     "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
     "pr69": "e8d875cb843c815d6e40e38fbcf908c65e99dfda",
@@ -23,7 +23,10 @@
   "tests": {
     "new": 18,
     "existing_cycle04": 56,
-    "result": "PASS"
+    "result": "PASS",
+    "full": 518,
+    "skipped": 0,
+    "readiness": 9
   },
   "manifest_sources": 109,
   "protected": {
@@ -32,7 +35,10 @@
     "owner_changed": false,
     "existing_workflow_changed": false,
     "live_market_acquisition": false,
-    "performance_promoted": false
+    "performance_promoted": false,
+    "registry_horses": 15321,
+    "condition_snapshots": 26,
+    "invalid_snapshots": 0
   },
   "residual": {
     "task": 29,
@@ -106,5 +112,55 @@
     "method": "実CIの全518件成功と一致する94入力hashを保存",
     "initial_formal_run": 38345045910,
     "initial_failure": "stale acceptance: source hash mismatch"
-  }
+  },
+  "implementation_commit": "6479ba0dc7498748155660e86473590194af372a",
+  "verification_basis_commit": "6cc39c8a70fcaca3944dba2e5a9a56fdfc720ea2",
+  "requirements": [
+    {
+      "requirement": "未試行/失敗/締切/取得済と未評価/正/不足を分離",
+      "result": "PASS",
+      "tests": "MarketStates"
+    },
+    {
+      "requirement": "source/時刻/全試行保存・照合",
+      "result": "PASS",
+      "schema": "market-analysis-v2 / market-acquisition-v1"
+    },
+    {
+      "requirement": "価格なしでPrediction/Recommendation完結",
+      "result": "PASS",
+      "tests": "MarketPersistence"
+    },
+    {
+      "requirement": "既存APIと旧履歴互換・新形式の履歴必須",
+      "result": "PASS"
+    },
+    {
+      "requirement": "全回帰/第3/第4/readiness/研究監査",
+      "result": "PASS"
+    }
+  ],
+  "ci": [
+    {
+      "run_id": 38345257282,
+      "job_id": 115125059820,
+      "steps": 13,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38345257282"
+    },
+    {
+      "run_id": 38345257283,
+      "job_id": 115125059986,
+      "steps": 6,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38345257283"
+    },
+    {
+      "run_id": 38345257521,
+      "job_id": 115125060817,
+      "steps": 22,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38345257521"
+    }
+  ]
 }
