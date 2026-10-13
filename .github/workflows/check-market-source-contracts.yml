@@ -27,8 +27,8 @@ jobs:
                       for n in names:
                           if any(k.lower() in n.lower() for k in ['sample','jvlink','JVData']):
                               data=z.read(n).decode('utf-8-sig',errors='replace')
-                              lines=[x.strip() for x in data.splitlines() if any(k in x for k in ['JVRTOpen','JVRead','JVInit','JVGets','WinDLL','LoadLibrary','Dispatch','def read','class JV','class JV_','ProgID'])]
-                              print('SDK_INTERFACE '+json.dumps({'file':n,'sha256':hashlib.sha256(z.read(n)).hexdigest(),'symbols':lines[:35]},ensure_ascii=False))
+                              lines=[x.strip() for x in data.splitlines() if any(k in x for k in ['JVRTOpen','JVRead','JVInit','JVGets','WinDLL','LoadLibrary','Dispatch','def read','class JV','class JV_','ProgID','buff =','buffsize =','buffname =','memview','bytearray','VARIANT'])]
+                              print('SDK_INTERFACE '+json.dumps({'file':n,'sha256':hashlib.sha256(z.read(n)).hexdigest(),'symbols':lines[:50]},ensure_ascii=False))
                   else:
                       html=raw.decode('utf-8',errors='replace')
                       links=re.findall(r'(?:src|href)=["\x27]([^"\x27]+)',html)
