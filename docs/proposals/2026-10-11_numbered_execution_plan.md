@@ -612,3 +612,5 @@ PR69旧workflow固定commit `11f4f339391be34bb6fbbc15edbd812e4b0641df` から研
 最終完了checkpoint `4b7651acb589a8f4881d1ec4752e567ccae4f960`：[受入記録](https://github.com/eda-hub/horse-man/blob/4b7651acb589a8f4881d1ec4752e567ccae4f960/docs/validation/implementation/2026-10-11-task28.json)、[操作/仕様](https://github.com/eda-hub/horse-man/blob/4b7651acb589a8f4881d1ec4752e567ccae4f960/docs/validation/market-sidecar.md)。正式Owner・既存workflow・data tree `0691e0fee7bfdf4671042e99c465c10a451d1ac9` 不変。旧予想/receipt/KPI/研究data、過去の原因不明と未実測を保持。PR69 Draft維持、mainへのマージなし。
 
 **1〜28番とS01〜S03完了。次は29番。** 今回は価格状態分類の実装受入完了。価格取得課題全体はOPENで、実取得1経路＋代替1経路、応答hash/再試行/締切と出力一致、2開催以上の実測は29番へ引き継ぐ。11日当時の未確認原因や性能/runtimeを合成結果で認証しない。
+
+最終完了証跡のみを更新したPR69 HEAD `4b7651acb589a8f4881d1ec4752e567ccae4f960` も、[通常CI](https://github.com/eda-hub/horse-man/actions/runs/38345448145)・[統合受入CI](https://github.com/eda-hub/horse-man/actions/runs/38345448162)・[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38345448185) がすべてsuccess。コード/manifest/既存workflow/dataは検証基準commitから不変。完了記録・計画と両PR本文のreadback一致、main更新なし・PR69 Draft維持。28番完了、次は29番。
