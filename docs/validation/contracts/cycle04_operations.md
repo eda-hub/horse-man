@@ -1,5 +1,23 @@
 # 第4サイクル v1.7.0 実運用契約
 
+## クラス移行Shadowの固定3条件と前向き試験
+
+比較原本の`comparison_method_id`は試験計画の`class-transition-evidence-v1`と一致させ、`change_reason`に変更/据置の根拠を保存する。試験途中で異なる比較方法を混ぜない。共通入力と基準の読戻し→入力binding保存/読戻し→比較保存の順を照合し、基準読戻し前のbindingを拒否する。その他の共通事実は`other_facts`の根拠行（horse_no/factor/fact/source_ref/observed_at_jst/direction/strength）で保持し、cutoff後の情報を拒否する。
+
+第37項の準備用読取入口は`scripts/class_transition_shadow.py`。`python3 scripts/class_transition_shadow.py docs/validation/class-transition/fixed-cases.json`で、年齢限定重賞→古馬OP、混合クラス移行、既対戦/入力不足の最大3固定例を照合する。保存した3例は明示的なSYNTHETICで、実馬・過去予想の復元・前向き性能ではない。REPLAYも前向きKPI外。10/12の旧回顧/snapshotにある部分比較と不適格を、真正な新比較ペアへ代用しない。37-01〜03の固定条件のコード検査と、実例での効果検証は分離する。
+
+利用者は2026-10-13に前向き試験を10/17・18・24・25の該当全例と指定した。東京/京都/新潟の実際に依頼・保存された対象から収集し、件数は実該当数を記録する。件数上限や新たな一律受入閾値を作らない。`docs/validation/class-transition/forward-plan.json`は試験方針で、未来の予想/台帳/実測0ではない。37-04の期間/対象・Owner・必要入力・判定方法は固定、37-05の将来実測は開催前につきOPEN。
+
+前向きの読取manifestは`{"plan": <forward-plan.jsonの内容>, "items": [{"gate_path": "保存済みPrediction gateの相対path", "shadow_item_id": "該当ShadowのID", "result_path": "公式結果JSONの相対path"}]}`。`python3 scripts/class_transition_shadow.py MANIFEST.json --root REPO`で検査する。対象日のFORWARD、Production/Shadow双方のELIGIBLE、独立した発走前原本・hash・receiptを既存gate/verified_artifactで確認する。
+
+Shadow原本は`class-transition-shadow-pair-v1`で、race_id/race_date_jst/data_cutoff/scheduled_post_time_jst/mode、baseline_forecast_id、baseline_prediction_sha256、baseline/shadow、assessment、common_input_ref/common_input_sha256、baseline_input_binding_refを持つ。baseline/shadowは同一cutoff・共通入力hash・全頭ranking/probabilitiesを持つ。基準値は検証済みProductionと完全一致させ、全頭集合と確率総和1/2/3を照合する。assessmentは36番の同一レース・馬・cutoffの入力。
+
+共通入力原本は`class-transition-common-input-v1`のrace_id/data_cutoff/assessmentsと、両予想が使ったその他の共通事実を持つ。基準入力bindingは`class-transition-input-binding-v1`のrace_id/data_cutoff/baseline_prediction_sha256/common_input_sha256。共通入力・binding・Shadow原本のすべてを既存独立receiptで発走前に保存/読戻しする。基準の同一入力利用を事後の自己申告だけで適格にしない。標準Prediction schemaや値を書換えず、この比較用bindingを別原本として保持する。
+
+公式全頭結果と対応し、勝率/連対率/3着内率のBrier、◎勝利、上位1/3/6頭の勝馬捕捉、順位変更、基準→比較差を同一ペアで計算する。いずれかのBrier上昇または捕捉悪化があるペアは悪化、悪化なしの改善は改善、差なしは中立。改善した指標だけを選んで採用しない。未知の結果・全頭欠落・未来結果・入力/根拠不足・取消未再固定・同着の未検証境界・重複は理由付き分離。前向き適格ペアは直接/強い代替の構造充足と入力completeを要求する。
+
+平均差は記述診断で、統計的非劣化/校正や性能昇格を自動認証しない。条件別・全該当scopeと未提出/不適格を実day原本へ対応付けてOwnerが終了審査する。期間経過だけでtrial_completeにはならず、sample_coverage_verifiedは終了審査までfalse。データなしは値null/未実測、0適格でも0%の性能にしない。既存50_reviewの複数条件・5例/20例等の目安と良好部分保全を別PRで審査する。37-05、代替手法の効果・校正・前向き非劣化は実測待ちを保持。標準予想/推奨や29番の価格取得をこの試験待ちで止めない。
+
 ## 初古馬対戦・昇級の準備用読取監査
 
 `python3 scripts/class_transition.py INPUT.json`で`class-transition-assessment-v1`を照合する。任意の準備用入力で、既存Production/推奨の必須入力や正式schemaを変更しない。出力は比較材料の不足・時点・整合の確認であり、能力点/確率/年齢減点を生成しない。第37項の比較へ引き継ぐ準備機能で、前向き性能は未受入。

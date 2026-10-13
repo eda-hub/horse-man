@@ -1,0 +1,440 @@
+{
+  "schema_version": "class-transition-fixed-cases-v1",
+  "mode": "SYNTHETIC",
+  "note": "合成の固定3例。実馬・実測・過去予想の復元ではない。",
+  "cases": [
+    {
+      "case_id": "restricted-stakes-to-older-op",
+      "mode": "SYNTHETIC",
+      "kind": "RESTRICTED_STAKES_TO_OLDER_OP",
+      "assessment": {
+        "schema_version": "class-transition-assessment-v1",
+        "race_id": "synthetic-restricted-stakes-to-op",
+        "data_cutoff": "2026-10-17T09:00:00+09:00",
+        "horse_no": 1,
+        "horse_age": 3,
+        "target": {
+          "age_condition": {
+            "status": "ACQUIRED",
+            "value": "MIXED",
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          },
+          "older_horses_present": {
+            "status": "ACQUIRED",
+            "value": true,
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          },
+          "class": {
+            "status": "ACQUIRED",
+            "value": "OP",
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          },
+          "carried_weight_kg": {
+            "status": "ACQUIRED",
+            "value": 55,
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          }
+        },
+        "prior_start_count": {
+          "status": "ACQUIRED",
+          "value": 1,
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "older_encounters": {
+          "status": "ACQUIRED",
+          "value": 0,
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00",
+          "coverage": "ALL_PRIOR_STARTS"
+        },
+        "class_promotion": {
+          "status": "ACQUIRED",
+          "value": false,
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "previous_class": {
+          "status": "ACQUIRED",
+          "value": "G3",
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "recent_five_runs": {
+          "status": "ACQUIRED",
+          "value": [
+            {
+              "run_id": "prior-1",
+              "horse_age": 3,
+              "race_at_jst": "2026-09-20T15:00:00+09:00",
+              "source_ref": "synthetic-result",
+              "age_condition": {
+                "status": "ACQUIRED",
+                "value": "AGE_RESTRICTED",
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "older_horses_encountered": {
+                "status": "ACQUIRED",
+                "value": false,
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "class": {
+                "status": "ACQUIRED",
+                "value": "G3",
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "carried_weight_kg": {
+                "status": "ACQUIRED",
+                "value": 57,
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "opponent_level": {
+                "status": "ACQUIRED",
+                "value": "同世代の3勝水準",
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              }
+            }
+          ],
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "comparison_evidence": [
+          {
+            "evidence_id": "e1",
+            "kind": "STRONG_SUBSTITUTE",
+            "source_ref": "synthetic-comparison",
+            "claim": "今回条件との比較根拠",
+            "limitations": "条件差と少数例の限界あり",
+            "evidence_at_jst": "2026-10-16T12:00:00+09:00",
+            "observed_at_jst": "2026-10-16T13:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T14:00:00+09:00",
+            "target_class": "OP",
+            "comparison_dimensions": [
+              "CLASS",
+              "AGE_CONTEXT",
+              "WEIGHT"
+            ],
+            "comparison_method": "時計/ラップ/負荷を対象条件と比較",
+            "run_id": "prior-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "mixed-class-transition",
+      "mode": "SYNTHETIC",
+      "kind": "MIXED_CLASS_TRANSITION",
+      "assessment": {
+        "schema_version": "class-transition-assessment-v1",
+        "race_id": "synthetic-mixed-class-transition",
+        "data_cutoff": "2026-10-17T09:00:00+09:00",
+        "horse_no": 1,
+        "horse_age": 3,
+        "target": {
+          "age_condition": {
+            "status": "ACQUIRED",
+            "value": "MIXED",
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          },
+          "older_horses_present": {
+            "status": "ACQUIRED",
+            "value": true,
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          },
+          "class": {
+            "status": "ACQUIRED",
+            "value": "OP",
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          },
+          "carried_weight_kg": {
+            "status": "ACQUIRED",
+            "value": 55,
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          }
+        },
+        "prior_start_count": {
+          "status": "ACQUIRED",
+          "value": 1,
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "older_encounters": {
+          "status": "ACQUIRED",
+          "value": 1,
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00",
+          "coverage": "ALL_PRIOR_STARTS"
+        },
+        "class_promotion": {
+          "status": "ACQUIRED",
+          "value": true,
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "previous_class": {
+          "status": "ACQUIRED",
+          "value": "3WIN",
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "recent_five_runs": {
+          "status": "ACQUIRED",
+          "value": [
+            {
+              "run_id": "prior-1",
+              "horse_age": 3,
+              "race_at_jst": "2026-09-20T15:00:00+09:00",
+              "source_ref": "synthetic-result",
+              "age_condition": {
+                "status": "ACQUIRED",
+                "value": "MIXED",
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "older_horses_encountered": {
+                "status": "ACQUIRED",
+                "value": true,
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "class": {
+                "status": "ACQUIRED",
+                "value": "3WIN",
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "carried_weight_kg": {
+                "status": "ACQUIRED",
+                "value": 57,
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "opponent_level": {
+                "status": "ACQUIRED",
+                "value": "同世代の3勝水準",
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              }
+            }
+          ],
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "comparison_evidence": [
+          {
+            "evidence_id": "e1",
+            "kind": "STRONG_SUBSTITUTE",
+            "source_ref": "synthetic-comparison",
+            "claim": "今回条件との比較根拠",
+            "limitations": "条件差と少数例の限界あり",
+            "evidence_at_jst": "2026-10-16T12:00:00+09:00",
+            "observed_at_jst": "2026-10-16T13:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T14:00:00+09:00",
+            "target_class": "OP",
+            "comparison_dimensions": [
+              "CLASS",
+              "AGE_CONTEXT",
+              "WEIGHT"
+            ],
+            "comparison_method": "時計/ラップ/負荷を対象条件と比較",
+            "run_id": "prior-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "experience-or-input-missing",
+      "mode": "SYNTHETIC",
+      "kind": "EXPERIENCED_OR_MISSING",
+      "assessment": {
+        "schema_version": "class-transition-assessment-v1",
+        "race_id": "synthetic-experience-missing",
+        "data_cutoff": "2026-10-17T09:00:00+09:00",
+        "horse_no": 1,
+        "horse_age": 3,
+        "target": {
+          "age_condition": {
+            "status": "ACQUIRED",
+            "value": "MIXED",
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          },
+          "older_horses_present": {
+            "status": "ACQUIRED",
+            "value": true,
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          },
+          "class": {
+            "status": "ACQUIRED",
+            "value": "OP",
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          },
+          "carried_weight_kg": {
+            "status": "ACQUIRED",
+            "value": 55,
+            "reason": "合成の事前確認",
+            "source_ref": "synthetic-source",
+            "observed_at_jst": "2026-10-16T12:00:00+09:00",
+            "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+          }
+        },
+        "prior_start_count": {
+          "status": "ACQUIRED",
+          "value": 1,
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "older_encounters": {
+          "status": "MISSING",
+          "value": null,
+          "reason": "取得できず不明"
+        },
+        "class_promotion": {
+          "status": "MISSING",
+          "value": null,
+          "reason": "取得できず不明"
+        },
+        "previous_class": {
+          "status": "ACQUIRED",
+          "value": "3WIN",
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "recent_five_runs": {
+          "status": "ACQUIRED",
+          "value": [
+            {
+              "run_id": "prior-1",
+              "horse_age": 3,
+              "race_at_jst": "2026-09-20T15:00:00+09:00",
+              "source_ref": "synthetic-result",
+              "age_condition": {
+                "status": "ACQUIRED",
+                "value": "AGE_RESTRICTED",
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "older_horses_encountered": {
+                "status": "ACQUIRED",
+                "value": false,
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "class": {
+                "status": "ACQUIRED",
+                "value": "3WIN",
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "carried_weight_kg": {
+                "status": "ACQUIRED",
+                "value": 57,
+                "reason": "合成の事前確認",
+                "source_ref": "synthetic-source",
+                "observed_at_jst": "2026-10-16T12:00:00+09:00",
+                "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+              },
+              "opponent_level": {
+                "status": "MISSING",
+                "value": null,
+                "reason": "取得できず不明"
+              }
+            }
+          ],
+          "reason": "合成の事前確認",
+          "source_ref": "synthetic-source",
+          "observed_at_jst": "2026-10-16T12:00:00+09:00",
+          "acquired_at_jst": "2026-10-16T13:00:00+09:00"
+        },
+        "comparison_evidence": []
+      }
+    }
+  ]
+}
