@@ -1,0 +1,119 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "49",
+  "status": "READ_ONLY_ACCEPTED_RESIDUALS_RETAINED",
+  "basis_commit": "cdbdc7b8322e45e1464685646e7cf7fb8b6d7178",
+  "main_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+  "plan_ref": "0bfa36c26de6a059374d3a453ddef40c31f6465c",
+  "completed_subtasks": [
+    "49-01",
+    "49-02",
+    "49-03"
+  ],
+  "source_manifest": [
+    {
+      "path": "scripts/check_prediction_compliance.py",
+      "git_blob_sha": "064c60e1cfddf71d74cbb2bc61e38cc860f43d79"
+    },
+    {
+      "path": "scripts/verify_prediction_persistence.py",
+      "git_blob_sha": "286172c642c847c7851e88364a6599c1a627d663"
+    },
+    {
+      "path": "scripts/recommendation.py",
+      "git_blob_sha": "8fe7d1a679d9da973d17bbc99e29c94e90522e5b"
+    },
+    {
+      "path": "scripts/market_sidecar.py",
+      "git_blob_sha": "aa5a231393152e6b13249429bab1c6194005128a"
+    },
+    {
+      "path": "scripts/task_completion.py",
+      "git_blob_sha": "76ba7f1a8c925885c3cd83c71816bbee875e808c"
+    },
+    {
+      "path": "scripts/selection_history.py",
+      "git_blob_sha": "eb005a189f0992eaedff0101a0f10296bffc45a9"
+    },
+    {
+      "path": "docs/validation/contracts/cycle04_operations.md",
+      "git_blob_sha": "c99c9b3a66ec7f9b1f194717786fc5ceb8287efa"
+    },
+    {
+      "path": "docs/validation/contracts/cycle_04.json",
+      "git_blob_sha": "f8ba02fe2c9b776c16272c1949defa96c5aaa0b5"
+    }
+  ],
+  "contract_checks": [
+    {
+      "subtask": "49-01",
+      "owner": "10_prediction/00_core",
+      "snapshot": "prediction-snapshot-v2",
+      "gate": "prediction-compliance-v2",
+      "release": "v1.7.0",
+      "effective_race_date": "2026-10-13",
+      "legacy": "v1.6.1/prediction-compliance-v1を旧日付で読取。新版/旧版混在・未知schema・内容改変・未来証跡・Replay適格化を拒否。全頭順位/確率/根拠/receiptを要求。"
+    },
+    {
+      "subtask": "49-02",
+      "owner": "30_betting",
+      "snapshot": "recommendation-snapshot-v1",
+      "gate": "recommendation-compliance-v1",
+      "contract": "odds-free-recommendation-v1",
+      "checks": "事前宣言、独立artifact/receipt、固定Production参照/hash、保存順序、独立KPI。価格/金額/実購入を再帰検査で拒否。推奨なし・保留を適格へ変換しない。7券種生成と8券種比較を分離。"
+    },
+    {
+      "subtask": "49-03",
+      "owner": "60_market/履歴reader",
+      "checks": "任意市場未依頼/未試行/失敗/締切/取得済みを分離。全取得状態でPrediction/推奨bytes・KPI不変。旧11日5BUY保留・正式ROI null・7券/50,000円→0円を読取再現。追加選定の事前証跡を生成しない。"
+    }
+  ],
+  "validation": {
+    "suites": [
+      {
+        "file": "test_next_prediction_compliance.py",
+        "tests": 51
+      },
+      {
+        "file": "test_next_prediction_persistence.py",
+        "tests": 21
+      },
+      {
+        "file": "test_recommendation.py",
+        "tests": 32
+      },
+      {
+        "file": "test_market_sidecar.py",
+        "tests": 18
+      },
+      {
+        "file": "test_selection_history.py",
+        "tests": 25
+      }
+    ],
+    "tests_run": 147,
+    "failures": 0,
+    "skipped": 0,
+    "initial_local_errors": "旧履歴2テストはsnapshot/task27の部分コピー不足。固定HEADから原資料14pathとtask27を読取追加後、25件全PASS。原本変更なし。",
+    "previous_task_ci": [
+      {
+        "id": 38425326373,
+        "conclusion": "success"
+      },
+      {
+        "id": 38425326686,
+        "conclusion": "success"
+      },
+      {
+        "id": 38425326518,
+        "conclusion": "success"
+      }
+    ],
+    "postcommit_ci": "当該HEADのActionsとPR本文で確認"
+  },
+  "code_changes": 0,
+  "formal_recutover": false,
+  "performance_promoted": false,
+  "residuals": "47番の残件を維持。検査成功を実測・校正・枠連生成・性能受入へ代用しない。",
+  "next_independent_task": "50-01"
+}
