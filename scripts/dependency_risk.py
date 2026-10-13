@@ -31,11 +31,12 @@ def dependencies(items,anchor):
     for key,item in items.items():
         if key[0]!='BRACKET_QUINELLA':horse_counts.update(key[1])
         scenarios.update([item['scenario_id']])
-    count=len(items);hits=horse_counts.get(anchor,0) if anchor is not None else None
+    count=len(items);frame_count=sum(k[0]=='BRACKET_QUINELLA' for k in items)
+    hits=horse_counts.get(anchor,0) if anchor is not None and not frame_count else None
     return {'unique_ticket_count':count,'horse_ticket_counts':dict(sorted(horse_counts.items())),
             'scenario_ticket_counts':dict(sorted(scenarios.items())),
-            'anchor_ticket_count':hits,'anchor_ticket_ratio':hits/count if count and anchor is not None else None,
-            'frame_ticket_count':sum(k[0]=='BRACKET_QUINELLA' for k in items),
+            'anchor_ticket_count':hits,'anchor_ticket_ratio':hits/count if count and hits is not None else None,
+            'frame_ticket_count':frame_count,
             'note':'馬別点数は重複所属するため総和を券点数としない。枠連を特定馬の依存へ代用しない。'}
 
 
