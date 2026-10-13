@@ -1,0 +1,1220 @@
+{
+  "schema_version": "oct12-pedigree-batch-v1",
+  "subtask_id": "41-01",
+  "basis_commit": "63c02d74bbadc240679653d2d9f3befd10e639ad",
+  "selection_order": "対象レース内の保存済み外部ID候補を先に同定。候補horse_key順、未対応は馬名順。最大2頭。",
+  "status": "COMPLETED_REUSED_TWO_IDENTITIES_AND_FIVE_GENERATIONS",
+  "data_cutoff": "2026-10-13T21:58:04+09:00",
+  "usage": "REPLAY_ONLY",
+  "production_eligible": false,
+  "targets": [
+    {
+      "horse_key": "jbis-0001396470",
+      "data_cutoff": "2026-10-13T21:58:04+09:00",
+      "parents": {
+        "S": {
+          "horse_key": "jbis-0001205475",
+          "revision_id": "rev-d3aa28a9b8a15618f145225b",
+          "content_hash": "6e9ad4f1c95e545cf26765c6a4eea3a6b8363b740da16ea48fa36dc6f9ceaa82"
+        },
+        "D": {
+          "horse_key": "jbis-0001312213",
+          "revision_id": "rev-78fe56f7947f961e3e435ca3",
+          "content_hash": "fb9273aef398f906323eae4404a1420466ed2f071744cc8c6d529a831263437d"
+        },
+        "DS": {
+          "horse_key": "jbis-0001106251",
+          "revision_id": "rev-90e228b60b2c6bcc8ee54fde",
+          "content_hash": "1096ea02dc7090ff5d1fce0f15c2292cc24fd62fcd18d2935f30563b5ede7fe4"
+        }
+      },
+      "record_hash": "294c96a50b3a983fb2fea776e4e9bfc859bf2b4ecf4a231a3659fe1bfedd28a1",
+      "positions": {
+        "S": {
+          "horse_key": "jbis-0001205475",
+          "revision_id": "rev-d3aa28a9b8a15618f145225b",
+          "content_hash": "6e9ad4f1c95e545cf26765c6a4eea3a6b8363b740da16ea48fa36dc6f9ceaa82"
+        },
+        "D": {
+          "horse_key": "jbis-0001312213",
+          "revision_id": "rev-78fe56f7947f961e3e435ca3",
+          "content_hash": "fb9273aef398f906323eae4404a1420466ed2f071744cc8c6d529a831263437d"
+        },
+        "SS": {
+          "horse_key": "jbis-0000700008",
+          "revision_id": "rev-65ca51da7baa7fccd76938d4",
+          "content_hash": "71ff0f3d5e39d3938c1e9ccfed459a49a4882d1d98dcb1e917789a5893c7ea0f"
+        },
+        "SD": {
+          "horse_key": "jbis-0000992627",
+          "revision_id": "rev-898097c173668dca35ff06ce",
+          "content_hash": "89b5c28165c1480216aa45e9edaf842a5fa76b218dd713d8bb156ccbdba23553"
+        },
+        "DS": {
+          "horse_key": "jbis-0001106251",
+          "revision_id": "rev-90e228b60b2c6bcc8ee54fde",
+          "content_hash": "1096ea02dc7090ff5d1fce0f15c2292cc24fd62fcd18d2935f30563b5ede7fe4"
+        },
+        "DD": {
+          "horse_key": "jbis-0001226507",
+          "revision_id": "rev-385fd7b653ad6bebd7ec6cc4",
+          "content_hash": "ef5446d1a4dce47e4d9aaa2bf35a7ad4059eb5fe6276e6d27920e37c40c21a18"
+        },
+        "SSS": {
+          "horse_key": "jbis-0000336209",
+          "revision_id": "rev-8e7990cbb4d342a4f5b39e10",
+          "content_hash": "bb78fee7dadaddf666a95d4c250c4ca3efbf1786d3b8356dbbdc39c55e21b7c1"
+        },
+        "SSD": {
+          "horse_key": "jbis-0000432426",
+          "revision_id": "rev-75c29e819a97a526ca844722",
+          "content_hash": "27a427cc70842ef300d5f5add1ed6dad1a3e77d7935a38baba66c085fa385e9f"
+        },
+        "SDS": {
+          "horse_key": "jbis-0000701577",
+          "revision_id": "rev-27e03a2d66b5726f7bf4ce3b",
+          "content_hash": "b54c5a86fea4582c5d7a1f9d3b5cf6572f9ec55bd6f25784eea404f3bdd3d67c"
+        },
+        "SDD": {
+          "horse_key": "jbis-0000325102",
+          "revision_id": "rev-c5898af7c5c970d7afb13963",
+          "content_hash": "2770ed00b3b08a5b7790336d5b251be1ddeb53644e24e9673a8d74b5705a789c"
+        },
+        "DSS": {
+          "horse_key": "jbis-0000722158",
+          "revision_id": "rev-35599be4181aae7068c1d157",
+          "content_hash": "8756f00903d8125c60624f5a62a4e15efa07d00c8d8c1776543dfe692c352cc8"
+        },
+        "DSD": {
+          "horse_key": "jbis-0000619968",
+          "revision_id": "rev-a47607ba476e3cf7244ce7b2",
+          "content_hash": "edf7a8433eb9afc62596e9deb77635116d59d4b3e5e18f73a9ff39a51fb03ec0"
+        },
+        "DDS": {
+          "horse_key": "jbis-0001195011",
+          "revision_id": "rev-c7774276ff6116c2ac8a6f97",
+          "content_hash": "b9a1c2ccb94343265518df420deed18bbf98a580d0231918614d34ffc2013ccc"
+        },
+        "DDD": {
+          "horse_key": "jbis-0001226442",
+          "revision_id": "rev-1c7cbee6bdd13c61f25a4674",
+          "content_hash": "1c2efbf9141790a9c502c81d463e79884122dfc80cd19510889cd1da87fab446"
+        },
+        "SSSS": {
+          "horse_key": "jbis-0000335167",
+          "revision_id": "rev-329e448908b4c799880ffa9b",
+          "content_hash": "df551ed7168cd6fca8d6eeaf8b2749e98b1fed773ace4bb6be5a24afcf7b4076"
+        },
+        "SSSD": {
+          "horse_key": "jbis-0000391040",
+          "revision_id": "rev-f2441ef6783e3999cc1a1864",
+          "content_hash": "60a338d4ffdc68c041634ac86dce29d88537d859e4ecc12065fc76e498f47dfe"
+        },
+        "SSDS": {
+          "horse_key": "jbis-0000344896",
+          "revision_id": "rev-db35b252e78f2af246a7db49",
+          "content_hash": "3d52e040c9dacfb2a7a62bbc4a66f8bad38081144f125ea6aa81a6ac6f6fc3dc"
+        },
+        "SSDD": {
+          "horse_key": "jbis-0000433247",
+          "revision_id": "rev-19ff34ed789435d12df55b8c",
+          "content_hash": "77dfcf66bfbeed32b0dc75600a3ca6516a29f883af6ac4c8765eabe20c18a855"
+        },
+        "SDSS": {
+          "horse_key": "jbis-0000333862",
+          "revision_id": "rev-5c007fd7d7ab474f7751fd53",
+          "content_hash": "c5ee9ea3c493d82d9e3c82491a8311ae253d252e1400947774242962b76d9044"
+        },
+        "SDSD": {
+          "horse_key": "jbis-0000383827",
+          "revision_id": "rev-8dc24243043354d75f462c13",
+          "content_hash": "4c05bc6a65f1ada71c141e06f670f7aa62cbd006182ae0fed36c9336f2c88463"
+        },
+        "SDDS": {
+          "horse_key": "jbis-0000333901",
+          "revision_id": "rev-56b4b9cb89d5b754ad31096b",
+          "content_hash": "85522adf924ba544a4170b16aaafaf9ea02fa6b3d663fa19efad74d6a059f500"
+        },
+        "SDDD": {
+          "horse_key": "jbis-0000247201",
+          "revision_id": "rev-bf099009eb75563ce4ad7276",
+          "content_hash": "f74222408e2eaca40f1dffa140fc95d329ae8d3c3e97428d7327b2857e33b969"
+        },
+        "DSSS": {
+          "horse_key": "jbis-0000333862",
+          "revision_id": "rev-f19dbe93190310ea3f021980",
+          "content_hash": "f536b68a03a6cde4894f1426a368cf1e8b7f300a4c04b56f422b4804d1887ac1"
+        },
+        "DSSD": {
+          "horse_key": "jbis-0000233121",
+          "revision_id": "rev-2ae02e2001d921de679b2fa9",
+          "content_hash": "490e4d9b542d0df88324ddc53c3726a15c86ae387d62c915c832c3d69a88622e"
+        },
+        "DSDS": {
+          "horse_key": "jbis-0000336574",
+          "revision_id": "rev-b2b98a29422ee945f082b7ba",
+          "content_hash": "dd4eaf93f50edb8bee8f6c2eb65ee2784cdda83a6ca6bff1be80b5e2e4331659"
+        },
+        "DSDD": {
+          "horse_key": "jbis-0000406522",
+          "revision_id": "rev-30692cb0fc7986a20612687b",
+          "content_hash": "bfa726ce72815e269235ccfb0e187c19fac176d36ce00baa58d9aebe198f0465"
+        },
+        "DDSS": {
+          "horse_key": "jbis-0000342417",
+          "revision_id": "rev-e9b3f91cd871dad965f539e2",
+          "content_hash": "27ef2288dd7814c70197ceb554f9f0c565c9a10460d1d882ff5781d875295c8c"
+        },
+        "DDSD": {
+          "horse_key": "jbis-0001226835",
+          "revision_id": "rev-a3c7d44d63e79cee4f1165f6",
+          "content_hash": "0bb67ac0fd1d532b754a457a64ca490b807e282cb7b51e7e83197ecb03a60c2c"
+        },
+        "DDDS": {
+          "horse_key": "jbis-0000344537",
+          "revision_id": "rev-4407f3767ac8cbface01eb75",
+          "content_hash": "07e9660e04f56972beb025f6121a5928bce8fb0eceda3eca11d902b698a9ad0b"
+        },
+        "DDDD": {
+          "horse_key": "jbis-0000783203",
+          "revision_id": "rev-64ad99beb5ed0ca0298ecf48",
+          "content_hash": "a40a1ac4439c482e7613971838965904760a749b295d208ca6e2277983c0c81f"
+        },
+        "SSSSS": {
+          "horse_key": "jbis-0000334286",
+          "revision_id": "rev-84a210bf46357833bb9ad54f",
+          "content_hash": "d9ba49d0f2eb8dba52fdb6ab712e1cf665f072ae08c05f4715a23a98d321e0b8"
+        },
+        "SSSSD": {
+          "horse_key": "jbis-0000389183",
+          "revision_id": "rev-ff3568a9f56850acf984d7bd",
+          "content_hash": "bae94fb3945710ae161012e55fff38c18e385ed05a14d4d28eaf7acc1cf96b78"
+        },
+        "SSSDS": {
+          "horse_key": "jbis-0000339120",
+          "revision_id": "rev-73a4e9e7729cb688707d71bd",
+          "content_hash": "e93b0e24b9ba5f62a64997bc85b083e9b505610e6ddfd544025776aa86da8855"
+        },
+        "SSSDD": {
+          "horse_key": "jbis-0000391039",
+          "revision_id": "rev-141b8214ba0a79e0e3b4493c",
+          "content_hash": "fc1616c5c8f095bc6767e08dcceedefff25b7f4a1625997af923bab7d3136cb7"
+        },
+        "SSDSS": {
+          "horse_key": "jbis-0000335964",
+          "revision_id": "rev-09fdf74e675a7868b59849f7",
+          "content_hash": "4f8b2a1dc233e302913acb33831733ad0198ef4662b23bf91a9d796ee5dca795"
+        },
+        "SSDSD": {
+          "horse_key": "jbis-0000412454",
+          "revision_id": "rev-b9ec803297c88ac2b100fd5d",
+          "content_hash": "19e2efa5ea510b1e15191c6564faf96b2132e88e94e45bafc5a3c1c5daebc164"
+        },
+        "SSDDS": {
+          "horse_key": "jbis-0000336425",
+          "revision_id": "rev-df4ec17e88c9d08e481385e2",
+          "content_hash": "0e17e7a3af59ca862174940df8bd45dffdc9e0eec782ba5013dff669797cc56b"
+        },
+        "SSDDD": {
+          "horse_key": "jbis-0000420554",
+          "revision_id": "rev-ba3c9701882735f4ce55a95e",
+          "content_hash": "79b9c103eb9d7dc10ef08d04add5dd88e032131febf5b50f11665ccd47335af0"
+        },
+        "SDSSS": {
+          "horse_key": "jbis-0000335154",
+          "revision_id": "rev-2db97142f464383d09af8c7e",
+          "content_hash": "73af8b6bf75ac82f6e2189d1b2c2f859449e9e8808599d7389d63830a72cb8b1"
+        },
+        "SDSSD": {
+          "horse_key": "jbis-0000393162",
+          "revision_id": "rev-5c577a8b995870fca8800520",
+          "content_hash": "ce318e2ce5b7508863c72853c87dc6ead64db59a1146148653709783d44a9034"
+        },
+        "SDSDS": {
+          "horse_key": "jbis-0000336087",
+          "revision_id": "rev-be7e541015f5f98cf0dc30ba",
+          "content_hash": "33cc6c922c77a31af7a36ab4f9b7315568f8a0ae50cbae6fd2276128a6a176f3"
+        },
+        "SDSDD": {
+          "horse_key": "jbis-0000422539",
+          "revision_id": "rev-810ab59b257a0901ec2a2e26",
+          "content_hash": "391471080223a5a00779102edd98b574f0f14e37bbf848a804ffb8f35b922c2a"
+        },
+        "SDDSS": {
+          "horse_key": "jbis-0000337445",
+          "revision_id": "rev-ec6553b6cb63f3ccd664c6ad",
+          "content_hash": "7b20f21d1b54fcf7d96f111fc325773d135c24366d5ae5ddb5b4d500d4b10c91"
+        },
+        "SDDSD": {
+          "horse_key": "jbis-0000410420",
+          "revision_id": "rev-08006a05190b13deb8dc0d59",
+          "content_hash": "cc8d660464f28c92b8bc723a91f8a63812404ef6b99ccc2d67e779ad780b969b"
+        },
+        "SDDDS": {
+          "horse_key": "jbis-0000333707",
+          "revision_id": "rev-0f604a0908267c64f69f8639",
+          "content_hash": "48a36d6d611fd3e006e55a7db32e3951bac3ef6e8a2bdbdd876256335bf7b4a9"
+        },
+        "SDDDD": {
+          "horse_key": "jbis-0000158534",
+          "revision_id": "rev-95bf19305c1ad51b84629b05",
+          "content_hash": "361ad3ebab764ef63df4ff6f3500e4a9e6775558dc6e020b2fb28b967dcb177a"
+        },
+        "DSSSS": {
+          "horse_key": "jbis-0000335154",
+          "revision_id": "rev-2db97142f464383d09af8c7e",
+          "content_hash": "73af8b6bf75ac82f6e2189d1b2c2f859449e9e8808599d7389d63830a72cb8b1"
+        },
+        "DSSSD": {
+          "horse_key": "jbis-0000393162",
+          "revision_id": "rev-5c577a8b995870fca8800520",
+          "content_hash": "ce318e2ce5b7508863c72853c87dc6ead64db59a1146148653709783d44a9034"
+        },
+        "DSSDS": {
+          "horse_key": "jbis-0000161740",
+          "revision_id": "rev-7f47788ec90049f960c19ba3",
+          "content_hash": "9dbe794ac20df2d5a22ee6bcbc0dd93d3f9250fd6996534a6fcb5580468ae9a5"
+        },
+        "DSSDD": {
+          "horse_key": "jbis-0000382926",
+          "revision_id": "rev-2579e9500d43d8acc51ef599",
+          "content_hash": "75dcb0b730e85534dff3fbf706a427b86a44b797cfb95b593053ff172aefc467"
+        },
+        "DSDSS": {
+          "horse_key": "jbis-0000334747",
+          "revision_id": "rev-3a5acb8f3530bdfabe51a8e6",
+          "content_hash": "79f7300e7486afa46e401fcfb8510a8a125fbfcf99c962e5fc1cc7f77216c2d6"
+        },
+        "DSDSD": {
+          "horse_key": "jbis-0000392268",
+          "revision_id": "rev-7b7ccb6176e4c006b167ceab",
+          "content_hash": "d5808a238f8fb54b468bcb18102033445392024bc83a419f15f79e660c836063"
+        },
+        "DSDDS": {
+          "horse_key": "jbis-0000340551",
+          "revision_id": "rev-214de6a48a49cc0a929a890f",
+          "content_hash": "9ba1622b24902d707b2cc48c1f43e59cdfa9627d6c405fe8bc9cfd1bfe433871"
+        },
+        "DSDDD": {
+          "horse_key": "jbis-0000406521",
+          "revision_id": "rev-fd7a4146d49fbb4800c458df",
+          "content_hash": "f3bb318f120c6cec6f49ab348cf16c58ac06618aa087e10bbb5f29e9055312b6"
+        },
+        "DDSSS": {
+          "horse_key": "jbis-0000335975",
+          "revision_id": "rev-3e90a288f17dae8b8ff4ca82",
+          "content_hash": "7af24b64973f4877189c5e3386e7286ec450a04890aa678bcf06ea2f3a090330"
+        },
+        "DDSSD": {
+          "horse_key": "jbis-0000393485",
+          "revision_id": "rev-8574a137ec691d7b5a7ad26d",
+          "content_hash": "6b8165f38fbb2d4b57eb664e8b3e36dfae94bf16886b089ca4012c13d4164d15"
+        },
+        "DDSDS": {
+          "horse_key": "jbis-0000339703",
+          "revision_id": "rev-01f20ec839c4362ca3f23ac3",
+          "content_hash": "05ce306d594bed1283602a430240cf880348b01f43ed46da0dd0ceef9927a86d"
+        },
+        "DDSDD": {
+          "horse_key": "jbis-0001038348",
+          "revision_id": "rev-89a17f47483a5700e1ba973d",
+          "content_hash": "7618dbc052b012bd7d26707b7b5eb4288799d40bf81179db14071a19c7129763"
+        },
+        "DDDSS": {
+          "horse_key": "jbis-0000335154",
+          "revision_id": "rev-fbe9a9a1e64abc2f05f66a94",
+          "content_hash": "2863add6cdc8d9ea8fecf3af6361b2abb01de04f2a065615e00abaf20824caee"
+        },
+        "DDDSD": {
+          "horse_key": "jbis-0000414246",
+          "revision_id": "rev-52a7908eab47c5f9aeb386b3",
+          "content_hash": "4ee1686bdf1cd503973bcec18a05a929b2465720c44252c4b355311c8a017875"
+        },
+        "DDDDS": {
+          "horse_key": "jbis-0000351407",
+          "revision_id": "rev-37c552312a33b54ffee4aa68",
+          "content_hash": "a583cc37ada75f5a5a7a287d82bd6836feeb0299a140517dfb92cd877b79d8cf"
+        },
+        "DDDDD": {
+          "horse_key": "jbis-0000433858",
+          "revision_id": "rev-89295748f2b3a28b43fb7c19",
+          "content_hash": "9bef59d0a1617567ff7a9e0c0b6fb0c4a86ad54dd9f3219b3283c7b44cd8214f"
+        }
+      },
+      "status": "VERIFIED",
+      "missing": [],
+      "entry_id": "2026-10-12-KYOTO-01-01",
+      "horse_name": "ナイスウーマン",
+      "mode": "EXISTING_REGISTRY_REUSED",
+      "identity_crosswalk": {
+        "provider": "JRA",
+        "id": "2024102335",
+        "same_name": true,
+        "same_birth_year": true,
+        "parent_names_checked": true,
+        "result_profile_race_row_checked": true,
+        "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024102335/CE"
+      },
+      "registry_blob_sha": "600c70fb38601efd1f6633a7e333e6cdb2b737cc"
+    },
+    {
+      "horse_key": "netkeiba-2024106740",
+      "data_cutoff": "2026-10-13T21:58:04+09:00",
+      "parents": {
+        "S": {
+          "horse_key": "jbis-0001090360",
+          "revision_id": "rev-a358c590a28faa1ec7e6ed21",
+          "content_hash": "af10e0927d7b1bf13a5f03b4ced68b7db90734fb8df260d687e951c4888b4d32"
+        },
+        "D": {
+          "horse_key": "netkeiba-000a01b8b9",
+          "revision_id": "rev-35238b30a23467f9f7a62b2c",
+          "content_hash": "18540d761dcba9994d27f689de42a2b95b23851b5ecc7772a3dd6e9627c75c26"
+        },
+        "DS": {
+          "horse_key": "jbis-0001238289",
+          "revision_id": "rev-d2d2ed49e69c1e8d0b2c1b24",
+          "content_hash": "093f3217aa0d655f3ec6f28cb024bb2074de09e13ff130559c9e207db492b68c"
+        }
+      },
+      "record_hash": "afcf2d872bd7ecbac5c604485a67f73d930ad45308a64d60f0790b3dd27e7785",
+      "positions": {
+        "S": {
+          "horse_key": "jbis-0001090360",
+          "revision_id": "rev-a358c590a28faa1ec7e6ed21",
+          "content_hash": "af10e0927d7b1bf13a5f03b4ced68b7db90734fb8df260d687e951c4888b4d32"
+        },
+        "D": {
+          "horse_key": "netkeiba-000a01b8b9",
+          "revision_id": "rev-35238b30a23467f9f7a62b2c",
+          "content_hash": "18540d761dcba9994d27f689de42a2b95b23851b5ecc7772a3dd6e9627c75c26"
+        },
+        "SS": {
+          "horse_key": "jbis-0000286968",
+          "revision_id": "rev-5a4adff50024993be1c2555e",
+          "content_hash": "2d1c5f86487314c0b94b18ff818076d8f2e0c063de03392b63a6980e212384cb"
+        },
+        "SD": {
+          "horse_key": "jbis-0000316406",
+          "revision_id": "rev-d529f15b81a1853d23458d1d",
+          "content_hash": "4e9240245597749c2764f910014f1594db66b2769820d96e4aa55a52ac8a27df"
+        },
+        "DS": {
+          "horse_key": "jbis-0001238289",
+          "revision_id": "rev-d2d2ed49e69c1e8d0b2c1b24",
+          "content_hash": "093f3217aa0d655f3ec6f28cb024bb2074de09e13ff130559c9e207db492b68c"
+        },
+        "DD": {
+          "horse_key": "netkeiba-000a01b0e4",
+          "revision_id": "rev-05db3605f53c2b2470784059",
+          "content_hash": "c2639d338f7c7d2d35041ebab5976a9b647ec49894851e5baced7be03d432f94"
+        },
+        "SSS": {
+          "horse_key": "jbis-0000333862",
+          "revision_id": "rev-d985cf76934d71a3d0d6a782",
+          "content_hash": "6c2db80048d1cb272431d64e854fb8474e8116a08a290c966b3ae5412ed4bc90"
+        },
+        "SSD": {
+          "horse_key": "jbis-0000213942",
+          "revision_id": "rev-ece284751681d83a297838bf",
+          "content_hash": "51167ed37ee76617f2b9f822b01744383bdbbc89db4d827ffa8d2340e3a0cba2"
+        },
+        "SDS": {
+          "horse_key": "jbis-0000203356",
+          "revision_id": "rev-a4ba947a5d8c2d9d34c2d22d",
+          "content_hash": "6f021b57ea285986405219ee60e2bd7a8449e44fa75b573a883adaaf199461fc"
+        },
+        "SDD": {
+          "horse_key": "jbis-0000190821",
+          "revision_id": "rev-7f59043994b0297fc2f399d3",
+          "content_hash": "ef54bda48c843f14564abf65e7a5488517254363503f6ae46d061e1f090043a5"
+        },
+        "DSS": {
+          "horse_key": "jbis-0001127396",
+          "revision_id": "rev-6b846808f73d33868e3a72f2",
+          "content_hash": "587a70590d1fe57ca65e6ee3a9830351dfe66146862adc525fcb0c9f4f2b7afd"
+        },
+        "DSD": {
+          "horse_key": "jbis-0001238284",
+          "revision_id": "rev-e941cb54c5054c7b03ca9dbd",
+          "content_hash": "910c884561f31d28b57caabe05098a456efb1f28283814fc9af587aa5403437b"
+        },
+        "DDS": {
+          "horse_key": "jbis-0000362819",
+          "revision_id": "rev-5daf4255abf77b86aaf66682",
+          "content_hash": "98ba7f2b397265b588e9c3749ab2f257097fd5cc12ae3801d871842684ac20d1"
+        },
+        "DDD": {
+          "horse_key": "netkeiba-000a015277",
+          "revision_id": "rev-38106ec8981bb758417bfc8b",
+          "content_hash": "3f2ea3522ce932d6e7de72b69adcdb664098c7b0cba50df8c272d213ca468f21"
+        },
+        "SSSS": {
+          "horse_key": "jbis-0000335154",
+          "revision_id": "rev-2db97142f464383d09af8c7e",
+          "content_hash": "73af8b6bf75ac82f6e2189d1b2c2f859449e9e8808599d7389d63830a72cb8b1"
+        },
+        "SSSD": {
+          "horse_key": "jbis-0000393162",
+          "revision_id": "rev-5c577a8b995870fca8800520",
+          "content_hash": "ce318e2ce5b7508863c72853c87dc6ead64db59a1146148653709783d44a9034"
+        },
+        "SSDS": {
+          "horse_key": "jbis-0000333664",
+          "revision_id": "rev-0014e1cd54fbcb44236b34ea",
+          "content_hash": "94b644d2cbfc7b750bdc4f9f8126737135e3e0d3a724e1e4748d76a8d793ccf4"
+        },
+        "SSDD": {
+          "horse_key": "jbis-0000115357",
+          "revision_id": "rev-14fc82ca40df89a0f3fbe843",
+          "content_hash": "b108811891dd2a71b80d59f646a24e4c86004f8a08b77ce2c7929547b42dce2a"
+        },
+        "SDSS": {
+          "horse_key": "jbis-0000110447",
+          "revision_id": "rev-c705109b3f9366cde4e8bf1f",
+          "content_hash": "8e75007d2c0abeac89b504a58b397a1dda1f8d3c260dcd4608d01d02eb9f34ac"
+        },
+        "SDSD": {
+          "horse_key": "jbis-0000110449",
+          "revision_id": "rev-49e75fda39c21e9e62c45dd3",
+          "content_hash": "d77e59965e1fa7f903085a1aaeae56fdde0217b5b60116ac7c4f8fe87687073f"
+        },
+        "SDDS": {
+          "horse_key": "jbis-0000333544",
+          "revision_id": "rev-a04787d7144966aa3b2ce8ee",
+          "content_hash": "fc608bd647f8c8bd13509713f83830741e6bd9bff6407338c1aa6c546492cce0"
+        },
+        "SDDD": {
+          "horse_key": "jbis-0000382617",
+          "revision_id": "rev-f9b4f1528df53654ae8caab9",
+          "content_hash": "f3981a8c56ed101027b84f87d063294ad3717955e772e1cd03873010eedfbbee"
+        },
+        "DSSS": {
+          "horse_key": "jbis-0000749845",
+          "revision_id": "rev-79b3a7ce8cbaa636bc6f72b4",
+          "content_hash": "b218e2691164e9c38e9e16eaa05da48af2f5289c447db0ac9b22da659a944ca3"
+        },
+        "DSSD": {
+          "horse_key": "jbis-0000620783",
+          "revision_id": "rev-a405ba8f20367b85bd137b13",
+          "content_hash": "070fbbd8d5acdda2af04f724036f622dcc99f010b6fff17d0b085c7c7beeb83a"
+        },
+        "DSDS": {
+          "horse_key": "jbis-0001015914",
+          "revision_id": "rev-9d3c5a2fb657d9f2ccdaf792",
+          "content_hash": "5c424c2902533d47f17c5acff8e4fe7f5dbc84661f8e90ba09bd5326f02640fd"
+        },
+        "DSDD": {
+          "horse_key": "jbis-0000971398",
+          "revision_id": "rev-6280fc01dca0702276fac09f",
+          "content_hash": "de3212f440ac8be323317ca384c690ec4f01e1278fd27fb3d722be75b28681c5"
+        },
+        "DDSS": {
+          "horse_key": "jbis-0000337102",
+          "revision_id": "rev-60358739caa3005028e23ea1",
+          "content_hash": "7713f79274296255dca9dd4dfbcc8a1fd80fbb392c6f320216d5e72fc43fc15d"
+        },
+        "DDSD": {
+          "horse_key": "jbis-0000406937",
+          "revision_id": "rev-5f2c85d02083c9909c90cc12",
+          "content_hash": "588906f0882dee428e3a4780e8e5b753f1974fca9bdf26c09bf411dfa1067dc1"
+        },
+        "DDDS": {
+          "horse_key": "jbis-0000336568",
+          "revision_id": "rev-a602b414a175a704045322ad",
+          "content_hash": "bab392b7a64c47afb97e84ce47e6a8e6b1af1e9e5f1fb42db9aa0298113c6757"
+        },
+        "DDDD": {
+          "horse_key": "netkeiba-000a013f78",
+          "revision_id": "rev-d05e1ddbca9094c93058b608",
+          "content_hash": "327dbc29a15540d7001687933fdcf7896a98028d698403a31f9aeaec71e7198c"
+        },
+        "SSSSS": {
+          "horse_key": "jbis-0000334286",
+          "revision_id": "rev-76583f9e3f5c03cc4b2eaa31",
+          "content_hash": "8822e03aa10bb1a463493717ac992c990c980ac9d3320454502021ee46587841"
+        },
+        "SSSSD": {
+          "horse_key": "jbis-0000387273",
+          "revision_id": "rev-5476cda0d0ee1670b76cd487",
+          "content_hash": "1e351e72053b4a447c31bffc6a13ee3973a8500fc1a04f9291c4941b9d42a3f4"
+        },
+        "SSSDS": {
+          "horse_key": "jbis-0000336892",
+          "revision_id": "rev-33b808c27190bd1dd6973378",
+          "content_hash": "392cea16b17d9895dc85ba12a61120f2ae72e329a8e6070ca59732bb691dc415"
+        },
+        "SSSDD": {
+          "horse_key": "jbis-0000393161",
+          "revision_id": "rev-836f2a0cf990b2955825d157",
+          "content_hash": "16b45bb9abd18f4f8dc10eccf45e537e31af12f661dc5abfb1da0593b169001d"
+        },
+        "SSDSS": {
+          "horse_key": "jbis-0000334478",
+          "revision_id": "rev-5dd4985894deca0345cdaf04",
+          "content_hash": "5b8137e62d487bff40e11d051ffd69740cc7904265686fe926ab349af3ca0902"
+        },
+        "SSDSD": {
+          "horse_key": "jbis-0000386642",
+          "revision_id": "rev-6d7e7e076c00597fc5a29e1b",
+          "content_hash": "dd2608d5d38b5ef0a4995c9a2fe0bfe3809cacfc49479e68797322ea41c86eac"
+        },
+        "SSDDS": {
+          "horse_key": "jbis-0000333544",
+          "revision_id": "rev-dcecbb398566f0bffe404523",
+          "content_hash": "24ac9e5786c277811fcd7ebd070160ef4648151d00999da56d48b919c2c2a123"
+        },
+        "SSDDD": {
+          "horse_key": "jbis-0000380687",
+          "revision_id": "rev-c01eadc203cd703faf72794e",
+          "content_hash": "6aa02fbdeb0730f293f3e755913a4d7d7c9e745d3ce78466a5de7a4c3fa9ef78"
+        },
+        "SDSSS": {
+          "horse_key": "jbis-0000017015",
+          "revision_id": "rev-7a1541265e037d41b2a3c928",
+          "content_hash": "8de30ff17534380928f3a0807bb555a0544822c3576a3e21e2585826ab4eeb1f"
+        },
+        "SDSSD": {
+          "horse_key": "jbis-0000381553",
+          "revision_id": "rev-4b7daee24ea187442a658ba6",
+          "content_hash": "3b21f447daf6db922ca18ceaf3f35e28e2e50e707b3f6ec73ef8882d3a44b64b"
+        },
+        "SDSDS": {
+          "horse_key": "jbis-0000333363",
+          "revision_id": "rev-a87b11eb26f7f790caadc92d",
+          "content_hash": "e437ab508b939b92134427597275ee026ef7ce0f06d7506c4de43bef0f70ab29"
+        },
+        "SDSDD": {
+          "horse_key": "jbis-0000012444",
+          "revision_id": "rev-e56721fe84f66befb544daa8",
+          "content_hash": "1482ba91f04bc6c370fdd97e9548aece47ed0f8e10b9a536a59f609738c54b7a"
+        },
+        "SDDSS": {
+          "horse_key": "jbis-0000334002",
+          "revision_id": "rev-13ee386f2e5e0b74f47ea39a",
+          "content_hash": "774086adec2ab2aac7e4363c0bd9ac7d40aa5ba1af336379ac4fa6556434a038"
+        },
+        "SDDSD": {
+          "horse_key": "jbis-0000386266",
+          "revision_id": "rev-20bea84c656fb77df69651d3",
+          "content_hash": "bc30c2681a52e2b7bc34ff282277609fd8f1ed25f2e44f9e2e6bf5abce67852a"
+        },
+        "SDDDS": {
+          "horse_key": "jbis-0000334661",
+          "revision_id": "rev-269aa1a068e2c0dbee14225f",
+          "content_hash": "9b4d2204d47ee1c3aeee683b7cf9f6fcbb6204008e039300b887bee32cb43381"
+        },
+        "SDDDD": {
+          "horse_key": "jbis-0000386719",
+          "revision_id": "rev-47de1a4856a8ec1440543878",
+          "content_hash": "68e4a2f5d97f782d6707a9a60d15799b65bb4a0cbd74cc7a9d5fad85e66bc21e"
+        },
+        "DSSSS": {
+          "horse_key": "jbis-0000340629",
+          "revision_id": "rev-5e43860a47d1e84de6b72a2e",
+          "content_hash": "ac3f37b05900803c548fd53055ba1afb1587448abc336ecf7c68058f5745001d"
+        },
+        "DSSSD": {
+          "horse_key": "jbis-0000405617",
+          "revision_id": "rev-a9fc0ad1c0eee128f6b47574",
+          "content_hash": "443d138015a57d5d9ed6ce2f5deabad3438a0921118954612afedb005d5c63fd"
+        },
+        "DSSDS": {
+          "horse_key": "jbis-0000336772",
+          "revision_id": "rev-537288f5567e093e3d376b00",
+          "content_hash": "e917c235b9c3db629e753e31d82da23d8efe768be28a6910bee2329e11157880"
+        },
+        "DSSDD": {
+          "horse_key": "jbis-0000424920",
+          "revision_id": "rev-7383c892decb07831db3953a",
+          "content_hash": "05003516040d8f718a5694fa0b085892f808acffffc09557257ace5377955843"
+        },
+        "DSDSS": {
+          "horse_key": "jbis-0000337102",
+          "revision_id": "rev-202325d1e62d18ef5e054607",
+          "content_hash": "51a3db921cbd79dae536da0c734d6f97c93097b52f0ddd82514ec472f047b2df"
+        },
+        "DSDSD": {
+          "horse_key": "jbis-0000434286",
+          "revision_id": "rev-9a52b83db033ea319dfd6f1f",
+          "content_hash": "f82138b3e661b7c430624765371050ac317b2af5b9b0129b319444c871070859"
+        },
+        "DSDDS": {
+          "horse_key": "jbis-0000359908",
+          "revision_id": "rev-981500046d8e3dd7fdac4192",
+          "content_hash": "38cb10890e4532bfbab1db796a46ecfbc3639ebd7959e33db8ee61eaaafbe6b5"
+        },
+        "DSDDD": {
+          "horse_key": "jbis-0000968086",
+          "revision_id": "rev-9c4882f98d79c72f908e4828",
+          "content_hash": "9a296d21bd9d4524ee8afd2889fc2b8c7c50200cffe27255d1c786f3022caba3"
+        },
+        "DDSSS": {
+          "horse_key": "jbis-0000336177",
+          "revision_id": "rev-364e8ecc16358752e48e6e75",
+          "content_hash": "8a7f0fb3b6e354a07d9f24b850c73539c6f3396e4e61b156d0070e533b6fea5d"
+        },
+        "DDSSD": {
+          "horse_key": "jbis-0000393602",
+          "revision_id": "rev-c66f6dd1b7ce17da836e0d43",
+          "content_hash": "308521afd63f5a59f67433b7eae2374a81a84e604a13efd7d5cea5f5be1f2fe4"
+        },
+        "DDSDS": {
+          "horse_key": "jbis-0000334708",
+          "revision_id": "rev-70dc7c2ff420d1919b670195",
+          "content_hash": "617a0906c0105b1f37d8054f096eb4bc1d4721684133852b0b3fa5e2ca8e3ad9"
+        },
+        "DDSDD": {
+          "horse_key": "jbis-0000406936",
+          "revision_id": "rev-98f7dab71eb78cb94096bc38",
+          "content_hash": "eabd4c5017aa5a800c7ed9fda34c290cc914b50dcc5efb319cb6500c33aa03bb"
+        },
+        "DDDSS": {
+          "horse_key": "jbis-0000335964",
+          "revision_id": "rev-d496c5bd62b00f2dc6f1b61f",
+          "content_hash": "ec210180a7e4f225b05f7f482537396cc3d89b352b2c1ecb47f73f7f4342ff08"
+        },
+        "DDDSD": {
+          "horse_key": "jbis-0000391529",
+          "revision_id": "rev-5c21d9f99b8bd7abc9a87aad",
+          "content_hash": "d397cc2edce0e837326115d4e4c422c6b40717f8964a85ea5c8756fbdf16072a"
+        },
+        "DDDDS": {
+          "horse_key": "jbis-0000345645",
+          "revision_id": "rev-af3a1290be18b54ada8635ae",
+          "content_hash": "ee330d5e4da8503a7cf8400db17b2d63ba2ef8816e596811aaa7bec7355a6ffd"
+        },
+        "DDDDD": {
+          "horse_key": "netkeiba-000a00b666",
+          "revision_id": "rev-fca5c547fe6157e48aadc326",
+          "content_hash": "2e2cc275c07c0f1624ca6d20fc5bab51bfdc5683175611ce75a893b0e7ea2de8"
+        }
+      },
+      "status": "VERIFIED",
+      "missing": [],
+      "entry_id": "2026-10-12-KYOTO-01-12",
+      "horse_name": "ファーストステイト",
+      "mode": "EXISTING_REGISTRY_REUSED",
+      "identity_crosswalk": {
+        "provider": "JRA",
+        "id": "2024106740",
+        "same_name": true,
+        "same_birth_year": true,
+        "parent_names_checked": true,
+        "result_profile_race_row_checked": true,
+        "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002024106740/1F"
+      },
+      "registry_blob_sha": "2ead33366b5e72177d16f18678599f27b0f36f7c"
+    }
+  ],
+  "positions_checked": 124,
+  "unique_registry_records": 115,
+  "registry_source_manifest": [
+    {
+      "path": "data/pedigree/horses/jbis-0001396470.json",
+      "git_blob_sha": "600c70fb38601efd1f6633a7e333e6cdb2b737cc"
+    },
+    {
+      "path": "data/pedigree/horses/netkeiba-2024106740.json",
+      "git_blob_sha": "2ead33366b5e72177d16f18678599f27b0f36f7c"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001090360.json",
+      "git_blob_sha": "f8f8af77fffcfbb4ef38d11a4e0a5332bac8c15c"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001312213.json",
+      "git_blob_sha": "373144e81abc37bfcd7adf58fbc313cff43202bf"
+    },
+    {
+      "path": "data/pedigree/horses/netkeiba-000a01b8b9.json",
+      "git_blob_sha": "41e3f2a495faa415105cca40339694d4d1b09ba8"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001205475.json",
+      "git_blob_sha": "8b9a9c6c77f22f2e9d12aaa34816cecb42567401"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000992627.json",
+      "git_blob_sha": "a5e408c72306b2df6714559e85a6c883109e8c4b"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000700008.json",
+      "git_blob_sha": "e2bbe6082de7411feac87d0079562bcf3e42e4c6"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001106251.json",
+      "git_blob_sha": "6b43de930cfb03bd2e5339445152239ea354f8f0"
+    },
+    {
+      "path": "data/pedigree/horses/netkeiba-000a01b0e4.json",
+      "git_blob_sha": "00fc02d5fbee7049909de30cd7d2d68d3029f241"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001238289.json",
+      "git_blob_sha": "44cb7c8ebfd7294998b911c190908d6798ab9392"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000286968.json",
+      "git_blob_sha": "e494a2a315021ad921618935a9ee4cb227b8acf8"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000316406.json",
+      "git_blob_sha": "2ab2fe85570d4d194b0c6ff9955f12d99f31e23a"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001226507.json",
+      "git_blob_sha": "07b97b9a8fc963a9e4f97e2929cc7e4e910c5563"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000701577.json",
+      "git_blob_sha": "55b2d1b590274c928f95f8c8e28b56089ede689b"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000333862.json",
+      "git_blob_sha": "22fc96ba3ce91dadaa7f5620489ce23cabec0632"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000336209.json",
+      "git_blob_sha": "e0aa668f68e3ee25884c6ddbcfb18244cdec262e"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000190821.json",
+      "git_blob_sha": "9fa1c87685d1c68cac10151e397f6e066e806c64"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000432426.json",
+      "git_blob_sha": "b5ba584c0aefdcd494cb22e5b5575f55d88bf3fd"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000203356.json",
+      "git_blob_sha": "418a9ba6bca82b5118fb8cdeee7d21a935ef6a2d"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001238284.json",
+      "git_blob_sha": "3dfcf3655f372946c81d8a00b1662aaf957ffb8c"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000619968.json",
+      "git_blob_sha": "349816586455a49b8a1d0c3f8bbace1fb44d1e85"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001195011.json",
+      "git_blob_sha": "de3ca0e20203a6219569d61b3dcb76e9962782f4"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001226442.json",
+      "git_blob_sha": "0bc0033746c87286c8cb9eb2861b091d400fcc46"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000722158.json",
+      "git_blob_sha": "3bd60dac982b7210b4d476bf86934acbd8806a28"
+    },
+    {
+      "path": "data/pedigree/horses/netkeiba-000a015277.json",
+      "git_blob_sha": "03f374f482ba0e395d51c6c82cacd6739b2c1ee3"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000362819.json",
+      "git_blob_sha": "11ceafe17078a1b8f8bcb0d57d406f9e7511442f"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001127396.json",
+      "git_blob_sha": "0a2341b08cca5a1c9f9c09238b53ff502eeeb593"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000325102.json",
+      "git_blob_sha": "457c61169e580e61d1d3e3dad25d586d2125769e"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000213942.json",
+      "git_blob_sha": "259d9c06fc8d850f6e5806efca61ddbdaa9c788d"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000406522.json",
+      "git_blob_sha": "f3c94d683533549848bfc1a89e334e064d9cc80c"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000783203.json",
+      "git_blob_sha": "9d94a227f99e74de6b0f39a5b9d0a38c38ca3225"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000335167.json",
+      "git_blob_sha": "22a3b5f837328527c8c2c497d4eb21b391aaa523"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000433247.json",
+      "git_blob_sha": "0739be19114067cbd335d421e93e95d5e11a1fff"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000344896.json",
+      "git_blob_sha": "03e1b6ef7371368df65ae5b60bfbb52b33ad29ca"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001226835.json",
+      "git_blob_sha": "60800a548e5ceaa102125ab2d3ee4fab0f357190"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000333901.json",
+      "git_blob_sha": "db5f87cd0cbfc93f4ece33d4b695405b57c4816e"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000247201.json",
+      "git_blob_sha": "6f3455ba3e2a8bb324e1222925c41d4a0d3d9e39"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000342417.json",
+      "git_blob_sha": "b052b226af51c3c65e0f87882d9f523fb5c5ed3e"
+    },
+    {
+      "path": "data/pedigree/horses/netkeiba-000a013f78.json",
+      "git_blob_sha": "06fc150c240c442fd159a430d708ac64c3540858"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000336574.json",
+      "git_blob_sha": "1ac86b064a4bc7a18627f527e275bf2e869f2b56"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000333544.json",
+      "git_blob_sha": "1ab63384fda638ec8503372ad2ede0bf3a38101f"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001015914.json",
+      "git_blob_sha": "fc5c3fe8f40ae5382ab330136d9904aa530f35c4"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000382617.json",
+      "git_blob_sha": "df1621fca744f9624228bbe5fa98474b9b833879"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000335154.json",
+      "git_blob_sha": "e8af6ca0a9255b9ed2afaae45337d7c6231eadb1"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000971398.json",
+      "git_blob_sha": "6197a7f94fa16f76d614ff493e4b4a6323d490c4"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000333664.json",
+      "git_blob_sha": "e44fcc4dfe6f3dfc405885cc826f895a5b937cea"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000391040.json",
+      "git_blob_sha": "7ff19220f76ca074ac83f1f7a720cb074a1b1c1a"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000383827.json",
+      "git_blob_sha": "109ade5818615bb9759298deb6d7696a7e7e1d7f"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000620783.json",
+      "git_blob_sha": "494431a99777a448b9215ce93334009b4ae60f17"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000233121.json",
+      "git_blob_sha": "af657b805688c0921027b52a336a92d99b4fe41c"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000344537.json",
+      "git_blob_sha": "ed6ef6f5a1710e919fe3df30728f152a8945d64d"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000115357.json",
+      "git_blob_sha": "7c75cbf940cd3ecad94ff0abfa13fc31619f1697"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000110449.json",
+      "git_blob_sha": "7c87d4bf70725ad72d14bafb52cec646a3ac6a4c"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000110447.json",
+      "git_blob_sha": "baffb01e96ad963c6156b8f5b8221ffbae8cb0e2"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000337102.json",
+      "git_blob_sha": "9be0a06dfc78497d272c65e2a903c941fa556338"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000336568.json",
+      "git_blob_sha": "1a702547efe252c3bc5a7516f866bd22c54b337e"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000393162.json",
+      "git_blob_sha": "52d4de809cec115fd57c9c06a888010d7814dc13"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000749845.json",
+      "git_blob_sha": "14b0eb4a2f7a1e6644c2f7e83395f2353e13ad40"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000406937.json",
+      "git_blob_sha": "db871aa264d8aed2704a011a7afe1b7589a5defb"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000337445.json",
+      "git_blob_sha": "166c0ec3f488d048931a076f00e84dd19d6e4b01"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000420554.json",
+      "git_blob_sha": "7585744addfa062217f4c4d1ba9b3a6bfdc6b9e7"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000158534.json",
+      "git_blob_sha": "47fe1abc57fa7223f690c7ecd5d005a0b8136df3"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000161740.json",
+      "git_blob_sha": "3db6e312e9a14d627fd3af4dd94b0091d4df14dc"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000382926.json",
+      "git_blob_sha": "f18e6c1e56292c0b645fb94015c0eb321a2729d9"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000336087.json",
+      "git_blob_sha": "7291e1849a720a837336f5e56457d80f44601e06"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000412454.json",
+      "git_blob_sha": "a745de963c6f70ea7a60239a80212c782108c9a8"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000422539.json",
+      "git_blob_sha": "29f494c9f5b05b40d12ac943e451ef39f93fdfb1"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000410420.json",
+      "git_blob_sha": "65ccc5eac5b98c448903d98707e70a10fc2e7fc6"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000335964.json",
+      "git_blob_sha": "f6610f75ab083a54f53aefd7e3aafe69d7688ff5"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000389183.json",
+      "git_blob_sha": "71605ee5efa461916e2c1055cd8607b5bf1202bf"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000391039.json",
+      "git_blob_sha": "04a902ec99bcc2b2c61cd3cf861a523f6eb9ba38"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000334286.json",
+      "git_blob_sha": "b981c9f4acdb3f57dc05af4447a03d917cf9d093"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000335975.json",
+      "git_blob_sha": "17cf0e3649218e5457f804a9fed548e41f613438"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000336177.json",
+      "git_blob_sha": "4a550c8aded594c707029340b879251c7cc37dc1"
+    },
+    {
+      "path": "data/pedigree/horses/netkeiba-000a00b666.json",
+      "git_blob_sha": "1500815e8b092aa49086948d7ba57fa5c441cd3b"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000340551.json",
+      "git_blob_sha": "4cd58afe669781dfe61df4e7f6ca68428fb1cdfb"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000414246.json",
+      "git_blob_sha": "abe564d15bbd367ab39b331b6e39d0c0ba221024"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000433858.json",
+      "git_blob_sha": "fd335c74becad1c8c0047a963c21529edeae22ab"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000336425.json",
+      "git_blob_sha": "ff824dac16b507fc19cac49fbeb745f1dff46bd8"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000406936.json",
+      "git_blob_sha": "b3db242399ae9f3c34a2a2400fa7131e7b7b9fae"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000391529.json",
+      "git_blob_sha": "1fde67584a7cd3e5fa51f2eef08deace9289a7e7"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000333707.json",
+      "git_blob_sha": "060b576b0724132aca90d974a4e775878a9ce60d"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000339120.json",
+      "git_blob_sha": "ec2d1c1b90b4584b63a43f00315b184bf13244fc"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000968086.json",
+      "git_blob_sha": "3506994b0622a78895c7ea067905df1e7d25ec90"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000393602.json",
+      "git_blob_sha": "1dfe3aca7f3708c0b2d2d496e9915f12a15f780c"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000340629.json",
+      "git_blob_sha": "36a4797a56fd0dee952256e5bec975384023ac95"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000386642.json",
+      "git_blob_sha": "3fcd1b8d3eaa46f75a33da7818af32fc18b7cb0c"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000405617.json",
+      "git_blob_sha": "5efa393bfcd9feeed2c6e39dbff42aac1f61aad7"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0001038348.json",
+      "git_blob_sha": "b23243769f3a98ef3794eb8b1473575b9e1998b1"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000392268.json",
+      "git_blob_sha": "771eb2533d2d06d9dc58ecdda15b581430c1527f"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000380687.json",
+      "git_blob_sha": "0931eadac7a5e21a8986645a258171cc06bd51db"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000339703.json",
+      "git_blob_sha": "846535457975dc79e435b38d069e9860a0385226"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000351407.json",
+      "git_blob_sha": "244b9a84daf8a1e52c9bdb232b416d9926a5f021"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000434286.json",
+      "git_blob_sha": "73b10ad1d39e9adc45004bca812cd69854f04d3f"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000334708.json",
+      "git_blob_sha": "07a63cfd17a6be0a779ae1e778af19dcfee85746"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000017015.json",
+      "git_blob_sha": "54d2a0343fe0bedb45980f832d0cfe8d0badb0da"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000012444.json",
+      "git_blob_sha": "d4642a0edae898443a13f2374617a13454bfe610"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000381553.json",
+      "git_blob_sha": "dbf51cd9f001dc66b3d8d9874db23ef69e7cb6db"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000333363.json",
+      "git_blob_sha": "87c82504796591a04201174acb5d993584a859fa"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000406521.json",
+      "git_blob_sha": "391e82f77f48b773dd03a5cc05584118b0bdf8d7"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000359908.json",
+      "git_blob_sha": "ee9a5424621a29b0323d70c4807a8dec77c0e5c6"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000334747.json",
+      "git_blob_sha": "4670f93a51245b7f0f6aad82f19746bc19b2c094"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000386719.json",
+      "git_blob_sha": "7e7f57a06145b72385b9b44192ebb8f7650aed82"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000334002.json",
+      "git_blob_sha": "0f0975a5e407144137a5653bc58985641740528a"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000336892.json",
+      "git_blob_sha": "e1325d798bea88a7299f9b26ff0540f622d7915a"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000345645.json",
+      "git_blob_sha": "c4a544cdc4b64957769aa272a4eac910f4dda47b"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000393161.json",
+      "git_blob_sha": "0f4a1209fdb3e23c07841356ae69a93d55c4096c"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000387273.json",
+      "git_blob_sha": "12817d220462009a47fe6aab3fc1886ab2d2455c"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000393485.json",
+      "git_blob_sha": "dbc8404f40fe1fc543b4bc4d8366b95d9070552d"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000334661.json",
+      "git_blob_sha": "f7e27dfa39cdf1bbf798d4fe3a0216458171af62"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000334478.json",
+      "git_blob_sha": "57a73c6c8328a02b4932829b080582a9b409d5cc"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000336772.json",
+      "git_blob_sha": "e2f0371c2fb9dfc5b6889ab28bff46719a9c25d2"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000386266.json",
+      "git_blob_sha": "a89ae780de55b3367d8de815d6d8b0c49f9ec71a"
+    },
+    {
+      "path": "data/pedigree/horses/jbis-0000424920.json",
+      "git_blob_sha": "82057a1464095298dbe411d031e75edefd604b7b"
+    }
+  ],
+  "registry_revisions_added": 0,
+  "identity_revisions_added": 0,
+  "cas_policy": "Registry変更0。固定basisのblobとcanonical record hashを読戻しして再利用。事実/時点の後付け改変なし。",
+  "append_queues": {
+    "42": [
+      {
+        "horse_key": "jbis-0001205475",
+        "role": "SIRE_OR_DAM_SIRE",
+        "status": "REUSE_CHECK_REQUIRED"
+      },
+      {
+        "horse_key": "jbis-0001106251",
+        "role": "SIRE_OR_DAM_SIRE",
+        "status": "REUSE_CHECK_REQUIRED"
+      },
+      {
+        "horse_key": "jbis-0001090360",
+        "role": "SIRE_OR_DAM_SIRE",
+        "status": "REUSE_CHECK_REQUIRED"
+      },
+      {
+        "horse_key": "jbis-0001238289",
+        "role": "SIRE_OR_DAM_SIRE",
+        "status": "REUSE_CHECK_REQUIRED"
+      }
+    ]
+  },
+  "remaining_in_verified_result": 13,
+  "unknown_total_oct12": true,
+  "next_batch": "41-02",
+  "identity_sources": [
+    {
+      "path": "data/pedigree/reconciliations/2026-10-12-delta/identities/41-01/nice-woman-official.txt",
+      "bytes": 933,
+      "sha256": "75ef60b4124b579782b56899eb653af88fc1d6c63ce03e30456f179cd56e3d5b",
+      "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+      "raw_html_sha256": null
+    },
+    {
+      "path": "data/pedigree/reconciliations/2026-10-12-delta/identities/41-01/first-state-official.txt",
+      "bytes": 911,
+      "sha256": "d9cf0626a368c72bb4beaee8470e2e15c5124bb24429bb7dde9ec1b866aff33f",
+      "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+      "raw_html_sha256": null
+    }
+  ]
+}

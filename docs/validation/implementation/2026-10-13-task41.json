@@ -1,0 +1,24 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "41",
+  "status": "ACCEPTED_NEXT_TWO_HORSES",
+  "basis_commit": "63c02d74bbadc240679653d2d9f3befd10e639ad",
+  "completed_subtasks": [
+    "41-01"
+  ],
+  "batch_path": "data/pedigree/reconciliations/2026-10-12-delta/pedigrees/41-01/batch.json",
+  "targets": [
+    "2026-10-12-KYOTO-01-01",
+    "2026-10-12-KYOTO-01-12"
+  ],
+  "positions_checked": 124,
+  "registry_revisions_added": 0,
+  "remaining_result_horses": 13,
+  "all_oct12_completed": false,
+  "validation": {
+    "ancestry": "PASS_62_EACH",
+    "identity": "JRAプロフィール名/2024年/父母名/当該結果行を既存Registryと照合",
+    "postcommit_ci": "成果commitのActionsとPR本文で照合"
+  },
+  "next_task": "42-01"
+}
