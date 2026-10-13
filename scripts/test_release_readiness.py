@@ -23,6 +23,11 @@ class ReleaseReadiness(unittest.TestCase):
         manifest=build(self.root)
         (self.root/readiness.MANIFEST).write_text(json.dumps(manifest))
         self.git('init','-q')
+        # 一時fixtureだけのGit設定。子maintenanceがcleanup中にobjectsを再作成しない。
+        self.git('config','maintenance.auto','false')
+        self.git('config','maintenance.autoDetach','false')
+        self.git('config','gc.auto','0')
+        self.git('config','gc.autoDetach','false')
         self.git('config','user.email','test@example.invalid')
         self.git('config','user.name','release test')
         self.git('add','.')
