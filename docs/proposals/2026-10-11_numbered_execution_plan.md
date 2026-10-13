@@ -954,3 +954,5 @@ Brier・◎勝利・上位1/3/6捕捉・差・改善/中立/悪化を読取計�
 02:19の事前審査はPR69側にある歴史資料でmainにはなく、ecfdfd85の固定blobと一致。当時WAIT_CYCLE_ENDを後日の結果/正式v1.7.0へ書き換えない。追補は新規別ファイルとして保存し、再回顧/台帳再作成/正式切替の再実施なし。既存全サイクル終了資料と切替への対応は後続45〜52で照合。
 
 [追補照合](https://github.com/eda-hub/horse-man/blob/57fd8d07324304f732d7b05c253e25b6ca8f03ad/docs/validation/reviews/cycle_03/2026-10-13-oct11-supplement.json) / [checkpoint](https://github.com/eda-hub/horse-man/blob/57fd8d07324304f732d7b05c253e25b6ca8f03ad/docs/validation/implementation/2026-10-13-task38.json)。原台帳validator・旧監査の実データ照合と独立20回帰成功。ローカル初回22回帰の3エラーは作業コピーのcycle_03.md/旧根拠gz不足で、完全repoのCIで全件照合する。code/manifest/受入入力/Owner/data/既存workflow/旧原本不変、main更新/マージなし。次39-01、29/37実測OPENを保持。
+
+38番最終受入：[checkpoint](https://github.com/eda-hub/horse-man/blob/b19abd9680d3611f523332f546b4cd046182695c/docs/validation/implementation/2026-10-13-task38.json)。受入基準 57fd8d07324304f732d7b05c253e25b6ca8f03ad の通常38397684560・統合38397684606・研究38397684572は全success、全688回帰/失敗0/skip0、115入力hash・134source不変。ローカルで不足した旧資料依存の検査は完全repoのCIで成功。コード/Owner/旧原本/data/既存workflow/受入入力不変。38番の追補照合完了、次39-01。新規コード受入と旧履歴真正性を引き続き分離。
