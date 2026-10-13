@@ -56,6 +56,7 @@ def audit(data):
         require(total is not None and older_count<=total,'古馬既対戦数と全過去走数が矛盾/不足')
     promoted=get(data.get('class_promotion'),'昇級判定',bool_valid)
     previous_class=get(data.get('previous_class'),'前走クラス',text)
+    if total==0:require(previous_class is None and promoted is None,'過去出走0で前走クラス/昇級を確定しない')
     if promoted is not None:
         require(current_class is not None and previous_class is not None,'昇級判定には前走/対象クラスが必要')
         require(not promoted or previous_class!=current_class,'同じクラスを昇級としない')

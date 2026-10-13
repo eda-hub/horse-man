@@ -1,7 +1,7 @@
 {
   "schema_version": "task36-checkpoint-v1",
   "task": 36,
-  "status": "IMPLEMENTATION_VERIFIED_ACCEPTANCE_CI_PENDING",
+  "status": "IMPLEMENTED_LOCAL_VERIFIED_CI_PENDING",
   "input_pr69_sha": "b5be8481f127d5d00c6a84e0cf07dd6d5b5fd700",
   "input_pr68_sha": "af6c45d87627216e3c7cc06547338f9e4afdbb5d",
   "tasks": {
@@ -29,8 +29,8 @@
     "blanket_age_penalty": false
   },
   "validation": {
-    "new_tests": 24,
-    "local_related_tests": 90,
+    "new_tests": 25,
+    "local_related_tests": 91,
     "failures": 0,
     "skipped": 0,
     "command": "PYTHONPATH=scripts python3 -m unittest test_class_transition test_cycle04_acceptance test_cycle04_workflow test_release_readiness -q",
@@ -50,9 +50,11 @@
       "出所付き上位クラス比較と同一/上下関係矛盾",
       "斤量/年齢構成/対象クラス/比較方法/比較軸の不足は参考",
       "未算定null保持・CLI読取のみ・原本不変",
-      "3歳以外の対象外を不明と区別"
+      "3歳以外の対象外を不明と区別",
+      "過去走0と前走クラス/昇級確定の矛盾を拒否"
     ],
-    "ci": {
+    "ci": "REVIEW_FIX_CI_PENDING",
+    "previous_ci": {
       "basis_commit": "3886b3444a576e97fb8c52f9f35aeb0dda244166",
       "integration_run": 38390575060,
       "research_run": 38390575054,

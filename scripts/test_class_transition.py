@@ -77,7 +77,12 @@ class ClassTransitionTest(unittest.TestCase):
         p=fixture();p['prior_start_count']['value']=8
         with self.assertRaises(ComplianceError):audit(p)
         p=fixture();p['prior_start_count']['value']=0;p['recent_five_runs']['value']=[]
+        p['previous_class']=missing();p['class_promotion']=missing()
         self.assertEqual(audit(p)['recent_classes'],[])
+
+    def test_zero_prior_starts_cannot_have_a_previous_class_or_promotion(self):
+        p=fixture();p['prior_start_count']['value']=0;p['recent_five_runs']['value']=[]
+        with self.assertRaises(ComplianceError):audit(p)
 
     def test_recent_age_class_weight_and_opponent_are_separate(self):
         r=audit(fixture());self.assertEqual(r['recent_age_conditions'],['AGE_RESTRICTED'])
