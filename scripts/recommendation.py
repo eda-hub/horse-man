@@ -811,6 +811,11 @@ def display(rec):
         lines.append(f"{item['priority']}位: {labels[item['type']]} {sep.join(map(str,item['horses']))} / {item['reason']}")
     lines.append("構成理由: " + rec["reason"])
     lines.append("軸依存: " + rec["dependency_audit"]["anchor_dependency"])
+    from dependency_risk import audit as dependency_report
+    report = dependency_report(None, rec['tickets'], None)
+    lines.append("馬別依存点数: " + str(report['selected']['horse_ticket_counts']))
+    lines.append("シナリオ別点数: " + str(report['selected']['scenario_ticket_counts']))
+    lines.append("候補全点数: 未記録（採用点数とは別）")
     lines.append("※的中・払戻を保証するものではありません。")
     return "\n".join(lines)
 
