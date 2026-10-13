@@ -60,3 +60,6 @@ place_basisはOFFICIAL_PLACE_PLACES（公式本文の複勝対象着数）かOFF
 FORWARD/REPLAY/SYNTHETICの区分を結果sidecarへ引き継ぎ、合成/Replayを前向き結果へ認証しない。HTTP原bytesや取得元真正性、正式KPIは本補助で認証しない。result本体の保存・Git読戻しと、固定Prediction/推奨との対応は次工程。
 
 保存済みJRA本文のパイプ表は着順・枠・馬番の列を分離し、画像リンク番号やブリンカー表示を馬番へ流用しない。10/12保存原票の15行をREPLAY形式回帰で照合する。保存断片に確定/複勝根拠がなければ単独では全結果へ昇格しない。
+
+## 53-I07 公式結果の再照合
+`python3 scripts/chat_result_reconciliation.py manifest.json --root . --as-of <監査時点>`。capture/conversion/resultは固定path/hash、prediction_gate/prediction_original/recommendation_gateは固定参照またはnullを明示。原文から再構成した値、全頭、race/date/発走、独立保存予想を再照合。推奨なし・未最終も回顧対象に残す。未確定/改変/未来取得は保留。払戻や旧実購入を要求せず、既存settleで券を照合。原票真正性・正式KPIの認証や台帳保存は行わない。
