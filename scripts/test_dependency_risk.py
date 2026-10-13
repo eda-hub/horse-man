@@ -116,6 +116,7 @@ class DependencyRiskTests(unittest.TestCase):
         r=audit(None,items,1,field_horses=[1,2,3],frames={1:1,2:1,3:2},allocations=a,joint_model=model())
         self.assertEqual(r['finance']['frame_dependent_allocation_yen'],{1:100})
         self.assertEqual(r['finance']['horse_dependent_allocation_yen'],{})
+        self.assertEqual(describe(r)['枠別仮想依存額'],{1:100})
         self.assertAlmostEqual(r['finance']['full_loss_probability'],.3)
 
     def test_display_is_readonly_and_requires_no_money(self):

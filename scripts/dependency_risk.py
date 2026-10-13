@@ -124,6 +124,9 @@ def describe(report):
             '軸依存率':'未算定' if report['selected']['anchor_ticket_ratio'] is None else str(report['selected']['anchor_ticket_ratio']*100)+'%',
             '最大単券仮想配分':f['max_single_ticket_yen'] if f['max_single_ticket_yen'] is not None else '未算定',
             '馬別仮想依存額':f['horse_dependent_allocation_yen'] if f['horse_dependent_allocation_yen'] is not None else '未算定',
+            '枠券点数':report['selected']['frame_ticket_count'],
+            '枠別仮想依存額':f['frame_dependent_allocation_yen'] if f['frame_dependent_allocation_yen'] is not None else '未算定',
+            '馬依存額の範囲':'馬番指定券の配分のみ。枠連は枠別に表示',
             '全損率':'未算定' if p is None else str(p*100)+'%','全損率の根拠':f['full_loss_basis']}
 
 
