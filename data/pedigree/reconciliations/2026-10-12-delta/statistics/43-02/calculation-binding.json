@@ -1,0 +1,184 @@
+{
+  "schema_version": "existing-condition-replay-binding-v1",
+  "subtask_id": "43-02",
+  "source_definitions": [
+    {
+      "path": "data/condition_stats/definitions/jra-training-regions-delta-20261011-task21.json",
+      "sha": "83e27f55b602eeaec8be3532d4521620a6cf75b0"
+    },
+    {
+      "path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-01.json",
+      "sha": "5bb5abf1ea027f9d1fb5ccccf951a9559a064329"
+    },
+    {
+      "path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-02.json",
+      "sha": "7789e01372b569fcc56eb9d4eadeb83ffbe8ae54"
+    },
+    {
+      "path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-03.json",
+      "sha": "6ca920264c4bf936cedfbecf334c5e7dc0c1a9b6"
+    },
+    {
+      "path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-04.json",
+      "sha": "d1fd434e7f55e0336d9a825b5d41a7bc77491871"
+    },
+    {
+      "path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-05.json",
+      "sha": "1c6f55df0fa184898fcb5e4fbfb5847d7c4e9779"
+    },
+    {
+      "path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-01.json",
+      "sha": "f591bb2ee0f77cb8536d3d150a37906b3e3d4701"
+    },
+    {
+      "path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-02.json",
+      "sha": "ea874695e275923069ec9d5cc3cce1503bfe1934"
+    },
+    {
+      "path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-03.json",
+      "sha": "5860fc72186a1dcf88536df852cb23cedf270bc8"
+    },
+    {
+      "path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-04.json",
+      "sha": "56dad90265b85fed9dd6fd51297405b553ec85c1"
+    }
+  ],
+  "unchanged_conditions": [
+    {
+      "source_path": "data/condition_stats/definitions/jra-training-regions-delta-20261011-task21.json",
+      "git_blob_sha": "83e27f55b602eeaec8be3532d4521620a6cf75b0",
+      "group": {
+        "axis": "TRAINING_REGION",
+        "group_id": "sire-eu",
+        "subject": "SIRE",
+        "value": "EU"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-training-regions-delta-20261011-task21.json",
+      "git_blob_sha": "83e27f55b602eeaec8be3532d4521620a6cf75b0",
+      "group": {
+        "axis": "TRAINING_REGION",
+        "group_id": "sire-us",
+        "subject": "SIRE",
+        "value": "US"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-training-regions-delta-20261011-task21.json",
+      "git_blob_sha": "83e27f55b602eeaec8be3532d4521620a6cf75b0",
+      "group": {
+        "axis": "TRAINING_REGION",
+        "group_id": "dam_sire-eu",
+        "subject": "DAM_SIRE",
+        "value": "EU"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-training-regions-delta-20261011-task21.json",
+      "git_blob_sha": "83e27f55b602eeaec8be3532d4521620a6cf75b0",
+      "group": {
+        "axis": "TRAINING_REGION",
+        "group_id": "dam_sire-us",
+        "subject": "DAM_SIRE",
+        "value": "US"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-01.json",
+      "git_blob_sha": "5bb5abf1ea027f9d1fb5ccccf951a9559a064329",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000334731",
+        "value": "jbis-0000334731"
+      }
+    }
+  ],
+  "definition": {
+    "comparison": "NON_MATCH",
+    "data_cutoff": "2026-10-13T22:08:05+09:00",
+    "definition_id": "oct12-partial-binding-43-02",
+    "groups": [
+      {
+        "axis": "TRAINING_REGION",
+        "group_id": "sire-eu",
+        "subject": "SIRE",
+        "value": "EU"
+      },
+      {
+        "axis": "TRAINING_REGION",
+        "group_id": "sire-us",
+        "subject": "SIRE",
+        "value": "US"
+      },
+      {
+        "axis": "TRAINING_REGION",
+        "group_id": "dam_sire-eu",
+        "subject": "DAM_SIRE",
+        "value": "EU"
+      },
+      {
+        "axis": "TRAINING_REGION",
+        "group_id": "dam_sire-us",
+        "subject": "DAM_SIRE",
+        "value": "US"
+      },
+      {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000334731",
+        "value": "jbis-0000334731"
+      }
+    ],
+    "mode": "REPLAY",
+    "period_end": "2026-10-12",
+    "period_start": "2026-10-12",
+    "result_rule": "official-finish-position-v1",
+    "schema_version": "pedigree-condition-stat-definition-v1",
+    "scope": {},
+    "selection_note": "JRA159レースの父/母父EU・USと指定祖先21個体の5代内包＋本人調教地域。全条件直積・曖昧な父系・クロス条件を自動生成しない。",
+    "training_classification": {
+      "country_selection": "SEARCH_MATCH_PRIORITY_V1",
+      "first_observed_at": "2026-10-10T10:36:57.027650+00:00",
+      "other_region_note": "既存613父・母父の確認国のうちEU/US以外を一覧固定。未定義国はUNKNOWN。",
+      "regions": {
+        "EU": [
+          "GB",
+          "IE",
+          "FR",
+          "DE",
+          "IT"
+        ],
+        "OTHER": [
+          "AR",
+          "AU",
+          "CA",
+          "JP"
+        ],
+        "US": [
+          "US"
+        ]
+      },
+      "source": {
+        "record_hash": "86dc25129ffc405d4b54779bc9349e299fda7d179a3f1288dd8e04847d8b4e2b",
+        "record_key": "data/pedigree/reconciliations/2026-10-10-training-priority/region-classification-reply.json",
+        "source_class": "USER_PROVIDED"
+      },
+      "version": "user-europe-five-countries-v1"
+    },
+    "condition_selection": {
+      "record_hash": "82f7714d7f8a1cff2e16ae90a260c53eb00104c0a9095ca05b6266864e108c0a",
+      "record_key": "data/pedigree/reconciliations/2026-10-10-r08-followup/structural-condition-selection.json"
+    }
+  },
+  "allowed_binding_changes": [
+    "definition_id",
+    "period_start",
+    "period_end",
+    "data_cutoff",
+    "groupsの先頭5条件への限定"
+  ],
+  "new_condition_rules": 0,
+  "old_definitions_overwritten": 0
+}

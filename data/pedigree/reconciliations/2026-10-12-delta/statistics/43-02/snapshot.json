@@ -1,0 +1,1984 @@
+{
+  "schema_version": "condition-stat-snapshot-v1",
+  "calculator_version": "pedigree-condition-stats-v1",
+  "result_rule": "official-finish-position-v1",
+  "definition_id": "oct12-partial-binding-43-02",
+  "definition_hash": "e3d881606b0fa76b41f59598599cfb5e74481f5cd6ccc46ceef67d70367d8f4a",
+  "input_hash": "219f7e2675559d6fa38936656c7a28f13c9915ed950b67b884fa527e54178e53",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "usage": "RESEARCH_SHADOW_ONLY",
+  "period_start": "2026-10-12",
+  "period_end": "2026-10-12",
+  "data_cutoff": "2026-10-13T22:08:05+09:00",
+  "source_scope": "10月12日初回24Rのうち公式結果取得済み京都1R。23R未取得・13頭未同定。",
+  "scope_complete": false,
+  "classification_version": null,
+  "lineage_taxonomy_hash": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+  "training_classification_hash": "1fd9572814a9eab7aeb324bea76168df6e7a6d7c0de4b6feec2e2103840c0bb8",
+  "all_runners": {
+    "entries": 15,
+    "horses": 15,
+    "races": 1,
+    "valid_starts": 15,
+    "wins": 1,
+    "top2": 2,
+    "top3": 3,
+    "scratched": 0,
+    "excluded": 0,
+    "pending_results": 0,
+    "dnf": 0,
+    "dq": 0,
+    "win_rate": 0.06666666666666667,
+    "top2_rate": 0.13333333333333333,
+    "top3_rate": 0.2
+  },
+  "races_in_scope": [
+    "202608040501"
+  ],
+  "duplicates_removed": 0,
+  "groups": {
+    "sire-eu": {
+      "definition": {
+        "axis": "TRAINING_REGION",
+        "group_id": "sire-eu",
+        "subject": "SIRE",
+        "value": "EU"
+      },
+      "cohorts": {
+        "MATCH": {
+          "entries": 0,
+          "horses": 0,
+          "races": 0,
+          "valid_starts": 0,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": null,
+          "top2_rate": null,
+          "top3_rate": null
+        },
+        "NON_MATCH": {
+          "entries": 2,
+          "horses": 2,
+          "races": 1,
+          "valid_starts": 2,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.0,
+          "top2_rate": 0.0,
+          "top3_rate": 0.0
+        },
+        "UNKNOWN": {
+          "entries": 13,
+          "horses": 13,
+          "races": 1,
+          "valid_starts": 13,
+          "wins": 1,
+          "top2": 2,
+          "top3": 3,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.07692307692307693,
+          "top2_rate": 0.15384615384615385,
+          "top3_rate": 0.23076923076923078
+        },
+        "CONFLICT": {
+          "entries": 0,
+          "horses": 0,
+          "races": 0,
+          "valid_starts": 0,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": null,
+          "top2_rate": null,
+          "top3_rate": null
+        }
+      },
+      "reason_counts": {
+        "IDENTITY_UNRESOLVED": 13
+      },
+      "comparison": "NON_MATCH",
+      "coverage": {
+        "pedigree_known": 2,
+        "pedigree_unknown": 13,
+        "pedigree_conflict": 0,
+        "pedigree_coverage": 0.13333333333333333,
+        "result_coverage": null
+      },
+      "baseline": {
+        "entries": 2,
+        "horses": 2,
+        "races": 1,
+        "valid_starts": 2,
+        "wins": 0,
+        "top2": 0,
+        "top3": 0,
+        "scratched": 0,
+        "excluded": 0,
+        "pending_results": 0,
+        "dnf": 0,
+        "dq": 0,
+        "win_rate": 0.0,
+        "top2_rate": 0.0,
+        "top3_rate": 0.0
+      },
+      "overlap_note": "Groups may overlap; sum of group counts is not an all-runners total"
+    },
+    "sire-us": {
+      "definition": {
+        "axis": "TRAINING_REGION",
+        "group_id": "sire-us",
+        "subject": "SIRE",
+        "value": "US"
+      },
+      "cohorts": {
+        "MATCH": {
+          "entries": 0,
+          "horses": 0,
+          "races": 0,
+          "valid_starts": 0,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": null,
+          "top2_rate": null,
+          "top3_rate": null
+        },
+        "NON_MATCH": {
+          "entries": 2,
+          "horses": 2,
+          "races": 1,
+          "valid_starts": 2,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.0,
+          "top2_rate": 0.0,
+          "top3_rate": 0.0
+        },
+        "UNKNOWN": {
+          "entries": 13,
+          "horses": 13,
+          "races": 1,
+          "valid_starts": 13,
+          "wins": 1,
+          "top2": 2,
+          "top3": 3,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.07692307692307693,
+          "top2_rate": 0.15384615384615385,
+          "top3_rate": 0.23076923076923078
+        },
+        "CONFLICT": {
+          "entries": 0,
+          "horses": 0,
+          "races": 0,
+          "valid_starts": 0,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": null,
+          "top2_rate": null,
+          "top3_rate": null
+        }
+      },
+      "reason_counts": {
+        "IDENTITY_UNRESOLVED": 13
+      },
+      "comparison": "NON_MATCH",
+      "coverage": {
+        "pedigree_known": 2,
+        "pedigree_unknown": 13,
+        "pedigree_conflict": 0,
+        "pedigree_coverage": 0.13333333333333333,
+        "result_coverage": null
+      },
+      "baseline": {
+        "entries": 2,
+        "horses": 2,
+        "races": 1,
+        "valid_starts": 2,
+        "wins": 0,
+        "top2": 0,
+        "top3": 0,
+        "scratched": 0,
+        "excluded": 0,
+        "pending_results": 0,
+        "dnf": 0,
+        "dq": 0,
+        "win_rate": 0.0,
+        "top2_rate": 0.0,
+        "top3_rate": 0.0
+      },
+      "overlap_note": "Groups may overlap; sum of group counts is not an all-runners total"
+    },
+    "dam_sire-eu": {
+      "definition": {
+        "axis": "TRAINING_REGION",
+        "group_id": "dam_sire-eu",
+        "subject": "DAM_SIRE",
+        "value": "EU"
+      },
+      "cohorts": {
+        "MATCH": {
+          "entries": 0,
+          "horses": 0,
+          "races": 0,
+          "valid_starts": 0,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": null,
+          "top2_rate": null,
+          "top3_rate": null
+        },
+        "NON_MATCH": {
+          "entries": 2,
+          "horses": 2,
+          "races": 1,
+          "valid_starts": 2,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.0,
+          "top2_rate": 0.0,
+          "top3_rate": 0.0
+        },
+        "UNKNOWN": {
+          "entries": 13,
+          "horses": 13,
+          "races": 1,
+          "valid_starts": 13,
+          "wins": 1,
+          "top2": 2,
+          "top3": 3,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.07692307692307693,
+          "top2_rate": 0.15384615384615385,
+          "top3_rate": 0.23076923076923078
+        },
+        "CONFLICT": {
+          "entries": 0,
+          "horses": 0,
+          "races": 0,
+          "valid_starts": 0,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": null,
+          "top2_rate": null,
+          "top3_rate": null
+        }
+      },
+      "reason_counts": {
+        "IDENTITY_UNRESOLVED": 13
+      },
+      "comparison": "NON_MATCH",
+      "coverage": {
+        "pedigree_known": 2,
+        "pedigree_unknown": 13,
+        "pedigree_conflict": 0,
+        "pedigree_coverage": 0.13333333333333333,
+        "result_coverage": null
+      },
+      "baseline": {
+        "entries": 2,
+        "horses": 2,
+        "races": 1,
+        "valid_starts": 2,
+        "wins": 0,
+        "top2": 0,
+        "top3": 0,
+        "scratched": 0,
+        "excluded": 0,
+        "pending_results": 0,
+        "dnf": 0,
+        "dq": 0,
+        "win_rate": 0.0,
+        "top2_rate": 0.0,
+        "top3_rate": 0.0
+      },
+      "overlap_note": "Groups may overlap; sum of group counts is not an all-runners total"
+    },
+    "dam_sire-us": {
+      "definition": {
+        "axis": "TRAINING_REGION",
+        "group_id": "dam_sire-us",
+        "subject": "DAM_SIRE",
+        "value": "US"
+      },
+      "cohorts": {
+        "MATCH": {
+          "entries": 1,
+          "horses": 1,
+          "races": 1,
+          "valid_starts": 1,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.0,
+          "top2_rate": 0.0,
+          "top3_rate": 0.0
+        },
+        "NON_MATCH": {
+          "entries": 1,
+          "horses": 1,
+          "races": 1,
+          "valid_starts": 1,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.0,
+          "top2_rate": 0.0,
+          "top3_rate": 0.0
+        },
+        "UNKNOWN": {
+          "entries": 13,
+          "horses": 13,
+          "races": 1,
+          "valid_starts": 13,
+          "wins": 1,
+          "top2": 2,
+          "top3": 3,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.07692307692307693,
+          "top2_rate": 0.15384615384615385,
+          "top3_rate": 0.23076923076923078
+        },
+        "CONFLICT": {
+          "entries": 0,
+          "horses": 0,
+          "races": 0,
+          "valid_starts": 0,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": null,
+          "top2_rate": null,
+          "top3_rate": null
+        }
+      },
+      "reason_counts": {
+        "IDENTITY_UNRESOLVED": 13
+      },
+      "comparison": "NON_MATCH",
+      "coverage": {
+        "pedigree_known": 2,
+        "pedigree_unknown": 13,
+        "pedigree_conflict": 0,
+        "pedigree_coverage": 0.13333333333333333,
+        "result_coverage": 1.0
+      },
+      "baseline": {
+        "entries": 1,
+        "horses": 1,
+        "races": 1,
+        "valid_starts": 1,
+        "wins": 0,
+        "top2": 0,
+        "top3": 0,
+        "scratched": 0,
+        "excluded": 0,
+        "pending_results": 0,
+        "dnf": 0,
+        "dq": 0,
+        "win_rate": 0.0,
+        "top2_rate": 0.0,
+        "top3_rate": 0.0
+      },
+      "overlap_note": "Groups may overlap; sum of group counts is not an all-runners total"
+    },
+    "contains-jbis-0000334731": {
+      "definition": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000334731",
+        "value": "jbis-0000334731"
+      },
+      "cohorts": {
+        "MATCH": {
+          "entries": 0,
+          "horses": 0,
+          "races": 0,
+          "valid_starts": 0,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": null,
+          "top2_rate": null,
+          "top3_rate": null
+        },
+        "NON_MATCH": {
+          "entries": 2,
+          "horses": 2,
+          "races": 1,
+          "valid_starts": 2,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.0,
+          "top2_rate": 0.0,
+          "top3_rate": 0.0
+        },
+        "UNKNOWN": {
+          "entries": 13,
+          "horses": 13,
+          "races": 1,
+          "valid_starts": 13,
+          "wins": 1,
+          "top2": 2,
+          "top3": 3,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.07692307692307693,
+          "top2_rate": 0.15384615384615385,
+          "top3_rate": 0.23076923076923078
+        },
+        "CONFLICT": {
+          "entries": 0,
+          "horses": 0,
+          "races": 0,
+          "valid_starts": 0,
+          "wins": 0,
+          "top2": 0,
+          "top3": 0,
+          "scratched": 0,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": null,
+          "top2_rate": null,
+          "top3_rate": null
+        }
+      },
+      "reason_counts": {
+        "IDENTITY_UNRESOLVED": 13
+      },
+      "comparison": "NON_MATCH",
+      "coverage": {
+        "pedigree_known": 2,
+        "pedigree_unknown": 13,
+        "pedigree_conflict": 0,
+        "pedigree_coverage": 0.13333333333333333,
+        "result_coverage": null
+      },
+      "baseline": {
+        "entries": 2,
+        "horses": 2,
+        "races": 1,
+        "valid_starts": 2,
+        "wins": 0,
+        "top2": 0,
+        "top3": 0,
+        "scratched": 0,
+        "excluded": 0,
+        "pending_results": 0,
+        "dnf": 0,
+        "dq": 0,
+        "win_rate": 0.0,
+        "top2_rate": 0.0,
+        "top3_rate": 0.0
+      },
+      "overlap_note": "Groups may overlap; sum of group counts is not an all-runners total"
+    }
+  },
+  "horse_trace": {
+    "jbis-0001396470": {
+      "groups": {
+        "sire-eu": {
+          "status": "NON_MATCH",
+          "reason": "VERIFIED_TRAINING_REGION"
+        },
+        "sire-us": {
+          "status": "NON_MATCH",
+          "reason": "VERIFIED_TRAINING_REGION"
+        },
+        "dam_sire-eu": {
+          "status": "NON_MATCH",
+          "reason": "VERIFIED_TRAINING_REGION"
+        },
+        "dam_sire-us": {
+          "status": "NON_MATCH",
+          "reason": "VERIFIED_TRAINING_REGION"
+        },
+        "contains-jbis-0000334731": {
+          "status": "NON_MATCH",
+          "reason": "COMPLETE_ANCESTRY"
+        }
+      },
+      "dependencies": {
+        "jbis-0000158534": {
+          "as_of_sha256": "867ddfbb0114e63bee01596014507e5999e10cdd8248e8749eeba1e6496eb960",
+          "revision_ids": [],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000161740": {
+          "as_of_sha256": "321ffbe7c4403be9b1df8fe32d4e31d73912e9c158f28367721d77d07dbfd656",
+          "revision_ids": [
+            "rev-37dbf1038008b7a04d2d7f84",
+            "rev-b195c7019b36d5cecf7c70c1",
+            "rev-d372d71b06b1c450a86e618c"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000233121": {
+          "as_of_sha256": "35ad2dbd3f939195ab8d771ba6f50eb4236340aba759c86844e0e002374b8000",
+          "revision_ids": [
+            "rev-2579e9500d43d8acc51ef599",
+            "rev-7f47788ec90049f960c19ba3"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000247201": {
+          "as_of_sha256": "83b3c777aba69fe9c12c22e87c963849297577712ea95b7ea3f9c3e3707eb707",
+          "revision_ids": [
+            "rev-0f604a0908267c64f69f8639",
+            "rev-95bf19305c1ad51b84629b05"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000325102": {
+          "as_of_sha256": "1d8e35fcfe29325989b9e160f6a4454d337985d8408e76d40adf47b097e43c71",
+          "revision_ids": [
+            "rev-56b4b9cb89d5b754ad31096b",
+            "rev-bf099009eb75563ce4ad7276"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000333707": {
+          "as_of_sha256": "caf7db25bb7ee11538670d120c8d7afe2254237a8a20c4124fa2a401afd1778c",
+          "revision_ids": [
+            "rev-855baf2a4d612733c26a19c7",
+            "rev-96949c9ee76a2ad341ce4cf1"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000333862": {
+          "as_of_sha256": "db88557e2009e9dfc0fb36c95ed31709041b54d8d779de25f5863e00898160c1",
+          "revision_ids": [
+            "rev-1a4c6d6b060767ccd39f577b",
+            "rev-2db97142f464383d09af8c7e",
+            "rev-5c577a8b995870fca8800520"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000333901": {
+          "as_of_sha256": "fe7480a388ef9e6156669b2baf236a32261893600e3c10992b1b36f191558d65",
+          "revision_ids": [
+            "rev-08006a05190b13deb8dc0d59",
+            "rev-b60b5b934524c76cc939ba4b",
+            "rev-ec6553b6cb63f3ccd664c6ad"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000334286": {
+          "as_of_sha256": "ee3cb74d2228b918c0af5c6103140364920096eb7713541046c5ebd758ee8e3f",
+          "revision_ids": [
+            "rev-486e184bfd60af797b713cb8",
+            "rev-a40f6fcd46b18cbe05f4a266"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000334747": {
+          "as_of_sha256": "744da89f41c7012ff6a61b9b561c3c590ae9edeac60a45fff39aff0197a9cfd7",
+          "revision_ids": [
+            "rev-648ee200a7899aa40ce270a0",
+            "rev-be974029b0f8839470d616e3"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000335154": {
+          "as_of_sha256": "6a96eb285942f174d3c3fafdbb6b5867ce671b201cc806b4c13eeeef128797ba",
+          "revision_ids": [
+            "rev-5476cda0d0ee1670b76cd487",
+            "rev-76583f9e3f5c03cc4b2eaa31"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000335167": {
+          "as_of_sha256": "f440435068582f94efcb8e0bdc8843b56538a9d5e979e43850a7c41199a38190",
+          "revision_ids": [
+            "rev-84a210bf46357833bb9ad54f",
+            "rev-c5e5c816497957a1d825c410",
+            "rev-ff3568a9f56850acf984d7bd"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000335964": {
+          "as_of_sha256": "e22c99e7d832b2c9d2d5d3e87942369fec505f4bcef75de972347e069498cb76",
+          "revision_ids": [
+            "rev-2f7d37c59506da8413ebb237",
+            "rev-46fb20bc1cf6fd9f32ce1799"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000335975": {
+          "as_of_sha256": "1e68cafbe3ffc940aef2e8fde8d6800c9209011d254835256819e2c98cd4c9e1",
+          "revision_ids": [
+            "rev-3ec62d53fcbb2c3277e0ced4",
+            "rev-4796f86f5dd5cf9e74146235",
+            "rev-b3f680083baa85260bc716c1"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000336087": {
+          "as_of_sha256": "0d2a3822fb23313b8cb1381d303ca045e53b0d8d1cfb70c91e9d9f8c42577ebc",
+          "revision_ids": [
+            "rev-43eff53ca057a15e51ea22f3",
+            "rev-4f91117e5f02cf0bafe813d0",
+            "rev-890549bec3bc63d727f125d4"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000336209": {
+          "as_of_sha256": "bfbf7f545bfb4d9f3a02cd5b84fef0597768173e2ed1ad181ade15ca76fe3a41",
+          "revision_ids": [
+            "rev-329e448908b4c799880ffa9b",
+            "rev-f2441ef6783e3999cc1a1864"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000336425": {
+          "as_of_sha256": "da6a658bda78de0ee4be71f7b6540d9b4a87b640cbb24cb19275d3caa88268dc",
+          "revision_ids": [
+            "rev-281f91b5948ec78ce622d3fb",
+            "rev-8eafbfc9e0bde96b663440b6"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000336574": {
+          "as_of_sha256": "78a9c8a5d7b03ef8f287e5767dd0014bdb1ab8ff11d4601016bd7fef0525a2fb",
+          "revision_ids": [
+            "rev-3a5acb8f3530bdfabe51a8e6",
+            "rev-7b7ccb6176e4c006b167ceab"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000337445": {
+          "as_of_sha256": "1a7ee5bd1cfa22e96d68ef181417530cac559db8db9dc5b284fbd529667797d5",
+          "revision_ids": [
+            "rev-66c683384f3ed2c86cc09818",
+            "rev-9ce0a6b08b514445ce8dda7e"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000339120": {
+          "as_of_sha256": "db3f7c5c4ff34d2f3ed6677bffe0df69dd9a95e7f92ab89f24c6f1085992e82d",
+          "revision_ids": [
+            "rev-b54c4ad3a32c5b1d47fe0606",
+            "rev-ea402cc422d6646933a16d1e"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000339703": {
+          "as_of_sha256": "8c2a7c05e8eae3833c400f02ce58cbc643ab98fa47295590b597789003960b33",
+          "revision_ids": [
+            "rev-8197f497a5138672f90c7ad8",
+            "rev-ac13936f09c7f49741262007"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000340551": {
+          "as_of_sha256": "0867407b803fbc78d1392f4a4d8057b82f96dcdff75161b9919c5f7834249155",
+          "revision_ids": [
+            "rev-0091a1acd7dd2de0a9f0bb0e",
+            "rev-9ea699b711de2197100244c8"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000342417": {
+          "as_of_sha256": "b8dbd733e4c3e520fdbfd411a88d383c4b45e47f3937cc68bba1ea996f72e6d2",
+          "revision_ids": [
+            "rev-3e90a288f17dae8b8ff4ca82",
+            "rev-8574a137ec691d7b5a7ad26d"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000344537": {
+          "as_of_sha256": "40b40e25a1903192bb787a7c0100442558d6434ae84364e1308b1c6642c02b85",
+          "revision_ids": [
+            "rev-52a7908eab47c5f9aeb386b3",
+            "rev-fbe9a9a1e64abc2f05f66a94"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000344896": {
+          "as_of_sha256": "ef25767899be78bb70cdc291b2ed470b581a17506eed71485a80f81f33c0dda6",
+          "revision_ids": [
+            "rev-09fdf74e675a7868b59849f7",
+            "rev-b9ec803297c88ac2b100fd5d"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000351407": {
+          "as_of_sha256": "14910cc515816cf083c6c2b5ea6f29b4bd6e2fbf83217bcdfd9cd0dc9bdf1031",
+          "revision_ids": [],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000382926": {
+          "as_of_sha256": "56e46b3ce87fafd84276164b4cf652926a808c9744947d8c14659eb59f91541c",
+          "revision_ids": [
+            "rev-4ad5af82de0e2bb447d18127",
+            "rev-6e5955766733f20bccca4f1b"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000383827": {
+          "as_of_sha256": "6661927795c55adcde954479e5f547ab7839850c5d364e1761323cf1f13c6369",
+          "revision_ids": [
+            "rev-810ab59b257a0901ec2a2e26",
+            "rev-be7e541015f5f98cf0dc30ba"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000389183": {
+          "as_of_sha256": "22309466a0cccb5568d6de44aa7566dd2dc3d5c0879faa002c83bded54ef238f",
+          "revision_ids": [
+            "rev-27f5f5c3f02e5070ef7f499a",
+            "rev-94cc53f00b515aff03df1aa9"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000391039": {
+          "as_of_sha256": "9c171dec526bcf1a5fe28170bc21ccfd77fca6e9e1d72a93f7152b654f6efcc3",
+          "revision_ids": [],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000391040": {
+          "as_of_sha256": "32f6e9674e49418e6d93f86d30da14b3bafc66e100a351fbbd606ee881fc0f83",
+          "revision_ids": [
+            "rev-141b8214ba0a79e0e3b4493c",
+            "rev-73a4e9e7729cb688707d71bd"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000392268": {
+          "as_of_sha256": "22f1678f3c277e66fcca77ce7d894c4520fd69b7c377ec61f6163538125cdb15",
+          "revision_ids": [
+            "rev-83fd48765f7fcf0373e811aa",
+            "rev-ab4a8128f28cb16be9cf3486"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000393162": {
+          "as_of_sha256": "b904834223a19af6113089ce7e200317239331530ce27e9ad2c2c4bad3b4332a",
+          "revision_ids": [
+            "rev-33b808c27190bd1dd6973378",
+            "rev-836f2a0cf990b2955825d157"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000393485": {
+          "as_of_sha256": "3fac906e0dc5d7348e859f00c7c9e59ba95db1e1c4b24c867ab6b44f88292bc6",
+          "revision_ids": [
+            "rev-363b5a841857a42811bb0c1d",
+            "rev-5a0e9478dee77195852d8f7c"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000406521": {
+          "as_of_sha256": "aa7bc124007ac2706c1d6126b82da49c0f1f1d7ce1c79ecf884f2ff892313f71",
+          "revision_ids": [
+            "rev-1e54b8e07442f44bcd36d033",
+            "rev-4a58ec8d484c7d23890511ca"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000406522": {
+          "as_of_sha256": "01660713f1519d2b303779619ff335f3f3786d3a671a43e098571b51f4eeeb44",
+          "revision_ids": [
+            "rev-214de6a48a49cc0a929a890f",
+            "rev-fd7a4146d49fbb4800c458df"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000410420": {
+          "as_of_sha256": "e3397b10e5679e7c65f2cea7f31181f2fb6eb9f23023a9f3f630fdac0f327616",
+          "revision_ids": [
+            "rev-305a0959b50d9efa87e0d26a",
+            "rev-a6a0f48e8c60cf721371fbd1"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000412454": {
+          "as_of_sha256": "829b3aeb52eef07b0c53c2d441495ad049cda68e6874ebc4d2204c3011402b6c",
+          "revision_ids": [],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000414246": {
+          "as_of_sha256": "5c436090bd4814c5e2cf5b54ff4c362d5512f5b7122c8c46368775e8b9643556",
+          "revision_ids": [
+            "rev-05a684d1ce9580c0ac894ab3",
+            "rev-87e35c7960e5acc9e8520a4f"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000420554": {
+          "as_of_sha256": "37a731c8a629990520514eabdb8419511ca20fb7dbefb31b241c29ee28ccf211",
+          "revision_ids": [],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000422539": {
+          "as_of_sha256": "c5425c355d259b71216e2f283892ba51d64e3c87573026da7d5b7412235eb770",
+          "revision_ids": [
+            "rev-453d173546eef060ca6925c9",
+            "rev-87fc3d242c23892ca4b9f1d8"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000432426": {
+          "as_of_sha256": "45a6cdbc60e8daef064c7b1a81af0cf0779879218244072cfc305ad4fbf1148e",
+          "revision_ids": [
+            "rev-19ff34ed789435d12df55b8c",
+            "rev-db35b252e78f2af246a7db49"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000433247": {
+          "as_of_sha256": "cf39f84168ee98679015c4bfb0e9279cf46cac757157d7bec5edd47f2b8f8952",
+          "revision_ids": [
+            "rev-ba3c9701882735f4ce55a95e",
+            "rev-df4ec17e88c9d08e481385e2"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000433858": {
+          "as_of_sha256": "38c6b16725e26dd1f00cf7eb17bd8f2be1663ee6be5779f68cbe54ae0b764540",
+          "revision_ids": [],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000619968": {
+          "as_of_sha256": "f6ebce8c813e8679fec497e5c4575e387c4dbfecc83c360e58b46c52b59da68a",
+          "revision_ids": [
+            "rev-30692cb0fc7986a20612687b",
+            "rev-b2b98a29422ee945f082b7ba"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000700008": {
+          "as_of_sha256": "ca041639d0e01c55ad358b928fda5d91271527b30950aabf2054797f461d87f5",
+          "revision_ids": [
+            "rev-2dd79aeac225989916f94969",
+            "rev-75c29e819a97a526ca844722",
+            "rev-8e7990cbb4d342a4f5b39e10"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000701577": {
+          "as_of_sha256": "dbdf8974cdde085d3d7ce2ec0ea94733e7dd569e7b68f9dfa0eaf195d4b250b9",
+          "revision_ids": [
+            "rev-5c007fd7d7ab474f7751fd53",
+            "rev-8dc24243043354d75f462c13",
+            "rev-a36b451d423aff0c0fdb211a"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000722158": {
+          "as_of_sha256": "5f99161ed794119d5fd9c3fff9f624b3bd6bc5fcc297558d7ff401e6c12ebb2c",
+          "revision_ids": [
+            "rev-2ae02e2001d921de679b2fa9",
+            "rev-d21d9db0db06f0d291c1ab1e",
+            "rev-f19dbe93190310ea3f021980"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000783203": {
+          "as_of_sha256": "b731ea679d5c6c071ba7ed1aa879f6a9b0a3570fcbe2f0200f259f26acc189d1",
+          "revision_ids": [
+            "rev-37c552312a33b54ffee4aa68",
+            "rev-89295748f2b3a28b43fb7c19"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000992627": {
+          "as_of_sha256": "e0ba397f9fb870a979a8f032412cb5cca94fb6e7c73f7d31c6825a4d2a376dad",
+          "revision_ids": [
+            "rev-27e03a2d66b5726f7bf4ce3b",
+            "rev-c5898af7c5c970d7afb13963"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001038348": {
+          "as_of_sha256": "9eed36a42dac32c667022359213403afc5940a7c901c9b50fea89f589315e39b",
+          "revision_ids": [
+            "rev-0f1eba39ba319b07201a77d5",
+            "rev-1e5edf556d26312b982c894d"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001106251": {
+          "as_of_sha256": "e9f6d651262b4a1d48c98f3aee1d521b16dd52ad1ae9346c86c2628d3a0bfbb6",
+          "revision_ids": [
+            "rev-2a5f97156f53254359986f20",
+            "rev-35599be4181aae7068c1d157",
+            "rev-a47607ba476e3cf7244ce7b2"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001195011": {
+          "as_of_sha256": "ab97d8c0cbe65b784ae90da913fc44357d52d85368dee9e750c18c988c51ed37",
+          "revision_ids": [
+            "rev-a3c7d44d63e79cee4f1165f6",
+            "rev-ad66514e94519870ed1d46f9",
+            "rev-dac5b7929c2113418f6a8123",
+            "rev-e9b3f91cd871dad965f539e2"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001205475": {
+          "as_of_sha256": "c518ffc3c96227a031bb0c0c3fbdb019c79f434de5f1abfa1cc776daa3d02ce1",
+          "revision_ids": [
+            "rev-0ebee679f04783ea6ab50e93",
+            "rev-65ca51da7baa7fccd76938d4",
+            "rev-898097c173668dca35ff06ce"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001226442": {
+          "as_of_sha256": "e339fdd06a2b59f4b939f27300649f9fc21ede608832f04b8ea5f1ff743c6193",
+          "revision_ids": [
+            "rev-4407f3767ac8cbface01eb75",
+            "rev-64ad99beb5ed0ca0298ecf48"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001226507": {
+          "as_of_sha256": "119d4be3a8d8fc91dddcadcbb0c47365ae7d148166ec6be77549a815f8c41571",
+          "revision_ids": [
+            "rev-1c7cbee6bdd13c61f25a4674",
+            "rev-c7774276ff6116c2ac8a6f97"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001226835": {
+          "as_of_sha256": "5a356296e58138a59a2f615befe7030fa58e5bd73af3e4976c51534603f46a58",
+          "revision_ids": [
+            "rev-01f20ec839c4362ca3f23ac3",
+            "rev-89a17f47483a5700e1ba973d"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001312213": {
+          "as_of_sha256": "912adcb35bacba3bb9622d7df4464c16f289317397dac4532668cfa16fc82c54",
+          "revision_ids": [
+            "rev-385fd7b653ad6bebd7ec6cc4",
+            "rev-90e228b60b2c6bcc8ee54fde"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001396470": {
+          "as_of_sha256": "6b8a8623c244caed12db0ea039ef787ecbd183e0bd35f2a682142c7257756de0",
+          "revision_ids": [
+            "rev-78fe56f7947f961e3e435ca3",
+            "rev-d3aa28a9b8a15618f145225b"
+          ],
+          "identity_status": "RESOLVED"
+        }
+      }
+    },
+    "netkeiba-2024106740": {
+      "groups": {
+        "sire-eu": {
+          "status": "NON_MATCH",
+          "reason": "VERIFIED_TRAINING_REGION"
+        },
+        "sire-us": {
+          "status": "NON_MATCH",
+          "reason": "VERIFIED_TRAINING_REGION"
+        },
+        "dam_sire-eu": {
+          "status": "NON_MATCH",
+          "reason": "VERIFIED_TRAINING_REGION"
+        },
+        "dam_sire-us": {
+          "status": "MATCH",
+          "reason": "VERIFIED_TRAINING_REGION"
+        },
+        "contains-jbis-0000334731": {
+          "status": "NON_MATCH",
+          "reason": "COMPLETE_ANCESTRY"
+        }
+      },
+      "dependencies": {
+        "jbis-0000012444": {
+          "as_of_sha256": "1142303315dd32718b035a552d2bf204f3e3d4e0c2ef5591f5e7d278b570406f",
+          "revision_ids": [],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000017015": {
+          "as_of_sha256": "6136aa38065ac5b7d6116c6b83d8d2b4cf696c0374eace0fac54c372dd991a24",
+          "revision_ids": [
+            "rev-e9c496f8025a99594660622e",
+            "rev-fee33199fcb22e9b90079c48"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000110447": {
+          "as_of_sha256": "c0a09c3a4375f2d7e1b21ac1dcc84b1934341978864d5cb8ddc8b60eda2fd833",
+          "revision_ids": [
+            "rev-4b7daee24ea187442a658ba6",
+            "rev-7a1541265e037d41b2a3c928"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000110449": {
+          "as_of_sha256": "f7c3d454b653965a53d8bc47438b36db81c48abc9516b5bfc5c310fa974e5ace",
+          "revision_ids": [
+            "rev-a87b11eb26f7f790caadc92d",
+            "rev-e56721fe84f66befb544daa8"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000115357": {
+          "as_of_sha256": "d1b20777c47cd69e512d8003dc1dcfa3d0f702e5d84398b7260d1bee67186f5e",
+          "revision_ids": [
+            "rev-c01eadc203cd703faf72794e",
+            "rev-dcecbb398566f0bffe404523"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000190821": {
+          "as_of_sha256": "424efa7f6e6ad3975db7ff60729163152bec9ebfb85ab907189b3831a8645701",
+          "revision_ids": [
+            "rev-a04787d7144966aa3b2ce8ee",
+            "rev-f9b4f1528df53654ae8caab9"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000203356": {
+          "as_of_sha256": "6de5929d3f9482b2c80f7c9167175c3aea6caeb4975a0cf0644c1bb011f18921",
+          "revision_ids": [
+            "rev-49e75fda39c21e9e62c45dd3",
+            "rev-c705109b3f9366cde4e8bf1f"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000213942": {
+          "as_of_sha256": "a85b4141f76ff53e9b9389a3111d7059a683aff61393ad3b1eac67a5057ca607",
+          "revision_ids": [
+            "rev-0014e1cd54fbcb44236b34ea",
+            "rev-14fc82ca40df89a0f3fbe843"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000286968": {
+          "as_of_sha256": "9a99768138d890cb68cac2be96e37fcc52fc460b9da1b63272087c9f7f79e0bc",
+          "revision_ids": [
+            "rev-c39b351e878e677ed61a59ae",
+            "rev-d985cf76934d71a3d0d6a782",
+            "rev-ece284751681d83a297838bf"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000316406": {
+          "as_of_sha256": "3a39665dc1397ad9a7db50c1c4ed9448d2515989a067f14588698b1f75f9599d",
+          "revision_ids": [
+            "rev-7f59043994b0297fc2f399d3",
+            "rev-a4ba947a5d8c2d9d34c2d22d"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000333363": {
+          "as_of_sha256": "2fe58192ddba970c0a801e40933aa8186e78ee045a5a961a1f9eeb3354fc8727",
+          "revision_ids": [],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000333544": {
+          "as_of_sha256": "2353d90a3497f0dde87c464e8b884e661466a5330bf741f833736f008619a39d",
+          "revision_ids": [
+            "rev-13ee386f2e5e0b74f47ea39a",
+            "rev-20bea84c656fb77df69651d3"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000333664": {
+          "as_of_sha256": "5a29ea7653cece85ea761b97caf7eefdc9a582a61343e73256b4e77d3de19c78",
+          "revision_ids": [
+            "rev-5dd4985894deca0345cdaf04",
+            "rev-6d7e7e076c00597fc5a29e1b"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000333862": {
+          "as_of_sha256": "db88557e2009e9dfc0fb36c95ed31709041b54d8d779de25f5863e00898160c1",
+          "revision_ids": [
+            "rev-1a4c6d6b060767ccd39f577b",
+            "rev-2db97142f464383d09af8c7e",
+            "rev-5c577a8b995870fca8800520"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000334002": {
+          "as_of_sha256": "e38a547721cac66cbd62df0aaa571c44801dc46d839fc6e25fa9d3c4afc3f045",
+          "revision_ids": [
+            "rev-248df122bc2b2e56fcce596c",
+            "rev-592d5ff984ab1d43f0c51dd4",
+            "rev-5b3b3ce5f3912c61fc8cd872",
+            "rev-e847013a3069d0e636f1626f"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000334286": {
+          "as_of_sha256": "ee3cb74d2228b918c0af5c6103140364920096eb7713541046c5ebd758ee8e3f",
+          "revision_ids": [
+            "rev-486e184bfd60af797b713cb8",
+            "rev-a40f6fcd46b18cbe05f4a266"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000334478": {
+          "as_of_sha256": "8e6e9c452f8cbe182e5a1c1fc7b40be78cecb4c69d4d9f3bac3da2a9766197ba",
+          "revision_ids": [
+            "rev-09296956ff4e43b037924116",
+            "rev-6c993783104a848b7c0911c7"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000334661": {
+          "as_of_sha256": "c44971de24d48df19d6e9c07d96345563b26687aed650f4a92fc2f4fca3e46f2",
+          "revision_ids": [],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000334708": {
+          "as_of_sha256": "777ea143f399b282d7711e3145c323ac1900d703e09b10c44add67259f477417",
+          "revision_ids": [
+            "rev-8c6f5e3e67b3cf3e6599f8b0",
+            "rev-ba6fa3ae63ecad0a153ff2e4"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000335154": {
+          "as_of_sha256": "6a96eb285942f174d3c3fafdbb6b5867ce671b201cc806b4c13eeeef128797ba",
+          "revision_ids": [
+            "rev-5476cda0d0ee1670b76cd487",
+            "rev-76583f9e3f5c03cc4b2eaa31"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000335964": {
+          "as_of_sha256": "e22c99e7d832b2c9d2d5d3e87942369fec505f4bcef75de972347e069498cb76",
+          "revision_ids": [
+            "rev-2f7d37c59506da8413ebb237",
+            "rev-46fb20bc1cf6fd9f32ce1799"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000336177": {
+          "as_of_sha256": "1a1746acd2abaf7fbe9dfcc7f44bc00a7ee391490291a78f19664b5746deeaf1",
+          "revision_ids": [
+            "rev-7b8c9a4c5528e8d04ac9b992",
+            "rev-83817ce7e9cbcfa5f46af476"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000336568": {
+          "as_of_sha256": "182854c606c130a46abaad9c20beacae0d0047ac7c584c5cec3ba717a532e4c5",
+          "revision_ids": [
+            "rev-5c21d9f99b8bd7abc9a87aad",
+            "rev-d496c5bd62b00f2dc6f1b61f"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000336772": {
+          "as_of_sha256": "1f4f67ef0daffa1b751fb0fdf69654bb8952e29a3ff8cea3715345017650d44d",
+          "revision_ids": [
+            "rev-3b516aa9eeab41a7c6f7f512",
+            "rev-786aaae3328dcbda8f8e847d"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000336892": {
+          "as_of_sha256": "c52ed56eb4647ee9ec0e2fb19ebcaa82af7815d2aa87e1f439310ca2834eb78f",
+          "revision_ids": [
+            "rev-e6a21db88bc83dc63003c46f",
+            "rev-e8ebea0e7ec9a00a631c60a2"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000337102": {
+          "as_of_sha256": "666b8be6338a2d0a99b23933f3aad1dbfb03377fcc27cfda9a35a33e7737b780",
+          "revision_ids": [
+            "rev-2a03dadd8cdd136cb08f29d5",
+            "rev-364e8ecc16358752e48e6e75",
+            "rev-9053afe7b72dc3d50e312b1b",
+            "rev-c66f6dd1b7ce17da836e0d43",
+            "rev-f2ec7e175f63461a39876708"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000340629": {
+          "as_of_sha256": "e72ed98829c8b19bd1092f54474f90540f811730eef55198cd7540c8dd4141fc",
+          "revision_ids": [
+            "rev-2bca17e5551ba0d7da365ebf",
+            "rev-486a42eadd2af4f1a0003fa2"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000345645": {
+          "as_of_sha256": "b38e1c76ccc8db6f4819c8b074220f51c4c97ac458ad36daef9b26425a605d66",
+          "revision_ids": [
+            "rev-01d4568157984a30d2754a60",
+            "rev-878b4d03a0e69df775e3106f"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000359908": {
+          "as_of_sha256": "e3c4f38424c88777827c314a158b9d82542adc5d93615417ad7246622c0d3662",
+          "revision_ids": [
+            "rev-51c89db0a5a8c922b6509fef",
+            "rev-b37c0fc50ee066f824c94c74"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000362819": {
+          "as_of_sha256": "ec06b8092ea6b17ea313831d9a901f290ad5401b2699232c722d8afac6b9031a",
+          "revision_ids": [
+            "rev-5f2c85d02083c9909c90cc12",
+            "rev-60358739caa3005028e23ea1"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000380687": {
+          "as_of_sha256": "4522cf2e717823b9b691bac582355019fc9415908de1eed4bfa3a7cd8d2bb0ea",
+          "revision_ids": [
+            "rev-673a3e3a2b7180a0a8889ba1",
+            "rev-812106f343569f4c40c30217"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000381553": {
+          "as_of_sha256": "835c84e7d9c5a511295989bdf941b98dd553fb49fd19d661855cdc160c3454c4",
+          "revision_ids": [
+            "rev-84634c2f7332be9784010919",
+            "rev-cc840298a63527317e666da1"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000382617": {
+          "as_of_sha256": "71898e067538bf918ecc5cf5e458f27b330e1e66a87f853b02d7933e7f93f76e",
+          "revision_ids": [
+            "rev-269aa1a068e2c0dbee14225f",
+            "rev-47de1a4856a8ec1440543878"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000386266": {
+          "as_of_sha256": "296f0e4c6b30ecdf97019cd36c818e2e0ee74c5b06e4be94f60f1ee8191eb1d0",
+          "revision_ids": [
+            "rev-999c0daa9ac093d25cab04a7",
+            "rev-ed54987229c2dc76bb9c83d3"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000386642": {
+          "as_of_sha256": "1c4da7b1c49046481f9a96dffc19e1110784fc00c7debd810e860e1accc5640e",
+          "revision_ids": [
+            "rev-1a4d6e4b6530bba834b0eb9a",
+            "rev-f480a0f6833176e354f6eacd"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000386719": {
+          "as_of_sha256": "a397a3cfce03f05efee6f4fa56b95671b7474c77bda6bc101d557e56da9677aa",
+          "revision_ids": [],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000387273": {
+          "as_of_sha256": "ee28e550e00f37a51c913c1e944bc063d6e078c70e16883c62b4ebac506e145c",
+          "revision_ids": [
+            "rev-02ed096d00f8361cb1d68876",
+            "rev-69ab3aa5dd042adf5077fb39"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000391529": {
+          "as_of_sha256": "17f3c30d2e9c79f71c77ec5dd2d3d2105ea8bb3d8d7f75b0b1e43e30fbd9a2f0",
+          "revision_ids": [
+            "rev-346a10161d1c8e815f4db1c7",
+            "rev-a41a3d342b31cfc7debfd0ec"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000393161": {
+          "as_of_sha256": "b797afe3c9cd571b35b1946bc76558e73207dee43c7e0e6bf4159664a371f48e",
+          "revision_ids": [
+            "rev-589e3dbc825ad88570625e99",
+            "rev-db343263da55c4ddc544210f"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000393162": {
+          "as_of_sha256": "b904834223a19af6113089ce7e200317239331530ce27e9ad2c2c4bad3b4332a",
+          "revision_ids": [
+            "rev-33b808c27190bd1dd6973378",
+            "rev-836f2a0cf990b2955825d157"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000393602": {
+          "as_of_sha256": "16383648f648fd828db6a73906cedc7ccf6de44f35da5c610fd79791276633d5",
+          "revision_ids": [
+            "rev-295b596ddc2b2bcf61f1ccf3",
+            "rev-61fcc0e4d19fb3bc40460d82"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000405617": {
+          "as_of_sha256": "caa54408a3d0dd9cad8b8944eebcc5b9d849d2d3b9d64d832bcf72106f8b3eb1",
+          "revision_ids": [
+            "rev-8b7caafa5be944d39ec9fe4d",
+            "rev-e741343f21731ace65373955"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000406936": {
+          "as_of_sha256": "88f05a72fa42541ebb9da0299690931f45522e894222f1d44f781739a9b39516",
+          "revision_ids": [
+            "rev-67c948ce7014345cb2d74c48",
+            "rev-e4808a8a1aa5be4810698dcf"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000406937": {
+          "as_of_sha256": "97fc12197ad4ca29381286cd1afc0fda6a9e3cf4dfa5cdd1c89c97b9ea3bb6ca",
+          "revision_ids": [
+            "rev-70dc7c2ff420d1919b670195",
+            "rev-98f7dab71eb78cb94096bc38"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000424920": {
+          "as_of_sha256": "2b455547e99b527bee994c46fb8b683f6b6c18892e539fd7dda2313ef4e540e7",
+          "revision_ids": [
+            "rev-5f215b40c1b155660013f28c",
+            "rev-e00c6986ea1b6d8924ff2c60"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000434286": {
+          "as_of_sha256": "dcae170e132c9910d4c25b5819df869507a6b4e6214f07d05b246680a3244736",
+          "revision_ids": [
+            "rev-6e4af1b83060f38baa16c839",
+            "rev-c859b26a836091326f4d4d8f"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000620783": {
+          "as_of_sha256": "6c65e55598cd0e2669a4aeb37ecc013d6e3b8c285575e019d8d216d755187ff5",
+          "revision_ids": [
+            "rev-537288f5567e093e3d376b00",
+            "rev-7383c892decb07831db3953a"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000749845": {
+          "as_of_sha256": "747490d9d6ad1e15596438d0af1d9c3f41c06c0cba6f1f937e395fe3895c173b",
+          "revision_ids": [
+            "rev-5e43860a47d1e84de6b72a2e",
+            "rev-a9fc0ad1c0eee128f6b47574",
+            "rev-e70f5cecdf7f6fe84ce29ed4"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000968086": {
+          "as_of_sha256": "f3d3a727aea8d9122d34fb98274387d5f6e65da682293d83c141aea4e5ecba3c",
+          "revision_ids": [
+            "rev-549255c441ca497f27541406",
+            "rev-8f0ea0877e69594619537500"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0000971398": {
+          "as_of_sha256": "c3c88634302d6f8049ef4c6ec6cc74344da5f29798a01817c4b9355a5333fb9e",
+          "revision_ids": [
+            "rev-981500046d8e3dd7fdac4192",
+            "rev-9c4882f98d79c72f908e4828"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001015914": {
+          "as_of_sha256": "6d26978abbb155506958ebc2496b24cf828d5dfd116d7efa519dc464099ceb5d",
+          "revision_ids": [
+            "rev-202325d1e62d18ef5e054607",
+            "rev-9a52b83db033ea319dfd6f1f"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001090360": {
+          "as_of_sha256": "70e2df244157339440f23a879e6903db011ca188341faf26e82007ae77da13c1",
+          "revision_ids": [
+            "rev-5a4adff50024993be1c2555e",
+            "rev-d103aa30c9a48f121b44b137",
+            "rev-d529f15b81a1853d23458d1d"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001127396": {
+          "as_of_sha256": "7ec671ad0413be8fd31e3782b766e8622f28a5a3503ce6a46b4eab7fd87fce16",
+          "revision_ids": [
+            "rev-208167e99f1e498f17f068bf",
+            "rev-79b3a7ce8cbaa636bc6f72b4",
+            "rev-a405ba8f20367b85bd137b13"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001238284": {
+          "as_of_sha256": "ddb956c805e7232955e7b7aea3f89260770bf1197a63138d671c4d2eb822ced7",
+          "revision_ids": [
+            "rev-6280fc01dca0702276fac09f",
+            "rev-9d3c5a2fb657d9f2ccdaf792"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "jbis-0001238289": {
+          "as_of_sha256": "cda02c7dc8f9160193efddc5f1d4b371986374a034add3c77291b4c716035edb",
+          "revision_ids": [
+            "rev-6b846808f73d33868e3a72f2",
+            "rev-d5a029c0fa32068535c7dc20",
+            "rev-e941cb54c5054c7b03ca9dbd"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "netkeiba-000a00b666": {
+          "as_of_sha256": "6a950945beeb400e4169da51dba2e1fdb248fed690963f6cd4f4a794e7e5e08c",
+          "revision_ids": [
+            "rev-84a634032addf501be457737",
+            "rev-a1032e8fd0a9fcf1aac6989c"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "netkeiba-000a013f78": {
+          "as_of_sha256": "67ff7f5fb4f64ade25d89c322460c20ff6aff9e37b81a47459911e9eaef75ce7",
+          "revision_ids": [
+            "rev-af3a1290be18b54ada8635ae",
+            "rev-fca5c547fe6157e48aadc326"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "netkeiba-000a015277": {
+          "as_of_sha256": "0d32297a3a101aad7089b1e69486de6b7e1f8307fbff229aac61dce457c6008d",
+          "revision_ids": [
+            "rev-a602b414a175a704045322ad",
+            "rev-d05e1ddbca9094c93058b608"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "netkeiba-000a01b0e4": {
+          "as_of_sha256": "fe167d89e633a7c9f516fa96277b3de1cfe9519289d652916a056e4efbc6fe2b",
+          "revision_ids": [
+            "rev-38106ec8981bb758417bfc8b",
+            "rev-5daf4255abf77b86aaf66682"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "netkeiba-000a01b8b9": {
+          "as_of_sha256": "42766c90addbe79cf362d1788b7518012899fdb527c3200aec38a39c8ce452a3",
+          "revision_ids": [
+            "rev-05db3605f53c2b2470784059",
+            "rev-d2d2ed49e69c1e8d0b2c1b24"
+          ],
+          "identity_status": "RESOLVED"
+        },
+        "netkeiba-2024106740": {
+          "as_of_sha256": "7038aeab3d4253410e03499e0e8adc443a669a828f73a21760c1471763572cc3",
+          "revision_ids": [
+            "rev-35238b30a23467f9f7a62b2c",
+            "rev-a358c590a28faa1ec7e6ed21"
+          ],
+          "identity_status": "RESOLVED"
+        }
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-02": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-02": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-03": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-03": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-04": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-04": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-05": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-05": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-06": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-06": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-07": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-07": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-08": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-08": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-09": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-09": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-10": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-10": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-11": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-11": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-13": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-13": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-14": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-14": null
+      }
+    },
+    "unresolved-entry-2026-10-12-KYOTO-01-15": {
+      "groups": {
+        "sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-eu": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "dam_sire-us": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        },
+        "contains-jbis-0000334731": {
+          "status": "UNKNOWN",
+          "reason": "IDENTITY_UNRESOLVED"
+        }
+      },
+      "dependencies": {
+        "unresolved-entry-2026-10-12-KYOTO-01-15": null
+      }
+    }
+  },
+  "missing": [
+    {
+      "type": "INCOMPLETE_RACE_SCOPE",
+      "reason": "all_runners_included=false"
+    },
+    {
+      "type": "PEDIGREE_UNKNOWN",
+      "group_id": "sire-eu",
+      "entries": 13,
+      "reasons": {
+        "IDENTITY_UNRESOLVED": 13
+      }
+    },
+    {
+      "type": "PEDIGREE_UNKNOWN",
+      "group_id": "sire-us",
+      "entries": 13,
+      "reasons": {
+        "IDENTITY_UNRESOLVED": 13
+      }
+    },
+    {
+      "type": "PEDIGREE_UNKNOWN",
+      "group_id": "dam_sire-eu",
+      "entries": 13,
+      "reasons": {
+        "IDENTITY_UNRESOLVED": 13
+      }
+    },
+    {
+      "type": "PEDIGREE_UNKNOWN",
+      "group_id": "dam_sire-us",
+      "entries": 13,
+      "reasons": {
+        "IDENTITY_UNRESOLVED": 13
+      }
+    },
+    {
+      "type": "PEDIGREE_UNKNOWN",
+      "group_id": "contains-jbis-0000334731",
+      "entries": 13,
+      "reasons": {
+        "IDENTITY_UNRESOLVED": 13
+      }
+    }
+  ],
+  "completeness": "PARTIAL",
+  "content_sha256": "212baaf148f0a505e21810cd2d9a467ceaacdea551c683f7eed3319a197aded9"
+}
