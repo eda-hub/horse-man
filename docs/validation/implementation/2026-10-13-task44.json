@@ -1,0 +1,566 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "44",
+  "status": "READ_ONLY_ACCEPTED",
+  "basis_commit": "d93e17292c2ad68a99dea4f1b3cf6b591149562a",
+  "completed_subtasks": [
+    "44-01",
+    "44-02"
+  ],
+  "source_pr": {
+    "number": 80,
+    "merged": true,
+    "head_branch": "prediction/2026-09-27",
+    "head_sha": "c2cc7c07605abf74e0e4c4ea8216da32afb8874c",
+    "merge_commit_sha": "d164153c27431e0be901e042e359fecbc568994a"
+  },
+  "source_manifest": [
+    {
+      "path": "docs/validation/execution-gates/2026-09-27/20260927-HAN-07.json",
+      "bytes": 1267,
+      "git_blob_sha": "688f40d1717d9822d8c341791155e98a50c7aeb6",
+      "sha256": "305b14ea3c15a175f509d64e8b9234ef4b2f0c7b546cb3907a1dbcbda68dca7d"
+    },
+    {
+      "path": "docs/validation/execution-gates/2026-09-27/20260927-HAN-08.json",
+      "bytes": 1427,
+      "git_blob_sha": "37a5cd8a6dce79366d2587f163e6bfef745dba09",
+      "sha256": "0e0024e1ba5842d33721a60454a2533c4fb866d27d6a5fae0bf85ed2d36a50d4"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-09-27.md",
+      "bytes": 24172,
+      "git_blob_sha": "22ba109b5bae641b1f248062b3ac8636362e155e",
+      "sha256": "52bb00cf84ab07118f332f4ef6e86eca45be416721c2a71e9da0460ebcb02660"
+    },
+    {
+      "path": "docs/validation/preservation/2026-09-27.md",
+      "bytes": 3488,
+      "git_blob_sha": "7f51332f6613edd7850c4d682ecd7d2666dff7f0",
+      "sha256": "977891507917b68b153f085555a87fac47e7668d206dd09d93044eb11b057d79"
+    },
+    {
+      "path": "docs/validation/records/2026-09-27.md",
+      "bytes": 35438,
+      "git_blob_sha": "bf45b9391c4a41ae0d8b630d7f46bfb266faf777",
+      "sha256": "859200f690f79ba65b9321740e99a6bea2ef27758693ffb815fe95127a69ec83"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-09-27.md",
+      "bytes": 90287,
+      "git_blob_sha": "305917df6b4df68a65acedc02159256cb993e7bd",
+      "sha256": "a4ed77318d25c01b65dc2e9741d12f9f2b2ea53f4e1b047e784e57d85bcb673f"
+    }
+  ],
+  "source_comparisons": [
+    {
+      "path": "docs/validation/execution-gates/2026-09-27/20260927-HAN-07.json",
+      "ref": "c2cc7c07605abf74e0e4c4ea8216da32afb8874c",
+      "git_blob_sha": "688f40d1717d9822d8c341791155e98a50c7aeb6",
+      "match": true
+    },
+    {
+      "path": "docs/validation/execution-gates/2026-09-27/20260927-HAN-08.json",
+      "ref": "c2cc7c07605abf74e0e4c4ea8216da32afb8874c",
+      "git_blob_sha": "37a5cd8a6dce79366d2587f163e6bfef745dba09",
+      "match": true
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-09-27.md",
+      "ref": "c2cc7c07605abf74e0e4c4ea8216da32afb8874c",
+      "git_blob_sha": "22ba109b5bae641b1f248062b3ac8636362e155e",
+      "match": true
+    },
+    {
+      "path": "docs/validation/records/2026-09-27.md",
+      "ref": "c2cc7c07605abf74e0e4c4ea8216da32afb8874c",
+      "git_blob_sha": "bf45b9391c4a41ae0d8b630d7f46bfb266faf777",
+      "match": true
+    },
+    {
+      "path": "docs/validation/snapshots/2026-09-27.md",
+      "ref": "c2cc7c07605abf74e0e4c4ea8216da32afb8874c",
+      "git_blob_sha": "305917df6b4df68a65acedc02159256cb993e7bd",
+      "match": true
+    },
+    {
+      "path": "docs/validation/execution-gates/2026-09-27/20260927-HAN-08.json",
+      "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "git_blob_sha": "37a5cd8a6dce79366d2587f163e6bfef745dba09",
+      "match": true
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-09-27.md",
+      "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "git_blob_sha": "22ba109b5bae641b1f248062b3ac8636362e155e",
+      "match": true
+    },
+    {
+      "path": "docs/validation/execution-gates/2026-09-27/20260927-HAN-07.json",
+      "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "git_blob_sha": "688f40d1717d9822d8c341791155e98a50c7aeb6",
+      "match": true
+    },
+    {
+      "path": "docs/validation/records/2026-09-27.md",
+      "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "git_blob_sha": "bf45b9391c4a41ae0d8b630d7f46bfb266faf777",
+      "match": true
+    },
+    {
+      "path": "docs/validation/snapshots/2026-09-27.md",
+      "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "git_blob_sha": "305917df6b4df68a65acedc02159256cb993e7bd",
+      "match": true
+    },
+    {
+      "path": "docs/validation/preservation/2026-09-27.md",
+      "ref": "c2cc7c07605abf74e0e4c4ea8216da32afb8874c",
+      "git_blob_sha": "7f51332f6613edd7850c4d682ecd7d2666dff7f0",
+      "match": true
+    },
+    {
+      "path": "docs/validation/preservation/2026-09-27.md",
+      "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "git_blob_sha": "7f51332f6613edd7850c4d682ecd7d2666dff7f0",
+      "match": true
+    }
+  ],
+  "scope": {
+    "initial": 24,
+    "validation_candidates": 8,
+    "purchase_candidates": 7,
+    "overlap": 2,
+    "selected_union": 13,
+    "final_completed": 9,
+    "selected_without_final": 4,
+    "reviewed": 24
+  },
+  "original_day": {
+    "cycle_id": "cycle_03",
+    "race_date_jst": "2026-09-27",
+    "kpi_contract": "betting-kpi-split-v1",
+    "initial_scope": [
+      "202606040901",
+      "202606040902",
+      "202606040903",
+      "202606040904",
+      "202606040905",
+      "202606040906",
+      "202606040907",
+      "202606040908",
+      "202606040909",
+      "202606040910",
+      "202606040911",
+      "202606040912",
+      "202609040901",
+      "202609040902",
+      "202609040903",
+      "202609040904",
+      "202609040905",
+      "202609040906",
+      "202609040907",
+      "202609040908",
+      "202609040909",
+      "202609040910",
+      "202609040911",
+      "202609040912"
+    ],
+    "validation_candidates": [
+      "202606040906",
+      "202606040907",
+      "202606040909",
+      "202606040911",
+      "202606040912",
+      "202609040907",
+      "202609040911",
+      "202609040912"
+    ],
+    "purchase_candidates": [
+      "202606040908",
+      "202606040910",
+      "202606040911",
+      "202609040908",
+      "202609040909",
+      "202609040910",
+      "202609040911"
+    ],
+    "final_completed_scope": [
+      "202606040908",
+      "202606040909",
+      "202606040910",
+      "202606040911",
+      "202609040907",
+      "202609040908",
+      "202609040909",
+      "202609040910",
+      "202609040911"
+    ],
+    "reviewed_scope": [
+      "202606040901",
+      "202606040902",
+      "202606040903",
+      "202606040904",
+      "202606040905",
+      "202606040906",
+      "202606040907",
+      "202606040908",
+      "202606040909",
+      "202606040910",
+      "202606040911",
+      "202606040912",
+      "202609040901",
+      "202609040902",
+      "202609040903",
+      "202609040904",
+      "202609040905",
+      "202609040906",
+      "202609040907",
+      "202609040908",
+      "202609040909",
+      "202609040910",
+      "202609040911",
+      "202609040912"
+    ],
+    "unreviewed_scope": [],
+    "kpis": {
+      "production": {
+        "target_ids": [
+          "202606040901",
+          "202606040902",
+          "202606040903",
+          "202606040904",
+          "202606040905",
+          "202606040906",
+          "202606040907",
+          "202606040908",
+          "202606040909",
+          "202606040910",
+          "202606040911",
+          "202606040912",
+          "202609040901",
+          "202609040902",
+          "202609040903",
+          "202609040904",
+          "202609040905",
+          "202609040906",
+          "202609040907",
+          "202609040908",
+          "202609040909",
+          "202609040910",
+          "202609040911",
+          "202609040912"
+        ],
+        "eligible_ids": [],
+        "ineligible_ids": [
+          "202606040901",
+          "202606040902",
+          "202606040903",
+          "202606040904",
+          "202606040905",
+          "202606040906",
+          "202606040907",
+          "202606040908",
+          "202606040909",
+          "202606040910",
+          "202606040911",
+          "202606040912",
+          "202609040901",
+          "202609040902",
+          "202609040903",
+          "202609040904",
+          "202609040905",
+          "202609040906",
+          "202609040909",
+          "202609040910",
+          "202609040911",
+          "202609040912"
+        ],
+        "pending_ids": [
+          "202609040907",
+          "202609040908"
+        ],
+        "evidence_refs": {},
+        "stake_yen": null,
+        "return_yen": null
+      },
+      "betting": {
+        "target_ids": [
+          "202606040908",
+          "202606040910",
+          "202606040911",
+          "202609040908",
+          "202609040909",
+          "202609040910",
+          "202609040911"
+        ],
+        "eligible_ids": [],
+        "ineligible_ids": [],
+        "pending_ids": [
+          "202606040908",
+          "202606040910",
+          "202606040911",
+          "202609040908",
+          "202609040909",
+          "202609040910",
+          "202609040911"
+        ],
+        "evidence_refs": {},
+        "stake_yen": null,
+        "return_yen": null
+      },
+      "betting_evidence": {
+        "target_ids": [
+          "202606040908",
+          "202606040910",
+          "202606040911",
+          "202609040908",
+          "202609040909",
+          "202609040910",
+          "202609040911"
+        ],
+        "eligible_ids": [],
+        "ineligible_ids": [],
+        "pending_ids": [
+          "202606040908",
+          "202606040910",
+          "202606040911",
+          "202609040908",
+          "202609040909",
+          "202609040910",
+          "202609040911"
+        ],
+        "evidence_refs": {},
+        "stake_yen": null,
+        "return_yen": null
+      },
+      "betting_rules": {
+        "target_ids": [
+          "202606040908",
+          "202606040910",
+          "202606040911",
+          "202609040908",
+          "202609040909",
+          "202609040910",
+          "202609040911"
+        ],
+        "eligible_ids": [],
+        "ineligible_ids": [
+          "202606040908",
+          "202606040910",
+          "202606040911",
+          "202609040908",
+          "202609040909",
+          "202609040910",
+          "202609040911"
+        ],
+        "pending_ids": [],
+        "evidence_refs": {},
+        "stake_yen": null,
+        "return_yen": null
+      },
+      "shadow": {
+        "target_ids": [
+          "202606040906",
+          "202606040907",
+          "202606040908",
+          "202606040909",
+          "202606040910",
+          "202606040911",
+          "202606040912",
+          "202609040907",
+          "202609040908",
+          "202609040909",
+          "202609040910",
+          "202609040911",
+          "202609040912"
+        ],
+        "eligible_ids": [],
+        "ineligible_ids": [],
+        "pending_ids": [
+          "202606040906",
+          "202606040907",
+          "202606040908",
+          "202606040909",
+          "202606040910",
+          "202606040911",
+          "202606040912",
+          "202609040907",
+          "202609040908",
+          "202609040909",
+          "202609040910",
+          "202609040911",
+          "202609040912"
+        ],
+        "evidence_refs": {},
+        "stake_yen": null,
+        "return_yen": null
+      }
+    },
+    "fixed_plan_settlement": {
+      "stake_yen": 70000,
+      "return_yen": 90700,
+      "races": {
+        "202606040908": {
+          "snapshot_path": "docs/validation/snapshots/2026-09-27.md",
+          "snapshot_id": "20260927-NAK-08-FINAL-S01",
+          "stake_yen": 10000,
+          "return_yen": 16000,
+          "source_verification": "PENDING",
+          "claimed_source": {
+            "source_type": "GIT_PRE_RACE_SNAPSHOT",
+            "source_ref": "snapshot:20260927-NAK-08-FINAL-S01",
+            "working_branch": "prediction/2026-09-27",
+            "snapshot_id": "20260927-NAK-08-FINAL-S01",
+            "receipt_id": "20260927-NAK-08-FINAL-S01-R02",
+            "artifact_commit_sha": "937b6cd59d30b0474db1020e19c6711038a0ac08"
+          },
+          "pending_reason": "発走前固定の本文とreceiptは存在するが、固定買い目の原文・時刻・同一性の独立機械認証は未実施。正式性能には算入しない"
+        },
+        "202606040910": {
+          "snapshot_path": "docs/validation/snapshots/2026-09-27.md",
+          "snapshot_id": "20260927-NAK-10-FINAL-S01",
+          "stake_yen": 10000,
+          "return_yen": 0,
+          "source_verification": "PENDING",
+          "claimed_source": {
+            "source_type": "GIT_PRE_RACE_SNAPSHOT",
+            "source_ref": "snapshot:20260927-NAK-10-FINAL-S01",
+            "working_branch": "prediction/2026-09-27",
+            "snapshot_id": "20260927-NAK-10-FINAL-S01",
+            "receipt_id": "20260927-NAK-10-FINAL-S01-R01",
+            "artifact_commit_sha": "cabe1bff710b1d09d15485c6315fddef8dac79d3"
+          },
+          "pending_reason": "発走前固定の本文とreceiptは存在するが、固定買い目の原文・時刻・同一性の独立機械認証は未実施。正式性能には算入しない"
+        },
+        "202606040911": {
+          "snapshot_path": "docs/validation/snapshots/2026-09-27.md",
+          "snapshot_id": "20260927-NAK-11-FINAL-S01",
+          "stake_yen": 10000,
+          "return_yen": 0,
+          "source_verification": "PENDING",
+          "claimed_source": {
+            "source_type": "GIT_PRE_RACE_SNAPSHOT",
+            "source_ref": "snapshot:20260927-NAK-11-FINAL-S01",
+            "working_branch": "prediction/2026-09-27",
+            "snapshot_id": "20260927-NAK-11-FINAL-S01",
+            "receipt_id": "20260927-NAK-11-FINAL-S01-R01",
+            "artifact_commit_sha": "5e71d53778a0c3043c90c2c0233270f87d84d7a6"
+          },
+          "pending_reason": "発走前固定の本文とreceiptは存在するが、固定買い目の原文・時刻・同一性の独立機械認証は未実施。正式性能には算入しない"
+        },
+        "202609040908": {
+          "snapshot_path": "docs/validation/snapshots/2026-09-27.md",
+          "snapshot_id": "20260927-HAN-08-FINAL-S01",
+          "stake_yen": 10000,
+          "return_yen": 31500,
+          "source_verification": "PENDING",
+          "claimed_source": {
+            "source_type": "GIT_PRE_RACE_SNAPSHOT",
+            "source_ref": "snapshot:20260927-HAN-08-FINAL-S01",
+            "working_branch": "prediction/2026-09-27",
+            "snapshot_id": "20260927-HAN-08-FINAL-S01",
+            "receipt_id": "20260927-HAN-08-FINAL-S01-R02",
+            "artifact_commit_sha": "d485c54f1a72c2d87bc590ab3f7800936c1e82f9"
+          },
+          "pending_reason": "発走前固定の本文とreceiptは存在するが、固定買い目の原文・時刻・同一性の独立機械認証は未実施。正式性能には算入しない"
+        },
+        "202609040909": {
+          "snapshot_path": "docs/validation/snapshots/2026-09-27.md",
+          "snapshot_id": "20260927-HAN-09-FINAL-S01",
+          "stake_yen": 10000,
+          "return_yen": 33300,
+          "source_verification": "PENDING",
+          "claimed_source": {
+            "source_type": "GIT_PRE_RACE_SNAPSHOT",
+            "source_ref": "snapshot:20260927-HAN-09-FINAL-S01",
+            "working_branch": "prediction/2026-09-27",
+            "snapshot_id": "20260927-HAN-09-FINAL-S01",
+            "receipt_id": "20260927-HAN-09-FINAL-S01-R02",
+            "artifact_commit_sha": "421013cc05960549dae94869e5f93b8970f035dc"
+          },
+          "pending_reason": "発走前固定の本文とreceiptは存在するが、固定買い目の原文・時刻・同一性の独立機械認証は未実施。正式性能には算入しない"
+        },
+        "202609040910": {
+          "snapshot_path": "docs/validation/snapshots/2026-09-27.md",
+          "snapshot_id": "20260927-HAN-10-FINAL-S01",
+          "stake_yen": 10000,
+          "return_yen": 9900,
+          "source_verification": "PENDING",
+          "claimed_source": {
+            "source_type": "GIT_PRE_RACE_SNAPSHOT",
+            "source_ref": "snapshot:20260927-HAN-10-FINAL-S01",
+            "working_branch": "prediction/2026-09-27",
+            "snapshot_id": "20260927-HAN-10-FINAL-S01",
+            "receipt_id": "20260927-HAN-10-FINAL-S01-R01",
+            "artifact_commit_sha": "b9c02b897ad72259a432ff1758ba5183ab187a17"
+          },
+          "pending_reason": "発走前固定の本文とreceiptは存在するが、固定買い目の原文・時刻・同一性の独立機械認証は未実施。正式性能には算入しない"
+        },
+        "202609040911": {
+          "snapshot_path": "docs/validation/snapshots/2026-09-27.md",
+          "snapshot_id": "20260927-HAN-11-FINAL-S01",
+          "stake_yen": 10000,
+          "return_yen": 0,
+          "source_verification": "PENDING",
+          "claimed_source": {
+            "source_type": "GIT_PRE_RACE_SNAPSHOT",
+            "source_ref": "snapshot:20260927-HAN-11-FINAL-S01",
+            "working_branch": "prediction/2026-09-27",
+            "snapshot_id": "20260927-HAN-11-FINAL-S01",
+            "receipt_id": "20260927-HAN-11-FINAL-S01-R01",
+            "artifact_commit_sha": "eed55ba9fe30ec93da7fc85ea3cad59e3e3db84d"
+          },
+          "pending_reason": "発走前固定の本文とreceiptは存在するが、固定買い目の原文・時刻・同一性の独立機械認証は未実施。正式性能には算入しない"
+        }
+      }
+    }
+  },
+  "settlements_separated": {
+    "fixed_seven": {
+      "stake_yen": 70000,
+      "return_yen": 90700,
+      "formal_roi": null,
+      "verification": "PENDING_SEVEN"
+    },
+    "validation_only_two": {
+      "race_ids": [
+        "202606040909",
+        "202609040907"
+      ],
+      "stake_yen": 20000,
+      "return_yen": 29800,
+      "formal_roi": null
+    },
+    "confirmed_actual_purchase_two": {
+      "race_ids": [
+        "202609040909",
+        "202609040910"
+      ],
+      "stake_yen": 3900,
+      "return_yen": 3330,
+      "profit_yen": -570
+    },
+    "unconfirmed_purchase_proposal": {
+      "race_id": "202606040911",
+      "proposed_yen": 8000,
+      "actual_amount": null,
+      "status": "NOT_CONFIRMED"
+    }
+  },
+  "validation": {
+    "day_validator": "PASS",
+    "source_blob_matches": 18,
+    "new_ledger_created": false,
+    "historical_eligibility_changed": false,
+    "postcommit_ci": "ActionsとPR本文で照合",
+    "fixed_ticket_extraction": {
+      "races": 7,
+      "tickets": 37,
+      "stake_yen": 70000,
+      "each_race_yen": 10000,
+      "status": "PASS_EXISTING_READER"
+    }
+  },
+  "next_task": "45-01"
+}
