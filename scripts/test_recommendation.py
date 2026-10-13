@@ -8,7 +8,7 @@ from pathlib import Path
 from check_prediction_compliance import ComplianceError, validate_gate
 from recommendation import (CONTRACT, GATE_SCHEMA, INTENT_SCHEMA, audit, build,
                             settle, ticket_key, validate_snapshot, verify, sha256, display, report, seal)
-from test_check_prediction_compliance import (
+from test_next_prediction_compliance import (
     add_next_production_snapshot, next_gate, receipt_record,
     write, write_contract_state, write_receipts,
 )

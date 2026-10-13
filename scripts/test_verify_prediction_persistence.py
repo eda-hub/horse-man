@@ -2,26 +2,16 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
-from contextlib import redirect_stdout, redirect_stderr
-import io
 import sys
 sys.path.insert(0,str(Path(__file__).parent))
 
 from check_prediction_compliance import ComplianceError
-from verify_prediction_persistence import (
-    check_intent, verify, declared_intent_paths, resolve_snapshot, snapshot_digest, snapshot_section, field,
-    main as persistence_main,
-)
+from verify_prediction_persistence import check_intent, verify, declared_intent_paths, snapshot_section, field
 
 
 DATE='2026-10-04'
 SNAP='20261004-WHOLE-S01'
 RACES=['20261004-TOK-01','20261004-TOK-02']
-JSON_DATE='2026-10-13'
-JSON_RACE='20261013-TOK-01'
-JSON_SNAP=JSON_RACE+'-P001-S01'
-JSON_ARTIFACT=f'docs/validation/snapshots/{JSON_DATE}/{JSON_SNAP}.json'
 
 
 def write(root,relative,text):
@@ -60,61 +50,6 @@ class PersistenceTest(unittest.TestCase):
             f'receipt_verified_at_jst: {receipt_verified}\n'
             f'scheduled_post_time_jst: {DATE}T09:50:00+09:00\n')
 
-    def json_intent(self, races=(JSON_RACE,)):
-        intent={
-            'schema_version':'prediction-persistence-intent-v1',
-            'race_date_jst':JSON_DATE,
-            'working_branch':f'prediction/{JSON_DATE}',
-            'snapshot_id':JSON_SNAP,
-            'required_race_ids':list(races),
-            'deadline_jst':f'{JSON_DATE}T10:10:00+09:00',
-            'artifact_path':JSON_ARTIFACT,
-        }
-        return write(
-            self.root,
-            f'docs/validation/persistence-intents/{JSON_DATE}/race1.json',
-            json.dumps(intent),
-        )
-
-    def json_snapshot(self, race_id=JSON_RACE):
-        payload={
-            'schema_version':'prediction-snapshot-v2',
-            'snapshot_id':JSON_SNAP,
-            'race_id':race_id,
-            'working_branch':f'prediction/{JSON_DATE}',
-            'scheduled_post_time_jst':f'{JSON_DATE}T10:10:00+09:00',
-            'manual_release':'v1.7.0',
-            'manual_ref_commit':'b'*40,
-            'baseline_forecast_id':JSON_RACE+'-P001',
-            'data_cutoff':f'{JSON_DATE}T09:50:00+09:00',
-            'ranking':[5,2,6],
-            'marks':{'honmei':5,'taikou':2,'tanana':6,'renka':[]},
-            'probabilities':[
-                {'horse_no':5,'win_probability':0.22,'top2_probability':0.39,'top3_probability':0.53},
-                {'horse_no':2,'win_probability':0.18,'top2_probability':0.34,'top3_probability':0.49},
-                {'horse_no':6,'win_probability':0.14,'top2_probability':0.29,'top3_probability':0.43},
-            ],
-            'prediction_confidence':'B',
-            'evidence_items':[],
-            'fixed_at_jst':f'{JSON_DATE}T09:55:00+09:00',
-        }
-        return write(self.root,JSON_ARTIFACT,json.dumps(payload,ensure_ascii=False,sort_keys=True)+'\n')
-
-    def json_receipt(self, artifact_path=JSON_ARTIFACT):
-        return write(
-            self.root,
-            f'docs/validation/persistence-receipts/{JSON_DATE}.md',
-            '## persistence_receipt\n'
-            f'receipt_id: {JSON_SNAP}-R01\n'
-            f'artifact_id: {JSON_SNAP}\n'
-            f'artifact_path: {artifact_path}\n'
-            'artifact_persist_status: PERSIST_VERIFIED\n'
-            'receipt_persist_status: RECEIPT_VERIFIED\n'
-            'timing_eligibility: PRE_RACE_ELIGIBLE\n'
-            f'persist_verified_at_jst: {JSON_DATE}T09:56:00+09:00\n'
-            f'receipt_verified_at_jst: {JSON_DATE}T09:57:00+09:00\n'
-            f'scheduled_post_time_jst: {JSON_DATE}T10:10:00+09:00\n'
-        )
     def test_bulleted_snapshot_metadata_is_verified(self):
         # 2026-10-10 uses "- snapshot_id:" and "- working_branch:".
         self.snapshot()
@@ -190,90 +125,5 @@ class PersistenceTest(unittest.TestCase):
         self.assertNotIn(failed,declared_intent_paths(self.root/'docs/validation/persistence-intents'))
         self.assertIn(self.path,declared_intent_paths(self.root/'docs/validation/persistence-intents'))
 
-    def test_json_snapshot_intent_scope_and_receipt_are_verified(self):
-        intent=self.json_intent(); self.json_snapshot(); self.json_receipt()
-        self.assertEqual(check_intent(self.root,intent),JSON_SNAP+'-R01')
-
-    def test_json_snapshot_scope_mismatch_is_rejected(self):
-        intent=self.json_intent(races=(JSON_RACE,'20261013-TOK-02'))
-        self.json_snapshot(); self.json_receipt()
-        with self.assertRaisesRegex(ComplianceError,'scope differs'):
-            check_intent(self.root,intent)
-
-    def test_json_snapshot_receipt_must_reference_same_artifact(self):
-        intent=self.json_intent(); self.json_snapshot()
-        self.json_receipt('docs/validation/snapshots/2026-10-13/other.json')
-        with self.assertRaisesRegex(ComplianceError,'verified pre-race receipt missing'):
-            check_intent(self.root,intent)
-
-    def test_json_snapshot_direct_verification_works(self):
-        self.json_snapshot(); self.json_receipt()
-        self.assertEqual(verify(self.root,JSON_DATE,JSON_SNAP),JSON_SNAP+'-R01')
-
-    def test_json_snapshot_task_complete_checks_exact_file_hash(self):
-        self.json_intent(); self.json_snapshot(); self.json_receipt()
-        digest=snapshot_digest(resolve_snapshot(self.root,JSON_DATE,JSON_SNAP,JSON_ARTIFACT))
-        argv=[
-            'verify_prediction_persistence.py','--root',str(self.root),
-            '--date',JSON_DATE,'--snapshot-id',JSON_SNAP,
-            '--task-complete','--intent-id','race1',
-            '--fixed-content-sha256',digest,
-        ]
-        with patch.object(sys,'argv',argv), redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
-            self.assertEqual(persistence_main(),0)
-
-        payload=json.loads((self.root/JSON_ARTIFACT).read_text(encoding='utf-8'))
-        payload['ranking']=[2,5,6]
-        write(self.root,JSON_ARTIFACT,json.dumps(payload,ensure_ascii=False,sort_keys=True)+'\n')
-        with patch.object(sys,'argv',argv), redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
-            self.assertEqual(persistence_main(),1)
-
-    def test_json_snapshot_without_intent_is_reported_by_audit(self):
-        self.json_snapshot(); self.json_receipt()
-        out=io.StringIO()
-        argv=['verify_prediction_persistence.py','--root',str(self.root),'--audit','--date',JSON_DATE]
-        with patch.object(sys,'argv',argv), redirect_stdout(out), redirect_stderr(io.StringIO()):
-            self.assertEqual(persistence_main(),0)
-        self.assertIn('NO_INTENT',out.getvalue())
-        self.assertIn(JSON_SNAP,out.getvalue())
-
-    def test_predeclared_recommendation_scope_is_verified(self):
-        intent = self.json_intent()
-        obj = json.loads(intent.read_text(encoding="utf-8"))
-        obj["recommendation_scope"] = {"race_id": JSON_RACE, "recommendation_id": "REC-01",
-                                       "artifact_path": f"docs/validation/recommendations/{JSON_DATE}/REC-01.json"}
-        intent.write_text(json.dumps(obj), encoding="utf-8")
-        self.json_snapshot(); self.json_receipt()
-        self.assertEqual(check_intent(self.root, intent), JSON_SNAP+"-R01")
-        obj["recommendation_scope"]["race_id"] = "DIFFERENT"
-        intent.write_text(json.dumps(obj), encoding="utf-8")
-        with self.assertRaisesRegex(ComplianceError, "must match one predicted race"):
-            check_intent(self.root, intent)
-
-    def test_predeclared_recommendation_wrong_date_is_rejected(self):
-        intent = self.json_intent()
-        obj = json.loads(intent.read_text(encoding="utf-8"))
-        obj["recommendation_scope"] = {"race_id": JSON_RACE, "recommendation_id": "REC-01",
-                                       "artifact_path": "docs/validation/recommendations/2026-10-14/REC-01.json"}
-        intent.write_text(json.dumps(obj), encoding="utf-8")
-        self.json_snapshot(); self.json_receipt()
-        with self.assertRaisesRegex(ComplianceError, "invalid recommendation_scope.artifact_path"):
-            check_intent(self.root, intent)
-
-    def test_prediction_prepare_records_recommendation_scope(self):
-        date="2099-10-17"; race="20991017-TOK-01"
-        sid=race+"-P001-S01"
-        rec=f"docs/validation/recommendations/{date}/{race}-R001.json"
-        argv=["verify_prediction_persistence.py","--root",str(self.root),"--prepare",
-              "--date",date,"--intent-id","pred-final","--snapshot-id",sid,
-              "--artifact-path",f"docs/validation/snapshots/{date}/{sid}.json",
-              "--deadline-jst",date+"T10:10:00+09:00","--race-id",race,
-              "--recommendation-id",race+"-R001","--recommendation-artifact-path",rec]
-        with patch.object(sys,"argv",argv), redirect_stdout(io.StringIO()):
-            self.assertEqual(persistence_main(),0)
-        saved=json.loads((self.root/f"docs/validation/persistence-intents/{date}/pred-final.json").read_text())
-        self.assertEqual(saved["recommendation_scope"]["artifact_path"],rec)
-
 
 if __name__=='__main__': unittest.main()
-

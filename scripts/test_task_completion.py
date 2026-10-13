@@ -11,7 +11,7 @@ from task_completion import prediction_completion, recommendation_completion, re
 from verify_prediction_persistence import main as prediction_main
 from recommendation import main as recommendation_main
 from check_prediction_compliance import receipt_records
-from test_check_prediction_compliance import write_receipts
+from test_next_prediction_compliance import write_receipts
 
 
 class TaskCompletionTests(unittest.TestCase):

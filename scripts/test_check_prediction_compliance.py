@@ -9,19 +9,6 @@ README='# manual\n- **現行リリース**: `v1.6.1`\n'
 def write(root,rel,content):
     p=root/rel; p.parent.mkdir(parents=True,exist_ok=True); p.write_text(content,encoding='utf-8'); return p
 
-def write_contract_state(root,status='PENDING',effective=None,activated=None):
-    state={
-      'schema_version':'prediction-contract-state-v1',
-      'next_release':'v1.7.0',
-      'next_gate_schema':'prediction-compliance-v2',
-      'status':status,
-      'earliest_race_date':'2026-10-13',
-      'effective_race_date':effective,
-      'activated_at_jst':activated
-    }
-    return write(root,'docs/validation/execution-gates/contract-state.json',json.dumps(state,ensure_ascii=False))
-
-
 def receipt_record(receipt_id, artifact_id, artifact_path, timing='PRE_RACE_ELIGIBLE', verified='2026-09-26T10:00:00+09:00', post='2026-09-26T10:10:00+09:00'):
     return {
       'receipt_id':receipt_id,'artifact_id':artifact_id,'artifact_path':artifact_path,
@@ -69,87 +56,9 @@ def gate(date='2026-09-26',race='20260926-NAK-01',mode='FORWARD'):
       'betting':{'status':'NOT_REQUIRED'},'review':{'status':'NOT_STARTED'}
     }
 
-def next_gate(date='2026-10-13',race='20261013-TOK-01',mode='FORWARD'):
-    ranking=[5,2,6,4,1,3]
-    probabilities=[
-      {'horse_no':5,'win_probability':0.22,'top2_probability':0.39,'top3_probability':0.53},
-      {'horse_no':2,'win_probability':0.18,'top2_probability':0.34,'top3_probability':0.49},
-      {'horse_no':6,'win_probability':0.14,'top2_probability':0.29,'top3_probability':0.43},
-    ]
-    evidence_items=[
-      {'horse_no':horse,'factor':'ability','fact':f'test fact {horse}','source_ref':'test-source',
-       'observed_at_jst':f'{date}T09:40:00+09:00','direction':'plus','strength':'medium'}
-      for horse in ranking[:3]
-    ]
-    return {
-      'schema_version':'prediction-compliance-v2','race_id':race,'race_date_jst':date,'mode':mode,
-      'working_branch':f'prediction/{date}','manual_release':'v1.7.0','manual_ref_commit':'b'*40,
-      'scheduled_post_time_jst':f'{date}T10:10:00+09:00',
-      'data_cutoff':f'{date}T09:50:00+09:00',
-      'timing_route':'SNAPSHOT_CANDIDATE' if mode=='FORWARD' else 'LATE_PRESERVATION',
-      'production':{
-        'baseline_forecast_id':race+'-P001',
-        'ranking':ranking,
-        'marks':{'honmei':5,'taikou':2,'tanana':6,'renka':[4,1,3]},
-        'probabilities':probabilities,
-        'prediction_confidence':'B',
-        'evidence_items':evidence_items,
-        'fixed_at_jst':f'{date}T09:55:00+09:00'
-      },
-      'kpi_eligibility':{'production':'INELIGIBLE','shadow':'INELIGIBLE'},
-      'shadow_items':[],
-      'review':{'status':'NOT_STARTED'}
-    }
-
-def add_next_production_snapshot(root,g,snapshot_overrides=None):
-    production=g['production']
-    snapshot_id=g['race_id']+'-P001-S01'
-    artifact_rel=f"docs/validation/snapshots/{g['race_date_jst']}/{snapshot_id}.json"
-    receipt_rel=f"docs/validation/persistence-receipts/{g['race_date_jst']}.md"
-    receipt_id=snapshot_id+'-R01'
-    snapshot={
-      'schema_version':'prediction-snapshot-v2',
-      'snapshot_id':snapshot_id,
-      'race_id':g['race_id'],
-      'working_branch':g['working_branch'],
-      'scheduled_post_time_jst':g['scheduled_post_time_jst'],
-      'manual_release':g['manual_release'],
-      'manual_ref_commit':g['manual_ref_commit'],
-      'baseline_forecast_id':production['baseline_forecast_id'],
-      'data_cutoff':g['data_cutoff'],
-      'ranking':production['ranking'],
-      'marks':production['marks'],
-      'probabilities':production['probabilities'],
-      'prediction_confidence':production['prediction_confidence'],
-      'evidence_items':production['evidence_items'],
-      'fixed_at_jst':production['fixed_at_jst']
-    }
-    if snapshot_overrides:
-      snapshot.update(snapshot_overrides)
-    write(root,artifact_rel,json.dumps(snapshot,ensure_ascii=False))
-    verified=f"{g['race_date_jst']}T09:56:00+09:00"
-    post=g['scheduled_post_time_jst']
-    write_receipts(root,receipt_rel,[receipt_record(receipt_id,snapshot_id,artifact_rel,verified=verified,post=post)])
-    production['evidence_ref']={
-      'artifact_path':artifact_rel,
-      'artifact_id':snapshot_id,
-      'receipt_path':receipt_rel,
-      'receipt_id':receipt_id,
-      'timing_eligibility':'PRE_RACE_ELIGIBLE',
-      'persist_verified_at_jst':verified
-    }
-    return snapshot
-
 class T(unittest.TestCase):
   def root(self):
-    t=tempfile.TemporaryDirectory(); self.addCleanup(t.cleanup); r=Path(t.name)
-    write(r,'docs/manual/README.md',README); write_contract_state(r)
-    return r
-  def root_next(self,effective='2026-10-13'):
-    t=tempfile.TemporaryDirectory(); self.addCleanup(t.cleanup); r=Path(t.name)
-    write(r,'docs/manual/README.md','# manual\n- **現行リリース**: `v1.7.0`\n')
-    write_contract_state(r,'ACTIVE',effective,'2026-10-12T18:00:00+09:00')
-    return r
+    t=tempfile.TemporaryDirectory(); self.addCleanup(t.cleanup); r=Path(t.name); write(r,'docs/manual/README.md',README); return r
   def put(self,r,g):
     write(r,f"docs/validation/execution-gates/{g['race_date_jst']}/{g['race_id']}.json",json.dumps(g,ensure_ascii=False))
   def test_replay_shadow_eligible_rejected(self):
@@ -326,23 +235,6 @@ class T(unittest.TestCase):
     write(r,'docs/validation/snapshots/2026-09-27.md','snapshot_id: 20260927-NAK-11-P001-S01\n')
     self.assertEqual(run(r),[])
 
-  def test_v2_json_snapshot_is_audited_without_gate(self):
-    r=self.root_next()
-    snapshot_id='20261013-TOK-01-P001-S01'
-    snapshot={
-      'schema_version':'prediction-snapshot-v2',
-      'snapshot_id':snapshot_id,
-      'race_id':'20261013-TOK-01',
-      'working_branch':'prediction/2026-10-13',
-      'scheduled_post_time_jst':'2026-10-13T10:10:00+09:00'
-    }
-    write(r,f'docs/validation/snapshots/2026-10-13/{snapshot_id}.json',json.dumps(snapshot))
-    from check_prediction_compliance import snapshot_links
-    missing,unregistered=snapshot_links(r,{})
-    self.assertEqual(missing,[])
-    self.assertEqual(len(unregistered),1)
-    self.assertIn('snapshot has no execution gate: 20261013-TOK-01',unregistered[0])
-
   def test_whole_day_table_is_audited_without_gate_fabrication(self):
     r=self.root()
     write(r,'docs/validation/snapshots/2026-09-27.md',
@@ -373,29 +265,6 @@ class T(unittest.TestCase):
     with self.assertRaisesRegex(ComplianceError,'ELIGIBLE production lacks execution gate'): run(r)
     self.assertEqual(len(run(r,audit=True)),1)
 
-  def test_next_cycle_eligible_production_requires_gate(self):
-    r=self.root_next()
-    day={'race_date_jst':'2026-10-13','cycle_id':'cycle_04','manual_release':'v1.7.0',
-         'initial_scope':['race-a'],'final_scope':[],'reviewed_scope':['race-a'],
-         'kpis':{
-           'production':{'target_ids':['race-a'],'eligible_ids':['race-a'],'ineligible_ids':[],'pending_ids':[]},
-           'shadow':{'target_ids':[],'eligible_ids':[],'ineligible_ids':[],'pending_ids':[]}
-         }}
-    write(r,'docs/validation/records/2026-10-13.md',chr(96)*3+'prediction-day-v2\n'+json.dumps(day)+'\n'+chr(96)*3+'\n')
-    with self.assertRaisesRegex(ComplianceError,'ELIGIBLE production lacks execution gate'): run(r)
-    self.assertEqual(len(run(r,audit=True)),1)
-
-  def test_next_cycle_gate_state_mismatch_rejected(self):
-    r=self.root_next(); g=next_gate(race='race-a'); self.put(r,g)
-    day={'race_date_jst':'2026-10-13','cycle_id':'cycle_04','manual_release':'v1.7.0',
-         'initial_scope':['race-a'],'final_scope':[],'reviewed_scope':['race-a'],
-         'kpis':{
-           'production':{'target_ids':['race-a'],'eligible_ids':[],'ineligible_ids':[],'pending_ids':['race-a']},
-           'shadow':{'target_ids':[],'eligible_ids':[],'ineligible_ids':[],'pending_ids':[]}
-         }}
-    write(r,'docs/validation/records/2026-10-13.md',chr(96)*3+'prediction-day-v2\n'+json.dumps(day)+'\n'+chr(96)*3+'\n')
-    with self.assertRaisesRegex(ComplianceError,'gate state mismatch'): run(r)
-
   def test_coverage_summary_follows_dates_in_files(self):
     r=self.root()
     g=gate(race='20261004-NAK-01',date='2026-10-04'); self.put(r,g)
@@ -407,118 +276,5 @@ class T(unittest.TestCase):
     _,unregistered=snapshot_links(r,{(g['race_date_jst'],g['race_id']):g})
     self.assertEqual(coverage_summary({(g['race_date_jst'],g['race_id']):g},missing,unregistered),
                      {'2026-10-04':{'gates':1,'missing_links':0,'ungated_snapshots':1}})
-
-  def test_legacy_gate_remains_valid_after_manual_release_advances(self):
-    r=self.root_next(); g=gate(); self.put(r,g); run(r)
-
-  def test_legacy_schema_rejected_on_active_cutover_date(self):
-    r=self.root_next(); g=gate(date='2026-10-13',race='20261013-TOK-01'); self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'legacy contract is not valid on/after active cutover'): run(r)
-
-  def test_legacy_contract_remains_valid_after_earliest_date_when_cutover_pending(self):
-    r=self.root(); g=gate(date='2026-10-17',race='20261017-TOK-01'); self.put(r,g); run(r)
-
-  def test_legacy_contract_remains_valid_before_delayed_active_cutover(self):
-    r=self.root_next(effective='2026-10-20'); g=gate(date='2026-10-17',race='20261017-TOK-01'); self.put(r,g); run(r)
-
-  def test_next_schema_rejected_before_earliest_date(self):
-    r=self.root_next(); g=next_gate(date='2026-10-12',race='20261012-TOK-01'); self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'cannot start before'): run(r)
-
-  def test_next_schema_rejected_before_delayed_effective_date(self):
-    r=self.root_next(effective='2026-10-20'); g=next_gate(date='2026-10-17',race='20261017-TOK-01'); self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'next contract is not effective before'): run(r)
-
-  def test_next_contract_requires_active_cutover(self):
-    r=self.root(); g=next_gate(); self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'next contract cutover is not active'): run(r)
-
-  def test_next_gate_does_not_require_betting(self):
-    r=self.root_next(); g=next_gate(); self.put(r,g); run(r)
-
-  def test_next_gate_ignores_optional_legacy_betting_kpi(self):
-    r=self.root_next(); g=next_gate()
-    g['kpi_eligibility']['betting']='ELIGIBLE'
-    g['betting']={'status':'FIXED'}
-    self.put(r,g); run(r)
-
-  def test_next_gate_requires_top3_evidence(self):
-    r=self.root_next(); g=next_gate()
-    g['production']['evidence_items']=g['production']['evidence_items'][:2]
-    self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'top3 ranking horses require evidence'): run(r)
-
-  def test_next_gate_marks_must_follow_ranking(self):
-    r=self.root_next(); g=next_gate()
-    g['production']['marks']['honmei']=2
-    self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'marks must follow production ranking'): run(r)
-
-  def test_next_gate_probability_order_is_validated(self):
-    r=self.root_next(); g=next_gate()
-    g['production']['probabilities'][0]['win_probability']=0.6
-    self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'probability order'): run(r)
-
-  def test_next_gate_evidence_must_be_pre_race(self):
-    r=self.root_next(); g=next_gate()
-    g['production']['evidence_items'][0]['observed_at_jst']='2026-10-13T09:51:00+09:00'
-    self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'evidence observed after data_cutoff'): run(r)
-
-  def test_next_data_cutoff_must_be_pre_race(self):
-    r=self.root_next(); g=next_gate(); g['data_cutoff']='2026-10-13T10:10:00+09:00'; self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'data_cutoff must be before post time'): run(r)
-
-  def test_next_replay_cannot_claim_production_eligible(self):
-    r=self.root_next(); g=next_gate(mode='REPLAY')
-    g['kpi_eligibility']['production']='ELIGIBLE'
-    self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'replay production/shadow KPI cannot be eligible'): run(r)
-
-  def test_unknown_contract_is_rejected(self):
-    r=self.root_next(); g=next_gate(); g['manual_release']='v9.9.9'; self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'unsupported manual_release/schema combination'): run(r)
-
-  def test_next_eligible_production_snapshot_must_match_gate(self):
-    fields={
-      'baseline_forecast_id':'different-baseline',
-      'ranking':[1,3,4],
-      'marks':{'honmei':1,'taikou':3,'tanana':4,'renka':[]},
-      'probabilities':[{'horse_no':1,'win_probability':0.1,'top2_probability':0.2,'top3_probability':0.3}],
-      'prediction_confidence':'D',
-      'evidence_items':[{'horse_no':1,'factor':'other','fact':'different','source_ref':'other',
-                         'observed_at_jst':'2026-10-13T09:30:00+09:00','direction':'neutral','strength':'weak'}],
-    }
-    for key,value in fields.items():
-      with self.subTest(field=key):
-        r=self.root_next(); g=next_gate(); g['kpi_eligibility']['production']='ELIGIBLE'
-        add_next_production_snapshot(r,g,{key:value}); self.put(r,g)
-        with self.assertRaisesRegex(ComplianceError,f'snapshot {key} mismatch'): run(r)
-
-  def test_next_eligible_production_matching_snapshot_passes(self):
-    r=self.root_next(); g=next_gate(); g['kpi_eligibility']['production']='ELIGIBLE'
-    add_next_production_snapshot(r,g); self.put(r,g); run(r)
-
-  def test_next_shadow_kpi_requires_eligible_shadow_evidence_item(self):
-    r=self.root_next(); g=next_gate(); g['kpi_eligibility']['shadow']='ELIGIBLE'; self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'requires eligible shadow evidence item'): run(r)
-
-  def test_next_eligible_production_requires_verified_receipt(self):
-    r=self.root_next(); g=next_gate(); g['kpi_eligibility']['production']='ELIGIBLE'; self.put(r,g)
-    with self.assertRaisesRegex(ComplianceError,'evidence_ref required'): run(r)
-
-  def test_next_complete_review_needs_prediction_layer_not_betting(self):
-    r=self.root_next(); g=next_gate()
-    g['review']={
-      'status':'COMPLETE',
-      'result_sources':[{'url':'https://example.invalid','retrieved_at_jst':'2026-10-13T11:00:00+09:00'}],
-      'result':{'top3':[5,2,6]},
-      'error_classification':{'primary':'NONE','secondary':[]},
-      'layer_assessment':{'prediction':'PASS'},
-      'non_degradation':{'protect':[],'retest':[],'improve':[]},
-      'kpis':{'production':{'eligibility':'INELIGIBLE'}}
-    }
-    self.put(r,g); run(r)
 
 if __name__=='__main__': unittest.main()

@@ -1,0 +1,46 @@
+{
+  "schema_version": "main-import-review-v1",
+  "status": "VERIFIED",
+  "method": "THREE_WAY_NON_OVERLAPPING",
+  "common_base_commit": "0520dc25437358df459e7e08219965f9b1e0f732",
+  "previous_pr_head": "acce3d6b82acc448020b29467900f48924040053",
+  "imported_main_commit": "d164153c27431e0be901e042e359fecbc568994a",
+  "overlapping_paths": [],
+  "upstream_files_preserved": [
+    {
+      "path": "docs/validation/cycle_03.md",
+      "git_blob_sha": "7e2602b57d966f81aaf5d62e23466675664a6bed"
+    },
+    {
+      "path": "docs/validation/records/2026-09-27.md",
+      "git_blob_sha": "bf45b9391c4a41ae0d8b630d7f46bfb266faf777"
+    },
+    {
+      "path": "scripts/check_betting_performance.py",
+      "git_blob_sha": "a0288a82c9a17b57f7bd733bb42d0133770f5aa8"
+    },
+    {
+      "path": "scripts/test_check_betting_performance.py",
+      "git_blob_sha": "a96fb7dc3ee83fce8af910457e41d531ff199b1f"
+    },
+    {
+      "path": "scripts/test_check_cycle03.py",
+      "git_blob_sha": "e60ccba2f28cfbaf2eaa3f1fe0d33fba97152287"
+    }
+  ],
+  "source_manifest_count": 64,
+  "full_day_check": "PASS_7_OF_7",
+  "performance_certification_changed": false,
+  "historical_snapshot_changed": false,
+  "next_cycle_period_jst": [
+    "2026-10-17",
+    "2026-10-25"
+  ],
+  "next_cycle_dates_jst": [
+    "2026-10-17",
+    "2026-10-18",
+    "2026-10-24",
+    "2026-10-25"
+  ],
+  "note": "PR80の結果後台帳を取得。台帳欠落の解消と過去の発走前認証・次期契約切替は分離。"
+}

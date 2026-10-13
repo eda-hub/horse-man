@@ -1,48 +1,9 @@
-# Phase 3 — Feature / Production / Shadow engine
+# Phase 3 — v1.7.0 Feature / Production / Recommendation / Shadow
 
-## 目的
-`docs/manual/` のモジュール契約に従い、AIなしでProduction基準予想とShadow比較を再現可能に生成する中核を作る。
+## 目的・依存
 
-## 対象
-- feature_run / runner_feature
-- data_cutoff
-- Manual Contract Resolver
-- `module + rule_id` 実装マッピング
-- `baseline_forecast_id`
-- 10_prediction Production baseline
-- Production順位→印の決定的マッピング
-- prediction evidence（fact/source/time/direction/strength）
-- 20_conditional formal adjustments
-- Production freeze
-- 40_shadow comparison engine
-- 近5走相手レベル / 開催傾向 / 新馬専用評価のShadow feature受け皿
-- PRE/DAY/FINAL prediction snapshots
-- manual release / manifest hash / module hashes
-- rule application理由
+正式manualの非価格Predictionを維持し、順位由来印・価格不要Recommendation・固定後Shadowを実装する。Phase4の画面を前提にしない。PR79のチャット/Git/非UI運用とWindows/JRA-VANのAI非依存engine接続は別の実装受入。
 
-## 次期推奨買い目（PR68 §25、Stage 2発効後）
+## 対象と受入
 
-- Production順位・印・確率・根拠を固定した後、**オッズ非依存**で同時好走シナリオ・着順適性から券種と具体的な馬番構成を生成する。
-- PR69の先行実装は `scripts/recommendation.py` の単純な◎中心候補生成・全7券種の検証・独立推奨gate。Phase 3のアプリ実行コード・全券種自動候補展開は依然未実装。
-- `baseline_forecast_id`・Prediction snapshot hash・推奨契約versionとdata cutoffを保持し、オッズ/人気/資金変動だけで推奨を再生成しない。
-- 根拠不十分なら`NO_RECOMMENDATION`、処理未完了なら`PENDING`とし、Production認証を無効にしない。
-- ☆・非◎保険縦目の流用はしない。未決の点数上限・閾値を暗黙に決めない。
-
-## 受入条件
-- 未来情報混入テストが通る。
-- 必須module release不一致時に処理を停止する。
-- 同じmanual release、engine version、snapshotから同じProduction評価を再現できる。
-- 上位Production順位を説明する構造化根拠を再現できる。
-- 印がProduction順位から一意に導出され、印のために順位を変更しない。
-- Shadowは固定済Productionを親としてのみ生成できる。
-- ShadowがProduction順位・確率を変更できない。
-- オッズだけの変化で `baseline_forecast_id` を再発行しない。
-- FINAL確定済み履歴を結果に合わせて上書きしない。
-- `docs/manual/` を変更・複製して別正本を作らない。
-- `docs/yosou/jra_racing/` の代表レースで適用rule IDsを説明できる。
-- 新規featureはdata_cutoff/provenanceを保持し、初期状態ではProductionへ逆流しない。
-
-
-## 血統条件別統計のGit準備実装（PR68 §11）
-
-PR69に `scripts/pedigree_stats.py` を追加。版付き条件定義/全出走manifestに基づく父・母父・父系・母父系・祖先/クロス・調教地域のグループ分類、公式結果の率/母数/coverage、UNKNOWN/CONFLICTの明示、FORWARD/REPLAY時点監査、入力を固定した`condition-stat-snapshot-v1`、差分再計算（`--previous`）をCLIで実行できる。利用契約は[README](../../../data/condition_stats/README.md)。このJSONは既存`feature.condition_stat_snapshot`へ将来接続する準備形式であり、DBテーブルやPhase 3アプリ側Producer/Consumerはまだ未実装。血統追加得点やProduction順位の自動更新を行わない。Phase 2公式全出走母数の取得→Phase 3実データ照合→Phase 4 UI→Phase 8前向き検証・別PRの順序を維持する。
+全頭の根拠・確率・順位、cutoff、基準ID、旧新schema dispatch、個別保存と推奨を接続する。全Owner release一致、未来値拒否、Shadow/市場逆流禁止、オッズだけの基準再発行禁止、旧履歴不変を検査する。30_bettingの推奨は具体的組合せ・点数・状態・シナリオを持ち、実購入/予算を含めない。実DB/feature実行の接続・同一入力の再現性はPhase2受入後に独立検証する。

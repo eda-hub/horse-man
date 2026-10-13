@@ -8,6 +8,7 @@ establish that a pre-write SHA-256 was saved at the fixed time.
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -49,6 +50,19 @@ def section(content, snapshot_id):
     return matches[0]
 
 def original_commit_file(root, sha):
+    # Workのconnectorで固定commitから読んだ原本を使える。Git履歴があるCIは従来通り。
+    cache = os.environ.get('HORSE_MAN_HISTORY_DIR')
+    if cache:
+        directory = Path(cache)
+        entries = json.loads((directory / 'manifest.json').read_text(encoding='utf-8'))
+        matches = [e for e in entries if e.get('commit') == sha and e.get('path') == SNAPSHOT]
+        if len(matches) != 1:
+            raise AssertionError(f'Historical connector manifest missing/duplicated: {sha}')
+        raw = (directory / (sha + '.md')).read_bytes()
+        actual = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
+        if actual != matches[0].get('blob_sha'):
+            raise AssertionError(f'Historical connector blob hash mismatch: {sha}')
+        return raw.decode('utf-8')
     args = ["git", "show", f"{sha}:{SNAPSHOT}"]
     original = run(root, args)
     if original.returncode:

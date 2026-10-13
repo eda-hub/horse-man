@@ -67,35 +67,16 @@ JRA重賞の長期記録は `docs/yosou/jra_racing/`、進行中Shadow検証は 
 ## ADR-021 買い目数値根拠とreceiptは発走前構造化証跡で確定する
 非◎縦目の例外理由はallowlist方式とし、現行は `INDEPENDENT_POSITIVE_EV` のみを許可する。価格・保守側成立確率・EVはgate JSON内の相互整合だけでは正式監査済みとせず、発走前に保存した `betting-evidence-v1` と完全一致させる。証跡artifact自身のreceiptは `persistence-receipt-v1` の独立レコードとして保存し、同じ `receipt_id` レコード内のartifact ID/path、保存状態、`PRE_RACE_ELIGIBLE`、保存確認時刻と発走予定時刻をcheckerが照合する。発走後Replayで新規算出した価格・確率は前向き数値証跡へ昇格させない。
 
-## ADR-022 次期Prediction中心契約への責任範囲変更（発効条件付き）
+## ADR-022 v1.7.0標準運用とPR79での原子的切替
 
-**発効条件**: 第3検証サイクル終了審査を完了し、mainの `docs/manual/README.md` が `manual_release=v1.7.0` へ正式切替された時点。発効前はADR-004/005/010/016/020/021のv1.6.1契約を維持する。
+PR79のmainマージ後、正式版をv1.7.0とする。ADR-005/006/010/020/021の新規Betting/実購入必須を置き換え、Prediction→価格不要Recommendation→結果/回顧を中核とする。実購入・予算・購入確認・実購入ROIを新規台帳へ作らない。旧記録は当時のschema/releaseで読取検査する。
 
-次期horse-manの中核責任を「発走前Predictionの順位・確率・印・根拠の固定、結果結合、回顧、ルール改善」に限定する。新規の実購入状態・購入金額・実購入券種・実購入ROIは正式台帳の必須機能から外す。過去に記録済みの購入・BET/SKIP・仮想精算履歴は削除せず、当時のmanual releaseとgate schemaでread-only検証する。
+30_bettingは名前を維持した推奨の唯一Owner、価格観測・予測・任意仮想収益は60_marketへ分離する。☆は新規廃止し、順位から◎○▲△を導出。通常/重賞は同じProduction骨格で、集団傾向は固定後Shadow。効果未証明の候補を性能昇格しない。
 
-固定ルールによる仮想収益検証はProduction固定後の任意market validation sidecarとし、Prediction KPIの対象・適格性・回顧完了条件へ混入させない。
+全Owner、AGENTS、manifest、保存/推奨gate、schema/checker、テンプレート、Phaseを同一切替commitで整合する。有効化時刻はmainへの統合で確定し、未マージbranchの受入を実運用開始に代用しない。rollbackは切替commitをrevertし、新版で保存したartifactは削除しない。
 
-本ADR発効時、以下を部分的にsupersedeする。
+チャット/Git/非UI CLIの運用開始と、Windows/JRA-VAN/DB runtimeの実接続は別受入。画面や任意市場を標準運用の依存にしない。
 
-- ADR-004: FINAL immutableは維持するが、次期FINALの必須内容から買い目候補を外し、順位・確率・印・根拠を中心とする。
-- ADR-005: BET/SKIPを最終判断とする契約を終了し、低確信レースもPredictionとして固定・回顧する。
-- ADR-010: PAT非連携は維持するが、手動購入記録をシステム対象とする部分を終了する。
-- ADR-016: Production / Shadow完全分離は維持し、正式買い目前提の表現を市場sidecarへ置換する。
-- ADR-020: 機械ゲートによる正式性判定は維持し、v1.7.0ではBettingを必須KPIから外す。
-- ADR-021: v1.6.1以前のBetting evidence契約として履歴保持し、v1.7.0標準Predictionの必須契約から外す。
+### v1.7.0運用是正の再レビュー（2026-10-13）
 
-### 次期印・根拠
-
-Production順位を正本とし、印は順位から決定的に導出する。4位以下にも勝利可能性を認め、勝率・確率レンジ・シナリオで表現する。人気・妙味を理由にProduction順位・印を変更しない。
-
-Production上位馬には追跡可能な根拠を保持し、少なくとも事実、出所、観測時刻、評価方向、証拠強度を再現できることを要求する。
-
-### 次期機械監査
-
-- v1.6.1: `prediction-compliance-v1`
-- v1.7.0: `prediction-compliance-v2`
-
-既存schemaの意味を上書きしない。checkerはrelease/schemaの組み合わせでvalidatorを選択し、未知の組み合わせを拒否する。
-
-切替日は固定日だけで決めない。`contract-state.json` の `PENDING / ACTIVE` と `effective_race_date` を正式切替状態として使用し、2026-10-13はv2の最短開始可能日としてのみ扱う。ProductionをELIGIBLE認証する場合は `prediction-snapshot-v2` とgateの予想内容を完全照合し、日別Prediction台帳のELIGIBLE宣言も対応gateの存在・状態と照合する。
-
+価格不要仕様と性能非昇格を維持し、候補SELECT→最終固定の順序、同日追加scope、取消/再選定の連続履歴、日次branch書込み制約、writerの原子的保存、公式全頭結果と推奨精算の再照合、回顧済み不変、確信度/入力/時間帯/初回最終の比較集計を是正する。取消前の固定予想は実出走集合との比較不能を理由付きで分離し、推奨の取消券判定と保存状態は独立保持する。旧原記録・第3の保留・性能昇格基準は変更しない。

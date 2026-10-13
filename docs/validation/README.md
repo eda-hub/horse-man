@@ -1,6 +1,21 @@
+# 第4検証サイクル — v1.7.0実運用manifest
+
+- 正式版：v1.7.0、PR79のmainマージ後に有効。
+- 次回：10/17・18・24・25のJRA東京/京都/新潟。予定144Rと実測は別。
+- 現在：開始準備完了、実レース未依頼・未実施。ダミー台帳や事前証跡を作らない。
+- 入口：mainのmanual README→共通Production→価格不要推奨→独立保存→結果/回顧。
+- [第4計画](cycle_04.md)、[正式運用契約](contracts/cycle04_operations.md)、[標準テンプレート](templates/chatgpt_prediction_task.md)。
+- `run_release_readiness.py --require-main` で有効化を確認し、`cycle04_workflow.py` で公式scope登録・選定・初回/最終記録・回顧・独立集計を実行する。
+- `check_cycle04.py --require-active` は正式契約を確認。終了時の `--require-complete` は4日分の実測・初回全scope回顧を要求する。
+- 第3の原記録・保留・正式ROI未算定は維持し、旧記録をv1.7.0の母数へ移さない。保存手順の旧記載は以下の歴史的契約として参照する。
+
+---
+
+## 第3以前の記録時点の履歴
+
 # 第3検証サイクル — 作業マニフェスト
 
-- **状態（2026-09-23確認）**: 第3登録はmainへ統合済み。運用受入確認中、LIVE未実施。
+- **状態（2026-10-13確認）**: 収集期間終了。PR80の9/27回顧を取得し日別台帳7/7日・初回/回顧158Rを照合。性能認証・個別採否・正式切替は未完了。旧記載は各節の記録時点の履歴として読む。
 - **基準ルール**: `v1.6.1`。実行時のmain commitを記録する。
 - **対象日**: 2026-09-26 / 09-27 / 10-03 / 10-04 / 10-10 / 10-11 / 10-12
 - **入口**: [manual README](../manual/README.md) → `00_core` 0.0.12 / `50_review` 0.12.3・0.14.3
@@ -10,21 +25,8 @@
 - **受入証跡**: [operation_acceptance_cycle03.md](operation_acceptance_cycle03.md)
 - **第2サイクル**: 終了審査・正式KPI未確定。[cycle_02.md](cycle_02.md) と当時の記録を維持する。
 - **整理**: 履歴固定・終了審査後、参照のないサイクル固有データだけを整理する。運用README・継続Owner・現行テンプレート・次期計画の一括削除は禁止。
-
-## 次期v1.7.0検証契約（発効条件付き）
-
-この節は、第3検証サイクル終了審査後にmainのmanual releaseが `v1.7.0` へ正式切替された場合だけ適用する。それまでは本書上部の第3サイクルv1.6.1契約を正とする。
-
-- 標準検証の中心をProduction順位・確率・印・根拠・結果・回顧へ変更する。
-- 実購入、ユーザー予算、BET/SKIP、実購入ROIをPrediction KPIの必須項目から外す。
-- 固定ルール仮想収益は任意market validation sidecarへ分離する。
-- 低確信レースもPrediction回顧の対象から除外しない。
-- execution gateは `prediction-compliance-v2` を使用し、Productionと適用Shadowを独立判定する。
-- v1.6.1以前の `prediction-compliance-v1`、Betting KPI、固定仮想資金、実購入記録は旧契約の履歴として保持し、新KPIへ自動混入しない。
-- 次期記録書式は [次期検証サイクルテンプレート](templates/next_cycle_execution_v17.md)、チャットPredictionは [次期予想タスクテンプレート](templates/chatgpt_prediction_task_v17.md) を使用する。
-- 近5走相手レベル、開催傾向、新馬専用評価、条件別統計は原則としてProduction固定後のShadow前向き比較から開始する。
-- PR68 §25の[オッズ非依存推奨買い目](recommendations/README.md)はPR69に準備実装を追加。固定Productionの下流で構成を作り、別artifact/intent/receipt/gateとする。Stage 2の正式発効日までは履歴v2へ推奨必須化せず、現行第3サイクルに適用しない。
-
+- **終了総括・適用計画**: [新PRの実装計画](../proposals/2026-10-12_cycle03_summary_application_plan.md)、[終了資料・再計算手順](reviews/cycle_03/README.md)。原日別記録の適格性を再認証したものではなく、現行v1.6.1を維持する。
+- **次サイクル**: 利用者指定2026-10-17〜25のJRA。[第4計画](cycle_04.md)へ10/17・18・24・25、東京・京都・新潟を登録。期間確定と次期契約の有効化を分離し、実測未実施を0件実績へ変換しない。
 
 ## 第2サイクルの総括と第3サイクルの開始準備 — 2026-09-22
 
@@ -358,4 +360,8 @@ P/A/Bは同じ `race_evidence_bundle` と情報締切を使い、A/Bのために
 `snapshots/` は**発走前の事実証跡だけ**をappend-onlyで保存する。結果、払戻、結果後評価、エラー分類は書かない。正式回顧は `records/` を正本とする。
 
 同一内容を `40_shadow.md` や `docs/yosou/` の個別重賞ファイルへ重複保存しない。**正式回顧の詳細はvalidation側へ保持する。** `docs/yosou/` には、過去傾向から見た当年予想・結果の照合、傾向更新、翌年予想課題だけを抽出して残す。保存境界は `docs/yosou/README.md` と `docs/manual/50_review.md` 0.7.1.2 を参照する。
+
+# PR79の個別採否と第4検査契約（2026-10-13）
+
+[第3の個別採否](reviews/cycle_03/decisions.json)で運用改修・継続検証・観察・未採用を記録した。[第4の検査契約/是正手順](contracts/cycle04_operations.md)と [機械契約](contracts/cycle_04.json) を準備し、保存/用途/入力/市場状態を個別証跡へ接続する。現行v1.6.1は維持、次期版/有効日は未定。`python3 scripts/check_cycle04.py` の準備照合と `--require-active` の正式開始判定を区別する。合成受入成功で実測・性能・正式切替を認証しない。
 

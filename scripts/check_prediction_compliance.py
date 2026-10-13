@@ -68,7 +68,7 @@ def contract_state(root):
         raise ComplianceError(f'{path}: invalid JSON') from exc
     if data.get('schema_version')!=CONTRACT_STATE_SCHEMA:
         raise ComplianceError(f'{path}: schema mismatch')
-    if data.get('next_release')!=NEXT_RELEASE or data.get('next_gate_schema')!=NEXT_SCHEMA:
+    if data.get('next_release') not in {None, NEXT_RELEASE} or data.get('next_gate_schema')!=NEXT_SCHEMA:
         raise ComplianceError(f'{path}: next contract mismatch')
     if data.get('earliest_race_date')!=NEXT_EARLIEST_DATE:
         raise ComplianceError(f'{path}: earliest_race_date must be {NEXT_EARLIEST_DATE}')
@@ -83,13 +83,19 @@ def contract_state(root):
         if current!=LEGACY_RELEASE:
             raise ComplianceError(f'{path}: PENDING state requires current manual release {LEGACY_RELEASE}')
     else:
+        if data.get('next_release') is None:
+            raise ComplianceError(f'{path}: ACTIVE release cannot be undecided')
         if current!=NEXT_RELEASE:
             raise ComplianceError(f'{path}: ACTIVE state requires current manual release {NEXT_RELEASE}')
         if not isinstance(effective,str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',effective):
             raise ComplianceError(f'{path}: ACTIVE effective_race_date required')
         if effective<NEXT_EARLIEST_DATE:
             raise ComplianceError(f'{path}: effective_race_date cannot precede {NEXT_EARLIEST_DATE}')
-        iso(activated,f'{path}/activated_at_jst')
+        if data.get('activation_policy') == 'MAIN_MERGE':
+            if activated is not None:
+                raise ComplianceError(f'{path}: merge-time activation is resolved from main, not predeclared')
+        else:
+            iso(activated,f'{path}/activated_at_jst')
     return data
 
 def segment(path, ident):
@@ -482,6 +488,12 @@ def validate_gate_v2(root,path,g):
         probability_horses.add(horse)
     if not set(ranking[:3]).issubset(probability_horses):
         raise ComplianceError(f'{label}: top3 ranking horses require probabilities')
+    if state.get('full_horse_contract') == 'REQUIRED':
+        if probability_horses != set(ranking):
+            raise ComplianceError(f'{label}: all active horses require probabilities')
+        for field, total in (('win_probability',1),('top2_probability',2),('top3_probability',3)):
+            if abs(sum(p[field] for p in probabilities)-min(total,len(ranking))) > 1e-6:
+                raise ComplianceError(f'{label}: all-horse probability total mismatch: {field}')
 
     evidence_items=production.get('evidence_items')
     if not isinstance(evidence_items,list) or not evidence_items:
@@ -491,6 +503,8 @@ def validate_gate_v2(root,path,g):
         evidence_horses.add(evidence_item(item,f'{label}/production/evidence_items[{i}]',cutoff))
     if not set(ranking[:3]).issubset(evidence_horses):
         raise ComplianceError(f'{label}: top3 ranking horses require evidence')
+    if state.get('full_horse_contract') == 'REQUIRED' and evidence_horses != set(ranking):
+        raise ComplianceError(f'{label}: all active horses require evidence')
 
     kpi=g.get('kpi_eligibility')
     if not isinstance(kpi,dict) or any(kpi.get(name) not in KPI_STATES for name in ('production','shadow')):
