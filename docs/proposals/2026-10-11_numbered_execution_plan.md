@@ -4,7 +4,7 @@
 - 計画の正本・更新先: **既存PR68**。本書と上位計画を同PRで管理し、新規PRや直近の日次PRを計画置場にしない。
 - 準備実装・データ補完・終了審査・正式切替の保存先: **既存PR69**。後続アプリPhaseは上位計画の独立PR契約を維持する。
 - 上位契約: [次期予想アーキテクチャ計画](2026-10-06_next_cycle_prediction_architecture_implementation_plan.md)、[血統Registry・条件集計計画](2026-10-09_pedigree_research_registry_implementation_plan.md)。本書は実施単位を細分化し、契約を上書きしない。
-- 最新実施状態（2026-10-13 JST）: **既往1〜28番とS01〜S03完了。29は共通HTTP実装受入完了・実接続/実測は継続検証。次のコード入口は30番（29の残件は保持）。29〜53番は下記の既存実装/差分対応に従う。**
+- 最新実施状態（2026-10-13 JST）: **既往1〜28番とS01〜S03完了。29はHTTP＋公式JV-Link取得/正規化/実測checkerの実装受入完了・Windows実接続/2開催実測は継続検証。次のコード入口は30番（29の残件は保持）。29〜53番は下記の既存実装/差分対応に従う。**
 
 
 ## 2026-10-13 main更新による差分実装計画（現在の実行入口）
@@ -27,7 +27,7 @@ PR79はPR69の25〜27と推奨等を対象選択して再利用し、PR81は候�
 
 ### 先に行う順序（S01〜S03）
 
-「続き」「順に実施」の次のコード入口は **30番**（29の実取得先/正規化・代替実接続/2開催実測は継続検証）。S01〜S03の統合受入は完了。明示された単独番号で前提が未成立なら、その前提と理由を記録する。S番号は追加の統合単位であり、元の1〜53を振り直さない。
+「続き」「順に実施」の次のコード入口は **30番**（29の公式取得先/正規化は実装受入済み。Windows実接続/2開催実測は継続検証）。S01〜S03の統合受入は完了。明示された単独番号で前提が未成立なら、その前提と理由を記録する。S番号は追加の統合単位であり、元の1〜53を振り直さない。
 
 | 順序 | 作業・対象 | 前提 | 完了条件 |
 |---|---|---|---|
@@ -46,7 +46,7 @@ S01で同じpathが異なる候補は、workflow、AGENTS、DECISIONS、README�
 | 26 | `task_completion.py`、`verify_prediction_persistence.py`、`recommendation.py` はblob同一。一部fixtureはmainで旧/新に分離 | コード再作成なし。S03で独立JSON/FIX/receipt/適用Shadow・推奨の接続を再検証。不足が判明した箇所だけ修正 |
 | 27 | 元5BUY監査JSON/回帰は同一。mainのselectionはRECOMMENDATION/MARKET_SIDECAR用途を追加し、独立receiptを第4へ接続 | mainの拡張を採用し再実装しない。取消→再選定、用途分離・revision接続をS03で再検証。旧5件保留を維持 |
 | 28 | `cycle04_operations.validate_market` が未試行/失敗/締切/取得済と判断を分離。任意市場writerも既存 | **完了（2026-10-13）** 既存APIを再利用し、source/時刻/全試行のv2保存・読戻しと日本語表示を追加。詳細は末尾28番の受入 |
-| 29 | 実際の価格取得1経路＋代替1経路、応答hash/リトライ/締切と2開催以上の実測は未完了 | 共通HTTP処理・原応答・再試行/締切・loopback障害再現は受入済み。実取得先/正規化・代替実接続/2開催実測をOPENで引継ぎ、価格不要予想/推奨の完了を阻害しない |
+| 29 | 実際の価格取得1経路＋代替1経路、応答hash/リトライ/締切と2開催以上の実測は未完了 | HTTP＋公式JV-Link2経路/O1〜O6正規化・原応答・再試行/締切・実測checkerは受入済み。Windows実接続/2開催実測をOPENで引継ぎ、価格不要予想/推奨の完了を阻害しない |
 | 30 | 8券種比較にMISSING/UNCALIBRATED/DISCRETIONARY/CALIBRATEDと未校正下限拒否あり | 表示/不確実性範囲/未算定と0の元受入を照合し、不足だけ補完。性能校正は継続検証 |
 | 31 | 券事象の構造検査は存在するが、元31の馬・展開・券依存監査と同じではない | オッズ不要の候補/軸依存を追加検証。任意市場の金額集中/全損率を独立管理 |
 | 32 | 8券種の比較と7券種の推奨生成境界がmainに明記済み | 再定義なし。境界・状態・Ownerの受入を保存 |
@@ -156,7 +156,7 @@ S01で同じpathが異なる候補は、workflow、AGENTS、DECISIONS、README�
 | 26 | Prediction/Recommendationの個別完了ゲートの不足検出と状態出力を整合 | 25 | audit成功、本体、receipt、個別完了、適用Shadowを独立判定。未実施を成功へ変換しない。R-07 |
 | 27 | 用途と選定revisionの不連続を防ぐ履歴検査。11日5BUYは既存証跡だけで監査 | なし | 追加選定なし/用途混在/取消変更を拒否・識別。旧正式KPIと参考精算、次期推奨KPIを分離。R-06 |
 | 28 | **完了（2026-10-13）** 任意市場sidecarの価格状態分類を準備 | なし | 未試行/取得失敗/締切/取得済・期待値不足を区別し、source/時刻/試行を保存。価格なしのPrediction/推奨は完結。R-01 |
-| 29 | **共通HTTP処理は実装受入完了・実接続/実測は継続検証（2026-10-13）** 価格取得経路1つの障害再現と代替経路1つを検証 | 28 | 応答hash・再試行・締切と出力一致。2開催以上の実測がなければ課題は継続検証。11日当時の原因不明を残す。R-01 |
+| 29 | **HTTP＋公式JV-Link2経路/正規化/実測checkerは実装受入完了・Windows実接続/2開催実測は継続検証（2026-10-13）** 価格取得経路1つの障害再現と代替経路1つを検証 | 28 | 応答hash・再試行・締切と出力一致。2開催以上の実測がなければ課題は継続検証。11日当時の原因不明を残す。R-01 |
 | 30 | 確率の中心値・未校正・不確実性の表示と検査を準備 | なし | 裁量縮小を統計下限と称さない。未算定と0%を分離。独立レース校正は後続。R-03 |
 | 31 | 馬・展開・券単位の依存監査を準備 | 30 | オッズ不要の候補点数/軸依存を記録。任意sidecarの金額集中・全損率は別。恣意的上限を追加しない。R-03 |
 | 32 | 8券種の検討状態と、既存7券種契約との版境界を固定 | なし | 単/複/枠連/馬連/ワイド/馬単/三連複/三連単を検討済/非該当/情報不足へ区分。枠連を旧schemaへ無言追加しない。R-04 |
@@ -635,3 +635,24 @@ PR69旧workflow固定commit `11f4f339391be34bb6fbbc15edbd812e4b0641df` から研
 **29番の共通HTTP処理の実装・合成/loopback受入は完了。親29番の実接続/実測は未完了でOPEN。** 実取得先URL/応答形式と正規化adapterの確認、主/代替の実サービス接続、2開催以上の発走前実測が必要。11日当時の原因不明を保持。未測定件数はnull、架空の実測日・事前価格証跡を生成しない。次の独立コード作業は前提なしの30番で、29のOPENを完了にせず引き継ぐ。
 
 最終受入記録だけを更新したPR69 HEAD `804a5201fbba997bb7ef7afcf248773392bb3f3b` も [通常CI](https://github.com/eda-hub/horse-man/actions/runs/38347374935)・[統合受入CI](https://github.com/eda-hub/horse-man/actions/runs/38347374976)・[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38347374919) がすべてsuccess。コード/正式manifest/既存workflow/dataは検証基準commitから不変。checkpointと操作文書のreadback一致。共通HTTP受入済みと実サービス未接続・2開催実測未完了を区別したまま保持する。
+
+
+#### 29番残件対応：公式取得先・8券種正規化・実測受入checkerを追加（2026-10-13 JST）
+
+利用者の「残件も対応しろ」に従い、main `38dcd3266613e52ced2b6d144d6da8a54fb4a675`、開始PR69 `804a5201fbba997bb7ef7afcf248773392bb3f3b`、開始PR68 `97e215424946847142d7340441ed42453c1a3aa5` を再固定。main更新なし。外部取得先を未指定のまま放置せず、公式SDK/公開入口の実応答を照合して経路を確定した。
+
+公式SDK 5.0.0/64bit archiveはHTTP200・27,244,525 bytes、SHA256 `21f4d54706ff050e383f21f3571f59ffe8de38ed46a01be3e5b7756ee957f9d7`。公式PythonサンプルのCOM ProgID・JVGets bytearray型/戻り値と、公式仕様の要求key/レコードを確認。[実取得probe](https://github.com/eda-hub/horse-man/actions/runs/38348179562) と [型照合](https://github.com/eda-hub/horse-man/actions/runs/38348462108) が成功。JRA PC/SPトップ200をオッズ接続成功へ代用せず、オッズの単純GET専用エラーを保持。取得確認用workflowは最終成果から除去し、既存.github treeへ戻した。
+
+主経路をJV-Link全賭式速報0B30、代替を対象券種の0B31〜0B36にした。公式12桁keyを固定raceから生成し、URL指定を利用者へ求めない。両者は同じ提供元で共通障害を迂回できる別サービスとは称さない。SDKが認める既定sid UNKNOWNを使い、利用キー設定/表示・投票APIに触れない。JVInit/JVRTOpen/JVGets/ファイル切替/EOF/エラー/JVClose、process timeoutを実装。SDK return codeとHTTP statusを混ぜない。
+
+O1〜O6・8券種の原bytes/長さ/終端、race/場/R、中間区分/発売/発表時刻、券の順序/同枠/組合せを正規化。確定・最終・中止/削除/無投票/取消/欠測・上限価格を正確な発走前観測へ変換しない。複勝/ワイドは実観測の幅と下端採用を明示し、統計的下限と混同しない。原本から範囲も照合する。
+
+`check_market_live_validation.py` は実FORWARD取得・2開催日・両data spec・独立receipt・公式scope/発走・発走前Git固定と原bytesを検査。合成/REPLAY・発走後commit・原本/当時receipt改変・未登録scope・重複を拒否し、1開催や片経路だけで完了にしない。receipt後続追記と当時の同一レコードを区別。実測・性能を作らず、条件未成立はCONTINUE_VALIDATION。
+
+新規23回帰（native16＋live受入7）、既存取得22・28番18・第4既存56・readiness9が成功。合成レコードを実SDK実測に数えない。実装commit `c0a791327995238046cb9fe6406ddb57de7506e6`、恒久9ファイルのreadback一致。manifest115source全hash一致。初回 [通常CI](https://github.com/eda-hub/horse-man/actions/runs/38349639239) は563回帰成功後の旧受入stale hashで失敗、独立全受入は563件/skip0・入力不変で成功。実CIと一致する100入力manifest SHA256 `b0f2dc77b15194a91b6d85e31301c4ffe615ff1ea76f56375e927410e9f79800` を保存し、commit `8bb4dc25696f5e084ee3fb9db4e0ff14859170aa` で受入を更新。
+
+更新後 [通常CI](https://github.com/eda-hub/horse-man/actions/runs/38349990174) 全13step・563回帰、[統合受入CI](https://github.com/eda-hub/horse-man/actions/runs/38349990393) 全6step・563件/skip0、[研究CI](https://github.com/eda-hub/horse-man/actions/runs/38349990159) 全22step・17工程がsuccess。第3資料7/7日・第4・独立推奨・原子整合、Registry15,321個体・26snapshot/invalid0を保全。実main開始確認成功とPR69未マージ開始拒否を別検査。
+
+最終記録commit `934a10d9454b4f61c5398038539e2e129fa7edbd`：[公式経路と接続手順](https://github.com/eda-hub/horse-man/blob/934a10d9454b4f61c5398038539e2e129fa7edbd/docs/validation/market-jvlink.md)、[固定出所/SDK hash/制約](https://github.com/eda-hub/horse-man/blob/934a10d9454b4f61c5398038539e2e129fa7edbd/docs/validation/implementation/2026-10-11-task29-provider.json)。旧操作文書と29本体checkpointを追加実装済みへ整合。既存workflow/Owner/旧予想/receipt/KPI/data tree `0691e0fee7bfdf4671042e99c465c10a451d1ac9` 不変、PR69 Draft維持・mainマージなし。
+
+**残実装の公式取得先・正規化・実測受入処理は完了。残るのは利用者Windows VMへの実接続と将来2開催の発走前実測。** この実行環境はLinux/pywin32なし、Windows VMの接続先/実行経路はrepoと過去作業にも確認できない。実機へアクセスできる接続情報/実行環境が必要。10/17以降の実測は今日捏造せず、実測日/件数はnull、29の親状態は継続検証を維持する。独立コード作業30番の前提にはしない。
