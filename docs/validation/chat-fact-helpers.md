@@ -63,3 +63,10 @@ FORWARD/REPLAY/SYNTHETICの区分を結果sidecarへ引き継ぎ、合成/Replay
 
 ## 53-I07 公式結果の再照合
 `python3 scripts/chat_result_reconciliation.py manifest.json --root . --as-of <監査時点>`。capture/conversion/resultは固定path/hash、prediction_gate/prediction_original/recommendation_gateは固定参照またはnullを明示。原文から再構成した値、全頭、race/date/発走、独立保存予想を再照合。推奨なし・未最終も回顧対象に残す。未確定/改変/未来取得は保留。払戻や旧実購入を要求せず、既存settleで券を照合。原票真正性・正式KPIの認証や台帳保存は行わない。
+
+## 53-I08 公式結果訂正の追加履歴
+`python3 scripts/chat_result_correction.py request.json --root . --as-of <時点>`で旧新の本文再照合・固定参照・訂正通知・観測順序・差分を確認。`--append`は専用result-corrections配下へ排他的に追加し、同IDの上書きを拒否。旧回顧/KPI参照を保持し、KPI採用はOwner審査待ち。旧予想/推奨の差替えや正式訂正のない実レースへの履歴作成は不可。
+
+## 53-I08 公式結果訂正の追加履歴
+`python3 scripts/chat_result_correction.py request.json --root . --as-of <時点>`で旧新の本文再照合・固定参照・訂正通知・観測順序・差分を確認。`--append`は専用result-corrections配下へ排他的に追加し、同IDの上書きを拒否。旧回顧/KPI参照を保持し、KPI採用はOwner審査待ち。旧予想/推奨の差替えや正式訂正のない実レースへの履歴作成は不可。
+訂正元の取り違え防止として、I06注釈へrace_identity引用を追加。日付/場/レース番号/予定発走と一致する同一取得本文から確定・全頭行を照合する。対応場は東京/京都/新潟、未知形式は保留。

@@ -53,22 +53,38 @@ def normalize_result(bundle, annotation):
     bundle = verify(bundle); req = bundle['request']
     require(req['purpose'] == 'RESULT', 'post-race result request required')
     require(isinstance(annotation, dict) and
-            set(annotation) == {'rows','confirmation','place_basis'}, 'explicit result annotations required')
+            set(annotation) == {'rows','confirmation','place_basis','race_identity'}, 'explicit result annotations required')
     confirmed = result_quote(bundle, annotation['confirmation'])
     require(not any(word in annotation['confirmation']['quote'] for word in ('未確定','暫定','訂正待ち')) and
             any(word in annotation['confirmation']['quote'] for word in ('確定','払戻金')),
             'result confirmation quotation missing')
+    identity=result_quote(bundle,annotation['race_identity'])
+    heading=annotation['race_identity']['quote']
+    match=re.fullmatch(r'(?:'+re.escape(req['race_date_jst'])+'|'+req['race_date_jst'].replace('-','')+
+                       r')-(TOK|TOKYO|KYO|KYOTO|NII|NIIGATA)-(\d{2})',req['race_id'])
+    require(match is not None,'unsupported race identity requires explicit parser review')
+    venue={'TOK':'東京','TOKYO':'東京','KYO':'京都','KYOTO':'京都','NII':'新潟','NIIGATA':'新潟'}[match[1]]
+    y,m,d=map(int,req['race_date_jst'].split('-'))
+    require(re.search(str(y)+r'年\s*0?'+str(m)+r'月\s*0?'+str(d)+r'日',heading) is not None
+            and venue in heading,'official result heading date/venue mismatch')
+    numbers={int(n) for n in re.findall(r'(?<!\d)(\d+)\s*(?:レース|R\b)',heading)}
+    require(numbers=={int(match[2])},'official result heading race number mismatch')
+    post=iso(req['scheduled_post_time_jst'],'post')
+    require(re.search(r'(?<!\d)0?'+str(post.hour)+r'(?:時\s*0?'+str(post.minute)+r'分|:'+f'{post.minute:02d}'+r')(?!\d)',heading) is not None,
+            'official result heading scheduled post mismatch')
+    require(identity['capture_id']==confirmed['capture_id'],'confirmation must belong to the identified result page')
     rows = annotation['rows']
     require(isinstance(rows, list) and len(rows) == len(req['horse_numbers']) and
             {r.get('horse_no') for r in rows} == set(req['horse_numbers']),
             'complete official result horse scope required')
     positions, scratch, non_finish = {}, [], []
-    sources = [confirmed]
+    sources = [confirmed,identity]
     for row in rows:
         require(isinstance(row, dict) and
                 set(row) == {'horse_no','status','finish_position','quotation'},
                 'result row fields invalid; horse names/icons are not copied into the result')
         source = result_quote(bundle, row['quotation']); sources.append(source)
+        require(source['capture_id']==identity['capture_id'],'rows must belong to the identified official result page')
         text = row['quotation']['quote']; horse = row['horse_no']
         require('\n' not in text.strip() and '\r' not in text.strip(), 'one quoted result row required')
         state, position = row['status'], row['finish_position']

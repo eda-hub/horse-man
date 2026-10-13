@@ -13,7 +13,7 @@ def fixture(mode='SYNTHETIC', domain='https://app.jra.jp/test'):
     req=facts.request()
     req.update(purpose='RESULT',data_cutoff=facts.DATE+'T10:30:00+09:00',horse_numbers=[1,2,3,4,5,6])
     lines=['確定結果','発売開始時 6頭','1着 1番','1着 2番','3着 3番','4着 4番',
-           '競走中止 5番','取消 6番']
+           '競走中止 5番','取消 6番','2026年10月17日 東京 1レース 発走時刻10時00分']
     c=facts.capture()
     c.update(text='\n'.join(lines),mode=mode,source_url=domain,
              retrieval_kind='SYNTHETIC_PAGE_TEXT' if mode=='SYNTHETIC' else 'PAGE_TEXT',
@@ -26,11 +26,17 @@ def fixture(mode='SYNTHETIC', domain='https://app.jra.jp/test'):
     statuses=['FINISHED']*4+['NON_FINISH','SCRATCHED']
     rows=[{'horse_no':h,'status':statuses[h-1],'finish_position':p,'quotation':ref(line)}
           for h,p,line in zip([1,2,3,4,5,6],[1,1,3,4,None,None],lines[2:])]
-    return b,{'rows':rows,'confirmation':ref(lines[0]),
+    return b,{'rows':rows,'confirmation':ref(lines[0]),'race_identity':ref(lines[-1]),
               'place_basis':{'kind':'OFFICIAL_SALES_START_COUNT','value':6,'quotation':ref(lines[1])}}
 
 
 class ResultConversion(unittest.TestCase):
+    def test_other_race_date_or_missing_identity_is_not_accepted(self):
+        b,a=fixture();a['race_identity']=a['confirmation']
+        with self.assertRaises(ValueError):normalize_result(b,a)
+        b,a=fixture();del a['race_identity']
+        with self.assertRaises(ValueError):normalize_result(b,a)
+
     def test_saved_official_pipe_rows_ignore_frame_and_equipment_icons(self):
         path = Path(__file__).resolve().parent.parent / 'data/pedigree/reconciliations/2026-10-12-delta/results/kyoto-01/official-extract.txt'
         text = path.read_text(encoding='utf-8')

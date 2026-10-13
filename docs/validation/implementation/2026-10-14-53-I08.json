@@ -1,0 +1,28 @@
+{
+  "schema_version": "numbered-implementation-v1",
+  "task": "53-I08",
+  "message": "53-I08：公式訂正を旧結果・回顧・KPIを保持する追加履歴へ分離",
+  "status": "IMPLEMENTATION_ACCEPTED",
+  "new_tests": 4,
+  "actual_correction_recorded": false,
+  "formal_schema_changed": false,
+  "source_identity_check": "日付/場/レース番号/予定発走と同一取得本文を照合",
+  "global_tests": 720,
+  "source_manifest_sha256": "842bcca606804c2a0986231b7e8f0100c1298797ebbef54128e80724f8f70117",
+  "source_count": 131,
+  "validation_basis_commit": "c3fa50050f530420df7466578fc2e60b823bdbef",
+  "ci": [
+    {
+      "id": 38444936236,
+      "conclusion": "success"
+    },
+    {
+      "id": 38444936127,
+      "conclusion": "failure"
+    },
+    {
+      "id": 38444936170,
+      "conclusion": "success"
+    }
+  ]
+}
