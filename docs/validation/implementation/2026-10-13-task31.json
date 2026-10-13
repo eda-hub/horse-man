@@ -20,19 +20,19 @@
     "allocation_is_actual_purchase": false
   },
   "validation": {
-    "new_tests": 20,
-    "local_related_tests": 132,
+    "new_tests": 21,
+    "local_related_tests": 133,
     "failures": 0,
     "skipped": 0,
     "ci": {
-      "basis_commit": "aef9308c6003a4bdd9e3999122274806fe01d449",
-      "integration_run": 38372328046,
-      "research_run": 38372328079,
+      "basis_commit": "1cdc53d104aeaf429439ac5a7b51534cde29bbb1",
+      "integration_run": 38373209169,
+      "research_run": 38373209136,
       "result": "SUCCESS",
-      "tests_run": 632,
+      "tests_run": 633,
       "skipped": 0,
       "source_count": 109,
-      "source_manifest_sha256": "866662ee930c54034db12f4561215ca82ae94cb8283c9e5e28c498424c171a37",
+      "source_manifest_sha256": "bcc9d3995b0831395298629a118124068ccba707d11be918bcd663c9ba71c9c6",
       "initial_normal_failure": {
         "run_id": 38372328053,
         "tests_run": 632,
@@ -43,7 +43,17 @@
         "research": 38372095940,
         "normal_stale": 38372096031
       },
-      "final_normal": "PENDING"
+      "final_normal": "PENDING",
+      "pre_boundary_acceptance": {
+        "commit_sha": "1047ae36994d0feb6104df789db1738c793c2a95",
+        "normal_run": 38372723274,
+        "integration_run": 38372723200,
+        "research_run": 38372723203,
+        "result": "ALL_SUCCESS",
+        "tests_run": 632
+      },
+      "boundary_normal_run": 38373209240,
+      "boundary_normal_status": "PENDING_STALE_ACCEPTANCE_CHECK"
     }
   },
   "protected": {
@@ -63,5 +73,6 @@
   },
   "next": "32-01",
   "implementation_commit": "2be36d5a062c92d29b758e1312b1c1bbeff8f302",
-  "review_fix_commit": "aef9308c6003a4bdd9e3999122274806fe01d449"
+  "review_fix_commit": "aef9308c6003a4bdd9e3999122274806fe01d449",
+  "boundary_review_commit": "1cdc53d104aeaf429439ac5a7b51534cde29bbb1"
 }
