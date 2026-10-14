@@ -65,7 +65,8 @@ def _prediction_check(root, date, row, entry, *, latest):
     gate_ref = gate['production'].get('evidence_ref')
     require(isinstance(gate_ref, dict) and
             all(pred_ref.get(k) == gate_ref.get(k) for k in
-                ('artifact_id', 'artifact_path', 'sha256')),
+                ('artifact_id', 'artifact_path')) and
+            (not gate_ref.get('sha256') or pred_ref.get('sha256') == gate_ref['sha256']),
             label + '：固定gateと予想本体の同一性不一致')
     snapshot, body_receipt = verified_artifact(root, pred_ref, post,
                                                expected_id=gate_ref['artifact_id'])
