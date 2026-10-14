@@ -163,3 +163,14 @@
 - `--require-main` は未マージ候補を正式mainとして認証しない既存動作を保つ。統合受入は候補契約と取得済みmainを区別する。
 - 本PRの正式マージ・第4の実測終了・性能昇格・人間による理由付き終了承認は未実施。一時合成受入CIは削除し、通常の3系統CIを候補最終SHAで確認する。
 
+### 最終3系統CI結果（2026-10-14 JST）
+
+候補SHA `229c686f43616b214f4f5fd19643f4c212ff2fc8` において、以下の3系統CIが全て成功した。先行する標準生成ジョブ `38569867276` の802件PASS・release固定・通常checker成功を踏まえて検査した結果であり、未マージ候補を正式mainと偽装しない。
+
+| 系統 | GitHub Actions run | 結果 |
+|---|---|---|
+| 予想実行・第3サイクル台帳監査 | [38570549425](https://github.com/eda-hub/horse-man/actions/runs/38570549425) | success |
+| 新旧契約の統合受入・取得済みmain照合 | [38570549819](https://github.com/eda-hub/horse-man/actions/runs/38570549819) | success |
+| 血統研究の原票・Registry監査 | [38570549376](https://github.com/eda-hub/horse-man/actions/runs/38570549376) | success |
+
+本記録の追記以外にコード・テスト・受入対象の変更はない。最新main `6d933a78cd8fd6723aeba4ad0f4c090053a0832a` と本PRの比較は behind=0、mergeable=true。合成データは実レース予想の事前証跡、結果や回顧の証明には用いない。
