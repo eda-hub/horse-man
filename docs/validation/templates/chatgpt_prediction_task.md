@@ -30,3 +30,11 @@ eda-hub/horse-manのmainからmanual READMEを取得し、同一参照commitで�
 ## 利用者への回答
 
 順位/印/確率/根拠/確信度、推奨または理由付き推奨なし、対象ごとの本体/個別完了/不足を日本語で示す。内部IDや工程コードをそのまま列挙しない。
+
+## 公式結果と前向き回顧
+
+初回のみ・最終あり・推奨なしを問わず、結果JSON単独の `OFFICIAL` 自己申告から正式KPIを計算しない。発走後に実際に取得したJRA確定本文をFORWARDで保存し、race/date/発走、公式確定引用、全頭着順・同着/取消/中止・複勝対象着数を注釈する。
+
+`chat_result_conversion.py` で保存本文から変換/結果を再構成し、別ファイルのpath/SHA256へ固定する。最新Prediction gate/hash/原本と存在するRecommendation gate/hashを同じ `cycle04-result-reconciliation-manifest-v1` のrefsに含め、manifest自身もpath/SHA256で固定する。回顧入力は `race_id`、`result_path`、`result_reconciliation_ref` と回顧分析を必須とする。
+
+更新時刻不明はnullで保持し、結果取得時刻を偽造しない。診断出力の `formal_kpi_certified=false` をtrueに書き換えない。出所不明・Replay/Synthetic・未来取得・本文不一致は正式回顧を未完了とし、保存済み原本を保全する。入力JSONとコマンドは `docs/validation/contracts/cycle04_operations.md` を参照。

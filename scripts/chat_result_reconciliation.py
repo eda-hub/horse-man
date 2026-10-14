@@ -62,9 +62,87 @@ def audit_saved(root, refs, as_of=None):
         fixed_json(root,refs['recommendation_gate'])
         rec = verify_recommendation(root,safe_path(root,refs['recommendation_gate']['artifact_path']))
         require(refs['prediction_gate'] is not None, 'recommendation requires its fixed prediction')
-        require(rec.get('data_cutoff') == gate.get('data_cutoff'), 'recommendation cutoff mismatch')
+        require(rec.get('data_cutoff') == gate.get('data_cutoff') and
+                rec.get('race_id') == gate.get('race_id') and
+                rec.get('race_date_jst') == gate.get('race_date_jst') and
+                rec.get('scheduled_post_time_jst') == gate.get('scheduled_post_time_jst') and
+                rec.get('prediction_ref', {}).get('baseline_forecast_id') ==
+                gate['production']['baseline_forecast_id'] and
+                rec.get('prediction_ref', {}).get('artifact_path') ==
+                gate['production']['evidence_ref']['artifact_path'],
+                'recommendation fixed prediction/cutoff identity mismatch')
     report = reconcile(bundle,conversion,result,gate=gate,recommendation=rec,as_of=as_of)
     report['fixed_refs'] = refs
+    return report
+
+
+
+FORMAL_RESULT_SCHEMA = 'cycle04-result-reconciliation-manifest-v1'
+
+
+def formal_now():
+    """正式算入の検査時刻。外部CLIの任意時刻を信用しない。"""
+    return datetime.now(timezone.utc)
+
+
+def validate_formal_result(root, row, *, race, date, result_ref, manifest_ref):
+    """日別writer・日別checker・summary・回顧資料に共通する正式結果適格性。
+
+    別保存のmanifestをhash確認し、保存本文から変換し直す。
+    診断reportのformal_kpi_certifiedは書き換えない。
+    """
+    now = formal_now()
+    require(isinstance(row, dict) and isinstance(result_ref, dict),
+            'formal result and race entry required')
+    manifest = fixed_json(root, manifest_ref)
+    require(set(manifest) == {'schema_version', 'refs'} and
+            manifest['schema_version'] == FORMAL_RESULT_SCHEMA,
+            'independent formal result reconciliation manifest required')
+    refs = manifest['refs']
+    require(isinstance(refs, dict) and refs.get('result') == result_ref,
+            'formal result reference differs from frozen reconciliation manifest')
+    history = row.get('prediction_history', [])
+    gate_path = row.get('prediction_gate_path')
+    if gate_path:
+        require(isinstance(history, list) and history and
+                history[-1].get('prediction_gate_path') == gate_path,
+                'latest fixed prediction history required for result')
+        expected_gate = {'artifact_path': gate_path,
+                         'sha256': history[-1]['prediction_gate_sha256']}
+        require(refs.get('prediction_gate') == expected_gate and
+                refs.get('prediction_original') == history[-1]['prediction_ref'] and
+                refs['prediction_original'] == row.get('operations', {}).get('prediction_ref'),
+                'formal result references another prediction')
+    else:
+        require(refs.get('prediction_gate') is None and
+                refs.get('prediction_original') is None,
+                'unfinalized result cannot attach a different prediction')
+    rec_path = row.get('recommendation_gate_path')
+    if rec_path:
+        expected_rec = {'artifact_path': rec_path,
+                        'sha256': fingerprint(safe_path(root, rec_path).read_bytes())}
+        require(refs.get('recommendation_gate') == expected_rec,
+                'formal result references another recommendation')
+    else:
+        require(refs.get('recommendation_gate') is None,
+                'result references a detached recommendation')
+    report = audit_saved(root, refs, as_of=now.isoformat())
+    bundle = fixed_json(root, refs['capture'])
+    req = bundle['request']
+    require(req['purpose'] == 'RESULT' and req['race_id'] == race and
+            req['race_date_jst'] == date and
+            iso(req['scheduled_post_time_jst'], 'result post') ==
+            iso(row.get('scheduled_post_time_jst'), 'registered post'),
+            'formal result race/date/scheduled post mismatch')
+    require(report['race_id'] == race and report['race_date_jst'] == date and
+            report['mode'] == 'FORWARD',
+            'only quoted FORWARD result can enter formal review')
+    require(iso(bundle['recorded_at'], 'capture recording') <= now,
+            'future source capture cannot enter formal review')
+    require(row.get('mode') == 'FORWARD', 'replayed day cannot become formal result')
+    # 検査成功の診断フラグを正式認証フラグへ書き換えない。
+    require(report['formal_kpi_certified'] is False,
+            'read-only reconciliation must not self-certify formal KPI')
     return report
 
 
