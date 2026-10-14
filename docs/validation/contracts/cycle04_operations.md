@@ -6,7 +6,7 @@
 
 第37項の準備用読取入口は`scripts/class_transition_shadow.py`。`python3 scripts/class_transition_shadow.py docs/validation/class-transition/fixed-cases.json`で、年齢限定重賞→古馬OP、混合クラス移行、既対戦/入力不足の最大3固定例を照合する。保存した3例は明示的なSYNTHETICで、実馬・過去予想の復元・前向き性能ではない。REPLAYも前向きKPI外。10/12の旧回顧/snapshotにある部分比較と不適格を、真正な新比較ペアへ代用しない。37-01〜03の固定条件のコード検査と、実例での効果検証は分離する。
 
-利用者は2026-10-13に前向き試験を10/17・18・24・25の該当全例と指定した。東京/京都/新潟の実際に依頼・保存された対象から収集し、件数は実該当数を記録する。件数上限や新たな一律受入閾値を作らない。`docs/validation/class-transition/forward-plan.json`は試験方針で、未来の予想/台帳/実測0ではない。37-04の期間/対象・Owner・必要入力・判定方法は固定、37-05の将来実測は開催前につきOPEN。
+利用者は2026-10-14に前向き試験を10/17・18・24・25・31・11/1の該当全例へ延長した。10/17・18・24・25は東京/京都/新潟、10/31・11/1は東京/京都の実際に依頼・保存された対象から収集し、件数は実該当数を記録する。件数上限や新たな一律受入閾値を作らない。`docs/validation/class-transition/forward-plan.json`は試験方針で、未来の予想/台帳/実測0ではない。37-04の期間/対象・Owner・必要入力・判定方法は固定、37-05の将来実測は開催前につきOPEN。
 
 前向きの読取manifestは`{"plan": <forward-plan.jsonの内容>, "items": [{"gate_path": "保存済みPrediction gateの相対path", "shadow_item_id": "該当ShadowのID", "result_path": "公式結果JSONの相対path"}]}`。`python3 scripts/class_transition_shadow.py MANIFEST.json --root REPO`で検査する。対象日のFORWARD、Production/Shadow双方のELIGIBLE、独立した発走前原本・hash・receiptを既存gate/verified_artifactで確認する。
 
@@ -40,7 +40,7 @@ FINALの比較には検証済み推奨原本の`cancelled_horses`を渡す。取
 
 出力は全候補点で、標準推奨の◎・着順役割の制約を満たす採用点とは別。`selected_points`と`joint_probability`はnull、同時率は`NOT_CALCULATED`、標準採用・性能昇格は`NOT_APPROVED`。結果後の再演を前向きKPIへ昇格させない。
 
-正式版はv1.7.0、有効化はPR79のmainマージ後。価格不要のPrediction→Recommendation→保存→結果/回顧を標準にする。開催日は10/17・18・24・25、東京・京都・新潟。開始前は実測・性能をnull/未測定とし、予定144Rを未依頼scopeへ補完しない。
+正式版はv1.7.0、有効化はPR79のmainマージ後。価格不要のPrediction→Recommendation→保存→結果/回顧を標準にする。開催日は10/17・18・24・25（東京・京都・新潟）と10/31・11/1（東京・京都）。開始前は実測・性能をnull/未測定とし、予定192Rを未依頼scopeへ補完しない。
 
 ## main確認と日別実行
 
@@ -70,7 +70,7 @@ python3 scripts/cycle04_workflow.py --summary
 
 ローカル保存・検査後、従来どおり日次branchへGit保存し、保存先を読戻して同一bytesを確認する。CLI成功だけをGit保存完了とは説明しない。
 
-`run_cycle04_acceptance.py --write`は合成受入を保存する。`check_cycle04.py --require-active --require-complete`は4日の実測・全初回scope回顧が揃ってからのみ成功する。
+`run_cycle04_acceptance.py --write`は合成受入を保存する。`check_cycle04.py --require-active --require-complete`は6日の実測・全初回scope回顧が揃ってからのみ成功する。
 
 ## 新規予想の保存
 
@@ -131,7 +131,7 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 
 ## サイクル完了・理由付き終了（P1）
 
-「正常一巡完了」は4開催日の実依頼scopeが登録され、各対象の初回Prediction・独立本体/FIX/hash/receipt/個別検査・公式結果照合・回顧が揃い、選定されたレースはFINALと独立推奨の保存/個別検査まで揃い、さらに集計と日別台帳をGitの固定commitから同一bytesで読戻した場合だけに用いる。初回のみで選定されなかったレースにFINALは要求しない。選定済みでFINALなしは未完了とし、発走後の恣意的な選定取消で隠せない。推奨なし・明示的印のみは独立保存された正当な最終状態であり、未保存PENDINGと同一視しない。
+「正常一巡完了」は6開催日の実依頼scopeが登録され、各対象の初回Prediction・独立本体/FIX/hash/receipt/個別検査・公式結果照合・回顧が揃い、選定されたレースはFINALと独立推奨の保存/個別検査まで揃い、さらに集計と日別台帳をGitの固定commitから同一bytesで読戻した場合だけに用いる。初回のみで選定されなかったレースにFINALは要求しない。選定済みでFINALなしは未完了とし、発走後の恣意的な選定取消で隠せない。推奨なし・明示的印のみは独立保存された正当な最終状態であり、未保存PENDINGと同一視しない。
 
 日別と集計の固定参照は、それぞれ次の形式で手動作成する。参照元のGit commitは対象ファイルを実際に含む40桁SHAを指定し、hashは当該bytesのSHA256を指定する。固定参照自体は予定日の事前証跡として作成しない。
 
@@ -139,7 +139,7 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 
 日別は登録した各開催日を漏れなく列挙する。全件回顧後、`python3 scripts/cycle04_workflow.py --summary` のJSON全体を `docs/validation/reports/cycle_04/summary.json` へ保存し、適切な作業ブランチからGitへコミットして読戻す。標準出力の表示、CLI return_code=0、ローカルhash一致だけでは完了ではない。発走前Prediction用receiptを集計へ流用しない。集計用証跡はこの後続Git commitの`git show COMMIT:path`で検証する。必要な全日の固定参照を`completion-manifest.json`へ手動入力する。
 
-`python3 scripts/check_cycle04.py --require-complete --completion-manifest completion-manifest.json` は、4日全件の工程と実際のGit読戻しが揃ったときだけ0を返す。単独の`--require-complete`は集計固定参照がないため失敗する。通常`check_cycle04.py`と`cycle04_workflow.py --summary`は、不足対象・理由を保持して状態を表示するが、正常一巡と自己申告しない。
+`python3 scripts/check_cycle04.py --require-complete --completion-manifest completion-manifest.json` は、6日全件の工程と実際のGit読戻しが揃ったときだけ0を返す。単独の`--require-complete`は集計固定参照がないため失敗する。通常`check_cycle04.py`と`cycle04_workflow.py --summary`は、不足対象・理由を保持して状態を表示するが、正常一巡と自己申告しない。
 
 取得/保存不足・未実施のまま行政的に終了を判断する際は、Ownerが固定済み日別/集計・全初回scope・全不足理由・良好部分の保護・次試験・審査者・Owner・日時を確認し、人間の明示審査記録を`docs/validation/reports/cycle_04/closure-review.json`へ保存してGit読戻しする。必要schemaは`cycle04-closure-review-v1`、`decision=REASONED_CLOSE`、`reviewed_at_jst`、`reviewer`、`owner`、`reason`、`protected_good_parts`（非空list）、`next_validation`、`initial_scope`（全日/全race_id）、`documented_issues`（工程判定器の全不足）、`input_gaps`、`shadow_gaps`、`market_gaps`、`review_owner_gaps`（独立系列・Owner不足の全件）、`day_refs`、`summary_ref`、`performance_promotion=NOT_APPROVED`。審査記録を入力しない限り「理由付き終了」としない。CLIへは審査記録の`artifact_path`/`sha256`/`git_commit`を持つ`closure-ref.json`を渡す：
 

@@ -49,7 +49,7 @@ class CompletionAcceptance(unittest.TestCase):
     def test_untouched_days_not_fabricated(self):
         out=self.evaluate()
         self.assertEqual(out['recorded_dates'],[DATES[0]])
-        self.assertEqual(len(out['missing_dates']),3)
+        self.assertEqual(len(out['missing_dates']),len(DATES)-1)
         self.assertEqual(out['performance_promotion'],'NOT_APPROVED')
 
     def test_frozen_refs_require_real_git_readback(self):
@@ -69,7 +69,7 @@ class CompletionAcceptance(unittest.TestCase):
                 'day_refs':[],'summary_ref':None},[])
         self.assertNotEqual(self.evaluate()['state'],'理由付き終了')
 
-    def test_normal_completion_requires_all_four_days_and_saved_summary(self):
+    def test_normal_completion_requires_all_six_days_and_saved_summary(self):
         days=[]
         for date in DATES:
             race=date.replace('-','')+'-TOK-01'
@@ -82,7 +82,7 @@ class CompletionAcceptance(unittest.TestCase):
                                         'result_ref':{'artifact_path':'fixed-result.json'},
                                         'review':{'error_classification':'確認','non_degradation':'維持',
                                                   'next_validation':'続行'}}},
-                         'kpis':{'production':{'eligible_ids':[race],'ineligible_ids':[],
+                         'kpis':{'market':{'eligible_ids':[],'ineligible_ids':[], 'pending_ids':[], 'reasons':{}},'production':{'eligible_ids':[race],'ineligible_ids':[],
                                                 'pending_ids':[],'reasons':{race:'確認'}},
                                  'recommendation':{'eligible_ids':[],'ineligible_ids':[race],
                                                    'pending_ids':[],'reasons':{race:'正常推奨なし'}},
@@ -98,10 +98,10 @@ class CompletionAcceptance(unittest.TestCase):
             completed=evaluate_days(self.root,days,frozen_refs=refs)
             self.assertTrue(completed['normal_cycle_complete'])
             self.assertEqual(completed['state'],'正常一巡完了')
-            self.assertEqual(len(completed['shadow_gaps']),4)
+            self.assertEqual(len(completed['shadow_gaps']),len(DATES))
             verifier.assert_called_once()
 
-    def test_completion_cli_refuses_missing_stages_even_with_four_day_count(self):
+    def test_completion_cli_refuses_missing_stages_even_with_six_day_count(self):
         from check_cycle04 import main as checker_main
         from contextlib import redirect_stderr
         import io

@@ -11,7 +11,7 @@ from check_prediction_compliance import iso
 from cycle04_operations import require, safe_path
 from task_completion import prediction_completion, recommendation_completion
 
-DATES = ('2026-10-17', '2026-10-18', '2026-10-24', '2026-10-25')
+from check_cycle04 import DATES
 DAY_DIRECTORY = 'docs/validation/records/cycle_04/'
 SUMMARY_DIRECTORY = 'docs/validation/reports/cycle_04/'
 PROMOTION = 'NOT_APPROVED'

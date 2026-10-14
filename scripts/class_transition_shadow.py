@@ -9,9 +9,9 @@ from pathlib import Path
 from class_transition import audit,require,text
 from check_prediction_compliance import iso,validate_gate,probability_item,evidence_item
 from cycle04_operations import safe_path,verified_artifact,validate_official_result
+from check_cycle04 import DATES, VENUES_BY_DATE
 
 FIELDS=('win_probability','top2_probability','top3_probability')
-DATES=['2026-10-17','2026-10-18','2026-10-24','2026-10-25']
 
 
 def load(path):return json.loads(Path(path).read_text(encoding='utf-8'))
@@ -94,7 +94,9 @@ def verified_pair(root,item,plan,as_of):
     require(gate['mode']=='FORWARD' and gate['race_date_jst'] in plan['race_dates'] and
             gate['kpi_eligibility']['production']=='ELIGIBLE' and gate['kpi_eligibility']['shadow']=='ELIGIBLE','前向きの基準/Shadow保存適格が必要')
     date=gate['race_date_jst'];venue=re.fullmatch('(?:'+date+'|'+date.replace('-','')+')-(TOKYO|KYOTO|NIIGATA|TOK|KYO|NII)-(0[1-9]|1[0-2])',gate['race_id'])
-    require(venue is not None,'第4の東京/京都/新潟の対象レースが必要')
+    aliases={'TOKYO':'TOK','KYOTO':'KYO','NIIGATA':'NII','TOK':'TOK','KYO':'KYO','NII':'NII'}
+    require(venue is not None and aliases[venue[1]] in VENUES_BY_DATE[date],
+            '第4の開催日・開催場に一致する対象レースが必要')
     matches=[s for s in gate.get('shadow_items',[]) if s['item_id']==item.get('shadow_item_id') and s['kpi_eligibility']=='ELIGIBLE']
     require(len(matches)==1,'同一Shadow項目を一意に照合する')
     pair,pair_receipt=verified_artifact(root,matches[0]['evidence_ref'],gate['scheduled_post_time_jst'])
@@ -138,7 +140,7 @@ def verified_pair(root,item,plan,as_of):
 def collection(root,items,plan,as_of=None):
     require(isinstance(plan,dict) and plan.get('schema_version')=='class-transition-forward-plan-v1' and
             plan.get('race_dates')==DATES and plan.get('venues')==['TOKYO','KYOTO','NIIGATA'] and
-            plan.get('sample_policy')=='ALL_APPLICABLE_REQUESTED_RACES','確認済み4開催日の全該当例計画が必要')
+            plan.get('sample_policy')=='ALL_APPLICABLE_REQUESTED_RACES','確認済み6開催日の全該当例計画が必要')
     require(isinstance(items,list),'比較参照リストが必要')
     now=iso(as_of,'評価時点') if as_of else datetime.now(timezone.utc)
     accepted=[];excluded=[];seen=set()

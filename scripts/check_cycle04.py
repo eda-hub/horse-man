@@ -14,7 +14,9 @@ from cycle04_operations import (fingerprint, positive_set, require, safe_path,
 from recommendation import verify as verify_recommendation, settle
 
 CONTRACT_PATH = 'docs/validation/contracts/cycle_04.json'
-DATES = ['2026-10-17', '2026-10-18', '2026-10-24', '2026-10-25']
+DATES = ['2026-10-17', '2026-10-18', '2026-10-24', '2026-10-25', '2026-10-31', '2026-11-01']
+VENUES_BY_DATE = {date: ['TOK', 'KYO', 'NII'] if date <= '2026-10-25' else ['TOK', 'KYO']
+                  for date in DATES}
 SCHEMA = 'cycle04-day-v1'
 
 
@@ -124,7 +126,7 @@ def validate_day(root, path, contract):
     initial = string_set(d.get('initial_scope'), 'initial')
     require(bool(initial), 'empty scope is not a completed day')
     for race in initial:
-        require(re.fullmatch(date.replace('-', '') + r'-(TOK|KYO|NII)-(0[1-9]|1[0-2])', race),
+        require(re.fullmatch(date.replace('-', '') + '-(' + '|'.join(VENUES_BY_DATE[date]) + r')-(0[1-9]|1[0-2])', race),
                 'race outside declared day/venues')
     selected = string_set(d.get('selected_scope'), 'selected')
     final = string_set(d.get('final_scope'), 'final')
@@ -332,7 +334,7 @@ def main(argv=None):
     p.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     p.add_argument('--require-active', action='store_true')
     p.add_argument('--require-complete', action='store_true',
-                   help='正常一巡のみを要求。4日全scopeの工程と集計のGit読戻しが必要')
+                   help='正常一巡のみを要求。6日全scopeの工程と集計のGit読戻しが必要')
     p.add_argument('--completion-manifest', type=Path,
                    help='日別・集計の固定path/SHA256/Git commit参照JSON')
     p.add_argument('--closure-review', type=Path,
@@ -362,7 +364,7 @@ def main(argv=None):
                     ('。集計のGit読戻し固定参照が未指定です' if frozen is None else ''))
         if result['issues']:
             print('不足対象・理由：' + json.dumps(result['issues'], ensure_ascii=False))
-        print(f'第4検査契約の準備照合成功。実測{len(days)}/4日。状態：{result["state"]}。'
+        print(f'第4検査契約の準備照合成功。実測{len(days)}/{len(DATES)}日。状態：{result["state"]}。'
               f'集計Git読戻し：{result["summary_git_readback_verified"]}。性能昇格：未採用。'
               f'正式切替状態：{c["status"]}。')
         return 0

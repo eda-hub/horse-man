@@ -6,7 +6,7 @@ eda-hub/horse-manのmainからmanual READMEを取得し、同一参照commitで�
 
 ## 初回
 
-公式番組と依頼scopeから `cycle04-official-scope-v1` の全対象を登録する。予定144Rから勝手に補完しない。開始前に予想/推奨scopeの宣言をGit保存・読戻ししてから予想を作る。全対象馬の事実→評価→全頭確率→順位→印・根拠・確信度を固定し、初回全scopeと選定/未取得を残す。
+公式番組と依頼scopeから `cycle04-official-scope-v1` の全対象を登録する。予定192Rから勝手に補完しない。開始前に予想/推奨scopeの宣言をGit保存・読戻ししてから予想を作る。全対象馬の事実→評価→全頭確率→順位→印・根拠・確信度を固定し、初回全scopeと選定/未取得を残す。
 
 ## 最終
 
@@ -35,4 +35,4 @@ eda-hub/horse-manのmainからmanual READMEを取得し、同一参照commitで�
 
 各日で初回scope・初回FIX/個別完了・選定revision・最終予想/独立推奨・公式結果・回顧を対象ごとに照合する。未選定の初回と選定済み未最終を分け、推奨なし/明示的印のみは個別保存検査が完了していれば正常として扱う。推奨PENDINGの無言置換、取得不足の0埋め、後日の宣言・receipt再生成をしない。
 
-`cycle04_workflow.py --summary`で工程不足と独立KPIを表示する。4日全件の正常一巡は、Git保存/読戻し済みの各日・集計固定参照を与えた`check_cycle04.py --require-complete --completion-manifest ...`が成功した場合だけとする。未実施を残して終えるなら、Owner/審査者・全不足・保護対象・次試験の実際の審査記録をGit保存し、`--closure-review`で別途検査する。自己承認・性能昇格はしない。
+`cycle04_workflow.py --summary`で工程不足と独立KPIを表示する。6日全件の正常一巡は、Git保存/読戻し済みの各日・集計固定参照を与えた`check_cycle04.py --require-complete --completion-manifest ...`が成功した場合だけとする。未実施を残して終えるなら、Owner/審査者・全不足・保護対象・次試験の実際の審査記録をGit保存し、`--closure-review`で別途検査する。自己承認・性能昇格はしない。
