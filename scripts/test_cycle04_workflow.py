@@ -14,6 +14,16 @@ import cycle04_workflow as workflow
 
 class OperationalWorkflow(unittest.TestCase):
     def setUp(self):
+        # 将来開催日の合成証跡は検査時刻も合成固定し、実時刻を偽装した恒久記録を作らない。
+        from unittest.mock import patch
+        class SyntheticShadowClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                instant = datetime.fromisoformat(DATE+'T12:00:00+09:00')
+                return instant.astimezone(tz) if tz else instant.replace(tzinfo=None)
+        clock = patch('check_prediction_compliance.datetime', SyntheticShadowClock)
+        clock.start()
+        self.addCleanup(clock.stop)
         self.fixture=fixtures.Cycle04Acceptance()
         self.fixture.addCleanup=self.addCleanup
         self.fixture.setUp()
