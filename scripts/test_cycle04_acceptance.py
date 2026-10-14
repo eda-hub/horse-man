@@ -301,6 +301,14 @@ class Cycle04Acceptance(unittest.TestCase):
             bad=copy.deepcopy(d);bad[key]=value
             with self.assertRaises(ComplianceError): self.day(bad,c)
 
+    def test_new_shadow_history_cannot_claim_unrecorded_phase(self):
+        d,c=self.complete_day()
+        row=d['races'][RACE]
+        row['shadow_tracking_version']='phase-shadow-v1'
+        row['shadow_history']=[{'phase':'FINAL','prediction_gate_sha256':'0'*64}]
+        with self.assertRaisesRegex(ComplianceError,'complete phase shadow tracking'):
+            self.day(d,c)
+
     def test_day_rejects_overlapping_kpis(self):
         d,c=self.complete_day();d['kpis']['production']['pending_ids']=[RACE]
         with self.assertRaises(ComplianceError): self.day(d,c)
