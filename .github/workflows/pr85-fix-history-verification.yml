@@ -1,0 +1,39 @@
+name: PR85 初回FIX履歴再検証（一時）
+on:
+  push:
+    branches:
+      - fix/p1-cycle-completion
+permissions:
+  contents: write
+jobs:
+  acceptance-and-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: PDF原本検証の前提を確認
+        run: command -v pdftotext >/dev/null || { sudo apt-get update && sudo apt-get install -y poppler-utils; }
+      - name: 初回FIX履歴の重点回帰
+        run: PYTHONPATH=scripts python3 -m unittest -v test_cycle04_completion test_cycle04_workflow test_cycle04_acceptance
+      - name: 全回帰
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: 合成受入を標準生成
+        run: python3 scripts/run_cycle04_acceptance.py --write
+      - name: release manifestを標準生成
+        run: python3 scripts/build_v170_manifest.py
+      - name: release・第4契約の通常検証
+        run: |
+          python3 scripts/run_release_readiness.py
+          python3 scripts/check_cycle04.py
+      - name: 生成した受入証跡をGit保存
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/validation/reviews/cycle_04/acceptance.json docs/validation/contracts/v170-release.json
+          if ! git diff --cached --quiet; then
+            git commit -m "初回FIX履歴の回帰修正後の合成受入とreleaseを固定"
+            git push origin HEAD:fix/p1-cycle-completion
+          fi
+          git status --short
