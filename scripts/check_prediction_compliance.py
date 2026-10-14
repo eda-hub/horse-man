@@ -154,7 +154,10 @@ def forward_shadow_evidence(root, ref, label, scheduled_post):
     # 汎用Shadowの原本にはartifact_idというJSONキーがない形式もある。
     # ref/receiptの同一IDと、当時固定したbytes hashで同一性を証明する。
     # verified_artifactはJSON原本/内容hash/receiptのstatus/時刻順を検査する。
-    _, receipt = verified_artifact(root, ref, scheduled_post)
+    try:
+        _, receipt = verified_artifact(root, ref, scheduled_post)
+    except (OSError, json.JSONDecodeError, UnicodeError, TypeError, KeyError) as exc:
+        raise ComplianceError(f'{label}: Shadow artifact/receipt unavailable or invalid: {exc}') from exc
     if ref.get('timing_eligibility') != 'PRE_RACE_ELIGIBLE':
         raise ComplianceError(f'{label}: Shadow reference timing is not pre-race eligible')
     persisted = iso(receipt.get('persist_verified_at_jst'), label+'/persist_verified_at_jst')
