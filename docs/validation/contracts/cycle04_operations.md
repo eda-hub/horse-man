@@ -83,6 +83,16 @@ python3 scripts/cycle04_workflow.py --summary
 
 参照JSONは `artifact_id / artifact_path / sha256 / receipt_path / receipt_id` を持つ。receiptは同一ID・path・content_sha256、保存/receipt確認済み、発走前状態、実際の保存・読戻し・発走時刻を持つ。宣言読戻し≦FIX≦独立hash保存≦hash読戻し≦本体保存＜発走を照合する。時刻/receiptを自動生成して発走前保存を装わない。旧記録のFIX hashを事後作成して認証しない。
 
+## v1.7.0の新規FORWARD Shadow原本・適格性
+
+新規のShadowを **ELIGIBLE** とするのは、発走前に別ファイルで固定した独立原本（JSON）について、実際の原本bytes、当時固定したSHA-256、同一receiptの内容hashと保存・読戻し時刻が一致するときだけ。旧v1.6.1のShadow/第三台帳やProductionの共通`evidence`契約には遡及適用しない。
+
+- `shadow_items[*].evidence_ref` に `artifact_id`、`artifact_path`、**当時固定した`sha256`**、`receipt_id`、`receipt_path`、`timing_eligibility: PRE_RACE_ELIGIBLE`、`persist_verified_at_jst` を指定する。ID/hash/時刻は原本の現在値から推測・補完しない。
+- `receipt_path` の同一`receipt_id`が一意であり、`artifact_id`、`artifact_path`、`content_sha256` がrefと一致すること。receiptの`artifact_persist_status: PERSIST_VERIFIED`、`receipt_persist_status: RECEIPT_VERIFIED`、`timing_eligibility: PRE_RACE_ELIGIBLE` を確認する。
+- `persist_verified_at_jst` がrefとreceiptで同一、かつ **保存確認時刻 ≤ `receipt_verified_at_jst` ＜ gateの`scheduled_post_time_jst`**。receiptの`scheduled_post_time_jst`もgateと一致し、検査実時刻より未来の確認は不適格。比較専用の入力原本・bindingでは既存の`data_cutoff`以前の時刻・保存順の条件も維持する。
+- 原本改変、ハッシュ未固定、receipt不在・重複、読み戻し逆転、発走以後の読戻しは、該当Shadowの **ELIGIBLE** 宣言を拒否する。発走後Replay・合成診断を前向きKPIに転用しない。不足時はShadow項目を `PENDING` または `INELIGIBLE` として根拠を残し、Productionの順位・確率・推奨と独立に保存する。
+- `scripts/check_prediction_compliance.py` の通常実行、`scripts/task_completion.py` の個別完了、日別記録の照合が同じ新規Shadow検査を利用する。個別完了のShadow不足は項目別エラーとして報告し、保存済みPredictionの本体・receipt・FIX hashを消さない。Shadow対象外のときだけ `NOT_APPLICABLE` とする。
+
 ## 用途・入力・市場
 
 `selection-history-v1` の既存revision chainを使う。検証用、正式仮想、実購入に加え、価格不要推奨と任意市場を別用途にする。各イベントは原文JSON/hashと同一artifact receiptを持ち、締切前・連続revision・追加選定・変更/取消の根拠を検査する。履歴内の `BUY` は当該用途の案固定イベントであり、投票実行を意味しない。新規実購入はこの運用では扱わない。用途を移すには新用途のSELECTが必要で、旧案を変えず履歴を残す。
