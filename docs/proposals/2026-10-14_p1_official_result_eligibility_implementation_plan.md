@@ -5,7 +5,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p1-official-result-eligibility`
 - 調査基準main：`b288bc1f39f61d68c6cf536608c11689575315e8`
-- 状態：実装済み、最新受入はNOT_RUN。未実行のPASSを撤回済み。全回帰・標準受入生成・release再生成・統合検証は未完了。CIは利用上限で2026-11-01まで利用不可。
+- 状態：全回帰758件・標準受入PASS生成・標準release再生成・通常検査は成功。取得済みmainの古い受入証跡により実main統合検査は失敗。CIは未実行。最新実績は末尾を優先する。
 - 目的：通常の回顧・日別検査・サイクル集計が、固定された公式本文と対応する結果だけを新規の前向き成績へ算入するようにする。
 - 完了対象：結果の出所・本文・変換・本体・時点・実測区分の接続欠陥。結果取得サイトの自動収集や新しい性能評価モデルは対象外。
 
@@ -148,3 +148,16 @@
 - 順序はPR82→83→84→85。最新mainと先行修正へ整合し、全回帰・標準受入生成・release再生成・通常/統合検査・レビューを進める。CIは利用可能であることを確認して実行する。CI制限だけを理由に実装・ローカル検証を延期しない。
 - マージ判断は検証結果に基づく。今から実施する指示を、未検証PASSへの変更や即時マージの指示として扱わない。
 - 第4の6開催日・11/1までの収集日程は維持する。修正の受入に第4実測の完了を要求しない。既存原本と追加される予想・結果・回顧・receiptを保全する。
+
+## 標準コマンドによる実受入・release再生成（2026-10-14 19:09 JST以降）
+
+- Git cloneが今回成功し、原票・PDF・全Git履歴を含むeda-hub/horse-manを取得。対象branchはfix/p1-official-result-eligibility、開始HEADは89922388fc4ab9f716486845cc34c8a2d6c4117e、取得済みorigin/mainは52e666b5406bc44700b0426ea2aa337f744b5d44。AGENTSを読戻し、前回と同じPython検査・GitHub connector反映を継続。既存予想・receipt・結果は変更していない。
+- 初回全回帰 `python3 -m unittest discover -s scripts -p 'test_*.py'`：757件、失敗0・skip0、終了0。`python3 scripts/run_cycle04_acceptance.py --write`も757件成功してPASS生成。手動のhash追従ではない。
+- 最初のrelease生成・通常検査は成功したが、統合検査が候補の新しい固定対象要件を旧mainへ適用してcoverage不足で停止した。`check_integration_acceptance.py`を修正し、取得済みmainの実スクリプトをそのworktreeで実行する。その後候補の共通受入validatorでもmainのPASS・skip・coverage/hashを照合する。未検証mainを未マージ正常拒否と混同しない回帰を追加。候補のrequire-main条件は緩めない。
+- 修正後 `python3 -m unittest discover -s scripts -p 'test_release_readiness.py'`：11件成功。最終内容で `python3 scripts/run_cycle04_acceptance.py --write`：**758件、失敗0・skip0、終了0**。全回帰を実行した成功出力からacceptanceを生成。受入source144件。
+- その後 `python3 scripts/build_v170_manifest.py`：終了0、release source164件。acceptance.jsonを固定対象として包含。`python3 scripts/check_cycle04.py`：終了0、準備整合成功、実測0/6日。`python3 scripts/run_release_readiness.py`：終了0、atomic_contract_verified=true、operational_ready=false（未マージ候補）。
+- CIの通常系と同じ `check_prediction_compliance.py --audit`、`verify_prediction_persistence.py --audit`、`check_cycle03.py --require-data --require-complete`、`build_cycle03_review.py --check --require-complete`、`recommendation.py --audit`を実行しすべて終了0。第3の7/7日整合と推奨監査を確認。通常監査は過去証跡を新規認証しない。
+- `python3 scripts/check_integration_acceptance.py --full --expected-main-sha 52e666b5406bc44700b0426ea2aa337f744b5d44`：**終了1、acceptance source coverage missing**。候補の証跡ではなく、取得済みmainの保存受入が期間延長後も741件PASSの旧証跡であるため。main証跡はscripts/test_cycle04_period.pyを含まず、記載済みsourceにも10件のhash不一致を実Git bytesで確認（00_core、50_review、README、forward-plan、cycle04_operations、cycle_04契約、標準テンプレート、check_cycle04、class_transition_shadow、本回帰）。mainの古い受入をPASSと認証せず拒否した。mainを無断変更していない。
+- `python3 scripts/run_release_readiness.py --require-main`：終了1、未マージ候補として正常拒否。main未統合を理由に開始要件を緩めない。
+- セルフレビュー：差分は統合checker・回帰・標準生成acceptance/release・本書のみ、diff --check成功。一時ログをPRに含めない。CIの手動起動・再実行なし、反映commitには[skip ci]指定。
+- 今回の3残件のうち、全回帰成功からのPASS生成・release再生成・通常検査成功は完了。実main統合検査成功はmain側の受入更新/修正統合に依存して残る。取得済みmainの成功認証を捏造せずDraft継続。

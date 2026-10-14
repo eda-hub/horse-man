@@ -100,6 +100,18 @@ class MainReferenceChecks(unittest.TestCase):
     main_ref = ReleaseReadiness.main_ref
     write_acceptance = ReleaseReadiness.write_acceptance
 
+    def test_unverified_main_acceptance_is_not_an_expected_unmerged_rejection(self):
+        path = self.root / self.acceptance_path
+        report = json.loads(path.read_text())
+        report.update(result='NOT_RUN', tests_run=None, failures=None, skipped=None)
+        path.write_text(json.dumps(report))
+        (self.root / readiness.MANIFEST).write_text(json.dumps(build(self.root)))
+        self.git('add', '.')
+        self.git('commit', '-qm', '未検証mainの合成fixture')
+        self.main_ref()
+        with self.assertRaisesRegex(ComplianceError, 'acceptance not passed'):
+            self.check()
+
     def check(self, expected=None):
         from check_integration_acceptance import check_main_reference
         return check_main_reference(self.root, expected)
