@@ -47,7 +47,7 @@
 | 02 | phase/gateに結び付いた履歴と明示適用判定を実装。古い原本は保持 | 初回と最終のShadow状態を固定履歴で分離 |
 | 03 | writer/validator/previewで最新KPIを一貫更新し、Production/推奨の登録独立性を確認 | 最終登録とShadow最新状態の整合を修正 |
 | 04 | 回顧・比較読取入口へ履歴を接続し、重複計上と基準混在を防止。運用契約を更新 | Shadow履歴の回顧参照と運用手順を整備 |
-| 05 | 全受入・manifest・統合検証・CIを実施し、本書へ対応記録を追記 | Shadow状態修正の統合受入とリリース整合を固定 |
+| 05 | `c47ec1316527888d724ba312d6620d5c55ebd07f`, `2832f86be53ecb34d046d4284571490f82159c44` | PR #82・#83を含むmain取込み、全回帰、合成受入PASS生成、release manifest再生成、通常・原子的・取得main統合受入 | `python3 -m unittest discover -s scripts -p 'test_*.py'`、`python3 scripts/run_cycle04_acceptance.py --write`、`python3 scripts/build_v170_manifest.py`、`python3 scripts/check_cycle04.py`、`python3 scripts/run_release_readiness.py --root .`、`python3 scripts/check_integration_acceptance.py --full` | **実行成功：783件、失敗0、skip0**。標準コマンド生成の`acceptance.json=PASS`、release manifest165件を保存。一時CI run `38561404284`成功。最終ブランチCI3系統の確認のみ継続。 |
 
 ## 受入条件
 
@@ -150,3 +150,11 @@
 - 重複したテスト追加・運用追記は両方保持する。先行mainの合成受入769件PASSはPR #84変更後の受入PASSを示さないため、当該PRの `acceptance.json` はNOT_RUNにし、先行source_manifestは参考値として保持する。
 - この統合はGitHub Git APIの3-wayテキスト差分で反映し、完全checkoutがない環境でのPython実行が済んだと主張しない。最終headで発火したActionsの3系統を取得し結果とログを照合する。合成受入PASS・release manifest再生成は標準生成コマンドを実行できた場合に限る。
 - 以後のCI実行に`skip ci`等の禁止指定を設けない。CIの失敗が利用枠・runner・コードのどれに該当するかはジョブ開始・実ステップ・ログで判定する。PR #84の全受入証跡を確認するまでDraftを保持する。
+
+### PR #83取込後の実証された受入結果（2026-10-14 JST）
+
+- 先行main：`2d049a636f891debcbe1d955b9bf8419b93df694`（PR #82、#83マージ済み）。取込マージコミット：`c47ec1316527888d724ba312d6620d5c55ebd07f`。
+- GitHub Actions一時検証run：<https://github.com/eda-hub/horse-man/actions/runs/38561404284>。`run_cycle04_acceptance.py --write`の全回帰 **783件PASS、失敗0、skip0**。生成された合成受入source_manifestは145ファイル。
+- 続く標準`build_v170_manifest.py`でrelease原本165ファイルを固定。`check_cycle04.py`、`run_release_readiness.py --root .`、`check_integration_acceptance.py --full`がそれぞれ成功。生成した2ファイルはGitHub Actions botからブランチコミット `2832f86be53ecb34d046d4284571490f82159c44`へ保存・読戻しした。
+- 標準生成のために一時使用したworkflow `.github/workflows/pr84-generate-acceptance-temporary.yml` は、生成完了後にコミット `9a386d27e8fe991cfc39a3991ecdca3698a4774d` で削除し、PRの恒久的な変更対象に残さない。元の3系統CIは最新の対象SHAで再実行・結果を確認する。
+- 第4の開催日6日と実レースの未実行部分は、本合成受入の合格とは独立に扱う。予想・公式結果・比較receiptを加工せず、mainへの正式マージと性能昇格を先取りしない。
