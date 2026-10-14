@@ -117,12 +117,12 @@ class ClassTransitionShadowTest(unittest.TestCase):
         self.assertEqual(r['non_degradation'],'NOT_ACCEPTED_OWNER_REVIEW_REQUIRED')
 
     def test_period_japan_date_and_scope_tampering(self):
-        self.assertTrue(collection(ROOT,[],self.plan(),as_of='2026-10-25T15:01:00+00:00')['period_complete'])
+        self.assertTrue(collection(ROOT,[],self.plan(),as_of='2026-11-01T15:01:00+00:00')['period_complete'])
         bad=self.plan();bad['race_dates']=['2026-10-17']
         with self.assertRaises(ComplianceError):collection(ROOT,[],bad)
 
     def test_elapsed_window_not_complete_trial_and_invalid_reference_excluded(self):
-        r=collection(ROOT,[None],self.plan(),as_of='2026-10-26T12:00:00+09:00')
+        r=collection(ROOT,[None],self.plan(),as_of='2026-11-02T12:00:00+09:00')
         self.assertTrue(r['period_complete']);self.assertFalse(r['trial_complete']);self.assertFalse(r['sample_coverage_verified'])
         self.assertEqual(len(r['excluded_reports']),1)
 

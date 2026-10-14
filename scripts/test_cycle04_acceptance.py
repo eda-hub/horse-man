@@ -18,6 +18,17 @@ import test_recommendation as fixtures
 from test_recommendation import DATE, RACE, POST
 
 
+def synthetic_acceptance(root):
+    """一時fixture専用。実リポジトリの受入状態・件数をコピーしない。"""
+    paths = sorted(set(root.glob('scripts/*.py')) | set(root.glob('docs/manual/*.md')) |
+                   {root/'docs/validation/reviews/cycle_03/decisions.json'})
+    return {'schema_version': 'cycle04-acceptance-v1', 'mode': 'SYNTHETIC',
+            'result': 'PASS', 'tests_run': 1, 'failures': 0, 'skipped': 0,
+            'live_race_count': None, 'source_manifest': [
+                {'path': p.relative_to(root).as_posix(), 'sha256': fingerprint(p.read_bytes())}
+                for p in paths]}
+
+
 class Cycle04Acceptance(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -413,7 +424,7 @@ class Cycle04Acceptance(unittest.TestCase):
         import check_cycle04
         root=Path(__file__).resolve().parents[1]
         original_load=check_cycle04.load
-        report=original_load(root/'docs/validation/reviews/cycle_04/acceptance.json')
+        report=synthetic_acceptance(root)
         # 合成fixture。全ソースhashを現在のbytesへ揃えた準備正常系と、劣化を独立確認。
         for item in report['source_manifest']:
             item['sha256']=fingerprint((root/item['path']).read_bytes())
