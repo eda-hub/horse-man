@@ -158,3 +158,11 @@
 - 続く標準`build_v170_manifest.py`でrelease原本165ファイルを固定。`check_cycle04.py`、`run_release_readiness.py --root .`、`check_integration_acceptance.py --full`がそれぞれ成功。生成した2ファイルはGitHub Actions botからブランチコミット `2832f86be53ecb34d046d4284571490f82159c44`へ保存・読戻しした。
 - 標準生成のために一時使用したworkflow `.github/workflows/pr84-generate-acceptance-temporary.yml` は、生成完了後にコミット `9a386d27e8fe991cfc39a3991ecdca3698a4774d` で削除し、PRの恒久的な変更対象に残さない。元の3系統CIは最新の対象SHAで再実行・結果を確認する。
 - 第4の開催日6日と実レースの未実行部分は、本合成受入の合格とは独立に扱う。予想・公式結果・比較receiptを加工せず、mainへの正式マージと性能昇格を先取りしない。
+
+### P2校正出力の初回比較と最終推奨のphase誤結合（2026-10-14 JST）
+
+- 指摘：`scripts/chat_calibration_review.py` が初回比較にも最新のFINAL推奨を結合し、初回9:50／別時点の最終推奨9:51で `recommendation comparison cutoff differs` により校正入力を不当に停止。
+- 原因：先行する `chat_forward_coverage.py` は提出比較の固定phaseを識別しているが、校正出力側では最新の日別 `recommendation_gate_path` を全phaseへ無条件に適用していた。
+- 修正：固定phaseの参照が一致することを全受理ペアで必須化。INITIALでは最新FINAL推奨にアクセスせず `recommendation_input=null` と適用外理由 `DIFFERENT_PHASE` を返す。FINALでは既存推奨validatorを通し、phase／cutoff／baseline／Production固定証拠path・SHA・IDのすべてが一致するものだけ結合する。
+- 回帰：`scripts/test_chat_calibration_review.py` に初回のFINAL推奨非参照・読取専用確認、FINAL正常結合、FINALの9:51時点不一致拒否、固定phase-binding欠落拒否を追加。初回比較の確率・結果・strataと独立推奨の分離を維持する。
+- `python3 scripts/run_cycle04_acceptance.py --write` で合成回帰にPASSした後だけrelease manifestを再生成し、全3系統CIと取得済みmainとの統合受入を最新SHAで再確認する。これらの生成結果が未到着の場合は成功と記さない。
