@@ -184,7 +184,7 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 }
 ```
 
-`previous_item_dispositions` は前回の固定gateに存在し、今回のgateから消えた項目IDだけを全件登録する。取り消し理由を一括の空配列だけで代用しない。未確定は `UNKNOWN`、不足が確定した場合は `INELIGIBLE` と区別する。上記JSONは書式例であり、実レースの適用状態・時刻・原本を作成した事実ではない。
+`previous_item_dispositions` は、**直前の固定gateに存在した項目IDに加えて、全固定 `shadow_history` 内で最後の個別判断が `UNKNOWN` のまま未解決となっている項目ID**のうち、今回のgateに現れないものを全件登録する。途中のFINALが空でも未解決集合を消してはならない。継続保留には各改訂で `UNKNOWN` と個別の非空 `reason` を再登録し、**明示的に `NOT_APPLICABLE` 等へ判断・理由を更新するまで最新Shadow KPIを保留にする**。別のShadow項目が適格でも未解決項目の保留を優先する。今回のgateに項目が再出現した場合はその固定項目の状態に従い再判定する。未解決を置いたまま `NOT_APPLICABLE` にして対象集合・理由を削除する登録はwriter・preview・checker・summaryの全経路で拒否する。取り消し理由を一括の空配列だけで代用しない。未確定は `UNKNOWN`、不足が確定した場合は `INELIGIBLE` と区別する。上記JSONは書式例であり、実レースの適用状態・時刻・原本を作成した事実ではない。
 
 新規日別行は `shadow_tracking_version=phase-shadow-v1` を持ち、`shadow_history` を `prediction_history` と同じ順序・件数で追記する。各履歴はphase、固定Prediction gateのpath/SHA-256、baseline ID、data_cutoff、item_idと個別状態/evidence_ref、適用判定、レース単位のShadow状態を固定する。同一gate/phaseの再登録は冪等だが、過去の適用理由・履歴の差替えは禁止する。既存行に履歴がない場合、旧固定gateとPrediction履歴は保存するが、欠落した当時の適用判断・receiptを後から捏造せず、回顧の `shadow_history_gaps` に表示する。
 
