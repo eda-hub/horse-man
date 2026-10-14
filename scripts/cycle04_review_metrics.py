@@ -62,6 +62,12 @@ def review_status(value):
     for evidence in changes:
         require(isinstance(evidence, dict) and evidence.get("status") in CHANGE_STATES
                 and nonempty(evidence.get("reason")), "change evidence state/reason required")
+        if evidence["status"] == "PENDING":
+            require(isinstance(evidence.get("required_inputs"), list)
+                    and bool(evidence["required_inputs"])
+                    and all(nonempty(v) for v in evidence["required_inputs"]),
+                    "pending change requires input names")
+            missing.append("change_evidence:PENDING")
     if value["state"] == "COMPLETE":
         require(not missing, "COMPLETE review requires all Owner items: " + ", ".join(missing))
     return {"state": value["state"], "missing": missing}
@@ -103,6 +109,43 @@ def validate_revision_history(root, row, race, date, post):
                     "review revision artifact identity/chain mismatch")
         previous = sha
     require(history[-1]["review"] == review, "review latest/history mismatch")
+    from check_prediction_compliance import validate_gate, iso
+    frames = {p: [v for v in row.get("prediction_history", [])
+                  if v.get("phase") == p] for p in ("INITIAL", "FINAL")}
+    for evidence in review.get("change_evidence", []) if status["state"] != "LEGACY_INCOMPLETE" else []:
+        for field in ("initial_gate_sha256", "final_gate_sha256",
+                      "initial_baseline_forecast_id", "final_baseline_forecast_id",
+                      "initial_cutoff", "final_cutoff"):
+            require(nonempty(evidence.get(field)), "change evidence fixed binding required: " + field)
+    if len(frames["INITIAL"]) == len(frames["FINAL"]) == 1:
+        initial, final = frames["INITIAL"][0], frames["FINAL"][0]
+        first = validate_gate(root, safe_path(root, initial["prediction_gate_path"]))
+        last = validate_gate(root, safe_path(root, final["prediction_gate_path"]))
+        changed = first["production"]["ranking"] != last["production"]["ranking"]
+        evidence = (review or {}).get("change_evidence", [])
+        matches = [v for v in evidence
+                   if v.get("initial_gate_sha256") == initial["prediction_gate_sha256"]
+                   and v.get("final_gate_sha256") == final["prediction_gate_sha256"]
+                   and v.get("initial_baseline_forecast_id") == initial["baseline_forecast_id"]
+                   and v.get("final_baseline_forecast_id") == final["baseline_forecast_id"]
+                   and v.get("initial_cutoff") == first["data_cutoff"]
+                   and v.get("final_cutoff") == last["data_cutoff"]]
+        if status["state"] == "COMPLETE" and changed:
+            require(len(matches) == 1, "changed fixed phases need one pinned change evidence")
+        require(not evidence or len(matches) == len(evidence),
+                "cross-race/phase/revision change evidence not allowed")
+        for item in matches:
+            if item["status"] == "PRE_RACE_CONFIRMED":
+                ref = item.get("evidence_ref")
+                payload, receipt = verified_artifact(root, ref, post)
+                require(payload.get("race_id") == race and payload.get("race_date_jst") == date,
+                        "fixed change evidence race/date mismatch")
+                require(iso(receipt.get("receipt_verified_at_jst"), "change receipt")
+                        <= iso(last["data_cutoff"], "last cutoff"),
+                        "change evidence appeared after final cutoff")
+    else:
+        require(not review or not review.get("change_evidence"),
+                "ambiguous INITIAL/FINAL revision cannot carry implicit change evidence")
     return status
 
 
