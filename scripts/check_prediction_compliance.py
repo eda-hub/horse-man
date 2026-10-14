@@ -139,7 +139,7 @@ def evidence(root, ref, label, pre_race, scheduled_post=None):
             if receipt_verified>=scheduled_post: raise ComplianceError(f'{label}: receipt verified at/after post time')
     return ap
 
-def forward_shadow_evidence(root, ref, label, scheduled_post):
+def forward_shadow_evidence(root, ref, label, scheduled_post, *, race_id, data_cutoff):
     """v1.7.0適格Shadowのみ当時固定hash・同一receipt・発走前読戻しを検査する。
 
     旧v1.6.1 evidenceとProductionの証跡契約は変更しない。
@@ -155,9 +155,17 @@ def forward_shadow_evidence(root, ref, label, scheduled_post):
     # ref/receiptの同一IDと、当時固定したbytes hashで同一性を証明する。
     # verified_artifactはJSON原本/内容hash/receiptのstatus/時刻順を検査する。
     try:
-        _, receipt = verified_artifact(root, ref, scheduled_post)
+        payload, receipt = verified_artifact(root, ref, scheduled_post)
     except (OSError, json.JSONDecodeError, UnicodeError, TypeError, KeyError) as exc:
         raise ComplianceError(f'{label}: Shadow artifact/receipt unavailable or invalid: {exc}') from exc
+    if not isinstance(payload, dict) or payload.get('race_id') != race_id or payload.get('mode') != 'FORWARD':
+        raise ComplianceError(f'{label}: Shadow race identity or forward mode mismatch')
+    if payload.get('artifact_id', ref['artifact_id']) != ref['artifact_id']:
+        raise ComplianceError(f'{label}: Shadow payload artifact identity mismatch')
+    if 'data_cutoff' in payload and payload['data_cutoff'] != data_cutoff:
+        raise ComplianceError(f'{label}: Shadow data cutoff mismatch')
+    if 'scheduled_post_time_jst' in payload and iso(payload['scheduled_post_time_jst'], label+'/artifact/post') != scheduled_post:
+        raise ComplianceError(f'{label}: Shadow artifact post mismatch')
     if ref.get('timing_eligibility') != 'PRE_RACE_ELIGIBLE':
         raise ComplianceError(f'{label}: Shadow reference timing is not pre-race eligible')
     persisted = iso(receipt.get('persist_verified_at_jst'), label+'/persist_verified_at_jst')
@@ -558,7 +566,8 @@ def validate_gate_v2(root,path,g):
         if mode=='REPLAY' and eligibility=='ELIGIBLE': raise ComplianceError(f'{il}: replay shadow cannot be eligible')
         if eligibility=='ELIGIBLE':
             eligible_shadow_items+=1
-            forward_shadow_evidence(root,item.get('evidence_ref'),il,post)
+            forward_shadow_evidence(root,item.get('evidence_ref'),il,post,
+                                    race_id=race_id, data_cutoff=g['data_cutoff'])
     if kpi['shadow']=='ELIGIBLE' and eligible_shadow_items==0:
         raise ComplianceError(f'{label}: ELIGIBLE shadow KPI requires eligible shadow evidence item')
     if kpi['shadow']!='ELIGIBLE' and eligible_shadow_items:
