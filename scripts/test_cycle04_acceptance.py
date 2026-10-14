@@ -341,7 +341,7 @@ class Cycle04Acceptance(unittest.TestCase):
         from recommendation import settle,verify
         row['recommendation_result']=settle(verify(self.root,self.root/row['recommendation_gate_path']),result)
         # 旧来のresult単独保存は正式結果の出所証跡として認証しない。
-        with self.assertRaisesRegex(ComplianceError, 'manifest'):
+        with self.assertRaisesRegex(ComplianceError, 'frozen path/hash'):
             self.day(d,c)
         result['retrieved_at_jst']=DATE+'T09:00:00+09:00';write(self.root,path,json.dumps(result))
         row['result_ref']['sha256']=fingerprint((self.root/path).read_bytes())
