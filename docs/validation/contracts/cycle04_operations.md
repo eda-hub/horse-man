@@ -6,7 +6,7 @@
 
 第37項の準備用読取入口は`scripts/class_transition_shadow.py`。`python3 scripts/class_transition_shadow.py docs/validation/class-transition/fixed-cases.json`で、年齢限定重賞→古馬OP、混合クラス移行、既対戦/入力不足の最大3固定例を照合する。保存した3例は明示的なSYNTHETICで、実馬・過去予想の復元・前向き性能ではない。REPLAYも前向きKPI外。10/12の旧回顧/snapshotにある部分比較と不適格を、真正な新比較ペアへ代用しない。37-01〜03の固定条件のコード検査と、実例での効果検証は分離する。
 
-利用者は2026-10-13に前向き試験を10/17・18・24・25の該当全例と指定した。東京/京都/新潟の実際に依頼・保存された対象から収集し、件数は実該当数を記録する。件数上限や新たな一律受入閾値を作らない。`docs/validation/class-transition/forward-plan.json`は試験方針で、未来の予想/台帳/実測0ではない。37-04の期間/対象・Owner・必要入力・判定方法は固定、37-05の将来実測は開催前につきOPEN。
+利用者は2026-10-14に前向き試験を10/17・18・24・25・31・11/1の該当全例へ延長した。10/17・18・24・25は東京/京都/新潟、10/31・11/1は東京/京都の実際に依頼・保存された対象から収集し、件数は実該当数を記録する。件数上限や新たな一律受入閾値を作らない。`docs/validation/class-transition/forward-plan.json`は試験方針で、未来の予想/台帳/実測0ではない。37-04の期間/対象・Owner・必要入力・判定方法は固定、37-05の将来実測は開催前につきOPEN。
 
 前向きの読取manifestは`{"plan": <forward-plan.jsonの内容>, "items": [{"gate_path": "保存済みPrediction gateの相対path", "shadow_item_id": "該当ShadowのID", "result_path": "公式結果JSONの相対path"}]}`。`python3 scripts/class_transition_shadow.py MANIFEST.json --root REPO`で検査する。対象日のFORWARD、Production/Shadow双方のELIGIBLE、独立した発走前原本・hash・receiptを既存gate/verified_artifactで確認する。
 
@@ -40,7 +40,7 @@ FINALの比較には検証済み推奨原本の`cancelled_horses`を渡す。取
 
 出力は全候補点で、標準推奨の◎・着順役割の制約を満たす採用点とは別。`selected_points`と`joint_probability`はnull、同時率は`NOT_CALCULATED`、標準採用・性能昇格は`NOT_APPROVED`。結果後の再演を前向きKPIへ昇格させない。
 
-正式版はv1.7.0、有効化はPR79のmainマージ後。価格不要のPrediction→Recommendation→保存→結果/回顧を標準にする。開催日は10/17・18・24・25、東京・京都・新潟。開始前は実測・性能をnull/未測定とし、予定144Rを未依頼scopeへ補完しない。
+正式版はv1.7.0、有効化はPR79のmainマージ後。価格不要のPrediction→Recommendation→保存→結果/回顧を標準にする。開催日は10/17・18・24・25（東京・京都・新潟）と10/31・11/1（東京・京都）。開始前は実測・性能をnull/未測定とし、予定192Rを未依頼scopeへ補完しない。
 
 ## main確認と日別実行
 
@@ -70,7 +70,7 @@ python3 scripts/cycle04_workflow.py --summary
 
 ローカル保存・検査後、従来どおり日次branchへGit保存し、保存先を読戻して同一bytesを確認する。CLI成功だけをGit保存完了とは説明しない。
 
-`run_cycle04_acceptance.py --write`は合成受入を保存する。`check_cycle04.py --require-active --require-complete`は4日の実測・全初回scope回顧が揃ってからのみ成功する。
+`run_cycle04_acceptance.py --write`は合成受入を保存する。`check_cycle04.py --require-active --require-complete`は6日の実測・全初回scope回顧が揃ってからのみ成功する。
 
 ## 新規予想の保存
 
