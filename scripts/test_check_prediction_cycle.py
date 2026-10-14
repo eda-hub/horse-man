@@ -1,7 +1,6 @@
 import json
 import io
 import hashlib
-import json
 from datetime import datetime
 from unittest.mock import patch
 from contextlib import redirect_stdout, redirect_stderr
