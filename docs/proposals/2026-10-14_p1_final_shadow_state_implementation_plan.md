@@ -98,6 +98,15 @@
 - `ebf6636dc054d5d1cc7270c85201a996288ef0bf`：初回対象外→最終適格、および初回適格→最終不適格の回帰ケースを追加。
 - 最新のコード状態はPR #84 headのコミットを正とし、途中SHAでCIを代用しない。
 
+### 最終確認したActions実行（実装記録commit時点）
+
+- 対象head SHA：`feb473de8bb2c6fa6f8cae515a0be3127a1bc6f1`。
+- 第3台帳・予想の機械監査：<https://github.com/eda-hub/horse-man/actions/runs/38523410281> — `failure`。
+- 新旧契約の統合受入：<https://github.com/eda-hub/horse-man/actions/runs/38523410278> — `failure`。
+- 血統原票の監査：<https://github.com/eda-hub/horse-man/actions/runs/38523410280> — `failure`。
+- 各runのjobs APIは`completed/failure`と、ジョブの実行ステップ一覧が空であることを返す。ジョブログ取得は404 `BlobNotFound`。従って**Pythonテストが実際に実行された証拠はない**。Actionsの実行権限・Runner割当・利用枠・workflow設定を確認する必要があり、コードテスト不合格と断定できない。
+- 本記録を追記する後続commitは別SHAとなるため、その後も最新headに対するCI確認が必要。
+
 ### 統合時の必須作業・未解決
 
 1. **先行順序**：#82（公式結果の適格性）、#83（Shadow発走前原本）を`main`へ統合後、このブランチで最新`main`差分と共通ファイルを手動照合する。#83の強化済み`forward_shadow_evidence`を外さず、当時の固定原本・hash・receipt・発走前時刻を保持する。#85（サイクル完了）は本修正の後。
