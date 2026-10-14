@@ -77,11 +77,19 @@ def check_preparation(root):
             'deselected_by_user': excluded, 'not_executed': len(difference) - excluded,
             'user_accepted_omissions_within_not_executed': sum(r['status'] == 'OMISSION_ACCEPTED_BY_USER' for r in classifications)},
             'candidate difference count mismatch')
+    validate_acceptance(root, c)
+    return c
+
+
+def validate_acceptance(root, contract):
+    """準備検査と正式開始で同じ受入状態・固定ソースを検査する。"""
+    c = contract
     acceptance = load(safe_path(root, c.get('acceptance_path')))
     require(acceptance.get('schema_version') == 'cycle04-acceptance-v1' and
             acceptance.get('mode') == 'SYNTHETIC' and acceptance.get('live_race_count') is None,
             'synthetic acceptance must not claim live races')
-    require(acceptance.get('result') == 'PASS' and acceptance.get('failures') == 0 and
+    require(acceptance.get('result') == 'PASS' and type(acceptance.get('failures')) is int and acceptance['failures'] == 0 and
+            type(acceptance.get('skipped')) is int and acceptance['skipped'] == 0 and
             type(acceptance.get('tests_run')) is int and acceptance['tests_run'] > 0,
             'acceptance not passed')
     manifest = acceptance.get('source_manifest')
@@ -97,7 +105,7 @@ def check_preparation(root):
     for item in manifest:
         require(fingerprint(safe_path(root, item.get('path')).read_bytes()) == item.get('sha256'),
                 'stale acceptance: source hash mismatch')
-    return c
+    return acceptance
 
 
 def require_active(root, contract):
