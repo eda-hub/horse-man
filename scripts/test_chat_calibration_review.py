@@ -75,10 +75,11 @@ class CalibrationReview(unittest.TestCase):
         self.assertEqual(scope['submitted_pair_bindings'][race]['data_cutoff'],
                          '2026-10-17T09:50:00+09:00')
         before={str(p):p.read_bytes() for p in root.rglob('*') if p.is_file()}
+        later_final=dict(rec,data_cutoff='2026-10-17T09:51:00+09:00')
         with patch('chat_calibration_review.coverage',return_value=scope), \
-             patch('chat_calibration_review.verify_recommendation',
-                   side_effect=AssertionError('INITIAL must not load a later FINAL recommendation')):
+             patch('chat_calibration_review.verify_recommendation',return_value=later_final) as latest:
             out=export_inputs(root,manifest,now)
+            latest.assert_not_called()
         self.assertEqual(out['pair_count'],1)
         self.assertEqual(out['pairs'][0]['comparison_phase'],'INITIAL')
         self.assertIsNone(out['pairs'][0]['recommendation_input'])
