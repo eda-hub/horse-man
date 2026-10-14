@@ -1,0 +1,168 @@
+{
+  "schema_version": "pr69-major02-pedigree-scope-v1",
+  "subtask": "02-02",
+  "basis_commit": "551433f5d1d1920f06e9f4834275f9fa38d466d1",
+  "official_result_blob": "f2743022192ccbd4640ddacd85cfa6de3d9e2307",
+  "aliases_blob": "a23296761e921c91b08c0a5ab5c17af876da2820",
+  "ordering": "旧41-01方針を維持：保存済み独立ID候補をhorse_key順、候補なしは馬名のUnicode昇順。候補は本人確認完了としない",
+  "existing_verified_entries": [
+    "2026-10-12-KYOTO-01-01",
+    "2026-10-12-KYOTO-01-12"
+  ],
+  "remaining_count": 13,
+  "batches": [
+    {
+      "subtask": "02-04-001",
+      "legacy_subtask": "41-02",
+      "targets": [
+        {
+          "entry_id": "2026-10-12-KYOTO-01-08",
+          "horse_name": "サノノマリーナ",
+          "horse_number": 8,
+          "candidates": [
+            "jbis-0001386816"
+          ]
+        },
+        {
+          "entry_id": "2026-10-12-KYOTO-01-03",
+          "horse_name": "ワインオクロック",
+          "horse_number": 3,
+          "candidates": [
+            "jbis-0001393103"
+          ]
+        }
+      ]
+    },
+    {
+      "subtask": "02-04-002",
+      "legacy_subtask": "41-03",
+      "targets": [
+        {
+          "entry_id": "2026-10-12-KYOTO-01-05",
+          "horse_name": "ウインクローバー",
+          "horse_number": 5,
+          "candidates": []
+        },
+        {
+          "entry_id": "2026-10-12-KYOTO-01-09",
+          "horse_name": "オンアロール",
+          "horse_number": 9,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "subtask": "02-04-003",
+      "legacy_subtask": "41-04",
+      "targets": [
+        {
+          "entry_id": "2026-10-12-KYOTO-01-10",
+          "horse_name": "クリコキアナ",
+          "horse_number": 10,
+          "candidates": []
+        },
+        {
+          "entry_id": "2026-10-12-KYOTO-01-06",
+          "horse_name": "シャプシュ",
+          "horse_number": 6,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "subtask": "02-04-004",
+      "legacy_subtask": "41-05",
+      "targets": [
+        {
+          "entry_id": "2026-10-12-KYOTO-01-04",
+          "horse_name": "スマートライナー",
+          "horse_number": 4,
+          "candidates": []
+        },
+        {
+          "entry_id": "2026-10-12-KYOTO-01-07",
+          "horse_name": "セイフェリーチェ",
+          "horse_number": 7,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "subtask": "02-04-005",
+      "legacy_subtask": "41-06",
+      "targets": [
+        {
+          "entry_id": "2026-10-12-KYOTO-01-02",
+          "horse_name": "ツーエムマドンナ",
+          "horse_number": 2,
+          "candidates": []
+        },
+        {
+          "entry_id": "2026-10-12-KYOTO-01-14",
+          "horse_name": "パストザクラウン",
+          "horse_number": 14,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "subtask": "02-04-006",
+      "legacy_subtask": "41-07",
+      "targets": [
+        {
+          "entry_id": "2026-10-12-KYOTO-01-15",
+          "horse_name": "ペンタクルクイーン",
+          "horse_number": 15,
+          "candidates": []
+        },
+        {
+          "entry_id": "2026-10-12-KYOTO-01-11",
+          "horse_name": "ルイスイメル",
+          "horse_number": 11,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "subtask": "02-04-007",
+      "legacy_subtask": "41-08",
+      "targets": [
+        {
+          "entry_id": "2026-10-12-KYOTO-01-13",
+          "horse_name": "ヴァニーユ",
+          "horse_number": 13,
+          "candidates": []
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "batch_sizes": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1
+    ],
+    "unique_entries": true,
+    "existing_result_unchanged": true
+  },
+  "previous_subtask_ci": [
+    {
+      "id": 38498061558,
+      "conclusion": "success"
+    },
+    {
+      "id": 38498061559,
+      "conclusion": "success"
+    },
+    {
+      "id": 38498061579,
+      "conclusion": "success"
+    }
+  ],
+  "usage": "REPLAY_ONLY",
+  "production_eligible": false
+}
