@@ -85,10 +85,10 @@ Production/入力/FIXには `verified_artifact` 等の追加照合があるが�
 | 小項目 | 主なcommit SHA | 変更path | 期待結果 | 現在の実結果・残件 |
 |---|---|---|---|---|
 | 01 改変再現 | `ce92c76`、`b7d19a5`、`c2c0ee7`、`06c87a2` | `scripts/test_next_prediction_compliance.py` | 原本改変・hash不一致・発走後読戻しを個別テスト化し不正を拒否 | 合成fixtureとテスト関数を保存。旧コードでの実行再現／修正後の実行成功は未確認。 |
-| 02 厳密証跡 | `2243639`、`9f815c0`、`2b334f8`、`4f2cb28` | `scripts/check_prediction_compliance.py` | 新規v1.7.0適格Shadowのみbytes/hash/receipt/時刻を検証し、旧共通`evidence`維持 | 分離した関数を実装し、循環回避の関数内importを使用。旧契約の回帰実行は未確認。 |
+| 02 厳密証跡 | `2243639`、`9f815c0`、`2b334f8`、`4f2cb28`、`db63e8a` | `scripts/check_prediction_compliance.py` | 新規v1.7.0適格Shadowのみbytes/hash/receipt/時刻を検証し、旧共通`evidence`維持 | 分離した関数を実装し、循環回避の関数内importを使用。旧契約の回帰実行は未確認。 |
 | 03 個別完了／日別台帳 | `634fcaf`、`72726ca`、`72898a2`、`631976d` | `scripts/task_completion.py`、`scripts/test_task_completion.py`、`scripts/test_cycle04_acceptance.py` | 不正ELIGIBLE gateを拒否し、本体保存成功とShadow項目別不足を分離 | 実装・合成受入ケースを保存。保存/推奨独立の回帰実行は未確認。 |
 | 04 専用入口／運用契約 | `760446d`、`26e7f79`、`6dc30d4` | `scripts/test_class_transition_shadow.py`、`docs/validation/contracts/cycle04_operations.md`、`docs/validation/templates/next_cycle_execution_v17.md` | 比較専用のrace/cutoff/baseline/bindingを維持し参照仕様を明文化 | 既存の`class_transition_shadow.py`、`chat_forward_coverage.py`、`chat_calibration_review.py`は変更せず読取整合を確認。実行回帰は未確認。 |
-| 05 全受入・release/CI | `b3e9a6a` | `docs/validation/contracts/v170-release.json` | 全回帰・合成受入PASS、release manifest整合、通常checker・統合受入・3系統CIが成功 | 変更した7入力のSHA-256を読戻し内容から更新した。直接の生成コマンド実行、合成受入更新、CI成功は**未完了**。 |
+| 05 全受入・release/CI | `b3e9a6a`、`7941a84` | `docs/validation/contracts/v170-release.json` | 全回帰・合成受入PASS、release manifest整合、通常checker・統合受入・3系統CIが成功 | 変更した7入力のSHA-256を読戻し内容から更新した。直接の生成コマンド実行、合成受入更新、CI成功は**未完了**。 |
 
 ### 実行予定コマンドと結果
 
@@ -122,3 +122,11 @@ python3 scripts/run_release_readiness.py
 3. 全項目がPASSになった後で本表・PR本文・検証SHAを更新し、Draft解除とマージ可否を判断する。現時点の受入状態は**未完了**。
 
 新規実レース記録、過去のreceipt、既存予想、性能昇格は書き換えていない。
+
+
+### セルフレビュー追記
+
+- `check_prediction_compliance.validate_gate_v2`は発走時刻を`datetime`で扱う一方、共通`verified_artifact`の`post`引数はISO文字列である。逆importを避けた呼出しで型が食い違わないよう、`db63e8a`でISO文字列へ変換した。誤った型のままでは正常な適格Shadowを全件拒否するため、計画の正常系受入に直結する修正。
+- 変更後の`scripts/check_prediction_compliance.py`のSHA-256を`5a11fd443810af3d0ff69adc5fe62551ae1a2e6e04159591a08ed5f84e6ac567`としてrelease manifestへ再反映した（`7941a84`）。固定ハッシュを読戻し原本から計算し、保存済み実レース証跡を操作していない。
+- `cycle04_operations.verified_artifact`の既存責務（bytes/hash・receipt・保存/読戻し時刻）を再利用し、`class_transition_shadow.py`／`chat_forward_coverage.py`／`chat_calibration_review.py`の専用比較契約は変更していない。静的差分確認は実施したが、実行検証の代わりとはしない。
+- CIのrunner未割当は少なくとも上記3系統・サイクル台帳の再実行で再現し、すべて0ステップ。ホスト側要因の詳細は未確定。
