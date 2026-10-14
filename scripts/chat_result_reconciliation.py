@@ -62,7 +62,15 @@ def audit_saved(root, refs, as_of=None):
         fixed_json(root,refs['recommendation_gate'])
         rec = verify_recommendation(root,safe_path(root,refs['recommendation_gate']['artifact_path']))
         require(refs['prediction_gate'] is not None, 'recommendation requires its fixed prediction')
-        require(rec.get('data_cutoff') == gate.get('data_cutoff'), 'recommendation cutoff mismatch')
+        require(rec.get('data_cutoff') == gate.get('data_cutoff') and
+                rec.get('race_id') == gate.get('race_id') and
+                rec.get('race_date_jst') == gate.get('race_date_jst') and
+                rec.get('scheduled_post_time_jst') == gate.get('scheduled_post_time_jst') and
+                rec.get('prediction_ref', {}).get('baseline_forecast_id') ==
+                gate['production']['baseline_forecast_id'] and
+                rec.get('prediction_ref', {}).get('artifact_path') ==
+                gate['production']['evidence_ref']['artifact_path'],
+                'recommendation fixed prediction/cutoff identity mismatch')
     report = reconcile(bundle,conversion,result,gate=gate,recommendation=rec,as_of=as_of)
     report['fixed_refs'] = refs
     return report
