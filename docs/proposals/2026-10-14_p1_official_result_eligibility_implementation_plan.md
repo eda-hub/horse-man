@@ -116,3 +116,13 @@
 - 保存後にGitHubから読戻し、NOT_RUNとnullを確認。取得したscripts/check_cycle04.pyのcheck_preparation内の受入検査ブロックを変更せず抽出し、訂正後のJSONを入力としてローカルpython3で実行した。`acceptance not passed`で拒否し、未実行件数がnullであることもassert成功（終了0）。これは受入判定ブロックの限定検査であり、通常checker全体・全750回帰・標準受入スクリプト成功を意味しない。
 - CIは利用上限が原因で11/1まで使用不可と利用者から確認済み。再実行していない。既存release manifestの受入ファイルhashも変更後は不一致のままとし、未検証状態を認証するための手動hash追従は行わない。
 - 残件：実行可能な環境で最新コードの全回帰→run_cycle04_acceptance.py --write→build_v170_manifest.py→通常checker→統合受入を実行し、成功出力でのみ受入/releaseを更新。CI復旧後に3系統CIを確認する。Draft継続・main変更なし。
+
+## 再レビュー2件への修正（2026-10-14）
+
+- 正式開始経路の受入未検査を修正。`check_cycle04.validate_acceptance`へ共通のschema/合成区分/未実行・失敗/skip/ソースcoverage/hash検査を分離し、準備検査と`run_release_readiness.check(..., require_main=True)`の両方へ接続。全scriptsと全Ownerの省略も拒否する。取得済みmainとローカル受入bytesも一致必須。
+- `build_v170_manifest.py`にacceptance.jsonを追加し、開始検査でその固定対象への包含も要求。前節で記載した「既存releaseの受入hashが不一致」は誤りだった。従来acceptance.jsonはrelease対象外であり、その未接続を今回修正した。未検証の現行releaseを手動で再認証していない。
+- 実ファイルのPASSをコピーしていた準備テストを、`synthetic_acceptance(root)`が明示的に組み立てる独立した合成fixtureへ置換。正常系・NOT_RUN/FAIL/skip拒否・古いhash・実測自己申告を分けて確認。正式開始テストも一時Git環境だけで合成受入を作成し、実acceptanceを書換えない。
+- 変更commit：共通validator `e57007efcb391a48d77ba49fd7dd3af21bf78f86`、正式開始 `b631fe79a9805177b0006ba61620096ff72cbfb0`、manifest生成対象 `e3017c3c7d7abf3b066a187afc92d8b924faf414`、準備fixture `76a7df5130b0c039d0a3fdf19b73cb141dda1aae`、隔離main回帰 `baf6a91f96d87cbda8d64c2ccbd95ac9d7b37ad2`、全コードcoverage `50c433f2f3a42ddb8701bb045e82e8ec1f4e2aa5`。
+- GitHub connectorから164ソースと準備/結果変換テストに必要な既存原票をローカル一時領域へ取得し、前回のGitHub接続で編集した内容を検査した。`python3 -m unittest test_cycle04_acceptance test_cycle04_workflow test_cycle04_result_eligibility test_chat_result_conversion test_chat_result_reconciliation test_chat_review_package test_release_readiness`をscriptsで実行：**90件成功、失敗0・skip0、終了0**。coverage強化後の最終内容でも再実行し90件成功。release単独10件、準備単独32件も成功。変更5ファイルのcompileall成功。
+- ローカル全回帰 `python3 -m unittest discover -s scripts -p 'test_*.py'`は取得済みの部分環境で740件、failure1/error25/skip4、終了1。未取得の血統原票、過去snapshot、Git履歴などへの依存が残る。これを最新全回帰成功とは扱わない。実ファイルNOT_RUNの共通validator拒否も直接確認した。
+- acceptance.jsonはNOT_RUNのまま。最新全回帰成功と標準受入生成、release再生成、通常/統合検査は未完了。CIは11/1まで再実行しない。今回の2欠陥に対する関連回帰成功と、PR全体の未完了は区別する。
