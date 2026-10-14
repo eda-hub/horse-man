@@ -151,16 +151,20 @@ def forward_shadow_evidence(root, ref, label, scheduled_post):
     sha = req(ref, 'sha256', label)
     if not re.fullmatch(r'[0-9a-f]{64}', sha):
         raise ComplianceError(f'{label}: fixed Shadow sha256 required')
-    ap = evidence(root, ref, label, True, scheduled_post)
-    # JSONとして固定した独立Shadow原本のみ対象。実bytesに対する検査であり、
-    # 原本から新規hashを発行してrefの欠落を埋めない。
+    # 汎用Shadowの原本にはartifact_idというJSONキーがない形式もある。
+    # ref/receiptの同一IDと、当時固定したbytes hashで同一性を証明する。
+    # verified_artifactはJSON原本/内容hash/receiptのstatus/時刻順を検査する。
     _, receipt = verified_artifact(root, ref, scheduled_post)
+    if ref.get('timing_eligibility') != 'PRE_RACE_ELIGIBLE':
+        raise ComplianceError(f'{label}: Shadow reference timing is not pre-race eligible')
     persisted = iso(receipt.get('persist_verified_at_jst'), label+'/persist_verified_at_jst')
+    if iso(ref.get('persist_verified_at_jst'), label+'/ref/persist_verified_at_jst') != persisted:
+        raise ComplianceError(f'{label}: Shadow reference persistence time mismatch')
     readback = iso(receipt.get('receipt_verified_at_jst'), label+'/receipt_verified_at_jst')
     now = datetime.now(timezone.utc)
     if persisted > now or readback > now:
         raise ComplianceError(f'{label}: future Shadow persistence/readback cannot be eligible')
-    return ap
+    return Path(root) / ref['artifact_path']
 
 
 def betting_evidence(root, ref, ticket, scenario_id, probability_low, odds, label, scheduled_post, race_id):
