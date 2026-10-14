@@ -1,0 +1,40 @@
+name: PR84一時受入証跡生成
+on:
+  push:
+    branches:
+      - fix/p1-final-shadow-state
+    paths:
+      - .github/workflows/pr84-generate-acceptance-temporary.yml
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: 対象ブランチを全履歴で取得
+        uses: actions/checkout@v4
+        with:
+          ref: fix/p1-final-shadow-state
+          fetch-depth: 0
+      - name: PDF資料検査の依存を準備
+        run: command -v pdftotext >/dev/null || { sudo apt-get update && sudo apt-get install -y poppler-utils; }
+      - name: 標準合成受入の全回帰とPASS生成
+        run: python3 scripts/run_cycle04_acceptance.py --write
+      - name: 正式コマンドでrelease manifestを再生成
+        run: python3 scripts/build_v170_manifest.py
+      - name: 通常第4検査
+        run: python3 scripts/check_cycle04.py
+      - name: 原子的release検査
+        run: python3 scripts/run_release_readiness.py --root .
+      - name: 取得mainとの統合受入
+        run: python3 scripts/check_integration_acceptance.py --full
+      - name: 成功生成した2ファイルのみ対象PRへ保存
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/validation/reviews/cycle_04/acceptance.json docs/validation/contracts/v170-release.json
+          git diff --cached --quiet && { echo '生成結果に変更なし'; exit 0; }
+          git commit -m 'PR84の783件合成受入とrelease原子的ハッシュを正式生成'
+          git push origin HEAD:refs/heads/fix/p1-final-shadow-state
