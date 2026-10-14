@@ -573,6 +573,25 @@ class T(unittest.TestCase):
         self.put(r,g)
         with self.assertRaises(ComplianceError):run(r)
 
+  def test_next_forward_shadow_rejects_cross_race_or_replay_payload_even_with_matching_hashes(self):
+    import hashlib
+    for field, value in (('race_id','20261013-TOK-02'),('mode','REPLAY'),
+                         ('artifact_id','other-artifact'),
+                         ('data_cutoff','2026-10-13T09:30:00+09:00'),
+                         ('scheduled_post_time_jst','2026-10-13T10:11:00+09:00')):
+      with self.subTest(field=field):
+        r=self.root_next();g=next_gate();ref,receipt=add_next_shadow(r,g)
+        payload=json.loads((r/ref['artifact_path']).read_text())
+        payload[field]=value
+        raw=json.dumps(payload,ensure_ascii=False)
+        write(r,ref['artifact_path'],raw)
+        digest=hashlib.sha256(raw.encode()).hexdigest()
+        ref['sha256']=digest
+        receipt['content_sha256']=digest
+        write_receipts(r,ref['receipt_path'],[receipt])
+        self.put(r,g)
+        with self.assertRaises(ComplianceError):run(r)
+
   def test_next_forward_shadow_rejects_future_pre_race_readback(self):
     from datetime import datetime
     from unittest.mock import patch
