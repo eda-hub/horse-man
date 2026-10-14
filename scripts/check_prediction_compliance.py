@@ -155,7 +155,8 @@ def forward_shadow_evidence(root, ref, label, scheduled_post, *, race_id, data_c
     # ref/receiptの同一IDと、当時固定したbytes hashで同一性を証明する。
     # verified_artifactはJSON原本/内容hash/receiptのstatus/時刻順を検査する。
     try:
-        payload, receipt = verified_artifact(root, ref, scheduled_post)
+        # verified_artifactのpost引数は文字列で、gate側はiso済みdatetime。
+        payload, receipt = verified_artifact(root, ref, scheduled_post.isoformat())
     except (OSError, json.JSONDecodeError, UnicodeError, TypeError, KeyError) as exc:
         raise ComplianceError(f'{label}: Shadow artifact/receipt unavailable or invalid: {exc}') from exc
     if not isinstance(payload, dict) or payload.get('race_id') != race_id or payload.get('mode') != 'FORWARD':
