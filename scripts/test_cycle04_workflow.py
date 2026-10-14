@@ -3,6 +3,7 @@ import copy
 import json
 import unittest
 from datetime import datetime
+from unittest.mock import patch
 
 import test_cycle04_acceptance as fixtures
 from test_recommendation import DATE, RACE, POST
@@ -31,6 +32,15 @@ class OperationalWorkflow(unittest.TestCase):
                     'observed_at_jst':DATE+'T09:30:00+09:00',
                     'races':[{'race_id':RACE,'scheduled_post_time_jst':POST}]}
         self.now=datetime.fromisoformat(DATE+'T09:38:00+09:00')
+        # 実運用の検査時計は差し替えられない。合成回帰だけ時計を固定する。
+        clock=patch('chat_result_reconciliation.formal_now',
+                    return_value=datetime.fromisoformat(DATE+'T12:00:00+09:00'))
+        clock.start()
+        self.addCleanup(clock.stop)
+
+    def result_entry(self, **options):
+        from test_cycle04_result_eligibility import make_result_entry
+        return make_result_entry(self, **options)
 
     def register(self):
         return workflow.register_scope(self.root,self.scope,now=self.now)
@@ -48,13 +58,7 @@ class OperationalWorkflow(unittest.TestCase):
         before=workflow.summary(self.root)
         self.assertEqual(before['prediction_performance']['eligible_reviewed'],0)
         self.assertIsNone(before['prediction_performance']['honmei_win'])
-        result={'race_id':RACE,'race_date_jst':DATE,'status':'OFFICIAL',
-                'source_url':'https://www.jra.go.jp/test/result','retrieved_at_jst':DATE+'T11:00:00+09:00',
-                'finish_groups':[[5],[2],[6],[4],[1],[3]],'place_places':3}
-        write(self.root,'result.json',json.dumps(result))
-        workflow.review(self.root,DATE,{'race_id':RACE,'result_path':'result.json',
-                        'review':{'error_classification':'軸と上位一致','non_degradation':'未取得入力の影響は保留',
-                                  'next_validation':'次回も同じ契約で確認'}})
+        workflow.review(self.root,DATE,self.result_entry())
         after=workflow.summary(self.root)
         self.assertEqual(after['initial_races'],1)
         self.assertEqual(after['reviewed_races'],1)
@@ -191,11 +195,7 @@ class OperationalWorkflow(unittest.TestCase):
     def reviewed(self):
         path=self.register();workflow.record_prediction(self.root,DATE,self.entry);self.select()
         self.entry['phase']='FINAL';workflow.record_prediction(self.root,DATE,self.entry)
-        result={'race_id':RACE,'race_date_jst':DATE,'status':'OFFICIAL','source_url':'https://www.jra.go.jp/test/result',
-                'retrieved_at_jst':DATE+'T11:00:00+09:00','finish_groups':[[5],[2],[6],[4],[1],[3]],'place_places':3}
-        write(self.root,'result.json',json.dumps(result))
-        entry={'race_id':RACE,'result_path':'result.json',
-               'review':{'error_classification':'test','non_degradation':'test','next_validation':'test'}}
+        entry=self.result_entry()
         workflow.review(self.root,DATE,entry)
         return path,entry
 
@@ -218,7 +218,7 @@ class OperationalWorkflow(unittest.TestCase):
     def test_validator_rejects_partial_results_even_when_rehashed_in_the_ledger(self):
         import hashlib
         path,_=self.reviewed();day=json.loads(path.read_text())
-        result_path=self.root/'result.json';result=json.loads(result_path.read_text())
+        result_path=self.root/'result-audit/result.json';result=json.loads(result_path.read_text())
         result['finish_groups']=result['finish_groups'][:3];result_path.write_text(json.dumps(result))
         day['races'][RACE]['result_ref']['sha256']=hashlib.sha256(result_path.read_bytes()).hexdigest()
         path.write_text(json.dumps(day))
@@ -257,12 +257,7 @@ class OperationalWorkflow(unittest.TestCase):
     def test_cancelled_field_does_not_create_false_losses_or_probability_scores(self):
         self.register();workflow.record_prediction(self.root,DATE,self.entry);self.select()
         self.entry['phase']='FINAL';workflow.record_prediction(self.root,DATE,self.entry)
-        result={'race_id':RACE,'race_date_jst':DATE,'status':'OFFICIAL','source_url':'https://www.jra.go.jp/test/result',
-                'retrieved_at_jst':DATE+'T11:00:00+09:00','finish_groups':[[2],[6],[4],[1],[3]],
-                'scratched_horses':[5],'place_places':2}
-        write(self.root,'result.json',json.dumps(result))
-        workflow.review(self.root,DATE,{'race_id':RACE,'result_path':'result.json',
-                        'review':{'error_classification':'取消','non_degradation':'比較不能','next_validation':'取消対応'}})
+        workflow.review(self.root,DATE,self.result_entry(scratched=[5]))
         summary=workflow.summary(self.root)
         self.assertEqual(summary['prediction_performance']['eligible_reviewed'],0)
         self.assertIsNone(summary['prediction_performance']['honmei_win'])
