@@ -100,6 +100,8 @@ def validate_acceptance(root, contract):
                         'scripts/selection_history.py', 'scripts/verify_prediction_persistence.py',
                         'scripts/seal_prediction.py',
                         c['decisions_path']}
+    required_sources |= {p.relative_to(root).as_posix() for p in
+                         set(root.glob('scripts/*.py')) | set(root.glob('docs/manual/*.md'))}
     require(required_sources.issubset({x.get('path') for x in manifest}), 'acceptance source coverage missing')
     require(len({x.get('path') for x in manifest}) == len(manifest), 'duplicate acceptance source')
     for item in manifest:
