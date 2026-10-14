@@ -126,3 +126,5 @@
 - GitHub connectorから164ソースと準備/結果変換テストに必要な既存原票をローカル一時領域へ取得し、前回のGitHub接続で編集した内容を検査した。`python3 -m unittest test_cycle04_acceptance test_cycle04_workflow test_cycle04_result_eligibility test_chat_result_conversion test_chat_result_reconciliation test_chat_review_package test_release_readiness`をscriptsで実行：**90件成功、失敗0・skip0、終了0**。coverage強化後の最終内容でも再実行し90件成功。release単独10件、準備単独32件も成功。変更5ファイルのcompileall成功。
 - ローカル全回帰 `python3 -m unittest discover -s scripts -p 'test_*.py'`は取得済みの部分環境で740件、failure1/error25/skip4、終了1。未取得の血統原票、過去snapshot、Git履歴などへの依存が残る。これを最新全回帰成功とは扱わない。実ファイルNOT_RUNの共通validator拒否も直接確認した。
 - acceptance.jsonはNOT_RUNのまま。最新全回帰成功と標準受入生成、release再生成、通常/統合検査は未完了。CIは11/1まで再実行しない。今回の2欠陥に対する関連回帰成功と、PR全体の未完了は区別する。
+
+- 続けて部分取得環境で `python3 scripts/run_cycle04_acceptance.py --write` を実際に実行：740件、failure1/error24/skip4で終了1。結果変換原票の追加取得でerrorが1件減ったが、他の原票・履歴不足が残る。コマンド前後のacceptance bytes一致をassertし、NOT_RUNが保全されたことを確認（検査wrapper終了0）。標準スクリプトは未実行ではなく**実行失敗・PASS未生成**であり、成功した受入生成は引き続き残件。
