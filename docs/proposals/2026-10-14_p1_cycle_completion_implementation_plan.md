@@ -174,3 +174,10 @@
 | 血統研究の原票・Registry監査 | [38570549376](https://github.com/eda-hub/horse-man/actions/runs/38570549376) | success |
 
 本記録の追記以外にコード・テスト・受入対象の変更はない。最新main `6d933a78cd8fd6723aeba4ad0f4c090053a0832a` と本PRの比較は behind=0、mergeable=true。合成データは実レース予想の事前証跡、結果や回顧の証明には用いない。
+
+## 2026-10-14 P1再レビュー：初回FIX原本喪失の検出
+
+- 指摘：FINALが別の正常FIX manifestで登録され回顧済みでも、初回 `prediction_history[].fix_ref` 原本を削除して工程不足に表示されない。元の個別検査は最新のexecution gate・保存済み予想本体を検査する一方、履歴の `intent_ref`・`fix_ref` を検査せず、当時の独立FIXを後段の証跡と混同できた。
+- 修正：各履歴固有のgate SHA256/レース/日付/baseline、予想refの同一性、事前宣言とFIX manifestの実原本hash/receipt/保存時刻、独立manifestからの当時の予想FIX hashと宣言の結合を読み直す。保存順は「宣言読戻し ≤ FIX時刻 ≤ FIX保存 ≤ FIX読戻し ≤ 本体保存」。旧参照欠落時に `row.operations` 最新参照へフォールバックしない。
+- 合成回帰：標準writerで独立した初回・最終FIX/宣言原本を保存し、最終登録・公式結果照合・回顧後、(1)初回FIX削除、(2)初回FIX改変、(3)初回宣言削除、(4)履歴固定参照削除、(5)当時FIX receiptの保存順崩れ、をそれぞれ再検査する。初回段階の不足とsummaryの不足報告、正常一巡拒否を検査する。検査のために実レース記録や新規の将来receiptを恒久生成しない。
+- 検証：最新差分の全回帰、`run_cycle04_acceptance.py --write`、`build_v170_manifest.py`、通常checker、統合検査、3系統CIを実行し、実際の結果を後から記録する。古い802件受入は今回の修正に対する成功証跡ではない。
