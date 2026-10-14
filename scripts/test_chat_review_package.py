@@ -32,6 +32,17 @@ class ReviewPackage(unittest.TestCase):
         self.assertFalse(row['finalized']);self.assertFalse(out['external_ai_api_executed'])
         self.assertEqual(before,{str(p):p.read_bytes() for p in self.root.rglob('*') if p.is_file()})
 
+    def test_review_package_uses_the_same_fixed_result_reconciliation(self):
+        workflow.record_prediction(self.root,DATE,self.case.entry)
+        entry=self.case.result_entry()
+        workflow.review(self.root,DATE,entry)
+        out=package(self.root,self.manifest(),self.now)
+        result=out['races'][0]['result']
+        self.assertEqual(result['text_reconciliation'],'MATCHED_FORWARD_FIXED')
+        self.assertEqual(result['reconciliation_ref'],entry['result_reconciliation_ref'])
+        self.assertFalse(result['diagnostic_formal_kpi_certified'])
+        self.assertEqual(result['official_result']['race_id'],RACE)
+
     def test_duplicate_day_and_mutation_rejected(self):
         manifest=self.manifest();manifest['day_refs']*=2
         with self.assertRaises(ValueError):package(self.root,manifest,self.now)
