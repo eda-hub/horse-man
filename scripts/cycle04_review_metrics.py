@@ -67,6 +67,9 @@ def review_status(value):
     for evidence in changes:
         require(isinstance(evidence, dict) and evidence.get("status") in CHANGE_STATES
                 and nonempty(evidence.get("reason")), "change evidence state/reason required")
+        if evidence["status"] == "PRE_RACE_CONFIRMED":
+            require(nonempty(evidence.get("fixed_quote")),
+                    "confirmed change requires an exact fixed quote")
         if evidence["status"] == "PENDING":
             require(isinstance(evidence.get("required_inputs"), list)
                     and bool(evidence["required_inputs"])
@@ -76,6 +79,16 @@ def review_status(value):
     if value["state"] == "COMPLETE":
         require(not missing, "COMPLETE review requires all Owner items: " + ", ".join(missing))
     return {"state": value["state"], "missing": missing}
+
+
+def contains_fixed_quote(payload, quote):
+    if isinstance(payload, str):
+        return quote in payload
+    if isinstance(payload, dict):
+        return any(contains_fixed_quote(v, quote) for v in payload.values())
+    if isinstance(payload, list):
+        return any(contains_fixed_quote(v, quote) for v in payload)
+    return False
 
 
 def validate_revision_history(root, row, race, date, post):
@@ -145,6 +158,8 @@ def validate_revision_history(root, row, race, date, post):
                 payload, receipt = verified_artifact(root, ref, post)
                 require(payload.get("race_id") == race and payload.get("race_date_jst") == date,
                         "fixed change evidence race/date mismatch")
+                require(contains_fixed_quote(payload, item["fixed_quote"]),
+                        "fixed change quotation not found in its original evidence")
                 require(iso(receipt.get("receipt_verified_at_jst"), "change receipt")
                         <= iso(last["data_cutoff"], "last cutoff"),
                         "change evidence appeared after final cutoff")
