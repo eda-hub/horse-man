@@ -2,7 +2,7 @@ import json, tempfile, unittest
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).parent))
-from check_prediction_compliance import ComplianceError, coverage_summary, run
+from check_prediction_compliance import ComplianceError, coverage_summary, receipt_records, run
 
 README='# manual\n- **現行リリース**: `v1.6.1`\n'
 
@@ -156,7 +156,8 @@ def add_next_shadow(root, gate, *, at='09:57', readback='09:58'):
                              verified=persist, post=gate['scheduled_post_time_jst'])
     receipt['content_sha256'] = sha
     receipt['receipt_verified_at_jst'] = f"{gate['race_date_jst']}T{readback}:00+09:00"
-    write_receipts(root, receipt_path, [receipt])
+    prior = receipt_records(root / receipt_path) if (root / receipt_path).is_file() else []
+    write_receipts(root, receipt_path, prior + [receipt])
     ref = {'artifact_id': item_id, 'artifact_path': path, 'sha256': sha,
            'receipt_path': receipt_path, 'receipt_id': receipt['receipt_id'],
            'timing_eligibility': 'PRE_RACE_ELIGIBLE', 'persist_verified_at_jst': persist}
