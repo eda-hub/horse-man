@@ -84,7 +84,7 @@ def evaluate_days(root, days, *, frozen_refs=None, closure_ref=None):
     issues = []
     for date in missing:
         _issue(issues, date, None, 'DAY_NOT_REGISTERED', '依頼scope未登録。予定件数は補完しません')
-    input_gaps, shadow_gaps, owner_gaps, races = [], [], [], []
+    input_gaps, shadow_gaps, market_gaps, owner_gaps, races = [], [], [], [], []
     for date, day in sorted(by_date.items()):
         for race in day['initial_scope']:
             races.append({'race_date_jst': date, 'race_id': race})
@@ -134,6 +134,9 @@ def evaluate_days(root, days, *, frozen_refs=None, closure_ref=None):
                     _issue(issues, date, race, 'RECOMMENDATION_KPI_PENDING',
                            '推奨の保留：' + state['reasons'][race])
                 # 適切なNO_RECOMMENDATION/明示的印のみはINELIGIBLEでも正常な最終状態。
+            if race in day['kpis']['market']['pending_ids'] or race in day['kpis']['market']['ineligible_ids']:
+                market_gaps.append({'race_date_jst': date, 'race_id': race,
+                                    'reason': day['kpis']['market']['reasons'].get(race, '任意市場不足')})
             if row.get('input_complete') is False:
                 input_gaps.append({'race_date_jst': date, 'race_id': race,
                                    'reason': row.get('input_gap_reason') or '入力不足'})
@@ -145,7 +148,8 @@ def evaluate_days(root, days, *, frozen_refs=None, closure_ref=None):
               'recorded_dates': sorted(by_date), 'missing_dates': missing,
               'initial_scope': races, 'issues': issues, 'unresolved_count': len(issues),
               'stage_complete': stage_complete, 'input_gaps': input_gaps,
-              'shadow_gaps': shadow_gaps, 'review_owner_gaps': owner_gaps,
+              'shadow_gaps': shadow_gaps, 'market_gaps': market_gaps,
+              'review_owner_gaps': owner_gaps,
               'input_complete': not input_gaps, 'shadow_comparison_complete': not shadow_gaps,
               'normal_cycle_complete': False, 'state': '未開始' if not by_date else '進行中/未完了',
               'performance_promotion': PROMOTION, 'closure_ref': None,
@@ -195,7 +199,8 @@ def verify_closure(root, closure_ref, days, *, expected=None):
     require(isinstance(doc, dict) and set(doc) == {
         'schema_version', 'decision', 'reviewed_at_jst', 'reviewer', 'owner', 'reason',
         'protected_good_parts', 'next_validation', 'initial_scope', 'documented_issues',
-        'day_refs', 'summary_ref', 'performance_promotion'},
+        'day_refs', 'summary_ref', 'performance_promotion',
+        'input_gaps', 'shadow_gaps', 'market_gaps', 'review_owner_gaps'},
         '理由付き終了審査の固定記録に必要項目がありません')
     require(doc['schema_version'] == 'cycle04-closure-review-v1' and
             doc['decision'] == 'REASONED_CLOSE' and doc['performance_promotion'] == PROMOTION,
@@ -210,6 +215,9 @@ def verify_closure(root, closure_ref, days, *, expected=None):
     require(reviewed <= datetime.now(timezone.utc), '未来の終了審査記録は認められません')
     expected = expected or evaluate_days(root, days)
     require(doc['initial_scope'] == expected['initial_scope'] and
-            doc['documented_issues'] == expected['issues'], '対象/不足理由の選択的除外または不一致')
+            doc['documented_issues'] == expected['issues'] and
+            all(doc[key] == expected[key] for key in
+                ('input_gaps', 'shadow_gaps', 'market_gaps', 'review_owner_gaps')),
+            '対象/工程・入力・Shadow・任意市場・回顧Owner不足の選択的除外または不一致')
     verify_summary_refs(root, days, {'day_refs': doc['day_refs'], 'summary_ref': doc['summary_ref']})
     return doc
