@@ -10,7 +10,8 @@ from check_prediction_compliance import (ComplianceError, contract_state, iso, r
                                          validate_gate, LEGACY_RELEASE)
 from cycle04_operations import (fingerprint, positive_set, require, safe_path,
                                validate_inputs, validate_market, validate_market_payload, validate_selection,
-                               validate_ticket_comparison, verified_artifact, validate_official_result)
+                               validate_ticket_comparison, verified_artifact, validate_official_result,
+                               validate_formal_result)
 from recommendation import verify as verify_recommendation, settle
 
 CONTRACT_PATH = 'docs/validation/contracts/cycle_04.json'
@@ -182,6 +183,8 @@ def validate_day(root, path, contract):
         prediction=validate_gate(root,safe_path(root,row['prediction_gate_path'])) if row.get('prediction_gate_path') else None
         validate_official_result(result,race=race,date=date,post=row['scheduled_post_time_jst'],
                                 horses=prediction['production']['ranking'] if prediction else None)
+        validate_formal_result(root, row, race=race, date=date, result_ref=ref,
+                               manifest_ref=row.get('result_reconciliation_ref'))
         review=row.get('review')
         require(isinstance(review,dict) and all(isinstance(review.get(k),(str,dict)) and bool(review[k])
                     for k in ('error_classification','non_degradation','next_validation')),
