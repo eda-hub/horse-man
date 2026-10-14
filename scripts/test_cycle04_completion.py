@@ -1,5 +1,4 @@
 """第4サイクルの正常一巡/理由付き終了を合成scopeで回帰検査する。"""
-import copy
 import hashlib
 import json
 import unittest
@@ -113,9 +112,26 @@ class CompletionAcceptance(unittest.TestCase):
         self.assertEqual(code,1)
         self.assertIn('正常一巡未完了',errors.getvalue())
 
+    def test_frozen_ref_rejects_stale_hash_before_git_readback(self):
+        path=f'{workflow.DIRECTORY}/{DATES[0]}.json'
+        ref={'artifact_path':path,'sha256':'0'*64,'git_commit':'a'*40}
+        with patch('cycle04_completion.subprocess.run') as git:
+            with self.assertRaisesRegex(ValueError,'hash'):
+                verify_frozen_cycle(self.root,ref,allowed_prefix=workflow.DIRECTORY+'/')
+            git.assert_not_called()
+
+    def test_summary_scope_rejects_missing_or_substituted_day(self):
+        from cycle04_completion import verify_summary_refs
+        day,_=workflow.read_day(self.root,DATES[0])
+        path=f'{workflow.DIRECTORY}/{DATES[0]}.json'
+        ref={'artifact_path':path,'sha256':'0'*64,'git_commit':'a'*40}
+        with self.assertRaisesRegex(ValueError,'件数'):
+            verify_summary_refs(self.root,[day],{'day_refs':[],'summary_ref':ref})
+        wrong={**ref,'artifact_path':f'{workflow.DIRECTORY}/{DATES[1]}.json'}
+        with self.assertRaisesRegex(ValueError,'scope'):
+            verify_summary_refs(self.root,[day],{'day_refs':[wrong],'summary_ref':ref})
+
     def test_completed_stages_still_require_summary_and_all_dates(self):
-        self.case.reviewed() if False else None
-        self.case.select() if False else None
         self.assertFalse(self.evaluate()['normal_cycle_complete'])
 
 
