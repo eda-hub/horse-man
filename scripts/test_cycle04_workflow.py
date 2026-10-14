@@ -26,6 +26,8 @@ class OperationalWorkflow(unittest.TestCase):
         write(self.root,CONTRACT_PATH,json.dumps(contract))
         self.entry=copy.deepcopy(self.complete['races'][RACE])
         self.entry.update(race_id=RACE,phase='INITIAL')
+        self.entry['shadow_applicability']={'status':'NOT_APPLICABLE',
+              'reason':'合成fixtureに該当Shadowなし','item_ids':[]}
         self.scope={'schema_version':'cycle04-official-scope-v1','race_date_jst':DATE,
                     'source_url':'https://www.jra.go.jp/test/official-scope',
                     'observed_at_jst':DATE+'T09:30:00+09:00',
