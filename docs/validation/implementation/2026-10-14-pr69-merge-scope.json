@@ -1,0 +1,92 @@
+{
+  "schema_version": "pr69-merge-scope-decision-v1",
+  "decision_date": "2026-10-14",
+  "repository": "eda-hub/horse-man",
+  "implementation_branch": "feature/next-cycle-prediction-contract",
+  "basis_head": "714676a477b2c68e08f0bafd0615aea920233e5b",
+  "release_baseline": "main: v1.7.0/cycle_04（PR79/81適用済み）",
+  "goal": "既存機能を維持し、研究の網羅化と未確定拡張をマージ前条件から切り離す",
+  "mandatory_before_merge": [
+    {
+      "id": "CORE-01",
+      "scope": "現行main v1.7.0のOwner、manifest、版、契約の原子的整合",
+      "proof": "run_release_readiness.py・統合CI"
+    },
+    {
+      "id": "CORE-02",
+      "scope": "実依頼の取得→全頭Prediction→推奨→独立事前保存→公式結果→回顧",
+      "proof": "既存cycle04 / 53-I01〜I14の合成・固定fixtureと保存検査"
+    },
+    {
+      "id": "CORE-03",
+      "scope": "旧履歴の当時契約、欠測、UNKNOWN、null、保留の維持",
+      "proof": "compliance/persistence/研究audit"
+    },
+    {
+      "id": "CORE-04",
+      "scope": "Production/Shadow/任意Marketの厳密分離、Replayの実測流用禁止",
+      "proof": "既存回帰テスト・統合CI"
+    },
+    {
+      "id": "CORE-05",
+      "scope": "PR68とPR69の整合、最新HEADの必要CI成功、両PR main統合とreadback",
+      "proof": "PRコミット・Actions・main SHA"
+    }
+  ],
+  "deferred_without_promoting": [
+    {
+      "id": "RESEARCH-02",
+      "prior": "02",
+      "topic": "10/12全24Rの5代血統・調教国・追加個体の網羅",
+      "state": "既存原票/commitは保持。必要馬だけ正式運用のcutoffで取得し、不足はUNKNOWN"
+    },
+    {
+      "id": "RESEARCH-03",
+      "prior": "03",
+      "topic": "残43条件の完全集計、10/10・11午前分の研究埋戻し",
+      "state": "REPLAY/PARTIAL/未確認区分を維持し、性能の本番採用はしない"
+    },
+    {
+      "id": "ARCHIVE-04",
+      "prior": "04",
+      "topic": "歴史的保存不足40件と旧解釈（未確認219・派生218・仮説83成分）",
+      "state": "当時の不適格・保留を保持。旧KPI保留57／正式ROI nullを解除しない"
+    },
+    {
+      "id": "FEATURE-05",
+      "prior": "05",
+      "topic": "共同確率モデル・二頭軸の新規性能昇格",
+      "state": "未確定の算定法/校正法/母数は新しい正式契約としない。既存v1.7.0契約のみ維持"
+    },
+    {
+      "id": "FEATURE-06",
+      "prior": "06",
+      "topic": "枠連の未確定な新規自動推奨生成",
+      "state": "既存対応を保持。追加生成器を実装済み・正式適格と主張しない"
+    },
+    {
+      "id": "SHADOW-07",
+      "prior": "07",
+      "topic": "13継続Shadow・新馬・開催傾向等の効果検証",
+      "state": "前向き実依頼に移す。Productionの順位/確率へ逆流しない"
+    },
+    {
+      "id": "LIVE-10-12",
+      "prior": "10-12",
+      "topic": "29/53-I11・37-05・校正・非劣化・性能・負荷の実測",
+      "state": "mainマージ後の実運用でのみ事前固定して取得"
+    }
+  ],
+  "preserved_evidence": [
+    "取得済みdata/pedigree・data/condition_stats・docs/validation原票を削除しない",
+    "既存の不適格/欠測/履歴CI failureを成功へ書き換えない",
+    "mainのdocs/manual、v1.7.0、契約manifestを不用意に変更しない",
+    "必要CIに研究のCOMPLETE化・将来開催の実測成功を追加しない"
+  ],
+  "release_decision": {
+    "evidence_passed": "HEAD 714676aの3系統CI success（計画分類前の履歴）",
+    "scope_classification": "RECORDED",
+    "merge_approved": false,
+    "note": "分類記録は実装・統合検証の完了を代替しない。最新HEADで再照合する"
+  }
+}
