@@ -89,7 +89,8 @@ def shadow_result(root, gates):
                     raise ComplianceError('applicable Shadow is not complete')
                 if eligibility == 'ELIGIBLE' and gate.get('schema_version') == 'prediction-compliance-v2':
                     forward_shadow_evidence(root, item.get('evidence_ref'), label,
-                                            iso(gate['scheduled_post_time_jst'], label+'/post'))
+                                            iso(gate['scheduled_post_time_jst'], label+'/post'),
+                                            race_id=gate['race_id'], data_cutoff=gate['data_cutoff'])
                 else:
                     evidence(root, item.get('evidence_ref'), label,
                              eligibility == 'ELIGIBLE',
