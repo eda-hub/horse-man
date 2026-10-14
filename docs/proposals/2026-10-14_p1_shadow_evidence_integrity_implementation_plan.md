@@ -5,7 +5,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p1-shadow-evidence-integrity`
 - 調査基準main：`b288bc1f39f61d68c6cf536608c11689575315e8`
-- 状態：実装・回帰758件PASS（失敗0・skip0）・合成受入PASS・release生成・統合受入PASS・3系統同一ジョブPASS。過去保存記録の通常checker不合格と先行PR #82未統合は残存（Draft・未マージ）。
+- 状態：PR82取込み済みmainを統合し、全回帰769件PASS・合成受入PASS・release標準再生成・統合受入PASS。通常checkerの旧記録不足を保留し、Draftを維持。
 - 目的：新規Shadowの適格性を、同じ原本・内容hash・receipt・発走前保存/読戻しで確認する。
 - 対象外：Shadowの効果採用、新しい比較モデル、全13仮説の性能証明、旧履歴の再認証。
 
@@ -187,3 +187,15 @@ python3 scripts/run_release_readiness.py
 2. 先行PR **#82は未マージ**である。統合順`#82 → #83 → #84 → #85`を守り、先行結果適格性の統合が済むまで本PRを先にマージしない。現mainの本PR基点以後の2 commitは`acceptance.json`のみの変更で、今回の標準受入で候補branch用に再生成した入力SHAを維持している。先行PRの取込み後には共有契約・生成物を改めて照合する。
 3. **受入コードの合成・release・統合・3系統ジョブはPASS、全運用の通常checkerは未PASS**。Draftを維持し、本番運用の未確認原本を改竄しない。
 
+
+## 2026-10-14 最新main（PR #82）取込みと合成受入・release再生成
+
+- **main確定入力**：`dff3abe54baa32d9b147882314e43bf5d39e2585`（PR #82 `35317b55...`をマージ済み）。作業開始時のPR83先頭 `2715380c081c7c604f6ed4003ec240c7936d78c3`。main差分18pathを読戻し、共通変更4pathのうち文書・テストは両方を明示的に保持した。
+- **履歴付き統合**：merge commit `df1e3e79180db6be1228935480ff4e175cf50723`、第1親PR83、第2親最新main。元PR82の公式結果照合、`cycle04_operations.md`の回顧手順、`test_cycle04_acceptance.py`の「結果単独保存の拒否」「NOT_RUN/FAIL/skip拒否」を維持し、PR83のShadow厳密検査と日別テストも保持。その他のmain側14pathを同一blobで取り込んだ。
+- 統合時点で`docs/validation/reviews/cycle_04/acceptance.json`を**NOT_RUN**に戻した。過去PASSの転用を禁止し、`v170-release.json`はPR82 main側の新規acceptance hashカバレッジを採用してから標準生成する。手動で成功結果を捏造していない。
+- **CIで実行した標準手順**：`python3 scripts/run_cycle04_acceptance.py --write` → `python3 scripts/build_v170_manifest.py` → `python3 scripts/check_prediction_compliance.py --audit` → `python3 scripts/check_cycle04.py` → `python3 scripts/run_release_readiness.py` → `python3 scripts/check_integration_acceptance.py --full`。
+- **実測結果**：全**769テストPASS、失敗0、skip0**。受入`PASS`、source manifest **144件**、release manifest **164件**（PR82が追加した受入証跡ファイル自体を含む）。releaseの原子的契約一致および取得済みmainとの統合受入成功。mainの`operational_ready=true`、PR83候補は`UNMERGED_CONTRACT_REJECTED`として想定どおり正式運用開始を拒否し、入力は変更なし。あくまで合成受入で実レース・性能昇格・実測収集を認証しない。
+- 成功run：<https://github.com/eda-hub/horse-man/actions/runs/38558841725>。標準生成物コミット：`11b6a5a4907c87c7437010c7adb8bb8135aa0cbc`。再生成専用の一時workflowは`78595b97`にて撤去し、差分へ残していない。従来3系統CIはNOT_RUNの統合直後に一時的に失敗したものがあるため、**今回の再生成後の対象SHAで新たな3系統結果を確認**する。
+- 本節で先行`#82未マージ`・`今後11/1まで待機`等の過去記載を上書きする。最新mainを再び取り込む必要が生じた場合は差分確認から再実行する。
+- 未解消の履歴由来不足：`python3 scripts/check_prediction_compliance.py`通常実行で、2026-09-26の従来`ELIGIBLE`記録に対応するexecution gateがなく`NON_COMPLIANT`となる。**今回のPR83のShadow改修で後付け補修しない**。監査モード成功は通常適格を与えない。
+- 後続統合順は`#83 → #84 → #85`。保存済み原票とreceipt、結果・回顧、独立予想KPIを変更しない。PRはDraftで維持し、通常checkerの既存不適合とCI最終結果を明示して判断する。
