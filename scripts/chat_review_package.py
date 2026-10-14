@@ -9,6 +9,7 @@ from check_prediction_compliance import validate_gate, iso
 from cycle04_workflow import read_day
 from cycle04_operations import require, safe_path, verified_artifact, validate_official_result, validate_formal_result
 from recommendation import verify as verify_recommendation, settle
+from cycle04_review_metrics import review_status, independent_metrics
 
 
 def package(root, manifest, as_of):
@@ -79,19 +80,25 @@ def package(root, manifest, as_of):
                     rec=verify_recommendation(root,safe_path(root,row['recommendation_gate_path']))
                     out['recommendation_result']=settle(rec,result)
             analysis=row.get('review') if isinstance(row.get('review'),dict) else {}
+            state = review_status(analysis)
             out['error_classification']=analysis.get('error_classification')
             out['protected_good_parts']=analysis.get('protected_good_parts')
             out['non_degradation_review']=analysis.get('non_degradation')
             out['next_validation']=analysis.get('next_validation')
-            out['missing_review_fields']=[key for key in ('error_classification','protected_good_parts','non_degradation','next_validation')
-                                          if not analysis.get(key)]
+            out['review_state']=state['state']
+            out['missing_review_fields']=state['missing']
+            out['review_history']=copy.deepcopy(row.get('review_history', []))
+            out['change_evidence']=copy.deepcopy(analysis.get('change_evidence', []))
             rows.append(out)
     from cycle04_completion import evaluate_days
-    completion=evaluate_days(root, [read_day(root,date)[0] for date in sorted(days)])
+    frozen_days = [read_day(root,date)[0] for date in sorted(days)]
+    completion=evaluate_days(root, frozen_days)
+    independent = independent_metrics(root, frozen_days)
     history=[{'fixed_ref':ref,'diagnostic':fixed_json(root,ref),'formal_cycle04_kpi_eligible':False}
              for ref in manifest['historical_purchase_refs']]
     return {'schema_version':'chat-review-package-v1','as_of':as_of,'initial_scope_count':len(rows) if days else None,
             'races':rows,'independent_kpis_by_day':kpis,'shadow_comparisons_by_fixed_phase':shadow_pairs,
+              'independent_review_metrics':independent,
              'historical_purchase_diagnostics':history,
             'cycle_completion':completion,'closure_review':'HUMAN_OWNER_REVIEW_REQUIRED',
             'read_only':True,'external_ai_api_executed':False,'formal_kpi_certified':False,
