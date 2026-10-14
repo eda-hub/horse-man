@@ -49,7 +49,15 @@ def export_inputs(root, manifest, as_of=None):
                 'shadow':{k:rates['shadow'][horse][k] for k in ('win_probability','top2_probability','top3_probability')},
                 'outcomes':{k:int(positions.get(horse,999)<=n) for k,n in [('win_probability',1),('top2_probability',2),('top3_probability',3)]}})
         a=report['assessment']
-        rows.append({'race_id':race,'race_date_jst':pair['race_date_jst'],'data_cutoff':pair['data_cutoff'],
+        binding=scope.get('submitted_pair_bindings',{}).get(race)
+        if binding:
+            require(binding['data_cutoff']==pair['data_cutoff'] and
+                    binding['baseline_forecast_id']==pair['baseline_forecast_id'] and
+                    binding['shadow_item_id']==item['shadow_item_id'],
+                    'calibration pair differs from fixed phase/baseline/cutoff')
+        rows.append({'race_id':race,'race_date_jst':pair['race_date_jst'],
+            'comparison_phase':binding['phase'] if binding else None,
+            'data_cutoff':pair['data_cutoff'],
             'baseline_forecast_id':pair['baseline_forecast_id'],'common_input_sha256':pair['common_input_sha256'],
             'fixed_refs':{'gate':item['gate_ref'],'result':item['result_ref'],'pair':matches[0]['evidence_ref']},
             'stratum':{k:a[k] for k in ('target_class','target_age_condition','older_encounter_state','class_promotion','comparison_sufficiency')},
