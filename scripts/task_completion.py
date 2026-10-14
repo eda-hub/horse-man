@@ -6,7 +6,8 @@ import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from check_prediction_compliance import ComplianceError, evidence, iso, receipt_records, validate_gate
+from check_prediction_compliance import (ComplianceError, evidence, forward_shadow_evidence,
+                                         iso, receipt_records, validate_gate)
 from persistence_status import describe_persistence, render_persistence
 
 
@@ -64,22 +65,40 @@ def shadow_result(root, gates):
     if not gates:
         raise ComplianceError('Shadow applicability cannot be established without execution gates')
     found = False
+    missing = []
     for gate in gates:
         items = gate.get('shadow_items')
         if not isinstance(items, list):
-            raise ComplianceError('explicit Shadow scope required')
+            missing.append('explicit Shadow scope required')
+            continue
         for item in items:
+            item_id = item.get('item_id', 'unknown') if isinstance(item, dict) else 'unknown'
+            label = 'completion/shadow/' + str(item_id)
+            if not isinstance(item, dict):
+                missing.append(label + ': invalid item')
+                continue
             eligibility = item.get('kpi_eligibility')
             if eligibility == 'NOT_APPLICABLE':
                 continue
             found = True
-            if eligibility not in {'ELIGIBLE', 'INELIGIBLE'}:
-                raise ComplianceError('applicable Shadow is pending or unperformed')
-            state = str(item.get('state', ''))
-            if state.startswith(('PENDING', 'NOT_STARTED', 'UNAVAILABLE', 'BLOCKED')):
-                raise ComplianceError('applicable Shadow is not complete')
-            evidence(root, item.get('evidence_ref'), 'completion/shadow',
-                     eligibility == 'ELIGIBLE', iso(gate['scheduled_post_time_jst'], 'post'))
+            try:
+                if eligibility not in {'ELIGIBLE', 'INELIGIBLE'}:
+                    raise ComplianceError('applicable Shadow is pending or unperformed')
+                state = str(item.get('state', ''))
+                if state.startswith(('PENDING', 'NOT_STARTED', 'UNAVAILABLE', 'BLOCKED')):
+                    raise ComplianceError('applicable Shadow is not complete')
+                if eligibility == 'ELIGIBLE' and gate.get('schema_version') == 'prediction-compliance-v2':
+                    forward_shadow_evidence(root, item.get('evidence_ref'), label,
+                                            iso(gate['scheduled_post_time_jst'], label+'/post'),
+                                            race_id=gate['race_id'], data_cutoff=gate['data_cutoff'])
+                else:
+                    evidence(root, item.get('evidence_ref'), label,
+                             eligibility == 'ELIGIBLE',
+                             iso(gate['scheduled_post_time_jst'], label+'/post'))
+            except ERRORS as exc:
+                missing.append(label + ': ' + str(exc))
+    if missing:
+        raise ComplianceError('Shadow items missing/invalid: ' + '; '.join(missing))
     return 'VERIFIED' if found else 'NOT_APPLICABLE'
 
 
@@ -160,16 +179,19 @@ def prediction_completion(root, date, snapshot_id, *, intent_id=None, fixed_cont
             raise ComplianceError('explicit individual race scope required')
         for race in snapshot['race_ids']:
             path = relative(root, f'docs/validation/execution-gates/{date}/{race}.json')
-            gate = validate_gate(root, path)
-            ref = gate.get('production', {}).get('evidence_ref', {})
-            if (gate.get('race_date_jst') != date or gate.get('race_id') != race or
+            # Shadowのみ不正なgateでも個別不足を表示するため、
+            # 原本を診断用に保持する。正式なgate適格認証はvalidate_gateだけで行う。
+            raw_gate = json.loads(path.read_text(encoding='utf-8'))
+            ref = raw_gate.get('production', {}).get('evidence_ref', {})
+            if (raw_gate.get('race_date_jst') != date or raw_gate.get('race_id') != race or
                     ref.get('artifact_id') != snapshot_id or
                     ref.get('artifact_path') != snapshot['artifact_path']):
                 raise ComplianceError('execution gate refers to a different prediction')
-            gates.append(gate)
+            gates.append(raw_gate)
+            validate_gate(root, path)
         return 'VERIFIED'
     checked(checks, 'execution_gate', execution)
-    if checks['execution_gate']['result'] is True:
+    if gates:
         result = checked(checks, 'shadow', lambda: shadow_result(root, gates))
         if result == 'NOT_APPLICABLE':
             checks['shadow']['result'] = 'NOT_APPLICABLE'

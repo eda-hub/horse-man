@@ -13,7 +13,7 @@ from cycle04_operations import (BET_TYPES, fingerprint, validate_inputs, validat
                                validate_selection, validate_ticket_comparison, ticket_event)
 from seal_prediction import seal
 from selection_history import digest
-from test_next_prediction_compliance import receipt_record, write, write_contract_state
+from test_next_prediction_compliance import add_next_shadow, receipt_record, write, write_contract_state
 import test_recommendation as fixtures
 from test_recommendation import DATE, RACE, POST
 
@@ -142,6 +142,27 @@ class Cycle04Acceptance(unittest.TestCase):
         p = self.root / f'{DATE}.json'
         p.write_text(json.dumps(d))
         return validate_day(self.root, p, c)
+
+    def test_shadow_eligible_needs_unchanged_pre_race_original_in_day_ledger(self):
+        d, c = self.complete_day()
+        gate_path = self.root / d['races'][RACE]['prediction_gate_path']
+        gate = json.loads(gate_path.read_text())
+        ref, _ = add_next_shadow(self.root, gate)
+        gate_path.write_text(json.dumps(gate))
+        shadow = d['kpis']['shadow']
+        shadow.update(target_ids=[RACE], eligible_ids=[RACE], pending_ids=[],
+                      ineligible_ids=[], reasons={RACE: '発走前独立原本とreceipt確認'})
+        # 第4開催日がまだ未来でも、合成受入は時刻を固定してのみ検査する。
+        class SyntheticClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                instant = datetime.fromisoformat('2026-10-17T12:00:00+09:00')
+                return instant.astimezone(tz) if tz else instant.replace(tzinfo=None)
+        with patch('check_prediction_compliance.datetime', SyntheticClock):
+            self.assertEqual(self.day(d, c), d)
+            (self.root / ref['artifact_path']).write_text('{"artifact_id":"shadow-forward-01","changed":true}')
+            with self.assertRaises(ComplianceError):
+                self.day(d, c)
 
     def test_end_to_end_prediction_recommendation_input_gap_no_price(self):
         d, c = self.complete_day()
