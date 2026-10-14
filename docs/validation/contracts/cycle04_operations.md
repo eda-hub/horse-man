@@ -209,3 +209,9 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 `python3 scripts/check_cycle04.py --closure-review closure-ref.json`
 
 この判定は審査者の身元証明そのものは行わない。正式なOwner承認は運用側で確認しなければならない。未登録日・未測定KPI・Shadow/市場の不足を勝手に補完せず、終了審査の承認は性能採用、履歴復元、個別予想保存の再認証とは独立する。入力不足/該当Shadow不足/任意市場不足は各々独立表示し、任意市場とShadowの実測未受入だけを標準Prediction・価格不要推奨の完了障害にしない。
+
+### 固定履歴ごとの宣言・FIXと読戻し（PR85のP1回帰）
+
+初回から最終までの各 `prediction_history[]` は、履歴自身の `prediction_gate_path`/`prediction_gate_sha256`、`prediction_ref`、`intent_ref`、`fix_ref` を個別に固定し、工程完了時にそれぞれの実原本・SHA256・同一receipt・発走前保存/読戻しを再照合する。固定gateのレース・日付・発走時刻・baselineと予想本体を一致させ、宣言のrace/snapshot/path/期限、FIX manifestのsnapshot/path/hash/固定時刻・宣言参照を一致させる。必須順序は「宣言の読戻し ≤ 予想FIX時刻 ≤ FIX manifest保存 ≤ FIX manifest読戻し ≤ 予想本体保存」。原本欠落・改変・時刻逆転は初回履歴の工程不足として残し、最新FINALの正常な宣言/FIX、最新 `row.operations`、同一予想本体hashで補完しない。通常の最終gateの証拠と過去FIX原本の確認は別の検査であり、過去証跡を後付けで作成しない。
+
+`cycle04_workflow.py --summary` は修復前の原本を消さず履歴単位の `PREDICTION_CHECK_PENDING` とその理由を出す。正常一巡の `--require-complete` は当該不足がある限り拒否する。理由付き終了でも不足を全件保持し、性能適格化しない。
