@@ -331,7 +331,12 @@ def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     p.add_argument('--require-active', action='store_true')
-    p.add_argument('--require-complete', action='store_true')
+    p.add_argument('--require-complete', action='store_true',
+                   help='正常一巡のみを要求。4日全scopeの工程と集計のGit読戻しが必要')
+    p.add_argument('--completion-manifest', type=Path,
+                   help='日別・集計の固定path/SHA256/Git commit参照JSON')
+    p.add_argument('--closure-review', type=Path,
+                   help='人間が審査・Git保存した理由付き終了記録の固定参照JSON')
     args = p.parse_args(argv)
     try:
         root = args.root.resolve()
@@ -345,11 +350,21 @@ def main(argv=None):
         directory = root / 'docs/validation/records/cycle_04'
         for path in sorted(directory.glob('*.json')):
             days.append(validate_day(root, path, c))
+        from cycle04_completion import evaluate_days
+        require(not (args.require_complete and args.closure_review),
+                '正常一巡と理由付き終了を同時申告できません')
+        frozen = load(args.completion_manifest) if args.completion_manifest else None
+        closure = load(args.closure_review) if args.closure_review else None
+        result = evaluate_days(root, days, frozen_refs=frozen, closure_ref=closure)
         if args.require_complete:
-            require({d['race_date_jst'] for d in days} == set(DATES) and
-                    all(set(d['reviewed_scope']) == set(d['initial_scope']) for d in days),
-                    '第4の日別実測・全対象回顧が未完了です')
-        print(f'第4検査契約の準備照合成功。実測{len(days)}/4日。正式切替状態：{c["status"]}。')
+            require(result['normal_cycle_complete'],
+                    '正常一巡未完了：' + json.dumps(result['issues'], ensure_ascii=False) +
+                    ('。集計のGit読戻し固定参照が未指定です' if frozen is None else ''))
+        if result['issues']:
+            print('不足対象・理由：' + json.dumps(result['issues'], ensure_ascii=False))
+        print(f'第4検査契約の準備照合成功。実測{len(days)}/4日。状態：{result["state"]}。'
+              f'集計Git読戻し：{result["summary_git_readback_verified"]}。性能昇格：未採用。'
+              f'正式切替状態：{c["status"]}。')
         return 0
     except (ValueError, OSError, TypeError, KeyError, AttributeError) as exc:
         print(f'第4検査不合格：{exc}', file=sys.stderr)
