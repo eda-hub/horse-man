@@ -187,9 +187,11 @@ def record_prediction(root,date,entry,*,preview=False):
                 'prediction_ref':copy.deepcopy(entry['operations']['prediction_ref']),
                 'baseline_forecast_id':gate['production']['baseline_forecast_id']}
     previous = row['prediction_history']
-    old_items = prior_shadow_items(previous[:-1] if identity in previous else previous, root)
-    record = shadow_snapshot(root, gate, identity, entry.get('shadow_applicability'), old_items)
     shadows = row.setdefault('shadow_history', [])
+    same_gate = identity in previous
+    old_items = prior_shadow_items(previous[:-1] if same_gate else previous, root,
+                                   shadows[:-1] if same_gate else shadows)
+    record = shadow_snapshot(root, gate, identity, entry.get('shadow_applicability'), old_items)
     if identity in previous:
         require(previous[-1] == identity and shadows and shadows[-1] == record,
                 'same prediction gate cannot replace shadow applicability/history')
