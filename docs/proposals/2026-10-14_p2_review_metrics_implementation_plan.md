@@ -3,7 +3,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p2-review-metrics`
 - 優先順位：P2の1番目。サイクル終了審査までに実装・受入する。
-- 状態：2026-10-15に実装着手。GitHub Actionsの結果と固定manifestの照合を実施中。実行前のテストを成功として記録しない。
+- 状態：2026-10-15に実装・合成受入原本固定まで完了。最終PRの既存CIとレビュー待ち。実測レース/Owner承認/性能昇格は実行していない。
 
 ## 問題・根拠・修正境界
 
@@ -48,7 +48,7 @@
 
 ## 実装時の実績表
 
-項目／commit SHA／変更path／実行コマンド／期待値／実結果／残件を追記する。現時点はすべて未実装・未検証。
+項目／commit SHA／変更path／実行コマンド／期待値／実結果／残件を以下の2026-10-15実績表に記録する。未実施の実レース/人間審査を成功とは表現しない。
 
 ## 共通作業・統合規約
 
@@ -75,8 +75,30 @@
 | 02 | d439aaf6, 0ae9dc1f, f4c4df7c, ae9560f7 | `scripts/cycle04_review_metrics.py`, `scripts/cycle04_workflow.py`, `scripts/check_cycle04.py` | 共通schema/検査、DRAFT/COMPLETE、追記原本、事前根拠固定をwriter/checkerに接続。 |
 | 03 | 774a246f, 600f1b1b | `scripts/cycle04_review_metrics.py`, `scripts/chat_review_package.py` | phase別無印、変更根拠、推奨失敗の独立分母と欠測を作成。複勝対象着数を公式結果から取得。 |
 | 04 | 30f2b3ee, 5bab043f, b627107a, d7252013 | `scripts/cycle04_completion.py`, `scripts/chat_improvement_handoff.py`, `docs/validation/contracts/cycle04_operations.md`, `docs/validation/templates/next_cycle_execution_v17.md` | Owner不足を終了判定・回顧資料・運用契約へ接続。テンプレート `cycle04_review_entry_v2.json` を新設。 |
-| 05 | 記録待ち | `docs/validation/reviews/cycle_04/acceptance.json`, `docs/validation/contracts/v170-release.json` | GitHub Actionsで標準受入/releaseの再生成を実行し、成功と実原本読戻しを確認した場合のみSHAと結果を追記する。 |
+| 05 | 43370aae, 4456bf0e | `docs/validation/reviews/cycle_04/acceptance.json`, `docs/validation/contracts/v170-release.json` | Actions run 38656793421（job 116168349527）の実原本をGitHubへ保存。全818回帰、失敗0、skip0、合成受入PASS。正式切替/実レースは非認証。 |
 
 テスト対応：`test_cycle04_result_eligibility.py`、`test_cycle04_workflow.py`、`test_cycle04_completion.py`、`test_chat_review_package.py`、`test_chat_improvement_handoff.py` に回帰追加・契約更新。GitHub Actionsの`cycle-ledger`では更新途中の旧ハッシュのため後段が失敗したが、commit `d7252013` 対象の `python3 -m unittest discover -s scripts -p 'test_*.py'` は成功。統合は実際の`--write`とrelease生成の出力を待ち、手書きのPASSや先行PRのhash転記をしない。
 
 未確定な新指標：Ownerにない「無印好走」の合成閾値と「強い新事実」の事後自動分類は設けず、合成指標は `null` / 理由で保持。独立1着・2着・3着内、および固定根拠の状態別件数は提供する。
+
+
+### 実行コマンド・SHAと受入読戻し（2026-10-15）
+
+実際に GitHub Actions の `integration-acceptance` job（run `38656793421`）で実行した順序：
+
+```bash
+python3 scripts/run_cycle04_acceptance.py --write
+python3 scripts/build_v170_manifest.py
+python3 scripts/check_cycle04.py
+python3 scripts/run_release_readiness.py
+python3 scripts/check_integration_acceptance.py --full
+```
+
+- `run_cycle04_acceptance.py --write`：`tests_run=818`、`failures=0`、`skipped=0`、`mode=SYNTHETIC`、`live_race_count=null`。coverage: 149入力source。
+- `build_v170_manifest.py`：v1.7.0 / 169対象source。両JSONはrunのstdoutに固定byteのBase64を出力し、それを復号してGithub connectorで直接更新した（手書きの成功・hashなし）。
+- `check_cycle04.py`：第4の日別実測0/6日、未開始、正常一巡は未完了。固定受入はPASS。実レースのPrediction適格性は主張しない。
+- `run_release_readiness.py`：v1.7.0の原子的固定参照を検証、mainの契約変更とは分ける。
+- `check_integration_acceptance.py --full`：取得済みmainの開始認証と候補branchの差分判定、全合成回帰と第3再計算が成功。
+- 固定原本コミット：受入 `43370aae5761d25bb9e47e109cd13ac32347b69c`、release `4456bf0edbb42668fdb3e81058a7f9e012113cbf`。
+- 受入実測用の一時的な `.github/workflows/check-integration-acceptance.yml` の変更は差分から撤去した。Production Ownerと既存3 CIを弱めない。
+- 「無印好走」合成閾値、および「強い新事実」の採用判定は既存Ownerに新基準がないため未定義。独立集計自体は完成、正式な追加閾値はOwner判断があるまで保留。
