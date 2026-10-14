@@ -3,7 +3,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p2-review-metrics`
 - 優先順位：P2の1番目。サイクル終了審査までに実装・受入する。
-- 状態：計画のみ。以下の再現・テストは実装時に実行し、実行前に成功を記録しない。
+- 状態：2026-10-15に実装着手。GitHub Actionsの結果と固定manifestの照合を実施中。実行前のテストを成功として記録しない。
 
 ## 問題・根拠・修正境界
 
@@ -53,7 +53,7 @@
 ## 共通作業・統合規約
 
 - 対象：`eda-hub/horse-man`。基点main：`984ee26fac173af8c7f8c4e5b7f5ab4df844bf1a`。現行版v1.7.0、PR82〜85統合済み。
-- 本依頼はブランチ・修正計画・実施計画書の作成まで。コード修正・実レース記録・適格性訂正・mainマージは未着手。本書を現行Productionルールとして使用しない。
+- 本書作成時の依頼は計画書作成までだったが、2026-10-15にPR88の実装指示を受けてコード修正に着手した。実レース記録・適格性訂正・mainマージは対象外。本書を現行Productionルールとして使用しない。
 - 再開時に最新main、AGENTS、manual README、関係Owner、本書、対象branchを読戻す。基点後の変更と実測追加を確認し、従来のGitHub接続・作業記録を踏襲する。
 - 統合順は回顧項目・集計→公式発走変更→旧履歴整理。後続は先行PR統合後の最新mainへ追従し、共通validator・契約・テストを手動で整合する。公式時刻変更が実際に発生した場合は、その課題を先行してよい。
 - Production/Shadow/任意市場、Prediction/Recommendation/購入を分離。価格・実購入・払戻を標準入力へ戻さない。第4の6開催日・11/1までの収集日程は維持する。実測未取得はnull・不足とし、予定192Rやfixtureを実績にしない。
@@ -63,3 +63,20 @@
 - 標準受入は全回帰失敗0・skip0の実出力だけをPASSにする。手動hash追従や先行PRの成功証跡コピーをしない。候補branchの `--require-main` 拒否と、取得済みmainの開始認証成功を区別する。
 - 過去の通常checker不合格は、最新コードの回帰失敗とは切り分けて原因と対象を記録する。黙ってauditへ切り替えて全正常と報告せず、合成試験と実運用・過去記録の状態を区別する。
 - 切り戻しは変更commitのrevertと契約/受入/releaseの再整合で行う。新しく保存された記録を削除しない。schema変更には旧記録の読取・不足表示を残す。
+
+
+## 2026-10-15 実装実績（追記）
+
+対象：`eda-hub/horse-man`、`fix/p2-review-metrics`、main基点 `984ee26fac173af8c7f8c4e5b7f5ab4df844bf1a`。合成回帰の結果は実競馬の成績・Owner採否を意味しない。
+
+| 項目 | commit SHA（先頭8桁） | 保存した主なpath | 実施・結果／残件 |
+|---|---|---|---|
+| 01 | d4bbf61b, 1876f476 | `docs/proposals/2026-10-15_p2_review_metrics_mapping.md`, `scripts/test_cycle04_review_metrics.py` | 対応表・Owner不足/下書き/改訂/複数原因の合成回帰を追加。 |
+| 02 | d439aaf6, 0ae9dc1f, f4c4df7c, ae9560f7 | `scripts/cycle04_review_metrics.py`, `scripts/cycle04_workflow.py`, `scripts/check_cycle04.py` | 共通schema/検査、DRAFT/COMPLETE、追記原本、事前根拠固定をwriter/checkerに接続。 |
+| 03 | 774a246f, 600f1b1b | `scripts/cycle04_review_metrics.py`, `scripts/chat_review_package.py` | phase別無印、変更根拠、推奨失敗の独立分母と欠測を作成。複勝対象着数を公式結果から取得。 |
+| 04 | 30f2b3ee, 5bab043f, b627107a, d7252013 | `scripts/cycle04_completion.py`, `scripts/chat_improvement_handoff.py`, `docs/validation/contracts/cycle04_operations.md`, `docs/validation/templates/next_cycle_execution_v17.md` | Owner不足を終了判定・回顧資料・運用契約へ接続。テンプレート `cycle04_review_entry_v2.json` を新設。 |
+| 05 | 記録待ち | `docs/validation/reviews/cycle_04/acceptance.json`, `docs/validation/contracts/v170-release.json` | GitHub Actionsで標準受入/releaseの再生成を実行し、成功と実原本読戻しを確認した場合のみSHAと結果を追記する。 |
+
+テスト対応：`test_cycle04_result_eligibility.py`、`test_cycle04_workflow.py`、`test_cycle04_completion.py`、`test_chat_review_package.py`、`test_chat_improvement_handoff.py` に回帰追加・契約更新。GitHub Actionsの`cycle-ledger`では更新途中の旧ハッシュのため後段が失敗したが、commit `d7252013` 対象の `python3 -m unittest discover -s scripts -p 'test_*.py'` は成功。統合は実際の`--write`とrelease生成の出力を待ち、手書きのPASSや先行PRのhash転記をしない。
+
+未確定な新指標：Ownerにない「無印好走」の合成閾値と「強い新事実」の事後自動分類は設けず、合成指標は `null` / 理由で保持。独立1着・2着・3着内、および固定根拠の状態別件数は提供する。
