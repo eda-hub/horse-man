@@ -79,7 +79,10 @@ class CompletionAcceptance(unittest.TestCase):
         result = evaluate_days(self.root, [day])
         self.assertIn('INITIAL', str(result['issues']))
         self.assertFalse(result['stage_complete'])
-        self.assertIn('INITIAL', str(workflow.summary(self.root)['completion']['issues']))
+        # この合成fixtureでは最終推奨も初回宣言に結合しているため、
+        # summaryの正式結果検査が先に拒否する。履歴不足の独立判定は上で確認済み。
+        with self.assertRaisesRegex(ValueError, 'predeclaration'):
+            workflow.summary(self.root)
 
     def test_missing_historical_fix_ref_stays_incomplete(self):
         day, history = self.reviewed_with_separate_initial_final_evidence()
