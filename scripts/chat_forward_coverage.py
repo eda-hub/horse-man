@@ -40,12 +40,28 @@ def coverage(root, manifest, as_of=None):
             require(row['mode']=='FORWARD','REPLAY/synthetic scope is outside actual coverage')
             scope[race]={'day':day,'row':row}
     require(set(scope) or not assessments and not items,'assessments/pairs cannot invent an initial scope')
+    fixed_items={}
+    for item in items:
+        require(isinstance(item,dict) and isinstance(item.get('gate_ref'),dict),
+                'fixed shadow pair gate reference required')
+        gate_candidate=fixed_json(root,item['gate_ref'])
+        candidate_race=gate_candidate.get('race_id')
+        require(candidate_race in scope and candidate_race not in fixed_items,
+                'unknown/duplicate fixed shadow pair race')
+        fixed_items[candidate_race]=item
     by_race={}
     for entry in assessments:
         require(isinstance(entry,dict) and set(entry)=={'race_id','assessment_ref'}, 'assessment binding fields invalid')
         race=entry['race_id'];require(race in scope and race not in by_race,'unknown/duplicate assessment race')
-        row=scope[race]['row'];gate_path=row.get('prediction_gate_path')
+        row=scope[race]['row'];pair=fixed_items.get(race)
+        gate_path=pair['gate_path'] if pair else row.get('prediction_gate_path')
         require(gate_path,'assessment cannot classify an absent fixed prediction')
+        if pair:
+            require(gate_path==pair['gate_ref']['artifact_path'] and any(
+                    entry['prediction_gate_path']==gate_path and
+                    entry['prediction_gate_sha256']==pair['gate_ref']['sha256']
+                    for entry in row.get('shadow_history',[])),
+                    'assessment must bind to the original fixed comparison phase')
         gate=validate_gate(root,safe_path(root,gate_path))
         data,receipt=verified_artifact(root,entry['assessment_ref'],row['scheduled_post_time_jst'])
         require(iso(receipt['receipt_verified_at_jst'],'assessment readback')<=iso(gate['data_cutoff'],'cutoff') and
