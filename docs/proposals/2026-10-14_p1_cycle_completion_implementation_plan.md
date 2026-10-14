@@ -139,3 +139,4 @@
 - 再開順序：最新main・追加記録の確認→先行PRの結果適格性/Shadow証跡/最終状態/完了判定の順に統合→各段階で全回帰と標準受入生成→release生成→通常/統合検査→CI→レビュー・マージ判断。11/1の試験開始と第4の収集完了を混同せず、最終日の全回顧後に終了審査する。
 - 完了判定の日付はcheck_cycle04の6開催日を共通参照する。6日登録・全回顧だけでは正常一巡とせず、工程検査と集計のGit固定参照を維持する。追加期間のテストもこの強化条件へ整合した。
 - 本整合の限定ローカル回帰：49件成功、失敗0・skip0。これは全回帰・標準受入・Git実main統合試験・CI成功ではない。
+- 実行コマンド（当該候補のローカル取得ルート）：`PYTHONPATH=scripts python3 -m unittest test_cycle04_period test_cycle04_completion test_cycle04_acceptance`。終了0。変更Pythonファイルのcompile検査も成功。
