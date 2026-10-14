@@ -128,3 +128,21 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 確信度別、入力完備/不足別、午前/午後別の◎成績、初回→最終の順位変更と◎的中の改善/悪化、回顧ラベルの件数を集計する。初回比較がないレースは不足IDを残す。固定予想に取消馬が残る場合は精度の分母へ入れず比較不能の理由を記録し、推奨の取消券判定は独立して実施する。取消後に再固定済みの予想は実出走集合で照合する。
 
 任意市場を依頼された場合だけ`--date YYYY-MM-DD --record-market market-entry.json`を使う。entryはrace_idとmarket_ref、独立artifactはmarket-analysis-v1・race_id/race_date_jst・data_cutoff・marketを持つ。価格はPrediction固定後の独立cutoffで取得可能だが、cutoff・保存/読戻しは発走前を要求する。Predictionの順位・確率・基準・推奨・cutoffを変更しない。
+
+## サイクル完了・理由付き終了（P1）
+
+「正常一巡完了」は4開催日の実依頼scopeが登録され、各対象の初回Prediction・独立本体/FIX/hash/receipt/個別検査・公式結果照合・回顧が揃い、選定されたレースはFINALと独立推奨の保存/個別検査まで揃い、さらに集計と日別台帳をGitの固定commitから同一bytesで読戻した場合だけに用いる。初回のみで選定されなかったレースにFINALは要求しない。選定済みでFINALなしは未完了とし、発走後の恣意的な選定取消で隠せない。推奨なし・明示的印のみは独立保存された正当な最終状態であり、未保存PENDINGと同一視しない。
+
+日別と集計の固定参照は、それぞれ次の形式で手動作成する。参照元のGit commitは対象ファイルを実際に含む40桁SHAを指定し、hashは当該bytesのSHA256を指定する。固定参照自体は予定日の事前証跡として作成しない。
+
+`{"day_refs":[{"artifact_path":"docs/validation/records/cycle_04/YYYY-MM-DD.json","sha256":"<実際の64桁SHA256>","git_commit":"<実際の40桁commit>"}],"summary_ref":{"artifact_path":"docs/validation/reports/cycle_04/summary.json","sha256":"<実際の64桁SHA256>","git_commit":"<実際の40桁commit>"}}`
+
+日別は登録した各開催日を漏れなく列挙する。全件回顧後、`python3 scripts/cycle04_workflow.py --summary` のJSON全体を `docs/validation/reports/cycle_04/summary.json` へ保存し、適切な作業ブランチからGitへコミットして読戻す。標準出力の表示、CLI return_code=0、ローカルhash一致だけでは完了ではない。発走前Prediction用receiptを集計へ流用しない。集計用証跡はこの後続Git commitの`git show COMMIT:path`で検証する。必要な全日の固定参照を`completion-manifest.json`へ手動入力する。
+
+`python3 scripts/check_cycle04.py --require-complete --completion-manifest completion-manifest.json` は、4日全件の工程と実際のGit読戻しが揃ったときだけ0を返す。単独の`--require-complete`は集計固定参照がないため失敗する。通常`check_cycle04.py`と`cycle04_workflow.py --summary`は、不足対象・理由を保持して状態を表示するが、正常一巡と自己申告しない。
+
+取得/保存不足・未実施のまま行政的に終了を判断する際は、Ownerが固定済み日別/集計・全初回scope・全不足理由・良好部分の保護・次試験・審査者・Owner・日時を確認し、人間の明示審査記録を`docs/validation/reports/cycle_04/closure-review.json`へ保存してGit読戻しする。必要schemaは`cycle04-closure-review-v1`、`decision=REASONED_CLOSE`、`reviewed_at_jst`、`reviewer`、`owner`、`reason`、`protected_good_parts`（非空list）、`next_validation`、`initial_scope`（全日/全race_id）、`documented_issues`（工程判定器の全不足）、`day_refs`、`summary_ref`、`performance_promotion=NOT_APPROVED`。審査記録を入力しない限り「理由付き終了」としない。CLIへは審査記録の`artifact_path`/`sha256`/`git_commit`を持つ`closure-ref.json`を渡す：
+
+`python3 scripts/check_cycle04.py --closure-review closure-ref.json`
+
+この判定は審査者の身元証明そのものは行わない。正式なOwner承認は運用側で確認しなければならない。未登録日・未測定KPI・Shadow/市場の不足を勝手に補完せず、終了審査の承認は性能採用、履歴復元、個別予想保存の再認証とは独立する。入力不足/該当Shadow不足/任意市場不足は各々独立表示し、任意市場とShadowの実測未受入だけを標準Prediction・価格不要推奨の完了障害にしない。
