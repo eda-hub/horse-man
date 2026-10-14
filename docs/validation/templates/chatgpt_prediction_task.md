@@ -30,3 +30,11 @@ eda-hub/horse-manのmainからmanual READMEを取得し、同一参照commitで�
 ## 利用者への回答
 
 順位/印/確率/根拠/確信度、推奨または理由付き推奨なし、対象ごとの本体/個別完了/不足を日本語で示す。内部IDや工程コードをそのまま列挙しない。
+
+## Shadow初回・最終の適用状態の固定
+
+初回と最終のPrediction gateを別phaseの固定履歴として登録する。日別writer/preview用entryには各phaseの `shadow_applicability`（`status`, `reason`, `item_ids`）を必ず入れる。項目が存在する場合は `APPLICABLE` としてgateの全項目IDを一致させる。対象条件を実際に確認して非該当なら `NOT_APPLICABLE`、未確認なら `UNKNOWN`（保留）とし、単なる空の `shadow_items` だけでは非該当としない。
+
+初回に存在した項目を最終gateから外すときは、`previous_item_dispositions` に消えたIDごとの `status` と具体的な `reason` を全件記録する。初回の原本とreceipt、固定gateのSHAと当時の比較状態は変更・削除しない。最終のShadow対象外/不足は日別最新Shadow KPIだけに反映し、独立Productionと価格不要推奨の完了判定へ流用しない。プレビューはwriterと同じ検証を通す。
+
+回顧では `shadow_history` と `shadow_history_gaps` をphase別に読み、同一gate・baseline・cutoff・項目IDの固定比較キーで重複を除外する。初回比較と最終比較を混ぜず、未実施や証跡不明は保留/不足とする。
