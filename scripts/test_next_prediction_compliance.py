@@ -140,6 +140,32 @@ def add_next_production_snapshot(root,g,snapshot_overrides=None):
     }
     return snapshot
 
+def add_next_shadow(root, gate, *, at='09:57', readback='09:58'):
+    """独立Shadowの当時固定したbytes/hash/receiptを持つ合成fixture。"""
+    import hashlib
+    item_id = 'shadow-forward-01'
+    path = f"docs/validation/shadow/{gate['race_date_jst']}/{item_id}.json"
+    receipt_path = f"docs/validation/persistence-receipts/{gate['race_date_jst']}.md"
+    raw = json.dumps({'artifact_id': item_id, 'race_id': gate['race_id'],
+                      'mode': 'FORWARD', 'data_cutoff': gate['data_cutoff']},
+                     ensure_ascii=False).encode('utf-8')
+    write(root, path, raw.decode('utf-8'))
+    sha = hashlib.sha256(raw).hexdigest()
+    persist = f"{gate['race_date_jst']}T{at}:00+09:00"
+    receipt = receipt_record(item_id + '-receipt', item_id, path,
+                             verified=persist, post=gate['scheduled_post_time_jst'])
+    receipt['content_sha256'] = sha
+    receipt['receipt_verified_at_jst'] = f"{gate['race_date_jst']}T{readback}:00+09:00"
+    write_receipts(root, receipt_path, [receipt])
+    ref = {'artifact_id': item_id, 'artifact_path': path, 'sha256': sha,
+           'receipt_path': receipt_path, 'receipt_id': receipt['receipt_id'],
+           'timing_eligibility': 'PRE_RACE_ELIGIBLE', 'persist_verified_at_jst': persist}
+    gate['shadow_items'] = [{'item_id': item_id, 'state': 'COMPLETE',
+                             'kpi_eligibility': 'ELIGIBLE', 'evidence_ref': ref}]
+    gate['kpi_eligibility']['shadow'] = 'ELIGIBLE'
+    return ref, receipt
+
+
 class T(unittest.TestCase):
   def root(self):
     t=tempfile.TemporaryDirectory(); self.addCleanup(t.cleanup); r=Path(t.name)
@@ -499,6 +525,61 @@ class T(unittest.TestCase):
   def test_next_eligible_production_matching_snapshot_passes(self):
     r=self.root_next(); g=next_gate(); g['kpi_eligibility']['production']='ELIGIBLE'
     add_next_production_snapshot(r,g); self.put(r,g); run(r)
+
+  def test_next_forward_shadow_integrity_accepts_independent_receipt(self):
+    r=self.root_next();g=next_gate()
+    add_next_shadow(r,g);self.put(r,g);run(r)
+
+  def test_next_forward_shadow_rejects_tampered_bytes_without_new_hash(self):
+    r=self.root_next();g=next_gate();ref,_=add_next_shadow(r,g)
+    self.put(r,g)
+    (r/ref['artifact_path']).write_text('{"artifact_id":"shadow-forward-01","changed":true}')
+    with self.assertRaises(ComplianceError):run(r)
+
+  def test_next_forward_shadow_rejects_replaced_reference_hash(self):
+    r=self.root_next();g=next_gate();ref,_=add_next_shadow(r,g)
+    ref['sha256']='0'*64;self.put(r,g)
+    with self.assertRaises(ComplianceError):run(r)
+
+  def test_next_forward_shadow_rejects_post_time_receipt_readback(self):
+    r=self.root_next();g=next_gate()
+    add_next_shadow(r,g,readback='10:11');self.put(r,g)
+    with self.assertRaises(ComplianceError):run(r)
+
+  def test_next_forward_shadow_rejects_incomplete_or_inconsistent_evidence(self):
+    for field in ('sha256','receipt_id','receipt_path','persist_verified_at_jst'):
+      with self.subTest(field=field):
+        r=self.root_next();g=next_gate();ref,_=add_next_shadow(r,g)
+        ref.pop(field);self.put(r,g)
+        with self.assertRaises(ComplianceError):run(r)
+    for mutation in ('missing_readback','missing_content_hash','wrong_receipt_hash',
+                     'duplicate_receipt','wrong_deadline','reversed_time','at_post',
+                     'future_time','missing_artifact','wrong_artifact','wrong_receipt_id'):
+      with self.subTest(mutation=mutation):
+        r=self.root_next();g=next_gate();ref,receipt=add_next_shadow(r,g)
+        if mutation=='missing_readback':receipt.pop('receipt_verified_at_jst')
+        if mutation=='missing_content_hash':receipt.pop('content_sha256')
+        if mutation=='wrong_receipt_hash':receipt['content_sha256']='0'*64
+        if mutation=='wrong_deadline':receipt['scheduled_post_time_jst']=g['race_date_jst']+'T10:12:00+09:00'
+        if mutation=='reversed_time':receipt['receipt_verified_at_jst']=g['race_date_jst']+'T09:56:00+09:00'
+        if mutation=='at_post':receipt['receipt_verified_at_jst']=g['scheduled_post_time_jst']
+        if mutation=='future_time':receipt['receipt_verified_at_jst']='2099-10-13T09:58:00+09:00'
+        if mutation=='missing_artifact':(r/ref['artifact_path']).unlink()
+        if mutation=='wrong_artifact':ref['artifact_id']='another-shadow'
+        if mutation=='wrong_receipt_id':ref['receipt_id']='another-receipt'
+        records=[receipt,dict(receipt)] if mutation=='duplicate_receipt' else [receipt]
+        write_receipts(r,ref['receipt_path'],records)
+        self.put(r,g)
+        with self.assertRaises(ComplianceError):run(r)
+
+  def test_next_forward_shadow_rejects_replay_and_preserves_pending(self):
+    r=self.root_next();g=next_gate()
+    add_next_shadow(r,g);g['mode']='REPLAY';g['timing_route']='LATE_PRESERVATION'
+    self.put(r,g)
+    with self.assertRaisesRegex(ComplianceError,'replay'):run(r)
+    g=next_gate();g['kpi_eligibility']['shadow']='PENDING'
+    g['shadow_items']=[{'item_id':'missing','state':'NOT_STARTED','kpi_eligibility':'PENDING'}]
+    self.put(r,g);run(r)
 
   def test_next_shadow_kpi_requires_eligible_shadow_evidence_item(self):
     r=self.root_next(); g=next_gate(); g['kpi_eligibility']['shadow']='ELIGIBLE'; self.put(r,g)
