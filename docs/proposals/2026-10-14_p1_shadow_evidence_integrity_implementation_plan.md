@@ -111,13 +111,13 @@ python3 scripts/run_release_readiness.py
 - 統合受入：run `38522478142`、`failure`。
 - 血統研究：run `38522478250`、`failure`。
 
-いずれもジョブの`runner_id=0`、`steps=[]`で、ワークフロー処理を開始した検証記録は存在しない。ジョブログ取得は404の`BlobNotFound`。runner未割当の理由はGitHub側の権限・課金・割当などを確認するまで未特定であり、アプリケーションのテスト失敗と断定しない。対象SHAの差分を読戻し、後から出た別SHAの成功と取り違えないこと。
+いずれもジョブの`runner_id=0`、`steps=[]`で、ワークフロー処理を開始した検証記録は存在しない。ジョブログ取得は404の`BlobNotFound`。ユーザー確認により、GitHub Actionsの利用上限到達で2026-11-01までCIを使用できない。runner未割当はこの制約によるものとして扱い、アプリケーションのテスト失敗と断定しない。対象SHAの差分を読戻し、後から出た別SHAの成功と取り違えないこと。
 
 `docs/validation/reviews/cycle_04/acceptance.json` は**従来の741件の成功記録のままであり、今回の変更・新規テストの合格証跡ではない**。全回帰成功後に前掲の`--write`で最新入力について生成し、続けてmanifestを再生成・読戻ししなければならない。テスト不成功の状態でPASSに改ざんしない。
 
 ### 残件と完了判定
 
-1. Actionsジョブがrunnerを割り当てられない原因を解消し、3系統の実行と成功を取得する。
+1. GitHub Actions利用上限の解除予定日である**2026-11-01以降**に、対象SHAを再確認して3系統CIを再実行し、成功を取得する。2026-10-31までは実行・再実行を試みず、ジョブ失敗をコード欠陥として扱わない。
 2. 本計画の対象回帰、通常checker、保存回帰、`run_cycle04_acceptance.py --write`、`build_v170_manifest.py`、統合受入の実結果を取得し、生成物のSHAを再読戻しする。
 3. 全項目がPASSになった後で本表・PR本文・検証SHAを更新し、Draft解除とマージ可否を判断する。現時点の受入状態は**未完了**。
 
@@ -130,3 +130,11 @@ python3 scripts/run_release_readiness.py
 - 変更後の`scripts/check_prediction_compliance.py`のSHA-256を`5a11fd443810af3d0ff69adc5fe62551ae1a2e6e04159591a08ed5f84e6ac567`としてrelease manifestへ再反映した（`7941a84`）。固定ハッシュを読戻し原本から計算し、保存済み実レース証跡を操作していない。
 - `cycle04_operations.verified_artifact`の既存責務（bytes/hash・receipt・保存/読戻し時刻）を再利用し、`class_transition_shadow.py`／`chat_forward_coverage.py`／`chat_calibration_review.py`の専用比較契約は変更していない。静的差分確認は実施したが、実行検証の代わりとはしない。
 - CIのrunner未割当は少なくとも上記3系統・サイクル台帳の再実行で再現し、すべて0ステップ。ホスト側要因の詳細は未確定。
+
+
+### CI利用上限に関する確定事項（2026-10-14 ユーザー確認）
+
+- **GitHub Actionsは利用上限に達しており、2026-11-01まで使用不可**。前掲CIで`runner_id=0`かつ`steps=[]`となった理由を、単なるrunner設定不備と推測しない。CIの再試行で利用枠を浪費せず、利用可能日以降に行う。
+- **CI停止は開発停止を意味しない**。ローカルにリポジトリがある環境では、対象回帰 → 全`unittest`（skip 0を確認）→ 通常checker → `run_cycle04_acceptance.py --write` → `build_v170_manifest.py` → 統合受入 → release整合の順で進められる。成功ログ・入力SHA・結果を本書とPRに追記する。過去の741件の合成受入ファイルを今回の成功証跡とみなさず、実行成功後に再生成する。
+- 本セッションではプライベートGitHubリポジトリの直接checkoutがDNS解決不能のため、ローカル全回帰の実行は確認できない。**CI未実行とローカル未実行を明確に分け**、どちらもPASSとして記載しない。
+- 対象branchはDraft保持。2026-11-01以降のCIが成功しても、後続PR取込みによるコード・manifest・計画書の差分があれば検証対象SHAを更新してから判断する。自動的な日付到来だけで合格・Draft解除・マージしない。
