@@ -15,7 +15,9 @@ from recommendation import verify as verify_recommendation, settle
 from cycle04_shadow_state import verify_history as verify_shadow_history
 
 CONTRACT_PATH = 'docs/validation/contracts/cycle_04.json'
-DATES = ['2026-10-17', '2026-10-18', '2026-10-24', '2026-10-25']
+DATES = ['2026-10-17', '2026-10-18', '2026-10-24', '2026-10-25', '2026-10-31', '2026-11-01']
+VENUES_BY_DATE = {date: ['TOK', 'KYO', 'NII'] if date <= '2026-10-25' else ['TOK', 'KYO']
+                  for date in DATES}
 SCHEMA = 'cycle04-day-v1'
 
 
@@ -125,7 +127,7 @@ def validate_day(root, path, contract):
     initial = string_set(d.get('initial_scope'), 'initial')
     require(bool(initial), 'empty scope is not a completed day')
     for race in initial:
-        require(re.fullmatch(date.replace('-', '') + r'-(TOK|KYO|NII)-(0[1-9]|1[0-2])', race),
+        require(re.fullmatch(date.replace('-', '') + '-(' + '|'.join(VENUES_BY_DATE[date]) + r')-(0[1-9]|1[0-2])', race),
                 'race outside declared day/venues')
     selected = string_set(d.get('selected_scope'), 'selected')
     final = string_set(d.get('final_scope'), 'final')
@@ -371,7 +373,7 @@ def main(argv=None):
             require({d['race_date_jst'] for d in days} == set(DATES) and
                     all(set(d['reviewed_scope']) == set(d['initial_scope']) for d in days),
                     '第4の日別実測・全対象回顧が未完了です')
-        print(f'第4検査契約の準備照合成功。実測{len(days)}/4日。正式切替状態：{c["status"]}。')
+        print(f'第4検査契約の準備照合成功。実測{len(days)}/{len(DATES)}日。正式切替状態：{c["status"]}。')
         return 0
     except (ValueError, OSError, TypeError, KeyError, AttributeError) as exc:
         print(f'第4検査不合格：{exc}', file=sys.stderr)
