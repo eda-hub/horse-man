@@ -22,6 +22,87 @@ class CompletionAcceptance(unittest.TestCase):
         day,_=workflow.read_day(self.root,workflow.DATES[0])
         return evaluate_days(self.root,[day])
 
+    def reviewed_with_separate_initial_final_evidence(self):
+        """writer経由で初回と最終の宣言/FIX原本を別々に固定する。"""
+        workflow.record_prediction(self.root, DATES[0], self.case.entry)
+        self.case.select()
+        final_entry = json.loads(json.dumps(self.case.entry))
+        final_entry['phase'] = 'FINAL'
+        first_intent = final_entry['operations']['intent_ref']
+        first_fix = final_entry['operations']['fix_ref']
+        final_intent = self.case.fixture.artifact(
+            'final-intent', f'docs/validation/persistence-intents/{DATES[0]}/final.json',
+            json.loads((self.root / first_intent['artifact_path']).read_text()), at='09:39')
+        final_manifest = json.loads((self.root / first_fix['artifact_path']).read_text())
+        final_manifest['intent_ref'] = final_intent
+        final_fix = self.case.fixture.artifact(
+            'final-fix', f'docs/validation/fix-manifests/{DATES[0]}/final.json',
+            final_manifest, at='09:56')
+        final_entry['operations']['intent_ref'] = final_intent
+        final_entry['operations']['fix_ref'] = final_fix
+        workflow.record_prediction(self.root, DATES[0], final_entry)
+        workflow.review(self.root, DATES[0], self.case.result_entry())
+        day, _ = workflow.read_day(self.root, DATES[0])
+        history = day['races'][self.case.entry['race_id']]['prediction_history']
+        self.assertNotEqual(history[0]['intent_ref']['artifact_path'],
+                            history[1]['intent_ref']['artifact_path'])
+        self.assertNotEqual(history[0]['fix_ref']['artifact_path'],
+                            history[1]['fix_ref']['artifact_path'])
+        return day, history
+
+    def test_deleted_initial_fix_is_reported_after_final_and_review(self):
+        day, history = self.reviewed_with_separate_initial_final_evidence()
+        self.assertFalse(any(x['code'] == 'PREDICTION_CHECK_PENDING' for x in
+                             evaluate_days(self.root, [day])['issues']))
+        (self.root / history[0]['fix_ref']['artifact_path']).unlink()
+        result = evaluate_days(self.root, [day])
+        self.assertTrue(any(x['code'] == 'PREDICTION_CHECK_PENDING' and
+                            'INITIAL' in x['reason'] for x in result['issues']))
+        self.assertFalse(result['stage_complete'])
+        self.assertFalse(result['normal_cycle_complete'])
+        self.assertIn('INITIALの独立保存/個別完了未確認',
+                      str(workflow.summary(self.root)['completion']['issues']))
+
+    def test_modified_initial_fix_is_not_replaced_by_latest_final(self):
+        day, history = self.reviewed_with_separate_initial_final_evidence()
+        target = self.root / history[0]['fix_ref']['artifact_path']
+        target.write_text(target.read_text() + '\n', encoding='utf-8')
+        result = evaluate_days(self.root, [day])
+        self.assertIn('hash mismatch', str(result['issues']))
+        self.assertIn('INITIAL', str(result['issues']))
+        self.assertFalse(result['normal_cycle_complete'])
+        self.assertIn('INITIAL', str(workflow.summary(self.root)['completion']['issues']))
+
+    def test_deleted_initial_intent_is_not_replaced_by_latest_final(self):
+        day, history = self.reviewed_with_separate_initial_final_evidence()
+        (self.root / history[0]['intent_ref']['artifact_path']).unlink()
+        result = evaluate_days(self.root, [day])
+        self.assertIn('INITIAL', str(result['issues']))
+        self.assertFalse(result['stage_complete'])
+        self.assertIn('INITIAL', str(workflow.summary(self.root)['completion']['issues']))
+
+    def test_missing_historical_fix_ref_stays_incomplete(self):
+        day, history = self.reviewed_with_separate_initial_final_evidence()
+        history[0].pop('fix_ref')
+        result = evaluate_days(self.root, [day])
+        self.assertIn('履歴固有', str(result['issues']))
+        self.assertFalse(result['stage_complete'])
+
+    def test_initial_receipt_order_cannot_be_repaired_by_final_receipt(self):
+        day, history = self.reviewed_with_separate_initial_final_evidence()
+        from check_prediction_compliance import receipt_records
+        from test_next_prediction_compliance import write_receipts
+        ref = history[0]['fix_ref']
+        path = self.root / ref['receipt_path']
+        records = receipt_records(path)
+        for item in records:
+            if item.get('receipt_id') == ref['receipt_id']:
+                item['receipt_verified_at_jst'] = DATES[0] + 'T10:09:00+09:00'
+        write_receipts(self.root, ref['receipt_path'], records)
+        result = evaluate_days(self.root, [day])
+        self.assertIn('INITIAL', str(result['issues']))
+        self.assertFalse(result['stage_complete'])
+
     def test_registered_and_reviewed_without_initial_prediction_is_incomplete(self):
         path=self.root/workflow.DIRECTORY/(DATES[0]+'.json')
         day=json.loads(path.read_text())
