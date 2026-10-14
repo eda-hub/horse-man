@@ -185,6 +185,8 @@ def record_prediction(root,date,entry,*,preview=False):
     identity = {'phase':phase,'prediction_gate_path':entry['prediction_gate_path'],
                 'prediction_gate_sha256':hashlib.sha256(safe_path(root,entry['prediction_gate_path']).read_bytes()).hexdigest(),
                 'prediction_ref':copy.deepcopy(entry['operations']['prediction_ref']),
+                'intent_ref':copy.deepcopy(entry['operations']['intent_ref']),
+                'fix_ref':copy.deepcopy(entry['operations']['fix_ref']),
                 'baseline_forecast_id':gate['production']['baseline_forecast_id']}
     previous = row['prediction_history']
     shadows = row.setdefault('shadow_history', [])
@@ -380,6 +382,10 @@ def summary(root):
         for group in review_metrics[category].values():
             group['honmei_win_rate']=group['honmei_win_count']/group['count']
             group['honmei_top3_rate']=group['honmei_top3_count']/group['count']
+    from cycle04_completion import evaluate_days
+    result['completion'] = evaluate_days(root, days)
+    result['cycle_state'] = result['completion']['state']
+    # 集計の表示だけではGit保存済みとは判定しない。
     return result
 
 

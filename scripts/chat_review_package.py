@@ -86,11 +86,14 @@ def package(root, manifest, as_of):
             out['missing_review_fields']=[key for key in ('error_classification','protected_good_parts','non_degradation','next_validation')
                                           if not analysis.get(key)]
             rows.append(out)
+    from cycle04_completion import evaluate_days
+    completion=evaluate_days(root, [read_day(root,date)[0] for date in sorted(days)])
     history=[{'fixed_ref':ref,'diagnostic':fixed_json(root,ref),'formal_cycle04_kpi_eligible':False}
              for ref in manifest['historical_purchase_refs']]
     return {'schema_version':'chat-review-package-v1','as_of':as_of,'initial_scope_count':len(rows) if days else None,
             'races':rows,'independent_kpis_by_day':kpis,'shadow_comparisons_by_fixed_phase':shadow_pairs,
              'historical_purchase_diagnostics':history,
+            'cycle_completion':completion,'closure_review':'HUMAN_OWNER_REVIEW_REQUIRED',
             'read_only':True,'external_ai_api_executed':False,'formal_kpi_certified':False,
             'performance_promotion':'NOT_APPROVED'}
 

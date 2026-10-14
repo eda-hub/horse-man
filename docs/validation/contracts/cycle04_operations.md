@@ -191,3 +191,27 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 日別 `kpis.shadow` は**最新**PredictionのShadow適用状態だけをレース単位で表す。`NOT_APPLICABLE` は対象集合から以前の適格・不適格・保留および理由を除去し、`UNKNOWN` は理由付き保留とする。複数項目に適格と保留/不適格が混在した場合、全項目適格とはせず、保留を優先し、次いで不適格とする。初回の適格比較は `shadow_history` に残り、最終の対象外で失効・削除しない。Shadow不足はProductionの独立FIXと価格不要推奨の保存を失敗にしない。
 
 `chat_calibration_review.py` は前向き網羅が返す `submitted_pair_bindings` のphase・固定gate SHA・baseline・cutoff・item_idを厳密に照合する。INITIALの固定Shadow比較では、日別行の最新FINAL推奨を対応する推奨と扱わず `recommendation_input=null`、`recommendation_binding_status=DIFFERENT_PHASE` として元の比較を出力する。FINAL比較に限り、最新推奨を正式validatorに通し、phase=FINAL・cutoff・baseline・固定Production原本（artifact path/SHA/id）が一致する場合のみ `MATCHED_FINAL` として結合する。FINALの参照なしは `NOT_RECORDED`、FINALでの異なるcutoff/基準/原本・phaseの偽装は拒否する。初回比較だけを除外・実測ゼロ化しない。\n\n`chat_review_package.py` は最新レースKPIと `shadow_comparisons_by_fixed_phase` を別々に出力し、同一レース・phase・gate SHA・baseline・cutoff・項目IDの組を一意の比較キーとする。異なるcutoff・基準を合算しない。`chat_forward_coverage.py` は最新gateだけでなく当時の固定phase履歴へ提出ペアを照合する。`chat_calibration_review.py` もphase/baseline/cutoffを維持する。対象が未確定の場合は保留を保ち、実測0や自動性能昇格に変換しない。旧台帳と初回比較の真正性は保存済みgate/receiptから検査し、未知の適用判断を自動補完しない。
+
+## サイクル完了・理由付き終了（P1）
+
+「正常一巡完了」は6開催日の実依頼scopeが登録され、各対象の初回Prediction・独立本体/FIX/hash/receipt/個別検査・公式結果照合・回顧が揃い、選定されたレースはFINALと独立推奨の保存/個別検査まで揃い、さらに集計と日別台帳をGitの固定commitから同一bytesで読戻した場合だけに用いる。初回のみで選定されなかったレースにFINALは要求しない。選定済みでFINALなしは未完了とし、発走後の恣意的な選定取消で隠せない。推奨なし・明示的印のみは独立保存された正当な最終状態であり、未保存PENDINGと同一視しない。
+
+日別と集計の固定参照は、それぞれ次の形式で手動作成する。参照元のGit commitは対象ファイルを実際に含む40桁SHAを指定し、hashは当該bytesのSHA256を指定する。固定参照自体は予定日の事前証跡として作成しない。
+
+`{"day_refs":[{"artifact_path":"docs/validation/records/cycle_04/YYYY-MM-DD.json","sha256":"<実際の64桁SHA256>","git_commit":"<実際の40桁commit>"}],"summary_ref":{"artifact_path":"docs/validation/reports/cycle_04/summary.json","sha256":"<実際の64桁SHA256>","git_commit":"<実際の40桁commit>"}}`
+
+日別は登録した各開催日を漏れなく列挙する。全件回顧後、`python3 scripts/cycle04_workflow.py --summary` のJSON全体を `docs/validation/reports/cycle_04/summary.json` へ保存し、適切な作業ブランチからGitへコミットして読戻す。標準出力の表示、CLI return_code=0、ローカルhash一致だけでは完了ではない。発走前Prediction用receiptを集計へ流用しない。集計用証跡はこの後続Git commitの`git show COMMIT:path`で検証する。必要な全日の固定参照を`completion-manifest.json`へ手動入力する。
+
+`python3 scripts/check_cycle04.py --require-complete --completion-manifest completion-manifest.json` は、6日全件の工程と実際のGit読戻しが揃ったときだけ0を返す。単独の`--require-complete`は集計固定参照がないため失敗する。通常`check_cycle04.py`と`cycle04_workflow.py --summary`は、不足対象・理由を保持して状態を表示するが、正常一巡と自己申告しない。
+
+取得/保存不足・未実施のまま行政的に終了を判断する際は、Ownerが固定済み日別/集計・全初回scope・全不足理由・良好部分の保護・次試験・審査者・Owner・日時を確認し、人間の明示審査記録を`docs/validation/reports/cycle_04/closure-review.json`へ保存してGit読戻しする。必要schemaは`cycle04-closure-review-v1`、`decision=REASONED_CLOSE`、`reviewed_at_jst`、`reviewer`、`owner`、`reason`、`protected_good_parts`（非空list）、`next_validation`、`initial_scope`（全日/全race_id）、`documented_issues`（工程判定器の全不足）、`input_gaps`、`shadow_gaps`、`market_gaps`、`review_owner_gaps`（独立系列・Owner不足の全件）、`day_refs`、`summary_ref`、`performance_promotion=NOT_APPROVED`。審査記録を入力しない限り「理由付き終了」としない。CLIへは審査記録の`artifact_path`/`sha256`/`git_commit`を持つ`closure-ref.json`を渡す：
+
+`python3 scripts/check_cycle04.py --closure-review closure-ref.json`
+
+この判定は審査者の身元証明そのものは行わない。正式なOwner承認は運用側で確認しなければならない。未登録日・未測定KPI・Shadow/市場の不足を勝手に補完せず、終了審査の承認は性能採用、履歴復元、個別予想保存の再認証とは独立する。入力不足/該当Shadow不足/任意市場不足は各々独立表示し、任意市場とShadowの実測未受入だけを標準Prediction・価格不要推奨の完了障害にしない。
+
+### 固定履歴ごとの宣言・FIXと読戻し（PR85のP1回帰）
+
+初回から最終までの各 `prediction_history[]` は、履歴自身の `prediction_gate_path`/`prediction_gate_sha256`、`prediction_ref`、`intent_ref`、`fix_ref` を個別に固定し、工程完了時にそれぞれの実原本・SHA256・同一receipt・発走前保存/読戻しを再照合する。固定gateのレース・日付・発走時刻・baselineと予想本体を一致させ、宣言のrace/snapshot/path/期限、FIX manifestのsnapshot/path/hash/固定時刻・宣言参照を一致させる。必須順序は「宣言の読戻し ≤ 予想FIX時刻 ≤ FIX manifest保存 ≤ FIX manifest読戻し ≤ 予想本体保存」。原本欠落・改変・時刻逆転は初回履歴の工程不足として残し、最新FINALの正常な宣言/FIX、最新 `row.operations`、同一予想本体hashで補完しない。通常の最終gateの証拠と過去FIX原本の確認は別の検査であり、過去証跡を後付けで作成しない。
+
+`cycle04_workflow.py --summary` は修復前の原本を消さず履歴単位の `PREDICTION_CHECK_PENDING` とその理由を出す。正常一巡の `--require-complete` は当該不足がある限り拒否する。理由付き終了でも不足を全件保持し、性能適格化しない。

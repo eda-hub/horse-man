@@ -54,7 +54,7 @@ class ExtendedPeriod(unittest.TestCase):
                                         now=datetime.fromisoformat(date + 'T09:38:00+09:00'))
             self.assertFalse((fixture.root / workflow.DIRECTORY / (date + '.json')).exists())
 
-    def test_complete_requires_all_six_days_and_every_initial_review(self):
+    def test_complete_requires_six_days_stages_and_saved_summary(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             directory = root / workflow.DIRECTORY
@@ -72,7 +72,12 @@ class ExtendedPeriod(unittest.TestCase):
             for date in EXPECTED[4:]:
                 (directory / (date + '.json')).write_text('{}')
                 days[date] = {'race_date_jst': date, 'initial_scope': ['race'], 'reviewed_scope': ['race']}
-            self.assertEqual(check(), 0)
+            # 6日登録・回顧集合だけでは正常一巡/集計Git読戻しを満たさない。
+            self.assertEqual(check(), 1)
+            with patch('cycle04_completion.evaluate_days', return_value={
+                    'normal_cycle_complete': True, 'issues': [],
+                    'state': '正常一巡完了', 'summary_git_readback_verified': True}):
+                self.assertEqual(check(), 0)
             days[EXPECTED[-1]]['reviewed_scope'] = []
             self.assertEqual(check(), 1)
 

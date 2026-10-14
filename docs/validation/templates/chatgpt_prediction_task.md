@@ -46,3 +46,9 @@ eda-hub/horse-manのmainからmanual READMEを取得し、同一参照commitで�
 初回に存在した項目を最終gateから外すときは、`previous_item_dispositions` に消えたIDごとの `status` と具体的な `reason` を全件記録する。初回の原本とreceipt、固定gateのSHAと当時の比較状態は変更・削除しない。最終のShadow対象外/不足は日別最新Shadow KPIだけに反映し、独立Productionと価格不要推奨の完了判定へ流用しない。プレビューはwriterと同じ検証を通す。
 
 回顧では `shadow_history` と `shadow_history_gaps` をphase別に読み、同一gate・baseline・cutoff・項目IDの固定比較キーで重複を除外する。初回比較と最終比較を混ぜず、未実施や証跡不明は保留/不足とする。
+
+## サイクル終了時の追加確認
+
+各日で初回scope・初回FIX/個別完了・選定revision・最終予想/独立推奨・公式結果・回顧を対象ごとに照合する。未選定の初回と選定済み未最終を分け、推奨なし/明示的印のみは個別保存検査が完了していれば正常として扱う。推奨PENDINGの無言置換、取得不足の0埋め、後日の宣言・receipt再生成をしない。
+
+`cycle04_workflow.py --summary`で工程不足と独立KPIを表示する。6日全件の正常一巡は、Git保存/読戻し済みの各日・集計固定参照を与えた`check_cycle04.py --require-complete --completion-manifest ...`が成功した場合だけとする。未実施を残して終えるなら、Owner/審査者・全不足・保護対象・次試験の実際の審査記録をGit保存し、`--closure-review`で別途検査する。自己承認・性能昇格はしない。

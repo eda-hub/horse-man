@@ -1,0 +1,191 @@
+# P1：正常一巡と理由付き終了を分けるサイクル完了判定の修正実施計画
+
+## 目的・対象・状態
+
+- 作成日：2026-10-14（JST）
+- 作業branch：`fix/p1-cycle-completion`
+- 調査基準main：`b288bc1f39f61d68c6cf536608c11689575315e8`
+- 状態：実装差分・回帰を追加済み／統合検証とrelease固定は未完了
+- 目的：予想・最終・結果・回顧の未実施が残る状態を正常一巡完了と表示しない。理由付き不足を保持した終了と、正常一巡、性能採用を別判定にする。
+- 対象外：全144予定Rの強制生成、全対象の適格化、Shadow/価格性能の採用、P2の全回顧集計機能の追加。
+
+## 再現・原因・影響
+
+`check_cycle04.main --require-complete` の完了条件は、4日が存在し、各日のreviewed_scopeがinitial_scopeと一致することだけである。選定済み最終の未実施・Predictionの未実施/保留・独立保存の個別完了・終了審査を完了条件として評価していない。
+
+合成の一時台帳4日を公式scope形式で登録し、初回予想を実施せず、1日の選定済みレースを最終未実施のまま残して全件へ結果/回顧を登録した。準備チェックをfixture契約に分離して実際の日別validatorと完了条件を実行するとreturn_code=0となり、production保留4件と「選定済み・最終工程未実施」が残った。準備検査の省略は完了条件の単体再現用であり、正式開始や実測完了の認証ではない。
+
+既存契約は「行政的な終了」と「性能有効性/昇格」を分ける。単純に全KPIがELIGIBLEでない限り終了できない仕様へ変更すると、保存失敗や推奨なしを消す動機になるため避ける。
+
+## 修正方針
+
+1. 共通の読取専用completion evaluatorを作り、writer/日別checker/summary/回顧資料の不足判定を一致させる。各レースは初回Prediction、選定/最終、Predictionと推奨の独立保存確認、公式結果照合、回顧の工程状態を確認する。
+2. `--require-complete` は「正常一巡」の検査にする。未実施・未確認・選定済み最終未実施・必須結果照合不足がある場合は非zeroとし、対象と不足理由を表示する。完了の意味変更はhelpと運用契約へ明記する。
+3. `NO_RECOMMENDATION` や明示的印のみは、対応する独立保存/検査が完了していれば正常な最終状態とする。未最終は、初回のみで選定されなかったレースと、選定済み未実施を区別する。未完了推奨PENDINGを推奨なしへ置換しない。
+4. 保存不適格・取得不足・未実施が残る終了は、別の「理由付き終了審査」状態として表す。参照する日別/集計hash、全初回scope、対象ごとの不足理由、保護対象、採否/継続Owner・次の検証、審査記録を固定する。期間経過やchecker成功だけでは自動終了にしない。
+5. 理由付き終了は正常一巡完了・性能昇格・欠落証跡の復元を意味しない。正式審査を利用者/Ownerが実施した記録がない場合は「終了審査待ち」とする。AIが承認を自己生成しない。
+6. 機械状態は「未開始」「進行中/未完了」「正常一巡完了」「終了審査待ち」「理由付き終了」を明確に分け、性能昇格は別属性の未採用を維持する。未依頼日の台帳や実測0を補完しない。
+7. Predictionの入力不足、該当Shadow不足、任意市場不足は、それぞれ独立に残す。入力不足で保存された予想を消さず、「入力完備の正常一巡」とは区別する。Shadow/市場の実測性能未受入を標準Prediction/推奨の完了条件に戻さない。
+8. サイクル集計の保存とGit読戻しは、CLI成功だけで完了扱いにしない。終了資料には集計/日別の固定参照と実際の読戻し証拠を要求する。予想用の発走前receiptを結果後集計へ流用せず、既存保存手順に適合する終了用参照を明示する。
+
+## 判定表
+
+| 状態 | 正常一巡判定 | 終了審査 |
+|---|---|---|
+| 対象日/依頼scope未登録 | 未開始または未完了。予定件数を補完しない | 未登録理由を明示。4日分の実施完了とは呼ばない |
+| 選定なし・初回固定と結果/回顧が完了 | 初回対象として評価可能 | 最終未実施を欠陥扱いしない |
+| 選定済み・最終未実施 | 未完了 | 事実と理由・残件を残し、明示審査でのみ理由付き終了 |
+| 推奨なし/明示的印のみを独立保存・確認済み | 正常な最終状態 | 推奨的中率の0標本にしない |
+| 予想/推奨本体保存済み、個別検査未完了 | 保存済みだが工程未完了 | 本体を消さず不足を保持 |
+| 公式結果照合不成立・回顧未実施 | 未完了。正式成績へ算入しない | 必須不足の説明と審査が必要 |
+| 入力不足、該当Shadow不足 | 入力完備/全比較完了を主張しない。Production/推奨完了とは独立表示 | 不足・不適格を残し、継続Ownerを明示 |
+| 任意市場未依頼/未取得、性能実測待ち | 標準予想・価格不要推奨の正常完了を阻まない | 独立系列の状態を維持 |
+| 必要工程・対象回顧・固定集計/読戻しが揃う | 正常一巡完了 | 性能昇格を自動承認しない |
+
+## 実装対象・境界
+
+| ファイル | 変更内容 |
+|---|---|
+| scripts/check_cycle04.py | completion evaluatorを呼び、require-completeの正常一巡条件と不足表示を修正 |
+| scripts/cycle04_workflow.py | summaryに工程別状態・不足・正常一巡/終了審査の区別を表示。実測なしの値はnull |
+| scripts/task_completion.py、chat_resume.py | 既存個別完了検査を再利用。新しい自己申告完了を作らない |
+| scripts/chat_review_package.py、chat_improvement_handoff.py | 同じ不足/終了審査参照を保持。採否はOwner審査/別PRへ |
+| 新規の終了審査契約/読取検査が必要な場合 | 最小の固定参照・明示審査記録だけ追加。新しい性能閾値を作らない |
+| scripts/test_cycle04_workflow.py、test_cycle04_acceptance.py、test_task_completion.py、test_chat_review_package.py | 完了状態遷移・不足・正常推奨なし・集合/hash一致の回帰 |
+| docs/validation/contracts/cycle04_operations.md、cycle_04.md、templates/chatgpt_prediction_task.md | 正常一巡と理由付き終了、集計保存/読戻しの手順を一致させる |
+
+先行する結果照合とShadow状態修正の契約・共通validatorを取り込む。completion evaluatorを複数moduleへ重複実装しない。P2の回顧機能を完成扱いにせず、既存Ownerの必須項目に欠落がある場合は終了資料の不足へ明記する。
+
+## 小項目別の実装・コミット計画
+
+| 小項目 | 作業と完了条件 | 日本語コミット案 |
+|---|---|---|
+| 01 | 4日存在/全件回顧だけで通る現行挙動を回帰化。選定済み最終未実施・個別未完了・正常推奨なしのケースを分離 | 未完了工程を残したサイクル完了誤判定を再現 |
+| 02 | 工程別completion evaluatorと正常一巡条件を実装。既存個別検査・先行結果契約へ接続 | サイクルの正常一巡条件と不足判定を共通化 |
+| 03 | require-complete/summary/回顧資料へ接続し、CLI終了コード・日本語状態・不足対象を一致 | 完了検査とサイクル集計の状態表示を統一 |
+| 04 | 固定参照による理由付き終了審査と集計読戻し契約を追加。既存採否/継続Ownerへ接続 | 不足を保全した終了審査の契約を整備 |
+| 05 | テンプレート・契約・関連fixture更新、全受入・manifest・統合検証・CI、本書への対応記録 | サイクル完了修正の運用手順と統合受入を固定 |
+
+## 受入条件
+
+- 登録日の不足、初回未実施、選定済み最終未実施、個別保存未完了、結果照合不足、未回顧、集計未保存/未読戻しがあれば、正常一巡完了と表示されない。
+- 実際の依頼scopeを全件保持し、未選定初回・低確信・推奨なしを回顧対象から落とさない。
+- 正常な初回→選定→最終/正常推奨なし→公式結果→回顧→固定集計/読戻しは、正常一巡として通る。
+- 明示的な選定取消は既存revision/期限検査を経た場合だけ扱い、発走後DESELECTで未最終を消せない。
+- 理由付き終了は不足件数・対象・理由・審査者/Owner・固定参照を残し、正常一巡や性能昇格に見せない。審査前は審査待ち。
+- 完了参照の古いhash、別日/別scope、読戻し不一致、対象の選択的除外、ダミー台帳、将来時刻/未依頼日の補完を拒否する。
+- 任意市場と性能実測待ちは標準完了から分離し、旧履歴・保存済み原本・不適格/保留を改変しない。
+
+## 検証・実装結果の記録
+
+最低限 `test_cycle04_workflow`、`test_cycle04_acceptance`、`test_task_completion`、`test_chat_resume`、`test_chat_review_package`、`test_chat_improvement_handoff` と先行P1の全回帰を実施する。require-completeの成功/失敗とsummary状態の一致をCLIテストでも確認する。全回帰・合成受入・release/統合検証は共通規約に従う。
+
+実装時に本書へ「小項目／commit SHA／変更path／実行コマンド／期待結果／実結果／残件」を追記する。実装差分と検証の実績は以下を参照。未実施検証を成功扱いしない。
+
+## 共通の作業・統合規約
+
+- 対象は常に `eda-hub/horse-man`。本書は実装計画であり、現行Productionルールの代用にしない。
+- 利用者の依頼は計画書作成まで。以下の実装修正・実レース記録作成はまだ実施しない。
+- 既存v1.7.0の予想骨格、価格不要推奨、Production/Shadow/任意市場の分離、旧v1.6.1履歴を維持する。実購入・価格・払戻・実測性能を標準完了の必須入力に戻さない。
+- 合成fixtureは一時領域で検査し、実日別台帳・未来の事前証跡・実測0を作らない。第4開催の実測、過去研究の網羅、性能昇格を本修正PRのマージ条件にしない。
+- コミット・PR説明・作業記録は日本語。各小項目を実装・対応テスト・セルフレビューまで行い、小項目ごとにコミットする。未完了項目を完了と記載しない。
+- 実装開始時に本書、AGENTS、最新main、対象branch、関連Ownerと対象コードを読戻す。本書の基準以降に変更があれば差分を確認して計画を更新し、確認した再現・受入条件を維持する。
+- 4件の統合順は「結果の適格性 → Shadow証跡 → 初回/最終Shadow状態 → サイクル完了」。各計画は単独の基準から作成するが、後続の実装では先行修正を取り込んだ最新mainを反映してから着手する。共通ファイルの変更は機械的なours/theirsで解消しない。
+- 対象コード・テスト・運用契約を変更した最終内容で `python3 scripts/run_cycle04_acceptance.py --write` を成功させ、その後 `python3 scripts/build_v170_manifest.py` でrelease manifestを再生成する。先行PRの受入・manifestを単純にコピーしない。
+- 全回帰、通常checker、合成受入、release整合、統合受入と3系統CIを確認する。開始認証の `--require-main` は未マージの候補branchを認証するために改変しない。統合受入は取得済みmainと候補branchの契約一致/未マージ拒否を正しく区別する。
+- 必要な過去Git履歴・原票・PDF依存を取得できない検査は実行不能として残す。失敗をコード欠陥と混同せず、未実行を成功にしない。完了報告には実行コマンド・結果・CI対象SHA・残件を対応付ける。
+- 修正の切り戻しは対象変更のrevertで行い、保存済み予想・receipt・結果・比較履歴を削除しない。後続PR統合後は依存を確認し、関連契約・受入・manifestを同時に整合させる。
+
+## 2026-10-14 実装記録（PR85）
+
+| 小項目 | 実装commit・変更path | 検証・実結果 | 状態・残件 |
+|---|---|---|---|
+| 01 | `80d477380db8f57260f6143aad3846ee719d448f`、`c5407aaaeb4a213f89cc7af2d31f56edcd617b27`、`ada8a304f799a863def248dbf019466e7fd84fee`：`scripts/test_cycle04_completion.py` | 既存4日回顧誤判定、初回/選定済みFINAL欠落、未選定初回、推奨なし、集計未固定、終了承認無しをfixture化。後から追加した正常成功/CLI・古いhash/別日scope拒否ケースは未再実行 | テスト追加済み。後段の全件再実行待ち |
+| 02 | `088d8e8c9b6f74a6bf7d62e295e106179e4f6956`、`098b165f94732047721f9c66c83a1924d65d4880`：`scripts/cycle04_completion.py` | 工程別判定と`task_completion`の既存個別検査を利用。Shadow/入力/市場/Ownerの不足を独立表示。純粋コードの新規テストは後述CIの制約あり | 実装済み、先行3件の統合時点で再確認 |
+| 03 | `3f395c279be49eeedee764b0f27de4698039c827`、`0e43e6d865a42d764f6e1279e23ed65191acb197`、`7855b2687bf23937df482d32fd36cdb86548890d`、`aae67bd1d7edd9edeacd7c403275c5ea5717d919`：`check_cycle04.py`、`cycle04_workflow.py`、`chat_review_package.py`、`chat_improvement_handoff.py` | CLIの`--require-complete`は4日全工程・固定集計読戻しを必要とし、summary/回顧引継ぎへ状態を同一判定器で接続。`chat_resume.py`と`task_completion.py`は既存検査を再利用し書き換えなし | コード実装済み。最終CLI受入待ち |
+| 04 | `088d8e8c9b6f74a6bf7d62e295e106179e4f6956`、`098b165f94732047721f9c66c83a1924d65d4880`：固定Git SHA/bytesと人間の終了審査記録の読取検査 | `git show COMMIT:path`とローカルSHA256の一致を要求し、承認無しの理由付き終了を拒否。人間の本人確認・実レース終了をコードが代行しない | 契約/検査追加済み。将来の実記録未作成 |
+| 05 | `31a4ad4e48800d23675501957508e5bfc94e9c4c`、`84606b39fa953af169ed32a9dbdb5429b68b4c94`、`8bc60cd708041faaa2f9b85fa9f272b92ed96b8f`、`5095ef4e6411631450352f69c12d263254da9063`：運用契約/計画/標準テンプレート | 下記のGitHub Actionsで一部成功したが最終差分ではランナーが立ち上がらず`run_cycle04_acceptance.py --write`と`build_v170_manifest.py`は未実行。旧acceptance/manifestはハッシュ不一致 | **未完了**。独立CI実行環境復旧と先行PR統合後に再生成が必要 |
+
+### 実際の検証状況
+
+- 途中commit `aae67bd1d7edd9edeacd7c403275c5ea5717d919` のCI「予想実行と第3サイクル台帳の機械監査」`38521648824`の「回帰テスト」は`python3 -m unittest discover -s scripts`相当で**748件実行・失敗/エラー表示なし**。その後同CIの第4検査は`stale acceptance: source hash mismatch`で失敗。統合CI `38521648821`は`atomic release source hash mismatch`で失敗。この時点の成功を後続commitに転用しない。
+- 後続commit `088fb6c61476873ce52ef829c0626a0aabfbea24`では3系統CI `38522198039`、`38522198072`、`38522198362`と一時的な合成受入生成ジョブ `38522193941`が、いずれもジョブ開始前（`runner_id=0`、`steps=[]`）に失敗した。ランナー未割当という実行環境の制約を、ソース回帰失敗と混同しない。一時workflowは`c1a411ccd4d12e0b46900d5566a5e239e45fd38d`で撤去。
+- 最終差分に対する`python3 scripts/run_cycle04_acceptance.py --write`、`python3 scripts/build_v170_manifest.py`、全回帰・release/統合受入・3系統CIのPASSは**未確認**。成功証跡・実測0を生成せず、release/acceptanceの旧hashを残している。
+
+### 統合依存と完了前の必須実行
+
+2026-10-14の確認時点でPR82（公式結果）、PR83（Shadow証跡）、PR84（初回/最終Shadow）はいずれも未マージ。計画上の先行統合順を守り、mainへの取り込み後にこのPRの共通validator/検査差分を照合し直す。特に結果照合の適格判定、Shadowの対象状態と終了判定への分離を確認する。
+
+利用可能なリポジトリ実行環境で以下を**この順**に実行し、実際のコマンド結果・commit SHAを追記するまでは完了にしない。
+
+`python3 -m unittest discover -s scripts -p 'test_*.py'`
+`python3 scripts/run_cycle04_acceptance.py --write`
+`python3 scripts/build_v170_manifest.py`
+`python3 scripts/run_release_readiness.py`
+`python3 scripts/check_cycle04.py`
+`python3 scripts/check_integration_acceptance.py --full`
+
+必要な原票/PDF/Git履歴依存を満たすこと。未マージbranchに対し`run_release_readiness.py --require-main`の成功を偽装しない。最終コミットを作成してCI 3系統の実行SHA/結果を確認し、正常一巡成功/失敗と理由付き終了承認無しのCLI受入を再確認する。先行PRが未マージの間は後続契約を暗黙に取り込んだと主張しない。
+
+
+## 最新mainの期間延長との整合（2026-10-14）
+
+- 反映main：`52e666b5406bc44700b0426ea2aa337f744b5d44`（PR86）。本書の以前の4開催日・10/25終了という記載は旧基準の履歴とし、今後の実装・受入は本節を優先する。
+- 第4は10/17・18・24・25・31・11/1の6開催日。10/17〜25は東京・京都・新潟、10/31・11/1は東京・京都。予定192Rを依頼scope・実測へ代用しない。
+- mainの期間契約、開催場制限、期間終了のJST境界、登録・集計・追加期間テストを取り込み、本PRの修正を保持して共通ファイルを統合した。各PRは独立したまま、他の未マージPRの実装を取り込まない。
+- 期間整合時点では2026-11-01以降へ延期していたが、2026-10-14 19:00 JSTの利用者指示で延期を撤回。現在は直ちに実装・検証を進める。3系統CIを実行し、対象SHAと結果を確認する。
+- 全枝のacceptanceはNOT_RUN。旧source_manifestは参考情報であり成功証明ではない。releaseは取得済みmainの固定情報を保持するが、本PR統合後のbytesを認証しない。ソースhashを手動追従させず、標準受入成功後に標準生成コマンドで再生成する。
+- 作業中に予想原本・receipt・公式本文・結果・回顧が追加されても保全する。回顧内容とデータ照合は先行可能。正式算入・サイクル完了は修正版で再検査し、発走前証跡を後付けしない。
+- 再開順序：最新main・追加記録の確認→先行PRの結果適格性/Shadow証跡/最終状態/完了判定の順に統合→各段階で全回帰と標準受入生成→release生成→通常/統合検査→CI→レビュー・マージ判断。修正作業は第4の収集完了を待たずに進める。実測のサイクル終了審査は最終日の全回顧後に行い、コード受入とは分ける。
+- 完了判定の日付はcheck_cycle04の6開催日を共通参照する。6日登録・全回顧だけでは正常一巡とせず、工程検査と集計のGit固定参照を維持する。追加期間のテストもこの強化条件へ整合した。
+- 本整合の限定ローカル回帰：49件成功、失敗0・skip0。これは全回帰・標準受入・Git実main統合試験・CI成功ではない。
+- 実行コマンド（当該候補のローカル取得ルート）：`PYTHONPATH=scripts python3 -m unittest test_cycle04_period test_cycle04_completion test_cycle04_acceptance`。終了0。変更Pythonファイルのcompile検査も成功。
+
+## 実施時期の変更 — 2026-10-14 19:00 JST
+
+- 利用者が第4サイクル後・11/1以降への延期を撤回。今から修正・残件検証を進める。本節が以前の延期方針に優先する。
+- 順序はPR82→83→84→85。最新mainと先行修正へ整合し、全回帰・標準受入生成・release再生成・通常/統合検査・レビューを進める。3系統CIを実行し、対象SHAと結果を確認する。実装・ローカル検証・CIを進める。
+- マージ判断は検証結果に基づく。今から実施する指示を、未検証PASSへの変更や即時マージの指示として扱わない。
+- 第4の6開催日・11/1までの収集日程は維持する。修正の受入に第4実測の完了を要求しない。既存原本と追加される予想・結果・回顧・receiptを保全する。
+
+## CI実行方針の訂正 — 2026-10-14 19:23 JST
+
+- 利用者指示により、CIを実行しない・再実行しない・11/1まで待つという指示を撤回した。今後のコミットにCIスキップ指定を付けない。
+- 最新の対象SHAで3系統CIを実行し、結果・ログ・対象SHAを確認する。過去の未実行・利用上限・0ステップ失敗は履歴であり、今後の実行禁止条件ではない。
+
+## PR #84統合後の再実施（2026-10-14 22時台 JST）
+
+- 最新mainの取り込み元は `6d933a78cd8fd6723aeba4ad0f4c090053a0832a`。PR #82・#83・#84 はmainへマージ済み。以前の「未マージ」記載は当時の調査履歴であり、本節が現在の統合状態。
+- マージコミット `4537a9f0cdea4b7c469223981846296b68e82da2` で旧基点のPR85と最新mainを統合。単純なours/theirs置換を行わず、公式結果の `validate_formal_result`、`cycle04_shadow_state` と `shadow_history`、初回/最終の適用状態を維持し、サイクル完了判定を併存させた。
+- 公式契約は **6開催日**（10/17・18・24・25・31・11/1）。`cycle04_completion.py` は `check_cycle04.DATES` を共通参照。10/31・11/1を未登録として勝手に補完しない。
+- 標準CI `38569867276`（コミット `ba2168a98668ada70fbc5101a6de0db1f5110501`）で、`python3 -m unittest discover -s scripts -p 'test_*.py'` PASS。続く `python3 scripts/run_cycle04_acceptance.py --write` は **802件 / 失敗0 / skip0 / PASS**。`python3 scripts/build_v170_manifest.py`、`python3 scripts/run_release_readiness.py`、`python3 scripts/check_cycle04.py` も順にPASS。
+- 合成受入とrelease manifestは標準コマンドで生成し、`9468f14d5ae5b947b713e4b32ead746355f640bd` にコミット。旧source hashの再利用、未確認のPASS記載、合成fixtureから実測への昇格は行わない。
+- `--require-main` は未マージ候補を正式mainとして認証しない既存動作を保つ。統合受入は候補契約と取得済みmainを区別する。
+- 本PRの正式マージ・第4の実測終了・性能昇格・人間による理由付き終了承認は未実施。一時合成受入CIは削除し、通常の3系統CIを候補最終SHAで確認する。
+
+### 最終3系統CI結果（2026-10-14 JST）
+
+候補SHA `229c686f43616b214f4f5fd19643f4c212ff2fc8` において、以下の3系統CIが全て成功した。先行する標準生成ジョブ `38569867276` の802件PASS・release固定・通常checker成功を踏まえて検査した結果であり、未マージ候補を正式mainと偽装しない。
+
+| 系統 | GitHub Actions run | 結果 |
+|---|---|---|
+| 予想実行・第3サイクル台帳監査 | [38570549425](https://github.com/eda-hub/horse-man/actions/runs/38570549425) | success |
+| 新旧契約の統合受入・取得済みmain照合 | [38570549819](https://github.com/eda-hub/horse-man/actions/runs/38570549819) | success |
+| 血統研究の原票・Registry監査 | [38570549376](https://github.com/eda-hub/horse-man/actions/runs/38570549376) | success |
+
+本記録の追記以外にコード・テスト・受入対象の変更はない。最新main `6d933a78cd8fd6723aeba4ad0f4c090053a0832a` と本PRの比較は behind=0、mergeable=true。合成データは実レース予想の事前証跡、結果や回顧の証明には用いない。
+
+## 2026-10-14 P1再レビュー：初回FIX原本喪失の検出
+
+- 指摘：FINALが別の正常FIX manifestで登録され回顧済みでも、初回 `prediction_history[].fix_ref` 原本を削除して工程不足に表示されない。元の個別検査は最新のexecution gate・保存済み予想本体を検査する一方、履歴の `intent_ref`・`fix_ref` を検査せず、当時の独立FIXを後段の証跡と混同できた。
+- 修正：各履歴固有のgate SHA256/レース/日付/baseline、予想refの同一性、事前宣言とFIX manifestの実原本hash/receipt/保存時刻、独立manifestからの当時の予想FIX hashと宣言の結合を読み直す。保存順は「宣言読戻し ≤ FIX時刻 ≤ FIX保存 ≤ FIX読戻し ≤ 本体保存」。旧参照欠落時に `row.operations` 最新参照へフォールバックしない。
+- 合成回帰：標準writerで独立した初回・最終FIX/宣言原本を保存し、最終登録・公式結果照合・回顧後、(1)初回FIX削除、(2)初回FIX改変、(3)初回宣言削除、(4)履歴固定参照削除、(5)当時FIX receiptの保存順崩れ、をそれぞれ再検査する。初回段階の不足とsummaryの不足報告、正常一巡拒否を検査する。検査のために実レース記録や新規の将来receiptを恒久生成しない。
+- 検証：最新差分の全回帰、`run_cycle04_acceptance.py --write`、`build_v170_manifest.py`、通常checker、統合検査、3系統CIを実行し、実際の結果を後から記録する。古い802件受入は今回の修正に対する成功証跡ではない。
+
+### FIX固定履歴P1再修正の検証結果
+
+- コード：`scripts/cycle04_completion.py`、コミット `51f60ca4c01712768764ad6461801d0c81a4c933`、`6ccb09b43017d8ee939fb971b40b563416394db1`。各初回・最終履歴のgate/予想原本・宣言・FIX manifest・3種類のreceipt/保存順/固定時刻を照合。元の `row.operations` や後続FIXによる救済は一切しない。gateにハッシュが実際にある場合はそれも一致を要求する。
+- 回帰：`scripts/test_cycle04_completion.py` に標準writerによる独立FIX/宣言原本を使った **5テスト** を追加（`c1698bbc751b919a230bf998f2ea5f1a528a0068`、`8019ffd2150a89e50bec0a8a6bc921b8c82b68c9`）。初回FIXの削除と改変、初回宣言削除、初回固定refの欠落、FIX receipt時刻の異常を確認。初回FIXが破損したときは `evaluate_days` と `summary` が `PREDICTION_CHECK_PENDING/INITIAL` を報告。宣言削除は同じ原本を利用する推奨側の正式結果検査も先に拒否するため、工程不足の独立検査と結果検査の拒否を区別した。
+- 一時CI [38575031638](https://github.com/eda-hub/horse-man/actions/runs/38575031638) は重点回帰、`python3 -m unittest discover -s scripts -p 'test_*.py'`、`python3 scripts/run_cycle04_acceptance.py --write`、`python3 scripts/build_v170_manifest.py`、`python3 scripts/run_release_readiness.py`、`python3 scripts/check_cycle04.py` の全段階でPASS。合成受入 **807件・失敗0・skip0・PASS**。受入・releaseの標準生成物保存コミットは `60d62d8e6fc3fc2dd127c8f82c1e8eda3958ebf5`。
+- 初回の重点回帰で不一致3件が出たが、固定gateに必須でないshaを要求した過剰検査と、合成推奨が初回宣言を共有しているために正式結果検査が先に失敗するfixtureの境界を修正して再実行した。失敗実績を削除せず、この結果で閉じる。
+- 一時workflowは検証専用であり恒久成果物に含めない。撤去後のコード・文書・受入ファイルから構成した最終SHAで3系統CIを検査するまでレビューを完全とはしない。
