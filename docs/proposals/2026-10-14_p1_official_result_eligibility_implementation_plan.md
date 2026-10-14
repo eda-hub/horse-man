@@ -98,7 +98,7 @@
 - `python3 scripts/check_integration_acceptance.py --full` は上記時点で旧release source hash不一致により停止。後続でmanifestを再計算したが、最終検証の実行結果は未取得。
 - `python3 scripts/run_cycle04_acceptance.py --write` および `python3 scripts/build_v170_manifest.py` は、GitHubファイル編集経路では直接コマンドを実行できないため**未実行**。該当JSONは取得した各ファイルbytesからSHA-256を計算し更新した。次回の標準スクリプトで生成結果と照合する必要がある。
 - `6c44d4df7fc669a1a7a22133c3abddc8ab20b079` の3系統CIはすべて失敗したが、いずれも開始から2〜3秒で終了し**ジョブステップ数0**。ジョブログの取得は404（BlobNotFound）。コードエラーと判別できず、外部Actions実行基盤の阻害として区別。実行IDは統合 `38522232059`、台帳 `38522232035`、血統 `38522232023`。同種の事象は直前のCIで発生し、3系統の失敗ジョブを再実行しても再発。
-- **完全な統合完了判定は保留。** Actionsでジョブが実行できる状態になったら、最新の全回帰→受入 `--write`→release manifest生成→通常checker→統合受入 `--full`→3系統CIの順で再実行する。未マージbranchの `--require-main` が拒否することは正常であり、開始認証を緩めない。
+- **完全な統合完了判定は保留。** 最新の全回帰→受入 `--write`→release manifest生成→通常checker→統合受入 `--full`→3系統CIの順で再実行する。未マージbranchの `--require-main` が拒否することは正常であり、開始認証を緩めない。
 
 セルフレビュー：変更は当該公式結果経路と回帰・文書・manifestに限定。実日別台帳、既存Production/Recommendation保存原本、旧v1.6.1履歴、Shadow、任意市場は書き換えていない。
 
@@ -115,7 +115,7 @@
 - `65a68a287ae4ab80785f9afd3198624d36017359` でacceptance.jsonのresultをNOT_RUNへ変更し、tests_run/failures/skippedをnullへ訂正。残したsource_manifestは同一性の参考情報にすぎず、成功証明ではないことをnoteに明示。失敗0やskip0の自己申告は残していない。
 - 保存後にGitHubから読戻し、NOT_RUNとnullを確認。取得したscripts/check_cycle04.pyのcheck_preparation内の受入検査ブロックを変更せず抽出し、訂正後のJSONを入力としてローカルpython3で実行した。`acceptance not passed`で拒否し、未実行件数がnullであることもassert成功（終了0）。これは受入判定ブロックの限定検査であり、通常checker全体・全750回帰・標準受入スクリプト成功を意味しない。
 - CIは利用上限が原因で11/1まで使用不可と利用者から確認済み。再実行していない。既存release manifestの受入ファイルhashも変更後は不一致のままとし、未検証状態を認証するための手動hash追従は行わない。
-- 残件：実行可能な環境で最新コードの全回帰→run_cycle04_acceptance.py --write→build_v170_manifest.py→通常checker→統合受入を実行し、成功出力でのみ受入/releaseを更新。CI復旧後に3系統CIを確認する。Draft継続・main変更なし。
+- 残件：実行可能な環境で最新コードの全回帰→run_cycle04_acceptance.py --write→build_v170_manifest.py→通常checker→統合受入を実行し、成功出力でのみ受入/releaseを更新。3系統CIを実行して結果を確認する。Draft継続・main変更なし。
 
 ## 再レビュー2件への修正（2026-10-14）
 
@@ -125,7 +125,7 @@
 - 変更commit：共通validator `e57007efcb391a48d77ba49fd7dd3af21bf78f86`、正式開始 `b631fe79a9805177b0006ba61620096ff72cbfb0`、manifest生成対象 `e3017c3c7d7abf3b066a187afc92d8b924faf414`、準備fixture `76a7df5130b0c039d0a3fdf19b73cb141dda1aae`、隔離main回帰 `baf6a91f96d87cbda8d64c2ccbd95ac9d7b37ad2`、全コードcoverage `50c433f2f3a42ddb8701bb045e82e8ec1f4e2aa5`。
 - GitHub connectorから164ソースと準備/結果変換テストに必要な既存原票をローカル一時領域へ取得し、前回のGitHub接続で編集した内容を検査した。`python3 -m unittest test_cycle04_acceptance test_cycle04_workflow test_cycle04_result_eligibility test_chat_result_conversion test_chat_result_reconciliation test_chat_review_package test_release_readiness`をscriptsで実行：**90件成功、失敗0・skip0、終了0**。coverage強化後の最終内容でも再実行し90件成功。release単独10件、準備単独32件も成功。変更5ファイルのcompileall成功。
 - ローカル全回帰 `python3 -m unittest discover -s scripts -p 'test_*.py'`は取得済みの部分環境で740件、failure1/error25/skip4、終了1。未取得の血統原票、過去snapshot、Git履歴などへの依存が残る。これを最新全回帰成功とは扱わない。実ファイルNOT_RUNの共通validator拒否も直接確認した。
-- acceptance.jsonはNOT_RUNのまま。最新全回帰成功と標準受入生成、release再生成、通常/統合検査は未完了。CIは11/1まで再実行しない。今回の2欠陥に対する関連回帰成功と、PR全体の未完了は区別する。
+- acceptance.jsonはNOT_RUNのまま。最新全回帰成功と標準受入生成、release再生成、通常/統合検査は未完了。今回の2欠陥に対する関連回帰成功と、PR全体の未完了は区別する。
 
 - 続けて部分取得環境で `python3 scripts/run_cycle04_acceptance.py --write` を実際に実行：740件、failure1/error24/skip4で終了1。結果変換原票の追加取得でerrorが1件減ったが、他の原票・履歴不足が残る。コマンド前後のacceptance bytes一致をassertし、NOT_RUNが保全されたことを確認（検査wrapper終了0）。標準スクリプトは未実行ではなく**実行失敗・PASS未生成**であり、成功した受入生成は引き続き残件。
 
@@ -135,7 +135,7 @@
 - 反映main：`52e666b5406bc44700b0426ea2aa337f744b5d44`（PR86）。本書の以前の4開催日・10/25終了という記載は旧基準の履歴とし、今後の実装・受入は本節を優先する。
 - 第4は10/17・18・24・25・31・11/1の6開催日。10/17〜25は東京・京都・新潟、10/31・11/1は東京・京都。予定192Rを依頼scope・実測へ代用しない。
 - mainの期間契約、開催場制限、期間終了のJST境界、登録・集計・追加期間テストを取り込み、本PRの修正を保持して共通ファイルを統合した。各PRは独立したまま、他の未マージPRの実装を取り込まない。
-- 期間整合時点では2026-11-01以降へ延期していたが、2026-10-14 19:00 JSTの利用者指示で延期を撤回。現在は直ちに実装・検証を進める。CIの実行可否は利用制限と切り分け、実行可能と確認できた時点で実行する。
+- 期間整合時点では2026-11-01以降へ延期していたが、2026-10-14 19:00 JSTの利用者指示で延期を撤回。現在は直ちに実装・検証を進める。3系統CIを実行し、対象SHAと結果を確認する。
 - 全枝のacceptanceはNOT_RUN。旧source_manifestは参考情報であり成功証明ではない。releaseは取得済みmainの固定情報を保持するが、本PR統合後のbytesを認証しない。ソースhashを手動追従させず、標準受入成功後に標準生成コマンドで再生成する。
 - 作業中に予想原本・receipt・公式本文・結果・回顧が追加されても保全する。回顧内容とデータ照合は先行可能。正式算入・サイクル完了は修正版で再検査し、発走前証跡を後付けしない。
 - 再開順序：最新main・追加記録の確認→先行PRの結果適格性/Shadow証跡/最終状態/完了判定の順に統合→各段階で全回帰と標準受入生成→release生成→通常/統合検査→CI→レビュー・マージ判断。修正作業は第4の収集完了を待たずに進める。実測のサイクル終了審査は最終日の全回顧後に行い、コード受入とは分ける。
@@ -145,7 +145,7 @@
 ## 実施時期の変更 — 2026-10-14 19:00 JST
 
 - 利用者が第4サイクル後・11/1以降への延期を撤回。今から修正・残件検証を進める。本節が以前の延期方針に優先する。
-- 順序はPR82→83→84→85。最新mainと先行修正へ整合し、全回帰・標準受入生成・release再生成・通常/統合検査・レビューを進める。CIは利用可能であることを確認して実行する。CI制限だけを理由に実装・ローカル検証を延期しない。
+- 順序はPR82→83→84→85。最新mainと先行修正へ整合し、全回帰・標準受入生成・release再生成・通常/統合検査・レビューを進める。3系統CIを実行し、対象SHAと結果を確認する。実装・ローカル検証・CIを進める。
 - マージ判断は検証結果に基づく。今から実施する指示を、未検証PASSへの変更や即時マージの指示として扱わない。
 - 第4の6開催日・11/1までの収集日程は維持する。修正の受入に第4実測の完了を要求しない。既存原本と追加される予想・結果・回顧・receiptを保全する。
 
@@ -159,5 +159,10 @@
 - CIの通常系と同じ `check_prediction_compliance.py --audit`、`verify_prediction_persistence.py --audit`、`check_cycle03.py --require-data --require-complete`、`build_cycle03_review.py --check --require-complete`、`recommendation.py --audit`を実行しすべて終了0。第3の7/7日整合と推奨監査を確認。通常監査は過去証跡を新規認証しない。
 - `python3 scripts/check_integration_acceptance.py --full --expected-main-sha 52e666b5406bc44700b0426ea2aa337f744b5d44`：**終了1、acceptance source coverage missing**。候補の証跡ではなく、取得済みmainの保存受入が期間延長後も741件PASSの旧証跡であるため。main証跡はscripts/test_cycle04_period.pyを含まず、記載済みsourceにも10件のhash不一致を実Git bytesで確認（00_core、50_review、README、forward-plan、cycle04_operations、cycle_04契約、標準テンプレート、check_cycle04、class_transition_shadow、本回帰）。mainの古い受入をPASSと認証せず拒否した。mainを無断変更していない。
 - `python3 scripts/run_release_readiness.py --require-main`：終了1、未マージ候補として正常拒否。main未統合を理由に開始要件を緩めない。
-- セルフレビュー：差分は統合checker・回帰・標準生成acceptance/release・本書のみ、diff --check成功。一時ログをPRに含めない。CIの手動起動・再実行なし、反映commitには[skip ci]指定。
+- セルフレビュー：差分は統合checker・回帰・標準生成acceptance/release・本書のみ、diff --check成功。一時ログをPRに含めない。CIの手動起動・再実行なし、
 - 今回の3残件のうち、全回帰成功からのPASS生成・release再生成・通常検査成功は完了。実main統合検査成功はmain側の受入更新/修正統合に依存して残る。取得済みmainの成功認証を捏造せずDraft継続。
+
+## CI実行方針の訂正 — 2026-10-14 19:23 JST
+
+- 利用者指示により、CIを実行しない・再実行しない・11/1まで待つという指示を撤回した。今後のコミットにCIスキップ指定を付けない。
+- 最新の対象SHAで3系統CIを実行し、結果・ログ・対象SHAを確認する。過去の未実行・利用上限・0ステップ失敗は履歴であり、今後の実行禁止条件ではない。
