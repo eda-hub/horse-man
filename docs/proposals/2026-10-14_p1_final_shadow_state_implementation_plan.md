@@ -168,3 +168,12 @@
 - `python3 scripts/run_cycle04_acceptance.py --write` で合成回帰にPASSした後だけrelease manifestを再生成し、全3系統CIと取得済みmainとの統合受入を最新SHAで再確認する。これらの生成結果が未到着の場合は成功と記さない。
 - **検証結果**：<https://github.com/eda-hub/horse-man/actions/runs/38564202940> で全回帰787件・失敗0・skip0、標準合成受入PASS・source_manifest145件、release manifest165件の生成、第4通常検査、release原子的整合、`check_integration_acceptance.py --full` がすべて成功。生成物保存コミット `0457013cb7f7288208fe15ee5d6e5c3867b76789`。一時CIは `92d5f7b1f6bc0ed68decdacad6441dc7f5ae61a0` で削除。最終headの3系統CIは別途確認する。
 - 初回比較（9:50）と別時点の最終推奨（9:51）を同一証拠として認証しない。初回比較のphaseを維持し、最終推奨は読まずに校正入力を出力する。FINAL対応推奨の固定時点と原本への不整合は引き続き拒否する。
+
+### P1：FINAL複数再改訂の未解決Shadow繰越し（2026-10-14 JST）
+
+- 再現された欠陥：INITIAL適格→FINAL①の項目削除・`UNKNOWN`による保留→FINAL②で項目なし・`NOT_APPLICABLE`を処分省略して通すと、直前gateのみを見た判定が以前の未解決項目を消し、最新Shadow KPIと理由が失われる。
+- 修正：`cycle04_shadow_state.previous_items` は直前gateの項目に、記録済み `shadow_history` 全体の個別 `previous_item_dispositions` を時系列で適用して残る `UNKNOWN` のIDを合算する。再出現した項目の現固定gate判断、理由付き `NOT_APPLICABLE`/確定 `INELIGIBLE`、後続 `UNKNOWN` を区別する。
+- `record_prediction` は通常登録・同一gate冪等登録のいずれも同じ累積状態を使用する。`verify_history` は各過去phaseまでの固定履歴を順に再生して比較する。省略・ねつ造・後付け変更が検査とsummaryへ波及しないよう拒否する。
+- `assess` は別の当時gate項目が `ELIGIBLE` でも、削除済みの未解決項目が残ればShadowレース単位状態を `PENDING` にする。確定した `NOT_APPLICABLE` と非空の個別理由が保存されるまで対象集合から保留・理由を消さない。Production/推奨のKPIは独立に保つ。
+- writer回帰は複数FINAL再改訂で未判断のFINAL②をrejectし旧台帳bytesを維持する。FINAL②のUNKNOWN継続と再登録冪等、FINAL③の個別理由付き解決、手動で偽装した台帳をvalidator・summaryが拒否すること、旧項目UNKNOWNと新規適格項目の混在時も保留することを検査する。
+- 既存原本・固定gate・receipt・公式結果を変更しない。合成受入 `run_cycle04_acceptance.py --write` の実行成功後にのみ `build_v170_manifest.py` でsource hashを再生成し、全3系統CIと取得済みmain統合受入を最新SHAで検証する。検証完了前に成功と記さない。
