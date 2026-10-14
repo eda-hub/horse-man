@@ -152,3 +152,14 @@
 
 - 利用者指示により、CIを実行しない・再実行しない・11/1まで待つという指示を撤回した。今後のコミットにCIスキップ指定を付けない。
 - 最新の対象SHAで3系統CIを実行し、結果・ログ・対象SHAを確認する。過去の未実行・利用上限・0ステップ失敗は履歴であり、今後の実行禁止条件ではない。
+
+## PR #84統合後の再実施（2026-10-14 22時台 JST）
+
+- 最新mainの取り込み元は `6d933a78cd8fd6723aeba4ad0f4c090053a0832a`。PR #82・#83・#84 はmainへマージ済み。以前の「未マージ」記載は当時の調査履歴であり、本節が現在の統合状態。
+- マージコミット `4537a9f0cdea4b7c469223981846296b68e82da2` で旧基点のPR85と最新mainを統合。単純なours/theirs置換を行わず、公式結果の `validate_formal_result`、`cycle04_shadow_state` と `shadow_history`、初回/最終の適用状態を維持し、サイクル完了判定を併存させた。
+- 公式契約は **6開催日**（10/17・18・24・25・31・11/1）。`cycle04_completion.py` は `check_cycle04.DATES` を共通参照。10/31・11/1を未登録として勝手に補完しない。
+- 標準CI `38569867276`（コミット `ba2168a98668ada70fbc5101a6de0db1f5110501`）で、`python3 -m unittest discover -s scripts -p 'test_*.py'` PASS。続く `python3 scripts/run_cycle04_acceptance.py --write` は **802件 / 失敗0 / skip0 / PASS**。`python3 scripts/build_v170_manifest.py`、`python3 scripts/run_release_readiness.py`、`python3 scripts/check_cycle04.py` も順にPASS。
+- 合成受入とrelease manifestは標準コマンドで生成し、`9468f14d5ae5b947b713e4b32ead746355f640bd` にコミット。旧source hashの再利用、未確認のPASS記載、合成fixtureから実測への昇格は行わない。
+- `--require-main` は未マージ候補を正式mainとして認証しない既存動作を保つ。統合受入は候補契約と取得済みmainを区別する。
+- 本PRの正式マージ・第4の実測終了・性能昇格・人間による理由付き終了承認は未実施。一時合成受入CIは削除し、通常の3系統CIを候補最終SHAで確認する。
+
