@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import argparse, json, re, sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 LEGACY_SCHEMA = 'prediction-compliance-v1'
@@ -138,6 +138,30 @@ def evidence(root, ref, label, pre_race, scheduled_post=None):
             if receipt_post!=scheduled_post: raise ComplianceError(f'{label}: receipt scheduled_post_time_jst mismatch')
             if receipt_verified>=scheduled_post: raise ComplianceError(f'{label}: receipt verified at/after post time')
     return ap
+
+def forward_shadow_evidence(root, ref, label, scheduled_post):
+    """v1.7.0適格Shadowのみ当時固定hash・同一receipt・発走前読戻しを検査する。
+
+    旧v1.6.1 evidenceとProductionの証跡契約は変更しない。
+    """
+    # cycle04_operationsは本moduleをimportするため、初期化後の呼出しで再利用する。
+    from cycle04_operations import verified_artifact
+    if not isinstance(ref, dict):
+        raise ComplianceError(f'{label}: independent Shadow evidence_ref required')
+    sha = req(ref, 'sha256', label)
+    if not re.fullmatch(r'[0-9a-f]{64}', sha):
+        raise ComplianceError(f'{label}: fixed Shadow sha256 required')
+    ap = evidence(root, ref, label, True, scheduled_post)
+    # JSONとして固定した独立Shadow原本のみ対象。実bytesに対する検査であり、
+    # 原本から新規hashを発行してrefの欠落を埋めない。
+    _, receipt = verified_artifact(root, ref, scheduled_post)
+    persisted = iso(receipt.get('persist_verified_at_jst'), label+'/persist_verified_at_jst')
+    readback = iso(receipt.get('receipt_verified_at_jst'), label+'/receipt_verified_at_jst')
+    now = datetime.now(timezone.utc)
+    if persisted > now or readback > now:
+        raise ComplianceError(f'{label}: future Shadow persistence/readback cannot be eligible')
+    return ap
+
 
 def betting_evidence(root, ref, ticket, scenario_id, probability_low, odds, label, scheduled_post, race_id):
     ap=evidence(root,ref,label,True,scheduled_post)
@@ -527,7 +551,7 @@ def validate_gate_v2(root,path,g):
         if mode=='REPLAY' and eligibility=='ELIGIBLE': raise ComplianceError(f'{il}: replay shadow cannot be eligible')
         if eligibility=='ELIGIBLE':
             eligible_shadow_items+=1
-            evidence(root,item.get('evidence_ref'),il,True,post)
+            forward_shadow_evidence(root,item.get('evidence_ref'),il,post)
     if kpi['shadow']=='ELIGIBLE' and eligible_shadow_items==0:
         raise ComplianceError(f'{label}: ELIGIBLE shadow KPI requires eligible shadow evidence item')
     if kpi['shadow']!='ELIGIBLE' and eligible_shadow_items:
