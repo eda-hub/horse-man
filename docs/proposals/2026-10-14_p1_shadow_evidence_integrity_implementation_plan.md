@@ -5,7 +5,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p1-shadow-evidence-integrity`
 - 調査基準main：`b288bc1f39f61d68c6cf536608c11689575315e8`
-- 状態：計画作成済み／実装未着手
+- 状態：実装・テストコード・運用文書を作業branchへ反映済み／回帰実行・合成受入・3系統CIは未検証（マージ不可）
 - 目的：新規Shadowの適格性を、同じ原本・内容hash・receipt・発走前保存/読戻しで確認する。
 - 対象外：Shadowの効果採用、新しい比較モデル、全13仮説の性能証明、旧履歴の再認証。
 
@@ -62,12 +62,12 @@ Production/入力/FIXには `verified_artifact` 等の追加照合があるが�
 
 最低限 `test_next_prediction_compliance`、`test_task_completion`、`test_cycle04_acceptance`、`test_class_transition_shadow`、`test_chat_forward_coverage`、`test_chat_calibration_review` と旧 `test_check_prediction_compliance` /保存回帰を実施する。全回帰・合成受入・release/統合検証は共通規約に従う。
 
-実装時に本書へ「小項目／commit SHA／変更path／実行コマンド／期待結果／実結果／残件」を追記する。現在の全小項目は未着手。
+実装時に本書へ「小項目／commit SHA／変更path／実行コマンド／期待結果／実結果／残件」を追記する。実装反映状況と検証未了の詳細は末尾の作業結果に記録する。
 
 ## 共通の作業・統合規約
 
 - 対象は常に `eda-hub/horse-man`。本書は実装計画であり、現行Productionルールの代用にしない。
-- 利用者の依頼は計画書作成まで。以下の実装修正・実レース記録作成はまだ実施しない。
+- 当初の依頼は計画書作成までだったが、2026-10-14のPR83実施指示により実装に着手した。実レース記録作成は対象外のままとする。
 - 既存v1.7.0の予想骨格、価格不要推奨、Production/Shadow/任意市場の分離、旧v1.6.1履歴を維持する。実購入・価格・払戻・実測性能を標準完了の必須入力に戻さない。
 - 合成fixtureは一時領域で検査し、実日別台帳・未来の事前証跡・実測0を作らない。第4開催の実測、過去研究の網羅、性能昇格を本修正PRのマージ条件にしない。
 - コミット・PR説明・作業記録は日本語。各小項目を実装・対応テスト・セルフレビューまで行い、小項目ごとにコミットする。未完了項目を完了と記載しない。
@@ -77,3 +77,48 @@ Production/入力/FIXには `verified_artifact` 等の追加照合があるが�
 - 全回帰、通常checker、合成受入、release整合、統合受入と3系統CIを確認する。開始認証の `--require-main` は未マージの候補branchを認証するために改変しない。統合受入は取得済みmainと候補branchの契約一致/未マージ拒否を正しく区別する。
 - 必要な過去Git履歴・原票・PDF依存を取得できない検査は実行不能として残す。失敗をコード欠陥と混同せず、未実行を成功にしない。完了報告には実行コマンド・結果・CI対象SHA・残件を対応付ける。
 - 修正の切り戻しは対象変更のrevertで行い、保存済み予想・receipt・結果・比較履歴を削除しない。後続PR統合後は依存を確認し、関連契約・受入・manifestを同時に整合させる。
+
+## 2026-10-14 作業結果・未完了検証（PR #83）
+
+計画基準 `main` は開始時も `b288bc1f39f61d68c6cf536608c11689575315e8`。既存 `AGENTS.md`、作業branch、計画書、実装対象と比較入口を確認した。以下は「コードの反映」と「受入検査の成功」を区別する。GitHubにコードが存在することだけで受入完了とはしない。
+
+| 小項目 | 主なcommit SHA | 変更path | 期待結果 | 現在の実結果・残件 |
+|---|---|---|---|---|
+| 01 改変再現 | `ce92c76`、`b7d19a5`、`c2c0ee7`、`06c87a2` | `scripts/test_next_prediction_compliance.py` | 原本改変・hash不一致・発走後読戻しを個別テスト化し不正を拒否 | 合成fixtureとテスト関数を保存。旧コードでの実行再現／修正後の実行成功は未確認。 |
+| 02 厳密証跡 | `2243639`、`9f815c0`、`2b334f8`、`4f2cb28` | `scripts/check_prediction_compliance.py` | 新規v1.7.0適格Shadowのみbytes/hash/receipt/時刻を検証し、旧共通`evidence`維持 | 分離した関数を実装し、循環回避の関数内importを使用。旧契約の回帰実行は未確認。 |
+| 03 個別完了／日別台帳 | `634fcaf`、`72726ca`、`72898a2`、`631976d` | `scripts/task_completion.py`、`scripts/test_task_completion.py`、`scripts/test_cycle04_acceptance.py` | 不正ELIGIBLE gateを拒否し、本体保存成功とShadow項目別不足を分離 | 実装・合成受入ケースを保存。保存/推奨独立の回帰実行は未確認。 |
+| 04 専用入口／運用契約 | `760446d`、`26e7f79`、`6dc30d4` | `scripts/test_class_transition_shadow.py`、`docs/validation/contracts/cycle04_operations.md`、`docs/validation/templates/next_cycle_execution_v17.md` | 比較専用のrace/cutoff/baseline/bindingを維持し参照仕様を明文化 | 既存の`class_transition_shadow.py`、`chat_forward_coverage.py`、`chat_calibration_review.py`は変更せず読取整合を確認。実行回帰は未確認。 |
+| 05 全受入・release/CI | `b3e9a6a` | `docs/validation/contracts/v170-release.json` | 全回帰・合成受入PASS、release manifest整合、通常checker・統合受入・3系統CIが成功 | 変更した7入力のSHA-256を読戻し内容から更新した。直接の生成コマンド実行、合成受入更新、CI成功は**未完了**。 |
+
+### 実行予定コマンドと結果
+
+```bash
+python3 -m unittest discover -s scripts -p 'test_*.py'
+python3 -m unittest discover -s scripts -p 'test_*.py' -k shadow
+python3 scripts/check_prediction_compliance.py
+python3 scripts/check_prediction_compliance.py --audit
+python3 scripts/run_cycle04_acceptance.py --write
+python3 scripts/build_v170_manifest.py
+python3 scripts/check_integration_acceptance.py --full
+python3 scripts/run_release_readiness.py
+```
+
+これらの**ローカル実行結果は未取得**。本セッションの実行コンテナはprivate GitHubリポジトリを取得できず、DNS解決も失敗したため、コードをその場でcheckoutして一括実行できなかった。チェック成功・skip0・受入PASS・manifest生成成功と記録しない。
+
+3系統Actionsをコミット`b3e9a6a8848db8b21e726df38f76347b78912997`で確認した結果、いずれも`failure`（成功ではない）：
+
+- サイクル台帳：run `38522478105`。失敗ジョブだけを再実行したattempt 2も`failure`。
+- 統合受入：run `38522478142`、`failure`。
+- 血統研究：run `38522478250`、`failure`。
+
+いずれもジョブの`runner_id=0`、`steps=[]`で、ワークフロー処理を開始した検証記録は存在しない。ジョブログ取得は404の`BlobNotFound`。runner未割当の理由はGitHub側の権限・課金・割当などを確認するまで未特定であり、アプリケーションのテスト失敗と断定しない。対象SHAの差分を読戻し、後から出た別SHAの成功と取り違えないこと。
+
+`docs/validation/reviews/cycle_04/acceptance.json` は**従来の741件の成功記録のままであり、今回の変更・新規テストの合格証跡ではない**。全回帰成功後に前掲の`--write`で最新入力について生成し、続けてmanifestを再生成・読戻ししなければならない。テスト不成功の状態でPASSに改ざんしない。
+
+### 残件と完了判定
+
+1. Actionsジョブがrunnerを割り当てられない原因を解消し、3系統の実行と成功を取得する。
+2. 本計画の対象回帰、通常checker、保存回帰、`run_cycle04_acceptance.py --write`、`build_v170_manifest.py`、統合受入の実結果を取得し、生成物のSHAを再読戻しする。
+3. 全項目がPASSになった後で本表・PR本文・検証SHAを更新し、Draft解除とマージ可否を判断する。現時点の受入状態は**未完了**。
+
+新規実レース記録、過去のreceipt、既存予想、性能昇格は書き換えていない。
