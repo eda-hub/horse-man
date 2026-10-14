@@ -24,6 +24,11 @@ def nonempty(value):
     return isinstance(value, str) and bool(value.strip())
 
 
+def review_field(value):
+    # 旧validatorが受容した構造化の誤差・非劣化理由も維持する。
+    return nonempty(value) or (isinstance(value, dict) and bool(value))
+
+
 def review_status(value):
     """共通検査：状態とOwner不足を返す。旧記録は成功を偽装せず読み取る。"""
     if not isinstance(value, dict):
@@ -31,7 +36,7 @@ def review_status(value):
     if value.get("schema_version") != REVIEW_SCHEMA:
         missing = ["HISTORICAL_REVIEW_SCHEMA"]
         for name in ("error_classification", "non_degradation", "next_validation"):
-            if not nonempty(value.get(name)):
+            if not review_field(value.get(name)):
                 missing.append(name)
         for name in TARGETS:
             if not value.get(name):
@@ -40,7 +45,7 @@ def review_status(value):
     require(value.get("state") in {"DRAFT", "COMPLETE"}, "review state must be DRAFT/COMPLETE")
     missing = []
     for name in ("error_classification", "non_degradation", "next_validation"):
-        if not nonempty(value.get(name)):
+        if not review_field(value.get(name)):
             missing.append(name)
     for name in TARGETS:
         items = value.get(name)
