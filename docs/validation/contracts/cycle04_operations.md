@@ -163,3 +163,31 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 6. `python3 scripts/check_cycle04.py`、`python3 scripts/cycle04_workflow.py --summary` と回顧資料は同じ固定manifestを再照合する。照合不足、REPLAY、SYNTHETIC、結果だけのmode削除、参照/本文差替え、未来取得、未確定は当該レースの回顧未完了として残す。元結果、予想、receipt、他レースは消さない。既存第4記録の出所不足を後付け証跡で真正化しない。
 
 同着・取消・中止と複勝対象着数は既存 `chat_result_conversion.py` の規約を使用する。未対応形式は理由付きで保留し、前向き公式データとして合成しない。
+
+## 初回・最終Shadowの固定履歴と適用判定（phase-shadow-v1）
+
+`record_prediction` のentryはINITIAL/FINALそれぞれに `shadow_applicability` を明示する。省略、空配列からの自動対象外化、理由なしは拒否する。`status` は `APPLICABLE`（gateのshadow_itemsとitem_idsが一致）、`NOT_APPLICABLE`（該当条件を調べて対象外、item_ids空）、`UNKNOWN`（判定材料不足、item_ids空）のいずれか。全状態で空でない `reason` が必要。適用判定は当時の既存Shadow仮説の条件から行い、gateを照合しただけでは該当条件の真偽を自動認証しない。未確認はUNKNOWN/保留とし、後から偽の判定・証跡を作らない。
+
+```json
+{
+  "shadow_applicability": {
+    "status": "NOT_APPLICABLE",
+    "reason": "最終時点の当該仮説の条件が成立しないと確認",
+    "item_ids": [],
+    "previous_item_dispositions": {
+      "既存比較項目ID": {
+        "status": "NOT_APPLICABLE",
+        "reason": "最終時点における個別の非該当条件"
+      }
+    }
+  }
+}
+```
+
+`previous_item_dispositions` は、**直前の固定gateに存在した項目IDに加えて、全固定 `shadow_history` 内で最後の個別判断が `UNKNOWN` のまま未解決となっている項目ID**のうち、今回のgateに現れないものを全件登録する。途中のFINALが空でも未解決集合を消してはならない。継続保留には各改訂で `UNKNOWN` と個別の非空 `reason` を再登録し、**明示的に `NOT_APPLICABLE` 等へ判断・理由を更新するまで最新Shadow KPIを保留にする**。別のShadow項目が適格でも未解決項目の保留を優先する。今回のgateに項目が再出現した場合はその固定項目の状態に従い再判定する。未解決を置いたまま `NOT_APPLICABLE` にして対象集合・理由を削除する登録はwriter・preview・checker・summaryの全経路で拒否する。取り消し理由を一括の空配列だけで代用しない。未確定は `UNKNOWN`、不足が確定した場合は `INELIGIBLE` と区別する。上記JSONは書式例であり、実レースの適用状態・時刻・原本を作成した事実ではない。
+
+新規日別行は `shadow_tracking_version=phase-shadow-v1` を持ち、`shadow_history` を `prediction_history` と同じ順序・件数で追記する。各履歴はphase、固定Prediction gateのpath/SHA-256、baseline ID、data_cutoff、item_idと個別状態/evidence_ref、適用判定、レース単位のShadow状態を固定する。同一gate/phaseの再登録は冪等だが、過去の適用理由・履歴の差替えは禁止する。既存行に履歴がない場合、旧固定gateとPrediction履歴は保存するが、欠落した当時の適用判断・receiptを後から捏造せず、回顧の `shadow_history_gaps` に表示する。
+
+日別 `kpis.shadow` は**最新**PredictionのShadow適用状態だけをレース単位で表す。`NOT_APPLICABLE` は対象集合から以前の適格・不適格・保留および理由を除去し、`UNKNOWN` は理由付き保留とする。複数項目に適格と保留/不適格が混在した場合、全項目適格とはせず、保留を優先し、次いで不適格とする。初回の適格比較は `shadow_history` に残り、最終の対象外で失効・削除しない。Shadow不足はProductionの独立FIXと価格不要推奨の保存を失敗にしない。
+
+`chat_calibration_review.py` は前向き網羅が返す `submitted_pair_bindings` のphase・固定gate SHA・baseline・cutoff・item_idを厳密に照合する。INITIALの固定Shadow比較では、日別行の最新FINAL推奨を対応する推奨と扱わず `recommendation_input=null`、`recommendation_binding_status=DIFFERENT_PHASE` として元の比較を出力する。FINAL比較に限り、最新推奨を正式validatorに通し、phase=FINAL・cutoff・baseline・固定Production原本（artifact path/SHA/id）が一致する場合のみ `MATCHED_FINAL` として結合する。FINALの参照なしは `NOT_RECORDED`、FINALでの異なるcutoff/基準/原本・phaseの偽装は拒否する。初回比較だけを除外・実測ゼロ化しない。\n\n`chat_review_package.py` は最新レースKPIと `shadow_comparisons_by_fixed_phase` を別々に出力し、同一レース・phase・gate SHA・baseline・cutoff・項目IDの組を一意の比較キーとする。異なるcutoff・基準を合算しない。`chat_forward_coverage.py` は最新gateだけでなく当時の固定phase履歴へ提出ペアを照合する。`chat_calibration_review.py` もphase/baseline/cutoffを維持する。対象が未確定の場合は保留を保ち、実測0や自動性能昇格に変換しない。旧台帳と初回比較の真正性は保存済みgate/receiptから検査し、未知の適用判断を自動補完しない。

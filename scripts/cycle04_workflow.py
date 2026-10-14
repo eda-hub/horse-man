@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from check_cycle04 import CONTRACT_PATH, DATES, SCHEMA, validate_day
+from cycle04_shadow_state import snapshot as shadow_snapshot, previous_items as prior_shadow_items
 from check_prediction_compliance import iso, validate_gate
 from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_formal_result, validate_market, validate_market_payload
 from recommendation import verify as verify_recommendation, settle
@@ -37,6 +38,13 @@ def set_state(obj, race, state, reason):
         obj[field] = [r for r in obj[field] if r != race]
     obj[{'ELIGIBLE':'eligible_ids','INELIGIBLE':'ineligible_ids','PENDING':'pending_ids'}[state]].append(race)
     obj['reasons'][race] = reason
+
+
+def clear_state(obj, race):
+    obj['target_ids'] = [r for r in obj['target_ids'] if r != race]
+    for field in ('eligible_ids', 'ineligible_ids', 'pending_ids'):
+        obj[field] = [r for r in obj[field] if r != race]
+    obj['reasons'].pop(race, None)
 
 
 def save(root, day, before=None):
@@ -108,7 +116,7 @@ def register_scope(root, scope, now=None, extend=False):
         for race in rows:
             ident=race['race_id'];day['initial_scope'].append(ident)
             day['races'][ident]={'mode':'FORWARD','scheduled_post_time_jst':race['scheduled_post_time_jst'],
-                                 'prediction_history':[],'recommendation_state':'PENDING'}
+                                 'prediction_history':[],'shadow_history':[],'shadow_tracking_version':'phase-shadow-v1','recommendation_state':'PENDING'}
             set_state(day['kpis']['production'],ident,'PENDING','追加依頼・初回未実施')
         return save(root,day,before)
     day = {'schema_version':SCHEMA,'cycle_id':'cycle_04','manual_release':'v1.7.0','race_date_jst':date,
@@ -116,7 +124,7 @@ def register_scope(root, scope, now=None, extend=False):
            'reviewed_scope':[],'unfinished_reasons':{},'kpis':{'production':kpi(ids),'recommendation':kpi(),
              'shadow':kpi(),'market':kpi(),'actual_purchase':kpi()},
            'races':{r['race_id']:{'mode':'FORWARD','scheduled_post_time_jst':r['scheduled_post_time_jst'],
-                      'prediction_history':[],'recommendation_state':'PENDING'} for r in rows}}
+                      'prediction_history':[],'shadow_history':[],'shadow_tracking_version':'phase-shadow-v1','recommendation_state':'PENDING'} for r in rows}}
     return save(root,day)
 
 
@@ -178,11 +186,24 @@ def record_prediction(root,date,entry,*,preview=False):
                 'prediction_gate_sha256':hashlib.sha256(safe_path(root,entry['prediction_gate_path']).read_bytes()).hexdigest(),
                 'prediction_ref':copy.deepcopy(entry['operations']['prediction_ref']),
                 'baseline_forecast_id':gate['production']['baseline_forecast_id']}
-    if identity not in row['prediction_history']: row['prediction_history'].append(identity)
+    previous = row['prediction_history']
+    shadows = row.setdefault('shadow_history', [])
+    same_gate = identity in previous
+    old_items = prior_shadow_items(previous[:-1] if same_gate else previous, root,
+                                   shadows[:-1] if same_gate else shadows)
+    record = shadow_snapshot(root, gate, identity, entry.get('shadow_applicability'), old_items)
+    if identity in previous:
+        require(previous[-1] == identity and shadows and shadows[-1] == record,
+                'same prediction gate cannot replace shadow applicability/history')
+    else:
+        previous.append(identity)
+        shadows.append(record)
     set_state(day['kpis']['production'],race,gate['kpi_eligibility']['production'],'保存・独立FIX・入力・対象gateを照合')
-    shadow_state = gate['kpi_eligibility']['shadow']
-    if gate.get('shadow_items'):
-        set_state(day['kpis']['shadow'],race,shadow_state,'該当Shadowの独立状態')
+    if record['kpi_state'] == 'NOT_APPLICABLE':
+        clear_state(day['kpis']['shadow'], race)
+    else:
+        set_state(day['kpis']['shadow'],race,record['kpi_state'],
+                  record['phase']+' Shadow：'+record['applicability']['reason'])
     if phase == 'FINAL':
         rec_path = entry.get('recommendation_gate_path')
         require(rec_path, 'FINAL requires recommendation state and independent gate')

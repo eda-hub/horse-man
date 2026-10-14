@@ -53,6 +53,44 @@ class ForwardCoverage(unittest.TestCase):
         self.manifest['assessments'][0]['race_id']='unknown'
         with self.assertRaises(ValueError):coverage(self.root,self.manifest,self.now)
 
+    def test_submitted_comparison_binds_initial_phase_after_final(self):
+        case=operations.OperationalWorkflow();case.setUp();self.addCleanup(case.doCleanups)
+        case.register();initial=case.shadow_gate()
+        gate_path=case.entry['prediction_gate_path']
+        case.entry['shadow_applicability']={'status':'APPLICABLE',
+                                            'reason':'初回の比較を固定','item_ids':['TEST-SHADOW']}
+        workflow.record_prediction(case.root,DATE,case.entry)
+        case.select();case.final_without_shadow(initial)
+        case.entry['shadow_applicability']={'status':'NOT_APPLICABLE',
+            'reason':'最終時点では条件非該当','item_ids':[],
+            'previous_item_dispositions':{
+                'TEST-SHADOW':{'status':'NOT_APPLICABLE','reason':'最終条件非該当'}}}
+        workflow.record_prediction(case.root,DATE,case.entry)
+        self.case=case;self.root=case.root
+        self.path='docs/validation/records/cycle_04/'+DATE+'.json'
+        self.manifest={'plan':self.plan,'days':[{
+             'artifact_path':self.path,'sha256':fingerprint((self.root/self.path).read_bytes())}],
+             'assessments':[],'items':[]}
+        self.add_assessment()
+        result_path='result.json'
+        (self.root/result_path).write_text(json.dumps({
+            'race_id':RACE,'race_date_jst':DATE,'status':'OFFICIAL',
+            'source_url':'https://www.jra.go.jp/test/result',
+            'retrieved_at_jst':DATE+'T11:00:00+09:00',
+            'finish_groups':[[5],[2],[6],[4],[1],[3]],'place_places':3}))
+        self.manifest['items']=[{
+            'gate_path':gate_path,
+            'gate_ref':{'artifact_path':gate_path,
+                        'sha256':fingerprint((self.root/gate_path).read_bytes())},
+            'shadow_item_id':'TEST-SHADOW',
+            'result_path':result_path,
+            'result_ref':{'artifact_path':result_path,
+                          'sha256':fingerprint((self.root/result_path).read_bytes())}}]
+        report=coverage(self.root,self.manifest,self.now)
+        self.assertEqual(report['submitted_pair_bindings'][RACE]['phase'],'INITIAL')
+        self.assertEqual(report['submitted_pair_bindings'][RACE]['shadow_item_id'],'TEST-SHADOW')
+        self.assertFalse(report['sample_coverage_verified'])
+
     def test_empty_scope_is_waiting_not_a_measured_zero(self):
         m={'plan':self.plan,'days':[],'assessments':[],'items':[]}
         out=coverage(self.root,m,self.now)
