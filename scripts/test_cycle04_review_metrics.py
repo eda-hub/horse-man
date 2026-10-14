@@ -113,6 +113,18 @@ class OwnerWorkflow(unittest.TestCase):
         with self.assertRaisesRegex(ComplianceError, "revision artifact hash"):
             workflow.read_day(self.root, DATE)
 
+    def test_unchanged_pair_keeps_anchor_outcome_by_evidence_state(self):
+        self.case.select()
+        self.case.entry["phase"] = "FINAL"
+        workflow.record_prediction(self.root, DATE, self.case.entry)
+        workflow.review(self.root, DATE, self.entry())
+        metrics = workflow.summary(self.root)["independent_review_metrics"]
+        state = metrics["initial_final_change_evidence"]["by_evidence_state"]["UNCHANGED"]
+        self.assertEqual(state["count"], 1)
+        self.assertEqual(state["unchanged_outcome"], 1)
+        self.assertEqual(state["anchor_win_improved"], 0)
+        self.assertEqual(state["new_anchor_win_rate"], 1)
+
     def test_unmarked_and_missing_final_have_separate_coverage(self):
         workflow.review(self.root, DATE, self.entry())
         day, _ = workflow.read_day(self.root, DATE)
