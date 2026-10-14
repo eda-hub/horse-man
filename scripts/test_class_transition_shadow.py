@@ -4,6 +4,7 @@ import io
 import json
 import unittest
 from contextlib import redirect_stdout
+from datetime import datetime
 from pathlib import Path
 from unittest.mock import patch
 import test_class_transition as inputs
@@ -31,6 +32,16 @@ class ClassTransitionShadowTest(unittest.TestCase):
         return pair,result
 
     def verified_fixture(self):
+        # 未来開催の合成fixtureは、発走後の模擬時刻でのみ照合する。
+        # 本番checkerの「検査時点より未来の読戻し拒否」は変更しない。
+        class SimulatedClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                instant = datetime.fromisoformat('2026-10-17T12:00:00+09:00')
+                return instant.astimezone(tz) if tz else instant.replace(tzinfo=None)
+        clock = patch('check_prediction_compliance.datetime', SimulatedClock)
+        clock.start()
+        self.addCleanup(clock.stop)
         f=originals.Cycle04Acceptance();f.addCleanup=self.addCleanup;day,_=f.complete_day();root=f.root
         row=day['races'][originals.RACE];path=row['prediction_gate_path'];gate=validate_gate(root,root/path)
         production=gate['production'];prediction_hash=hashlib.sha256((root/production['evidence_ref']['artifact_path']).read_bytes()).hexdigest();assessment=inputs.fixture();assessment['race_id']=gate['race_id'];assessment['data_cutoff']=gate['data_cutoff'];assessment['horse_no']=5;assessment['comparison_evidence']=[inputs.evidence()]
