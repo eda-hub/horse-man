@@ -71,7 +71,7 @@ class OperationalWorkflow(unittest.TestCase):
         gate=json.loads(original.read_text())
         proof=self.fixture.artifact(name,'shadow/'+name+'.json',
             {'schema_version':'shadow-comparison-test-v1','artifact_id':name,'race_id':RACE,
-             'race_date_jst':DATE,'data_cutoff':gate['data_cutoff'],
+             'race_date_jst':DATE,'mode':'FORWARD','data_cutoff':gate['data_cutoff'],
              'baseline_forecast_id':gate['production']['baseline_forecast_id']},at='09:48')
         proof.update(timing_eligibility='PRE_RACE_ELIGIBLE',
                      persist_verified_at_jst=DATE+'T09:48:00+09:00')
