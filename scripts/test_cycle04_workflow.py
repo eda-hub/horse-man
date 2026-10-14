@@ -137,6 +137,28 @@ class OperationalWorkflow(unittest.TestCase):
         self.assertEqual(day['kpis']['shadow']['pending_ids'],[RACE])
         self.assertEqual(day['kpis']['recommendation']['eligible_ids'],[RACE])
 
+    def test_existing_initial_history_can_be_preserved_without_invented_applicability(self):
+        path=self.register();gate=self.shadow_gate()
+        self.entry['shadow_applicability']={'status':'APPLICABLE','reason':'旧初回',
+                                            'item_ids':['TEST-SHADOW']}
+        workflow.record_prediction(self.root,DATE,self.entry);self.select()
+        legacy=json.loads(path.read_text())
+        row=legacy['races'][RACE]
+        row.pop('shadow_history');row.pop('shadow_tracking_version')
+        path.write_text(json.dumps(legacy))
+        self.final_without_shadow(gate)
+        self.entry['shadow_applicability']={'status':'NOT_APPLICABLE',
+            'reason':'最終対象外を個別判定','item_ids':[],
+            'previous_item_dispositions':{
+                'TEST-SHADOW':{'status':'NOT_APPLICABLE','reason':'最終時点で条件不成立'}}}
+        workflow.record_prediction(self.root,DATE,self.entry)
+        day,_=workflow.read_day(self.root,DATE)
+        final=day['races'][RACE]
+        self.assertEqual(len(final['prediction_history']),2)
+        self.assertEqual(len(final['shadow_history']),1)
+        self.assertEqual(final['shadow_history'][0]['phase'],'FINAL')
+        self.assertEqual(day['kpis']['shadow']['target_ids'],[])
+
     def test_shadow_applicability_cannot_be_inferred_from_empty_gate(self):
         path=self.register();original=path.read_bytes()
         self.entry.pop('shadow_applicability')
