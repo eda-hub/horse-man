@@ -372,7 +372,9 @@ class Cycle04Acceptance(unittest.TestCase):
         row['review']={'error_classification':'test','non_degradation':'test','next_validation':'test'}
         from recommendation import settle,verify
         row['recommendation_result']=settle(verify(self.root,self.root/row['recommendation_gate_path']),result)
-        self.day(d,c)
+        # 旧来のresult単独保存は正式結果の出所証跡として認証しない。
+        with self.assertRaisesRegex(ComplianceError, 'frozen path/hash'):
+            self.day(d,c)
         result['retrieved_at_jst']=DATE+'T09:00:00+09:00';write(self.root,path,json.dumps(result))
         row['result_ref']['sha256']=fingerprint((self.root/path).read_bytes())
         with self.assertRaises(ComplianceError):self.day(d,c)
@@ -432,6 +434,15 @@ class Cycle04Acceptance(unittest.TestCase):
             return copy.deepcopy(report) if path.name=='acceptance.json' else original_load(path)
         with patch('check_cycle04.load',side_effect=fixture_load):
             check_preparation(root)
+            for state in ('NOT_RUN', 'FAIL'):
+                report.update(result=state, tests_run=None, failures=None, skipped=None)
+                with self.subTest(state=state), self.assertRaisesRegex(ComplianceError, 'acceptance not passed'):
+                    check_preparation(root)
+            report.update(result='PASS', tests_run=1, failures=0, skipped=0)
+            report['skipped'] = 1
+            with self.assertRaisesRegex(ComplianceError, 'acceptance not passed'):
+                check_preparation(root)
+            report['skipped'] = 0
             report['source_manifest'][0]['sha256']='0'*64
             with self.assertRaises(ComplianceError):check_preparation(root)
             report['source_manifest'][0]['sha256']=fingerprint((root/report['source_manifest'][0]['path']).read_bytes())

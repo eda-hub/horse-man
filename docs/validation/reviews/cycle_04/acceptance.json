@@ -1,10 +1,10 @@
 {
   "schema_version": "cycle04-acceptance-v1",
   "mode": "SYNTHETIC",
-  "result": "PASS",
-  "tests_run": 758,
-  "failures": 0,
-  "skipped": 0,
+  "result": "NOT_RUN",
+  "tests_run": null,
+  "failures": null,
+  "skipped": null,
   "live_race_count": null,
   "performance_promotion": "NOT_PERFORMED",
   "formal_cutover": "NOT_PERFORMED",
@@ -51,7 +51,7 @@
     },
     {
       "path": "docs/validation/contracts/cycle04_operations.md",
-      "sha256": "467209801129a27ccb40a1f16d72f3716803b5a1b34f7c33f44e63a1758ffab2"
+      "sha256": "618ecbf1f352b28f5ef1580397baaa104e3df1d7af536e1b25d844d5365e869e"
     },
     {
       "path": "docs/validation/contracts/cycle_04.json",
@@ -75,7 +75,7 @@
     },
     {
       "path": "docs/validation/templates/chatgpt_prediction_task.md",
-      "sha256": "014dddcc2749aa6e5c0f33542addca9b204418ddb798415345c182a0209e3a8a"
+      "sha256": "9cca7d43737a0fc6ee88b953a6be21143a4c94a1fc7b2a09bf40a47b4326d2af"
     },
     {
       "path": "scripts/audit_20261012_pr78.py",
@@ -87,7 +87,7 @@
     },
     {
       "path": "scripts/build_v170_manifest.py",
-      "sha256": "05f66bef47bb6afd56e37bab057cfb1d3815b6e17c7e5f93a60c85d023bbceb9"
+      "sha256": "9b495a9ed4850b85f4f4010155470aabdb73dcefdf3d80eb8bbc6e5beb951e6f"
     },
     {
       "path": "scripts/chat_calibration_review.py",
@@ -135,7 +135,7 @@
     },
     {
       "path": "scripts/chat_result_reconciliation.py",
-      "sha256": "0c0e0b9fc62d634ce815bca3c0d17ad98c97e09f0055d06923bc48bd4aebe54a"
+      "sha256": "b5ee216d5752813d4bd157ac78e26ec0142b518cbbdde36eed0e9e936fbf5bd8"
     },
     {
       "path": "scripts/chat_resume.py",
@@ -143,7 +143,7 @@
     },
     {
       "path": "scripts/chat_review_package.py",
-      "sha256": "b56b69d5ab366f2aba245293a2c20cfacbbd4872619e68408dc5593b9c64c30e"
+      "sha256": "3fe84a72faa9f30558152d1c9435bf9d6f2c9ae363d1be503e33efd75b137e39"
     },
     {
       "path": "scripts/check_betting_performance.py",
@@ -163,7 +163,7 @@
     },
     {
       "path": "scripts/check_cycle04.py",
-      "sha256": "4b85d4456f0b06dffbdc882cd58986632ef93c23e12ec5b302c74633e7b729ff"
+      "sha256": "502d70c273b8771988dd7df64ba34e6b17074a5d38d21b33171e3963c45cdd36"
     },
     {
       "path": "scripts/check_designated_ancestor_scope.py",
@@ -179,7 +179,7 @@
     },
     {
       "path": "scripts/check_integration_acceptance.py",
-      "sha256": "6a7ab3c1e0dac3347bad610e5fc186cffd7af9ef9450aba4b381558c16bfaf90"
+      "sha256": "21fbfad76d4d9d2dd0e09920f9cdb2631aeba3c7c53de72935b28ceb4d5753f7"
     },
     {
       "path": "scripts/check_legacy_fact_followup.py",
@@ -207,7 +207,7 @@
     },
     {
       "path": "scripts/check_prediction_compliance.py",
-      "sha256": "5a11fd443810af3d0ff69adc5fe62551ae1a2e6e04159591a08ed5f84e6ac567"
+      "sha256": "b241dc198dde2ee203c24dc849812bdbdca113e751136b5e446a8a1a464bb15b"
     },
     {
       "path": "scripts/check_prediction_cycle.py",
@@ -259,11 +259,11 @@
     },
     {
       "path": "scripts/cycle04_operations.py",
-      "sha256": "0c90c33d00e18eb04a36d3f727ae633ba159e01883ecd137101e32ea3588031d"
+      "sha256": "1983f5a4e3ce6e37cb31d0375109d37597d3214e006173445337eb9fbd65b828"
     },
     {
       "path": "scripts/cycle04_workflow.py",
-      "sha256": "4e1557b9acb6312133a7724e6a6160a64323e3ff41e49618cba0bb6f1dcda50e"
+      "sha256": "d0def43bf76ac2af180362b88a135d09110b24da432b6d3da4a5edaa82a7c6de"
     },
     {
       "path": "scripts/dependency_risk.py",
@@ -315,7 +315,7 @@
     },
     {
       "path": "scripts/run_release_readiness.py",
-      "sha256": "43de39d373e91cee48b69e4dc5db7b972d1cdd49d10a5698e2c1747db5dcee41"
+      "sha256": "d5662a9424ef120ccc161071c67718451874d4694e2cfbea9e82457aab53b09f"
     },
     {
       "path": "scripts/seal_prediction.py",
@@ -327,7 +327,7 @@
     },
     {
       "path": "scripts/task_completion.py",
-      "sha256": "5cbd99c2c796843bdd55047c4330adaf7ff6562ad405bc2cd44f3873c51e02b8"
+      "sha256": "fce9426ec7314188c15d8622e58bbb862dbf706c928c111ca00b1f441916215f"
     },
     {
       "path": "scripts/test_betting_kpi_split.py",
@@ -399,7 +399,7 @@
     },
     {
       "path": "scripts/test_chat_review_package.py",
-      "sha256": "99efe52073e0791b3891a431181756946e474f1a03c5ae9f2448eb2e3d4323d6"
+      "sha256": "249cd9accea98ee4fb46d013cded94cf343f7e6d7e23f93c30d4a8ad633acdb1"
     },
     {
       "path": "scripts/test_check_betting_performance.py",
@@ -419,7 +419,7 @@
     },
     {
       "path": "scripts/test_check_prediction_cycle.py",
-      "sha256": "ba75a4079a9d7f487ae8a680f84731fd35306076a27ab67bf4bfb662b1e71354"
+      "sha256": "de1415d74d7c8cf1126879cdd2f05d428c5c1f47fe8ee0c724343c558b55255e"
     },
     {
       "path": "scripts/test_class_transition.py",
@@ -427,19 +427,23 @@
     },
     {
       "path": "scripts/test_class_transition_shadow.py",
-      "sha256": "21ce0a315027f669554de6ede7e49e52a0a627d9f2ff2e6caa3f2c44ee9ebdaa"
+      "sha256": "d0e104bc723810cda73fae68d416e4e2af9c312ecded28eff9060648dbef8458"
     },
     {
       "path": "scripts/test_cycle04_acceptance.py",
-      "sha256": "66274e58dd252491352a0da03e336644f2e38e289770e3f839a409b6c4f78a62"
+      "sha256": "3b7fc160b33b339bf0713c0d8e785d778e98f00bcd21dfdb8f40e36597bcceb7"
     },
     {
       "path": "scripts/test_cycle04_period.py",
       "sha256": "2d280cdef49136846ec12d603a4ba8bddfa5f39f7bd45a356508c631573960a5"
     },
     {
+      "path": "scripts/test_cycle04_result_eligibility.py",
+      "sha256": "89d56b3ac56cabb09ce1b4e16e8283daf4a71b4caa5173a68322218878e0a1ad"
+    },
+    {
       "path": "scripts/test_cycle04_workflow.py",
-      "sha256": "10849e0e8680e8a33b6782a6f6b5bb87f37c64b5eb4404d1881774afe0df0b61"
+      "sha256": "17edc2c7d04c529027632d255360dc35334afb3c923fbaa3d4ccf0fbc3f0d4ef"
     },
     {
       "path": "scripts/test_dependency_risk.py",
@@ -483,7 +487,7 @@
     },
     {
       "path": "scripts/test_next_prediction_compliance.py",
-      "sha256": "d3572516842317f27a04dbfbc6771feb847ee5b768dbe083b0463be48f99e213"
+      "sha256": "a55930fc502be49a7b0ca45329b122a5aacd9c420de0cf45c1e23722a69dd71b"
     },
     {
       "path": "scripts/test_next_prediction_persistence.py",
@@ -535,7 +539,7 @@
     },
     {
       "path": "scripts/test_release_readiness.py",
-      "sha256": "936939482714e209988af96da1cf87a3d5029d6649b7823da68b8d373bb93ec3"
+      "sha256": "c9f8496dc2eb0a35607a6d1234307bf0f6fdb224b89368936831df9c99a05141"
     },
     {
       "path": "scripts/test_remaining_reviews.py",
@@ -547,7 +551,7 @@
     },
     {
       "path": "scripts/test_task_completion.py",
-      "sha256": "99acad3f8eeffec533b6a1f980649cdd6ece1eb5938135f5c1d80cac2e639267"
+      "sha256": "1076de10f2ddcfb10d5bc0474010a74355407511370ef5f1eb9407440b5301a9"
     },
     {
       "path": "scripts/test_training_country_ancestor_reply.py",
@@ -582,5 +586,5 @@
       "sha256": "382feca2c819a65e2d88b7e86375e96192fbec950697ef7c022c4772c39acca7"
     }
   ],
-  "note": "正常系・異常系の合成検査。実レース、未完了研究、実runtime接続、正式版/有効日を認証しない。"
+  "note": "PR82 mainとPR83の統合後の受入は未実施。全回帰PASS後に標準受入コマンド --write で再生成する。"
 }

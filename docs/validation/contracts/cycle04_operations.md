@@ -138,3 +138,28 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 確信度別、入力完備/不足別、午前/午後別の◎成績、初回→最終の順位変更と◎的中の改善/悪化、回顧ラベルの件数を集計する。初回比較がないレースは不足IDを残す。固定予想に取消馬が残る場合は精度の分母へ入れず比較不能の理由を記録し、推奨の取消券判定は独立して実施する。取消後に再固定済みの予想は実出走集合で照合する。
 
 任意市場を依頼された場合だけ`--date YYYY-MM-DD --record-market market-entry.json`を使う。entryはrace_idとmarket_ref、独立artifactはmarket-analysis-v1・race_id/race_date_jst・data_cutoff・marketを持つ。価格はPrediction固定後の独立cutoffで取得可能だが、cutoff・保存/読戻しは発走前を要求する。Predictionの順位・確率・基準・推奨・cutoffを変更しない。
+
+## 公式結果の正式適格性と回顧手順（PR #82）
+
+従来の `validate_official_result` は単独結果の形式検査であり、正式算入を認証しない。新規回顧では本文・注釈変換・全頭結果・固定予想/推奨をまとめた独立manifestが必須。診断用Replay/Syntheticや旧履歴は読めるが、新規の前向き成績には算入しない。更新時刻不明は `source_updated_at_jst=null` として保持し、取得時刻を代用・捏造しない。
+
+1. JRA確定本文を閲覧後、RESULT目的の `chat-fact-request-v1` と `chat-fact-capture-v1` （`provider=OFFICIAL, mode=FORWARD, retrieval_kind=PAGE_TEXT`）を保存する。予定発走、取得開始/終了、URL、実本文、race/date/発走予定引用、確定表示、全頭着順、同着・取消・中止、複勝対象着数の引用位置を明記する。本文保存は `python3 scripts/chat_fact_capture.py --request result-request.json --captures result-captures.json --output docs/validation/fact-captures/YYYY-MM-DD/result.json --root .` 。日次 `prediction/YYYY-MM-DD` ブランチで行う。
+2. `python3 scripts/chat_result_conversion.py --capture SAVED_CAPTURE.json --annotations annotations.json > conversion.json` を実行し、変換JSONと `conversion.result` を別々のJSONファイルに保存・読戻す。各JSONの実bytesのSHA-256を `sha256sum` 等で記録する。元本文を上書きしない。
+3. `refs.json` を次の6キーで作成する。capture/conversion/resultはそれぞれ `{ "artifact_path": "repo相対path", "sha256": "ファイルbytesのSHA256" }` とする。prediction_gateは日別台帳の最新 `prediction_history[-1].prediction_gate_path` と `prediction_gate_sha256` 、prediction_originalはその最新 `prediction_ref` 全体。最終推奨がある場合はrecommendation_gateに固定gateのpath/hashを指定する。予想なしでは後ろ3キーはnull、予想のみではrecommendation_gateがnull。推奨なしでも保存済み最終推奨gateは省略しない。
+
+```json
+{
+  "capture": {"artifact_path": "capture.json", "sha256": "取得本文のsha256"},
+  "conversion": {"artifact_path": "conversion.json", "sha256": "変換のsha256"},
+  "result": {"artifact_path": "result.json", "sha256": "結果のsha256"},
+  "prediction_gate": null,
+  "prediction_original": null,
+  "recommendation_gate": null
+}
+```
+
+4. `python3 scripts/chat_result_reconciliation.py refs.json --root .` で独立参照を事前照合する。この読取専用診断の `formal_kpi_certified=false` は維持する。`{ "schema_version": "cycle04-result-reconciliation-manifest-v1", "refs": <上記refsのJSONオブジェクト> }` を独立したファイルに保存・読戻しする。`refs.result` は回顧入力の結果と同じbytesでなければならない。
+5. `review-entry.json` に `{ "race_id": "...", "result_path": "result.json", "result_reconciliation_ref": {"artifact_path":"保存済みmanifest.json","sha256":"manifestのSHA256"}, "review":{"error_classification":"...","non_degradation":"...","next_validation":"..."} }` を指定し、`python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --review review-entry.json` を実行する。writerは実時計で未来取得を拒否し、保存原票から変換を再構築し、FORWARD・公式URL・レース/日付/発走・全頭/複勝・FIX予想/推奨同一性を確認後にだけ日別台帳を更新する。
+6. `python3 scripts/check_cycle04.py`、`python3 scripts/cycle04_workflow.py --summary` と回顧資料は同じ固定manifestを再照合する。照合不足、REPLAY、SYNTHETIC、結果だけのmode削除、参照/本文差替え、未来取得、未確定は当該レースの回顧未完了として残す。元結果、予想、receipt、他レースは消さない。既存第4記録の出所不足を後付け証跡で真正化しない。
+
+同着・取消・中止と複勝対象着数は既存 `chat_result_conversion.py` の規約を使用する。未対応形式は理由付きで保留し、前向き公式データとして合成しない。

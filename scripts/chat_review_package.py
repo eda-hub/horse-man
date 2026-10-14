@@ -7,7 +7,7 @@ from pathlib import Path
 from chat_result_reconciliation import fixed_json
 from check_prediction_compliance import validate_gate, iso
 from cycle04_workflow import read_day
-from cycle04_operations import require, safe_path, verified_artifact, validate_official_result
+from cycle04_operations import require, safe_path, verified_artifact, validate_official_result, validate_formal_result
 from recommendation import verify as verify_recommendation, settle
 
 
@@ -49,7 +49,12 @@ def package(root, manifest, as_of):
                 require(iso(result['retrieved_at_jst'],'result retrieval')<=now,'future result cannot enter review')
                 validate_official_result(result,race=race,date=date,post=row['scheduled_post_time_jst'],
                                         horses=out['prediction']['ranking'] if out['prediction'] else None)
-                out['result']={'fixed_ref':row['result_ref'],'official_result':result,'text_reconciliation':'SEPARATE_I07_REQUIRED'}
+                audit=validate_formal_result(root,row,race=race,date=date,result_ref=row['result_ref'],
+                                             manifest_ref=row.get('result_reconciliation_ref'))
+                out['result']={'fixed_ref':row['result_ref'],
+                               'reconciliation_ref':row['result_reconciliation_ref'],
+                               'official_result':result,'text_reconciliation':'MATCHED_FORWARD_FIXED',
+                               'diagnostic_formal_kpi_certified':audit['formal_kpi_certified']}
                 if row.get('recommendation_gate_path'):
                     rec=verify_recommendation(root,safe_path(root,row['recommendation_gate_path']))
                     out['recommendation_result']=settle(rec,result)
