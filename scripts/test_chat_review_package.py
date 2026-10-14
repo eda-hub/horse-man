@@ -63,6 +63,26 @@ class ReviewPackage(unittest.TestCase):
         self.assertEqual(out['independent_kpis_by_day'][0]['independent_kpis']['shadow']['target_ids'],[])
         self.assertEqual(race['shadow_history_gaps'],[])
 
+    def test_new_review_owner_and_independent_denominators_pass_through(self):
+        from test_cycle04_result_eligibility import sample_review
+        workflow.record_prediction(self.root,DATE,self.case.entry)
+        entry=self.case.result_entry()
+        entry["review"]=sample_review("DRAFT")
+        entry["review"]["revalidation_targets"]=[]
+        entry["review"]["revalidation_targets_status"]="PENDING"
+        entry["review"]["revalidation_targets_reason"]="次の事前観測が未提出"
+        entry["review"]["revalidation_targets_required_inputs"]=["次回の固定入力"]
+        workflow.review(self.root,DATE,entry)
+        out=package(self.root,self.manifest(),self.now)
+        row=out["races"][0]
+        self.assertEqual(row["review_state"],"DRAFT")
+        self.assertIn("revalidation_targets:PENDING",row["missing_review_fields"])
+        self.assertFalse(row["reviewed"])
+        self.assertEqual(len(row["review_history"]),1)
+        metric=out["independent_review_metrics"]["unmarked_by_fixed_phase"]["FINAL"]
+        self.assertEqual(metric["coverage"]["eligible_count"],0)
+        self.assertIsNone(metric["coverage"]["value"])
+
     def test_duplicate_day_and_mutation_rejected(self):
         manifest=self.manifest();manifest['day_refs']*=2
         with self.assertRaises(ValueError):package(self.root,manifest,self.now)
