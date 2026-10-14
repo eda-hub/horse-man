@@ -3,6 +3,7 @@ import copy
 from datetime import datetime
 import json
 import unittest
+from unittest.mock import patch
 
 import cycle04_workflow as workflow
 from check_prediction_compliance import ComplianceError
@@ -114,6 +115,74 @@ class FormalResultRegression(unittest.TestCase):
                 with self.assertRaises(ComplianceError):
                     workflow.review(self.root, DATE, self.entry(**changes))
                 self.assertEqual(path.read_bytes(), before)
+
+
+    def test_valid_forward_capture_allows_initial_only_review(self):
+        entry = make_result_entry(self.case)
+        workflow.review(self.root, DATE, entry)
+        day, _ = workflow.read_day(self.root, DATE)
+        self.assertEqual(day['reviewed_scope'], [RACE])
+        self.assertEqual(day['races'][RACE]['result_reconciliation_ref'],
+                         entry['result_reconciliation_ref'])
+        self.assertEqual(workflow.summary(self.root)['reviewed_races'], 1)
+
+    def test_fixed_replay_and_synthetic_sources_never_enter_formal_review(self):
+        for mode in ('REPLAY', 'SYNTHETIC'):
+            with self.subTest(mode=mode):
+                entry = make_result_entry(self.case, mode=mode)
+                path = self.root / workflow.DIRECTORY / (DATE + '.json')
+                before = path.read_bytes()
+                with self.assertRaisesRegex(ComplianceError, 'FORWARD'):
+                    workflow.review(self.root, DATE, entry)
+                self.assertEqual(path.read_bytes(), before)
+
+    def test_current_time_not_overridden_by_future_result_capture(self):
+        entry = make_result_entry(self.case)
+        path = self.root / workflow.DIRECTORY / (DATE + '.json')
+        before = path.read_bytes()
+        with patch('chat_result_reconciliation.formal_now',
+                   return_value=datetime.fromisoformat(DATE + 'T10:15:00+09:00')):
+            with self.assertRaisesRegex(ComplianceError, 'future result'):
+                workflow.review(self.root, DATE, entry)
+        self.assertEqual(path.read_bytes(), before)
+
+    def test_rehashing_a_different_result_cannot_override_the_source_text(self):
+        entry = make_result_entry(self.case)
+        path = self.root / entry['result_path']
+        result = json.loads(path.read_text())
+        result['source_url'] = 'https://example.com/not-jra'
+        raw = json.dumps(result, ensure_ascii=False).encode()
+        path.write_bytes(raw)
+        manifest_path = self.root / entry['result_reconciliation_ref']['artifact_path']
+        manifest = json.loads(manifest_path.read_text())
+        manifest['refs']['result']['sha256'] = fingerprint(raw)
+        manifest_raw = json.dumps(manifest, ensure_ascii=False).encode()
+        manifest_path.write_bytes(manifest_raw)
+        entry['result_reconciliation_ref']['sha256'] = fingerprint(manifest_raw)
+        with self.assertRaisesRegex(ComplianceError, 'differs from quoted source'):
+            workflow.review(self.root, DATE, entry)
+        self.assertEqual(workflow.read_day(self.root, DATE)[0]['reviewed_scope'], [])
+
+    def test_detached_prediction_reference_does_not_enter_formal_review(self):
+        entry = make_result_entry(self.case)
+        path = self.root / entry['result_reconciliation_ref']['artifact_path']
+        manifest = json.loads(path.read_text())
+        manifest['refs']['prediction_original'] = None
+        raw = json.dumps(manifest, ensure_ascii=False).encode()
+        path.write_bytes(raw)
+        entry['result_reconciliation_ref']['sha256'] = fingerprint(raw)
+        with self.assertRaisesRegex(ComplianceError, 'another prediction'):
+            workflow.review(self.root, DATE, entry)
+
+    def test_direct_day_edit_without_reconciliation_ref_is_rejected_by_summary(self):
+        entry = make_result_entry(self.case)
+        workflow.review(self.root, DATE, entry)
+        path = self.root / workflow.DIRECTORY / (DATE + '.json')
+        day = json.loads(path.read_text())
+        del day['races'][RACE]['result_reconciliation_ref']
+        path.write_text(json.dumps(day))
+        with self.assertRaises(ComplianceError):
+            workflow.summary(self.root)
 
 
 if __name__ == '__main__':
