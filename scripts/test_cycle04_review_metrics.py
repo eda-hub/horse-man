@@ -41,6 +41,13 @@ class OwnerSchema(unittest.TestCase):
         with self.assertRaisesRegex(ComplianceError, "COMPLETE review"):
             review_status(value)
 
+    def test_pre_race_confirmed_claim_must_include_fixed_quote(self):
+        review = sample_review()
+        review["change_evidence"] = [{"status": "PRE_RACE_CONFIRMED",
+                                      "reason": "事前入力を採用"}]
+        with self.assertRaisesRegex(ComplianceError, "exact fixed quote"):
+            review_status(review)
+
     def test_legacy_is_readable_but_never_owner_complete(self):
         old = {"error_classification": "不明", "non_degradation": "確認", "next_validation": "次回"}
         self.assertEqual(review_status(old)["state"], "LEGACY_INCOMPLETE")
