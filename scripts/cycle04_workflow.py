@@ -321,7 +321,7 @@ def summary(root):
               'additional_review_metrics':{'status':'PENDING_REVIEW_AGGREGATION','reason':'未回顧・比較入力不足は未測定として残す。','reviewed_count':0,'error_labels':{},
                    'by_prediction_confidence':{},'by_input_completeness':{},'by_race_period':{},
                    'initial_to_final':{'paired':0,'ranking_changed':0,'anchor_win_improved':0,'anchor_win_worsened':0,
-                                       'unchanged_outcome':0,'missing_initial_ids':[]}}}
+                                       'unchanged_outcome':0,'missing_initial_ids':[], 'ambiguous_revision_ids':[]}}}
     for name in ('production','recommendation','shadow','market'):
         result['kpis'][name]={field:sum(len(d['kpis'][name][field]) for d in days)
                              for field in ('target_ids','eligible_ids','ineligible_ids','pending_ids')}
@@ -361,16 +361,19 @@ def summary(root):
                         group=review_metrics[category].setdefault(label,{'count':0,'honmei_win_count':0,'honmei_top3_count':0})
                         group['count']+=1;group['honmei_win_count']+=int(anchor in win);group['honmei_top3_count']+=int(finish.get(anchor,999)<=3)
                     paired=review_metrics['initial_to_final']
-                    initial=next((h for h in row.get('prediction_history',[]) if h['phase']=='INITIAL'),None)
+                    history=row.get('prediction_history',[])
+                    initial=[h for h in history if h['phase']=='INITIAL']
+                    finals=[h for h in history if h['phase']=='FINAL']
                     if race in day['final_scope']:
-                        if initial:
-                            first=validate_gate(root,safe_path(root,initial['prediction_gate_path']))['production']['ranking']
+                        if len(initial)==len(finals)==1:
+                            first=validate_gate(root,safe_path(root,initial[0]['prediction_gate_path']))['production']['ranking']
                             paired['paired']+=1;paired['ranking_changed']+=int(first!=ranking)
                             old_hit=first[0] in win;new_hit=anchor in win
                             paired['anchor_win_improved']+=int(not old_hit and new_hit)
                             paired['anchor_win_worsened']+=int(old_hit and not new_hit)
                             paired['unchanged_outcome']+=int(old_hit==new_hit)
-                        else:paired['missing_initial_ids'].append(race)
+                        elif not initial:paired['missing_initial_ids'].append(race)
+                        else:paired['ambiguous_revision_ids'].append(race)
                 if comparable:predictions.append({'win':anchor in win,'top2':finish.get(anchor,999)<=2,'top3':finish.get(anchor,999)<=3,
                     'capture':bool(set(ranking[:3]) & win),'brier':sum((p['win_probability']-int(p['horse_no'] in win))**2 for p in prod['probabilities'])/len(ranking),
                     'top2_brier':sum((p['top2_probability']-int(finish.get(p['horse_no'],999)<=2))**2 for p in prod['probabilities'])/len(ranking),
