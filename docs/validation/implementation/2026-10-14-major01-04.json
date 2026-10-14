@@ -1,0 +1,26 @@
+{
+  "schema_version": "pr69-major01-boundary-v1",
+  "subtask": "01-04",
+  "status": "BOUNDARY_DOCUMENTED_CHECKERS_RETAINED",
+  "checked_files": [
+    ".github/workflows/check-cycle03.yml",
+    ".github/workflows/check-pedigree-research.yml",
+    ".github/workflows/check-integration-acceptance.yml",
+    "scripts/run_release_readiness.py",
+    "scripts/check_integration_acceptance.py",
+    "scripts/check_chat_market_live_validation.py"
+  ],
+  "checks": {
+    "live_checker_not_required_by_ci": true,
+    "unmerged_start_guard_retained": true,
+    "live_evidence_guards_retained": true,
+    "price_independence_retained": true
+  },
+  "checker_changes": 0,
+  "workflow_changes": 0,
+  "manifest_changes": 0,
+  "formal_manual_changes": 0,
+  "live_executed": false,
+  "performance_promoted": false,
+  "limits": "列挙した既存CI/入口の静的照合。GitHub保護設定全体の取得や実運用試験を主張しない。"
+}
