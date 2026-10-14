@@ -75,7 +75,7 @@ class OperationalWorkflow(unittest.TestCase):
         self.assertEqual(after['kpis']['market']['eligible_ids'],0)
         self.assertEqual(len(workflow.read_day(self.root,DATE)[0]['races'][RACE]['prediction_history']),2)
 
-    def shadow_gate(self, name='first-shadow'):
+    def shadow_gate(self, name='first-shadow', path=None):
         from test_next_prediction_compliance import write
         original=self.root/self.entry['prediction_gate_path']
         gate=json.loads(original.read_text())
@@ -88,7 +88,7 @@ class OperationalWorkflow(unittest.TestCase):
         gate['shadow_items']=[{'item_id':'TEST-SHADOW','state':'FIXED',
                               'kpi_eligibility':'ELIGIBLE','evidence_ref':proof}]
         gate['kpi_eligibility']['shadow']='ELIGIBLE'
-        write(self.root,self.entry['prediction_gate_path'],json.dumps(gate))
+        write(self.root,path or self.entry['prediction_gate_path'],json.dumps(gate))
         return gate
 
     def final_without_shadow(self, gate):
@@ -136,6 +136,40 @@ class OperationalWorkflow(unittest.TestCase):
         self.assertEqual(day['final_scope'],[RACE])
         self.assertEqual(day['kpis']['shadow']['pending_ids'],[RACE])
         self.assertEqual(day['kpis']['recommendation']['eligible_ids'],[RACE])
+
+    def test_initial_eligible_final_ineligible_is_local_to_shadow(self):
+        from test_next_prediction_compliance import write
+        self.register();gate=self.shadow_gate()
+        self.entry['shadow_applicability']={'status':'APPLICABLE','reason':'初回の適格比較',
+                                            'item_ids':['TEST-SHADOW']}
+        workflow.record_prediction(self.root,DATE,self.entry);self.select()
+        final=copy.deepcopy(gate)
+        final['shadow_items']=[{'item_id':'TEST-SHADOW','state':'EVIDENCE_UNVERIFIED',
+                                'kpi_eligibility':'INELIGIBLE'}]
+        final['kpi_eligibility']['shadow']='INELIGIBLE'
+        path='docs/validation/execution-gates/'+DATE+'/final-ineligible.json'
+        write(self.root,path,json.dumps(final))
+        self.entry.update(phase='FINAL',prediction_gate_path=path,
+                          shadow_applicability={'status':'APPLICABLE',
+                              'reason':'最終Shadow原本の確認不足','item_ids':['TEST-SHADOW']})
+        workflow.record_prediction(self.root,DATE,self.entry)
+        day,_=workflow.read_day(self.root,DATE)
+        self.assertEqual(day['kpis']['shadow']['ineligible_ids'],[RACE])
+        self.assertEqual(day['kpis']['recommendation']['eligible_ids'],[RACE])
+        self.assertEqual(day['races'][RACE]['shadow_history'][0]['kpi_state'],'ELIGIBLE')
+
+    def test_initial_no_shadow_can_register_first_eligible_final_shadow(self):
+        self.register();workflow.record_prediction(self.root,DATE,self.entry);self.select()
+        path='docs/validation/execution-gates/'+DATE+'/final-with-shadow.json'
+        self.shadow_gate(name='final-shadow',path=path)
+        self.entry.update(phase='FINAL',prediction_gate_path=path,
+                          shadow_applicability={'status':'APPLICABLE',
+                              'reason':'最終で条件に該当','item_ids':['TEST-SHADOW']})
+        workflow.record_prediction(self.root,DATE,self.entry)
+        day,_=workflow.read_day(self.root,DATE)
+        self.assertEqual(day['kpis']['shadow']['eligible_ids'],[RACE])
+        self.assertEqual([h['kpi_state'] for h in
+                         day['races'][RACE]['shadow_history']],['NOT_APPLICABLE','ELIGIBLE'])
 
     def test_existing_initial_history_can_be_preserved_without_invented_applicability(self):
         path=self.register();gate=self.shadow_gate()
