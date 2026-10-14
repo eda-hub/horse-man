@@ -8,7 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from check_prediction_compliance import iso
-from cycle04_operations import require, safe_path
+from cycle04_operations import require, safe_path, verified_artifact, fingerprint
+from check_prediction_compliance import validate_gate
 from task_completion import prediction_completion, recommendation_completion
 
 from check_cycle04 import DATES
@@ -41,21 +42,69 @@ def _issue(issues, date, race, code, reason):
 
 
 def _prediction_check(root, date, row, entry, *, latest):
-    """個別検査を再実行する。古い初回gateはvalidatorの固定履歴照合を使う。"""
-    ref = entry['prediction_ref']
-    intent = entry.get('intent_ref') or row.get('operations', {}).get('intent_ref')
-    intent_path = intent.get('artifact_path', '') if isinstance(intent, dict) else ''
-    intent_id = Path(intent_path).stem if intent_path else None
-    ident = ref.get('artifact_id')
-    if not ident or not intent_id or not ref.get('sha256'):
-        return ['個別の事前宣言/FIX時hash参照が不足']
+    """初回を含む固定履歴ごとに、当時の宣言→FIX→本体の独立証跡を再照合する。"""
+    phase = entry.get('phase', 'UNKNOWN')
+    label = phase + 'の固定履歴'
+    race = row.get('race_id')
+    gate_path = safe_path(root, entry.get('prediction_gate_path'))
+    require(fingerprint(gate_path.read_bytes()) == entry.get('prediction_gate_sha256'),
+            label + '：固定gateのhash不一致')
+    gate = validate_gate(root, gate_path)
+    race = gate['race_id']
+    post = row['scheduled_post_time_jst']
+    require(gate['race_date_jst'] == date and
+            gate['scheduled_post_time_jst'] == post and
+            gate['production']['baseline_forecast_id'] == entry.get('baseline_forecast_id'),
+            label + '：レース・日付・発走・基準予想の不一致')
+
+    # row.operations は最新FINALで上書きされる。旧履歴の欠落をここから補完しない。
+    refs = [entry.get(k) for k in ('prediction_ref', 'intent_ref', 'fix_ref')]
+    require(all(isinstance(ref, dict) for ref in refs),
+            label + '：履歴固有のprediction_ref/intent_ref/fix_refが不足')
+    pred_ref, intent_ref, fix_ref = refs
+    gate_ref = gate['production'].get('evidence_ref')
+    require(isinstance(gate_ref, dict) and
+            all(pred_ref.get(k) == gate_ref.get(k) for k in
+                ('artifact_id', 'artifact_path', 'sha256')),
+            label + '：固定gateと予想本体の同一性不一致')
+    snapshot, body_receipt = verified_artifact(root, pred_ref, post,
+                                               expected_id=gate_ref['artifact_id'])
+    intent, intent_receipt = verified_artifact(root, intent_ref, post)
+    fix, fix_receipt = verified_artifact(root, fix_ref, post)
+
+    require(fix.get('schema_version') == 'prediction-fix-manifest-v1' and
+            fix.get('snapshot_id') == snapshot.get('snapshot_id') and
+            fix.get('artifact_path') == pred_ref['artifact_path'] and
+            fix.get('fixed_content_sha256') == pred_ref['sha256'] and
+            fix.get('fixed_at_jst') == snapshot.get('fixed_at_jst') and
+            fix.get('intent_ref') == intent_ref,
+            label + '：当時の独立FIX原本・予想・宣言の一致不足')
+    require(intent.get('schema_version') == 'prediction-persistence-intent-v1' and
+            intent.get('snapshot_id') == snapshot.get('snapshot_id') and
+            intent.get('required_race_ids') == [race] and
+            intent.get('artifact_path') == pred_ref['artifact_path'] and
+            intent.get('working_branch') == 'prediction/' + date and
+            iso(intent.get('deadline_jst'), label + '/宣言期限') == iso(post, label + '/発走'),
+            label + '：当時の事前宣言・対象scopeの一致不足')
+    require(iso(intent_receipt['receipt_verified_at_jst'], label + '/宣言読戻し') <=
+            iso(snapshot.get('fixed_at_jst'), label + '/予想FIX') <=
+            iso(fix_receipt['persist_verified_at_jst'], label + '/FIX保存') <=
+            iso(fix_receipt['receipt_verified_at_jst'], label + '/FIX読戻し') <=
+            iso(body_receipt['persist_verified_at_jst'], label + '/本体保存'),
+            label + '：当時の宣言・FIX・本体の保存順が不正')
+
+    intent_path = intent_ref['artifact_path']
+    intent_id = Path(intent_path).stem
+    ident = pred_ref['artifact_id']
+    require(intent_path == f'docs/validation/persistence-intents/{date}/{intent_id}.json',
+            label + '：宣言の固定保存先が不正')
     status = prediction_completion(root, date, ident, intent_id=intent_id,
-                                   fixed_content_sha256=ref['sha256'],
-                                   artifact_path=ref['artifact_path'])
+                                   fixed_content_sha256=pred_ref['sha256'],
+                                   artifact_path=pred_ref['artifact_path'])
     required = ('artifact', 'receipt', 'content_match', 'individual_check')
     if latest:
         required += ('execution_gate',)
-    return [key for key in required if status['checks'][key]['result'] is not True]
+    return [key for key in required if status['checks'].get(key, {}).get('result') is not True]
 
 
 def _recommendation_check(root, row):
