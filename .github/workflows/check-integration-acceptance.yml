@@ -16,5 +16,19 @@ jobs:
           fetch-depth: 0 # origin/mainの実commitと原票履歴を取得
       - name: PDF原資料検査の依存準備
         run: command -v pdftotext >/dev/null || { sudo apt-get update && sudo apt-get install -y poppler-utils; }
+      - name: PR88最終版の合成受入と固定manifestを生成（実測）
+        run: |
+          python3 scripts/run_cycle04_acceptance.py --write
+          python3 scripts/build_v170_manifest.py
+          python3 scripts/check_cycle04.py
+          python3 scripts/run_release_readiness.py
+          python3 - <<'PY'
+          import base64
+          from pathlib import Path
+          for tag,path in (
+              ('ACCEPTANCE','docs/validation/reviews/cycle_04/acceptance.json'),
+              ('RELEASE','docs/validation/contracts/v170-release.json')):
+              print('PR88_FINAL_'+tag+' '+base64.b64encode(Path(path).read_bytes()).decode())
+          PY
       - name: 全入口合成受入・第3再計算・実mainとbranchの開始確認
         run: python3 scripts/check_integration_acceptance.py --full
