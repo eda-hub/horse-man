@@ -141,7 +141,7 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 
 `python3 scripts/check_cycle04.py --require-complete --completion-manifest completion-manifest.json` は、4日全件の工程と実際のGit読戻しが揃ったときだけ0を返す。単独の`--require-complete`は集計固定参照がないため失敗する。通常`check_cycle04.py`と`cycle04_workflow.py --summary`は、不足対象・理由を保持して状態を表示するが、正常一巡と自己申告しない。
 
-取得/保存不足・未実施のまま行政的に終了を判断する際は、Ownerが固定済み日別/集計・全初回scope・全不足理由・良好部分の保護・次試験・審査者・Owner・日時を確認し、人間の明示審査記録を`docs/validation/reports/cycle_04/closure-review.json`へ保存してGit読戻しする。必要schemaは`cycle04-closure-review-v1`、`decision=REASONED_CLOSE`、`reviewed_at_jst`、`reviewer`、`owner`、`reason`、`protected_good_parts`（非空list）、`next_validation`、`initial_scope`（全日/全race_id）、`documented_issues`（工程判定器の全不足）、`day_refs`、`summary_ref`、`performance_promotion=NOT_APPROVED`。審査記録を入力しない限り「理由付き終了」としない。CLIへは審査記録の`artifact_path`/`sha256`/`git_commit`を持つ`closure-ref.json`を渡す：
+取得/保存不足・未実施のまま行政的に終了を判断する際は、Ownerが固定済み日別/集計・全初回scope・全不足理由・良好部分の保護・次試験・審査者・Owner・日時を確認し、人間の明示審査記録を`docs/validation/reports/cycle_04/closure-review.json`へ保存してGit読戻しする。必要schemaは`cycle04-closure-review-v1`、`decision=REASONED_CLOSE`、`reviewed_at_jst`、`reviewer`、`owner`、`reason`、`protected_good_parts`（非空list）、`next_validation`、`initial_scope`（全日/全race_id）、`documented_issues`（工程判定器の全不足）、`input_gaps`、`shadow_gaps`、`market_gaps`、`review_owner_gaps`（独立系列・Owner不足の全件）、`day_refs`、`summary_ref`、`performance_promotion=NOT_APPROVED`。審査記録を入力しない限り「理由付き終了」としない。CLIへは審査記録の`artifact_path`/`sha256`/`git_commit`を持つ`closure-ref.json`を渡す：
 
 `python3 scripts/check_cycle04.py --closure-review closure-ref.json`
 
