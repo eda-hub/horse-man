@@ -5,7 +5,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p1-cycle-completion`
 - 調査基準main：`b288bc1f39f61d68c6cf536608c11689575315e8`
-- 状態：計画作成済み／実装未着手
+- 状態：実装差分・回帰を追加済み／統合検証とrelease固定は未完了
 - 目的：予想・最終・結果・回顧の未実施が残る状態を正常一巡完了と表示しない。理由付き不足を保持した終了と、正常一巡、性能採用を別判定にする。
 - 対象外：全144予定Rの強制生成、全対象の適格化、Shadow/価格性能の採用、P2の全回顧集計機能の追加。
 
@@ -80,7 +80,7 @@
 
 最低限 `test_cycle04_workflow`、`test_cycle04_acceptance`、`test_task_completion`、`test_chat_resume`、`test_chat_review_package`、`test_chat_improvement_handoff` と先行P1の全回帰を実施する。require-completeの成功/失敗とsummary状態の一致をCLIテストでも確認する。全回帰・合成受入・release/統合検証は共通規約に従う。
 
-実装時に本書へ「小項目／commit SHA／変更path／実行コマンド／期待結果／実結果／残件」を追記する。現在の全小項目は未着手。
+実装時に本書へ「小項目／commit SHA／変更path／実行コマンド／期待結果／実結果／残件」を追記する。実装差分と検証の実績は以下を参照。未実施検証を成功扱いしない。
 
 ## 共通の作業・統合規約
 
@@ -95,3 +95,34 @@
 - 全回帰、通常checker、合成受入、release整合、統合受入と3系統CIを確認する。開始認証の `--require-main` は未マージの候補branchを認証するために改変しない。統合受入は取得済みmainと候補branchの契約一致/未マージ拒否を正しく区別する。
 - 必要な過去Git履歴・原票・PDF依存を取得できない検査は実行不能として残す。失敗をコード欠陥と混同せず、未実行を成功にしない。完了報告には実行コマンド・結果・CI対象SHA・残件を対応付ける。
 - 修正の切り戻しは対象変更のrevertで行い、保存済み予想・receipt・結果・比較履歴を削除しない。後続PR統合後は依存を確認し、関連契約・受入・manifestを同時に整合させる。
+
+## 2026-10-14 実装記録（PR85）
+
+| 小項目 | 実装commit・変更path | 検証・実結果 | 状態・残件 |
+|---|---|---|---|
+| 01 | `80d477380db8f57260f6143aad3846ee719d448f`、`c5407aaaeb4a213f89cc7af2d31f56edcd617b27`：`scripts/test_cycle04_completion.py` | 既存4日回顧誤判定、初回/選定済みFINAL欠落、未選定初回、推奨なし、集計未固定、終了承認無しをfixture化。後から追加した正常成功/CLIケースは未再実行 | テスト追加済み。後段の全件再実行待ち |
+| 02 | `088d8e8c9b6f74a6bf7d62e295e106179e4f6956`、`098b165f94732047721f9c66c83a1924d65d4880`：`scripts/cycle04_completion.py` | 工程別判定と`task_completion`の既存個別検査を利用。Shadow/入力/市場/Ownerの不足を独立表示。純粋コードの新規テストは後述CIの制約あり | 実装済み、先行3件の統合時点で再確認 |
+| 03 | `3f395c279be49eeedee764b0f27de4698039c827`、`0e43e6d865a42d764f6e1279e23ed65191acb197`、`7855b2687bf23937df482d32fd36cdb86548890d`、`aae67bd1d7edd9edeacd7c403275c5ea5717d919`：`check_cycle04.py`、`cycle04_workflow.py`、`chat_review_package.py`、`chat_improvement_handoff.py` | CLIの`--require-complete`は4日全工程・固定集計読戻しを必要とし、summary/回顧引継ぎへ状態を同一判定器で接続。`chat_resume.py`と`task_completion.py`は既存検査を再利用し書き換えなし | コード実装済み。最終CLI受入待ち |
+| 04 | `088d8e8c9b6f74a6bf7d62e295e106179e4f6956`、`098b165f94732047721f9c66c83a1924d65d4880`：固定Git SHA/bytesと人間の終了審査記録の読取検査 | `git show COMMIT:path`とローカルSHA256の一致を要求し、承認無しの理由付き終了を拒否。人間の本人確認・実レース終了をコードが代行しない | 契約/検査追加済み。将来の実記録未作成 |
+| 05 | `31a4ad4e48800d23675501957508e5bfc94e9c4c`、`84606b39fa953af169ed32a9dbdb5429b68b4c94`、`8bc60cd708041faaa2f9b85fa9f272b92ed96b8f`、`5095ef4e6411631450352f69c12d263254da9063`：運用契約/計画/標準テンプレート | 下記のGitHub Actionsで一部成功したが最終差分ではランナーが立ち上がらず`run_cycle04_acceptance.py --write`と`build_v170_manifest.py`は未実行。旧acceptance/manifestはハッシュ不一致 | **未完了**。独立CI実行環境復旧と先行PR統合後に再生成が必要 |
+
+### 実際の検証状況
+
+- 途中commit `aae67bd1d7edd9edeacd7c403275c5ea5717d919` のCI「予想実行と第3サイクル台帳の機械監査」`38521648824`の「回帰テスト」は`python3 -m unittest discover -s scripts`相当で**748件実行・失敗/エラー表示なし**。その後同CIの第4検査は`stale acceptance: source hash mismatch`で失敗。統合CI `38521648821`は`atomic release source hash mismatch`で失敗。この時点の成功を後続commitに転用しない。
+- 後続commit `088fb6c61476873ce52ef829c0626a0aabfbea24`では3系統CI `38522198039`、`38522198072`、`38522198362`と一時的な合成受入生成ジョブ `38522193941`が、いずれもジョブ開始前（`runner_id=0`、`steps=[]`）に失敗した。ランナー未割当という実行環境の制約を、ソース回帰失敗と混同しない。一時workflowは`c1a411ccd4d12e0b46900d5566a5e239e45fd38d`で撤去。
+- 最終差分に対する`python3 scripts/run_cycle04_acceptance.py --write`、`python3 scripts/build_v170_manifest.py`、全回帰・release/統合受入・3系統CIのPASSは**未確認**。成功証跡・実測0を生成せず、release/acceptanceの旧hashを残している。
+
+### 統合依存と完了前の必須実行
+
+2026-10-14の確認時点でPR82（公式結果）、PR83（Shadow証跡）、PR84（初回/最終Shadow）はいずれも未マージ。計画上の先行統合順を守り、mainへの取り込み後にこのPRの共通validator/検査差分を照合し直す。特に結果照合の適格判定、Shadowの対象状態と終了判定への分離を確認する。
+
+利用可能なリポジトリ実行環境で以下を**この順**に実行し、実際のコマンド結果・commit SHAを追記するまでは完了にしない。
+
+`python3 -m unittest discover -s scripts -p 'test_*.py'`
+`python3 scripts/run_cycle04_acceptance.py --write`
+`python3 scripts/build_v170_manifest.py`
+`python3 scripts/run_release_readiness.py`
+`python3 scripts/check_cycle04.py`
+`python3 scripts/check_integration_acceptance.py --full`
+
+必要な原票/PDF/Git履歴依存を満たすこと。未マージbranchに対し`run_release_readiness.py --require-main`の成功を偽装しない。最終コミットを作成してCI 3系統の実行SHA/結果を確認し、正常一巡成功/失敗と理由付き終了承認無しのCLI受入を再確認する。先行PRが未マージの間は後続契約を暗黙に取り込んだと主張しない。
