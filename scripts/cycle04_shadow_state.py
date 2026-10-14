@@ -42,9 +42,9 @@ def assess(gate, applicability, prior_ids=()):
         if status == 'NOT_APPLICABLE':
             require(disposition['status'] == 'NOT_APPLICABLE',
                     'final shadow not applicable cannot hide unresolved prior item')
-        if status == 'UNKNOWN':
-            require(disposition['status'] != 'NOT_APPLICABLE' or len(removed) > 1,
-                    'unknown shadow cannot silently dismiss a prior item')
+    if status == 'UNKNOWN' and removed:
+        require(any(d['status'] != 'NOT_APPLICABLE' for d in dispositions.values()),
+                'unknown shadow cannot silently dismiss all prior items')
     if status == 'NOT_APPLICABLE':
         require(gate['kpi_eligibility']['shadow'] != 'ELIGIBLE',
                 'not applicable shadow cannot have an eligible gate')
