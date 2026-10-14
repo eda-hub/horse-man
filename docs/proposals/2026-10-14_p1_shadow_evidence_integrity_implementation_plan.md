@@ -5,7 +5,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p1-shadow-evidence-integrity`
 - 調査基準main：`b288bc1f39f61d68c6cf536608c11689575315e8`
-- 状態：実装・テストコード・運用文書を作業branchへ反映済み／回帰実行・合成受入・3系統CIは未検証（マージ不可）
+- 状態：実装・回帰758件PASS（失敗0・skip0）・合成受入PASS・release生成・統合受入PASS・3系統同一ジョブPASS。過去保存記録の通常checker不合格と先行PR #82未統合は残存（Draft・未マージ）。
 - 目的：新規Shadowの適格性を、同じ原本・内容hash・receipt・発走前保存/読戻しで確認する。
 - 対象外：Shadowの効果採用、新しい比較モデル、全13仮説の性能証明、旧履歴の再認証。
 
@@ -163,3 +163,27 @@ python3 scripts/run_release_readiness.py
 
 - 利用者指示により、CIを実行しない・再実行しない・11/1まで待つという指示を撤回した。今後のコミットにCIスキップ指定を付けない。
 - 最新の対象SHAで3系統CIを実行し、結果・ログ・対象SHAを確認する。過去の未実行・利用上限・0ステップ失敗は履歴であり、今後の実行禁止条件ではない。
+
+
+## 2026-10-14 19:50 JST以降の再検証・反映結果（今回の最終記録）
+
+### 変更・原因・小項目対応
+
+- 小項目01〜04の実装は維持。CI復旧後、既存の`scripts/test_check_prediction_cycle.py`の正常系fixtureが旧Shadow形式（テキスト原本・固定SHA-256なし・receiptの読戻し時刻なし）で、新契約の適格性確認に不合格となることを実ジョブログで特定。具体的に`test_eligible_production_and_shadow_with_valid_gate_pass`で`sha256 required`を検出。
+- 新規Shadowに必要な独立JSON原本、当時の固定SHA-256、receiptの`content_sha256`と`receipt_verified_at_jst`を持つようfixtureを修正。合成未来開催日（10/17）は同テスト内で検証用時計を発走後へ固定し、本番checkerの未来時刻拒否を緩和しない。コミット`278da70d`、`e943929b`。`scripts/check_prediction_compliance.py`の本番判定は緩めていない。
+- 小項目05：GitHub Actions（ubuntu-latest、全Git履歴取得、`pdftotext`依存準備）で標準コマンド`python3 scripts/run_cycle04_acceptance.py --write`を実行し**758件／失敗0／skip0／PASS**を確認。次いで`python3 scripts/build_v170_manifest.py`を実行、`python3 scripts/run_release_readiness.py`と`python3 scripts/check_integration_acceptance.py --full`の成功を確認。
+- `docs/validation/reviews/cycle_04/acceptance.json`は`PASS`、対象ソース143個、`docs/validation/contracts/v170-release.json`は対象ソース162個。標準生成物のコミット`1f248e820e386376a5c733048d82a7681ce417ff`。過去741件の成功記録を流用せず、**新たに全758件を実行して生成**した。
+- `check_integration_acceptance.py --full`は取得済みmain `509368351cc45046fcd524b9ac4905a5a40b6b8e`で`main.operational_ready=true`を確認し、未マージ候補branchの`UNMERGED_CONTRACT_REJECTED`（想定どおり）と`monitored_sources_unchanged=true`を確認。実レース数、モデル性能、研究昇格、データ収集完了を認証したものではない。
+
+### 3系統CIの最新コード検証
+
+- 既存3個のworkflowから**jobs以下を変更なく抽出**し、作業branchへのpushで起動する一時的な`pr83-three-suites.yml`に統合した。検証対象SHA `2e1359e5ceb6bfe415e1c91661187b24b9cfe097`、run **38552365762**。同run内の`cycle-ledger`、`integration-acceptance`、`pedigree-research`はすべて`success`（各ステップ成功）。元の既存3 workflow自体を当該SHAで個別再実行したという主張はしない。
+- 受入生成の成功run **38551842370**、生成前対象SHA `edd1a5f59259bb5cf2046c70c9ad7cdd11d5dbb8`、生成物保存commit `1f248e82`。作業用ワークフローは`cd6a1bad`および`caffff3a`で撤去。最終PRに一時的な実行手順を混入させない。これらの作業用workflowはmanifestの固定対象`.github/workflows/check-cycle03.yml`や合成受入入力に含まれず、撤去後も生成結果の入力bytesは不変。
+- 一時workflowの`python3 scripts/check_prediction_compliance.py`通常モードは**失敗**。`docs/validation/records/2026-09-26.md`の過去`ELIGIBLE`宣言に対応するexecution gateが存在せず、当該記録の`NON_COMPLIANT`を正しく検出した。これは合成fixture/今回のShadow修正による回帰エラーとは別。既存の保存原本、実行ゲート、receiptを後付けで作成せず、`--audit`は成功したが正式適格性の代用にしない。
+
+### 現在の残件・判定
+
+1. 上述の過去記録の通常checker不合格が残る。原票・宣言・保存時刻が不在のまま適格として補修しない。正式な解決要否、KPI訂正の範囲は別途実証に基づく判断が必要であり、全体の通常checker成功は未確認。
+2. 先行PR **#82は未マージ**である。統合順`#82 → #83 → #84 → #85`を守り、先行結果適格性の統合が済むまで本PRを先にマージしない。現mainの本PR基点以後の2 commitは`acceptance.json`のみの変更で、今回の標準受入で候補branch用に再生成した入力SHAを維持している。先行PRの取込み後には共有契約・生成物を改めて照合する。
+3. **受入コードの合成・release・統合・3系統ジョブはPASS、全運用の通常checkerは未PASS**。Draftを維持し、本番運用の未確認原本を改竄しない。
+
