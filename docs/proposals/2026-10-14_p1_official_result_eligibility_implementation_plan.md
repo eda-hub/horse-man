@@ -5,7 +5,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p1-official-result-eligibility`
 - 調査基準main：`b288bc1f39f61d68c6cf536608c11689575315e8`
-- 状態：実装・固定manifest更新済み。最新の全回帰・統合受入と3系統CI確認は実行基盤側で保留。
+- 状態：実装済み、最新受入はNOT_RUN。未実行のPASSを撤回済み。全回帰・標準受入生成・release再生成・統合検証は未完了。CIは利用上限で2026-11-01まで利用不可。
 - 目的：通常の回顧・日別検査・サイクル集計が、固定された公式本文と対応する結果だけを新規の前向き成績へ算入するようにする。
 - 完了対象：結果の出所・本文・変換・本体・時点・実測区分の接続欠陥。結果取得サイトの自動収集や新しい性能評価モデルは対象外。
 
@@ -108,3 +108,11 @@
 - 上記headの統合 `38522451242`、台帳 `38522451232`、血統 `38522451304` の失敗ジョブを再実行した。3系統ともattempt 2でfailure。check-run/jobはそれぞれ `115717080399`、`115717083264`、`115717086607`、実行stepsなし。ジョブログは404 BlobNotFound。check-runに失敗注釈2件ずつ存在するが、annotations URLはconnectorの許可endpoint外として400で拒否され、内容未取得。原因を課金・runner・コードのいずれとも断定しない。
 - ローカルのGit取得も試みたが、GitHubおよび環境のGit proxy経路ともUsername取得不能でclone失敗。全回帰・標準スクリプトによるmanifest生成・通常checker・統合受入の直接実行はできていない。
 - 実装、実レース原票、manifestの検証結果を偽装せずDraftを維持。完了条件は前節のまま。実行環境の復旧、またはAGENTSの再開方式規約に沿って利用者が承認した実行可能な方式が必要。
+
+## レビュー指摘対応：未検証PASSの撤回（2026-10-14）
+
+- 指摘は妥当。小項目05でソースhash更新に合わせて750件・失敗0・skip0・PASSを記録したことは、実行成功の証拠がなく不適切だった。前節のmanifest更新記録は履歴として保持するが、成功認証として撤回する。
+- `65a68a287ae4ab80785f9afd3198624d36017359` でacceptance.jsonのresultをNOT_RUNへ変更し、tests_run/failures/skippedをnullへ訂正。残したsource_manifestは同一性の参考情報にすぎず、成功証明ではないことをnoteに明示。失敗0やskip0の自己申告は残していない。
+- 保存後にGitHubから読戻し、NOT_RUNとnullを確認。取得したscripts/check_cycle04.pyのcheck_preparation内の受入検査ブロックを変更せず抽出し、訂正後のJSONを入力としてローカルpython3で実行した。`acceptance not passed`で拒否し、未実行件数がnullであることもassert成功（終了0）。これは受入判定ブロックの限定検査であり、通常checker全体・全750回帰・標準受入スクリプト成功を意味しない。
+- CIは利用上限が原因で11/1まで使用不可と利用者から確認済み。再実行していない。既存release manifestの受入ファイルhashも変更後は不一致のままとし、未検証状態を認証するための手動hash追従は行わない。
+- 残件：実行可能な環境で最新コードの全回帰→run_cycle04_acceptance.py --write→build_v170_manifest.py→通常checker→統合受入を実行し、成功出力でのみ受入/releaseを更新。CI復旧後に3系統CIを確認する。Draft継続・main変更なし。
