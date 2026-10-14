@@ -179,10 +179,10 @@ def close_coverage(cov, numerator=None, denominator=None):
     return cov
 
 
-def classify_ticket(ticket, position, anchor):
+def classify_ticket(ticket, position, anchor, *, place_places=3):
     """settleがMISSとした票だけを説明する。重複原因は消さない。"""
     kind, horses = ticket["type"], ticket["horses"]
-    n = {"WIN": 1, "PLACE": 3, "QUINELLA": 2, "WIDE": 3,
+    n = {"WIN": 1, "PLACE": place_places, "QUINELLA": 2, "WIDE": 3,
          "EXACTA": 2, "TRIO": 3, "TRIFECTA": 3}[kind]
     top = {h for h, p in position.items() if p <= n}
     present = set(horses) & top
@@ -327,7 +327,8 @@ def independent_metrics(root, days):
                 if ticket["result"] != "MISS":
                     continue
                 recs["miss_tickets"] += 1
-                labels = classify_ticket(ticket, pos, anchor)
+                labels = classify_ticket(ticket, pos, anchor,
+                                         place_places=result["place_places"])
                 for label in labels:
                     recs["label_counts"][label] += 1
                 recs["labeled_tickets"].append({"race_id": race, "race_date_jst": date,
