@@ -5,7 +5,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p1-final-shadow-state`
 - 調査基準main：`b288bc1f39f61d68c6cf536608c11689575315e8`
-- 状態：01〜04のコード・文書変更をブランチへコミット済み／実行受入・先行PR統合は未完了
+- 状態：01〜04のコード・文書変更をブランチへコミット済み／実行受入・先行PR統合は未完了。GitHub Actionsは2026-11-01まで利用上限により実行不可（利用者確認：2026-10-14）。
 - 目的：初回Shadowの履歴を保全し、最終時点の比較状態を正しいgateへ結び付け、Shadow状態の持越しで正常な最終Prediction/推奨登録が失敗しないようにする。
 - 対象外：Shadow仮説の削除/昇格、Production再予想、推奨ロジック変更、実測性能の受入。
 
@@ -88,7 +88,7 @@
 | 02 | `f34203c2ab3c078b2563f833631777a7288f0775`, `81af0a4a4f7fbd8dbca319f5011c0b09b697ae51` | 新規`scripts/cycle04_shadow_state.py`、`scripts/cycle04_workflow.py`。明示適用判定・項目別取扱い・phase/gate SHA・baseline/cutoffと証跡を固定した追記型履歴を保存。最新KPIは履歴と分離 | `PYTHONPATH=scripts python3 -m unittest test_cycle04_workflow test_cycle04_acceptance`：最新KPI持越しなし、旧履歴改ざん拒否、同一gate冪等 | コード追加済み。複数項目・差替え・旧履歴欠落・最終不適格等の追加試験もコミット。テスト未実行。 |
 | 03 | `4317eb14a2615825f38255a398a6924cfa7a8d4e`, `d3e0cf9325c7182e81cdbddaf68e94fca7090b97` | `scripts/check_cycle04.py`・writer・`scripts/test_chat_entry_assembly.py`。履歴hash・状態・KPI集合を照合、適用なしなら最新Shadowをクリア、保留と不適格の最新状態を認証。previewとwriterは同じ`record_prediction`を通す | `PYTHONPATH=scripts python3 -m unittest test_cycle04_workflow test_chat_entry_assembly test_chat_helper_market_independence`：FINAL登録のProduction/推奨独立性、preview無書込み | コード・試験追加済み。テスト未実行。 |
 | 04 | `14280e8cf090b9646b7ea793581a8a7296189909`, `4d2b58955adbd914128429b4c9c80a643185441c`, `1045f95f00432ebb0e137e380f48ec0c66471587` | `scripts/chat_review_package.py`、`chat_forward_coverage.py`、`chat_calibration_review.py`、関連テスト、`docs/validation/contracts/cycle04_operations.md`、`docs/validation/templates/chatgpt_prediction_task.md`。phase別履歴・旧履歴不足・固定比較キー、提出時点のgate/baseline/cutoff照合、重複・混在防止 | `PYTHONPATH=scripts python3 -m unittest test_chat_review_package test_chat_forward_coverage test_chat_calibration_review test_class_transition_shadow`：初回/最終を独立回顧、欠測や重複を非適格として扱う | コード・契約・試験追加済み。テスト未実行。 |
-| 05 | 未作成（統合受入成功を示すSHAなし） | 全回帰→合成受入`--write`→release manifest再生成→3系統CI→統合受入 | `python3 -m unittest discover -s scripts -p 'test_*.py'`、`python3 scripts/run_cycle04_acceptance.py --write`、`python3 scripts/build_v170_manifest.py`、`python3 scripts/check_cycle04.py`、`python3 scripts/check_integration_acceptance.py --full`。すべて成功し、生成物とCI対象SHAの一致を確認 | **未完了**。private repoのPython実行不可、取得済みActionsは3系統とも`failure`でステップ配列空、ログ取得も`BlobNotFound`。失敗原因は特定できず、コード欠陥か実行環境かを未判定。成功受入/manifestの再生成なし。 |
+| 05 | 未作成（統合受入成功を示すSHAなし） | 全回帰→合成受入`--write`→release manifest再生成→3系統CI→統合受入 | `python3 -m unittest discover -s scripts -p 'test_*.py'`、`python3 scripts/run_cycle04_acceptance.py --write`、`python3 scripts/build_v170_manifest.py`、`python3 scripts/check_cycle04.py`、`python3 scripts/check_integration_acceptance.py --full`。すべて成功し、生成物とCI対象SHAの一致を確認 | **未完了**。private repoの完全なcheckoutを現環境で取得できずPython回帰は未実行。Actionsは利用者確認の利用上限により2026-11-01まで実行不可で、3系統の`failure`はコードテストの成否を表さない。成功受入/manifestの再生成なし。 |
 
 ### 補足の追加修正
 
@@ -104,12 +104,16 @@
 - 第3台帳・予想の機械監査：<https://github.com/eda-hub/horse-man/actions/runs/38523410281> — `failure`。
 - 新旧契約の統合受入：<https://github.com/eda-hub/horse-man/actions/runs/38523410278> — `failure`。
 - 血統原票の監査：<https://github.com/eda-hub/horse-man/actions/runs/38523410280> — `failure`。
-- 各runのjobs APIは`completed/failure`と、ジョブの実行ステップ一覧が空であることを返す。ジョブログ取得は404 `BlobNotFound`。従って**Pythonテストが実際に実行された証拠はない**。Actionsの実行権限・Runner割当・利用枠・workflow設定を確認する必要があり、コードテスト不合格と断定できない。
+- 各runのjobs APIは`completed/failure`と、ジョブの実行ステップ一覧が空であることを返す。ジョブログ取得は404 `BlobNotFound`。利用者から**GitHub Actionsは利用上限のため2026-11-01まで利用できない**と確認済みであり、3系統の失敗表示はPythonテスト不合格を示さない。利用枠の復帰前にCIの再実行を繰り返さない。
 - 本記録を追記する後続commitは別SHAとなるため、その後も最新headに対するCI確認が必要。
 
 ### 統合時の必須作業・未解決
 
 1. **先行順序**：#82（公式結果の適格性）、#83（Shadow発走前原本）を`main`へ統合後、このブランチで最新`main`差分と共通ファイルを手動照合する。#83の強化済み`forward_shadow_evidence`を外さず、当時の固定原本・hash・receipt・発走前時刻を保持する。#85（サイクル完了）は本修正の後。
-2. **検証環境**：GitHub Actionsのrunner未開始に見える実行（各jobの`steps=[]`）とログ取得404を解消またはPythonを実行できる完全なcheckout（private repo、履歴、PDF依存を含む）を用意し、上記コマンドを実際に実行する。結果を実行時SHAと対応付ける。
-3. **受入・manifest**：先行統合後の最終ファイルで`run_cycle04_acceptance.py --write`を成功させてから、`build_v170_manifest.py`で全hashを再生成し、通常checker、release/readiness、統合受入、3系統CIを確認する。`--require-main`は未マージbranchの認証に使わない。
+2. **検証環境**：GitHub Actionsは利用上限により2026-11-01まで実行不可（利用者確認）。その間の検証は、private repoの全履歴・依存資料・PDFツールを備えたローカルcheckoutで上記コマンドを実行できる場合に限定し、実行できない検証は未実行と記録する。CI失敗表示をコード不合格と扱わず、枠回復後に最新head SHAの3系統を再確認する。
+3. **受入・manifest**：先行統合後の最終ファイルで、全回帰と`run_cycle04_acceptance.py --write`をローカルで成功させてから`build_v170_manifest.py`で全hashを再生成し、通常checker、release/readiness、統合受入を確認する。利用上限が回復する2026-11-01以降に最新head SHAの3系統CIを追加確認する。`--require-main`は未マージbranchの認証に使わない。
 4. **保存保全**：実レース原本、固定Prediction/推奨の既存bytes、過去のreceipt・履歴は変更しない。現時点で完成・CI合格・本番開始・性能昇格を宣言しない。
+
+### CI利用上限の確定記録（2026-10-14 JST）
+
+利用者から「CIは上限のため、11/1まで使用できない」と明示された。2026-11-01より前のGitHub Actions失敗は、ジョブのテスト失敗や回帰不合格と判定しない。CI以外で実施できるものは実施し、Pythonを実行できる完全checkoutがない検証は未実行のまま明記する。利用制限を回避するためにworkflowやbranch保護を変更しない。2026-11-01以降に利用可能であることを確認し、最終head SHAと生成manifestの整合が取れた状態で3系統CIを再検証する。CI未確認の間はDraftを維持し、マージ完了・本番開始・性能昇格と表現しない。
