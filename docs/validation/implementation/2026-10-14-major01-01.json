@@ -1,0 +1,45 @@
+{
+  "schema_version": "pr69-major01-baseline-v1",
+  "subtask": "01-01",
+  "status": "BASELINE_FIXED",
+  "pr68_head": "6dac8015a9d562e382e1adbf3d5cdfeae59cc360",
+  "pr69_head": "cfdfaad5a3624fa48e26ed7ba67d8d54b365bab1",
+  "main_head": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+  "plan_commit": "6dac8015a9d562e382e1adbf3d5cdfeae59cc360",
+  "implementation_summary_blob": "81b7c4de59649d404fbdfb2cf5c7b1a42a9af566",
+  "implemented": "53-I01〜I14補助コード保存済み。53-I11の実測は未完了。既往受入は再利用",
+  "research": {
+    "official_results": "1/24R",
+    "identity_and_pedigree_verified": 2,
+    "unknown_in_acquired_race": 13,
+    "conditions": "5/43"
+  },
+  "historical": {
+    "unresolved_persistence": 40,
+    "legacy_kpi_pending": 57,
+    "formal_roi": null
+  },
+  "development_goal": "全開発作業完遂→PR69 mainマージ",
+  "live_policy": "マージ後の実運用で取得・保存・評価。29/37-05/校正/性能/負荷の実測をPR69マージ条件にしない",
+  "known_record_gaps": [
+    "53-I14 implementation_commit null",
+    "53-I14旧CI failureと最新successの対応不足",
+    "旧上位計画の実測待ち/マージ対象外/53未着手表記"
+  ],
+  "baseline_ci": [
+    {
+      "id": 38449456483,
+      "conclusion": "success"
+    },
+    {
+      "id": 38449456447,
+      "conclusion": "success"
+    },
+    {
+      "id": 38449456545,
+      "conclusion": "success"
+    }
+  ],
+  "code_changed": false,
+  "scope": "大項目01のみ。大項目02〜12未実施"
+}
