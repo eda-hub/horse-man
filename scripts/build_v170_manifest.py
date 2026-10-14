@@ -13,7 +13,7 @@ def build(root):
     paths |= {root/p for p in ('.github/workflows/check-cycle03.yml','AGENTS.md','DECISIONS.md','README.md','docs/jravan/phases/README.md','docs/jravan/00_project_plan.md',
         'docs/jravan/04_prediction_engine.md','docs/jravan/07_review_ai.md','docs/jravan/10_operations.md',
         'docs/validation/README.md','docs/validation/cycle_04.md','docs/validation/contracts/cycle_04.json','docs/validation/contracts/cycle04_operations.md',
-        'docs/validation/contracts/cycle04-launch.json','docs/validation/execution-gates/contract-state.json',
+        'docs/validation/contracts/cycle04-launch.json','docs/validation/reviews/cycle_04/acceptance.json','docs/validation/execution-gates/contract-state.json',
         'docs/validation/reviews/cycle_03/decisions.json','docs/validation/templates/chatgpt_prediction_task.md',
         'docs/validation/market-chat-acquisition.md','docs/validation/contracts/chat-market-acquisition.json',
         'docs/validation/market-chat-research/2026-10-13/replay-pages.json',

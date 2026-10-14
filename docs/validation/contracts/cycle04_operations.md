@@ -83,6 +83,16 @@ python3 scripts/cycle04_workflow.py --summary
 
 参照JSONは `artifact_id / artifact_path / sha256 / receipt_path / receipt_id` を持つ。receiptは同一ID・path・content_sha256、保存/receipt確認済み、発走前状態、実際の保存・読戻し・発走時刻を持つ。宣言読戻し≦FIX≦独立hash保存≦hash読戻し≦本体保存＜発走を照合する。時刻/receiptを自動生成して発走前保存を装わない。旧記録のFIX hashを事後作成して認証しない。
 
+## v1.7.0の新規FORWARD Shadow原本・適格性
+
+新規のShadowを **ELIGIBLE** とするのは、発走前に別ファイルで固定した独立原本（JSON）について、実際の原本bytes、当時固定したSHA-256、同一receiptの内容hashと保存・読戻し時刻が一致するときだけ。旧v1.6.1のShadow/第三台帳やProductionの共通`evidence`契約には遡及適用しない。
+
+- `shadow_items[*].evidence_ref` に `artifact_id`、`artifact_path`、**当時固定した`sha256`**、`receipt_id`、`receipt_path`、`timing_eligibility: PRE_RACE_ELIGIBLE`、`persist_verified_at_jst` を指定する。ID/hash/時刻は原本の現在値から推測・補完しない。
+- `receipt_path` の同一`receipt_id`が一意であり、`artifact_id`、`artifact_path`、`content_sha256` がrefと一致すること。receiptの`artifact_persist_status: PERSIST_VERIFIED`、`receipt_persist_status: RECEIPT_VERIFIED`、`timing_eligibility: PRE_RACE_ELIGIBLE` を確認する。
+- `persist_verified_at_jst` がrefとreceiptで同一、かつ **保存確認時刻 ≤ `receipt_verified_at_jst` ＜ gateの`scheduled_post_time_jst`**。receiptの`scheduled_post_time_jst`もgateと一致し、検査実時刻より未来の確認は不適格。比較専用の入力原本・bindingでは既存の`data_cutoff`以前の時刻・保存順の条件も維持する。
+- 原本改変、ハッシュ未固定、receipt不在・重複、読み戻し逆転、発走以後の読戻しは、該当Shadowの **ELIGIBLE** 宣言を拒否する。発走後Replay・合成診断を前向きKPIに転用しない。不足時はShadow項目を `PENDING` または `INELIGIBLE` として根拠を残し、Productionの順位・確率・推奨と独立に保存する。
+- `scripts/check_prediction_compliance.py` の通常実行、`scripts/task_completion.py` の個別完了、日別記録の照合が同じ新規Shadow検査を利用する。個別完了のShadow不足は項目別エラーとして報告し、保存済みPredictionの本体・receipt・FIX hashを消さない。Shadow対象外のときだけ `NOT_APPLICABLE` とする。
+
 ## 用途・入力・市場
 
 `selection-history-v1` の既存revision chainを使う。検証用、正式仮想、実購入に加え、価格不要推奨と任意市場を別用途にする。各イベントは原文JSON/hashと同一artifact receiptを持ち、締切前・連続revision・追加選定・変更/取消の根拠を検査する。履歴内の `BUY` は当該用途の案固定イベントであり、投票実行を意味しない。新規実購入はこの運用では扱わない。用途を移すには新用途のSELECTが必要で、旧案を変えず履歴を残す。
@@ -128,6 +138,59 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 確信度別、入力完備/不足別、午前/午後別の◎成績、初回→最終の順位変更と◎的中の改善/悪化、回顧ラベルの件数を集計する。初回比較がないレースは不足IDを残す。固定予想に取消馬が残る場合は精度の分母へ入れず比較不能の理由を記録し、推奨の取消券判定は独立して実施する。取消後に再固定済みの予想は実出走集合で照合する。
 
 任意市場を依頼された場合だけ`--date YYYY-MM-DD --record-market market-entry.json`を使う。entryはrace_idとmarket_ref、独立artifactはmarket-analysis-v1・race_id/race_date_jst・data_cutoff・marketを持つ。価格はPrediction固定後の独立cutoffで取得可能だが、cutoff・保存/読戻しは発走前を要求する。Predictionの順位・確率・基準・推奨・cutoffを変更しない。
+
+## 公式結果の正式適格性と回顧手順（PR #82）
+
+従来の `validate_official_result` は単独結果の形式検査であり、正式算入を認証しない。新規回顧では本文・注釈変換・全頭結果・固定予想/推奨をまとめた独立manifestが必須。診断用Replay/Syntheticや旧履歴は読めるが、新規の前向き成績には算入しない。更新時刻不明は `source_updated_at_jst=null` として保持し、取得時刻を代用・捏造しない。
+
+1. JRA確定本文を閲覧後、RESULT目的の `chat-fact-request-v1` と `chat-fact-capture-v1` （`provider=OFFICIAL, mode=FORWARD, retrieval_kind=PAGE_TEXT`）を保存する。予定発走、取得開始/終了、URL、実本文、race/date/発走予定引用、確定表示、全頭着順、同着・取消・中止、複勝対象着数の引用位置を明記する。本文保存は `python3 scripts/chat_fact_capture.py --request result-request.json --captures result-captures.json --output docs/validation/fact-captures/YYYY-MM-DD/result.json --root .` 。日次 `prediction/YYYY-MM-DD` ブランチで行う。
+2. `python3 scripts/chat_result_conversion.py --capture SAVED_CAPTURE.json --annotations annotations.json > conversion.json` を実行し、変換JSONと `conversion.result` を別々のJSONファイルに保存・読戻す。各JSONの実bytesのSHA-256を `sha256sum` 等で記録する。元本文を上書きしない。
+3. `refs.json` を次の6キーで作成する。capture/conversion/resultはそれぞれ `{ "artifact_path": "repo相対path", "sha256": "ファイルbytesのSHA256" }` とする。prediction_gateは日別台帳の最新 `prediction_history[-1].prediction_gate_path` と `prediction_gate_sha256` 、prediction_originalはその最新 `prediction_ref` 全体。最終推奨がある場合はrecommendation_gateに固定gateのpath/hashを指定する。予想なしでは後ろ3キーはnull、予想のみではrecommendation_gateがnull。推奨なしでも保存済み最終推奨gateは省略しない。
+
+```json
+{
+  "capture": {"artifact_path": "capture.json", "sha256": "取得本文のsha256"},
+  "conversion": {"artifact_path": "conversion.json", "sha256": "変換のsha256"},
+  "result": {"artifact_path": "result.json", "sha256": "結果のsha256"},
+  "prediction_gate": null,
+  "prediction_original": null,
+  "recommendation_gate": null
+}
+```
+
+4. `python3 scripts/chat_result_reconciliation.py refs.json --root .` で独立参照を事前照合する。この読取専用診断の `formal_kpi_certified=false` は維持する。`{ "schema_version": "cycle04-result-reconciliation-manifest-v1", "refs": <上記refsのJSONオブジェクト> }` を独立したファイルに保存・読戻しする。`refs.result` は回顧入力の結果と同じbytesでなければならない。
+5. `review-entry.json` に `{ "race_id": "...", "result_path": "result.json", "result_reconciliation_ref": {"artifact_path":"保存済みmanifest.json","sha256":"manifestのSHA256"}, "review":{"error_classification":"...","non_degradation":"...","next_validation":"..."} }` を指定し、`python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --review review-entry.json` を実行する。writerは実時計で未来取得を拒否し、保存原票から変換を再構築し、FORWARD・公式URL・レース/日付/発走・全頭/複勝・FIX予想/推奨同一性を確認後にだけ日別台帳を更新する。
+6. `python3 scripts/check_cycle04.py`、`python3 scripts/cycle04_workflow.py --summary` と回顧資料は同じ固定manifestを再照合する。照合不足、REPLAY、SYNTHETIC、結果だけのmode削除、参照/本文差替え、未来取得、未確定は当該レースの回顧未完了として残す。元結果、予想、receipt、他レースは消さない。既存第4記録の出所不足を後付け証跡で真正化しない。
+
+同着・取消・中止と複勝対象着数は既存 `chat_result_conversion.py` の規約を使用する。未対応形式は理由付きで保留し、前向き公式データとして合成しない。
+
+## 初回・最終Shadowの固定履歴と適用判定（phase-shadow-v1）
+
+`record_prediction` のentryはINITIAL/FINALそれぞれに `shadow_applicability` を明示する。省略、空配列からの自動対象外化、理由なしは拒否する。`status` は `APPLICABLE`（gateのshadow_itemsとitem_idsが一致）、`NOT_APPLICABLE`（該当条件を調べて対象外、item_ids空）、`UNKNOWN`（判定材料不足、item_ids空）のいずれか。全状態で空でない `reason` が必要。適用判定は当時の既存Shadow仮説の条件から行い、gateを照合しただけでは該当条件の真偽を自動認証しない。未確認はUNKNOWN/保留とし、後から偽の判定・証跡を作らない。
+
+```json
+{
+  "shadow_applicability": {
+    "status": "NOT_APPLICABLE",
+    "reason": "最終時点の当該仮説の条件が成立しないと確認",
+    "item_ids": [],
+    "previous_item_dispositions": {
+      "既存比較項目ID": {
+        "status": "NOT_APPLICABLE",
+        "reason": "最終時点における個別の非該当条件"
+      }
+    }
+  }
+}
+```
+
+`previous_item_dispositions` は、**直前の固定gateに存在した項目IDに加えて、全固定 `shadow_history` 内で最後の個別判断が `UNKNOWN` のまま未解決となっている項目ID**のうち、今回のgateに現れないものを全件登録する。途中のFINALが空でも未解決集合を消してはならない。継続保留には各改訂で `UNKNOWN` と個別の非空 `reason` を再登録し、**明示的に `NOT_APPLICABLE` 等へ判断・理由を更新するまで最新Shadow KPIを保留にする**。別のShadow項目が適格でも未解決項目の保留を優先する。今回のgateに項目が再出現した場合はその固定項目の状態に従い再判定する。未解決を置いたまま `NOT_APPLICABLE` にして対象集合・理由を削除する登録はwriter・preview・checker・summaryの全経路で拒否する。取り消し理由を一括の空配列だけで代用しない。未確定は `UNKNOWN`、不足が確定した場合は `INELIGIBLE` と区別する。上記JSONは書式例であり、実レースの適用状態・時刻・原本を作成した事実ではない。
+
+新規日別行は `shadow_tracking_version=phase-shadow-v1` を持ち、`shadow_history` を `prediction_history` と同じ順序・件数で追記する。各履歴はphase、固定Prediction gateのpath/SHA-256、baseline ID、data_cutoff、item_idと個別状態/evidence_ref、適用判定、レース単位のShadow状態を固定する。同一gate/phaseの再登録は冪等だが、過去の適用理由・履歴の差替えは禁止する。既存行に履歴がない場合、旧固定gateとPrediction履歴は保存するが、欠落した当時の適用判断・receiptを後から捏造せず、回顧の `shadow_history_gaps` に表示する。
+
+日別 `kpis.shadow` は**最新**PredictionのShadow適用状態だけをレース単位で表す。`NOT_APPLICABLE` は対象集合から以前の適格・不適格・保留および理由を除去し、`UNKNOWN` は理由付き保留とする。複数項目に適格と保留/不適格が混在した場合、全項目適格とはせず、保留を優先し、次いで不適格とする。初回の適格比較は `shadow_history` に残り、最終の対象外で失効・削除しない。Shadow不足はProductionの独立FIXと価格不要推奨の保存を失敗にしない。
+
+`chat_calibration_review.py` は前向き網羅が返す `submitted_pair_bindings` のphase・固定gate SHA・baseline・cutoff・item_idを厳密に照合する。INITIALの固定Shadow比較では、日別行の最新FINAL推奨を対応する推奨と扱わず `recommendation_input=null`、`recommendation_binding_status=DIFFERENT_PHASE` として元の比較を出力する。FINAL比較に限り、最新推奨を正式validatorに通し、phase=FINAL・cutoff・baseline・固定Production原本（artifact path/SHA/id）が一致する場合のみ `MATCHED_FINAL` として結合する。FINALの参照なしは `NOT_RECORDED`、FINALでの異なるcutoff/基準/原本・phaseの偽装は拒否する。初回比較だけを除外・実測ゼロ化しない。\n\n`chat_review_package.py` は最新レースKPIと `shadow_comparisons_by_fixed_phase` を別々に出力し、同一レース・phase・gate SHA・baseline・cutoff・項目IDの組を一意の比較キーとする。異なるcutoff・基準を合算しない。`chat_forward_coverage.py` は最新gateだけでなく当時の固定phase履歴へ提出ペアを照合する。`chat_calibration_review.py` もphase/baseline/cutoffを維持する。対象が未確定の場合は保留を保ち、実測0や自動性能昇格に変換しない。旧台帳と初回比較の真正性は保存済みgate/receiptから検査し、未知の適用判断を自動補完しない。
 
 ## サイクル完了・理由付き終了（P1）
 

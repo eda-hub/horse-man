@@ -3,6 +3,7 @@ import io
 import json
 import sys
 import unittest
+from datetime import datetime
 from contextlib import redirect_stdout, redirect_stderr
 from unittest.mock import patch
 
@@ -11,7 +12,15 @@ from task_completion import prediction_completion, recommendation_completion, re
 from verify_prediction_persistence import main as prediction_main
 from recommendation import main as recommendation_main
 from check_prediction_compliance import receipt_records
-from test_next_prediction_compliance import write_receipts
+from test_next_prediction_compliance import add_next_shadow, write_receipts
+
+
+class FutureRaceClock(datetime):
+    """10/17合成例を実時計から切り離して検査する。"""
+    @classmethod
+    def now(cls, tz=None):
+        instant = datetime.fromisoformat('2026-10-17T12:00:00+09:00')
+        return instant.astimezone(tz) if tz else instant.replace(tzinfo=None)
 
 
 class TaskCompletionTests(unittest.TestCase):
@@ -106,6 +115,36 @@ class TaskCompletionTests(unittest.TestCase):
         r = self.prediction(root, prediction, digest)
         self.assertFalse(r['complete'])
         self.assertEqual(r['missing'], ['shadow'])
+
+    def test_valid_forward_shadow_is_independently_completed(self):
+        root, prediction, digest, _, _, _ = self.fixture()
+        path = root / f'docs/validation/execution-gates/{fixtures.DATE}/{fixtures.RACE}.json'
+        gate = json.loads(path.read_text())
+        add_next_shadow(root, gate)
+        path.write_text(json.dumps(gate))
+        with patch('check_prediction_compliance.datetime', FutureRaceClock):
+            status = self.prediction(root, prediction, digest)
+        self.assertTrue(status['complete'])
+        self.assertTrue(status['checks']['shadow']['result'])
+        self.assertTrue(status['checks']['individual_check']['result'])
+
+    def test_corrupt_forward_shadow_keeps_prediction_persistence_and_item_error(self):
+        root, prediction, digest, _, _, _ = self.fixture()
+        path = root / f'docs/validation/execution-gates/{fixtures.DATE}/{fixtures.RACE}.json'
+        gate = json.loads(path.read_text())
+        ref, _ = add_next_shadow(root, gate)
+        path.write_text(json.dumps(gate))
+        (root / ref['artifact_path']).write_text('{"artifact_id":"shadow-forward-01","tampered":true}')
+        with patch('check_prediction_compliance.datetime', FutureRaceClock):
+            status = self.prediction(root, prediction, digest)
+        self.assertFalse(status['complete'])
+        self.assertTrue(status['checks']['artifact']['result'])
+        self.assertTrue(status['checks']['receipt']['result'])
+        self.assertTrue(status['checks']['content_match']['result'])
+        self.assertTrue(status['checks']['individual_check']['result'])
+        self.assertFalse(status['checks']['execution_gate']['result'])
+        self.assertFalse(status['checks']['shadow']['result'])
+        self.assertIn('shadow-forward-01', status['checks']['shadow']['error'])
 
     def test_missing_shadow_scope_cannot_be_assumed_not_applicable(self):
         root, prediction, digest, _, _, _ = self.fixture()

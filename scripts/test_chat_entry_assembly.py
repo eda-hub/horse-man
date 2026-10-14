@@ -27,6 +27,25 @@ class EntryAssembly(unittest.TestCase):
         self.assertEqual(self.entry, entry)
         self.assertEqual(before, {str(p.relative_to(self.root)):p.read_bytes() for p in self.root.rglob('*') if p.is_file()})
 
+    def test_final_preview_uses_writer_shadow_transition_without_persisting(self):
+        gate=self.case.shadow_gate()
+        first=copy.deepcopy(self.case.entry)
+        first['shadow_applicability']={'status':'APPLICABLE','reason':'初回比較',
+                                       'item_ids':['TEST-SHADOW']}
+        fixtures.workflow.record_prediction(self.root,gate['race_date_jst'],first)
+        self.case.select()
+        self.case.final_without_shadow(gate)
+        self.case.entry['shadow_applicability']={'status':'NOT_APPLICABLE',
+            'reason':'最終条件では比較対象外','item_ids':[],
+            'previous_item_dispositions':{
+                'TEST-SHADOW':{'status':'NOT_APPLICABLE','reason':'対象条件なし'}}}
+        before=(self.root/'docs/validation/records/cycle_04'/ (gate['race_date_jst']+'.json')).read_bytes()
+        out=self.preview(self.case.entry)
+        self.assertEqual(out['candidate_day']['kpis']['shadow']['target_ids'],[])
+        self.assertEqual(out['candidate_day']['final_scope'],[gate['race_id']])
+        self.assertEqual((self.root/'docs/validation/records/cycle_04'/
+                         (gate['race_date_jst']+'.json')).read_bytes(),before)
+
     def test_conversion_substitution_and_final_before_selection_rejected(self):
         wrong = copy.deepcopy(self.input); wrong['horse_numbers'] = [1]
         with self.assertRaises(ValueError): self.preview(proof={'input':wrong})

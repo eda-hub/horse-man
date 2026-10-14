@@ -1,5 +1,8 @@
 import json
 import io
+import hashlib
+from datetime import datetime
+from unittest.mock import patch
 from contextlib import redirect_stdout, redirect_stderr
 import tempfile
 import unittest
@@ -63,7 +66,7 @@ def write_active_contract(root, effective="2026-10-13"):
     write(root, "docs/validation/execution-gates/contract-state.json", json.dumps(state))
 
 
-def write_receipt(root, receipt_id, artifact_id, artifact_path, date="2026-10-17"):
+def write_receipt(root, receipt_id, artifact_id, artifact_path, date="2026-10-17", *, content_sha256=None):
     receipt = {
         "receipt_id": receipt_id,
         "artifact_id": artifact_id,
@@ -74,6 +77,9 @@ def write_receipt(root, receipt_id, artifact_id, artifact_path, date="2026-10-17
         "persist_verified_at_jst": f"{date}T09:56:00+09:00",
         "scheduled_post_time_jst": f"{date}T10:10:00+09:00",
     }
+    if content_sha256 is not None:
+        receipt["content_sha256"] = content_sha256
+        receipt["receipt_verified_at_jst"] = f"{date}T09:57:00+09:00"
     fence = "```"
     path = root / f"docs/validation/persistence-receipts/{date}.md"
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -154,13 +160,20 @@ def write_valid_gate(root, race="r1", production="ELIGIBLE", shadow="ELIGIBLE", 
         production_obj["evidence_ref"] = evidence_ref(artifact_path, snapshot_id, date)
     if shadow == "ELIGIBLE":
         artifact_id = race + "-SHADOW-S01"
-        artifact_path = f"docs/validation/snapshots/{date}/{artifact_id}.txt"
-        write(root, artifact_path, "artifact " + artifact_id)
-        write_receipt(root, artifact_id + "-R01", artifact_id, artifact_path, date)
+        artifact_path = f"docs/validation/snapshots/{date}/{artifact_id}.json"
+        payload = {"artifact_id": artifact_id, "race_id": race, "mode": "FORWARD",
+                   "data_cutoff": gate["data_cutoff"]}
+        raw = json.dumps(payload, ensure_ascii=False)
+        write(root, artifact_path, raw)
+        fixed_sha256 = hashlib.sha256(raw.encode("utf-8")).hexdigest()
+        write_receipt(root, artifact_id + "-R01", artifact_id, artifact_path, date,
+                      content_sha256=fixed_sha256)
+        shadow_ref = evidence_ref(artifact_path, artifact_id, date)
+        shadow_ref["sha256"] = fixed_sha256
         gate["shadow_items"] = [{
             "item_id": "S-01",
             "kpi_eligibility": "ELIGIBLE",
-            "evidence_ref": evidence_ref(artifact_path, artifact_id, date),
+            "evidence_ref": shadow_ref,
         }]
     gate_path = f"docs/validation/execution-gates/{date}/{race}.json"
     write(root, gate_path, json.dumps(gate))
@@ -264,7 +277,17 @@ class PredictionCycleV2Test(unittest.TestCase):
         obj["kpis"]["shadow"]["ineligible_ids"] = []
         write_valid_gate(root, "r1", production="ELIGIBLE", shadow="ELIGIBLE")
         save(root, obj)
-        run(root)
+
+        # 10/17開催分の合成fixtureを発走後に検査する模擬時計。
+        # 本番の未来時刻拒否を変更しない。
+        class SyntheticClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                instant = datetime.fromisoformat("2026-10-17T11:00:00+09:00")
+                return instant.astimezone(tz) if tz else instant.replace(tzinfo=None)
+
+        with patch("check_prediction_compliance.datetime", SyntheticClock):
+            run(root)
 
     def test_wrong_release_rejected(self):
         root = self.root()

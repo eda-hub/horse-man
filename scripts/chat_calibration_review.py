@@ -25,18 +25,37 @@ def export_inputs(root, manifest, as_of=None):
         result=fixed_json(root,item['result_ref'])
         report=next(r for r in scope['collection']['paired_reports'] if r['race_id']==race)
         ranking=pair['baseline']['ranking']
+        # 比較時点の固定phaseを優先。最新のFINAL推奨をINITIAL比較へ逆流させない。
+        binding=scope.get('submitted_pair_bindings',{}).get(race)
+        require(isinstance(binding,dict) and binding.get('phase') in {'INITIAL','FINAL'} and
+                binding.get('prediction_gate_sha256')==item['gate_ref']['sha256'] and
+                binding.get('data_cutoff')==pair['data_cutoff'] and
+                binding.get('baseline_forecast_id')==pair['baseline_forecast_id'] and
+                binding.get('shadow_item_id')==item['shadow_item_id'],
+                'calibration pair differs from fixed phase/baseline/cutoff')
         recommendation=None
+        recommendation_binding_status='DIFFERENT_PHASE' if binding['phase']=='INITIAL' else 'NOT_RECORDED'
         for dayref in manifest['days']:
             day=fixed_json(root,dayref)
-            if race in day['races']:
-                path=day['races'][race].get('recommendation_gate_path')
-                if path:
-                    rec=verify_recommendation(root,safe_path(root,path))
-                    require(rec['data_cutoff']==pair['data_cutoff'],'recommendation comparison cutoff differs')
-                    recommendation={'status':rec['status'],'tickets':rec.get('tickets',[]),
-                                    'ticket_count':len(rec.get('tickets',[])),
-                                    'dependency_input':rec.get('dependency_audit'),
-                                    'recommendation_id':rec['recommendation_id']}
+            if race not in day['races']:continue
+            path=day['races'][race].get('recommendation_gate_path')
+            if not path or binding['phase']!='FINAL':continue
+            require(recommendation is None,'duplicate fixed recommendation race')
+            rec=verify_recommendation(root,safe_path(root,path))
+            require(rec['phase']=='FINAL' and rec['race_id']==race and
+                    rec['data_cutoff']==pair['data_cutoff'] and
+                    rec['prediction_ref']['baseline_forecast_id']==pair['baseline_forecast_id'],
+                    'recommendation comparison cutoff/phase/baseline differs')
+            production_ref=gate['production']['evidence_ref']
+            # 双方のvalidatorがそれぞれhash/ID/receiptを検査済み。
+            # gateのevidence_refと推奨のprediction_refでは補助キーの構成が異なる。
+            require(rec['prediction_ref']['artifact_path']==production_ref['artifact_path'],
+                    'recommendation prediction differs from fixed phase')
+            recommendation={'status':rec['status'],'tickets':rec.get('tickets',[]),
+                            'ticket_count':len(rec.get('tickets',[])),
+                            'dependency_input':rec.get('dependency_audit'),
+                            'recommendation_id':rec['recommendation_id']}
+            recommendation_binding_status='MATCHED_FINAL'
         rates={kind:{r['horse_no']:r for r in pair[kind]['probabilities']} for kind in ('baseline','shadow')}
         positions={};position=1
         for group in result['finish_groups']:
@@ -49,11 +68,14 @@ def export_inputs(root, manifest, as_of=None):
                 'shadow':{k:rates['shadow'][horse][k] for k in ('win_probability','top2_probability','top3_probability')},
                 'outcomes':{k:int(positions.get(horse,999)<=n) for k,n in [('win_probability',1),('top2_probability',2),('top3_probability',3)]}})
         a=report['assessment']
-        rows.append({'race_id':race,'race_date_jst':pair['race_date_jst'],'data_cutoff':pair['data_cutoff'],
+        rows.append({'race_id':race,'race_date_jst':pair['race_date_jst'],
+            'comparison_phase':binding['phase'] if binding else None,
+            'data_cutoff':pair['data_cutoff'],
             'baseline_forecast_id':pair['baseline_forecast_id'],'common_input_sha256':pair['common_input_sha256'],
             'fixed_refs':{'gate':item['gate_ref'],'result':item['result_ref'],'pair':matches[0]['evidence_ref']},
             'stratum':{k:a[k] for k in ('target_class','target_age_condition','older_encounter_state','class_promotion','comparison_sufficiency')},
-            'horse_observations':observations,'paired_metrics':report['metrics'],'recommendation_input':recommendation})
+            'horse_observations':observations,'paired_metrics':report['metrics'],
+            'recommendation_input':recommendation,'recommendation_binding_status':recommendation_binding_status})
     strata=defaultdict(list)
     for row in rows:strata[json.dumps(row['stratum'],sort_keys=True)].append(row)
     summary=[]

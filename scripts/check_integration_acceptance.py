@@ -36,7 +36,20 @@ def check_main_reference(root, expected_main_sha=None):
             git(root, 'worktree', 'add', '--detach', str(path), main_sha)
             added = True
             require(git(path, 'rev-parse', 'HEAD') == main_sha, 'main worktree identity mismatch')
-            deployed = readiness.check(path, require_main=True)
+            # 取得済みmainはそのcommitの入口で検査する。候補で追加した
+            # release固定対象を旧mainへ遡及適用して未マージ判定を阻害しない。
+            process = subprocess.run(
+                ['python3', str(path / 'scripts/run_release_readiness.py'),
+                 '--root', str(path), '--require-main'],
+                cwd=path, text=True, capture_output=True)
+            require(process.returncode == 0,
+                    'fetched main start check failed: ' + process.stderr.strip())
+            deployed = json.loads(process.stdout)
+            # 旧版入口にも未検証・失敗・古い受入を認証させない。
+            from check_cycle04 import validate_acceptance
+            main_contract = json.loads((path / 'docs/validation/contracts/cycle_04.json').read_text())
+            validate_acceptance(path, main_contract)
+            require(deployed.get('operational_ready') is True, 'fetched main is not operational ready')
             require(deployed['main_ref_commit'] == main_sha, 'main reference changed during check')
             main_manifest = json.loads((path / readiness.MANIFEST).read_text())
             try:

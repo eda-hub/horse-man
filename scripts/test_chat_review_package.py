@@ -32,6 +32,37 @@ class ReviewPackage(unittest.TestCase):
         self.assertFalse(row['finalized']);self.assertFalse(out['external_ai_api_executed'])
         self.assertEqual(before,{str(p):p.read_bytes() for p in self.root.rglob('*') if p.is_file()})
 
+    def test_review_package_uses_the_same_fixed_result_reconciliation(self):
+        workflow.record_prediction(self.root,DATE,self.case.entry)
+        entry=self.case.result_entry()
+        workflow.review(self.root,DATE,entry)
+        out=package(self.root,self.manifest(),self.now)
+        result=out['races'][0]['result']
+        self.assertEqual(result['text_reconciliation'],'MATCHED_FORWARD_FIXED')
+        self.assertEqual(result['reconciliation_ref'],entry['result_reconciliation_ref'])
+        self.assertFalse(result['diagnostic_formal_kpi_certified'])
+        self.assertEqual(result['official_result']['race_id'],RACE)
+
+    def test_initial_shadow_comparison_survives_final_not_applicable(self):
+        gate=self.case.shadow_gate()
+        self.case.entry['shadow_applicability']={'status':'APPLICABLE',
+            'reason':'初回比較','item_ids':['TEST-SHADOW']}
+        workflow.record_prediction(self.root,DATE,self.case.entry)
+        self.case.select();self.case.final_without_shadow(gate)
+        self.case.entry['shadow_applicability']={'status':'NOT_APPLICABLE',
+            'reason':'最終条件では対象外','item_ids':[],
+            'previous_item_dispositions':{
+                'TEST-SHADOW':{'status':'NOT_APPLICABLE','reason':'対象条件なし'}}}
+        workflow.record_prediction(self.root,DATE,self.case.entry)
+        out=package(self.root,self.manifest(),self.now)
+        race=out['races'][0]
+        self.assertEqual(len(race['shadow_history']),2)
+        self.assertEqual([h['phase'] for h in race['shadow_history']],['INITIAL','FINAL'])
+        self.assertEqual(len(out['shadow_comparisons_by_fixed_phase']),1)
+        self.assertEqual(out['shadow_comparisons_by_fixed_phase'][0]['phase'],'INITIAL')
+        self.assertEqual(out['independent_kpis_by_day'][0]['independent_kpis']['shadow']['target_ids'],[])
+        self.assertEqual(race['shadow_history_gaps'],[])
+
     def test_duplicate_day_and_mutation_rejected(self):
         manifest=self.manifest();manifest['day_refs']*=2
         with self.assertRaises(ValueError):package(self.root,manifest,self.now)
