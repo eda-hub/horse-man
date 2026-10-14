@@ -213,6 +213,24 @@ class OperationalWorkflow(unittest.TestCase):
         self.assertEqual(resolved['kpis']['production']['eligible_ids'],[RACE])
         self.assertEqual(resolved['kpis']['recommendation']['eligible_ids'],[RACE])
 
+    def test_new_eligible_shadow_cannot_clear_older_unresolved_item(self):
+        _,initial=self.unresolved_first_final()
+        new=copy.deepcopy(initial)
+        new['shadow_items'][0]['item_id']='TEST-NEW'
+        path='docs/validation/execution-gates/'+DATE+'/final-new-shadow.json'
+        write(self.root,path,json.dumps(new))
+        self.entry['prediction_gate_path']=path
+        self.entry['shadow_applicability']={'status':'APPLICABLE',
+            'reason':'FINAL②の別項目は適格だが旧項目の判断待ち',
+            'item_ids':['TEST-NEW'],'previous_item_dispositions':{
+                'TEST-SHADOW':{'status':'UNKNOWN','reason':'旧項目の個別判断未確定'}}}
+        workflow.record_prediction(self.root,DATE,self.entry)
+        day,_=workflow.read_day(self.root,DATE)
+        self.assertEqual(day['races'][RACE]['shadow_history'][-1]['kpi_state'],'PENDING')
+        self.assertEqual(day['kpis']['shadow']['pending_ids'],[RACE])
+        self.assertEqual(day['kpis']['shadow']['eligible_ids'],[])
+        self.assertEqual(day['kpis']['recommendation']['eligible_ids'],[RACE])
+
     def test_direct_day_edit_cannot_erase_unresolved_final_item(self):
         path,initial=self.unresolved_first_final()
         # validatorも最新KPIと過去判断を照合し、writer迂回の後付け対象外を拒否。
