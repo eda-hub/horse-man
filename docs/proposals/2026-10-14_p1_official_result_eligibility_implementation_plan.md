@@ -114,7 +114,7 @@
 - 指摘は妥当。小項目05でソースhash更新に合わせて750件・失敗0・skip0・PASSを記録したことは、実行成功の証拠がなく不適切だった。前節のmanifest更新記録は履歴として保持するが、成功認証として撤回する。
 - `65a68a287ae4ab80785f9afd3198624d36017359` でacceptance.jsonのresultをNOT_RUNへ変更し、tests_run/failures/skippedをnullへ訂正。残したsource_manifestは同一性の参考情報にすぎず、成功証明ではないことをnoteに明示。失敗0やskip0の自己申告は残していない。
 - 保存後にGitHubから読戻し、NOT_RUNとnullを確認。取得したscripts/check_cycle04.pyのcheck_preparation内の受入検査ブロックを変更せず抽出し、訂正後のJSONを入力としてローカルpython3で実行した。`acceptance not passed`で拒否し、未実行件数がnullであることもassert成功（終了0）。これは受入判定ブロックの限定検査であり、通常checker全体・全750回帰・標準受入スクリプト成功を意味しない。
-- CIは利用上限が原因で11/1まで使用不可と利用者から確認済み。再実行していない。既存release manifestの受入ファイルhashも変更後は不一致のままとし、未検証状態を認証するための手動hash追従は行わない。
+- 当時はCIの利用上限が報告され、再実行は未実施だった。既存release manifestの受入ファイルhashも変更後は不一致のままとし、未検証状態を認証するための手動hash追従は行わない。
 - 残件：実行可能な環境で最新コードの全回帰→run_cycle04_acceptance.py --write→build_v170_manifest.py→通常checker→統合受入を実行し、成功出力でのみ受入/releaseを更新。3系統CIを実行して結果を確認する。Draft継続・main変更なし。
 
 ## 再レビュー2件への修正（2026-10-14）
@@ -159,7 +159,7 @@
 - CIの通常系と同じ `check_prediction_compliance.py --audit`、`verify_prediction_persistence.py --audit`、`check_cycle03.py --require-data --require-complete`、`build_cycle03_review.py --check --require-complete`、`recommendation.py --audit`を実行しすべて終了0。第3の7/7日整合と推奨監査を確認。通常監査は過去証跡を新規認証しない。
 - `python3 scripts/check_integration_acceptance.py --full --expected-main-sha 52e666b5406bc44700b0426ea2aa337f744b5d44`：**終了1、acceptance source coverage missing**。候補の証跡ではなく、取得済みmainの保存受入が期間延長後も741件PASSの旧証跡であるため。main証跡はscripts/test_cycle04_period.pyを含まず、記載済みsourceにも10件のhash不一致を実Git bytesで確認（00_core、50_review、README、forward-plan、cycle04_operations、cycle_04契約、標準テンプレート、check_cycle04、class_transition_shadow、本回帰）。mainの古い受入をPASSと認証せず拒否した。mainを無断変更していない。
 - `python3 scripts/run_release_readiness.py --require-main`：終了1、未マージ候補として正常拒否。main未統合を理由に開始要件を緩めない。
-- セルフレビュー：差分は統合checker・回帰・標準生成acceptance/release・本書のみ、diff --check成功。一時ログをPRに含めない。CIの手動起動・再実行なし、
+- セルフレビュー：差分は統合checker・回帰・標準生成acceptance/release・本書のみ、diff --check成功。一時ログをPRに含めない。当時のCIは未実行。
 - 今回の3残件のうち、全回帰成功からのPASS生成・release再生成・通常検査成功は完了。実main統合検査成功はmain側の受入更新/修正統合に依存して残る。取得済みmainの成功認証を捏造せずDraft継続。
 
 ## CI実行方針の訂正 — 2026-10-14 19:23 JST
