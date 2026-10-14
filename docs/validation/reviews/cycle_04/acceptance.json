@@ -1,14 +1,14 @@
 {
-  "failures": 0,
+  "failures": null,
   "formal_cutover": "NOT_PERFORMED",
   "live_race_count": null,
   "mode": "SYNTHETIC",
-  "note": "正常系・異常系の合成検査。実レース、未完了研究、実runtime接続、正式版/有効日を認証しない。",
+  "note": "最新コードの全回帰と標準受入スクリプトは未実行。source_manifestはソース同一性の参考情報のみであり、テスト成功・準備完了を認証しない。CIは利用上限のため2026-11-01まで利用不可。成功したrun_cycle04_acceptance.py --writeの出力でのみPASSへ更新する。",
   "performance_promotion": "NOT_PERFORMED",
-  "result": "PASS",
+  "result": "NOT_RUN",
   "schema_version": "cycle04-acceptance-v1",
-  "skipped": 0,
-  "tests_run": 750,
+  "skipped": null,
+  "tests_run": null,
   "source_manifest": [
     {
       "path": "docs/manual/00_core.md",
