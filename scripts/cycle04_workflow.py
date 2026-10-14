@@ -116,7 +116,7 @@ def register_scope(root, scope, now=None, extend=False):
         for race in rows:
             ident=race['race_id'];day['initial_scope'].append(ident)
             day['races'][ident]={'mode':'FORWARD','scheduled_post_time_jst':race['scheduled_post_time_jst'],
-                                 'prediction_history':[],'recommendation_state':'PENDING'}
+                                 'prediction_history':[],'shadow_history':[],'shadow_tracking_version':'phase-shadow-v1','recommendation_state':'PENDING'}
             set_state(day['kpis']['production'],ident,'PENDING','追加依頼・初回未実施')
         return save(root,day,before)
     day = {'schema_version':SCHEMA,'cycle_id':'cycle_04','manual_release':'v1.7.0','race_date_jst':date,
@@ -124,7 +124,7 @@ def register_scope(root, scope, now=None, extend=False):
            'reviewed_scope':[],'unfinished_reasons':{},'kpis':{'production':kpi(ids),'recommendation':kpi(),
              'shadow':kpi(),'market':kpi(),'actual_purchase':kpi()},
            'races':{r['race_id']:{'mode':'FORWARD','scheduled_post_time_jst':r['scheduled_post_time_jst'],
-                      'prediction_history':[],'recommendation_state':'PENDING'} for r in rows}}
+                      'prediction_history':[],'shadow_history':[],'shadow_tracking_version':'phase-shadow-v1','recommendation_state':'PENDING'} for r in rows}}
     return save(root,day)
 
 
@@ -187,7 +187,7 @@ def record_prediction(root,date,entry,*,preview=False):
                 'prediction_ref':copy.deepcopy(entry['operations']['prediction_ref']),
                 'baseline_forecast_id':gate['production']['baseline_forecast_id']}
     previous = row['prediction_history']
-    old_items = prior_shadow_items(previous, root)
+    old_items = prior_shadow_items(previous[:-1] if identity in previous else previous, root)
     record = shadow_snapshot(root, gate, identity, entry.get('shadow_applicability'), old_items)
     shadows = row.setdefault('shadow_history', [])
     if identity in previous:
