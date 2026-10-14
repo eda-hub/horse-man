@@ -127,6 +127,65 @@ class OperationalWorkflow(unittest.TestCase):
         self.assertEqual(day['kpis']['shadow']['pending_ids'],[RACE])
         self.assertEqual(day['kpis']['recommendation']['eligible_ids'],[RACE])
 
+    def test_shadow_applicability_cannot_be_inferred_from_empty_gate(self):
+        path=self.register();original=path.read_bytes()
+        self.entry.pop('shadow_applicability')
+        with self.assertRaisesRegex(ComplianceError,'explicit shadow applicability'):
+            workflow.record_prediction(self.root,DATE,self.entry)
+        self.assertEqual(path.read_bytes(),original)
+
+    def test_repeated_final_gate_preserves_single_shadow_record(self):
+        self.register();workflow.record_prediction(self.root,DATE,self.entry);self.select()
+        self.entry['phase']='FINAL'
+        workflow.record_prediction(self.root,DATE,self.entry)
+        first=workflow.read_day(self.root,DATE)[0]['races'][RACE]['shadow_history']
+        workflow.record_prediction(self.root,DATE,self.entry)
+        after=workflow.read_day(self.root,DATE)[0]['races'][RACE]['shadow_history']
+        self.assertEqual(first,after);self.assertEqual(len(after),2)
+        self.entry['shadow_applicability']['reason']='後から別理由に変更'
+        with self.assertRaisesRegex(ComplianceError,'same prediction gate'):
+            workflow.record_prediction(self.root,DATE,self.entry)
+
+    def test_partial_shadow_items_pending_do_not_mark_whole_race_eligible(self):
+        from test_next_prediction_compliance import write
+        self.register();gate=self.shadow_gate()
+        gate['shadow_items'].append({'item_id':'TEST-PENDING','state':'AWAITING_EVIDENCE',
+                                     'kpi_eligibility':'PENDING'})
+        write(self.root,self.entry['prediction_gate_path'],json.dumps(gate))
+        self.entry['shadow_applicability']={'status':'APPLICABLE','reason':'片方の証跡が保留',
+                                          'item_ids':['TEST-SHADOW','TEST-PENDING']}
+        workflow.record_prediction(self.root,DATE,self.entry)
+        day,_=workflow.read_day(self.root,DATE)
+        self.assertEqual(day['kpis']['shadow']['eligible_ids'],[])
+        self.assertEqual(day['kpis']['shadow']['pending_ids'],[RACE])
+        self.assertEqual(day['races'][RACE]['shadow_history'][0]['items'][1]['kpi_eligibility'],'PENDING')
+
+    def test_shadow_record_and_latest_kpi_tampering_are_rejected(self):
+        path=self.register();workflow.record_prediction(self.root,DATE,self.entry)
+        original=path.read_bytes();day=json.loads(original)
+        day['races'][RACE]['shadow_history'][0]['kpi_state']='ELIGIBLE'
+        path.write_text(json.dumps(day))
+        with self.assertRaisesRegex(ComplianceError,'shadow history evidence/state mismatch'):
+            workflow.read_day(self.root,DATE)
+        path.write_bytes(original)
+        day=json.loads(original);day['races'][RACE]['shadow_history'][0]['prediction_gate_sha256']='0'*64
+        path.write_text(json.dumps(day))
+        with self.assertRaisesRegex(ComplianceError,'shadow history identity/hash mismatch'):
+            workflow.read_day(self.root,DATE)
+
+    def test_dropped_eligible_shadow_needs_individual_final_disposition(self):
+        path=self.register();gate=self.shadow_gate()
+        self.entry['shadow_applicability']={'status':'APPLICABLE','reason':'初回比較',
+                                            'item_ids':['TEST-SHADOW']}
+        workflow.record_prediction(self.root,DATE,self.entry);self.select()
+        self.final_without_shadow(gate)
+        self.entry['shadow_applicability']={'status':'NOT_APPLICABLE','reason':'最終では該当なし',
+                                            'item_ids':[]}
+        before=path.read_bytes()
+        with self.assertRaisesRegex(ComplianceError,'removed shadow items need explicit dispositions'):
+            workflow.record_prediction(self.root,DATE,self.entry)
+        self.assertEqual(path.read_bytes(),before)
+
     def test_two_axis_comparison_uses_verified_recommendation_cancellations(self):
         from unittest.mock import patch
         self.register();self.select();self.entry['phase']='FINAL'
