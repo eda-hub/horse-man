@@ -166,3 +166,5 @@
 - 修正：固定phaseの参照が一致することを全受理ペアで必須化。INITIALでは最新FINAL推奨にアクセスせず `recommendation_input=null` と適用外理由 `DIFFERENT_PHASE` を返す。FINALでは既存推奨validatorを通し、phase／cutoff／baseline／Production固定証拠path・SHA・IDのすべてが一致するものだけ結合する。
 - 回帰：`scripts/test_chat_calibration_review.py` に初回のFINAL推奨非参照・読取専用確認、FINAL正常結合、FINALの9:51時点不一致拒否、固定phase-binding欠落拒否を追加。初回比較の確率・結果・strataと独立推奨の分離を維持する。
 - `python3 scripts/run_cycle04_acceptance.py --write` で合成回帰にPASSした後だけrelease manifestを再生成し、全3系統CIと取得済みmainとの統合受入を最新SHAで再確認する。これらの生成結果が未到着の場合は成功と記さない。
+- **検証結果**：<https://github.com/eda-hub/horse-man/actions/runs/38564202940> で全回帰787件・失敗0・skip0、標準合成受入PASS・source_manifest145件、release manifest165件の生成、第4通常検査、release原子的整合、`check_integration_acceptance.py --full` がすべて成功。生成物保存コミット `0457013cb7f7288208fe15ee5d6e5c3867b76789`。一時CIは `92d5f7b1f6bc0ed68decdacad6441dc7f5ae61a0` で削除。最終headの3系統CIは別途確認する。
+- 初回比較（9:50）と別時点の最終推奨（9:51）を同一証拠として認証しない。初回比較のphaseを維持し、最終推奨は読まずに校正入力を出力する。FINAL対応推奨の固定時点と原本への不整合は引き続き拒否する。
