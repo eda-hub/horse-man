@@ -1,0 +1,176 @@
+{
+  "horse_key": "netkeiba-000a01151b",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2002,
+    "country": null,
+    "external_ids": {
+      "NETKEIBA": "000a01151b",
+      "UMANITY": "1120002162"
+    },
+    "identity_evidence": {
+      "raw_sha256": "9d943c4a5dadd9f3a073cceaf6eeb2ce5ce326023f824d4d95b9cdadcba00a92",
+      "record_hash": "b07703a68d55c68857f1318a072faca9c474ad27c9e264ebf3162e443778c845",
+      "record_key": "NETKEIBA:000a01151b",
+      "source": "https://db.netkeiba.com/horse/ped/2020106660/"
+    },
+    "name": "ジャイアントレッカー",
+    "parents": {
+      "D": "netkeiba-000a009bd8",
+      "S": "jbis-0000372708"
+    },
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T17:30:42.814414+00:00",
+  "identity_observed_at": "2026-10-09T17:30:42.814414+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2002,
+    "country": null,
+    "external_ids": {
+      "NETKEIBA": "000a01151b",
+      "UMANITY": "1120002162"
+    },
+    "identity_evidence": {
+      "raw_sha256": "9d943c4a5dadd9f3a073cceaf6eeb2ce5ce326023f824d4d95b9cdadcba00a92",
+      "record_hash": "b07703a68d55c68857f1318a072faca9c474ad27c9e264ebf3162e443778c845",
+      "record_key": "NETKEIBA:000a01151b",
+      "source": "https://db.netkeiba.com/horse/ped/2020106660/"
+    },
+    "name": "ジャイアントレッカー",
+    "parents": {
+      "D": "netkeiba-000a009bd8",
+      "S": "jbis-0000372708"
+    },
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T17:35:23.949964+00:00",
+      "content_hash": "16a99e852ff1f1576aa4465188df4620d212ab92b35d1c3025c381d168294da1",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T17:35:23.949964+00:00",
+      "input_hash": "2ae6d542021f8dbeef01d74febd2b747714e27ad7bfd140a373ac76f401dfb9b",
+      "previous_revision": null,
+      "revision_id": "rev-2ae6d542021f8dbeef01d74f",
+      "saved_at": "2026-10-09T17:35:23.978272+00:00",
+      "source": {
+        "acquisition_method": "TWO_PROVIDER_MATCH",
+        "captured_at": "2026-10-09T17:12:25.812402+00:00",
+        "corroborating_urls": [
+          "https://db.netkeiba.com/horse/ped/2020106660/",
+          "https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2020106660"
+        ],
+        "origin_group": "NETKEIBA",
+        "raw_sha256": "9d943c4a5dadd9f3a073cceaf6eeb2ce5ce326023f824d4d95b9cdadcba00a92",
+        "record_hash": "f33b276c2a8341948c8170a10a2459b29f3da720ef744ede35dab1e7623e70a4",
+        "record_hash_kind": "canonical-verified-table-position-sha256",
+        "record_key": "2020106660:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/2020106660/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a009bd8",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "父母ID・5代位置・全原票共通関係照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T17:35:23.978976+00:00",
+      "content_hash": "e43e73bb734d2f16a960d24236be8b190efe52f270d64fa5a4f87acf0da6574b",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T17:35:23.978976+00:00",
+      "input_hash": "3e60f857f075b2345fdd9a4eaa5e736d4427f645f97c1ea8cf00017cfea410ff",
+      "previous_revision": null,
+      "revision_id": "rev-3e60f857f075b2345fdd9a4e",
+      "saved_at": "2026-10-09T17:35:24.004467+00:00",
+      "source": {
+        "acquisition_method": "TWO_PROVIDER_MATCH",
+        "captured_at": "2026-10-09T17:12:25.812402+00:00",
+        "corroborating_urls": [
+          "https://db.netkeiba.com/horse/ped/2020106660/",
+          "https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2020106660"
+        ],
+        "origin_group": "NETKEIBA",
+        "raw_sha256": "9d943c4a5dadd9f3a073cceaf6eeb2ce5ce326023f824d4d95b9cdadcba00a92",
+        "record_hash": "581c525e0ee1feef7ca71f66402a9b53f0b4f8ab9ee06d61b2f40a372ccc01e4",
+        "record_hash_kind": "canonical-verified-table-position-sha256",
+        "record_key": "2020106660:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/2020106660/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000372708",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "父母ID・5代位置・全原票共通関係照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:39.714040+00:00",
+      "content_hash": "4c616a273f4efc32cfd2e733f7b5fbb6bd6a2631d31a2461f6ea0523397579c5",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:39.714016+00:00",
+      "input_hash": "fb0e2cc7dac24024b9751849f9c397801736f71082e77f4eafacf7b314e1bf72",
+      "previous_revision": null,
+      "revision_id": "rev-fb0e2cc7dac24024b9751849",
+      "saved_at": "2026-10-10T07:57:39.764826+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "NETKEIBA",
+        "record_hash": "363b5f2125208011469ecc9792e3a59a8cd61d04036645837df4a2298d9723e2",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "netkeiba-000a01151b",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://db.netkeiba.com/horse/000a01151b/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T09:15:49.099590+00:00",
+      "content_hash": "e34303b59e1841ab250735f5d9e363de40ab29eb58259b043e60717d68acf29b",
+      "field": "attribute:training_country_user",
+      "first_observed_at": "2026-10-10T18:12:40+09:00",
+      "input_hash": "a68f94f635147d88adb322d879a874fbf272893c3a6a3482a49bdf376cb0cc22",
+      "previous_revision": null,
+      "revision_id": "rev-a68f94f635147d88adb322d8",
+      "saved_at": "2026-10-10T09:15:50.015859+00:00",
+      "source": {
+        "acquisition_method": "user-chat",
+        "origin_group": "USER_CHAT",
+        "record_hash": "23be000f414deeb087811089ed317b233a50eae9a8f626608fcdc4a318df6230",
+        "record_key": "netkeiba-000a01151b",
+        "resolution_policy": "USER_EXPLICIT_COUNTRY_V1",
+        "source_class": "USER_PROVIDED",
+        "subject_name": "ジャイアントレッカー",
+        "user_received_at": "2026-10-10T18:12:40+09:00",
+        "user_reply_text": "Flatterはアメリカ\nバチアーはイギリス\nマリエンバードはイギリス\nフォーティナイナーズサンはアメリカ\nジャイアントレッカーはアメリカ\nモンテロッソはイギリス\nMilt's Overtureはアメリカ\nEasing Alongはアメリカ\nMagic Albertはオーストラリア\nセイントアレックスはアメリカ\n所感：検索先が偏り過ぎているんじゃないか？人間が調べて出てくるってことは、お前は所詮その程度のもの。"
+      },
+      "status": "VERIFIED",
+      "value": "US",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 利用者の本人名・国指定を確認待ち独立IDと照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

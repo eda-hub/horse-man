@@ -1,0 +1,19 @@
+{
+  "schema_version": "historical-persistence-expanded-v1",
+  "reviewed_at": "2026-10-10T12:36:06.630788+00:00",
+  "branches": 8,
+  "intermediate_commits": 60,
+  "distinct_blobs": 57,
+  "reviewed": 40,
+  "resolved_eligible": 0,
+  "unresolved": 40,
+  "status_counts": {
+    "NO_CORRESPONDING_INTENT_IN_SEARCHED_HISTORY": 38,
+    "CORRESPONDING_INTENT_INVALID": 1,
+    "VALID_INTENT_RECEIPT_STILL_UNVERIFIED": 1
+  },
+  "evidence_path": "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-expanded-review/git-evidence.json.gz",
+  "evidence_sha256": "22a530522f981175cd2a3157b311f53349463514dba589952025edd1d1bd7506",
+  "scope": "取得時点の現存8ブランチ。宣言/receiptディレクトリの2026-10-05 UTC以前の変更履歴全ページと9/25〜10/4の途中60コミット、8先端docs全ツリー。削除済みbranch、reflog、到達不能commit、Git外の証跡は対象外。",
+  "limitation": "receipt本文の候補検出は時刻/内容の適格認証ではない。過去の不足を遡及作成しない。"
+}

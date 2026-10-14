@@ -1,0 +1,111 @@
+{
+  "conditions_completed": 1,
+  "coverage_manifest_path": "data/pedigree/reconciliations/2026-10-11-delta/coverage/input-manifest.json",
+  "coverage_manifest_record_hash": "e83f07ce43f43db678bf0d22a6bdf646d123a090dc91334737b62dd7c28ecbae",
+  "coverage_manifest_sha256": "b1030d1868ac2416b907b1ab170c7e101615c0db04752aaf9e2ac2c68fe2e393",
+  "data_cutoff": "2026-10-12T08:29:17.321478+00:00",
+  "definition_hash": "4580a47ce0b227b20697cfc308d0c2e76b1baac2e836b0f2305871e080361ac2",
+  "definition_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-05.json",
+  "execution_number": 22,
+  "external_queries": 0,
+  "input_commit": "ac35be08a1ec7f05978c66d1739aae34f0d74c4e",
+  "input_hash": "f4a24ef0c6d63fc1b89de7330064810726f0d511eb05d79d59cde80871c75598",
+  "input_path": "data/condition_stats/inputs/jra-delta-20261011-task20.json",
+  "next_subtask_id": null,
+  "production_eligible": false,
+  "registry_revisions_added": 0,
+  "remaining_conditions": 0,
+  "schema_version": "oct11-designated-stat-batch-v1",
+  "snapshot_content_sha256": "369a3a12b73478d2d7299ff1edb47ebb934831c0b402b618da0c31af5f99c95a",
+  "snapshot_path": "data/condition_stats/snapshots/jra-designated-ancestors-delta-20261011-22-05/369a3a12b73478d2d7299ff1edb47ebb934831c0b402b618da0c31af5f99c95a.json",
+  "source_definition_path": "data/condition_stats/definitions/jra-structural-20260816-20260913-20261010.json",
+  "source_definition_sha256": "f0ab5dcd7813bf001b0fbfee601e8b6a07cb0a591db1154a7ff2f334f2d05bf4",
+  "status": "COMPLETED",
+  "subtask_id": "22-05",
+  "summary": {
+    "contains-jbis-0000333952": {
+      "ancestor_identity_hash": "f83af15128c73edf9736415231f98cc299fcf36e17e2c8c87fdd00d6e429160e",
+      "ancestor_name": "Grey Sovereign(GB)",
+      "cohorts": {
+        "CONFLICT": {
+          "dnf": 0,
+          "dq": 0,
+          "entries": 0,
+          "excluded": 0,
+          "horses": 0,
+          "pending_results": 0,
+          "races": 0,
+          "scratched": 0,
+          "top2": 0,
+          "top2_rate": null,
+          "top3": 0,
+          "top3_rate": null,
+          "valid_starts": 0,
+          "win_rate": null,
+          "wins": 0
+        },
+        "MATCH": {
+          "dnf": 0,
+          "dq": 0,
+          "entries": 2,
+          "excluded": 0,
+          "horses": 2,
+          "pending_results": 0,
+          "races": 2,
+          "scratched": 0,
+          "top2": 0,
+          "top2_rate": 0.0,
+          "top3": 0,
+          "top3_rate": 0.0,
+          "valid_starts": 2,
+          "win_rate": 0.0,
+          "wins": 0
+        },
+        "NON_MATCH": {
+          "dnf": 0,
+          "dq": 0,
+          "entries": 213,
+          "excluded": 0,
+          "horses": 213,
+          "pending_results": 0,
+          "races": 14,
+          "scratched": 0,
+          "top2": 28,
+          "top2_rate": 0.13145539906103287,
+          "top3": 42,
+          "top3_rate": 0.19718309859154928,
+          "valid_starts": 213,
+          "win_rate": 0.06572769953051644,
+          "wins": 14
+        },
+        "UNKNOWN": {
+          "dnf": 0,
+          "dq": 0,
+          "entries": 0,
+          "excluded": 0,
+          "horses": 0,
+          "pending_results": 0,
+          "races": 0,
+          "scratched": 0,
+          "top2": 0,
+          "top2_rate": null,
+          "top3": 0,
+          "top3_rate": null,
+          "valid_starts": 0,
+          "win_rate": null,
+          "wins": 0
+        }
+      },
+      "external_ids": {
+        "JBIS": "0000333952",
+        "NETKEIBA": "000a000dd4"
+      },
+      "multiple_path_horses": 0
+    }
+  },
+  "targets": [
+    "contains-jbis-0000333952"
+  ],
+  "total_conditions": 21,
+  "usage": "REPLAY_ONLY"
+}

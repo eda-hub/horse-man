@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0001148030",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001148030"
+    },
+    "identity_evidence": {
+      "ancestor_path": "SD",
+      "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+      "record_key": "0001148030",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+    },
+    "name": "Glinda the Good(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.865674+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.865674+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001148030"
+    },
+    "identity_evidence": {
+      "ancestor_path": "SD",
+      "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+      "record_key": "0001148030",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+    },
+    "name": "Glinda the Good(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:45.479720+00:00",
+      "content_hash": "67a4f59b89037c82411eb6359cac82f5885f1f50627eaf749e2a7b776eea8c5d",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:45.479720+00:00",
+      "input_hash": "b58fad61f4514d1257d41de6f98697f4f72d5c1caf851e0363e76bff8c9d1513",
+      "previous_revision": null,
+      "revision_id": "rev-b58fad61f4514d1257d41de6",
+      "saved_at": "2026-10-12T06:30:43.108630+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423340:SDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001051344",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:45.479720+00:00",
+      "content_hash": "ed86420ef2c4fb39b52eb5c71c97335d50a5c6b2c0008409e04d29d4aef8470d",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:45.479720+00:00",
+      "input_hash": "2962c4305cbf4142ba9091127788d748aad66518357f399317770c17d1c1e458",
+      "previous_revision": null,
+      "revision_id": "rev-2962c4305cbf4142ba909112",
+      "saved_at": "2026-10-12T06:30:43.110183+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423340:SDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000449918",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,123 @@
+{
+  "execution_number": 25,
+  "status": "COMPLETED",
+  "input_commit": "a0738c204f89881f9681c65b596eb3d8fca17def",
+  "scope": "保存状態の共通日本語表示と必須5状態の検査",
+  "fixture_only": true,
+  "historical_prediction_status_promoted": 0,
+  "required_states_checked": 5,
+  "new_regression_tests": 14,
+  "related_regression_tests_passed": 67,
+  "results": [
+    {
+      "fixture_evidence": {},
+      "report": {
+        "status_code": "NOT_ATTEMPTED",
+        "complete": false,
+        "target": "受入試験用データ",
+        "message": "保存は未試行です。",
+        "cause": "書込をまだ試していません。",
+        "impact": "今回の内容は保存未確認です。",
+        "next_check": "対象の内容を書き込み、書込結果を確認してください。",
+        "checks": {
+          "書込": "未実施",
+          "読戻し一致": "未実施",
+          "個別完了確認": "未実施"
+        }
+      },
+      "user_message": "対象：受入試験用データ\n保存は未試行です。\n原因：書込をまだ試していません。\n影響：今回の内容は保存未確認です。\n次の確認：対象の内容を書き込み、書込結果を確認してください。"
+    },
+    {
+      "fixture_evidence": {
+        "write_attempted": true,
+        "write_succeeded": false
+      },
+      "report": {
+        "status_code": "WRITE_FAILED",
+        "complete": false,
+        "target": "受入試験用データ",
+        "message": "保存の書込に失敗しました。",
+        "cause": "今回の書込が失敗しています。",
+        "impact": "今回の内容が保存されたことを確認できません。",
+        "next_check": "書込の失敗記録を確認し、原因を解消して再試行してください。",
+        "checks": {
+          "書込": "失敗",
+          "読戻し一致": "未実施",
+          "個別完了確認": "未実施"
+        }
+      },
+      "user_message": "対象：受入試験用データ\n保存の書込に失敗しました。\n原因：今回の書込が失敗しています。\n影響：今回の内容が保存されたことを確認できません。\n次の確認：書込の失敗記録を確認し、原因を解消して再試行してください。"
+    },
+    {
+      "fixture_evidence": {
+        "write_attempted": true,
+        "write_succeeded": true,
+        "readback_matches": false
+      },
+      "report": {
+        "status_code": "READBACK_MISMATCH",
+        "complete": false,
+        "target": "受入試験用データ",
+        "message": "保存先から読戻した内容が一致しません。",
+        "cause": "指定した内容と読戻した内容が不一致です。",
+        "impact": "今回の内容を保存完了と扱えません。",
+        "next_check": "内容・対象ファイル・参照先を照合し、再保存して読戻してください。",
+        "checks": {
+          "書込": "成功",
+          "読戻し一致": "失敗",
+          "個別完了確認": "未実施"
+        }
+      },
+      "user_message": "対象：受入試験用データ\n保存先から読戻した内容が一致しません。\n原因：指定した内容と読戻した内容が不一致です。\n影響：今回の内容を保存完了と扱えません。\n次の確認：内容・対象ファイル・参照先を照合し、再保存して読戻してください。"
+    },
+    {
+      "fixture_evidence": {
+        "write_attempted": true,
+        "write_succeeded": true,
+        "readback_matches": true
+      },
+      "report": {
+        "status_code": "BODY_SAVED_UNVERIFIED",
+        "complete": false,
+        "target": "受入試験用データ",
+        "message": "本体は保存済み。個別完了確認は未実施です。",
+        "cause": "本体の読戻しは一致していますが、個別完了確認は未実施です。",
+        "impact": "本体を保全したまま、個別完了は未確認として扱います。",
+        "next_check": "保存対象に対応する個別完了確認を実行してください。",
+        "checks": {
+          "書込": "成功",
+          "読戻し一致": "成功",
+          "個別完了確認": "未実施"
+        }
+      },
+      "user_message": "対象：受入試験用データ\n本体は保存済み。個別完了確認は未実施です。\n原因：本体の読戻しは一致していますが、個別完了確認は未実施です。\n影響：本体を保全したまま、個別完了は未確認として扱います。\n次の確認：保存対象に対応する個別完了確認を実行してください。"
+    },
+    {
+      "fixture_evidence": {
+        "write_attempted": true,
+        "write_succeeded": true,
+        "readback_matches": true,
+        "verification_succeeded": true
+      },
+      "report": {
+        "status_code": "COMPLETE",
+        "complete": true,
+        "target": "受入試験用データ",
+        "message": "対象の保存工程はすべて完了しました。",
+        "cause": "書込・読戻し一致・個別完了確認がすべて成功しています。",
+        "impact": "指定した対象の保存工程を完了として扱えます。",
+        "next_check": "今回の確認結果と参照した証跡を記録してください。",
+        "checks": {
+          "書込": "成功",
+          "読戻し一致": "成功",
+          "個別完了確認": "成功"
+        }
+      },
+      "user_message": "対象：受入試験用データ\n対象の保存工程はすべて完了しました。\n原因：書込・読戻し一致・個別完了確認がすべて成功しています。\n影響：指定した対象の保存工程を完了として扱えます。\n次の確認：今回の確認結果と参照した証跡を記録してください。"
+    }
+  ],
+  "production_eligible": false,
+  "release_changed": false,
+  "next_execution_number": 26,
+  "next_scope": "Prediction/Recommendation個別ゲートへの接続と不足検出は26番で実施"
+}

@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000428611",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1980,
+    "external_ids": {
+      "JBIS": "0000428611"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDDD",
+      "record_hash": "32a347975c9ce08dd4ce3e7ca4ea32a2b618e743af3abfb24c9f51db98fe0e09",
+      "record_key": "0000428611",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001373158/pedigree/"
+    },
+    "name": "Stand by Me(IRE)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.015186+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.015186+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1980,
+    "external_ids": {
+      "JBIS": "0000428611"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDDD",
+      "record_hash": "32a347975c9ce08dd4ce3e7ca4ea32a2b618e743af3abfb24c9f51db98fe0e09",
+      "record_key": "0000428611",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001373158/pedigree/"
+    },
+    "name": "Stand by Me(IRE)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:21:53.946376+00:00",
+      "content_hash": "5be61b121f02d417b412fdc5cb96a1b07229c76026a7deb83b52524bfef04454",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:21:53.946376+00:00",
+      "input_hash": "42ec0b912a06530e5dde6aa0eb765dedb38ed3c2a9239ebd6557002e5e0a8f06",
+      "previous_revision": null,
+      "revision_id": "rev-42ec0b912a06530e5dde6aa0",
+      "saved_at": "2026-10-12T06:30:43.695990+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "32a347975c9ce08dd4ce3e7ca4ea32a2b618e743af3abfb24c9f51db98fe0e09",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001373158:DDDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001373158/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000335309",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:21:53.946376+00:00",
+      "content_hash": "e4c19d556d1eeb26703cf002fde103d1ab15bf9dab5df01fe9d3b92a136012a6",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:21:53.946376+00:00",
+      "input_hash": "caf4c663234fd8d068b28bcfaf5154038a37f93b3dc6b8458cba2f0cac7cf40a",
+      "previous_revision": null,
+      "revision_id": "rev-caf4c663234fd8d068b28bcf",
+      "saved_at": "2026-10-12T06:30:43.697401+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "32a347975c9ce08dd4ce3e7ca4ea32a2b618e743af3abfb24c9f51db98fe0e09",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001373158:DDDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001373158/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000428303",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

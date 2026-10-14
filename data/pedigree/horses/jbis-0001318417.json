@@ -1,0 +1,92 @@
+{
+  "horse_key": "jbis-0001318417",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2020,
+    "external_ids": {
+      "JBIS": "0001318417"
+    },
+    "identity_evidence": {
+      "raw_sha256": "857dc8c0d74bc8a2fb04c55562fdbe2fd0120a0a86d4b7e7c62e11c829020773",
+      "record_key": "0001318417",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001318417/"
+    },
+    "name": "コスモマルーン",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-11T18:54:52.202407+00:00",
+  "identity_observed_at": "2026-10-11T18:54:52.202407+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2020,
+    "external_ids": {
+      "JBIS": "0001318417"
+    },
+    "identity_evidence": {
+      "raw_sha256": "857dc8c0d74bc8a2fb04c55562fdbe2fd0120a0a86d4b7e7c62e11c829020773",
+      "record_key": "0001318417",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001318417/"
+    },
+    "name": "コスモマルーン",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:34.726631+00:00",
+      "content_hash": "9b0c78a5a4236f7c8c7569d0039ce8d41c4f7ebfe7beffb41aa543086dc2abbb",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:34.726631+00:00",
+      "input_hash": "c0408775408ac19cc0edbfb0e4f8d979e11e42ddf4fdfb99fb5e5023e95a6ad2",
+      "previous_revision": null,
+      "revision_id": "rev-c0408775408ac19cc0edbfb0",
+      "saved_at": "2026-10-12T06:30:37.733388+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "befa4e21fd89581e9c4a6b50d0c3aff9ed4b2a71057ba5ec2eda8720ecac54ce",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001318417:S",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001318417/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000848478",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:34.726631+00:00",
+      "content_hash": "a87345046565e83f6452e98bd60fffb06e9b8eb2f0c2baab27e9e52de2ac5f88",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:34.726631+00:00",
+      "input_hash": "dca7a18c63c6feff8e2e9a8f5b0a719f59c6f83424a678f4ec4648beb07bf4fa",
+      "previous_revision": null,
+      "revision_id": "rev-dca7a18c63c6feff8e2e9a8f",
+      "saved_at": "2026-10-12T06:30:37.739871+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "befa4e21fd89581e9c4a6b50d0c3aff9ed4b2a71057ba5ec2eda8720ecac54ce",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001318417:D",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001318417/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000735465",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

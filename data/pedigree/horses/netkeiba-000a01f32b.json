@@ -1,0 +1,90 @@
+{
+  "horse_key": "netkeiba-000a01f32b",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2001,
+    "external_ids": {
+      "NETKEIBA": "000a01f32b"
+    },
+    "identity_evidence": {
+      "record_key": "000a01f32b",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02bb45"
+    },
+    "name": "Tadawul (米)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:00:51.430828+00:00",
+  "identity_observed_at": "2026-10-10T10:00:51.430828+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2001,
+    "external_ids": {
+      "NETKEIBA": "000a01f32b"
+    },
+    "identity_evidence": {
+      "record_key": "000a01f32b",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02bb45"
+    },
+    "name": "Tadawul (米)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:00:51.541119+00:00",
+      "content_hash": "e0d29866a927c1b0eadcb938baa722524030cfae88430d7c29dcb08686f5b290",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:00:51.541111+00:00",
+      "input_hash": "60152c8e1a718f419dee5f92e6f902332342a80d836f611f41299cd176695fc6",
+      "previous_revision": null,
+      "revision_id": "rev-60152c8e1a718f419dee5f92",
+      "saved_at": "2026-10-10T10:00:51.542157+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "4b48ce357efe62a3d6c78fe47edfa152003a23bd228e80fad39ad125f4258f0d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02bb45:DDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02bb45/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336499",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:00:51.550363+00:00",
+      "content_hash": "e6d84ca6836cffb7825757b4b219e3483a1a3e14453ed6e0bcbf6776d60782f6",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:00:51.550351+00:00",
+      "input_hash": "a43186f1f3d69e955914ec8d7c966c7d2e25a58cd78c338de87206cad38d7d9f",
+      "previous_revision": null,
+      "revision_id": "rev-a43186f1f3d69e955914ec8d",
+      "saved_at": "2026-10-10T10:00:51.550703+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "4b48ce357efe62a3d6c78fe47edfa152003a23bd228e80fad39ad125f4258f0d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02bb45:DDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02bb45/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a01f32a",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

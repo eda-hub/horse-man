@@ -1,0 +1,98 @@
+{
+  "horse_key": "netkeiba-1955106838",
+  "identity": {
+    "aliases": [],
+    "birth_year": null,
+    "country": null,
+    "external_ids": {
+      "NETKEIBA": "1955106838",
+      "UMANITY": "1220013751"
+    },
+    "identity_evidence": {
+      "raw_sha256": "4250d6c2e69161beb9f6cdc7059c511b6519a1d6a68a4be25e8bf2d3ee73f22b",
+      "record_hash": "a7868f58e3ae094de034dabd8d7027037e289cdbea99adb5e459dbc22fa086e7",
+      "record_key": "NETKEIBA:1955106838",
+      "source": "https://db.netkeiba.com/horse/ped/2023100453/"
+    },
+    "name": "ロッチテスコ",
+    "parents": {},
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T17:31:45.691445+00:00",
+  "identity_observed_at": "2026-10-09T17:31:45.691445+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": null,
+    "country": null,
+    "external_ids": {
+      "NETKEIBA": "1955106838",
+      "UMANITY": "1220013751"
+    },
+    "identity_evidence": {
+      "raw_sha256": "4250d6c2e69161beb9f6cdc7059c511b6519a1d6a68a4be25e8bf2d3ee73f22b",
+      "record_hash": "a7868f58e3ae094de034dabd8d7027037e289cdbea99adb5e459dbc22fa086e7",
+      "record_key": "NETKEIBA:1955106838",
+      "source": "https://db.netkeiba.com/horse/ped/2023100453/"
+    },
+    "name": "ロッチテスコ",
+    "parents": {},
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:23:46.228146+00:00",
+      "content_hash": "873cd3e62065e3c22fbd33805826c89de2011478bf04665be5c3b0f0ad2a67cb",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:23:46.228146+00:00",
+      "input_hash": "a8fddf400a69d3822e87409f1304f08694c2094a95acc6c1da194eff6f4d0c28",
+      "previous_revision": null,
+      "revision_id": "rev-a8fddf400a69d3822e87409f",
+      "saved_at": "2026-10-12T06:30:37.956939+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "c43e367de1420c4fdc39d0dbd97c987f768bd8fc7aa3863e21fd09e0808044b3",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001318735:DDDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001318735/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333299",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:23:46.228146+00:00",
+      "content_hash": "2d9d530e624248e3994c3c9585e32f5de56b6b5ccbd92c2e7357dcc4a2d8cb70",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:23:46.228146+00:00",
+      "input_hash": "65ad9abb1dea2a877284b4bbd62a6a2b0f35736af9024c1f9fb1ae8026e2786d",
+      "previous_revision": null,
+      "revision_id": "rev-65ad9abb1dea2a877284b4bb",
+      "saved_at": "2026-10-12T06:30:37.958210+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "c43e367de1420c4fdc39d0dbd97c987f768bd8fc7aa3863e21fd09e0808044b3",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001318735:DDDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001318735/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000005123",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

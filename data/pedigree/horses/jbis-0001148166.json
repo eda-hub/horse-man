@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001148166",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001148166"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "160ec4aee570b4c1d17b8f031563675e3e864e6432b55d8cd027ddef5adf0c2e",
+      "record_key": "0001148166",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001375466/pedigree/"
+    },
+    "name": "Liaison(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.517120+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.517120+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001148166"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "160ec4aee570b4c1d17b8f031563675e3e864e6432b55d8cd027ddef5adf0c2e",
+      "record_key": "0001148166",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001375466/pedigree/"
+    },
+    "name": "Liaison(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:26:23.566383+00:00",
+      "content_hash": "2ff385f37e3aa576888564a0a48380403a02e936c2566c665f647b2cef4f08b2",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:26:23.566383+00:00",
+      "input_hash": "bf3efb65321486ad0cd2227c64093538f1ac796e97d61b302eea222108e3597a",
+      "previous_revision": null,
+      "revision_id": "rev-bf3efb65321486ad0cd2227c",
+      "saved_at": "2026-10-12T06:30:41.476776+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "160ec4aee570b4c1d17b8f031563675e3e864e6432b55d8cd027ddef5adf0c2e",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001375466:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001375466/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000369336",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:26:23.566383+00:00",
+      "content_hash": "25247a3a420acf02819b887c3d6c47a671eb7bc85bdb853b6d778f7bcfb7592e",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:26:23.566383+00:00",
+      "input_hash": "e83546e2e8f92d3e3fa8f0e2eb41b0bb191c18a3c17b7a8a212f0429118c44a2",
+      "previous_revision": null,
+      "revision_id": "rev-e83546e2e8f92d3e3fa8f0e2",
+      "saved_at": "2026-10-12T06:30:41.478785+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "160ec4aee570b4c1d17b8f031563675e3e864e6432b55d8cd027ddef5adf0c2e",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001375466:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001375466/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000852989",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:01.959523+00:00",
+      "content_hash": "5a2529411e045eef50f863d40d47fa8db9b8e94fa7cfe867c0172f8d551c62f3",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:01.959523+00:00",
+      "input_hash": "1528a28c76090107328ab09c1382ab86aa45185628cb305e13b1de1cbbe17070",
+      "previous_revision": null,
+      "revision_id": "rev-1528a28c76090107328ab09c",
+      "saved_at": "2026-10-12T07:32:04.326570+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人LiaisonのDel Mar調教をPaynterとの併せ馬記事で照合し、Baffert公式の本人父Indian Charlie・所有者Arnold Zetcherとの対応を確認。",
+          "birth_year": 2009,
+          "country": "US",
+          "horse": "Liaison(USA)",
+          "trainer": "Bob Baffert",
+          "training_location": "Santa Anita/Del Mar, California"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-04/jbis-0001148166-source.json",
+        "record_hash": "0afc0d9420a7139e5d79d4820208a6a39a7ab625fda0e1e86cc5d0d22fdc7224",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001148166",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.drf.com/news/del-mar-notes-paynter-set-2013-stakes-debut-grade-2-san-diego"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:32:01.959523+00:00",
+              "record_hash": "0afc0d9420a7139e5d79d4820208a6a39a7ab625fda0e1e86cc5d0d22fdc7224",
+              "url": "https://www.drf.com/news/del-mar-notes-paynter-set-2013-stakes-debut-grade-2-san-diego"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

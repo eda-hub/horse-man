@@ -1,0 +1,177 @@
+{
+  "horse_key": "netkeiba-000a01372d",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2000,
+    "country": null,
+    "external_ids": {
+      "NETKEIBA": "000a01372d",
+      "UMANITY": "1140006853"
+    },
+    "identity_evidence": {
+      "raw_sha256": "10b9f01a5474dfe93f2bc4e73c1855062b351d9f7a654ff5671f2e5e181c4b11",
+      "record_hash": "5db2a04829bc018d705e3d3dff03ec30657a36f6562404b9c041dc0752947db3",
+      "record_key": "NETKEIBA:000a01372d",
+      "source": "https://db.netkeiba.com/horse/ped/2024101886/"
+    },
+    "name": "Catcher In The Rye (愛)",
+    "parents": {
+      "D": "netkeiba-000a01378d",
+      "S": "jbis-0000337424"
+    },
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T17:32:47.838923+00:00",
+  "identity_observed_at": "2026-10-09T17:32:47.838923+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2000,
+    "country": null,
+    "external_ids": {
+      "NETKEIBA": "000a01372d",
+      "UMANITY": "1140006853"
+    },
+    "identity_evidence": {
+      "raw_sha256": "10b9f01a5474dfe93f2bc4e73c1855062b351d9f7a654ff5671f2e5e181c4b11",
+      "record_hash": "5db2a04829bc018d705e3d3dff03ec30657a36f6562404b9c041dc0752947db3",
+      "record_key": "NETKEIBA:000a01372d",
+      "source": "https://db.netkeiba.com/horse/ped/2024101886/"
+    },
+    "name": "Catcher In The Rye (愛)",
+    "parents": {
+      "D": "netkeiba-000a01378d",
+      "S": "jbis-0000337424"
+    },
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T17:36:02.240364+00:00",
+      "content_hash": "cc39827a67b1c24af12669c1618e7deececd9b8ef162031aed42915486f378e2",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T17:36:02.240364+00:00",
+      "input_hash": "4d6a34563c0f06f2e84c590ee06f4a3542008345cc31964e8f686ec7bbfdc2d4",
+      "previous_revision": null,
+      "revision_id": "rev-4d6a34563c0f06f2e84c590e",
+      "saved_at": "2026-10-09T17:36:02.263717+00:00",
+      "source": {
+        "acquisition_method": "TWO_PROVIDER_MATCH",
+        "captured_at": "2026-10-09T17:12:02.972559+00:00",
+        "corroborating_urls": [
+          "https://db.netkeiba.com/horse/ped/2024101886/",
+          "https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2024101886"
+        ],
+        "origin_group": "NETKEIBA",
+        "raw_sha256": "10b9f01a5474dfe93f2bc4e73c1855062b351d9f7a654ff5671f2e5e181c4b11",
+        "record_hash": "5e68b395da168407c5995e993bb1d0957c7d3aa628de51e9fe83e139753dae7f",
+        "record_hash_kind": "canonical-verified-table-position-sha256",
+        "record_key": "2024101886:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/2024101886/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a01378d",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "父母ID・5代位置・全原票共通関係照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T17:36:02.264704+00:00",
+      "content_hash": "b942faece6a9acb13bde3bb872d2d7b3393f9d6298a9600838fa01be36321e5f",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T17:36:02.264704+00:00",
+      "input_hash": "92eb61bd4744a623a952f9bf19f3a07d73a71f1f9829caa2991016d56a5fd415",
+      "previous_revision": null,
+      "revision_id": "rev-92eb61bd4744a623a952f9bf",
+      "saved_at": "2026-10-09T17:36:02.289115+00:00",
+      "source": {
+        "acquisition_method": "PUBLISHED_PROFILE_ALIAS",
+        "captured_at": "2026-10-09T17:12:02.972559+00:00",
+        "corroborating_urls": [
+          "https://db.netkeiba.com/horse/ped/2024101886/",
+          "https://umanity.jp/racing/database/horse_pedigree.php?horse_id=2024101886"
+        ],
+        "origin_group": "NETKEIBA",
+        "raw_sha256": "10b9f01a5474dfe93f2bc4e73c1855062b351d9f7a654ff5671f2e5e181c4b11",
+        "record_hash": "95b82eac12adcb9f9d590be78bbd7c8165bf40b5af38efe9503d803d80472cd1",
+        "record_hash_kind": "canonical-verified-table-position-sha256",
+        "record_key": "2024101886:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/2024101886/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000337424",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "父母ID・5代位置・全原票共通関係照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:51.744412+00:00",
+      "content_hash": "e6e627507213cc16d3b882b6cc321f41ad268a32be0843c4ee2621012479b0fa",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:51.744391+00:00",
+      "input_hash": "b74f26a60eaf7912d8e486573c931267ffb5f19892e90b6ac0f4dc9ca4daa6ae",
+      "previous_revision": null,
+      "revision_id": "rev-b74f26a60eaf7912d8e48657",
+      "saved_at": "2026-10-10T07:57:51.798064+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "NETKEIBA",
+        "record_hash": "d5fe9c2850cd5488380a6ee48ef2626a8e7fb9b13712affa62c6c7735232c691",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "netkeiba-000a01372d",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://db.netkeiba.com/horse/000a01372d/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T09:03:50.239675+00:00",
+      "content_hash": "330e6e0f22069b46b4cb7363deffb15b845015e708706a03594ad96e143298a6",
+      "field": "attribute:training_country_user",
+      "first_observed_at": "2026-10-10T17:58:46+09:00",
+      "input_hash": "316e0690e2ca87da98dd86b237e23a89f49f8defa24bbdc1e6b868ec2a485674",
+      "previous_revision": null,
+      "revision_id": "rev-316e0690e2ca87da98dd86b2",
+      "saved_at": "2026-10-10T09:03:50.285046+00:00",
+      "source": {
+        "acquisition_method": "user-chat",
+        "origin_group": "USER_CHAT",
+        "original_search_cutoff": "2026-10-10T07:58:22.155591+00:00",
+        "record_hash": "efa107e26c1d3731d0d3a4408b5890d18fde7efc39908de792c75cd621b681ee",
+        "record_key": "netkeiba-000a01372d",
+        "resolution_policy": "USER_CONFIRMED_NAME_SUFFIX_V1",
+        "source_class": "USER_PROVIDED",
+        "subject_name": "Catcher In The Rye (愛)",
+        "user_received_at": "2026-10-10T17:58:46+09:00",
+        "user_reply_text": "確認待ち一覧について。\n名前の末尾に（USA）とあればそれが調教国で良い。漢字の場合も同一。\nひとつ質問：馬名を参照するときに（）も含まれないよね？例：ベンバトルを参照する場合、「ベンバトル(GB)と完全一致しないといけない」など、理想は\"ベンバトル\"と馬名で参照されること。"
+      },
+      "status": "VERIFIED",
+      "value": "IE",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 利用者の末尾国指定を本人ID・確認待ち一覧と照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

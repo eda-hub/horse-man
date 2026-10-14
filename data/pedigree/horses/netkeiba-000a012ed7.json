@@ -1,0 +1,129 @@
+{
+  "horse_key": "netkeiba-000a012ed7",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2013,
+    "external_ids": {
+      "NETKEIBA": "000a012ed7"
+    },
+    "identity_evidence": {
+      "record_key": "000a012ed7",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02d8c0"
+    },
+    "name": "Zarak (仏)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T09:57:01.193858+00:00",
+  "identity_observed_at": "2026-10-10T09:57:01.193858+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2013,
+    "external_ids": {
+      "NETKEIBA": "000a012ed7"
+    },
+    "identity_evidence": {
+      "record_key": "000a012ed7",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02d8c0"
+    },
+    "name": "Zarak (仏)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T09:57:01.696006+00:00",
+      "content_hash": "30491faa717d317fce0cbbf131fcf787655e2eae08378dc357cf00e9e8d2295e",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T09:57:01.695994+00:00",
+      "input_hash": "2f86d56ec7c80deefe6ac8cca1d6e16b66be32acaa0438fb6fb559cb69586f5e",
+      "previous_revision": null,
+      "revision_id": "rev-2f86d56ec7c80deefe6ac8cc",
+      "saved_at": "2026-10-10T09:57:01.700494+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "bcd81c7887cd1458c9cfabcd52b3e8ff13077a21ea2400fe19507231a9ad7ff1",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d8c0:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d8c0/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001111493",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T09:57:01.709320+00:00",
+      "content_hash": "16f131ff66c12943cfc395306f286481356090feaf4460ad16b744a02bb478c0",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T09:57:01.709313+00:00",
+      "input_hash": "d47b888a366a3fc171dfe7b917bc791b29199952d2e650ec65398dfedb2d4b6f",
+      "previous_revision": null,
+      "revision_id": "rev-d47b888a366a3fc171dfe7b9",
+      "saved_at": "2026-10-10T09:57:01.709628+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "bcd81c7887cd1458c9cfabcd52b3e8ff13077a21ea2400fe19507231a9ad7ff1",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d8c0:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d8c0/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a0126d7",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T12:39:47.791052+00:00",
+      "content_hash": "5bfd43d81c60cb7cced2d8153b818dc7df31654501904727fdc701db5ff6b729",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T12:39:47.791048+00:00",
+      "input_hash": "02623366b74d1535d915443cd6f46ef82c3d6243f91e002311896b8c5fab142f",
+      "previous_revision": null,
+      "revision_id": "rev-02623366b74d1535d915443c",
+      "saved_at": "2026-10-10T12:39:48.794058+00:00",
+      "source": {
+        "acquisition_method": "reviewed-own-individual-training-affiliation",
+        "origin_group": "AHONOORA",
+        "record_hash": "0d419fe94e0b220c9199e092a94feb2ff2c09ba80857b6a77c84d5eb7e4bd3f9",
+        "record_key": "netkeiba-000a012ed7",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://ahonoora.com/zarak.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "FR",
+            "source": {
+              "captured_at": "2026-10-10T12:33:49.265223+00:00",
+              "record_hash": "0d419fe94e0b220c9199e092a94feb2ff2c09ba80857b6a77c84d5eb7e4bd3f9",
+              "url": "https://ahonoora.com/zarak.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年と本人調教師の所属国/Trained列を原文照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

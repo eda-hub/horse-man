@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0001120960",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2010,
+    "external_ids": {
+      "JBIS": "0001120960"
+    },
+    "identity_evidence": {
+      "ancestor_path": "D",
+      "record_hash": "76de89edd67f97184b4bdd7657ce017707a93c2c2a2a7f78746692046a9b56ce",
+      "record_key": "0001120960",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001369505/pedigree/"
+    },
+    "name": "サブラタ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.331631+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.331631+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2010,
+    "external_ids": {
+      "JBIS": "0001120960"
+    },
+    "identity_evidence": {
+      "ancestor_path": "D",
+      "record_hash": "76de89edd67f97184b4bdd7657ce017707a93c2c2a2a7f78746692046a9b56ce",
+      "record_key": "0001120960",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001369505/pedigree/"
+    },
+    "name": "サブラタ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:35.650901+00:00",
+      "content_hash": "14acc8bd4a662e38b25938d4106b5ea985bfd9eefa0d355aeaa514ec45950000",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:35.650901+00:00",
+      "input_hash": "4e705565aadf81ca1fbbecce62c8bda0fd4a6212eef378f7cbbabdf091069cf3",
+      "previous_revision": null,
+      "revision_id": "rev-4e705565aadf81ca1fbbecce",
+      "saved_at": "2026-10-12T06:30:44.838898+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "76de89edd67f97184b4bdd7657ce017707a93c2c2a2a7f78746692046a9b56ce",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001369505:DS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001369505/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000731452",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:35.650901+00:00",
+      "content_hash": "c79afcfc762d03edef1c1e04a13a942400f6b2540985870d7929093db1ff9dbe",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:35.650901+00:00",
+      "input_hash": "e59307b5be7bbee4a739f4df1b65c149b6d9433bdcae83e637ed0f23c8bc4db0",
+      "previous_revision": null,
+      "revision_id": "rev-e59307b5be7bbee4a739f4df",
+      "saved_at": "2026-10-12T06:30:44.840674+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "76de89edd67f97184b4bdd7657ce017707a93c2c2a2a7f78746692046a9b56ce",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001369505:DD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001369505/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000449259",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

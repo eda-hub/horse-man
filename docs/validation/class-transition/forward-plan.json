@@ -1,0 +1,43 @@
+{
+  "schema_version": "class-transition-forward-plan-v1",
+  "race_dates": [
+    "2026-10-17",
+    "2026-10-18",
+    "2026-10-24",
+    "2026-10-25"
+  ],
+  "venues": [
+    "TOKYO",
+    "KYOTO",
+    "NIIGATA"
+  ],
+  "sample_policy": "ALL_APPLICABLE_REQUESTED_RACES",
+  "scope_confirmation": "2026-10-13利用者が第4の4開催日を選択",
+  "sample_target_count": null,
+  "sample_count_policy": "件数上限なし。実該当数を記録し不足を保持。架空の0件実測/予定レース台帳を作らない。",
+  "owners": [
+    "docs/manual/10_prediction.md",
+    "docs/manual/40_shadow.md",
+    "docs/manual/50_review.md"
+  ],
+  "required_inputs": [
+    "固定ProductionとShadowの独立発走前原本/receipt/gate",
+    "同一全馬・cutoff・入力hashと基準への事前binding",
+    "36番の事前情報assessment",
+    "公式全頭結果・取消/同着・独立取得時刻"
+  ],
+  "metrics": [
+    "win/top2/top3 Brier",
+    "基準/比較の◎勝利・上位1/3/6頭勝馬捕捉",
+    "順位変更・改善/中立/悪化",
+    "条件別・不足/不適格/REPLAYの別集計"
+  ],
+  "decision_method": "同一レースの全ペアを保持。Brier上昇または捕捉悪化はWORSENED、悪化なしで改善はIMPROVED、差なしはNEUTRAL。平均差は記述診断で、校正/非劣化の受入や昇格を自動判定しない。",
+  "promotion_policy": "既存50_reviewの複数条件・5例/20例等の目安と良好部分保全により別PR審査。新共通閾値を作らない。",
+  "collection_status": "NOT_STARTED",
+  "non_degradation": "NOT_MEASURED",
+  "live_pair_count": null,
+  "performance_promotion": "NOT_APPROVED",
+  "comparison_method_id": "class-transition-evidence-v1",
+  "comparison_method": "36番の入力充足/直接実走/代替証拠を同時点の根拠付きShadowへ適用し、変更/据置理由と正常部分の保護を記録。年齢属性だけで一律補正しない。数値補正を本準備機能で創作しない。"
+}

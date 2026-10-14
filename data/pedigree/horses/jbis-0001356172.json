@@ -1,0 +1,92 @@
+{
+  "horse_key": "jbis-0001356172",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2022,
+    "external_ids": {
+      "JBIS": "0001356172"
+    },
+    "identity_evidence": {
+      "raw_sha256": "eb79d7c135936d1c91a9aab78219e369f40cc8be10112d85ecdb809a080e1fb5",
+      "record_key": "0001356172",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001356172/"
+    },
+    "name": "ミュークチェルシー",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-11T18:54:52.222182+00:00",
+  "identity_observed_at": "2026-10-11T18:54:52.222182+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2022,
+    "external_ids": {
+      "JBIS": "0001356172"
+    },
+    "identity_evidence": {
+      "raw_sha256": "eb79d7c135936d1c91a9aab78219e369f40cc8be10112d85ecdb809a080e1fb5",
+      "record_key": "0001356172",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001356172/"
+    },
+    "name": "ミュークチェルシー",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:24:35.080322+00:00",
+      "content_hash": "a12f32e67ca4ddbfa7dd3a8d21c6dcd8ac30758c1fb004852d03c4d884be6bbd",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:24:35.080322+00:00",
+      "input_hash": "b39626826d6266d092f398525c6c53ea8daa4beaacb0c7f305796ea417e33fe7",
+      "previous_revision": null,
+      "revision_id": "rev-b39626826d6266d092f39852",
+      "saved_at": "2026-10-12T06:30:42.160274+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "c9de2c4f8b9e9a9bc86c564371e376315e0d5c0bacf156d0e1635a82675323f9",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001356172:S",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001356172/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001110454",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:24:35.080322+00:00",
+      "content_hash": "ad71c0e469d0818da3e480a18e5f260da4572a0d15f5ac9773eb3dd943317753",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:24:35.080322+00:00",
+      "input_hash": "7c9d15a65ca42c8072edcf70a90b797c1fcfd6193b4a608e3f926bdf3bb617be",
+      "previous_revision": null,
+      "revision_id": "rev-7c9d15a65ca42c8072edcf70",
+      "saved_at": "2026-10-12T06:30:42.181870+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "c9de2c4f8b9e9a9bc86c564371e376315e0d5c0bacf156d0e1635a82675323f9",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001356172:D",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001356172/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001142000",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

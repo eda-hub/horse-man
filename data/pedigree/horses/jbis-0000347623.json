@@ -1,0 +1,125 @@
+{
+  "horse_key": "jbis-0000347623",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1990,
+    "external_ids": {
+      "JBIS": "0000347623"
+    },
+    "identity_evidence": {
+      "record_key": "0000347623",
+      "source": "JBIS"
+    },
+    "name": "Inchinor(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:19.243972+00:00",
+  "identity_observed_at": "2026-10-09T15:04:19.243972+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1990,
+    "external_ids": {
+      "JBIS": "0000347623"
+    },
+    "identity_evidence": {
+      "record_key": "0000347623",
+      "source": "JBIS"
+    },
+    "name": "Inchinor(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:42:18.306875+00:00",
+      "content_hash": "961803c56f9dd4e79fe91ac3627e60f4c435510a6f013ff0bd7b21e6c979d9f1",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:42:18.306875+00:00",
+      "input_hash": "6e27b86eed761cbb73902d4a3710a857cca8bfca156f848862c159af8d5345d9",
+      "previous_revision": null,
+      "revision_id": "rev-6e27b86eed761cbb73902d4a",
+      "saved_at": "2026-10-09T15:04:50.623025+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "2aea9f59e2becc3f87513c304ab0dc4a62729f005f98e3c0a529c7a2a98a1704",
+        "record_key": "0001430335",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001430335/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336322",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:42:18.306875+00:00",
+      "content_hash": "d0e0fddab5018deb0f1fd560242f90fcef8dcdee4fb7111c6af288860bdda3f2",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:42:18.306875+00:00",
+      "input_hash": "933737c6def5b95e51851d81d14bfbc81a8ade12abf40e37c3aa723b19e0f3f3",
+      "previous_revision": null,
+      "revision_id": "rev-933737c6def5b95e51851d81",
+      "saved_at": "2026-10-09T15:04:50.623552+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "2aea9f59e2becc3f87513c304ab0dc4a62729f005f98e3c0a529c7a2a98a1704",
+        "record_key": "0001430335",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001430335/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000411821",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T12:39:07.666028+00:00",
+      "content_hash": "d551e1c5a909dcc410fd3a76051648a1db8983df2d25855f9394879160cca942",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T12:39:07.666023+00:00",
+      "input_hash": "1330260a16a1ee47d2f1cb7b3109b33602779187156146c9a5145563067aba3d",
+      "previous_revision": null,
+      "revision_id": "rev-1330260a16a1ee47d2f1cb7b",
+      "saved_at": "2026-10-10T12:39:08.534309+00:00",
+      "source": {
+        "acquisition_method": "reviewed-own-individual-training-affiliation",
+        "origin_group": "AHONOORA",
+        "record_hash": "f2162a2c6f9f127896868a7067072b8b0ea6422fa7992472f0da87e3fb4a7e8c",
+        "record_key": "jbis-0000347623",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://ahonoora.com/inchinor.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-10T12:33:34.524170+00:00",
+              "record_hash": "f2162a2c6f9f127896868a7067072b8b0ea6422fa7992472f0da87e3fb4a7e8c",
+              "url": "https://ahonoora.com/inchinor.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年と本人調教師の所属国/Trained列を原文照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

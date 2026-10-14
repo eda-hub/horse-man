@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001153071",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2012,
+    "external_ids": {
+      "JBIS": "0001153071"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "36b230f0bdad274850da16bd3927ff70b128b890d71b8de72ea6a43acd5500ab",
+      "record_key": "0001153071",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001341858/pedigree/"
+    },
+    "name": "グァンチャーレ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.958224+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.958224+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2012,
+    "external_ids": {
+      "JBIS": "0001153071"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "36b230f0bdad274850da16bd3927ff70b128b890d71b8de72ea6a43acd5500ab",
+      "record_key": "0001153071",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001341858/pedigree/"
+    },
+    "name": "グァンチャーレ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:23:05.172622+00:00",
+      "content_hash": "aa48ff73847bad4e39afa1e4b6c70d932b2ebaf28284ea669008080d306ea998",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:23:05.172622+00:00",
+      "input_hash": "fd6725caf92b3c20ad5724558ab62bc9a55b289025b3be1905d52ba86c829e92",
+      "previous_revision": null,
+      "revision_id": "rev-fd6725caf92b3c20ad572455",
+      "saved_at": "2026-10-12T06:30:39.305334+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "36b230f0bdad274850da16bd3927ff70b128b890d71b8de72ea6a43acd5500ab",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001341858:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001341858/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000801447",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:23:05.172622+00:00",
+      "content_hash": "8e22d371bc81236bd16ba8b591c1e86e4c23eee804dd7f00be84964d6ee55b60",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:23:05.172622+00:00",
+      "input_hash": "3048f9478cdf3202e54a2aaa02bd9826f2eeb3acee7104a055b6ea443e81edca",
+      "previous_revision": null,
+      "revision_id": "rev-3048f9478cdf3202e54a2aaa",
+      "saved_at": "2026-10-12T06:30:39.306889+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "36b230f0bdad274850da16bd3927ff70b128b890d71b8de72ea6a43acd5500ab",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001341858:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001341858/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000736953",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:01.959523+00:00",
+      "content_hash": "1e44f0fcddb651942910c8c0d9b1332818f8b0fff652db67250c55123c031700",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:01.959523+00:00",
+      "input_hash": "d3f41eb4b9c5b322d19ae568b1946e47be2ae9f51eefd7f2981764ee72add306",
+      "previous_revision": null,
+      "revision_id": "rev-d3f41eb4b9c5b322d19ae568",
+      "saved_at": "2026-10-12T07:32:04.332592+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人プロフィールの調教師所属欄を直接取得して照合。",
+          "birth_year": 2012,
+          "country": "JP",
+          "horse": "グァンチャーレ",
+          "trainer": "北出成人",
+          "training_location": "栗東"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-04/jbis-0001153071-source.json",
+        "record_hash": "c5d587bdf40f35e54f3f248b88be4e55aacb32d067618e6268be787e6d4d53f2",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001153071",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001153071/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-12T07:32:01.959523+00:00",
+              "record_hash": "c5d587bdf40f35e54f3f248b88be4e55aacb32d067618e6268be787e6d4d53f2",
+              "url": "https://www.jbis.or.jp/horse/0001153071/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

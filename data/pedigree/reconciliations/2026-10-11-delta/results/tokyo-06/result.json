@@ -1,0 +1,463 @@
+{
+  "actual_starters": 16,
+  "all_runners_included": true,
+  "baseline_refs": {
+    "inventory_git_blob_sha": "9c50813576bf14f181f423da3759e0d983195c43",
+    "pr69": "26fe77e369725fe410f833d5c5f6d22116c7d4f3"
+  },
+  "class": "1_WIN",
+  "counts": {
+    "CANCELLED": 0,
+    "DID_NOT_FINISH": 0,
+    "DISQUALIFIED": 0,
+    "EXCLUDED": 0,
+    "FINISHED": 16,
+    "UNCONFIRMED": 0
+  },
+  "declared_starters": 16,
+  "distance_m": 1400,
+  "execution_number": 2,
+  "fetch_attempts": [
+    {
+      "html_body_saved": false,
+      "method": "DIRECT_HTTP_GET",
+      "outcome": "HTTP_403"
+    },
+    {
+      "method": "WEB_OPEN_ENCODED_URL",
+      "origin_http_status": null,
+      "outcome": "TOOL_INACCESSIBLE_URL"
+    },
+    {
+      "method": "WEB_OPEN_RETRIEVED_OFFICIAL_SOURCE",
+      "outcome": "COMPLETE_OFFICIAL_RESULT_TEXT"
+    }
+  ],
+  "going": "GOOD",
+  "official_source": {
+    "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+    "raw_html_saved": false,
+    "raw_html_sha256": null,
+    "retrieval_limit": "HTML直接取得403。公式ページの取得本文L347〜452を保存し、本文hashを原HTML byteのhashと区別する。",
+    "source_class": "OFFICIAL_JRA",
+    "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/official-extract.txt",
+    "source_excerpt_sha256": "fe38f8732f92a53833c891570e2adaa27dd11297e8b6c4fe94eb96c4ecc05340",
+    "source_lines": [
+      347,
+      452
+    ],
+    "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604040620261011/C1"
+  },
+  "production_eligible": false,
+  "race_date_jst": "2026-10-11",
+  "race_id": "202605040406",
+  "race_number": 6,
+  "race_type": "FLAT",
+  "racecourse": "TOKYO",
+  "record_hash": "e0a1b0db46495d88b85a019a0fb451c67dbae16a052820fb69d0b613b3232a29",
+  "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+  "registered_count_in_official_result": 16,
+  "result_observed_at": "2026-10-11T15:35:48.540551+00:00",
+  "result_rule": "official-finish-position-v1",
+  "result_status": "OFFICIAL_TEXT_VERIFIED",
+  "runners": [
+    {
+      "age": 5,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 3,
+      "corner_positions": [
+        8,
+        5
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-05",
+      "finish_position": 1,
+      "finish_time": "1:25.0",
+      "horse_key": null,
+      "horse_name": "ベルメサイア",
+      "horse_number": 5,
+      "horse_weight": "512(0)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 36.5,
+      "sex": "牝",
+      "source_lines": [
+        371,
+        374
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 51.0,
+      "bracket_number": 4,
+      "corner_positions": [
+        5,
+        5
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-07",
+      "finish_position": 2,
+      "finish_time": "1:25.1",
+      "horse_key": null,
+      "horse_name": "プリプリプリン",
+      "horse_number": 7,
+      "horse_weight": "498(+10)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 36.7,
+      "sex": "牝",
+      "source_lines": [
+        375,
+        379
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 4,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 5,
+      "corner_positions": [
+        5,
+        5
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-10",
+      "finish_position": 3,
+      "finish_time": "1:25.2",
+      "horse_key": null,
+      "horse_name": "ペンテリコン",
+      "horse_number": 10,
+      "horse_weight": "484(-10)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 36.8,
+      "sex": "牝",
+      "source_lines": [
+        380,
+        384
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 54.0,
+      "bracket_number": 6,
+      "corner_positions": [
+        16,
+        16
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-12",
+      "finish_position": 4,
+      "finish_time": "1:25.4",
+      "horse_key": null,
+      "horse_name": "ラエトゥス",
+      "horse_number": 12,
+      "horse_weight": "470(0)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 35.5,
+      "sex": "牝",
+      "source_lines": [
+        385,
+        388
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 5,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 8,
+      "corner_positions": [
+        8,
+        8
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-16",
+      "finish_position": 5,
+      "finish_time": "1:25.4",
+      "horse_key": null,
+      "horse_name": "ノアスペシャル",
+      "horse_number": 16,
+      "horse_weight": "462(-8)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 36.7,
+      "sex": "牝",
+      "source_lines": [
+        389,
+        393
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 54.0,
+      "bracket_number": 5,
+      "corner_positions": [
+        8,
+        9
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-09",
+      "finish_position": 6,
+      "finish_time": "1:25.5",
+      "horse_key": null,
+      "horse_name": "スタートレイン",
+      "horse_number": 9,
+      "horse_weight": "456(+2)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 36.6,
+      "sex": "牝",
+      "source_lines": [
+        394,
+        398
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 54.0,
+      "bracket_number": 7,
+      "corner_positions": [
+        3,
+        3
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-13",
+      "finish_position": 7,
+      "finish_time": "1:25.5",
+      "horse_key": null,
+      "horse_name": "テンハートビート",
+      "horse_number": 13,
+      "horse_weight": "448(-2)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.4,
+      "sex": "牝",
+      "source_lines": [
+        399,
+        402
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 54.0,
+      "bracket_number": 7,
+      "corner_positions": [
+        15,
+        15
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-14",
+      "finish_position": 8,
+      "finish_time": "1:25.5",
+      "horse_key": null,
+      "horse_name": "エスシーレイジュ",
+      "horse_number": 14,
+      "horse_weight": "462(+22)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 35.8,
+      "sex": "牝",
+      "source_lines": [
+        403,
+        407
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 52.0,
+      "bracket_number": 8,
+      "corner_positions": [
+        11,
+        10
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-15",
+      "finish_position": 9,
+      "finish_time": "1:25.7",
+      "horse_key": null,
+      "horse_name": "カーボフリオ",
+      "horse_number": 15,
+      "horse_weight": "452(+4)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 36.6,
+      "sex": "牝",
+      "source_lines": [
+        408,
+        412
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 4,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 2,
+      "corner_positions": [
+        3,
+        3
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-04",
+      "finish_position": 10,
+      "finish_time": "1:25.8",
+      "horse_key": null,
+      "horse_name": "ミュークチェルシー",
+      "horse_number": 4,
+      "horse_weight": "474(+4)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.7,
+      "sex": "牝",
+      "source_lines": [
+        413,
+        416
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 54.0,
+      "bracket_number": 4,
+      "corner_positions": [
+        1,
+        2
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-08",
+      "finish_position": 11,
+      "finish_time": "1:25.9",
+      "horse_key": null,
+      "horse_name": "フュルスティン",
+      "horse_number": 8,
+      "horse_weight": "482(+6)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 38.0,
+      "sex": "牝",
+      "source_lines": [
+        417,
+        421
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 54.0,
+      "bracket_number": 3,
+      "corner_positions": [
+        2,
+        1
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-06",
+      "finish_position": 12,
+      "finish_time": "1:26.1",
+      "horse_key": null,
+      "horse_name": "ブルームコード",
+      "horse_number": 6,
+      "horse_weight": "482(0)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 38.2,
+      "sex": "牝",
+      "source_lines": [
+        422,
+        426
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 4,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 2,
+      "corner_positions": [
+        11,
+        11
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-03",
+      "finish_position": 13,
+      "finish_time": "1:26.3",
+      "horse_key": null,
+      "horse_name": "パッションディーバ",
+      "horse_number": 3,
+      "horse_weight": "460(-4)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.1,
+      "sex": "牝",
+      "source_lines": [
+        427,
+        430
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 4,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 6,
+      "corner_positions": [
+        14,
+        13
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-11",
+      "finish_position": 14,
+      "finish_time": "1:26.8",
+      "horse_key": null,
+      "horse_name": "ティピティーナ",
+      "horse_number": 11,
+      "horse_weight": "438(+2)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.3,
+      "sex": "牝",
+      "source_lines": [
+        431,
+        435
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 51.0,
+      "bracket_number": 1,
+      "corner_positions": [
+        11,
+        13
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-02",
+      "finish_position": 15,
+      "finish_time": "1:27.6",
+      "horse_key": null,
+      "horse_name": "グラスハーティー",
+      "horse_number": 2,
+      "horse_weight": "486(-10)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 38.0,
+      "sex": "牝",
+      "source_lines": [
+        436,
+        440
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 4,
+      "assigned_weight_kg": 55.0,
+      "bracket_number": 1,
+      "corner_positions": [
+        5,
+        11
+      ],
+      "entry_id": "2026-10-11-TOKYO-06-01",
+      "finish_position": 16,
+      "finish_time": "1:28.7",
+      "horse_key": null,
+      "horse_name": "ドルンレースツェン",
+      "horse_number": 1,
+      "horse_weight": "430(0)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 39.5,
+      "sex": "牝",
+      "source_lines": [
+        441,
+        445
+      ],
+      "status": "FINISHED"
+    }
+  ],
+  "saved_review_comparison": {
+    "initial_centre_7_puripuripurin_finish2": "MATCH",
+    "review_git_blob_sha": "c4aaa3cc356af40ac5ac25335bf6c88862488f7e",
+    "review_line": 31,
+    "review_path": "docs/validation/records/2026-10-11.md",
+    "review_rewritten": false,
+    "winner_5_bellmesia": "MATCH"
+  },
+  "scheduled_post_time_jst": "2026-10-11T12:55:00+09:00",
+  "schema_version": "oct11-official-result-extract-v1",
+  "scope_race_id": "2026-10-11-TOKYO-06",
+  "sex_restriction": "FEMALE",
+  "surface": "DIRT",
+  "usage": "REPLAY_RESULT_INPUT_ONLY"
+}

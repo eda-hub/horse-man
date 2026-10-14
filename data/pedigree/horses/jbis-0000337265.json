@@ -1,0 +1,88 @@
+{
+  "horse_key": "jbis-0000337265",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1980,
+    "external_ids": {
+      "JBIS": "0000337265"
+    },
+    "identity_evidence": {
+      "record_key": "0000337265",
+      "source": "JBIS"
+    },
+    "name": "クリスタルグリツターズ(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:18.795637+00:00",
+  "identity_observed_at": "2026-10-09T15:04:18.795637+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1980,
+    "external_ids": {
+      "JBIS": "0000337265"
+    },
+    "identity_evidence": {
+      "record_key": "0000337265",
+      "source": "JBIS"
+    },
+    "name": "クリスタルグリツターズ(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:25:21.172208+00:00",
+      "content_hash": "5216f2b43b7f303d944462170fed0c481a9e35423ba5c254d81e5f2c150208f6",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:25:21.172208+00:00",
+      "input_hash": "1cdd2149105d5931d763f91c1a591fd758a8a76817c0c3a74b4a8ce63a44b45a",
+      "previous_revision": null,
+      "revision_id": "rev-1cdd2149105d5931d763f91c",
+      "saved_at": "2026-10-12T06:30:45.869762+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "65f1ae69012fea9d2cb51d208d2cd03c0c6c4e91f500dc28572f208161909e14",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001333624:DDSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001333624/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000335274",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:25:21.172208+00:00",
+      "content_hash": "e79f044ca7bae11b02af13adb4c1b07b90518e8234b5a66eb6821f14e66d7954",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:25:21.172208+00:00",
+      "input_hash": "c5ee7dabd49cfaac5b59f025ce6f2745b350717ea4975c00221f99f3a9e8358f",
+      "previous_revision": null,
+      "revision_id": "rev-c5ee7dabd49cfaac5b59f025",
+      "saved_at": "2026-10-12T06:30:45.872147+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "65f1ae69012fea9d2cb51d208d2cd03c0c6c4e91f500dc28572f208161909e14",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001333624:DDSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001333624/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000392075",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

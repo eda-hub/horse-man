@@ -1,0 +1,88 @@
+{
+  "schema_version": "task34-checkpoint-v1",
+  "task": 34,
+  "status": "ORDERED_EVENT_ACCEPTANCE_COMPLETE_PROBABILITY_VALIDATION_CONTINUES",
+  "input_pr69_sha": "38b157f9307ec4867dc9fdd65791d5b4b4a1960f",
+  "input_pr68_sha": "df85a75b1d0838d07d894192b6b584c73b7e4eb7",
+  "tasks": {
+    "34-01": "EXACTA_ORDER_COUNT_DUPLICATION_AND_SUM_VERIFIED",
+    "34-02": "TRIFECTA_SIX_PERMUTATIONS_COUNT_DUPLICATION_AND_SUM_VERIFIED",
+    "34-03": "MISSING_ORDERED_PROBABILITY_NOT_ZERO_OR_COMPLETE_VERIFIED"
+  },
+  "implementation": {
+    "code_changed": false,
+    "reason": "既存順序つき事象/formation/表示/共同モデル検査が要件を満たす",
+    "formal_anchor_role_constraints_unchanged": true
+  },
+  "validation": {
+    "synthetic": true,
+    "tests_run": 100,
+    "failures": 0,
+    "skipped": 0,
+    "command": "PYTHONPATH=scripts python3 -m unittest test_recommendation test_dependency_risk test_cycle04_acceptance test_probability_presentation -q",
+    "positive_cases": 11,
+    "negative_cases": 14,
+    "fixture": {
+      "horses": [
+        1,
+        2,
+        3
+      ],
+      "orders": "全6順列、各1/6",
+      "source_ref": "synthetic-six-permutations",
+      "probability_method": "UNCALIBRATED",
+      "exacta_pair_formation": "[[1,2],[1,2]]→2券、馬連は1券",
+      "trifecta_formation": "[[1,2,3],[1,2,3],[1,2,3]]→6券、三連複は1券",
+      "exacta_fixed_pair_probability_sum": "2排他事象の和1/3、全3頭の馬単6事象の和1",
+      "trifecta_probability_sum": 1,
+      "individual_ticket_hit_probability": "1/6",
+      "individual_model_conditional_full_loss_probability": "5/6",
+      "model_absent_full_loss_probability": null
+    },
+    "positive_description": [
+      "券展開/組合せとの差を2券種で確認",
+      "表裏/6順列を別事象として保持",
+      "排他的共同モデルの各券率と総和を2券種で検算",
+      "2券種の確率MISSING表示を未算定のまま保持",
+      "全3頭の馬単6事象総和1",
+      "2券種の共同モデル欠落は全損率null"
+    ],
+    "negative_per_type": [
+      "同一順序券の重複",
+      "対応する順序なし券の逆順重複",
+      "同じ馬の重複",
+      "取消/未知馬",
+      "券種の頭数不一致",
+      "共同モデルの確率null",
+      "共同モデルの総和不正"
+    ],
+    "source_git_blob_sha": {
+      "scripts/recommendation.py": "8fe7d1a679d9da973d17bbc99e29c94e90522e5b",
+      "scripts/dependency_risk.py": "fbc3ae480cb45ca190a762a3a0bdcea71f77e337",
+      "scripts/cycle04_operations.py": "c8470b606838d53fba7262c1c041158a61adbea7",
+      "scripts/probability_presentation.py": "5845a04dd2c286d4e81cef5ce87ca455e1bca85c"
+    },
+    "verification_harness_correction": "補助総和確認で浮動小数点の完全一致を要求して失敗したため、math.fsumと許容誤差1e-12で再実行して成功。実装/回帰の失敗ではない"
+  },
+  "interpretation": [
+    "比較事象とformation展開は正式推奨採用を認証しない。◎/役割の正式制限を維持",
+    "未算定はnull。比較済み/券展開済みを確率生成完了や校正済みへ読み替えない",
+    "共同モデル検算は合成条件付き値で実測確率・校正・性能を認証しない"
+  ],
+  "protected": {
+    "owner_changed": false,
+    "schema_changed": false,
+    "code_changed": false,
+    "workflow_changed": false,
+    "data_changed": false,
+    "main_changed": false,
+    "existing_acceptance_inputs_changed": false
+  },
+  "remaining": {
+    "live_ordered_probability": "CONTINUE_VALIDATION",
+    "calibration": "CONTINUE_VALIDATION",
+    "performance_promoted": false,
+    "task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
+  },
+  "next": "35-01"
+}

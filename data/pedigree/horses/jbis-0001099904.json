@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001099904",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "JBIS": "0001099904"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385",
+      "record_key": "0001099904",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001338873/pedigree/"
+    },
+    "name": "コンデュイット(IRE)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.728536+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.728536+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "JBIS": "0001099904"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385",
+      "record_key": "0001099904",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001338873/pedigree/"
+    },
+    "name": "コンデュイット(IRE)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:23:15.062019+00:00",
+      "content_hash": "a27ecd45e6eebfe0eb9eaad87b479e81ef07c1498aabe003c3781b79c0940136",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+      "input_hash": "045a013f2271e170818fb4a6c3190ae14c690b3ce4c93330b2f0453e4ff3faf0",
+      "previous_revision": null,
+      "revision_id": "rev-045a013f2271e170818fb4a6",
+      "saved_at": "2026-10-12T06:30:46.312070+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001338873:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001338873/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000745340",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:23:15.062019+00:00",
+      "content_hash": "6cda874e09cea3c44b8c9568b618fbd8c7de3a218c50c4fffb899c51e755e263",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:23:15.062019+00:00",
+      "input_hash": "e909b77711741fa7fe93cb08c0bdb7a1f7c68a0e09bf6c0523c9b6a8ddfd8007",
+      "previous_revision": null,
+      "revision_id": "rev-e909b77711741fa7fe93cb08",
+      "saved_at": "2026-10-12T06:30:46.313439+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "5c91dbb13c8188bbd69b16eee4833e17d0a0be3efebf89b1efb0b81140c81385",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001338873:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001338873/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000785050",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:31:53.969576+00:00",
+      "content_hash": "8030dbb2f82cafa5432706e3cb562a2d3601f9eb7cf954881086dc1ae10ad009",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:31:53.969576+00:00",
+      "input_hash": "388974ca52e95c69d8ed46b354563ff90ec826bd1d0205c1b1dd0f8dfc50852a",
+      "previous_revision": null,
+      "revision_id": "rev-388974ca52e95c69d8ed46b3",
+      "saved_at": "2026-10-12T07:32:01.703265+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人をBritish-trainedと明記し、Freemason Lodge所属の2009年継続調教を確認。Japan Cup遠征/日本への繁殖移動を調教所属へ流用しない。",
+          "birth_year": 2005,
+          "country": "GB",
+          "horse": "コンデュイット(IRE)",
+          "trainer": "Michael Stoute",
+          "training_location": "Freemason Lodge, Newmarket"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-03/jbis-0001099904-source.json",
+        "record_hash": "ce7878f7f1c384c439d747fcf8c0c37b83c8a60a470caab0c9a5f84be80e197a",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001099904",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.timeform.com/horse-racing/features/previews/blast-from-the-past-2009-breeders%E2%80%99-cup-turf-2112017"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-12T07:31:53.969576+00:00",
+              "record_hash": "ce7878f7f1c384c439d747fcf8c0c37b83c8a60a470caab0c9a5f84be80e197a",
+              "url": "https://www.timeform.com/horse-racing/features/previews/blast-from-the-past-2009-breeders%E2%80%99-cup-turf-2112017"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

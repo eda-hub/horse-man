@@ -1,0 +1,90 @@
+{
+  "horse_key": "netkeiba-000a024a34",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2022,
+    "external_ids": {
+      "NETKEIBA": "000a024a34"
+    },
+    "identity_evidence": {
+      "record_key": "000a024a34",
+      "source": "NETKEIBA",
+      "source_sheet": "000a024a34"
+    },
+    "name": "Bay City Roller",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T09:34:28.472227+00:00",
+  "identity_observed_at": "2026-10-10T09:34:28.472227+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2022,
+    "external_ids": {
+      "NETKEIBA": "000a024a34"
+    },
+    "identity_evidence": {
+      "record_key": "000a024a34",
+      "source": "NETKEIBA",
+      "source_sheet": "000a024a34"
+    },
+    "name": "Bay City Roller",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T09:34:28.977636+00:00",
+      "content_hash": "2c34938a596bbf2416663008eb95acb8ba0d6156b3dcbce3a56c6230c1db6e10",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T09:34:28.977629+00:00",
+      "input_hash": "8709facc51f64fe7c63efc2fdc8bfb9abd0199f9d1e10f4bc755d4fd3323df86",
+      "previous_revision": null,
+      "revision_id": "rev-8709facc51f64fe7c63efc2f",
+      "saved_at": "2026-10-10T09:34:28.983127+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "f7f2f0afdde13d67cf5a0ca0dbffa922f7c131c56350d12654294763750a71d1",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a024a34:S",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a024a34/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001211267",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T09:34:28.995542+00:00",
+      "content_hash": "03c08a73a12ceeb62b913ed396540a50425b37c05c34ffaf717273985d1642dd",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T09:34:28.995535+00:00",
+      "input_hash": "50adec3eba09002960b0bbe3d45c82465c9f00fea0cf2da50767cffaf853023a",
+      "previous_revision": null,
+      "revision_id": "rev-50adec3eba09002960b0bbe3",
+      "saved_at": "2026-10-10T09:34:28.995844+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "f7f2f0afdde13d67cf5a0ca0dbffa922f7c131c56350d12654294763750a71d1",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a024a34:D",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a024a34/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a024a33",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

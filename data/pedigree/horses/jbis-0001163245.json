@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001163245",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001163245"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "014af82cfac80198fc8e2657d53e38dd641c8d2a1ee2aa2142c01b6fd962adba",
+      "record_key": "0001163245",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001359227/pedigree/"
+    },
+    "name": "アイルハヴアナザー(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:36.075820+00:00",
+  "identity_observed_at": "2026-10-12T06:30:36.075820+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001163245"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "014af82cfac80198fc8e2657d53e38dd641c8d2a1ee2aa2142c01b6fd962adba",
+      "record_key": "0001163245",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001359227/pedigree/"
+    },
+    "name": "アイルハヴアナザー(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:25:45.032435+00:00",
+      "content_hash": "52f6e38e57db629c7745693159b2367ff7dc23b936f08925ac27c7079b685a78",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:25:45.032435+00:00",
+      "input_hash": "6057c75961f651315bae2890faed3f84714a6e3cf09156f9872a54ade11c4a1e",
+      "previous_revision": null,
+      "revision_id": "rev-6057c75961f651315bae2890",
+      "saved_at": "2026-10-12T06:30:47.654939+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "014af82cfac80198fc8e2657d53e38dd641c8d2a1ee2aa2142c01b6fd962adba",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001359227:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001359227/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001002331",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:25:45.032435+00:00",
+      "content_hash": "b2385a4555f5c10d2aea9174ad76676cd03b14e00d98fdd1b88336f99ae36d93",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:25:45.032435+00:00",
+      "input_hash": "e979b513b93ab468d842d928809f1b0a3b6c8f70db530a7ef6632971fc63f4c5",
+      "previous_revision": null,
+      "revision_id": "rev-e979b513b93ab468d842d928",
+      "saved_at": "2026-10-12T06:30:47.656781+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "014af82cfac80198fc8e2657d53e38dd641c8d2a1ee2aa2142c01b6fd962adba",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001359227:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001359227/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000984601",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:01.959523+00:00",
+      "content_hash": "b417194e20785deee8e9ac71d933d7241ba0d100f4f72219b85d9092249a8b7f",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:01.959523+00:00",
+      "input_hash": "07ae645416c2b3483fde62bfafbcdcfaaea4eb59021a2514073496da658b4a8e",
+      "previous_revision": null,
+      "revision_id": "rev-07ae645416c2b3483fde62bf",
+      "saved_at": "2026-10-12T07:32:04.334719+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "公式競馬場記事の本人Hollywood Park調教・Doug O'Neillを照合。日本への種牡馬移動を所属国変更にしない。",
+          "birth_year": 2009,
+          "country": "US",
+          "horse": "アイルハヴアナザー(USA)",
+          "trainer": "Doug O'Neill",
+          "training_location": "Hollywood Park, California"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-04/jbis-0001163245-source.json",
+        "record_hash": "ba7b02ab3365a19aa69635493bc2a10dc5a037d7be0f098c4ccfbaa7c83c2ba4",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001163245",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.churchilldowns.com/horses/news/ill-have-another-works-at-hollywood-park-saturday-drills-possible-for-hansen-union-rags-dullahan/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:32:01.959523+00:00",
+              "record_hash": "ba7b02ab3365a19aa69635493bc2a10dc5a037d7be0f098c4ccfbaa7c83c2ba4",
+              "url": "https://www.churchilldowns.com/horses/news/ill-have-another-works-at-hollywood-park-saturday-drills-possible-for-hansen-union-rags-dullahan/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

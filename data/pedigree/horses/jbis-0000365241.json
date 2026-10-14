@@ -1,0 +1,147 @@
+{
+  "horse_key": "jbis-0000365241",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1992,
+    "external_ids": {
+      "JBIS": "0000365241"
+    },
+    "identity_evidence": {
+      "record_key": "0000365241",
+      "source": "JBIS"
+    },
+    "name": "Kalatos(GER)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:19.394360+00:00",
+  "identity_observed_at": "2026-10-09T15:04:19.394360+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1992,
+    "external_ids": {
+      "JBIS": "0000365241"
+    },
+    "identity_evidence": {
+      "record_key": "0000365241",
+      "source": "JBIS"
+    },
+    "name": "Kalatos(GER)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:51:35.144439+00:00",
+      "content_hash": "295433b9a8617d2e7a3242b7f86a725b385aee82641fc7119d669f63c6541ec6",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:51:35.144439+00:00",
+      "input_hash": "a1c8e56ca19357995e99404d23d5776479b4903cd9cdbfd69daae0f6fa2734c3",
+      "previous_revision": null,
+      "revision_id": "rev-a1c8e56ca19357995e99404d",
+      "saved_at": "2026-10-09T15:04:51.916109+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "611461128bd42015918cd20086043b08c576c7f690d0e2d393a3f01b78854ec1",
+        "record_key": "0001325324",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001325324/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000342292",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:51:35.144439+00:00",
+      "content_hash": "677ed0fd8c92183e4612d647ef82d85867ba45316922db7ecb6e36125e05e11c",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:51:35.144439+00:00",
+      "input_hash": "0c1677f8167ef1ed5bdc57b47e49a5217d5195b4ce2da5f4f5d295e732f3d685",
+      "previous_revision": null,
+      "revision_id": "rev-0c1677f8167ef1ed5bdc57b4",
+      "saved_at": "2026-10-09T15:04:51.916496+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "611461128bd42015918cd20086043b08c576c7f690d0e2d393a3f01b78854ec1",
+        "record_key": "0001325324",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001325324/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000438870",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:14.739435+00:00",
+      "content_hash": "c15d008cbe2b21a8d25b96624d87a614a5c6529b31c0e69bd8a7c45a582e9fd3",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:14.739412+00:00",
+      "input_hash": "5a0a9b43e785d4e85ef5f50f112b363be1cffd771a9e44c4cd3bbd040da452e2",
+      "previous_revision": null,
+      "revision_id": "rev-5a0a9b43e785d4e85ef5f50f",
+      "saved_at": "2026-10-10T07:57:14.803194+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "JBIS",
+        "record_hash": "395b253040730bf85ff14b1458aaaaaf8ed9fd5980da17b25cca275c76ab10d2",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0000365241",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0000365241/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T09:03:43.803606+00:00",
+      "content_hash": "4e2985e4d78381881bf62c1e3a2d8a1fc7c874192f8d4b1848ff56caa619bc81",
+      "field": "attribute:training_country_user",
+      "first_observed_at": "2026-10-10T17:58:46+09:00",
+      "input_hash": "aa3ad0d46ab27ca2b5f9fed31f1797dae444fe0e1d5ac04e670704ad93f5e409",
+      "previous_revision": null,
+      "revision_id": "rev-aa3ad0d46ab27ca2b5f9fed3",
+      "saved_at": "2026-10-10T09:03:43.847799+00:00",
+      "source": {
+        "acquisition_method": "user-chat",
+        "origin_group": "USER_CHAT",
+        "original_search_cutoff": "2026-10-10T07:58:22.155591+00:00",
+        "record_hash": "efa107e26c1d3731d0d3a4408b5890d18fde7efc39908de792c75cd621b681ee",
+        "record_key": "jbis-0000365241",
+        "resolution_policy": "USER_CONFIRMED_NAME_SUFFIX_V1",
+        "source_class": "USER_PROVIDED",
+        "subject_name": "Kalatos(GER)",
+        "user_received_at": "2026-10-10T17:58:46+09:00",
+        "user_reply_text": "確認待ち一覧について。\n名前の末尾に（USA）とあればそれが調教国で良い。漢字の場合も同一。\nひとつ質問：馬名を参照するときに（）も含まれないよね？例：ベンバトルを参照する場合、「ベンバトル(GB)と完全一致しないといけない」など、理想は\"ベンバトル\"と馬名で参照されること。"
+      },
+      "status": "VERIFIED",
+      "value": "DE",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 利用者の末尾国指定を本人ID・確認待ち一覧と照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

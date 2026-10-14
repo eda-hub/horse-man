@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0001191607",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2014,
+    "external_ids": {
+      "JBIS": "0001191607",
+      "NETKEIBA": "2014106046"
+    },
+    "identity_evidence": {
+      "record_key": "0001191607",
+      "source": "JBIS"
+    },
+    "name": "アルアイン",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:31.354732+00:00",
+  "identity_observed_at": "2026-10-09T15:04:31.354732+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2014,
+        "external_ids": {
+          "JBIS": "0001191607",
+          "NETKEIBA": "2014106046"
+        },
+        "identity_evidence": {
+          "record_key": "0001191607",
+          "source": "JBIS"
+        },
+        "name": "アルアイン",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:45.724920+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2014,
+        "external_ids": {
+          "JBIS": "0001191607"
+        },
+        "identity_evidence": {
+          "record_key": "0001191607",
+          "source": "JBIS"
+        },
+        "name": "アルアイン",
+        "status": "RESOLVED"
+      },
+      "event_hash": "b588b5b47ba05a038aa130eb79c988e5f7c70fb2f6a49c3a03407d51b59ca0b6",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2014,
+    "external_ids": {
+      "JBIS": "0001191607"
+    },
+    "identity_evidence": {
+      "record_key": "0001191607",
+      "source": "JBIS"
+    },
+    "name": "アルアイン",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:46:31.766665+00:00",
+      "content_hash": "aa6acc80815f732faa6550a52670e354a69ee8483dc0ebab122177f4b95aafbb",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:46:31.766665+00:00",
+      "input_hash": "b95c63f1a51600fe17d58d5aca5a824fd26c08b3a4513a040c1baa5012161c0e",
+      "previous_revision": null,
+      "revision_id": "rev-b95c63f1a51600fe17d58d5a",
+      "saved_at": "2026-10-09T15:05:17.963599+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "33c04e333d60e901133834efc9724c4952775aa84b4ef9262f885715f45eeca5",
+        "record_key": "0001355039",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001355039/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000742976",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:46:31.766665+00:00",
+      "content_hash": "f434027b0677afa830974f486e85186ba322d9044731299ecf91d751b5a08fcd",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:46:31.766665+00:00",
+      "input_hash": "a42b756aa2c8d04e5af874a6eb910da449754e9e5c972422262ca5cd38c75f64",
+      "previous_revision": null,
+      "revision_id": "rev-a42b756aa2c8d04e5af874a6",
+      "saved_at": "2026-10-09T15:05:17.969468+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "33c04e333d60e901133834efc9724c4952775aa84b4ef9262f885715f45eeca5",
+        "record_key": "0001355039",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001355039/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001142847",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001191607/",
+              "record_hash": "156962b17c4b6d61cbd6a3890ccf1150d66cd76a35c6d79f94efd800b540cc9b",
+              "captured_at": "2026-10-10T04:38:35.340Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:38:35.340Z",
+      "captured_at": "2026-10-10T04:38:35.340Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001191607",
+        "record_hash": "156962b17c4b6d61cbd6a3890ccf1150d66cd76a35c6d79f94efd800b540cc9b",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001191607",
+          "horse_name": "アルアイン",
+          "trainer": "池江 泰寿",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001191607/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-42af2c57aea0ee33a4f6f920",
+      "input_hash": "42af2c57aea0ee33a4f6f9204ce762c6de6d0f4c5bf4c4633d19da59e867dacc",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:38:35.343Z",
+      "content_hash": "754e3643d5379ac9672a7f50a74462a2419decc43783cbb3dbcdd7824fb1a6bb"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

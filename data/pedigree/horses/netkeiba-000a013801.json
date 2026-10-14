@@ -1,0 +1,129 @@
+{
+  "horse_key": "netkeiba-000a013801",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "NETKEIBA": "000a013801"
+    },
+    "identity_evidence": {
+      "record_key": "000a013801",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02d40c"
+    },
+    "name": "Night of Thunder (愛)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T09:57:01.202215+00:00",
+  "identity_observed_at": "2026-10-10T09:57:01.202215+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "NETKEIBA": "000a013801"
+    },
+    "identity_evidence": {
+      "record_key": "000a013801",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02d40c"
+    },
+    "name": "Night of Thunder (愛)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T09:57:01.860129+00:00",
+      "content_hash": "21ea4c1d553847b827f1b0ce898daab3dfc76098f3531ee667683a41864a6376",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T09:57:01.860122+00:00",
+      "input_hash": "349193903d0d1abf0f8eb5bf91039a6f968e920de5d286cde759b0b35c7efaf2",
+      "previous_revision": null,
+      "revision_id": "rev-349193903d0d1abf0f8eb5bf",
+      "saved_at": "2026-10-10T09:57:01.864414+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "7bf0f96b325a8c5481f34e69f2e39ada465282e635a4544bf0a2b145dc80a5e3",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d40c:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d40c/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001111493",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T09:57:01.870634+00:00",
+      "content_hash": "2d477429efc1443fc33ca5cf969d114e11623bd36de12bb1b1517f5c0939a1d8",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T09:57:01.870627+00:00",
+      "input_hash": "f9ea646881134d2ea7cb6cab81d64b08ee86f341d5a4e8ead050fa59eeb87fa3",
+      "previous_revision": null,
+      "revision_id": "rev-f9ea646881134d2ea7cb6cab",
+      "saved_at": "2026-10-10T09:57:01.870939+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "7bf0f96b325a8c5481f34e69f2e39ada465282e635a4544bf0a2b145dc80a5e3",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d40c:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d40c/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a01382a",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T12:39:52.024378+00:00",
+      "content_hash": "92e6a2cb8a3db5178a1163073a873f95d31ec63be1a319128a010709d6c3d8bc",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T12:39:52.024374+00:00",
+      "input_hash": "e8e4c02ed3c34b8e1993bcba46324924e2a02e2b29858c059fede9be2df1f33c",
+      "previous_revision": null,
+      "revision_id": "rev-e8e4c02ed3c34b8e1993bcba",
+      "saved_at": "2026-10-10T12:39:52.995201+00:00",
+      "source": {
+        "acquisition_method": "reviewed-own-individual-training-affiliation",
+        "origin_group": "AHONOORA",
+        "record_hash": "5eb0870f657a5e6611a7a0e547d2a09f1186f976069ff1fd01a0a5d341daf5fb",
+        "record_key": "netkeiba-000a013801",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://ahonoora.com/night_of_thunder.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-10T12:33:49.430028+00:00",
+              "record_hash": "5eb0870f657a5e6611a7a0e547d2a09f1186f976069ff1fd01a0a5d341daf5fb",
+              "url": "https://ahonoora.com/night_of_thunder.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年と本人調教師の所属国/Trained列を原文照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,128 @@
+{
+  "horse_key": "jbis-0000404766",
+  "identity": {
+    "aliases": [
+      "Sailaway (米)"
+    ],
+    "birth_year": 1976,
+    "external_ids": {
+      "JBIS": "0000404766",
+      "NETKEIBA": "000a009c92"
+    },
+    "identity_evidence": {
+      "record_key": "0000404766",
+      "source": "JBIS"
+    },
+    "name": "Sailaway(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:21.398796+00:00",
+  "identity_observed_at": "2026-10-09T15:04:21.398796+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "Sailaway (米)"
+        ],
+        "birth_year": 1976,
+        "external_ids": {
+          "JBIS": "0000404766",
+          "NETKEIBA": "000a009c92"
+        },
+        "identity_evidence": {
+          "record_key": "0000404766",
+          "source": "JBIS"
+        },
+        "name": "Sailaway(USA)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:34.136189+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1976,
+        "external_ids": {
+          "JBIS": "0000404766"
+        },
+        "identity_evidence": {
+          "record_key": "0000404766",
+          "source": "JBIS"
+        },
+        "name": "Sailaway(USA)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "bbf120de5634b78c769c66bdfa11c5f8ba3db7e898a0b1b943c2e0a4e4b5b33d",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1976,
+    "external_ids": {
+      "JBIS": "0000404766"
+    },
+    "identity_evidence": {
+      "record_key": "0000404766",
+      "source": "JBIS"
+    },
+    "name": "Sailaway(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:04:03.828828+00:00",
+      "content_hash": "19d0455e210d6b080810edb04c5f6790d68b5aaaf76be7b7f6ba40cb6f532a54",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:04:03.828823+00:00",
+      "input_hash": "cfdb289ac2a6177ec05384f314f25216457425488b2010bc2d5b725d7071cbe9",
+      "previous_revision": null,
+      "revision_id": "rev-cfdb289ac2a6177ec05384f3",
+      "saved_at": "2026-10-10T10:04:03.829191+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "b381caa9544580287dc2b3ec5e819c9a9f161bd586d19d4ac5e6eb5e3d495726",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02c196:SDDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02c196/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000334708",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:04:03.832651+00:00",
+      "content_hash": "adcc43a4f983c1259ecd3ffe3fcb3e9a46e9a8ff24806debd5643438b209f779",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:04:03.832643+00:00",
+      "input_hash": "9b4b758065786adb7cda491b9d5c6f739dd791a51de75e94320efa3721d161d6",
+      "previous_revision": null,
+      "revision_id": "rev-9b4b758065786adb7cda491b",
+      "saved_at": "2026-10-10T10:04:03.832956+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "b381caa9544580287dc2b3ec5e819c9a9f161bd586d19d4ac5e6eb5e3d495726",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02c196:SDDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02c196/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a009c91",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

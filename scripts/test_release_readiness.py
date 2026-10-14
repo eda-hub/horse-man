@@ -23,6 +23,11 @@ class ReleaseReadiness(unittest.TestCase):
         manifest=build(self.root)
         (self.root/readiness.MANIFEST).write_text(json.dumps(manifest))
         self.git('init','-q')
+        # 一時fixtureだけのGit設定。子maintenanceがcleanup中にobjectsを再作成しない。
+        self.git('config','maintenance.auto','false')
+        self.git('config','maintenance.autoDetach','false')
+        self.git('config','gc.auto','0')
+        self.git('config','gc.autoDetach','false')
         self.git('config','user.email','test@example.invalid')
         self.git('config','user.name','release test')
         self.git('add','.')
@@ -58,3 +63,51 @@ class ReleaseReadiness(unittest.TestCase):
         p=self.root/'docs/manual/60_market.md';p.write_text(p.read_text()+'\n改変\n')
         with self.assertRaisesRegex(ComplianceError,'source hash mismatch'):
             readiness.check(self.root,True)
+
+
+class MainReferenceChecks(unittest.TestCase):
+    setUp = ReleaseReadiness.setUp
+    git = ReleaseReadiness.git
+    main_ref = ReleaseReadiness.main_ref
+
+    def check(self, expected=None):
+        from check_integration_acceptance import check_main_reference
+        return check_main_reference(self.root, expected)
+
+    def test_real_git_worktree_matches_ref_and_is_removed(self):
+        self.main_ref()
+        before = self.git('worktree', 'list', '--porcelain')
+        result = self.check(self.git('rev-parse', 'HEAD'))
+        self.assertTrue(result['main']['operational_ready'])
+        self.assertEqual(result['branch']['status'], 'MAIN_CONTRACT_MATCHED')
+        self.assertTrue(result['monitored_sources_unchanged'])
+        self.assertEqual(before, self.git('worktree', 'list', '--porcelain'))
+
+    def test_unmerged_contract_is_expected_rejection_and_keeps_sources(self):
+        self.main_ref()
+        main_sha = self.git('rev-parse', 'HEAD')
+        p = self.root / 'docs/manual/60_market.md'
+        p.write_text(p.read_text() + '\n合成変更\n')
+        (self.root / readiness.MANIFEST).write_text(json.dumps(build(self.root)))
+        before = self.git('worktree', 'list', '--porcelain')
+        result = self.check(main_sha)
+        self.assertTrue(result['main']['operational_ready'])
+        self.assertFalse(result['branch']['operational_ready'])
+        self.assertEqual(result['branch']['status'], 'UNMERGED_CONTRACT_REJECTED')
+        self.assertEqual(before, self.git('worktree', 'list', '--porcelain'))
+
+    def test_missing_main_reference_does_not_become_expected_rejection(self):
+        with self.assertRaisesRegex(ComplianceError, 'Git input unavailable'):
+            self.check()
+
+    def test_unfrozen_main_is_rejected(self):
+        self.main_ref()
+        with self.assertRaisesRegex(ComplianceError, 'differs from expected input'):
+            self.check('0' * 40)
+
+    def test_modified_source_is_not_expected_unmerged_rejection(self):
+        self.main_ref()
+        p = self.root / 'docs/manual/60_market.md'
+        p.write_text(p.read_text() + '\n不整合\n')
+        with self.assertRaisesRegex(ComplianceError, 'source hash mismatch'):
+            self.check()

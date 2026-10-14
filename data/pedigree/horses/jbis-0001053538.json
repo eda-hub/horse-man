@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0001053538",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "JBIS": "0001053538"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DD",
+      "record_hash": "a896b2caf31f9bd178d9a47a1c6d8c2995ac777be2bec4a7051af681b8c7215d",
+      "record_key": "0001053538",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001375507/pedigree/"
+    },
+    "name": "Laureldean Gale(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.806938+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.806938+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "JBIS": "0001053538"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DD",
+      "record_hash": "a896b2caf31f9bd178d9a47a1c6d8c2995ac777be2bec4a7051af681b8c7215d",
+      "record_key": "0001053538",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001375507/pedigree/"
+    },
+    "name": "Laureldean Gale(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:23:36.135653+00:00",
+      "content_hash": "4e2d959d22d74c70174001a033f314ad3d36755444be85c366ca2392373ced0f",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:23:36.135653+00:00",
+      "input_hash": "2895a712f961f202846f3daf63e12ac6c4e94e10bbe64b9734c4215181d61fb0",
+      "previous_revision": null,
+      "revision_id": "rev-2895a712f961f202846f3daf",
+      "saved_at": "2026-10-12T06:30:38.677960+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "a896b2caf31f9bd178d9a47a1c6d8c2995ac777be2bec4a7051af681b8c7215d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001375507:DDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001375507/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000369314",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:23:36.135653+00:00",
+      "content_hash": "e66982036a23e97f7c9ee39f6a13438f22bbabcd57b09a71eccc1a10af24bec5",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:23:36.135653+00:00",
+      "input_hash": "68b6e422719c34b2efcf873717a81bede881c6e1bad49d1988a755ea58bc30b6",
+      "previous_revision": null,
+      "revision_id": "rev-68b6e422719c34b2efcf8737",
+      "saved_at": "2026-10-12T06:30:38.679420+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "a896b2caf31f9bd178d9a47a1c6d8c2995ac777be2bec4a7051af681b8c7215d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001375507:DDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001375507/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000440712",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

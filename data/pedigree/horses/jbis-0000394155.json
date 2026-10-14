@@ -1,0 +1,128 @@
+{
+  "horse_key": "jbis-0000394155",
+  "identity": {
+    "aliases": [
+      "Foggy Note (米)"
+    ],
+    "birth_year": 1965,
+    "external_ids": {
+      "JBIS": "0000394155",
+      "NETKEIBA": "000a009033"
+    },
+    "identity_evidence": {
+      "record_key": "0000394155",
+      "source": "JBIS"
+    },
+    "name": "Foggy Note(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:10.349793+00:00",
+  "identity_observed_at": "2026-10-09T12:33:10.349793+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "Foggy Note (米)"
+        ],
+        "birth_year": 1965,
+        "external_ids": {
+          "JBIS": "0000394155",
+          "NETKEIBA": "000a009033"
+        },
+        "identity_evidence": {
+          "record_key": "0000394155",
+          "source": "JBIS"
+        },
+        "name": "Foggy Note(USA)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:34.127155+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1965,
+        "external_ids": {
+          "JBIS": "0000394155"
+        },
+        "identity_evidence": {
+          "record_key": "0000394155",
+          "source": "JBIS"
+        },
+        "name": "Foggy Note(USA)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "a695fc27156a23a8331fe4a65f204587c2ba6e8f5f1632f492cebd90c5279fc7",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1965,
+    "external_ids": {
+      "JBIS": "0000394155"
+    },
+    "identity_evidence": {
+      "record_key": "0000394155",
+      "source": "JBIS"
+    },
+    "name": "Foggy Note(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:04:03.820739+00:00",
+      "content_hash": "e8d8e10b03cb32a80a484865ad82a82792bd61c52aa9390c11d2e1921879e285",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:04:03.820734+00:00",
+      "input_hash": "7094207314b794e9aaf5bcdf4f6ffe555c5fd0dd4dcb6f27dcf4d82171f69906",
+      "previous_revision": null,
+      "revision_id": "rev-7094207314b794e9aaf5bcdf",
+      "saved_at": "2026-10-10T10:04:03.821006+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "b381caa9544580287dc2b3ec5e819c9a9f161bd586d19d4ac5e6eb5e3d495726",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02c196:SDSDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02c196/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333972",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:04:03.824554+00:00",
+      "content_hash": "27a7a39e508a61dc0163c46d86261c30893aba5a182902a33fc34e5eaea0966a",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:04:03.824550+00:00",
+      "input_hash": "50a36ee50a47612656f2159bf47b5ec8324b18c0c8311122f2ff0544fc1068d7",
+      "previous_revision": null,
+      "revision_id": "rev-50a36ee50a47612656f2159b",
+      "saved_at": "2026-10-10T10:04:03.824816+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "b381caa9544580287dc2b3ec5e819c9a9f161bd586d19d4ac5e6eb5e3d495726",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02c196:SDSDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02c196/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a008116",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

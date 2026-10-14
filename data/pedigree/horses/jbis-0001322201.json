@@ -1,0 +1,63 @@
+{
+  "horse_key": "jbis-0001322201",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2020,
+    "external_ids": {
+      "JBIS": "0001322201"
+    },
+    "identity_evidence": {
+      "record_hash": "15582077318b7b2a32309c31a9d52f298faeb5ecf48913f3251f0c1e727f71ab",
+      "record_key": "0001322201",
+      "source": "JBIS"
+    },
+    "name": "シランケド",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T15:31:30.036192+00:00",
+  "identity_observed_at": "2026-10-10T15:31:30.036192+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2020,
+    "external_ids": {
+      "JBIS": "0001322201"
+    },
+    "identity_evidence": {
+      "record_hash": "15582077318b7b2a32309c31a9d52f298faeb5ecf48913f3251f0c1e727f71ab",
+      "record_key": "0001322201",
+      "source": "JBIS"
+    },
+    "name": "シランケド",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T15:29:17.343383+00:00",
+      "content_hash": "06b7612c8d1dcc2ceb0e082964ce0d26a0c93bffeef3495e76cbcf1b61b938ba",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T15:29:17.343383+00:00",
+      "input_hash": "9a4ed960bf4c4afe79fde48e59f5f5fe0f48e916ca3a96eb3c3fedf1934d6ff7",
+      "previous_revision": null,
+      "revision_id": "rev-9a4ed960bf4c4afe79fde48e",
+      "saved_at": "2026-10-10T15:31:30.041431+00:00",
+      "source": {
+        "acquisition_method": "original-profile-explicit-father-id-and-existing-independent-id",
+        "origin_group": "JBIS",
+        "record_hash": "15582077318b7b2a32309c31a9d52f298faeb5ecf48913f3251f0c1e727f71ab",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001322201:S",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001322201/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001181460",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人ID・名前・生年・父欄独立IDと既存父レコードを照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,235 @@
+{
+  "schema_version": "pedigree-condition-stat-definition-v1",
+  "definition_id": "prediction-period-jra-training-regions-20261010",
+  "period_start": "2026-08-16",
+  "period_end": "2026-10-04",
+  "data_cutoff": "2026-10-10T10:36:57.027650+00:00",
+  "mode": "REPLAY",
+  "result_rule": "official-finish-position-v1",
+  "comparison": "NON_MATCH",
+  "scope": {},
+  "training_classification": {
+    "version": "user-europe-five-countries-v1",
+    "first_observed_at": "2026-10-10T10:36:57.027650+00:00",
+    "country_selection": "SEARCH_MATCH_PRIORITY_V1",
+    "regions": {
+      "EU": [
+        "GB",
+        "IE",
+        "FR",
+        "DE",
+        "IT"
+      ],
+      "US": [
+        "US"
+      ],
+      "OTHER": [
+        "AR",
+        "AU",
+        "CA",
+        "JP"
+      ]
+    },
+    "source": {
+      "source_class": "USER_PROVIDED",
+      "record_key": "data/pedigree/reconciliations/2026-10-10-training-priority/region-classification-reply.json",
+      "record_hash": "86dc25129ffc405d4b54779bc9349e299fda7d179a3f1288dd8e04847d8b4e2b"
+    },
+    "other_region_note": "既存613父・母父の確認国のうちEU/US以外を一覧固定。未定義国はUNKNOWN。"
+  },
+  "groups": [
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "SIRE",
+      "value": "EU",
+      "group_id": "sire-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "SIRE",
+      "value": "US",
+      "group_id": "sire-us"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "DAM_SIRE",
+      "value": "EU",
+      "group_id": "dam_sire-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "DAM_SIRE",
+      "value": "US",
+      "group_id": "dam_sire-us"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000334731",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000334731-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000337102",
+      "depth": 5,
+      "value": "US",
+      "group_id": "ancestor-jbis-0000337102-us"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0001127392",
+      "depth": 5,
+      "value": "US",
+      "group_id": "ancestor-jbis-0001127392-us"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000336082",
+      "depth": 5,
+      "value": "US",
+      "group_id": "ancestor-jbis-0000336082-us"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000335167",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000335167-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000336085",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000336085-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000334968",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000334968-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000334002",
+      "depth": 5,
+      "value": "US",
+      "group_id": "ancestor-jbis-0000334002-us"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000335975",
+      "depth": 5,
+      "value": "US",
+      "group_id": "ancestor-jbis-0000335975-us"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000334374",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000334374-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000333996",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000333996-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000336572",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000336572-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000714343",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000714343-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000347989",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000347989-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000333862",
+      "depth": 5,
+      "value": "US",
+      "group_id": "ancestor-jbis-0000333862-us"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000334140",
+      "depth": 5,
+      "value": "US",
+      "group_id": "ancestor-jbis-0000334140-us"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000334001",
+      "depth": 5,
+      "value": "US",
+      "group_id": "ancestor-jbis-0000334001-us"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000337424",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000337424-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000340528",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000340528-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000161740",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000161740-eu"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "subject": "ANCESTOR",
+      "ancestor_key": "jbis-0000333952",
+      "depth": 5,
+      "value": "EU",
+      "group_id": "ancestor-jbis-0000333952-eu"
+    }
+  ],
+  "selection_note": "JRA159レースの父/母父EU・USと指定祖先21個体の5代内包＋本人調教地域。全条件直積・曖昧な父系・クロス条件を自動生成しない。"
+}

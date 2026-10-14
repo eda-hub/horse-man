@@ -1,0 +1,219 @@
+{
+  "schema_version": "training-country-reviewed-batch-v1",
+  "batch": "r04",
+  "base_commit": "aa3872eaddf7d2c0f8ccbdb71fafea1aee7b0e6c",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "positions": [
+    16,
+    20
+  ],
+  "subjects": [
+    {
+      "horse_key": "jbis-0001240055",
+      "horse_name": "ドレフォン(USA)",
+      "country": "US",
+      "operation": "IDEMPOTENT_EXISTING_FACT",
+      "record_path": "data/pedigree/horses/jbis-0001240055.json",
+      "before_record_hash": "0497ba9e463a9cd49e65a79cbe92ae433807e340b52a16f3ee19cd8d301398c7",
+      "after_record_hash": "0497ba9e463a9cd49e65a79cbe92ae433807e340b52a16f3ee19cd8d301398c7",
+      "before_revision_hashes": [
+        "ec99c4e99029e1d35553ee005427e7c2180b183fc612519e8f71189ddc58014c",
+        "7784b044ca387736852df889f200b500126c31f437846369cf7f9fab692fcdf4",
+        "957d4843421bb7efa1e3defc9efd20e8325906939dbd42e5e0174e9d66f5a3e4"
+      ],
+      "registry_revision_id": "rev-8c87fe9959556c360992ec59",
+      "registry_revision_content_hash": "957d4843421bb7efa1e3defc9efd20e8325906939dbd42e5e0174e9d66f5a3e4",
+      "proof_kind": "IFHA_TRAINED_COLUMN",
+      "verified_fields": {
+        "birth_date": "2013.02.19",
+        "trainer": "Bob Baffert",
+        "official_row": [
+          "19",
+          "121",
+          "S",
+          "D",
+          "Drefong (USA)",
+          "2013",
+          "C",
+          "Baoma Corporation",
+          "Bob Baffert",
+          "USA"
+        ]
+      },
+      "raw_capture_metadata_paths": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001240055-profile.capture.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001240055-country.capture.json"
+      ],
+      "writer_result": {
+        "horse_key": "jbis-0001240055",
+        "content_hash": "0497ba9e463a9cd49e65a79cbe92ae433807e340b52a16f3ee19cd8d301398c7",
+        "added_revisions": [],
+        "persistence": "LOCAL_READBACK_VERIFIED",
+        "git_persistence": "UNCONFIRMED",
+        "snapshot_persistence": "NOT_EVALUATED",
+        "verified_at": "2026-10-10T05:54:09.192804+00:00"
+      },
+      "second_save_added_revisions": [],
+      "original_details_reconfirmation": "国と今回記載の項目のみを再確認。既存の厩舎所在地の細部や生涯所属網羅は主張しない。"
+    },
+    {
+      "horse_key": "jbis-0001171845",
+      "horse_name": "シルバーステート",
+      "country": "JP",
+      "operation": "IDEMPOTENT_EXISTING_FACT",
+      "record_path": "data/pedigree/horses/jbis-0001171845.json",
+      "before_record_hash": "375c28163f5b0bfac3a446844f41ff7a08c8d5d2e03ca6d1bd97fdb76baaefb0",
+      "after_record_hash": "375c28163f5b0bfac3a446844f41ff7a08c8d5d2e03ca6d1bd97fdb76baaefb0",
+      "before_revision_hashes": [
+        "3c428e617bce4717fd0d47b6fa77342824ea578ce672b01936a1ea3d3eb810c6",
+        "bdfc4f4250f68ce0129d668e0014b8ee756950f187b2c84069c2affcd0be096d",
+        "46919ff8d213a6ececbb90c03f77674c099c85650abaf2a350925a028f32775c"
+      ],
+      "registry_revision_id": "rev-8f30654908305cd055ae1c3f",
+      "registry_revision_content_hash": "46919ff8d213a6ececbb90c03f77674c099c85650abaf2a350925a028f32775c",
+      "proof_kind": "JBIS_TRAINER_AFFILIATION",
+      "verified_fields": {
+        "birth_date": "2013.05.02",
+        "trainer": "藤原 英昭",
+        "trainer_location": "栗東"
+      },
+      "raw_capture_metadata_paths": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001171845-profile.capture.json"
+      ],
+      "writer_result": {
+        "horse_key": "jbis-0001171845",
+        "content_hash": "375c28163f5b0bfac3a446844f41ff7a08c8d5d2e03ca6d1bd97fdb76baaefb0",
+        "added_revisions": [],
+        "persistence": "LOCAL_READBACK_VERIFIED",
+        "git_persistence": "UNCONFIRMED",
+        "snapshot_persistence": "NOT_EVALUATED",
+        "verified_at": "2026-10-10T05:54:09.221109+00:00"
+      },
+      "second_save_added_revisions": [],
+      "original_details_reconfirmation": "国と今回記載の項目のみを再確認。既存の厩舎所在地の細部や生涯所属網羅は主張しない。"
+    },
+    {
+      "horse_key": "jbis-0000619768",
+      "horse_name": "ゴールドアリュール",
+      "country": "JP",
+      "operation": "IDEMPOTENT_EXISTING_FACT",
+      "record_path": "data/pedigree/horses/jbis-0000619768.json",
+      "before_record_hash": "4587d029cdb42879d10b52e355406c84eba4dee5d311568983262214010b3274",
+      "after_record_hash": "4587d029cdb42879d10b52e355406c84eba4dee5d311568983262214010b3274",
+      "before_revision_hashes": [
+        "1a70dd4792d38e8bdc16594cdd6163ecafe2c57cef8c93d15213a6fa5186cf72",
+        "cac9929e961924fada8fa52ccab8e5b6278541fe3574ca0b81b394f12ff8f652",
+        "0b43b38f905deac96603710dae81db6bb01c2775a94a3b2cbe871059287dcd7d"
+      ],
+      "registry_revision_id": "rev-a252f8e037e9880e22d5abc4",
+      "registry_revision_content_hash": "0b43b38f905deac96603710dae81db6bb01c2775a94a3b2cbe871059287dcd7d",
+      "proof_kind": "JBIS_TRAINER_AFFILIATION",
+      "verified_fields": {
+        "birth_date": "1999.03.03",
+        "trainer": "池江 泰郎",
+        "trainer_location": "栗東"
+      },
+      "raw_capture_metadata_paths": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0000619768-profile.capture.json"
+      ],
+      "writer_result": {
+        "horse_key": "jbis-0000619768",
+        "content_hash": "4587d029cdb42879d10b52e355406c84eba4dee5d311568983262214010b3274",
+        "added_revisions": [],
+        "persistence": "LOCAL_READBACK_VERIFIED",
+        "git_persistence": "UNCONFIRMED",
+        "snapshot_persistence": "NOT_EVALUATED",
+        "verified_at": "2026-10-10T05:54:09.416356+00:00"
+      },
+      "second_save_added_revisions": [],
+      "original_details_reconfirmation": "国と今回記載の項目のみを再確認。既存の厩舎所在地の細部や生涯所属網羅は主張しない。"
+    },
+    {
+      "horse_key": "jbis-0001104811",
+      "horse_name": "ゴールドシップ",
+      "country": "JP",
+      "operation": "IDEMPOTENT_EXISTING_FACT",
+      "record_path": "data/pedigree/horses/jbis-0001104811.json",
+      "before_record_hash": "c53d1e4660df1fcc26f2f896cb20cf47f1b5767d32c160b5952676997c9e74f2",
+      "after_record_hash": "c53d1e4660df1fcc26f2f896cb20cf47f1b5767d32c160b5952676997c9e74f2",
+      "before_revision_hashes": [
+        "36f57b1021ea2bb0e985192e456c479482125ee39041da36865d12470f204726",
+        "04027bea78c8bd8a7c82f9cea15fce882f0f6160bdce5624adb72e2d61bcaf3d",
+        "b5af14766698c396c0d8c92f2025a2211313409c0da48bea2f81195cb40e86e4"
+      ],
+      "registry_revision_id": "rev-851e4e4d05a41d7dcdf0c305",
+      "registry_revision_content_hash": "b5af14766698c396c0d8c92f2025a2211313409c0da48bea2f81195cb40e86e4",
+      "proof_kind": "JBIS_TRAINER_AFFILIATION",
+      "verified_fields": {
+        "birth_date": "2009.03.06",
+        "trainer": "須貝 尚介",
+        "trainer_location": "栗東"
+      },
+      "raw_capture_metadata_paths": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001104811-profile.capture.json"
+      ],
+      "writer_result": {
+        "horse_key": "jbis-0001104811",
+        "content_hash": "c53d1e4660df1fcc26f2f896cb20cf47f1b5767d32c160b5952676997c9e74f2",
+        "added_revisions": [],
+        "persistence": "LOCAL_READBACK_VERIFIED",
+        "git_persistence": "UNCONFIRMED",
+        "snapshot_persistence": "NOT_EVALUATED",
+        "verified_at": "2026-10-10T05:54:09.458799+00:00"
+      },
+      "second_save_added_revisions": [],
+      "original_details_reconfirmation": "国と今回記載の項目のみを再確認。既存の厩舎所在地の細部や生涯所属網羅は主張しない。"
+    },
+    {
+      "horse_key": "jbis-0001293348",
+      "horse_name": "ブリックスアンドモルタル(USA)",
+      "country": "US",
+      "operation": "IDEMPOTENT_EXISTING_FACT",
+      "record_path": "data/pedigree/horses/jbis-0001293348.json",
+      "before_record_hash": "11dce829ee28d0b79867ae245547cfa15c3b3a6ef271b7991ba963209ba026ee",
+      "after_record_hash": "11dce829ee28d0b79867ae245547cfa15c3b3a6ef271b7991ba963209ba026ee",
+      "before_revision_hashes": [
+        "0493aca0b8434347df16ff039c73f7f9d5dc7541c102ac46ba165fae3a6a6a42",
+        "fa9bb977e09d7ac97c90dbad5a0da61b93f0eded39c95680aba3a1235d4b74f7",
+        "b961e9e4d33bc0342798985dc8fbdc528f44480f7862642b27a15fb32f2a9777"
+      ],
+      "registry_revision_id": "rev-f4f04ffa28c3d54b6a1726d0",
+      "registry_revision_content_hash": "b961e9e4d33bc0342798985dc8fbdc528f44480f7862642b27a15fb32f2a9777",
+      "proof_kind": "IFHA_TRAINED_COLUMN",
+      "verified_fields": {
+        "birth_date": "2014.03.02",
+        "trainer": "Chad Brown",
+        "official_row": [
+          "19",
+          "122",
+          "I",
+          "T",
+          "Bricks And Mortar (USA)",
+          "2014",
+          "H",
+          "Klaravich Stables Inc & William Lawrence",
+          "Chad Brown",
+          "USA"
+        ]
+      },
+      "raw_capture_metadata_paths": [
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001293348-profile.capture.json",
+        "data/pedigree/reconciliations/2026-10-10-training-priority/r04-raw/jbis-0001293348-country.capture.json"
+      ],
+      "writer_result": {
+        "horse_key": "jbis-0001293348",
+        "content_hash": "11dce829ee28d0b79867ae245547cfa15c3b3a6ef271b7991ba963209ba026ee",
+        "added_revisions": [],
+        "persistence": "LOCAL_READBACK_VERIFIED",
+        "git_persistence": "UNCONFIRMED",
+        "snapshot_persistence": "NOT_EVALUATED",
+        "verified_at": "2026-10-10T05:54:09.721207+00:00"
+      },
+      "second_save_added_revisions": [],
+      "original_details_reconfirmation": "国と今回記載の項目のみを再確認。既存の厩舎所在地の細部や生涯所属網羅は主張しない。"
+    }
+  ],
+  "verified_at": "2026-10-10T05:54:09.730613+00:00",
+  "added_registry_revisions": 0
+}

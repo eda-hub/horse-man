@@ -1,0 +1,244 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "50",
+  "status": "DOCUMENT_CORRECTIONS_ACCEPTED_RESIDUALS_RETAINED",
+  "basis_commit": "73cad2fe94b58b744dfb07d188fe79dbbea520ff",
+  "main_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+  "plan_ref": "0bfa36c26de6a059374d3a453ddef40c31f6465c",
+  "target_list_frozen_before_review": true,
+  "target_count": 24,
+  "completed_subtasks": [
+    "50-01",
+    "50-02",
+    "50-03",
+    "50-04",
+    "50-05",
+    "50-06",
+    "50-07",
+    "50-08",
+    "50-09",
+    "50-10",
+    "50-11",
+    "50-12",
+    "50-13",
+    "50-14",
+    "50-15",
+    "50-16",
+    "50-17",
+    "50-18",
+    "50-19",
+    "50-20",
+    "50-21",
+    "50-22",
+    "50-23",
+    "50-24"
+  ],
+  "document_reviews": [
+    {
+      "subtask": "50-01",
+      "path": "docs/validation/README.md",
+      "source_git_blob_sha": "eaf986bdd0083572c26bf97b15cf10d27d3fb61f",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "現行v1.7.0入口と第3以前の歴史節を分離。旧固定資金・KPIを第4へ適用しない。"
+    },
+    {
+      "subtask": "50-02",
+      "path": "docs/validation/cycle_04.md",
+      "source_git_blob_sha": "20dce74582b8b57be3e3a66abacfae92fa06d020",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "指定4日/3場、予定144Rと未実施scope、初回全件回顧、旧保留57を分離。"
+    },
+    {
+      "subtask": "50-03",
+      "path": "docs/validation/contracts/cycle04_operations.md",
+      "source_git_blob_sha": "c99c9b3a66ec7f9b1f194717786fc5ceb8287efa",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "宣言→独立FIX→本体/receipt→個別gate、選定/取消履歴、公式全頭結果、独立KPI/原子writerを照合。"
+    },
+    {
+      "subtask": "50-04",
+      "path": "docs/validation/templates/chatgpt_prediction_task.md",
+      "source_git_blob_sha": "b39b425b349f6a8d821921bea4df570fc276c30c",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "main同一commit確認、日次branch、初回/最終/回顧・価格なし保存・独立結果照合を確認。"
+    },
+    {
+      "subtask": "50-05",
+      "path": "docs/validation/persistence-status.md",
+      "source_git_blob_sha": "26d096bed4f9444c89f024981f21307cf75079d2",
+      "result": "CORRECTED",
+      "review": "切替前v1.6.1表記を初回受入履歴に限定し、現行v1.7.0の個別保存へ接続済みと明示。"
+    },
+    {
+      "subtask": "50-06",
+      "path": "docs/validation/individual-completion.md",
+      "source_git_blob_sha": "7ada256e6a436a1d1b5d43b0134760de22c44684",
+      "result": "CORRECTED",
+      "review": "切替前の状態を歴史的受入として説明し、現行v1.7.0とPrediction/推奨の独立完了を明示。"
+    },
+    {
+      "subtask": "50-07",
+      "path": "docs/validation/selection-history.md",
+      "source_git_blob_sha": "f1f81e9f346b0d324b03ddfe66f25792a7ac3685",
+      "result": "CORRECTED",
+      "review": "現在の接続状態とRECOMMENDATION/MARKET_ANALYSISを追加。旧5BUY保留と証跡未確認を保持。"
+    },
+    {
+      "subtask": "50-08",
+      "path": "docs/validation/market-chat-acquisition.md",
+      "source_git_blob_sha": "cfac90adc387e06350d0f411c4535aeb728da1b4",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "チャット公開本文・価格状態・独立市場receipt、8券種/2提供元/2開催実測OPENを保持。"
+    },
+    {
+      "subtask": "50-09",
+      "path": "docs/validation/probability-presentation.md",
+      "source_git_blob_sha": "e6fd7f2df4f2a44872a0fbf176ced22820a4bf3e",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "未算定null/算定済み0・未校正中心値/統計下限を分離、Productionへ区分を推測転記しない。"
+    },
+    {
+      "subtask": "50-10",
+      "path": "docs/validation/dependency-risk.md",
+      "source_git_blob_sha": "2176e8aa3101b4ad2b10d1d38cccc67c2f7a876e",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "価格不要の点数依存と任意仮想資金/共同モデル条件付き全損率を分離、性能未受入を保持。"
+    },
+    {
+      "subtask": "50-11",
+      "path": "docs/jravan/00_project_plan.md",
+      "source_git_blob_sha": "98b54aadc3178904978dd856c2911c936ff1b79e",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "冒頭のv1.7.0正式境界を適用。旧WebUI/BET/SKIP/実購入は歴史設計。Windows/DBは別Phase受入。"
+    },
+    {
+      "subtask": "50-12",
+      "path": "docs/jravan/04_prediction_engine.md",
+      "source_git_blob_sha": "8397eea3407787f84a258d0ee10a69fc6dce8d83",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "冒頭の正式境界とPhase3を優先。旧市場/購入パイプラインは履歴、cutoff/基準不変を保持。"
+    },
+    {
+      "subtask": "50-13",
+      "path": "docs/jravan/07_review_ai.md",
+      "source_git_blob_sha": "7ed6d81504bf4abecb630bf356501616f6e029bb",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "冒頭の非UI/実購入対象外を優先。旧UI/実購入記述は歴史設計、AI補助/人間承認/別PRを保持。"
+    },
+    {
+      "subtask": "50-14",
+      "path": "docs/jravan/10_operations.md",
+      "source_git_blob_sha": "57f574fd1bcf0f2175ff53a56a3d501a97602bc7",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "冒頭の正式境界と現行チャット契約を優先。JV-Linkイベント/常駐Schedulerは将来runtime設計で必須化しない。"
+    },
+    {
+      "subtask": "50-15",
+      "path": "docs/jravan/phases/README.md",
+      "source_git_blob_sha": "1d47a2ae507f99a9c1fbb7c3ef4c2eda3b4778dd",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "Phase4 N/A・5任意市場・6結果/推奨/回顧、独立Phase受入とrollbackを確認。"
+    },
+    {
+      "subtask": "50-16",
+      "path": "docs/jravan/phases/phase_0_foundation.md",
+      "source_git_blob_sha": "b7485273d85ceb9f6673eae1a766be31fcb8e59b",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "Foundation/唯一Writer/DBは別runtime受入、現行チャット運用開始へ混入しない。"
+    },
+    {
+      "subtask": "50-17",
+      "path": "docs/jravan/phases/phase_1_jvlink_ingest.md",
+      "source_git_blob_sha": "ea03c93a5018337ef878c1ffa28d4168cbd9f30d",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "Windows実機JV-Link受入は未実施。現行チャット方式の必須条件へ移植しない。"
+    },
+    {
+      "subtask": "50-18",
+      "path": "docs/jravan/phases/phase_2_data_expansion.md",
+      "source_git_blob_sha": "fff27bba22501dc5ec38358c8729065363a737dc",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "全頭公式結果/個体ID/revision/provenance/唯一Writer、Git研究とDB実移行の区別を保持。"
+    },
+    {
+      "subtask": "50-19",
+      "path": "docs/jravan/phases/phase_3_rule_engine.md",
+      "source_git_blob_sha": "a87000fdafaf166b9c74439401d6b42990d5a88b",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "v1.7.0非価格全頭Prediction/独立推奨/固定後Shadow、実engine接続は別受入。"
+    },
+    {
+      "subtask": "50-20",
+      "path": "docs/jravan/phases/phase_4_prediction_ui.md",
+      "source_git_blob_sha": "c73a936bf0df7d8de029fac1c308f13583e4c988",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "WebUI/画面/hosting対象外、非UI保存/失効/結果照合を確認。"
+    },
+    {
+      "subtask": "50-21",
+      "path": "docs/jravan/phases/phase_5_odds_betting.md",
+      "source_git_blob_sha": "3e950df654cdddac7315e43d69bd5c31f4115840",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "任意sidecarの価格/仮想ROIをPrediction/推奨へ逆流・必須化しない。"
+    },
+    {
+      "subtask": "50-22",
+      "path": "docs/jravan/phases/phase_6_settlement_automation.md",
+      "source_git_blob_sha": "0505ce2668cfea05f292a7476ea9bdb2726ed3dc",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "初回全scope・推奨なし/未最終も回顧、公式結果race/date/取消/同着/KPI独立性を確認。"
+    },
+    {
+      "subtask": "50-23",
+      "path": "docs/jravan/phases/phase_7_ai_review.md",
+      "source_git_blob_sha": "337a45770d815eb2cd71668cffdfc78ee592de2a",
+      "result": "CORRECTED",
+      "review": "旧回顧チャットUIを非UIの明示呼出しへ是正。初回全scope、固定原本、公式全頭結果、独立KPI、人間承認を明示。"
+    },
+    {
+      "subtask": "50-24",
+      "path": "docs/jravan/phases/phase_8_backtest_rules.md",
+      "source_git_blob_sha": "a4852dab562ee85b43e976b7ae13ccc639a28744",
+      "result": "MATCH_EXISTING_BOUNDARY",
+      "review": "cutoff/基準/版/非劣化・人間承認・別PRを保持。旧実購入KPIを新規母数へ混入しない。"
+    }
+  ],
+  "changed_documents": [
+    "docs/validation/persistence-status.md",
+    "docs/validation/individual-completion.md",
+    "docs/validation/selection-history.md",
+    "docs/jravan/phases/phase_7_ai_review.md"
+  ],
+  "validation": {
+    "tests_run": 57,
+    "failures": 0,
+    "skipped": 0,
+    "suites": [
+      "test_persistence_status.py",
+      "test_task_completion.py",
+      "test_selection_history.py"
+    ],
+    "atomic_release_source_check": "PASS。変更4文書は既存134対象manifest/115受入入力の外側。正式Owner/schema/code/release manifestを変更しない。",
+    "history_preserved": "READMEの第3以前歴史節、旧FIX/receipt/KPIを維持。用途名は実PURPOSESのRECOMMENDATION/MARKET_ANALYSISと一致。",
+    "previous_task_ci": [
+      {
+        "id": 38425895419,
+        "conclusion": "success"
+      },
+      {
+        "id": 38425895452,
+        "conclusion": "success"
+      },
+      {
+        "id": 38425895334,
+        "conclusion": "success"
+      }
+    ],
+    "postcommit_ci": "当該HEADのActionsとPR本文で確認"
+  },
+  "formal_recutover": false,
+  "performance_promoted": false,
+  "runtime_connected": false,
+  "residuals": "Windows/DB/engine/AI Adapterは現行チャット構成の適用外・別実装受入。研究PARTIAL・過去保存不足・前向き実測/校正/性能の47番残件を保持。",
+  "next_independent_task": "51-01"
+}

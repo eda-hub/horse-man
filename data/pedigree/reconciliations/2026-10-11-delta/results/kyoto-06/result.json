@@ -1,0 +1,540 @@
+{
+  "actual_starters": 16,
+  "all_runners_included": true,
+  "baseline_refs": {
+    "inventory_git_blob_sha": "9c50813576bf14f181f423da3759e0d983195c43",
+    "main": "00fed628290e4abd47c09f63439d7098ddb64bca",
+    "pr69": "f94173d68d9955fbbde82690ba4fa886305f0b19"
+  },
+  "class": "1_WIN",
+  "counts": {
+    "CANCELLED": 0,
+    "DID_NOT_FINISH": 0,
+    "DISQUALIFIED": 0,
+    "EXCLUDED": 0,
+    "FINISHED": 16,
+    "UNCONFIRMED": 0
+  },
+  "dead_heats": [
+    {
+      "finish_position": 4,
+      "horse_numbers": [
+        2,
+        6
+      ]
+    }
+  ],
+  "declared_starters": 16,
+  "distance_m": 1800,
+  "execution_number": 9,
+  "going": "GOOD",
+  "official_post_time_jst": "2026-10-11T12:40:00+09:00",
+  "official_post_time_note": null,
+  "official_source": {
+    "capture_kind": "WEB_TOOL_OFFICIAL_PAGE_TEXT_EXCERPT",
+    "raw_html_saved": false,
+    "raw_html_sha256": null,
+    "retrieval_limit": "HTML直接取得HTTP 403。公式取得本文hashを原HTML byte hashと区別する。",
+    "source_class": "OFFICIAL_JRA",
+    "source_excerpt_path": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-06/official-extract.txt",
+    "source_excerpt_sha256": "fce1cb5796e8dc3133c1a3c31a89d2ec70dd87f11848d3c867a6e1928ae21f07",
+    "source_lines": [
+      [
+        347,
+        486
+      ]
+    ],
+    "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604040620261011/9F"
+  },
+  "production_eligible": false,
+  "race_date_jst": "2026-10-11",
+  "race_id": "202608040406",
+  "race_incidents": [],
+  "race_number": 6,
+  "race_type": "FLAT",
+  "racecourse": "KYOTO",
+  "record_hash": "bd73b359ef20adad567217a8fe94aededec601832f2a6409169e956b4963b7e7",
+  "record_hash_kind": "canonical-official-text-extracted-result-sha256",
+  "registered_count_in_official_result": 16,
+  "result_observed_at": "2026-10-11T16:08:04.057451+00:00",
+  "result_status": "OFFICIAL_TEXT_VERIFIED",
+  "runners": [
+    {
+      "age": 3,
+      "assigned_weight_kg": 54.0,
+      "bracket_number": 1,
+      "corner_positions": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-01",
+      "finish_margin": "",
+      "finish_position": 1,
+      "finish_time": "1:51.2",
+      "horse_key": null,
+      "horse_name": "ブラックレジェンド",
+      "horse_number": 1,
+      "horse_weight": "452(+4)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.9,
+      "sex": "牡",
+      "source_lines": [
+        371,
+        376
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 8,
+      "corner_positions": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-16",
+      "finish_margin": "１ 3/4",
+      "finish_position": 2,
+      "finish_time": "1:51.5",
+      "horse_key": null,
+      "horse_name": "ハイロード",
+      "horse_number": 16,
+      "horse_weight": "482(+32)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 38.5,
+      "sex": "牡",
+      "source_lines": [
+        377,
+        383
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 5,
+      "corner_positions": [
+        2,
+        3,
+        2,
+        3
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-09",
+      "finish_margin": "クビ",
+      "finish_position": 3,
+      "finish_time": "1:51.6",
+      "horse_key": null,
+      "horse_name": "クリュギスト",
+      "horse_number": 9,
+      "horse_weight": "506(+8)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 38.1,
+      "sex": "牡",
+      "source_lines": [
+        384,
+        390
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 1,
+      "corner_positions": [
+        14,
+        13,
+        4,
+        3
+      ],
+      "dead_heat": true,
+      "entry_id": "2026-10-11-KYOTO-06-02",
+      "finish_margin": "クビ",
+      "finish_position": 4,
+      "finish_time": "1:51.6",
+      "horse_key": null,
+      "horse_name": "ココロヅヨサ",
+      "horse_number": 2,
+      "horse_weight": "458(-4)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 38.1,
+      "sex": "牡",
+      "source_lines": [
+        391,
+        396
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 3,
+      "corner_positions": [
+        5,
+        4,
+        5,
+        5
+      ],
+      "dead_heat": true,
+      "entry_id": "2026-10-11-KYOTO-06-06",
+      "finish_margin": "同着",
+      "finish_position": 4,
+      "finish_time": "1:51.6",
+      "horse_key": null,
+      "horse_name": "ルファーダ",
+      "horse_number": 6,
+      "horse_weight": "494(0)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 38.0,
+      "sex": "牡",
+      "source_lines": [
+        397,
+        403
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 7,
+      "assigned_weight_kg": 58.0,
+      "bracket_number": 6,
+      "corner_positions": [
+        15,
+        15,
+        14,
+        14
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-12",
+      "finish_margin": "２ 1/2",
+      "finish_position": 6,
+      "finish_time": "1:52.0",
+      "horse_key": null,
+      "horse_name": "メイショウオグマ",
+      "horse_number": 12,
+      "horse_weight": "494(+10)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.0,
+      "sex": "せん",
+      "source_lines": [
+        404,
+        410
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 7,
+      "corner_positions": [
+        7,
+        6,
+        8,
+        8
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-13",
+      "finish_margin": "１／２",
+      "finish_position": 7,
+      "finish_time": "1:52.1",
+      "horse_key": null,
+      "horse_name": "ダイメイクマモト",
+      "horse_number": 13,
+      "horse_weight": "482(+6)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 38.1,
+      "sex": "牡",
+      "source_lines": [
+        411,
+        416
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 6,
+      "corner_positions": [
+        4,
+        4,
+        5,
+        6
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-11",
+      "finish_margin": "１ 1/2",
+      "finish_position": 8,
+      "finish_time": "1:52.3",
+      "horse_key": null,
+      "horse_name": "ゴールデンスラム",
+      "horse_number": 11,
+      "horse_weight": "492(+6)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 38.6,
+      "sex": "牡",
+      "source_lines": [
+        417,
+        423
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 53.0,
+      "bracket_number": 7,
+      "corner_positions": [
+        13,
+        13,
+        14,
+        15
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-14",
+      "finish_margin": "アタマ",
+      "finish_position": 9,
+      "finish_time": "1:52.3",
+      "horse_key": null,
+      "horse_name": "レザーアンドレース",
+      "horse_number": 14,
+      "horse_weight": "472(0)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.4,
+      "sex": "牝",
+      "source_lines": [
+        424,
+        430
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 2,
+      "corner_positions": [
+        9,
+        9,
+        11,
+        10
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-04",
+      "finish_margin": "クビ",
+      "finish_position": 10,
+      "finish_time": "1:52.4",
+      "horse_key": null,
+      "horse_name": "ミヤジオズ",
+      "horse_number": 4,
+      "horse_weight": "502(+12)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.7,
+      "sex": "牡",
+      "source_lines": [
+        431,
+        436
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 5,
+      "corner_positions": [
+        7,
+        9,
+        9,
+        9
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-10",
+      "finish_margin": "ハナ",
+      "finish_position": 11,
+      "finish_time": "1:52.4",
+      "horse_key": null,
+      "horse_name": "ジャスティンダラス",
+      "horse_number": 10,
+      "horse_weight": "538(+18)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 38.0,
+      "sex": "牡",
+      "source_lines": [
+        437,
+        443
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 54.0,
+      "bracket_number": 4,
+      "corner_positions": [
+        11,
+        11,
+        11,
+        10
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-07",
+      "finish_margin": "３／４",
+      "finish_position": 12,
+      "finish_time": "1:52.5",
+      "horse_key": null,
+      "horse_name": "アルビオン",
+      "horse_number": 7,
+      "horse_weight": "462(-4)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.9,
+      "sex": "牝",
+      "source_lines": [
+        444,
+        450
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 5,
+      "assigned_weight_kg": 58.0,
+      "bracket_number": 3,
+      "corner_positions": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-05",
+      "finish_margin": "クビ",
+      "finish_position": 13,
+      "finish_time": "1:52.6",
+      "horse_key": null,
+      "horse_name": "ブルーストレイル",
+      "horse_number": 5,
+      "horse_weight": "470(+6)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.1,
+      "sex": "牡",
+      "source_lines": [
+        451,
+        456
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 4,
+      "assigned_weight_kg": 58.0,
+      "bracket_number": 8,
+      "corner_positions": [
+        11,
+        11,
+        11,
+        10
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-15",
+      "finish_margin": "クビ",
+      "finish_position": 14,
+      "finish_time": "1:52.6",
+      "horse_key": null,
+      "horse_name": "ブレイジングスター",
+      "horse_number": 15,
+      "horse_weight": "488(0)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 37.9,
+      "sex": "牡",
+      "source_lines": [
+        457,
+        463
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 2,
+      "corner_positions": [
+        9,
+        6,
+        7,
+        6
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-03",
+      "finish_margin": "３",
+      "finish_position": 15,
+      "finish_time": "1:53.1",
+      "horse_key": null,
+      "horse_name": "キタノシャカール",
+      "horse_number": 3,
+      "horse_weight": "428(-4)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 39.4,
+      "sex": "牡",
+      "source_lines": [
+        464,
+        470
+      ],
+      "status": "FINISHED"
+    },
+    {
+      "age": 3,
+      "assigned_weight_kg": 56.0,
+      "bracket_number": 4,
+      "corner_positions": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "dead_heat": false,
+      "entry_id": "2026-10-11-KYOTO-06-08",
+      "finish_margin": "２",
+      "finish_position": 16,
+      "finish_time": "1:53.5",
+      "horse_key": null,
+      "horse_name": "コルヴァス",
+      "horse_number": 8,
+      "horse_weight": "510(+16)",
+      "identity_status": "NOT_RECONCILED",
+      "last_3f_seconds": 39.1,
+      "sex": "牡",
+      "source_lines": [
+        471,
+        476
+      ],
+      "status": "FINISHED"
+    }
+  ],
+  "saved_review_comparison": {
+    "git_blob_sha": "c4aaa3cc356af40ac5ac25335bf6c88862488f7e",
+    "line": 38,
+    "path": "docs/validation/records/2026-10-11.md",
+    "reference_centre_result": "MATCH",
+    "review_rewritten": false,
+    "winner": "MATCH"
+  },
+  "saved_roster_comparison": {
+    "matched_entries": [
+      {
+        "entry_id": "2026-10-11-KYOTO-06-01",
+        "finish_position": 1,
+        "horse_name": "ブラックレジェンド"
+      },
+      {
+        "entry_id": "2026-10-11-KYOTO-06-02",
+        "finish_position": 4,
+        "horse_name": "ココロヅヨサ"
+      }
+    ],
+    "new_rows": 14,
+    "status": "MATCH"
+  },
+  "schema_version": "oct11-official-result-extract-v1",
+  "scope_race_id": "2026-10-11-KYOTO-06",
+  "sex_restriction": null,
+  "surface": "DIRT",
+  "usage": "REPLAY_RESULT_INPUT_ONLY"
+}

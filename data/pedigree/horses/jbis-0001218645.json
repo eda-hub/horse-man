@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0001218645",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001218645",
+      "NETKEIBA": "2016104854"
+    },
+    "identity_evidence": {
+      "record_key": "0001218645",
+      "source": "JBIS"
+    },
+    "name": "ワールドプレミア",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:44.604094+00:00",
+  "identity_observed_at": "2026-10-09T12:33:44.604094+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2016,
+        "external_ids": {
+          "JBIS": "0001218645",
+          "NETKEIBA": "2016104854"
+        },
+        "identity_evidence": {
+          "record_key": "0001218645",
+          "source": "JBIS"
+        },
+        "name": "ワールドプレミア",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:32:06.009389+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2016,
+        "external_ids": {
+          "JBIS": "0001218645"
+        },
+        "identity_evidence": {
+          "record_key": "0001218645",
+          "source": "JBIS"
+        },
+        "name": "ワールドプレミア",
+        "status": "RESOLVED"
+      },
+      "event_hash": "fa479d4edec371e0a65b5e2d80cf47ef2b183cd23a92d71e839f53ca5583353a",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001218645"
+    },
+    "identity_evidence": {
+      "record_key": "0001218645",
+      "source": "JBIS"
+    },
+    "name": "ワールドプレミア",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:41.304325+00:00",
+      "content_hash": "27cb4ef2b8e4a355ad59bd19a62ca2c00ef1c20f36a38b492a077499df7b392f",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:41.304325+00:00",
+      "input_hash": "1cfc4f32c7d03bee59384915c82cf642ee79474db8f58f3c2b17dc1e79a4302c",
+      "previous_revision": null,
+      "revision_id": "rev-1cfc4f32c7d03bee59384915",
+      "saved_at": "2026-10-09T12:35:17.334134+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "f5e9517f9103d8eee81ec0af945f69f64da240c1476bb75d99ed38060b8abfb5",
+        "record_key": "0001374057",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001374057/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000742976",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:41.304325+00:00",
+      "content_hash": "653ad30d2cdc89ca5a5ba0ca8673a1769cf1305472677e6b4a7b63fbb6bdab3f",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:41.304325+00:00",
+      "input_hash": "85c69956ad8582666a456bcf92c9b05dfb8d97e463e9d61e1ac585d3b7fec125",
+      "previous_revision": null,
+      "revision_id": "rev-85c69956ad8582666a456bcf",
+      "saved_at": "2026-10-09T12:35:17.334994+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "f5e9517f9103d8eee81ec0af945f69f64da240c1476bb75d99ed38060b8abfb5",
+        "record_key": "0001374057",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001374057/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001035987",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001218645/",
+              "record_hash": "d64f0dbeba03bb2e897268f0a49be3fe7155ef8652811dba4768fd2559745bac",
+              "captured_at": "2026-10-10T04:39:31.996Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:39:31.996Z",
+      "captured_at": "2026-10-10T04:39:31.996Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001218645",
+        "record_hash": "d64f0dbeba03bb2e897268f0a49be3fe7155ef8652811dba4768fd2559745bac",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001218645",
+          "horse_name": "ワールドプレミア",
+          "trainer": "友道 康夫",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001218645/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-24c2e1e608a00d1668d49112",
+      "input_hash": "24c2e1e608a00d1668d491124984034b06b14f2cc2ee03980b6ef093964d1285",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:39:31.998Z",
+      "content_hash": "596f623499ced52e7cd81dff2b2e635b97dbb895b3668ffdce83094cc6ab03bc"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

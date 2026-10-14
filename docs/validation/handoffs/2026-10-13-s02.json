@@ -1,0 +1,95 @@
+{
+  "schema_version": "audit-routing-checkpoint-v1",
+  "task": "S02",
+  "status": "COMPLETE",
+  "inputs": {
+    "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "pr69_head": "bb7ddc055f50155fff45e6775b62d9e675db1a12",
+    "source_workflow_commit": "11f4f339391be34bb6fbbc15edbd812e4b0641df",
+    "source_workflow_blob": "75f0376de5e9f7a29f4d1fda6f9a6c293e60cd2a",
+    "formal_workflow_blob": "2bd0bee73a0c8ec88e0cfbbae01bb2301aaa35ad"
+  },
+  "workflow": {
+    "formal_unchanged": true,
+    "research_path": ".github/workflows/check-pedigree-research.yml",
+    "research_audit_count": 17,
+    "research_commands_identical_to_source": true,
+    "permissions": "contents:read",
+    "full_git_history": true,
+    "pdf_dependency": true,
+    "formal_checks_or_writers_in_research": false,
+    "automatic_schema_or_release_switch": false
+  },
+  "reader": {
+    "schema": "preparation-history-reader-v1",
+    "reads": "prediction-day-v2 Markdown only",
+    "formal_json_excluded": true,
+    "read_only": true,
+    "formal_completion_certified": false,
+    "evidence_created": false,
+    "existing_api_count_and_validation_preserved": true,
+    "legacy_success_label_replaced": true
+  },
+  "manifest": {
+    "source_count": 106,
+    "regeneration": "scripts/build_v170_manifest.py",
+    "changed_source_paths": [
+      "scripts/check_prediction_cycle.py",
+      "scripts/test_check_prediction_cycle.py"
+    ],
+    "all_source_hashes_match": true,
+    "atomic_contract_check": "PASS",
+    "operational_ready": false,
+    "require_main_not_bypassed": true
+  },
+  "tests": {
+    "new": 6,
+    "related": 25,
+    "result": "PASS",
+    "cases": [
+      "0件を正式完了にしない",
+      "正式JSONを読取・認証しない",
+      "同日Markdown/JSONを二重登録・改変しない",
+      "CLI JSONの明示境界",
+      "不正準備を失敗として原本保持",
+      "書込操作を拒否"
+    ],
+    "ci_result_location": "成果commitの両workflowとPR68/PR69本文",
+    "ci_results": [
+      {
+        "run_id": 38333543955,
+        "name": "血統研究の原票・Registry・条件集計監査",
+        "conclusion": "success",
+        "job_steps": 22
+      },
+      {
+        "run_id": 38333543928,
+        "name": "予想実行と第3サイクル台帳の機械監査",
+        "conclusion": "success",
+        "job_steps": 13
+      }
+    ],
+    "full_regressions": 495
+  },
+  "protected": {
+    "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "registry_and_26_snapshots_changed": false,
+    "historical_prediction_and_receipts_changed": false,
+    "manual_owner_changed": false,
+    "formal_workflow_changed": false,
+    "research_ci_validation": {
+      "registry_individuals": 15321,
+      "stat_snapshots": 26,
+      "invalid_snapshots": 0,
+      "all_17_audits_passed": true
+    }
+  },
+  "remaining": {
+    "S03": "全入口受入・取得済みmain開始確認。今回のworkflow再接続や合成reader試験で完了としない。",
+    "live_cycle04_races": "NOT_EXECUTED",
+    "performance_promotion": "NOT_APPROVED",
+    "runtime_connection": "NOT_VERIFIED"
+  },
+  "next_task": "S03",
+  "verification_basis_commit": "66710163beba3f5596935ec297642504cb73e0fc"
+}

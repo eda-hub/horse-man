@@ -1,0 +1,129 @@
+{
+  "horse_key": "netkeiba-000a0128fa",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2012,
+    "external_ids": {
+      "NETKEIBA": "000a0128fa"
+    },
+    "identity_evidence": {
+      "record_key": "000a0128fa",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02bb45"
+    },
+    "name": "Gleneagles (愛)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:00:51.425574+00:00",
+  "identity_observed_at": "2026-10-10T10:00:51.425574+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2012,
+    "external_ids": {
+      "NETKEIBA": "000a0128fa"
+    },
+    "identity_evidence": {
+      "record_key": "000a0128fa",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02bb45"
+    },
+    "name": "Gleneagles (愛)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:00:51.470638+00:00",
+      "content_hash": "9b441483c137d20a4f54bd47996a353322185081d3272e181ff17792dd38a7ff",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:00:51.470630+00:00",
+      "input_hash": "af4625b0abda12b20d40ed8ce8ade32e03d9123da38e5b6ee1506c56470c745c",
+      "previous_revision": null,
+      "revision_id": "rev-af4625b0abda12b20d40ed8c",
+      "saved_at": "2026-10-10T10:00:51.473057+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "4b48ce357efe62a3d6c78fe47edfa152003a23bd228e80fad39ad125f4258f0d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02bb45:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02bb45/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000714343",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:00:51.482455+00:00",
+      "content_hash": "01e97ecf5dcaa36bfd9edd6cca86592f51f9fedc430c43ebd53242e09e292218",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:00:51.482446+00:00",
+      "input_hash": "b8fbf74771dbebffaf562d3c645ab2a86df6b3c69f4b89c481abc24fc85b730c",
+      "previous_revision": null,
+      "revision_id": "rev-b8fbf74771dbebffaf562d3c",
+      "saved_at": "2026-10-10T10:00:51.482835+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "4b48ce357efe62a3d6c78fe47edfa152003a23bd228e80fad39ad125f4258f0d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02bb45:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02bb45/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a012910",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T12:39:40.002339+00:00",
+      "content_hash": "78a7a39733eea32e247146d2194836a87aff6a2357c839f2097e8474c6bb104f",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T12:39:40.002334+00:00",
+      "input_hash": "cf88fb1ec0e4fef0b7d322aa4c64bc273a1ea17b12a828f5ff33e3cddbd89065",
+      "previous_revision": null,
+      "revision_id": "rev-cf88fb1ec0e4fef0b7d322aa",
+      "saved_at": "2026-10-10T12:39:40.942976+00:00",
+      "source": {
+        "acquisition_method": "reviewed-own-individual-training-affiliation",
+        "origin_group": "AHONOORA",
+        "record_hash": "3bd333171174e6e3a77fcc98e64374ce4afbad4f5ffc790237440936ae818dbb",
+        "record_key": "netkeiba-000a0128fa",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://ahonoora.com/gleneagles.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "IE",
+            "source": {
+              "captured_at": "2026-10-10T12:33:42.099067+00:00",
+              "record_hash": "3bd333171174e6e3a77fcc98e64374ce4afbad4f5ffc790237440936ae818dbb",
+              "url": "https://ahonoora.com/gleneagles.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年と本人調教師の所属国/Trained列を原文照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

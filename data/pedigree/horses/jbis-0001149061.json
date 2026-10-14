@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0001149061",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2012,
+    "external_ids": {
+      "JBIS": "0001149061",
+      "NETKEIBA": "2012101402"
+    },
+    "identity_evidence": {
+      "record_key": "0001149061",
+      "source": "JBIS"
+    },
+    "name": "グレーターロンドン",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:41.838819+00:00",
+  "identity_observed_at": "2026-10-09T12:33:41.838819+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2012,
+        "external_ids": {
+          "JBIS": "0001149061",
+          "NETKEIBA": "2012101402"
+        },
+        "identity_evidence": {
+          "record_key": "0001149061",
+          "source": "JBIS"
+        },
+        "name": "グレーターロンドン",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:37.604850+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2012,
+        "external_ids": {
+          "JBIS": "0001149061"
+        },
+        "identity_evidence": {
+          "record_key": "0001149061",
+          "source": "JBIS"
+        },
+        "name": "グレーターロンドン",
+        "status": "RESOLVED"
+      },
+      "event_hash": "aa2d9a389e4e9011ed3d3dbb4287515ba360307f09411047685b2183d09fec39",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2012,
+    "external_ids": {
+      "JBIS": "0001149061"
+    },
+    "identity_evidence": {
+      "record_key": "0001149061",
+      "source": "JBIS"
+    },
+    "name": "グレーターロンドン",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:25.543256+00:00",
+      "content_hash": "62e3f817308f5edc57484c15ab7373b7b10d9aa61b5260f887e402049190c782",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:25.543256+00:00",
+      "input_hash": "b5d507d5f6a942179777efebe6cbeb9b6805be725f914151c75defbc93b7d41b",
+      "previous_revision": null,
+      "revision_id": "rev-b5d507d5f6a942179777efeb",
+      "saved_at": "2026-10-09T12:35:12.992807+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "4d8436bb8a771ac8707791820afe7c814cc032be34fd7003d607b02acf1f126a",
+        "record_key": "0001339489",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001339489/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000742976",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:25.543256+00:00",
+      "content_hash": "e1ac48a3f70e996a5a9110ddfef7732e3b383aeae9ba7f0c547385254722f210",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:25.543256+00:00",
+      "input_hash": "2eb19aa257b25f77e3311d758f44140204fed385ba4e07766434bef5624314ca",
+      "previous_revision": null,
+      "revision_id": "rev-2eb19aa257b25f77e3311d75",
+      "saved_at": "2026-10-09T12:35:12.993828+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "4d8436bb8a771ac8707791820afe7c814cc032be34fd7003d607b02acf1f126a",
+        "record_key": "0001339489",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001339489/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000293158",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001149061/",
+              "record_hash": "9876f8edf5b805829e128f02abfc458b5aedf60a3ce3fe7e43fdaf2e6bc8731d",
+              "captured_at": "2026-10-10T04:28:29.652Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:28:29.652Z",
+      "captured_at": "2026-10-10T04:28:29.652Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001149061",
+        "record_hash": "9876f8edf5b805829e128f02abfc458b5aedf60a3ce3fe7e43fdaf2e6bc8731d",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001149061",
+          "horse_name": "グレーターロンドン",
+          "trainer": "大竹 正博",
+          "trainer_location": "美浦",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001149061/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-2e58d66a573124eac74a6df2",
+      "input_hash": "2e58d66a573124eac74a6df26e5ebc71ac0ded85de5d6f78f89d342f8feab1c1",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:28:29.656Z",
+      "content_hash": "5f79a330ccbbbdd04a891452b941b7b0c703797b3c7a82dda349343e522bdfed"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

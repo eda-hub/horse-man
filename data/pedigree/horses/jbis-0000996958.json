@@ -1,0 +1,126 @@
+{
+  "horse_key": "jbis-0000996958",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2006,
+    "external_ids": {
+      "JBIS": "0000996958"
+    },
+    "identity_evidence": {
+      "record_key": "0000996958",
+      "source": "JBIS"
+    },
+    "name": "レッドスパーダ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:28.253699+00:00",
+  "identity_observed_at": "2026-10-09T15:04:28.253699+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2006,
+    "external_ids": {
+      "JBIS": "0000996958"
+    },
+    "identity_evidence": {
+      "record_key": "0000996958",
+      "source": "JBIS"
+    },
+    "name": "レッドスパーダ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:44:55.059143+00:00",
+      "content_hash": "3f291b2422ce5f88a0947ddab746f83dede7ed2c8503204432456b046a733cf5",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:44:55.059143+00:00",
+      "input_hash": "098783d6c3d57b7e272ff0232236aaac3adab1a10d441cfa76bacc66b894ebb1",
+      "previous_revision": null,
+      "revision_id": "rev-098783d6c3d57b7e272ff023",
+      "saved_at": "2026-10-09T15:05:09.940596+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "38fea1cfc94421b623f7c60e9e0a3e11144c9b114248c7e10489d84b875e13eb",
+        "record_key": "0001336027",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001336027/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000287925",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:44:55.059143+00:00",
+      "content_hash": "003040f8945d2fa22430dcb85c5040e0ad43c11f757f5d957f8ed55a0ac6bc82",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:44:55.059143+00:00",
+      "input_hash": "89ef4ce72457d824de32c9219a2ad3891b2b4a6d26df2c2e933e307f280abe61",
+      "previous_revision": null,
+      "revision_id": "rev-89ef4ce72457d824de32c921",
+      "saved_at": "2026-10-09T15:05:09.947165+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "38fea1cfc94421b623f7c60e9e0a3e11144c9b114248c7e10489d84b875e13eb",
+        "record_key": "0001336027",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001336027/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000749660",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T07:56:46.301577+00:00",
+      "content_hash": "97b849d348c183b57cc7d904f0b1073009a5476bbadd38cc5c5a0ab5de714e39",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:56:46.301565+00:00",
+      "input_hash": "cdbd6e92b961c7e9fba7cd5bdefe77ff94d82b3acfc004d361ff5a9dc02a08e3",
+      "previous_revision": null,
+      "revision_id": "rev-cdbd6e92b961c7e9fba7cd5b",
+      "saved_at": "2026-10-10T07:56:46.353656+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "JBIS",
+        "record_hash": "5b4384360e06263f408575d490df2428caa20289dbd10e1896221b1fa1c7c74c",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0000996958",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0000996958/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-10T07:05:22.035910+00:00",
+              "record_hash": "5b4384360e06263f408575d490df2428caa20289dbd10e1896221b1fa1c7c74c",
+              "url": "https://www.jbis.or.jp/horse/0000996958/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

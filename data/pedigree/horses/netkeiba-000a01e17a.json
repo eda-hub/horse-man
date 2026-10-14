@@ -1,0 +1,129 @@
+{
+  "horse_key": "netkeiba-000a01e17a",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "NETKEIBA": "000a01e17a"
+    },
+    "identity_evidence": {
+      "record_key": "000a01e17a",
+      "source": "NETKEIBA",
+      "source_sheet": "000a027c47"
+    },
+    "name": "Commissioner (米)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:04:03.807215+00:00",
+  "identity_observed_at": "2026-10-10T10:04:03.807215+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "NETKEIBA": "000a01e17a"
+    },
+    "identity_evidence": {
+      "record_key": "000a01e17a",
+      "source": "NETKEIBA",
+      "source_sheet": "000a027c47"
+    },
+    "name": "Commissioner (米)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:04:03.928933+00:00",
+      "content_hash": "3c2561d3fe9de358d45350a7403e617f79a3c7c5e614acf1635a128f0e2902f0",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:04:03.928928+00:00",
+      "input_hash": "8ca51804efbd10dcd3c43950589446a67f2221abf495ebee3546b017da5ac4e2",
+      "previous_revision": null,
+      "revision_id": "rev-8ca51804efbd10dcd3c43950",
+      "saved_at": "2026-10-10T10:04:03.930609+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "5d83951149621f5802567554a16c6cb7ef840b216546f3de0ba0f0fa9e4685f6",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a027c47:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a027c47/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000339653",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:04:03.933590+00:00",
+      "content_hash": "cd9e45ee3c81d693e57799e562a466f4cd3de7aec80a7e7e84659d6deccd0efe",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:04:03.933586+00:00",
+      "input_hash": "4b9b5a6ece08cdbcefa5f71f64c4c59696fcd98591c42738ebdbfbf3d2e015e2",
+      "previous_revision": null,
+      "revision_id": "rev-4b9b5a6ece08cdbcefa5f71f",
+      "saved_at": "2026-10-10T10:04:03.935798+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "5d83951149621f5802567554a16c6cb7ef840b216546f3de0ba0f0fa9e4685f6",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a027c47:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a027c47/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a01462f",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T16:54:35.646116+00:00",
+      "content_hash": "29595889c1568ce25b69c6ad38461bafa4fb9cd07e0a6046ce0174e8179720c6",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T16:54:35.646116+00:00",
+      "input_hash": "8421657ad1c2242483b800364769b0d3844f477401b9d84f974c816d14f01e16",
+      "previous_revision": null,
+      "revision_id": "rev-8421657ad1c2242483b80036",
+      "saved_at": "2026-10-10T16:54:36.590221+00:00",
+      "source": {
+        "acquisition_method": "reviewed-own-individual-explicit-trained-column",
+        "origin_group": "IFHA",
+        "record_hash": "f6ec73f63ae5b002f77c77c3da75f43bd2f8c3d66ed39a8e10d60609a8547baa",
+        "record_key": "netkeiba-000a01e17a",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://www.ifhaonline.org/resources/WTRRankings/2014_LWBRR.asp"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-10T07:42:55.796423+00:00",
+              "record_hash": "f6ec73f63ae5b002f77c77c3da75f43bd2f8c3d66ed39a8e10d60609a8547baa",
+              "url": "https://www.ifhaonline.org/resources/WTRRankings/2014_LWBRR.asp"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "IFHA公式2014原票の本人名・2011年生・Trained列USAを照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

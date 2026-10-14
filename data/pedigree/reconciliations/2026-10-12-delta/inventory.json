@@ -1,0 +1,1637 @@
+{
+  "schema_version": "oct12-research-inventory-v1",
+  "execution_number": 40,
+  "subtask_id": "40-01",
+  "status": "INVENTORY_RECORDED_WITH_UNKNOWN_DENOMINATORS",
+  "basis_commit": "61466ed70a3485524123b4629de5a65a762718cd",
+  "usage": "REPLAY_ONLY",
+  "production_eligible": false,
+  "data_cutoff": "2026-10-13T21:48:32+09:00",
+  "sources": [
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/kyoto-10-final.json",
+      "bytes": 285,
+      "git_blob_sha": "77f7993fb2de323dd48b07f66c02ca5489c4a451",
+      "sha256": "40fbd056692d0f4457e6a8af3e2a459b30881dccfc44fe26e83af8d3147eac34"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/kyoto-11-final.json",
+      "bytes": 285,
+      "git_blob_sha": "8c2945812a93edbaa5eb299a24733db17b62745e",
+      "sha256": "3912f4743eac18f00920ca9781ad3f6d5aea2283756c6ade43e9f4f674c1db55"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/kyoto-11-shadow.json",
+      "bytes": 344,
+      "git_blob_sha": "89ee2d59df4c35d05d746b4b690ed2b55be1e47d",
+      "sha256": "4c4d6ed2c15727f92afea219b6173c39f40ae876b590799669e145d88d573181"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/morning.json",
+      "bytes": 900,
+      "git_blob_sha": "c3e4f12422f73fb409e9b0b25e7cb4b3ba9791ed",
+      "sha256": "c1fd457a09dcc045c5e5a99a28d2b00d57b9611dad83426fb9fe3cb7d5567fd1"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/remaining-21.json",
+      "bytes": 823,
+      "git_blob_sha": "5a445339e25464e0cf0b177053e524b2c0a1e872",
+      "sha256": "920a56304c2fbc0e4665e54bc6739870af61ee7e3ed46e633e3469ea489bfa16"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/tokyo-11-final.json",
+      "bytes": 285,
+      "git_blob_sha": "e1d98f9fe610af4882360afc51758417ef5cfd14",
+      "sha256": "e11d41f5c8ce3eb336471cf9bb5b17b8f67848d82f6b428f5034d704e46daffa"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/tokyo-11-shadow.json",
+      "bytes": 287,
+      "git_blob_sha": "feebd2334734b2a44bc855bdda24be335e7f9d75",
+      "sha256": "3937e8ba00e1cddc19a0df305e271dd07e88cda04b888c80d44745c518c004a9"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/tokyo-11-weight.json",
+      "bytes": 287,
+      "git_blob_sha": "ac284c7f44b7313cdb57d601a4ecb3141f9696e4",
+      "sha256": "52caf2ffd1cec4dba567e395f23dae1bc3db9e1b8071a66046bf71a9fbef1fc3"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-10-12.md",
+      "bytes": 21564,
+      "git_blob_sha": "11d4f71baab17bf432fbe9124a63718532757501",
+      "sha256": "0a25584b32f3a58c72e8c53e13274482db538d47225181d94d874c2f8cfd01b4"
+    },
+    {
+      "path": "docs/validation/preservation/2026-10-12.md",
+      "bytes": 12541,
+      "git_blob_sha": "5a98d63cd9ee65bf26ed34b04e221298ca79ce96",
+      "sha256": "6d262466cdd8400a69454024b588ae156afde783f375b0515669c8e279e5ef6f"
+    },
+    {
+      "path": "docs/validation/records/2026-10-12.md",
+      "bytes": 35455,
+      "git_blob_sha": "d9c4a5bf272bf9d8f7faf55c87127aec41b28baf",
+      "sha256": "9ebc5a01fef07ef540aede147016a937fc7b7ba43b087185dc2d861717dbb06e"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-10-12.md",
+      "bytes": 49902,
+      "git_blob_sha": "02a7c5dd260beb91af0d04c39399a861f0324b22",
+      "sha256": "2664fb742ab76341675dd654e4cae2e0944a656e275de6965af50c39f5505766"
+    }
+  ],
+  "registry_alias_blob": "a23296761e921c91b08c0a5ab5c17af876da2820",
+  "known_entries": [
+    {
+      "entry_id": "2026-10-12-KYOTO-01-01",
+      "race_id": "2026-10-12-KYOTO-01",
+      "horse_number": 1,
+      "horse_name": "ナイスウーマン",
+      "source": "docs/validation/preservation/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [
+        "jbis-0001396470"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-01-12",
+      "race_id": "2026-10-12-KYOTO-01",
+      "horse_number": 12,
+      "horse_name": "ファーストステイト",
+      "source": "docs/validation/preservation/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [
+        "netkeiba-2024106740"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-01-14",
+      "race_id": "2026-10-12-KYOTO-01",
+      "horse_number": 14,
+      "horse_name": "パストザクラウン",
+      "source": "docs/validation/preservation/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-02-04",
+      "race_id": "2026-10-12-KYOTO-02",
+      "horse_number": 4,
+      "horse_name": "ケイアイトリノ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-02-10",
+      "race_id": "2026-10-12-KYOTO-02",
+      "horse_number": 10,
+      "horse_name": "ルボワ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-02-11",
+      "race_id": "2026-10-12-KYOTO-02",
+      "horse_number": 11,
+      "horse_name": "ホシヲミテルンナ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-03-01",
+      "race_id": "2026-10-12-KYOTO-03",
+      "horse_number": 1,
+      "horse_name": "アヴァロン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [
+        "jbis-0001393883"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-03-06",
+      "race_id": "2026-10-12-KYOTO-03",
+      "horse_number": 6,
+      "horse_name": "ジャストワナフライ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-03-12",
+      "race_id": "2026-10-12-KYOTO-03",
+      "horse_number": 12,
+      "horse_name": "エアロクリスタ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-04-07",
+      "race_id": "2026-10-12-KYOTO-04",
+      "horse_number": 7,
+      "horse_name": "ロードグレイル",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-04-12",
+      "race_id": "2026-10-12-KYOTO-04",
+      "horse_number": 12,
+      "horse_name": "アメリカンソウル",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-04-14",
+      "race_id": "2026-10-12-KYOTO-04",
+      "horse_number": 14,
+      "horse_name": "アシュトン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-05-02",
+      "race_id": "2026-10-12-KYOTO-05",
+      "horse_number": 2,
+      "horse_name": "サンティエリュール",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-05-04",
+      "race_id": "2026-10-12-KYOTO-05",
+      "horse_number": 4,
+      "horse_name": "ホウオウビースト",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-05-09",
+      "race_id": "2026-10-12-KYOTO-05",
+      "horse_number": 9,
+      "horse_name": "コスモベネチア",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-06-08",
+      "race_id": "2026-10-12-KYOTO-06",
+      "horse_number": 8,
+      "horse_name": "ルーチェドンナ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-06-11",
+      "race_id": "2026-10-12-KYOTO-06",
+      "horse_number": 11,
+      "horse_name": "クラストムーン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-06-12",
+      "race_id": "2026-10-12-KYOTO-06",
+      "horse_number": 12,
+      "horse_name": "メイショウギフト",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-07-02",
+      "race_id": "2026-10-12-KYOTO-07",
+      "horse_number": 2,
+      "horse_name": "アレンスター",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-07-12",
+      "race_id": "2026-10-12-KYOTO-07",
+      "horse_number": 12,
+      "horse_name": "ダイシンレアレア",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-07-15",
+      "race_id": "2026-10-12-KYOTO-07",
+      "horse_number": 15,
+      "horse_name": "ジーティーアメリカ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [
+        "jbis-0001356274"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-08-01",
+      "race_id": "2026-10-12-KYOTO-08",
+      "horse_number": 1,
+      "horse_name": "エレガンシア",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-08-05",
+      "race_id": "2026-10-12-KYOTO-08",
+      "horse_number": 5,
+      "horse_name": "ウィズクィーン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-08-09",
+      "race_id": "2026-10-12-KYOTO-08",
+      "horse_number": 9,
+      "horse_name": "レゼルフォート",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-09-05",
+      "race_id": "2026-10-12-KYOTO-09",
+      "horse_number": 5,
+      "horse_name": "ゼンエスポワール",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [
+        "netkeiba-2022110135"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-09-10",
+      "race_id": "2026-10-12-KYOTO-09",
+      "horse_number": 10,
+      "horse_name": "ニホンピロデヴィン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-09-12",
+      "race_id": "2026-10-12-KYOTO-09",
+      "horse_number": 12,
+      "horse_name": "テイエムサンレーヴ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-10-01",
+      "race_id": "2026-10-12-KYOTO-10",
+      "horse_number": 1,
+      "horse_name": "アンヘリータス",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-10-02",
+      "race_id": "2026-10-12-KYOTO-10",
+      "horse_number": 2,
+      "horse_name": "カムアップローゼス",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "jbis-0001370718"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-10-03",
+      "race_id": "2026-10-12-KYOTO-10",
+      "horse_number": 3,
+      "horse_name": "ハイディージェン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2021103821"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-10-04",
+      "race_id": "2026-10-12-KYOTO-10",
+      "horse_number": 4,
+      "horse_name": "エリカアンディーヴ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-10-05",
+      "race_id": "2026-10-12-KYOTO-10",
+      "horse_number": 5,
+      "horse_name": "アクセス",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2023100947"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-10-06",
+      "race_id": "2026-10-12-KYOTO-10",
+      "horse_number": 6,
+      "horse_name": "ウインリベラシオン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-10-07",
+      "race_id": "2026-10-12-KYOTO-10",
+      "horse_number": 7,
+      "horse_name": "キシダンチョウ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-10-08",
+      "race_id": "2026-10-12-KYOTO-10",
+      "horse_number": 8,
+      "horse_name": "キーウェーブ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-10-09",
+      "race_id": "2026-10-12-KYOTO-10",
+      "horse_number": 9,
+      "horse_name": "ミリタリータトゥー",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2023101180"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-10-10",
+      "race_id": "2026-10-12-KYOTO-10",
+      "horse_number": 10,
+      "horse_name": "ホウオウトランプ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-01",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 1,
+      "horse_name": "ダイヤモンドノット",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2023105685"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-02",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 2,
+      "horse_name": "ショウナンザナドゥ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-03",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 3,
+      "horse_name": "レイベリング",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-04",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 4,
+      "horse_name": "スズハローム",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-05",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 5,
+      "horse_name": "ビッグシーザー",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2020100896"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-06",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 6,
+      "horse_name": "ウインマーベル",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-07",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 7,
+      "horse_name": "ネオトキオ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-08",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 8,
+      "horse_name": "サンダーストラック",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-09",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 9,
+      "horse_name": "オフトレイル",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-10",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 10,
+      "horse_name": "ララマセラシオン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-11",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 11,
+      "horse_name": "レザベーション",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "jbis-0001369090"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-12",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 12,
+      "horse_name": "アイサンサン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2022103875"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-13",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 13,
+      "horse_name": "マイネルチケット",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-14",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 14,
+      "horse_name": "ワイドラトゥール",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-15",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 15,
+      "horse_name": "ジョイフルニュース",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-16",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 16,
+      "horse_name": "ランフォーヴァウ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-17",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 17,
+      "horse_name": "ミニトランザット",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "jbis-0001354702"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-11-18",
+      "race_id": "2026-10-12-KYOTO-11",
+      "horse_number": 18,
+      "horse_name": "エリカエクスプレス",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-12-03",
+      "race_id": "2026-10-12-KYOTO-12",
+      "horse_number": 3,
+      "horse_name": "ウェルカムソング",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-12-09",
+      "race_id": "2026-10-12-KYOTO-12",
+      "horse_number": 9,
+      "horse_name": "トゥインクルアップ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-KYOTO-12-14",
+      "race_id": "2026-10-12-KYOTO-12",
+      "horse_number": 14,
+      "horse_name": "ビスケットアソート",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-01-04",
+      "race_id": "2026-10-12-TOKYO-01",
+      "horse_number": 4,
+      "horse_name": "オーケーエース",
+      "source": "docs/validation/preservation/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-01-06",
+      "race_id": "2026-10-12-TOKYO-01",
+      "horse_number": 6,
+      "horse_name": "アンバーバレット",
+      "source": "docs/validation/preservation/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-01-15",
+      "race_id": "2026-10-12-TOKYO-01",
+      "horse_number": 15,
+      "horse_name": "イトウカカリチョウ",
+      "source": "docs/validation/preservation/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-02-01",
+      "race_id": "2026-10-12-TOKYO-02",
+      "horse_number": 1,
+      "horse_name": "クラオルグジェシダ",
+      "source": "docs/validation/preservation/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-02-02",
+      "race_id": "2026-10-12-TOKYO-02",
+      "horse_number": 2,
+      "horse_name": "ソニックアイル",
+      "source": "docs/validation/preservation/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-02-11",
+      "race_id": "2026-10-12-TOKYO-02",
+      "horse_number": 11,
+      "horse_name": "サンレガート",
+      "source": "docs/validation/preservation/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-03-06",
+      "race_id": "2026-10-12-TOKYO-03",
+      "horse_number": 6,
+      "horse_name": "マイネルリシャール",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-03-08",
+      "race_id": "2026-10-12-TOKYO-03",
+      "horse_number": 8,
+      "horse_name": "マルスレジーナ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-03-09",
+      "race_id": "2026-10-12-TOKYO-03",
+      "horse_number": 9,
+      "horse_name": "ライカホウ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [
+        "netkeiba-2024106145"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-04-02",
+      "race_id": "2026-10-12-TOKYO-04",
+      "horse_number": 2,
+      "horse_name": "バンデルオーラ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [
+        "jbis-0001305513"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-04-04",
+      "race_id": "2026-10-12-TOKYO-04",
+      "horse_number": 4,
+      "horse_name": "セイフウサツキ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-04-08",
+      "race_id": "2026-10-12-TOKYO-04",
+      "horse_number": 8,
+      "horse_name": "セイウンビッグバン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-05-06",
+      "race_id": "2026-10-12-TOKYO-05",
+      "horse_number": 6,
+      "horse_name": "フォンテキアーラ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-05-10",
+      "race_id": "2026-10-12-TOKYO-05",
+      "horse_number": 10,
+      "horse_name": "サントシャペル",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-05-12",
+      "race_id": "2026-10-12-TOKYO-05",
+      "horse_number": 12,
+      "horse_name": "スパリエーラ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-06-05",
+      "race_id": "2026-10-12-TOKYO-06",
+      "horse_number": 5,
+      "horse_name": "ツジベン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-06-07",
+      "race_id": "2026-10-12-TOKYO-06",
+      "horse_number": 7,
+      "horse_name": "マインドブレイズ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-06-14",
+      "race_id": "2026-10-12-TOKYO-06",
+      "horse_number": 14,
+      "horse_name": "サノノソルジャー",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-07-05",
+      "race_id": "2026-10-12-TOKYO-07",
+      "horse_number": 5,
+      "horse_name": "サトノリアン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-07-08",
+      "race_id": "2026-10-12-TOKYO-07",
+      "horse_number": 8,
+      "horse_name": "タマモトリノ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-07-13",
+      "race_id": "2026-10-12-TOKYO-07",
+      "horse_number": 13,
+      "horse_name": "ウィロークリーク",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-08-01",
+      "race_id": "2026-10-12-TOKYO-08",
+      "horse_number": 1,
+      "horse_name": "レガメデルヴェント",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-08-04",
+      "race_id": "2026-10-12-TOKYO-08",
+      "horse_number": 4,
+      "horse_name": "リーチツモドライチ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [
+        "netkeiba-2024108321"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-08-05",
+      "race_id": "2026-10-12-TOKYO-08",
+      "horse_number": 5,
+      "horse_name": "ウィンターブリーズ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-09-04",
+      "race_id": "2026-10-12-TOKYO-09",
+      "horse_number": 4,
+      "horse_name": "タイセイアストロ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-09-08",
+      "race_id": "2026-10-12-TOKYO-09",
+      "horse_number": 8,
+      "horse_name": "サレジオ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-09-10",
+      "race_id": "2026-10-12-TOKYO-09",
+      "horse_number": 10,
+      "horse_name": "マツリダイコ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-10-01",
+      "race_id": "2026-10-12-TOKYO-10",
+      "horse_number": 1,
+      "horse_name": "バドリナート",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [
+        "netkeiba-2023107278"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-10-07",
+      "race_id": "2026-10-12-TOKYO-10",
+      "horse_number": 7,
+      "horse_name": "バレンタインガール",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-10-11",
+      "race_id": "2026-10-12-TOKYO-10",
+      "horse_number": 11,
+      "horse_name": "レッドバンデ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-01",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 1,
+      "horse_name": "メイショウハチコウ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-02",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 2,
+      "horse_name": "アスクセクシーモア",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-03",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 3,
+      "horse_name": "ニシノレヴナント",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-04",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 4,
+      "horse_name": "テリオスララ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-05",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 5,
+      "horse_name": "ボーンディスウェイ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2019104658"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-06",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 6,
+      "horse_name": "ブレイヴロッカー",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-07",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 7,
+      "horse_name": "シルトホルン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-08",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 8,
+      "horse_name": "シルブロン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-09",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 9,
+      "horse_name": "ディマイザキッド",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-10",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 10,
+      "horse_name": "ジュンブロッサム",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2019105118"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-11",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 11,
+      "horse_name": "セイウンプラチナ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2019102628"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-12",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 12,
+      "horse_name": "ジュタ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-13",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 13,
+      "horse_name": "ナムラエイハブ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-14",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 14,
+      "horse_name": "グランドカリナン",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-15",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 15,
+      "horse_name": "メリオーレム",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-16",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 16,
+      "horse_name": "ミッキーゴールド",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2022104765"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-17",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 17,
+      "horse_name": "コスモブッドレア",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [
+        "netkeiba-2021106782"
+      ],
+      "identity_status": "NAME_CANDIDATE_NOT_ID_VERIFIED",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-11-18",
+      "race_id": "2026-10-12-TOKYO-11",
+      "horse_number": 18,
+      "horse_name": "トーセンリョウ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "FINAL_FULL_ROSTER_RECORDED_NOT_OFFICIALLY_RECONCILED",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-12-07",
+      "race_id": "2026-10-12-TOKYO-12",
+      "horse_number": 7,
+      "horse_name": "ユイノカタリベ",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-12-08",
+      "race_id": "2026-10-12-TOKYO-12",
+      "horse_number": 8,
+      "horse_name": "ロードトライデント",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    },
+    {
+      "entry_id": "2026-10-12-TOKYO-12-11",
+      "race_id": "2026-10-12-TOKYO-12",
+      "horse_number": 11,
+      "horse_name": "エテオクロス",
+      "source": "docs/validation/snapshots/2026-10-12.md",
+      "roster_source": "INITIAL_PARTIAL",
+      "registry_name_candidates": [],
+      "identity_status": "NO_NAME_CANDIDATE",
+      "pedigree_coverage": null,
+      "required_country_coverage": null
+    }
+  ],
+  "race_ids": [
+    "2026-10-12-KYOTO-01",
+    "2026-10-12-KYOTO-02",
+    "2026-10-12-KYOTO-03",
+    "2026-10-12-KYOTO-04",
+    "2026-10-12-KYOTO-05",
+    "2026-10-12-KYOTO-06",
+    "2026-10-12-KYOTO-07",
+    "2026-10-12-KYOTO-08",
+    "2026-10-12-KYOTO-09",
+    "2026-10-12-KYOTO-10",
+    "2026-10-12-KYOTO-11",
+    "2026-10-12-KYOTO-12",
+    "2026-10-12-TOKYO-01",
+    "2026-10-12-TOKYO-02",
+    "2026-10-12-TOKYO-03",
+    "2026-10-12-TOKYO-04",
+    "2026-10-12-TOKYO-05",
+    "2026-10-12-TOKYO-06",
+    "2026-10-12-TOKYO-07",
+    "2026-10-12-TOKYO-08",
+    "2026-10-12-TOKYO-09",
+    "2026-10-12-TOKYO-10",
+    "2026-10-12-TOKYO-11",
+    "2026-10-12-TOKYO-12"
+  ],
+  "summary": {
+    "initial_races": 24,
+    "recorded_final_rosters": 3,
+    "recorded_final_roster_rows": 46,
+    "initial_and_final_distinct_rows": 109,
+    "name_candidate_rows": 23,
+    "no_name_candidate_rows": 86,
+    "all_registered_rows": null,
+    "all_actual_starters": null,
+    "identity_verified_rows": null,
+    "complete_five_generation_rows": null,
+    "required_country_subjects": null
+  },
+  "unknowns": [
+    "最終3R以外の全名簿・全24Rの公式登録/実出走母数は未取得",
+    "名称候補23件は本人ID照合前。血統/必要国の検証件数は未確定",
+    "109行は初回/最終表抽出で、回顧勝馬の別情報と未知出走馬は未加算"
+  ],
+  "queued_tasks": {
+    "40": [
+      {
+        "subtask_id": "40-02",
+        "race_id": "2026-10-12-KYOTO-01",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-03",
+        "race_id": "2026-10-12-KYOTO-02",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-04",
+        "race_id": "2026-10-12-KYOTO-03",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-05",
+        "race_id": "2026-10-12-KYOTO-04",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-06",
+        "race_id": "2026-10-12-KYOTO-05",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-07",
+        "race_id": "2026-10-12-KYOTO-06",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-08",
+        "race_id": "2026-10-12-KYOTO-07",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-09",
+        "race_id": "2026-10-12-KYOTO-08",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-10",
+        "race_id": "2026-10-12-KYOTO-09",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-11",
+        "race_id": "2026-10-12-KYOTO-10",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-12",
+        "race_id": "2026-10-12-KYOTO-11",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-13",
+        "race_id": "2026-10-12-KYOTO-12",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-14",
+        "race_id": "2026-10-12-TOKYO-01",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-15",
+        "race_id": "2026-10-12-TOKYO-02",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-16",
+        "race_id": "2026-10-12-TOKYO-03",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-17",
+        "race_id": "2026-10-12-TOKYO-04",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-18",
+        "race_id": "2026-10-12-TOKYO-05",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-19",
+        "race_id": "2026-10-12-TOKYO-06",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-20",
+        "race_id": "2026-10-12-TOKYO-07",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-21",
+        "race_id": "2026-10-12-TOKYO-08",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-22",
+        "race_id": "2026-10-12-TOKYO-09",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-23",
+        "race_id": "2026-10-12-TOKYO-10",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-24",
+        "race_id": "2026-10-12-TOKYO-11",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      },
+      {
+        "subtask_id": "40-25",
+        "race_id": "2026-10-12-TOKYO-12",
+        "status": "NOT_ACQUIRED",
+        "max_races": 1
+      }
+    ],
+    "41": [],
+    "42": [],
+    "43": []
+  },
+  "inventory_input_policy": "保存済み資料のみで算出。外部取得結果は別resultに保存し、この棚卸しへ混入しない。棚卸しの保存確定前に最初の結果本文を閲覧した手順差は記録し、事前保存済みと主張しない。"
+}

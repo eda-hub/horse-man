@@ -1,0 +1,129 @@
+{
+  "horse_key": "netkeiba-000a012caf",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2004,
+    "external_ids": {
+      "NETKEIBA": "000a012caf"
+    },
+    "identity_evidence": {
+      "record_key": "000a012caf",
+      "source": "NETKEIBA",
+      "source_sheet": "000a029c22"
+    },
+    "name": "Adlerflug (独)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:07:48.839147+00:00",
+  "identity_observed_at": "2026-10-10T10:07:48.839147+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2004,
+    "external_ids": {
+      "NETKEIBA": "000a012caf"
+    },
+    "identity_evidence": {
+      "record_key": "000a012caf",
+      "source": "NETKEIBA",
+      "source_sheet": "000a029c22"
+    },
+    "name": "Adlerflug (独)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:07:48.952314+00:00",
+      "content_hash": "617fe0acb5ab7d2c3a7e7951bf7e3e0aa199a54893f75e78c65e9ff5be5b126e",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:07:48.952310+00:00",
+      "input_hash": "70e323d0159f9cf6d5b08966e044136c0992bd5830650c53809b00cd988fb706",
+      "previous_revision": null,
+      "revision_id": "rev-70e323d0159f9cf6d5b08966",
+      "saved_at": "2026-10-10T10:07:48.954030+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "95b30a07bcea9908eb65b0049caf370f794a7365b0888f59b0cfec83254709d3",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a029c22:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a029c22/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000341850",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:07:48.974638+00:00",
+      "content_hash": "9863f333ab5b04b55e63256448ec82f28bd2b60272470a00ce2522bef1ce497e",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:07:48.974630+00:00",
+      "input_hash": "2b08e82393f2b68ca19652d05b24f42a647f34796984e0aae29ede99a77a2420",
+      "previous_revision": null,
+      "revision_id": "rev-2b08e82393f2b68ca19652d0",
+      "saved_at": "2026-10-10T10:07:48.974924+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "95b30a07bcea9908eb65b0049caf370f794a7365b0888f59b0cfec83254709d3",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a029c22:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a029c22/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a012cae",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T12:39:44.078030+00:00",
+      "content_hash": "1c8bf22544110a6f0b276c021d311313285cd96eab6e183ee1d33b4b03a2a4c3",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T12:39:44.078025+00:00",
+      "input_hash": "0655737f35060a78674eb14a663895bb2fb59838dfb399485a7ba6dacae06ecd",
+      "previous_revision": null,
+      "revision_id": "rev-0655737f35060a78674eb14a",
+      "saved_at": "2026-10-10T12:39:44.939216+00:00",
+      "source": {
+        "acquisition_method": "reviewed-own-individual-training-affiliation",
+        "origin_group": "AHONOORA",
+        "record_hash": "15aca4e7f7f78edcbe53a9b88b0abc436640f8e0ef28f17e11210f85e2ddeabc",
+        "record_key": "netkeiba-000a012caf",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://ahonoora.com/adlerflug.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "DE",
+            "source": {
+              "captured_at": "2026-10-10T12:33:49.258369+00:00",
+              "record_hash": "15aca4e7f7f78edcbe53a9b88b0abc436640f8e0ef28f17e11210f85e2ddeabc",
+              "url": "https://ahonoora.com/adlerflug.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年と本人調教師の所属国/Trained列を原文照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

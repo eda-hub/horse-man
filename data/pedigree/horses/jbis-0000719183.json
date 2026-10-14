@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000719183",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1997,
+    "external_ids": {
+      "JBIS": "0000719183"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "48354635d40dbea817966c4a326ac78756567e18ed300f5fd7810dd3e64a1a13",
+      "record_key": "0000719183",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001340155/pedigree/"
+    },
+    "name": "Ruby Park(CAN)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.755707+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.755707+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1997,
+    "external_ids": {
+      "JBIS": "0000719183"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "48354635d40dbea817966c4a326ac78756567e18ed300f5fd7810dd3e64a1a13",
+      "record_key": "0000719183",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001340155/pedigree/"
+    },
+    "name": "Ruby Park(CAN)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:35.464970+00:00",
+      "content_hash": "21188059e3a5cb572fbebeb3081b90fc6b5e670d79cbb277da6c4bc7506e26de",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:35.464970+00:00",
+      "input_hash": "19eccc4050701656aa66d5e95d1c24a5f5ee3393bb872f89dab754425468af62",
+      "previous_revision": null,
+      "revision_id": "rev-19eccc4050701656aa66d5e9",
+      "saved_at": "2026-10-12T06:30:46.381600+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "48354635d40dbea817966c4a326ac78756567e18ed300f5fd7810dd3e64a1a13",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001340155:DDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001340155/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000339781",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:35.464970+00:00",
+      "content_hash": "cb49af6ecc8c77102619e7a126c903afd335e608654db7730d7a656a39d4415c",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:35.464970+00:00",
+      "input_hash": "7f13f0043220fb1e01e3b81859872abcfbfb93a995a3b941e8c07f82257efdd7",
+      "previous_revision": null,
+      "revision_id": "rev-7f13f0043220fb1e01e3b818",
+      "saved_at": "2026-10-12T06:30:46.382917+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "48354635d40dbea817966c4a326ac78756567e18ed300f5fd7810dd3e64a1a13",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001340155:DDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001340155/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000714543",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

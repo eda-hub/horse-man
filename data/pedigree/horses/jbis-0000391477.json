@@ -1,0 +1,128 @@
+{
+  "horse_key": "jbis-0000391477",
+  "identity": {
+    "aliases": [
+      "Rose Bertin (英)"
+    ],
+    "birth_year": 1970,
+    "external_ids": {
+      "JBIS": "0000391477",
+      "NETKEIBA": "000a008580"
+    },
+    "identity_evidence": {
+      "record_key": "0000391477",
+      "source": "JBIS"
+    },
+    "name": "Rose Bertin(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:06.691450+00:00",
+  "identity_observed_at": "2026-10-09T12:33:06.691450+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "Rose Bertin (英)"
+        ],
+        "birth_year": 1970,
+        "external_ids": {
+          "JBIS": "0000391477",
+          "NETKEIBA": "000a008580"
+        },
+        "identity_evidence": {
+          "record_key": "0000391477",
+          "source": "JBIS"
+        },
+        "name": "Rose Bertin(GB)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:30.046920+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1970,
+        "external_ids": {
+          "JBIS": "0000391477"
+        },
+        "identity_evidence": {
+          "record_key": "0000391477",
+          "source": "JBIS"
+        },
+        "name": "Rose Bertin(GB)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "464932092d83125b0aa09f359865054d7c0382cdd0f5bc16ca493d829bae9a69",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1970,
+    "external_ids": {
+      "JBIS": "0000391477"
+    },
+    "identity_evidence": {
+      "record_key": "0000391477",
+      "source": "JBIS"
+    },
+    "name": "Rose Bertin(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:07:49.199563+00:00",
+      "content_hash": "8b9cf027e53a8512e060569af7f2259ae5e4abf32cb2cb80d54ce5f8bf58f7b5",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:07:49.199558+00:00",
+      "input_hash": "2e1bc97be989211fd17aa2e0b1b617e7780e06f44565442e7313a526340c60b7",
+      "previous_revision": null,
+      "revision_id": "rev-2e1bc97be989211fd17aa2e0",
+      "saved_at": "2026-10-10T10:07:49.199834+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "1d1579c3050b97dbdcfd1fb55e1ce3fcf25df83d9d8197917ff814e0270d2363",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d629:DDSDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d629/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333400",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:07:49.205712+00:00",
+      "content_hash": "aea1f826f2c2ac07e49b6f346d7968d3afbec8993df726d3a714735b1cadeb42",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:07:49.205706+00:00",
+      "input_hash": "495ea687608cfaf8de556a932b6804704e601a18f8d94583a6a2003cb58393cd",
+      "previous_revision": null,
+      "revision_id": "rev-495ea687608cfaf8de556a93",
+      "saved_at": "2026-10-10T10:07:49.206074+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "1d1579c3050b97dbdcfd1fb55e1ce3fcf25df83d9d8197917ff814e0270d2363",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d629:DDSDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d629/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a00857f",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

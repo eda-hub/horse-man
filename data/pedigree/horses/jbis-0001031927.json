@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0001031927",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2004,
+    "external_ids": {
+      "JBIS": "0001031927"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DD",
+      "record_hash": "48354635d40dbea817966c4a326ac78756567e18ed300f5fd7810dd3e64a1a13",
+      "record_key": "0001031927",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001340155/pedigree/"
+    },
+    "name": "Lucas Street(CAN)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.754847+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.754847+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2004,
+    "external_ids": {
+      "JBIS": "0001031927"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DD",
+      "record_hash": "48354635d40dbea817966c4a326ac78756567e18ed300f5fd7810dd3e64a1a13",
+      "record_key": "0001031927",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001340155/pedigree/"
+    },
+    "name": "Lucas Street(CAN)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:35.464970+00:00",
+      "content_hash": "5bedfa3f1bb29f7e82a7f60c88450c3316a6fa80b9f7aa7acdd94aaaf88bcf86",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:35.464970+00:00",
+      "input_hash": "334c77191c30f74edd2b878506c1505a04fd7b92c16ac63183d4a4710b5be78a",
+      "previous_revision": null,
+      "revision_id": "rev-334c77191c30f74edd2b8785",
+      "saved_at": "2026-10-12T06:30:46.376162+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "48354635d40dbea817966c4a326ac78756567e18ed300f5fd7810dd3e64a1a13",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001340155:DDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001340155/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000347814",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:35.464970+00:00",
+      "content_hash": "eb0c2f446105b854c58b42c8819207375689fec9fb9a8a99818c5db5c335e4ec",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:35.464970+00:00",
+      "input_hash": "30ab9f1953d1558c9b1bb00e4ae430f5422fd4e419316895cc61a90bb9b9d48c",
+      "previous_revision": null,
+      "revision_id": "rev-30ab9f1953d1558c9b1bb00e",
+      "saved_at": "2026-10-12T06:30:46.379230+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "48354635d40dbea817966c4a326ac78756567e18ed300f5fd7810dd3e64a1a13",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001340155:DDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001340155/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000719183",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

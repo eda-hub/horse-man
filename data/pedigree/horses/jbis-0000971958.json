@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000971958",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1994,
+    "external_ids": {
+      "JBIS": "0000971958"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "c675db54d72e5bf70b05f808fe9bc26d5f1557977dbe53896b4d26b3a4000c2c",
+      "record_key": "0000971958",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001372215/pedigree/"
+    },
+    "name": "Questress(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.481678+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.481678+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1994,
+    "external_ids": {
+      "JBIS": "0000971958"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "c675db54d72e5bf70b05f808fe9bc26d5f1557977dbe53896b4d26b3a4000c2c",
+      "record_key": "0000971958",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001372215/pedigree/"
+    },
+    "name": "Questress(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:24:23.743365+00:00",
+      "content_hash": "d575e29c824fbcb79dad194aa5f5efc7000a2ef596e9241858d0f1bd14b1e9b5",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:24:23.743365+00:00",
+      "input_hash": "06f38dc066e421de43d4e993f7b715092c7b0ccd65320e15e95a87902c1c7bdf",
+      "previous_revision": null,
+      "revision_id": "rev-06f38dc066e421de43d4e993",
+      "saved_at": "2026-10-12T06:30:37.531811+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "c675db54d72e5bf70b05f808fe9bc26d5f1557977dbe53896b4d26b3a4000c2c",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001372215:DDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001372215/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000337444",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:24:23.743365+00:00",
+      "content_hash": "c729f9188a331e512b6ed906c9fa75c7d7ef8d356164fbe24cc6983d899e3699",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:24:23.743365+00:00",
+      "input_hash": "da46e3d76f264336e153f78a8e7a068a442e9807dacac12fabefec326efd69ce",
+      "previous_revision": null,
+      "revision_id": "rev-da46e3d76f264336e153f78a",
+      "saved_at": "2026-10-12T06:30:37.533240+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "c675db54d72e5bf70b05f808fe9bc26d5f1557977dbe53896b4d26b3a4000c2c",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001372215:DDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001372215/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000774915",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "historical-persistence-review-progress-v1",
+  "reviewed_at": "2026-10-10T10:25:53.511541+00:00",
+  "reviewed": 40,
+  "remaining_to_review_in_selected_trees": 0,
+  "resolved_eligible": 0,
+  "unresolved": 40,
+  "results": {
+    "NO_MATCHING_INTENT_IN_REVIEWED_TREE": 38,
+    "HISTORICAL_INTENT_FOUND_INVALID_SCHEMA": 1,
+    "RECEIPT_ABSENT_IN_REVIEWED_TREE": 1
+  },
+  "evidence_path": "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-history-review/historical-evidence.json.gz",
+  "evidence_sha256": "78958faa9f396ae22efdc8e1d6381790b598b6f14a073cf45e592a33fada5cb9",
+  "batches": [
+    "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-history-review/batch-01.json",
+    "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-history-review/batch-02.json",
+    "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-history-review/batch-03.json",
+    "data/pedigree/reconciliations/2026-10-10-training-priority/persistence-history-review/batch-04.json"
+  ],
+  "scope": "対象4日のsnapshot変更履歴と当日最終snapshot更新commitのdocs全ツリー・当時のintent/receipt本文。全branch・全commitの完全探索とはしない。",
+  "next_scope": "真正な同一artifactの別branch・中間commit証跡の追加探索。過去の宣言・receiptは生成しない。"
+}

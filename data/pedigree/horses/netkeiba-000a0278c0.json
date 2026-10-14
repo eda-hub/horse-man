@@ -1,0 +1,90 @@
+{
+  "horse_key": "netkeiba-000a0278c0",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2022,
+    "external_ids": {
+      "NETKEIBA": "000a0278c0"
+    },
+    "identity_evidence": {
+      "record_key": "000a0278c0",
+      "source": "NETKEIBA",
+      "source_sheet": "000a0278c0"
+    },
+    "name": "Chunk of Gold",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:03:23.530998+00:00",
+  "identity_observed_at": "2026-10-10T10:03:23.530998+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2022,
+    "external_ids": {
+      "NETKEIBA": "000a0278c0"
+    },
+    "identity_evidence": {
+      "record_key": "000a0278c0",
+      "source": "NETKEIBA",
+      "source_sheet": "000a0278c0"
+    },
+    "name": "Chunk of Gold",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:03:23.929804+00:00",
+      "content_hash": "b86c6715f2193b6fb573e18f1cf94edbe674215377ff445e18ade42d17cc85af",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:03:23.929798+00:00",
+      "input_hash": "3fff26a726a622d046e098d5a9110f2ffd32af82aad6f7e835c12eac3de31e40",
+      "previous_revision": null,
+      "revision_id": "rev-3fff26a726a622d046e098d5",
+      "saved_at": "2026-10-10T10:03:23.930106+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "51f47b433bcf66e2ecbd21b9dda243357976c8a337a2080572e0b21bf7951183",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a0278c0:S",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a0278c0/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a01fe88",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:03:23.986735+00:00",
+      "content_hash": "467f30b799bed0e824380c8623792f42a9062a13d19e4ce2605f70df13d88e4d",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:03:23.986730+00:00",
+      "input_hash": "9c3494a1cfdc609aa9488c44cd9a1ebd4f018d05ae973d79b763ad160dddf31e",
+      "previous_revision": null,
+      "revision_id": "rev-9c3494a1cfdc609aa9488c44",
+      "saved_at": "2026-10-10T10:03:23.987020+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "51f47b433bcf66e2ecbd21b9dda243357976c8a337a2080572e0b21bf7951183",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a0278c0:D",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a0278c0/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a0278bf",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,129 @@
+{
+  "horse_key": "netkeiba-000a012696",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "NETKEIBA": "000a012696"
+    },
+    "identity_evidence": {
+      "record_key": "000a012696",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02ca97"
+    },
+    "name": "Sea The Moon (独)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:06:57.525065+00:00",
+  "identity_observed_at": "2026-10-10T10:06:57.525065+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "NETKEIBA": "000a012696"
+    },
+    "identity_evidence": {
+      "record_key": "000a012696",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02ca97"
+    },
+    "name": "Sea The Moon (独)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:06:57.565026+00:00",
+      "content_hash": "5a5418116b6cfbd57f4549330e1f17ccd0fb6476959b9340690bd234d133cfda",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:06:57.565019+00:00",
+      "input_hash": "b27658a2aaac7a9b13ef29458dfe0389c047be3842624cbb61e6d0279c10022c",
+      "previous_revision": null,
+      "revision_id": "rev-b27658a2aaac7a9b13ef2945",
+      "saved_at": "2026-10-10T10:06:57.568753+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "eea54525dee9bae86b2b94a85aa8710ba396a0680c064a7034ec8d2cdf93dd64",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02ca97:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02ca97/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001113706",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:06:57.577531+00:00",
+      "content_hash": "925a451d09cf9fe342f3ff5c42c8cc7bfc25630a0cbafa4fbf514eb5cf1868a9",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:06:57.577523+00:00",
+      "input_hash": "d4865f7a1d0500281f067473d16950ac5cf3ef5bddeb110ab246e9c8a768af98",
+      "previous_revision": null,
+      "revision_id": "rev-d4865f7a1d0500281f067473",
+      "saved_at": "2026-10-10T10:06:57.577835+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "eea54525dee9bae86b2b94a85aa8710ba396a0680c064a7034ec8d2cdf93dd64",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02ca97:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02ca97/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a012695",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T12:39:35.929610+00:00",
+      "content_hash": "cbba85df7397645f002f2eebecc98ceb28e0a1bdcdb1be3efb1d91803f9bc47c",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T12:39:35.929606+00:00",
+      "input_hash": "7ae3277bc751279d32cea813690aa73ade73b52e7d67a3e5d706b7feda85e051",
+      "previous_revision": null,
+      "revision_id": "rev-7ae3277bc751279d32cea813",
+      "saved_at": "2026-10-10T12:39:36.745220+00:00",
+      "source": {
+        "acquisition_method": "reviewed-own-individual-training-affiliation",
+        "origin_group": "AHONOORA",
+        "record_hash": "da9628c61c601fa619d141cf3e376ff1bf11e729fdc865d5bb7aa08ed2fd93a6",
+        "record_key": "netkeiba-000a012696",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://ahonoora.com/sea_the_moon.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "DE",
+            "source": {
+              "captured_at": "2026-10-10T12:33:42.091528+00:00",
+              "record_hash": "da9628c61c601fa619d141cf3e376ff1bf11e729fdc865d5bb7aa08ed2fd93a6",
+              "url": "https://ahonoora.com/sea_the_moon.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年と本人調教師の所属国/Trained列を原文照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

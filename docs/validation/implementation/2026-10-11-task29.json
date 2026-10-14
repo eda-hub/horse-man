@@ -1,0 +1,371 @@
+{
+  "schema_version": "numbered-task-acceptance-v1",
+  "task": 29,
+  "status": "CHAT_CONFIGURATION_FIXED_LIVE_VALIDATION_OPEN",
+  "inputs": {
+    "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "pr69": "4b7651acb589a8f4881d1ec4752e567ccae4f960",
+    "pr68": "1ee07b65f120954f22257e6f5ad089e443c5e34e"
+  },
+  "implementation": {
+    "transport": "JV_LINK_NATIVE_AND_CONFIGURABLE_HTTP_JSON",
+    "actual_provider_endpoints_configured": true,
+    "vendor_specific_html_or_jvlink_adapter_completed": true,
+    "raw_response_sha256_readback": true,
+    "retry_deadline_policy": true,
+    "synthetic_cannot_certify_live_market": true,
+    "actual_service_connection_verified": false,
+    "provided_by": "Official SDK 5.0.0 / JVDTLab.JVLink / 0B30 and ticket-specific 0B31..0B36"
+  },
+  "tests": {
+    "new": 22,
+    "task28": 18,
+    "cycle04": 56,
+    "readiness": 9,
+    "local_http_failure_fallback": "PASS",
+    "result": "PASS",
+    "full": 564,
+    "skipped": 0,
+    "additional_provider": 24
+  },
+  "protected": {
+    "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "historical_records_changed": false,
+    "owner_changed": false,
+    "existing_workflow_changed": false,
+    "actual_race_prices_created": false,
+    "performance_promoted": false,
+    "registry_horses": 15321,
+    "condition_snapshots": 26,
+    "invalid_snapshots": 0
+  },
+  "live_validation": {
+    "status": "OPEN",
+    "required_meetings": 2,
+    "measured_meetings": null,
+    "endpoints_and_normalization_confirmed": false,
+    "past_20261011_cause": "UNKNOWN",
+    "reason": "チャット経路の実取得・時刻照合・保存接続・2開催の発走前実測が未受入。Windows接続は対象外。",
+    "actual_service_connection_verified": false,
+    "previous_reason": "公式SDKで呼出し方式/要求key/データspec/レコード形式を確定して実装・合成検証。実機はLinux/pywin32なし・利用者Windows接続設定なし。2開催の発走前実測は将来条件でOPEN。"
+  },
+  "next_code_task": 30,
+  "full_acceptance": {
+    "atomic": {
+      "activation_policy": "MAIN_MERGE",
+      "atomic_contract_verified": true,
+      "cycle_dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "live_races_executed": null,
+      "manual_release": "v1.7.0",
+      "operational_ready": false
+    },
+    "branch": {
+      "operational_ready": false,
+      "reason": "v1.7.0 has not been merged into the fetched main contract",
+      "status": "UNMERGED_CONTRACT_REJECTED"
+    },
+    "branch_manifest_sources": 111,
+    "live_races_executed": null,
+    "main": {
+      "activation_policy": "MAIN_MERGE",
+      "atomic_contract_verified": true,
+      "cycle_dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "live_races_executed": null,
+      "main_commit_time": "2026-10-13T08:15:30+09:00",
+      "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "manual_release": "v1.7.0",
+      "operational_ready": true
+    },
+    "main_manifest_sources": 66,
+    "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "monitored_sources_unchanged": true,
+    "performance_promoted": false,
+    "read_only": true,
+    "runtime_connected": false,
+    "schema_version": "integration-start-check-v1",
+    "synthetic_acceptance": {
+      "failures": 0,
+      "formal_cutover": "NOT_PERFORMED",
+      "live_race_count": null,
+      "mode": "SYNTHETIC",
+      "note": "正常系・異常系の合成検査。実レース、未完了研究、実runtime接続、正式版/有効日を認証しない。",
+      "performance_promotion": "NOT_PERFORMED",
+      "result": "PASS",
+      "schema_version": "cycle04-acceptance-v1",
+      "skipped": 0,
+      "source_count": 96,
+      "source_manifest_sha256": "7f3c0315a04f4c3cd1611a32040c04f26444e80a3b60fe7d093ae704d3e3d887",
+      "tests_run": 540
+    }
+  },
+  "acceptance_refresh": {
+    "basis_commit": "19875177de7c8fc60b50f1a9357dcb28d0804a77",
+    "basis_run": 38346922500,
+    "source_count": 96,
+    "source_manifest_sha256": "7f3c0315a04f4c3cd1611a32040c04f26444e80a3b60fe7d093ae704d3e3d887",
+    "initial_formal_run": 38346922499,
+    "initial_failure": "stale acceptance: source hash mismatch",
+    "method": "実CI全540回帰/skip0と一致する96入力manifestを保存"
+  },
+  "implementation_commit": "19875177de7c8fc60b50f1a9357dcb28d0804a77",
+  "verification_basis_commit": "cc4c78279313c536ed19df1041e13cb42da1114f",
+  "manifest_sources": 115,
+  "requirements": [
+    {
+      "requirement": "主/代替のHTTP取得・障害再現・出力一致",
+      "result": "PASS_SYNTHETIC_AND_LOOPBACK",
+      "actual_vendor_mapping": "OPEN"
+    },
+    {
+      "requirement": "応答hash・原本readback・再試行・締切",
+      "result": "PASS"
+    },
+    {
+      "requirement": "独立保存と既存writer/reader接続・synthetic拒否",
+      "result": "PASS"
+    },
+    {
+      "requirement": "実取得先・正規化形式の確定と代替実接続",
+      "result": "SPEC_AND_IMPLEMENTATION_PASS_SERVICE_CONNECTION_OPEN"
+    },
+    {
+      "requirement": "2開催以上の発走前実測",
+      "result": "OPEN"
+    },
+    {
+      "requirement": "11日当時の原因不明を保持",
+      "result": "PASS"
+    },
+    {
+      "requirement": "公式SDKに基づくJV-Link2経路・8券種正規化",
+      "result": "PASS_SPEC_IMPLEMENTATION_AND_SYNTHETIC_REGRESSION"
+    },
+    {
+      "requirement": "2開催の原応答/独立receipt/発走前Git/公式scope受入",
+      "result": "CHECKER_IMPLEMENTED_REAL_MEETINGS_OPEN"
+    }
+  ],
+  "ci": [
+    {
+      "run_id": 38347116211,
+      "job_id": 115130987080,
+      "steps": 13,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38347116211"
+    },
+    {
+      "run_id": 38347116176,
+      "job_id": 115130987010,
+      "steps": 6,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38347116176"
+    },
+    {
+      "run_id": 38347116387,
+      "job_id": 115130988239,
+      "steps": 22,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38347116387"
+    }
+  ],
+  "followup": {
+    "instruction": "残件も対応しろ",
+    "inputs": {
+      "pr69": "804a5201fbba997bb7ef7afcf248773392bb3f3b",
+      "pr68": "97e215424946847142d7340441ed42453c1a3aa5"
+    },
+    "code_commit": "c0a791327995238046cb9fe6406ddb57de7506e6",
+    "provider_receipt": "docs/validation/implementation/2026-10-11-task29-provider.json",
+    "additional_tests": 24,
+    "full_tests": 564,
+    "skip": 0,
+    "source_count": 100,
+    "release_sources": 115,
+    "main_start": {
+      "activation_policy": "MAIN_MERGE",
+      "atomic_contract_verified": true,
+      "cycle_dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "live_races_executed": null,
+      "main_commit_time": "2026-10-13T08:15:30+09:00",
+      "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "manual_release": "v1.7.0",
+      "operational_ready": true
+    },
+    "branch_start": {
+      "operational_ready": false,
+      "reason": "v1.7.0 has not been merged into the fetched main contract",
+      "status": "UNMERGED_CONTRACT_REJECTED"
+    },
+    "initial_formal_run": 38349639239,
+    "initial_formal_failure": "stale acceptance: source hash mismatch",
+    "acceptance_basis_run": 38349639228,
+    "acceptance_manifest_sha256": "b0f2dc77b15194a91b6d85e31301c4ffe615ff1ea76f56375e927410e9f79800",
+    "ci": [
+      {
+        "run": 38353772353,
+        "job_id": 115151855479,
+        "steps": 6,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772353"
+      },
+      {
+        "run": 38353772384,
+        "job_id": 115151855271,
+        "steps": 13,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772384"
+      },
+      {
+        "run": 38353772381,
+        "job_id": 115151865970,
+        "steps": 22,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772381"
+      }
+    ],
+    "verification_basis_commit": "cc4c78279313c536ed19df1041e13cb42da1114f",
+    "implementation_acceptance": "PASS",
+    "final_review": {
+      "code_commit": "3ee5003252b941c544ffc7485a5717fa72335276",
+      "windows_response_path_git_portability": "PASS",
+      "fixture_independent_of_implementation_layout": "PASS",
+      "sdk_official_order_fixture": "PASS",
+      "acceptance_manifest_sha256": "3c52989e937e837d8c0e5a2caf67afa95b07b63b28d4ba6a04591e0d62732dce",
+      "review_formal_run": 38351826992,
+      "review_formal_failure": "stale acceptance: source hash mismatch",
+      "regression_before_refresh": 564,
+      "refresh_verified": true
+    }
+  },
+  "git_fixture_stability": {
+    "code_commit": "2f0eeca4374f388325f0ff6c2aebe44daff8f4e2",
+    "acceptance_refresh_commit": "cc4c78279313c536ed19df1041e13cb42da1114f",
+    "observed_failure_run": 38352782084,
+    "observed_failure": "TemporaryDirectory cleanup OSError [Errno 39] Directory not empty: objects",
+    "fixture_fix": "一時Git fixture内だけ maintenance.auto=false / maintenance.autoDetach=false / gc.auto=0 / gc.autoDetach=false。検査assertion・厳格cleanupは維持。",
+    "local_readiness_tests": 9,
+    "independent_full_basis_run": 38353608850,
+    "independent_full_basis_job": 115151341266,
+    "full_tests": 564,
+    "skipped": 0,
+    "source_count": 100,
+    "release_sources": 115,
+    "acceptance_manifest_sha256": "9a69c613df07f766f82d50e984d455fc28d353b963f86bebfc73aaeacf7db2da",
+    "before_refresh_formal_run": 38353608874,
+    "before_refresh_formal_result": "564回帰はPASS、旧受入source hash不一致のみでFAIL",
+    "live_service_connection": "OPEN",
+    "two_future_meetings": "OPEN",
+    "verification_basis_commit": "cc4c78279313c536ed19df1041e13cb42da1114f",
+    "ci": [
+      {
+        "run": 38353772353,
+        "job_id": 115151855479,
+        "steps": 6,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772353"
+      },
+      {
+        "run": 38353772384,
+        "job_id": 115151855271,
+        "steps": 13,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772384"
+      },
+      {
+        "run": 38353772381,
+        "job_id": 115151865970,
+        "steps": 22,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772381"
+      }
+    ],
+    "refresh_verified": true
+  },
+  "previous_status": "OFFICIAL_PROVIDER_IMPLEMENTATION_ACCEPTED_WINDOWS_AND_TWO_MEETINGS_OPEN",
+  "current_configuration": {
+    "schema_version": "chat-market-acquisition-policy-v1",
+    "effective_instruction_date_jst": "2026-10-13",
+    "task": 29,
+    "execution": "CHAT_AVAILABLE_PUBLIC_SEARCH_AND_READ",
+    "policy_scope": "CHAT_OPERATION_POLICY_NOT_AUTOMATIC_CLI_RUNTIME_CONFIGURATION",
+    "requires": {
+      "webui": false,
+      "dedicated_server": false,
+      "windows": false,
+      "jvlink": false,
+      "user_pc_command": false,
+      "inbound_network": false,
+      "login": false
+    },
+    "primary_source": "JRA_PUBLIC_ODDS_PAGE",
+    "alternate_source_status": "NOT_VERIFIED",
+    "comparison_ticket_types": [
+      "WIN",
+      "PLACE",
+      "BRACKET_QUINELLA",
+      "QUINELLA",
+      "WIDE",
+      "EXACTA",
+      "TRIO",
+      "TRIFECTA"
+    ],
+    "prediction_requires_market": false,
+    "recommendation_requires_market": false,
+    "max_sources": 2,
+    "max_attempts_per_source": 2,
+    "required_observation_fields": [
+      "race_id",
+      "ticket",
+      "source_url",
+      "source_updated_at_jst",
+      "retrieved_at_jst",
+      "odds_or_range",
+      "retrieved_excerpt",
+      "retrieval_kind"
+    ],
+    "accept_only_pre_race_verified_observation": true,
+    "unknown_source_time_is_ineligible": true,
+    "search_snippet_is_price_evidence": false,
+    "raw_http_bytes_must_not_be_inferred": true,
+    "authentication_bypass": false,
+    "windows_followup": "OUT_OF_SCOPE_BY_USER_CHANGE",
+    "chat_writer_integration": "OPEN",
+    "live_meetings": null,
+    "required_live_meetings": 2,
+    "status": "CONFIGURATION_FIXED_LIVE_VALIDATION_OPEN",
+    "procedure": "docs/validation/market-chat-acquisition.md"
+  },
+  "configuration_change": {
+    "instruction": "専用サーバー・Windows不要。ChatGPTチャットから取得する構成へ変更",
+    "historical_acceptance_preserved": true,
+    "legacy_windows_connection": "OUT_OF_SCOPE_BY_USER_CHANGE",
+    "legacy_jvlink_checker": "NOT_APPLICABLE_TO_CHAT_TRANSPORT",
+    "chat_observed_prices": null,
+    "chat_live_meetings": null,
+    "chat_runtime_adapter": "NOT_IMPLEMENTED",
+    "remaining_tasks": [
+      "29-C02",
+      "29-C03",
+      "29-C04",
+      "29-C05",
+      "29-C06",
+      "29-C07",
+      "29-C08"
+    ]
+  }
+}

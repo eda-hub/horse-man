@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001188418",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2014,
+    "external_ids": {
+      "JBIS": "0001188418"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "4b93b86402f38dee9f79758fbee2e75affbb68071a496c2869c8a94c89540464",
+      "record_key": "0001188418",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001357741/pedigree/"
+    },
+    "name": "ミッキースワロー",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.586454+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.586454+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2014,
+    "external_ids": {
+      "JBIS": "0001188418"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "4b93b86402f38dee9f79758fbee2e75affbb68071a496c2869c8a94c89540464",
+      "record_key": "0001188418",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001357741/pedigree/"
+    },
+    "name": "ミッキースワロー",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:26:23.706950+00:00",
+      "content_hash": "94b26121c4317ed29b82bb0148b7e0d2970edd86f8bedb0369736162c8beb2fa",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:26:23.706950+00:00",
+      "input_hash": "fe113cbdd864085a00559e73e5910d071b0f848a9f8aefc3e9fd6c815e13750b",
+      "previous_revision": null,
+      "revision_id": "rev-fe113cbdd864085a00559e73",
+      "saved_at": "2026-10-12T06:30:41.762270+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "4b93b86402f38dee9f79758fbee2e75affbb68071a496c2869c8a94c89540464",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001357741:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001357741/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001103854",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:26:23.706950+00:00",
+      "content_hash": "cb5b42d65d28fa4b02df1a7570a7292249a64fc9d6dd6e4cbc0a2a3fcea97428",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:26:23.706950+00:00",
+      "input_hash": "759abd86b0550fba2e131b5ccb807eca886eeef04189ad4b8db91861e30b193e",
+      "previous_revision": null,
+      "revision_id": "rev-759abd86b0550fba2e131b5c",
+      "saved_at": "2026-10-12T06:30:41.765913+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "4b93b86402f38dee9f79758fbee2e75affbb68071a496c2869c8a94c89540464",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001357741:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001357741/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000883223",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:04.608074+00:00",
+      "content_hash": "eb234a25b6373258804236d8714ac5b287263507f90e774bb58d51a640fc0c5b",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:04.608074+00:00",
+      "input_hash": "fdb520e41c3c1e554b367a0d6d44045081e6a532cdd9395fdb92ac766cb386ee",
+      "previous_revision": null,
+      "revision_id": "rev-fdb520e41c3c1e554b367a0d",
+      "saved_at": "2026-10-12T07:32:06.672579+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人プロフィール所属欄を直接取得しJRA本人ID2014106160と対応。",
+          "birth_year": 2014,
+          "country": "JP",
+          "horse": "ミッキースワロー",
+          "trainer": "菊沢隆徳",
+          "training_location": "美浦"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-05/jbis-0001188418-source.json",
+        "record_hash": "634c6664fe694d884545d78f33625dab427f92d5797504efa6b986dc5b940dfe",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001188418",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001188418/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-12T07:32:04.608074+00:00",
+              "record_hash": "634c6664fe694d884545d78f33625dab427f92d5797504efa6b986dc5b940dfe",
+              "url": "https://www.jbis.or.jp/horse/0001188418/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

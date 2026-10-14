@@ -1,0 +1,174 @@
+{
+  "horse_key": "jbis-0001162685",
+  "identity": {
+    "aliases": [
+      "ダノンレジェンド"
+    ],
+    "birth_year": 2010,
+    "external_ids": {
+      "JBIS": "0001162685",
+      "NETKEIBA": "2010110102"
+    },
+    "identity_evidence": {
+      "record_key": "0001162685",
+      "source": "JBIS"
+    },
+    "name": "ダノンレジェンド(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:30.662721+00:00",
+  "identity_observed_at": "2026-10-09T15:04:30.662721+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "ダノンレジェンド"
+        ],
+        "birth_year": 2010,
+        "external_ids": {
+          "JBIS": "0001162685",
+          "NETKEIBA": "2010110102"
+        },
+        "identity_evidence": {
+          "record_key": "0001162685",
+          "source": "JBIS"
+        },
+        "name": "ダノンレジェンド(USA)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:32.937742+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2010,
+        "external_ids": {
+          "JBIS": "0001162685"
+        },
+        "identity_evidence": {
+          "record_key": "0001162685",
+          "source": "JBIS"
+        },
+        "name": "ダノンレジェンド(USA)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "55ec84834b2126815f107b9d55b04f9e542aca274caf85812c8f0598f945c568",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2010,
+    "external_ids": {
+      "JBIS": "0001162685"
+    },
+    "identity_evidence": {
+      "record_key": "0001162685",
+      "source": "JBIS"
+    },
+    "name": "ダノンレジェンド(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:40:20.601782+00:00",
+      "content_hash": "3707df8a9e54e118c18ef6782b2eff1245f3cf4d50b50c6557d55292720e4747",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:40:20.601782+00:00",
+      "input_hash": "16faed50174794d482b95b033eda3d175b0926dd7a3b02cb672c9e9049f8842b",
+      "previous_revision": null,
+      "revision_id": "rev-16faed50174794d482b95b03",
+      "saved_at": "2026-10-09T15:05:16.300291+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "5cee5320e3a3cafbdf5ff66d6bc2b5785bccf88b0a3ae9dbd60696ec821d9f15",
+        "record_key": "0001392129",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001392129/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000621973",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:40:20.601782+00:00",
+      "content_hash": "537d6ca12fda1a8a1692f60a07838458a38589291aeccec0282b7c0e624e0822",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:40:20.601782+00:00",
+      "input_hash": "8d2a2494234fdbc9b58292c075d4695a6f418b21ac8d8f3a12dbd8db624df749",
+      "previous_revision": null,
+      "revision_id": "rev-8d2a2494234fdbc9b58292c0",
+      "saved_at": "2026-10-09T15:05:16.308444+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "5cee5320e3a3cafbdf5ff66d6bc2b5785bccf88b0a3ae9dbd60696ec821d9f15",
+        "record_key": "0001392129",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001392129/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001157818",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001162685/",
+              "record_hash": "4613fde6213d6f48872955e31ba1999a629e6fd076914f636e2a95c662b28e6e",
+              "captured_at": "2026-10-10T04:38:35.349Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:38:35.349Z",
+      "captured_at": "2026-10-10T04:38:35.349Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001162685",
+        "record_hash": "4613fde6213d6f48872955e31ba1999a629e6fd076914f636e2a95c662b28e6e",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001162685",
+          "horse_name": "ダノンレジェンド(USA)",
+          "trainer": "村山 明",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001162685/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-a035fa6d08203a76da72406e",
+      "input_hash": "a035fa6d08203a76da72406e7af61d50977f8008c92fba9095dc0fc0da87f4e6",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:38:35.351Z",
+      "content_hash": "86d9521a0f592ffbcf12a6577452bd1d518833d56ac0430ea34a21d5b3b1cc5a"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

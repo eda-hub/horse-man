@@ -904,3 +904,4 @@ JRA公式確定成績の検索取得本文で全11頭の着順・確定人気・
 - [運用マニュアル](../../manual/README.md)
 - 正式回顧：[2026-10-10日次回顧](https://github.com/eda-hub/horse-man/blob/6111b504c59d9faafb3ad472102801ac5c5134e8/docs/validation/records/2026-10-10.md)（2026年開催結果・事前snapshotの照合）。
 
+

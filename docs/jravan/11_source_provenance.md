@@ -99,3 +99,9 @@ Derived featureには `derived_from` と使用したsource recordを追跡でき
 - `docs/manual/` で許可されていない第三者評価がProduction evidenceへ混入した件数（0件目標）
 
 この監査は予想的中率とは別に評価し、データ出典品質の問題を予想ロジックの良否と混同しない。
+
+## 血統リストの実装接続
+
+Git基盤Writerは `scripts/pedigree_registry.py`。手動候補入力にもsource class/origin group・URLまたはrecord key・取得方法・元record hash・first_observed_at/captured_atを必須化する。VERIFIEDには馬ID・source・親子関係の明示確認を必要とし、旧ノートの出所不明主張を自動昇格しない。矛盾する値は両方を保持し、権威あるsourceと馬の同一性を再確認した訂正revisionだけで解消する。
+
+公開日時はprovider timestampであり、first_observed_atの代用ではない。血統・分類のcutoff後更新を過去FORWARDへ流さない。後日取得した公開資料からの遡及研究はREPLAYとして分離する。取得不能・通信/認証/parser障害・未保存はNOT_FOUND/SOURCE_ERROR/SAVE_ERRORで区別する。

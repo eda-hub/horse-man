@@ -1,0 +1,34 @@
+{
+  "schema_version": "numbered-implementation-v1",
+  "task": "53-I05",
+  "message": "53-I05：保存済み固定参照から不足と期限を読取再開表示",
+  "status": "IMPLEMENTATION_ACCEPTED",
+  "basis_commit": "a25a9f1a0745aff61abfa864c248fbafe5987536",
+  "local_tests": 4,
+  "failures": 0,
+  "skipped": 0,
+  "automatic_retry": false,
+  "read_only": true,
+  "expected_hash_derived_from_current_body": false,
+  "future_evidence_not_current_completion": true,
+  "formal_kpi_certified": false,
+  "global_tests": 707,
+  "source_count": 125,
+  "source_manifest_sha256": "4409c4eff1afe814ee0d71499a33233bf8fe265b3779c7379917f83bb5876524",
+  "validation_basis_commit": "5612a6144b657956642c5b5853794432fe8f0d90",
+  "ci": [
+    {
+      "id": 38439304515,
+      "conclusion": "success"
+    },
+    {
+      "id": 38439304253,
+      "conclusion": "success"
+    },
+    {
+      "id": 38439304291,
+      "conclusion": "success"
+    }
+  ],
+  "global_ci": "成功統合CIの全入力hashへ受入を更新。最終HEADのCIはPR本文で確認。"
+}

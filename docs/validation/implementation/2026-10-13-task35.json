@@ -1,0 +1,80 @@
+{
+  "schema_version": "task35-checkpoint-v1",
+  "task": 35,
+  "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_JOINT_CALIBRATION_PERFORMANCE_CONTINUES",
+  "input_pr69_sha": "5c346b4e8d59247f29d19769e114e597fd1ad67a",
+  "input_pr68_sha": "3b2df1c4c7cb7ab4518d8f70d178f7127951926d",
+  "tasks": {
+    "35-01": "70_30_BEFORE_EQUAL_AFTER_VERIFIED",
+    "35-02": "MISSING_INVALID_CANCELLATION_RECALCULATION_IMPLEMENTED",
+    "35-03": "6N_M_CANDIDATE_SELECTED_JOINT_UNCALCULATED_VERIFIED"
+  },
+  "implementation": {
+    "entry": "scripts/two_axis_candidates.py",
+    "workflow": "scripts/cycle04_workflow.py",
+    "procedure": "docs/validation/contracts/cycle04_operations.md",
+    "fixed_prediction_unchanged": true,
+    "cancellation_source": "検証済み推奨原本cancelled_horses",
+    "missing_state": "MISSING",
+    "missing_probability": null,
+    "adopted_points": null,
+    "standard_adoption": "NOT_APPROVED",
+    "performance_promotion": "NOT_APPROVED"
+  },
+  "validation": {
+    "new_tests": 12,
+    "local_related_tests": 132,
+    "failures": 0,
+    "skipped": 0,
+    "thresholds": "math.nextafterで70%/30%の直前・一致・直後",
+    "coverage": [
+      "確率行欠落/null/不正値/重複/未知馬",
+      "順位不正/取消ID不正",
+      "取消軸の次順位への交代",
+      "取消相手の除去と上位6頭の補充",
+      "取消後軸不足",
+      "取消馬確率欠測と実出走馬欠測の区別",
+      "三連複m/三連単6nのユニーク候補点",
+      "採用点・同時率未算定/昇格拒否",
+      "FINALの検証済み推奨から取消を渡す接続"
+    ],
+    "ci": {
+      "basis_commit": "feebca15dbf4e55bc84fbaa4c9c609ae2caef3b2",
+      "integration_run": 38387684275,
+      "research_run": 38387684273,
+      "tests_run": 645,
+      "failures": 0,
+      "skipped": 0,
+      "source_count": 109,
+      "source_manifest_sha256": "594cfa1cd6202df2a181814b96b51085b45ecdb70805238b36160460f474a7eb",
+      "manifest_source_count": 128,
+      "result": "ALL_SUCCESS",
+      "initial_normal_run": 38387684292,
+      "initial_normal_status": "FAILED_STALE_ACCEPTANCE_HASH_VERIFIED",
+      "acceptance_commit": "da9727f98f8f690d1e45bfb61ae63c9e30db0ab4",
+      "acceptance_runs": {
+        "normal": 38387923260,
+        "integration": 38387923099,
+        "research": 38387923278,
+        "result": "ALL_SUCCESS"
+      },
+      "initial_normal_reason": "既存受入の古いsource hashのみ。実統合成功109入力hashで更新"
+    }
+  },
+  "protected": {
+    "prediction_values_changed": false,
+    "recommendation_tickets_changed": false,
+    "owner_changed": false,
+    "schema_changed": false,
+    "workflow_files_changed": false,
+    "data_changed": false,
+    "main_changed": false
+  },
+  "remaining": {
+    "live_joint_probability_calibration": "CONTINUE_VALIDATION",
+    "forward_performance": "CONTINUE_VALIDATION",
+    "task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
+  },
+  "next": "36-01",
+  "implementation_commit": "feebca15dbf4e55bc84fbaa4c9c609ae2caef3b2"
+}

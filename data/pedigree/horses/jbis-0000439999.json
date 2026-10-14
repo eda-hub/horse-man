@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000439999",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1991,
+    "external_ids": {
+      "JBIS": "0000439999"
+    },
+    "identity_evidence": {
+      "ancestor_path": "SDDD",
+      "record_hash": "6b25d874c015e6cd203095468b6cb427360c3bc1ca73ddb02954b9ec0484ba14",
+      "record_key": "0000439999",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001383814/pedigree/"
+    },
+    "name": "Hertford Castle(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.086749+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.086749+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1991,
+    "external_ids": {
+      "JBIS": "0000439999"
+    },
+    "identity_evidence": {
+      "ancestor_path": "SDDD",
+      "record_hash": "6b25d874c015e6cd203095468b6cb427360c3bc1ca73ddb02954b9ec0484ba14",
+      "record_key": "0000439999",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001383814/pedigree/"
+    },
+    "name": "Hertford Castle(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:21:53.263157+00:00",
+      "content_hash": "c746c363d5cbbd71360982167ebd15c60d20243d5ee8216f110ec40987e76957",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:21:53.263157+00:00",
+      "input_hash": "135b6c35254cefecc327855a73efbdd9b6f125da90ca04d9551f03987cb788a2",
+      "previous_revision": null,
+      "revision_id": "rev-135b6c35254cefecc327855a",
+      "saved_at": "2026-10-12T06:30:39.772443+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "6b25d874c015e6cd203095468b6cb427360c3bc1ca73ddb02954b9ec0484ba14",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001383814:SDDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001383814/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336877",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:21:53.263157+00:00",
+      "content_hash": "8c2fb5ea5e5d6ae1b1460530b0a4ffa4d886d0a3d29939b41da5fb92a1f2502f",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:21:53.263157+00:00",
+      "input_hash": "332256dd5c07102a50d16836cb2c15a4cdc41957a8f768f064a9f66bb0824d24",
+      "previous_revision": null,
+      "revision_id": "rev-332256dd5c07102a50d16836",
+      "saved_at": "2026-10-12T06:30:39.773779+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "6b25d874c015e6cd203095468b6cb427360c3bc1ca73ddb02954b9ec0484ba14",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001383814:SDDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001383814/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000412418",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

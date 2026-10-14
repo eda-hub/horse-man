@@ -7,7 +7,7 @@
   "source_manifest": [
     {
       "path": ".github/workflows/check-cycle03.yml",
-      "sha256": "b2adc10046f96eea7450b10ef5237926939f9c039ed751afc66d0903f29ff217"
+      "sha256": "1c0fb93c0f16181132dfd0eca14dac0c38c034434c064718848a95c5c9219288"
     },
     {
       "path": "AGENTS.md",
@@ -94,12 +94,24 @@
       "sha256": "a3b0dee2f8cc5236e4441a3af064613f6f075ede6512947c53e7d03c256f88ba"
     },
     {
+      "path": "docs/validation/class-transition/fixed-cases.json",
+      "sha256": "e7e1c6ad3093a72b4e48661236d7b405b71827a608d6de13e89daa23cc604d08"
+    },
+    {
+      "path": "docs/validation/class-transition/forward-plan.json",
+      "sha256": "c3b3f208c986730f11828848d2383bb0ac7dd8ffc0c325f3df9667cb66e5e9aa"
+    },
+    {
+      "path": "docs/validation/contracts/chat-market-acquisition.json",
+      "sha256": "502f315696e401ee0db1842a11c85cba786ba24376c74adb97491face381de03"
+    },
+    {
       "path": "docs/validation/contracts/cycle04-launch.json",
       "sha256": "4e94312c0b9a749ecf46cd49144a31fd0384d4c76574e7763b560e805ec15e20"
     },
     {
       "path": "docs/validation/contracts/cycle04_operations.md",
-      "sha256": "7feae277df31a53b8a2c35feafdbccbbbea2765c19a74fc35eab8a5d50503d72"
+      "sha256": "25bf98766bc11e60e1d38618261b59e16dfcf38871358d46cc9a052bc3c19354"
     },
     {
       "path": "docs/validation/contracts/cycle_04.json",
@@ -110,8 +122,24 @@
       "sha256": "bebb176213e51a4f0bd813e3b97fc8375633271abd865006c4d425abb8202373"
     },
     {
+      "path": "docs/validation/dependency-risk.md",
+      "sha256": "6c01c38f29a806537a928612e415b52cca76410f0f7c03ca9b6077f38c08f921"
+    },
+    {
       "path": "docs/validation/execution-gates/contract-state.json",
       "sha256": "92ba46759c3c1771a0025c9cfda277c8c12ec42d638c791f3776cf5cef222dc9"
+    },
+    {
+      "path": "docs/validation/market-chat-acquisition.md",
+      "sha256": "6ee1c61bc633177d08ed5863b2fcb65d39c7e376b8c973e2cfcc8fd5b5130909"
+    },
+    {
+      "path": "docs/validation/market-chat-research/2026-10-13/replay-pages.json",
+      "sha256": "748653e00d1dbd1c4ed111fbe67531bac0e9ce869f1e880e189eda618f1b99ec"
+    },
+    {
+      "path": "docs/validation/probability-presentation.md",
+      "sha256": "7edee10c9279ad33ee13c1c907ff5841d65d92dd95f584f7d9b1fb35c85cd5f8"
     },
     {
       "path": "docs/validation/reviews/cycle_03/decisions.json",
@@ -131,11 +159,71 @@
     },
     {
       "path": "scripts/build_v170_manifest.py",
-      "sha256": "a33b550470b487370ebeed18fdc5cc8ca50721ef98f64a8ae0e7e7744eba9b3e"
+      "sha256": "05f66bef47bb6afd56e37bab057cfb1d3815b6e17c7e5f93a60c85d023bbceb9"
+    },
+    {
+      "path": "scripts/chat_calibration_review.py",
+      "sha256": "c5681c6dbbaeab64a1fb615faaa40e5f44f946245632769177515a36dc487700"
+    },
+    {
+      "path": "scripts/chat_entry_assembly.py",
+      "sha256": "f476b0852075960dab1d1bf44ca97cc9238e9ebefaf8a1d736cf04729c95dfa6"
+    },
+    {
+      "path": "scripts/chat_fact_capture.py",
+      "sha256": "6c014b8d3573f8567f5cd44fc2ec349a2674b7ae8296c194f349e3b38313f59a"
+    },
+    {
+      "path": "scripts/chat_fact_input.py",
+      "sha256": "42c7bd08b376a3a94bd9f6a9976bdd3dbc8ad42b01c573ffc8663d9f05966946"
+    },
+    {
+      "path": "scripts/chat_fact_provenance.py",
+      "sha256": "60fed4b8dbfbe8a031f582a31409590f1e36ac83545f45aca6f908fa0df72198"
+    },
+    {
+      "path": "scripts/chat_forward_coverage.py",
+      "sha256": "25302e9c72ef37f60a8fc257fdca60275429c7aa88551037adca0b82cf083feb"
+    },
+    {
+      "path": "scripts/chat_improvement_handoff.py",
+      "sha256": "6b252f0eab5595321404338db99b87a50bdedf17243a911bf8e547446fa886ec"
+    },
+    {
+      "path": "scripts/chat_market_acquisition.py",
+      "sha256": "b38cfe956676df6bf5675643bb1e61343e61b92678b604e633e21c8ac14de211"
+    },
+    {
+      "path": "scripts/chat_market_live_resume.py",
+      "sha256": "3763c7d64ebcb0df93a62717b898133906e4f750ec2f1f7d47b917bf861da5ed"
+    },
+    {
+      "path": "scripts/chat_result_conversion.py",
+      "sha256": "d00c6636e8973464b93a3884ebb7fe0a17d6ee4dfdcc78baae8bb3a4db54cb65"
+    },
+    {
+      "path": "scripts/chat_result_correction.py",
+      "sha256": "1789db34069d3887d69075963ce9a2eec4ea28eb765d11b8e48937aed441301b"
+    },
+    {
+      "path": "scripts/chat_result_reconciliation.py",
+      "sha256": "0c0e0b9fc62d634ce815bca3c0d17ad98c97e09f0055d06923bc48bd4aebe54a"
+    },
+    {
+      "path": "scripts/chat_resume.py",
+      "sha256": "62af16e3c4ec0b3758bbe180f51a55f00d8b3c55f7e84e0778ac5d9c601aa03b"
+    },
+    {
+      "path": "scripts/chat_review_package.py",
+      "sha256": "b56b69d5ab366f2aba245293a2c20cfacbbd4872619e68408dc5593b9c64c30e"
     },
     {
       "path": "scripts/check_betting_performance.py",
       "sha256": "443977e86411c4e227b03dc3328ac9712a558f62e39b1c4afefe0b00d35cc923"
+    },
+    {
+      "path": "scripts/check_chat_market_live_validation.py",
+      "sha256": "cac018f4953e96ca978fbd7ce918400e39c75092654b15378776257348bf214b"
     },
     {
       "path": "scripts/check_cycle03.py",
@@ -147,31 +235,155 @@
     },
     {
       "path": "scripts/check_cycle04.py",
-      "sha256": "5080675c3ec1556ef0f4989c569c18ec1f8b95930008902488bd6eac71b4564d"
+      "sha256": "b318c51925d0fd0e158e8874966410e44c151efd32035dafc1177d9c4f09a29a"
+    },
+    {
+      "path": "scripts/check_designated_ancestor_scope.py",
+      "sha256": "e340233d3372faf3a247b7215260fa2b7ad2391437837765529eccf2d815e2d1"
+    },
+    {
+      "path": "scripts/check_foreign_pedigree_review.py",
+      "sha256": "1189b3a30c2f592c401b58528bd83615baf7f2c169bd485871ede187a55ad0a1"
+    },
+    {
+      "path": "scripts/check_historical_pr_refs.py",
+      "sha256": "213b4ae45d6a5b291a566420bb106e71c4e804c94c899ebe5f7f9dc8bd832de4"
+    },
+    {
+      "path": "scripts/check_integration_acceptance.py",
+      "sha256": "6a7ab3c1e0dac3347bad610e5fc186cffd7af9ef9450aba4b381558c16bfaf90"
+    },
+    {
+      "path": "scripts/check_legacy_fact_followup.py",
+      "sha256": "86eed015a7adf9976f7aae11c8949b457232c5bded3a7c17d4221d5459bb274c"
+    },
+    {
+      "path": "scripts/check_market_live_validation.py",
+      "sha256": "c7f60aa7d82340e899d798e0dd72f813d0b7351a27f4c786efb5f695f9b1ba94"
+    },
+    {
+      "path": "scripts/check_oct11_pedigree_delta.py",
+      "sha256": "faf7f8059298bc30282aa3c35c10457daf8c7800f8b5b6be8902029a8519b942"
+    },
+    {
+      "path": "scripts/check_pedigree_alternative.py",
+      "sha256": "1d48d2d363594ba5ff112a9b63c485428b1ea7afa021dd8bb243059c9f276254"
+    },
+    {
+      "path": "scripts/check_pedigree_followup.py",
+      "sha256": "7c2e66858f02aaf81c19457d449c49c332e18ec31296eff613fd09ee4b18087a"
+    },
+    {
+      "path": "scripts/check_pedigree_reconciliation.py",
+      "sha256": "9d4a78e1ad0e277c491c22c6d187da45b4f42dd45a23e98d85ea91a5d8df44e3"
     },
     {
       "path": "scripts/check_prediction_compliance.py",
       "sha256": "b241dc198dde2ee203c24dc849812bdbdca113e751136b5e446a8a1a464bb15b"
     },
     {
+      "path": "scripts/check_prediction_cycle.py",
+      "sha256": "26ef472403e93292c2724ce22c3675d90c1270449389684be73d0215627aad46"
+    },
+    {
+      "path": "scripts/check_r08_acceptance.py",
+      "sha256": "6a60912b8b83e947060e31ed98cd1a0f6f6ce45b84df2baec111164abeaa662a"
+    },
+    {
+      "path": "scripts/check_remaining_reviews.py",
+      "sha256": "0221c6d4179daa21446152d8a21364c6c880de61c8e3f37a3166e7eb577936a0"
+    },
+    {
+      "path": "scripts/check_training_country_ancestors.py",
+      "sha256": "2bf66739cfd10e92744697f7da1f5fcb344a77570f3c5593aa078f769d05e676"
+    },
+    {
+      "path": "scripts/check_training_country_priority.py",
+      "sha256": "f85972744b7fc6eefa1fef4a5412cc648de1cfa0b6ef5a37c431a5199632fa72"
+    },
+    {
+      "path": "scripts/check_training_country_r02.py",
+      "sha256": "d5cc2db63b6f2153f4e8dca626934a02b0ec2c36b0c093ed71373b29986a2647"
+    },
+    {
+      "path": "scripts/check_training_country_raw_evidence.py",
+      "sha256": "ffadc6dfd60a67cbe0a2909cb44d47a2211681f7e2ec92900dea7daed0b40aac"
+    },
+    {
+      "path": "scripts/check_training_country_remaining.py",
+      "sha256": "9e5d9318412582a6d9d2f3c611ea5d545ae785eb0d2db1b89c4b9086e119aea1"
+    },
+    {
+      "path": "scripts/check_training_country_reviewed_batches.py",
+      "sha256": "eaec629bfb470b2f63ea97ac8b9b5db389df74e64452edf69eac4104ed804553"
+    },
+    {
+      "path": "scripts/check_training_country_user_confirmations.py",
+      "sha256": "b0c76f97aa1da8a75a1c28b90fc191e450eb15a4e7add1a79b3a20a6143c1e94"
+    },
+    {
+      "path": "scripts/class_transition.py",
+      "sha256": "8c0bc81b82e8d0fa1b7ff02f1af295b071206d77b3c019f454093ef4ef50a5fe"
+    },
+    {
+      "path": "scripts/class_transition_shadow.py",
+      "sha256": "b9b2fa62a43f960546ee394a6226fa216f5b20a23649e117d002f7f73348ec23"
+    },
+    {
       "path": "scripts/cycle04_operations.py",
-      "sha256": "68b038278c3631b0e3addc079662f91f09e063286863b8c85fe02c704e8fc7cc"
+      "sha256": "0c90c33d00e18eb04a36d3f727ae633ba159e01883ecd137101e32ea3588031d"
     },
     {
       "path": "scripts/cycle04_workflow.py",
-      "sha256": "958701d654fe6e7b36a3235e3544f2e5867b13556fc795a8b3e8876b93474fa6"
+      "sha256": "4e1557b9acb6312133a7724e6a6160a64323e3ff41e49618cba0bb6f1dcda50e"
+    },
+    {
+      "path": "scripts/dependency_risk.py",
+      "sha256": "390b09285f7418f9fa380757922b2ba4ae91f62fecb5af7d8346c7b38b5f4fc2"
+    },
+    {
+      "path": "scripts/import_legacy_subjects.py",
+      "sha256": "41b401d4b78d35338759685cd71c9b46fb5cbc842651a730bd85fa54c4ee0bcf"
+    },
+    {
+      "path": "scripts/jvlink_market.py",
+      "sha256": "0f8afaac18ea72366bf7ab63323e197b03feb5249aa66056824ff07fe4a6a00f"
+    },
+    {
+      "path": "scripts/market_acquisition.py",
+      "sha256": "7acc5330b81c856e03dc4026879431fbd3b0310523ce117a7f9a6304ca79041b"
+    },
+    {
+      "path": "scripts/market_sidecar.py",
+      "sha256": "7ed95c1f00aff751ce3b74873cfda46daa2e69e4a5e88faba071f3158dd31229"
+    },
+    {
+      "path": "scripts/pedigree_batch.py",
+      "sha256": "39bcc45c51a4df3fda36e422a7e545a699aeb507889c3050fb2246d993ed539e"
+    },
+    {
+      "path": "scripts/pedigree_registry.py",
+      "sha256": "d102637b2274f2ae1992d6152b4516a4ae0704fe724e1e95518dcb61112e8481"
+    },
+    {
+      "path": "scripts/pedigree_stats.py",
+      "sha256": "dd86891d5ba0a285606526779657dfcca8b40a84d0796716527d13980db0de99"
     },
     {
       "path": "scripts/persistence_status.py",
       "sha256": "ddd973ae03b04f755be75df4cbffbdf69e88f6bdf7c58facef656d31e0eb2854"
     },
     {
+      "path": "scripts/probability_presentation.py",
+      "sha256": "9d6debd9e425c10b82c495f6c7695e7f7696e4f651ee81048db1214840adc60f"
+    },
+    {
       "path": "scripts/recommendation.py",
-      "sha256": "86dff5340bd0dce098e35de8707e167ac9ea8f6d586087f630149847294e3db6"
+      "sha256": "88f55c01d835ff975654f29f17e637fba524da97abbe8d019187385553032150"
     },
     {
       "path": "scripts/run_cycle04_acceptance.py",
-      "sha256": "9059a11b468b476fac4a277491fa52c5d44c7a8d2fd173e7214be8bf54d96277"
+      "sha256": "e1bc46e68cb38586bce59907eb1dc4f871e7a0a0757761cb626970f018c89617"
     },
     {
       "path": "scripts/run_release_readiness.py",
@@ -198,6 +410,70 @@
       "sha256": "9556243255b6036540c2d651cbb8de7e8af5e32ab4a4a4b43a5a774a73faf9df"
     },
     {
+      "path": "scripts/test_chat_calibration_review.py",
+      "sha256": "651b8957fba9a58b44a5015db94a4efb5d6294c6afa6284b6aa9f093bbcf603b"
+    },
+    {
+      "path": "scripts/test_chat_entry_assembly.py",
+      "sha256": "2aac920a8832ccc9dc6f53d3d134857758ab19504596dba075da833cf689b4c6"
+    },
+    {
+      "path": "scripts/test_chat_fact_capture.py",
+      "sha256": "090ccda430bbf3f0c8cd44694be1bdf75525c497f1c730943b235b61ea89135f"
+    },
+    {
+      "path": "scripts/test_chat_fact_input.py",
+      "sha256": "b32c535e1f61c108ac393e7105f09dc3cb62948b68bf3af99e8cb7ebea3fb81e"
+    },
+    {
+      "path": "scripts/test_chat_fact_provenance.py",
+      "sha256": "eb1fea19f1b3dfea147bad1e379055bfb995c64c69dd6b49d807635a4a2cdcb9"
+    },
+    {
+      "path": "scripts/test_chat_forward_coverage.py",
+      "sha256": "0c782f3fdc65b1900c887c09a48fc5192ec09225f31a31e66ec6cacdd8798fbe"
+    },
+    {
+      "path": "scripts/test_chat_helper_market_independence.py",
+      "sha256": "d651a3aadc6d890aa7c72fbf49bbfdb07c4191d56eeebc3c1bb39b05376c7deb"
+    },
+    {
+      "path": "scripts/test_chat_improvement_handoff.py",
+      "sha256": "3969bd788b13c60bd8552156558844406dc0a07e523bec02f1e7b141ffee4f4b"
+    },
+    {
+      "path": "scripts/test_chat_market_acquisition.py",
+      "sha256": "0b4498c123520c921982b99bcdadce800a4f791da07b4b2dbcbafb36364b0a0b"
+    },
+    {
+      "path": "scripts/test_chat_market_live_resume.py",
+      "sha256": "87a2127e0de1b74bf080c84ba803d075e9a31d9c25327a6663330c69e4c3d7ea"
+    },
+    {
+      "path": "scripts/test_chat_market_live_validation.py",
+      "sha256": "d564caf28e4acb052993748f4fa7cf8263186e0df583d9bf85167adb978b9281"
+    },
+    {
+      "path": "scripts/test_chat_result_conversion.py",
+      "sha256": "8fcf68c6fe55880e2bfd377f9022c4bfb75fa8d6129f28e587f1543626b52b7a"
+    },
+    {
+      "path": "scripts/test_chat_result_correction.py",
+      "sha256": "72aa45d065335893d4938368a7eb94c29c9a6fa1a02941ef4c1fe07224e5a8e5"
+    },
+    {
+      "path": "scripts/test_chat_result_reconciliation.py",
+      "sha256": "6bee7c9c1d6faf6d8510ad024b2dbdd92a1885c2a7cc1ddf9615e3cc2cab3628"
+    },
+    {
+      "path": "scripts/test_chat_resume.py",
+      "sha256": "6b9362ed208bc4a422fe0ffe03bc025f9078ab9c92bcda4c23c0dc36de497cb9"
+    },
+    {
+      "path": "scripts/test_chat_review_package.py",
+      "sha256": "99efe52073e0791b3891a431181756946e474f1a03c5ae9f2448eb2e3d4323d6"
+    },
+    {
       "path": "scripts/test_check_betting_performance.py",
       "sha256": "c253c27268422328dd51d5ff340de537a12a166f4927cf363c54e0eb8411512f"
     },
@@ -214,12 +490,64 @@
       "sha256": "27bbf11ea8264f9b0e400115b6396c383ccc295634b03d0ca26967281604323d"
     },
     {
+      "path": "scripts/test_check_prediction_cycle.py",
+      "sha256": "de1415d74d7c8cf1126879cdd2f05d428c5c1f47fe8ee0c724343c558b55255e"
+    },
+    {
+      "path": "scripts/test_class_transition.py",
+      "sha256": "57279f8343c161dc6d97a4f6ae63729abc67d251604f37d6cab4a62d9ef33235"
+    },
+    {
+      "path": "scripts/test_class_transition_shadow.py",
+      "sha256": "a374f1626535caef4710f9df2948ebb7a6e786c7c9e862ef4e9a9652c4337d27"
+    },
+    {
       "path": "scripts/test_cycle04_acceptance.py",
       "sha256": "50d122f3d5f94be583840fd4bb64e60a97b6c4f187c4399e6842ee90d3ef785a"
     },
     {
       "path": "scripts/test_cycle04_workflow.py",
-      "sha256": "4102b4e6f1a321d9d1d1ec2f469cda081a25bd387132fcd1d4d92b1287f285b5"
+      "sha256": "10849e0e8680e8a33b6782a6f6b5bb87f37c64b5eb4404d1881774afe0df0b61"
+    },
+    {
+      "path": "scripts/test_dependency_risk.py",
+      "sha256": "782e8728c907d191ebcf94af6015a5a033b2972c76828ff22bdf491a8d76fab5"
+    },
+    {
+      "path": "scripts/test_designated_ancestor_scope.py",
+      "sha256": "0e239d405672430b43fa5d46f75936a525e0a1bf9df2952a520598c0011b67a0"
+    },
+    {
+      "path": "scripts/test_foreign_pedigree_continuation.py",
+      "sha256": "5aef464b351dd59bb969e27259ad83d9425a5f0c6fd890f69ff654988bf3ef46"
+    },
+    {
+      "path": "scripts/test_foreign_pedigree_review.py",
+      "sha256": "b87aebe94d3e970b9b41c274cf9b8f3ff92929bc477d5147445c334d9c113bb6"
+    },
+    {
+      "path": "scripts/test_historical_pr_refs.py",
+      "sha256": "b5a985dcae3010ba92ec18667452e9b15602bbd922510c4166928ae39dcc03fa"
+    },
+    {
+      "path": "scripts/test_jvlink_market.py",
+      "sha256": "5b78c0bfc32c5e4a2bb5b71205b809921134c106977416972f17434d66b57935"
+    },
+    {
+      "path": "scripts/test_legacy_fact_followup.py",
+      "sha256": "b739684128aa52ea5f76adf8def589568e01f8bc132c537408c7b1f5c19795a2"
+    },
+    {
+      "path": "scripts/test_market_acquisition.py",
+      "sha256": "ad80bd700d7247a55c921d8ad621ddce5b387efa92dd6d36c00a2187149ba937"
+    },
+    {
+      "path": "scripts/test_market_live_validation.py",
+      "sha256": "5a5e059602d2809d03994a7c701363f59a3e5478e065f1cfce5d4e5b9e4c68af"
+    },
+    {
+      "path": "scripts/test_market_sidecar.py",
+      "sha256": "a0e8db537e4cb7d967038a23dff0f7283f6c49c8e8bf0b433ad5e7e2828b60f5"
     },
     {
       "path": "scripts/test_next_prediction_compliance.py",
@@ -230,6 +558,30 @@
       "sha256": "3866d80a035357fe7133cef313887c6ef897be112ac975fdafb510db91332e8d"
     },
     {
+      "path": "scripts/test_pedigree_alternative.py",
+      "sha256": "bb921f0f3846af65af66d4c3e7bc47f513a0570fc40210957ea71168e8df2204"
+    },
+    {
+      "path": "scripts/test_pedigree_batch.py",
+      "sha256": "4d430f17dfb6c9c689bb558f5b662c8615b234782ddf26deb9b34e81e821f77d"
+    },
+    {
+      "path": "scripts/test_pedigree_reconciliation.py",
+      "sha256": "0cbd282c89a632bf31decd47f46653ae7e3b1f8aca7899c7fcf95deddfa44f44"
+    },
+    {
+      "path": "scripts/test_pedigree_registry.py",
+      "sha256": "702f77ed9b050430c735ee1e0e07313247229518cb53fb1d3016e3e4b745ca11"
+    },
+    {
+      "path": "scripts/test_pedigree_schema_contract.py",
+      "sha256": "2f0747a5f059566a43445589f95145c20e1d484925f7f7b89fa31329e27c8f00"
+    },
+    {
+      "path": "scripts/test_pedigree_stats.py",
+      "sha256": "4ba6ce7dec9d2cf0afe24d166688830fc788968be52a6b3e5c10492a26d69b7b"
+    },
+    {
       "path": "scripts/test_persistence_status.py",
       "sha256": "0df3b830bbee7198513708ca6d9f725a1d069c1b698228f77c0bb2a38557b2d2"
     },
@@ -238,12 +590,24 @@
       "sha256": "5f8c489119dd2fdbaa100f470a14f2c71e2831f53acc64bb197dd1d0b76cdad6"
     },
     {
+      "path": "scripts/test_probability_presentation.py",
+      "sha256": "2637b705ed2932898c14389bae17158236d2196de3c3bf4173da0f79815186b0"
+    },
+    {
+      "path": "scripts/test_r08_acceptance.py",
+      "sha256": "a50e86f782d01371515a85c7b16fd180364e9c53da6fbefff580c330fd8e2460"
+    },
+    {
       "path": "scripts/test_recommendation.py",
       "sha256": "d3f1c0003a35c70fdb11927d1676771f5a4a4b19b894d435f250098221d78d9c"
     },
     {
       "path": "scripts/test_release_readiness.py",
-      "sha256": "12e5b570a9cd5da18db183d790ad6ae8b67ea1c3fe46e128d9c0fb533239ce23"
+      "sha256": "936939482714e209988af96da1cf87a3d5029d6649b7823da68b8d373bb93ec3"
+    },
+    {
+      "path": "scripts/test_remaining_reviews.py",
+      "sha256": "68bac114fc791c9605f3942f8ce113416b35424e58c0e7dff3f638632fd1c711"
     },
     {
       "path": "scripts/test_selection_history.py",
@@ -254,8 +618,24 @@
       "sha256": "1076de10f2ddcfb10d5bc0474010a74355407511370ef5f1eb9407440b5301a9"
     },
     {
+      "path": "scripts/test_training_country_ancestor_reply.py",
+      "sha256": "de6a297d609b312460828f618b340de8ce7de2d600f8a4545646e050c7c900d1"
+    },
+    {
+      "path": "scripts/test_training_country_ancestors.py",
+      "sha256": "93d3003e29480076f4a3abe7d3a37161315196a12355039ef694e672e7be9e3e"
+    },
+    {
+      "path": "scripts/test_training_country_priority.py",
+      "sha256": "56d0e1ee810e5434cfc725c1fe1ee009752dd567d2e7f8d418cb47ea50c0b002"
+    },
+    {
+      "path": "scripts/test_training_country_remaining.py",
+      "sha256": "48e2754320597fa8399cac469ee4769b68f9895d91b210802ce004854acad0a4"
+    },
+    {
       "path": "scripts/test_two_axis_candidates.py",
-      "sha256": "509e40b9980fa3210d64ccc4416ccec28b6c7f81d833980108d09a712e60a6d5"
+      "sha256": "c41eb9809f78829e51b043c62725aa47b58c1c3f0896a168ec78d9d8275ea585"
     },
     {
       "path": "scripts/test_verify_prediction_persistence.py",
@@ -263,7 +643,7 @@
     },
     {
       "path": "scripts/two_axis_candidates.py",
-      "sha256": "d4289c21b24c2e06de9ce91cfebed28c8c78cfb1879ce20a3daa630deac8aafb"
+      "sha256": "cd70b6c3b51f1711902b060db91e0247dd520beaa5271253a4e4ba39561c403c"
     },
     {
       "path": "scripts/verify_prediction_persistence.py",

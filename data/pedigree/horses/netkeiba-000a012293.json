@@ -1,0 +1,129 @@
+{
+  "horse_key": "netkeiba-000a012293",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2010,
+    "external_ids": {
+      "NETKEIBA": "000a012293"
+    },
+    "identity_evidence": {
+      "record_key": "000a012293",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02d860"
+    },
+    "name": "Intello (独)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:00:51.432695+00:00",
+  "identity_observed_at": "2026-10-10T10:00:51.432695+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2010,
+    "external_ids": {
+      "NETKEIBA": "000a012293"
+    },
+    "identity_evidence": {
+      "record_key": "000a012293",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02d860"
+    },
+    "name": "Intello (独)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:00:51.602855+00:00",
+      "content_hash": "84098e9395b243a5a0bf5309cd669cbdc5b2aa74f6a923359dee425c6ca2edd9",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:00:51.602844+00:00",
+      "input_hash": "53145ce72d0102056a8d797dbca0428c193ae1c29ea7584700d294379464b13c",
+      "previous_revision": null,
+      "revision_id": "rev-53145ce72d0102056a8d797d",
+      "saved_at": "2026-10-10T10:00:51.606327+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "64af8bc0b58c1926d9761b7abaf518a9f18e4402781d5cbda372b54eb4b0f382",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d860:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d860/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000714343",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:00:51.614288+00:00",
+      "content_hash": "b496e2ee3ee818c9828b481e802a32598c5289969a590476d0f1030e672fda20",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:00:51.614281+00:00",
+      "input_hash": "c85f1a0e9043f45b09a7662518fee9297f73a8b9c0269ba1f82e9df950ebbcdd",
+      "previous_revision": null,
+      "revision_id": "rev-c85f1a0e9043f45b09a76625",
+      "saved_at": "2026-10-10T10:00:51.614578+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "64af8bc0b58c1926d9761b7abaf518a9f18e4402781d5cbda372b54eb4b0f382",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02d860:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02d860/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a012292",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T12:39:32.174344+00:00",
+      "content_hash": "6753249436908cb40ee525aee965b85621de2621c4948c6b3abcbbe644af2e9c",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T12:39:32.174341+00:00",
+      "input_hash": "7a3ad481601b5a342bd863956463c07bc6e3227a4be7f4352068852d0ddde7f1",
+      "previous_revision": null,
+      "revision_id": "rev-7a3ad481601b5a342bd86395",
+      "saved_at": "2026-10-10T12:39:33.168880+00:00",
+      "source": {
+        "acquisition_method": "reviewed-own-individual-training-affiliation",
+        "origin_group": "AHONOORA",
+        "record_hash": "2709c46fb364c35429f6d949d1429053fc4828aede9b3b9137a8e2801c485073",
+        "record_key": "netkeiba-000a012293",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://ahonoora.com/intello.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "FR",
+            "source": {
+              "captured_at": "2026-10-10T12:33:41.982036+00:00",
+              "record_hash": "2709c46fb364c35429f6d949d1429053fc4828aede9b3b9137a8e2801c485073",
+              "url": "https://ahonoora.com/intello.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年と本人調教師の所属国/Trained列を原文照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

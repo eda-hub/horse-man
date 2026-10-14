@@ -1,0 +1,35 @@
+{
+  "schema_version": "numbered-implementation-v1",
+  "task": "53-I04",
+  "message": "53-I04：固定参照と通常入力本体を照合し台帳を非破壊プレビュー",
+  "status": "IMPLEMENTATION_ACCEPTED",
+  "basis_commit": "de5377befca36e79c55dc7e66634879c255d58e3",
+  "local_tests": 3,
+  "related_workflow_tests": 25,
+  "failures": 0,
+  "skipped": 0,
+  "formal_schema_changed": false,
+  "ledger_saved": false,
+  "git_persistence_verified": false,
+  "real_acquisition_performed": false,
+  "fixture_correction": "初回ローカル検査で入力参照キーをinput_refと記述していた誤りを検出。現契約のinputs_refへ修正し3件再検査成功。既存25回帰を保持。",
+  "global_tests": 703,
+  "source_count": 123,
+  "source_manifest_sha256": "3b735fd4e93d35a7ff8dcb876711ac970cd605b202e2346717c73cb5ad0c8553",
+  "validation_basis_commit": "e9becbf651408dcc995d3a4cc14ff21cfe1ad58b",
+  "ci": [
+    {
+      "id": 38437698588,
+      "conclusion": "success"
+    },
+    {
+      "id": 38437698591,
+      "conclusion": "success"
+    },
+    {
+      "id": 38437698597,
+      "conclusion": "failure"
+    }
+  ],
+  "global_ci": "成功統合CIの全入力hashへ受入を更新。最終HEADのCIはPR本文で確認。"
+}

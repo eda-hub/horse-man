@@ -1,0 +1,275 @@
+{
+  "schema_version": "market-provider-source-contract-v1",
+  "task": 29,
+  "followup": "残件対応",
+  "source_probe": {
+    "run_id": 38348462108,
+    "baseline_run_id": 38348179562,
+    "sdk": {
+      "url": "https://jra-van.jp/dlb/sdv/sdk/JVDTLABSDK500_64bit.zip",
+      "http_status": 200,
+      "bytes": 27244525,
+      "sha256": "21f4d54706ff050e383f21f3571f59ffe8de38ed46a01be3e5b7756ee957f9d7",
+      "struct_sha256": "8994f985fce846f1b4fcbc3ddf2a5c6394c586a458478346891222b3b61e4ee3",
+      "python_sample_form1_sha256": "a370d03d665491a8441fc4def20a2dc21e88ded78c330a5f87b93fd47e5fa3de",
+      "python_sample_form2_sha256": "43caa430de19ffaeed7428ea28aa9a14e42dda70a13f509a984121c0df20f6dc",
+      "verified_interface": "JVDTLab.JVLink / JVInit / JVRTOpen / JVGets(bytearray,size,bytearray) / JVClose"
+    },
+    "public_web": {
+      "pc_index_http": 200,
+      "sp_index_http": 200,
+      "direct_odds_get": "ERR_GETMETHOD",
+      "not_normalized_json": true
+    }
+  },
+  "selected_routes": {
+    "primary": "JVRTOpen 0B30",
+    "fallback": "JVRTOpen 0B31..0B36 by requested ticket",
+    "key": "YYYYMMDDJJRR derived from frozen race_id",
+    "shared_provider_failure": true,
+    "web_mirror_as_independent_source": false
+  },
+  "source_specs": [
+    {
+      "url": "https://developer.jra-van.jp/t/topic/45",
+      "purpose": "current official SDK 5.0.0"
+    },
+    {
+      "url": "https://jra-van.jp/dlb/sdv/sdk/JV-Data4901.pdf",
+      "pages": [
+        15,
+        16
+      ],
+      "purpose": "official record byte layout"
+    },
+    {
+      "url": "https://jra-van.jp/dlb/sdv/sdk/JV-Link4901.pdf",
+      "pages": [
+        22,
+        25,
+        27
+      ],
+      "purpose": "official interface and request key"
+    }
+  ],
+  "runtime": {
+    "host_os": "Linux",
+    "pywin32_available": false,
+    "user_windows_vm_reachable": "NOT_CONFIGURED",
+    "service_connection_verified": false,
+    "live_meeting_dates": null,
+    "prior_context_lookup": "No usable horse-man Windows VM connection settings found; unrelated Azure hosts excluded"
+  },
+  "tests": {
+    "native": 17,
+    "live_acceptance_contract": 7,
+    "existing_acquisition": 22,
+    "sidecar": 18,
+    "cycle04": 56,
+    "result": "PASS",
+    "full": 564,
+    "skipped": 0
+  },
+  "protected": {
+    "historical_records_changed": false,
+    "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "manual_owner_changed": false,
+    "live_evidence_created": false,
+    "performance_promoted": false
+  },
+  "live_remaining": {
+    "windows_service_connection": "OUT_OF_SCOPE_BY_USER_CHANGE",
+    "two_future_meetings": "OPEN",
+    "not_fabricated": true
+  },
+  "acceptance": {
+    "instruction": "残件も対応しろ",
+    "inputs": {
+      "pr69": "804a5201fbba997bb7ef7afcf248773392bb3f3b",
+      "pr68": "97e215424946847142d7340441ed42453c1a3aa5"
+    },
+    "code_commit": "c0a791327995238046cb9fe6406ddb57de7506e6",
+    "provider_receipt": "docs/validation/implementation/2026-10-11-task29-provider.json",
+    "additional_tests": 23,
+    "full_tests": 563,
+    "skip": 0,
+    "source_count": 100,
+    "release_sources": 115,
+    "main_start": {
+      "activation_policy": "MAIN_MERGE",
+      "atomic_contract_verified": true,
+      "cycle_dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "live_races_executed": null,
+      "main_commit_time": "2026-10-13T08:15:30+09:00",
+      "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "manual_release": "v1.7.0",
+      "operational_ready": true
+    },
+    "branch_start": {
+      "operational_ready": false,
+      "reason": "v1.7.0 has not been merged into the fetched main contract",
+      "status": "UNMERGED_CONTRACT_REJECTED"
+    },
+    "initial_formal_run": 38349639239,
+    "initial_formal_failure": "stale acceptance: source hash mismatch",
+    "acceptance_basis_run": 38349639228,
+    "acceptance_manifest_sha256": "b0f2dc77b15194a91b6d85e31301c4ffe615ff1ea76f56375e927410e9f79800"
+  },
+  "status": "CHAT_CONFIGURATION_FIXED_LIVE_VALIDATION_OPEN",
+  "ci": [
+    {
+      "run": 38353772353,
+      "job_id": 115151855479,
+      "steps": 6,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772353"
+    },
+    {
+      "run": 38353772384,
+      "job_id": 115151855271,
+      "steps": 13,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772384"
+    },
+    {
+      "run": 38353772381,
+      "job_id": 115151865970,
+      "steps": 22,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772381"
+    }
+  ],
+  "verification_basis_commit": "cc4c78279313c536ed19df1041e13cb42da1114f",
+  "final_review": {
+    "code_commit": "3ee5003252b941c544ffc7485a5717fa72335276",
+    "windows_response_path_git_portability": "PASS",
+    "fixture_independent_of_implementation_layout": "PASS",
+    "sdk_official_order_fixture": "PASS",
+    "acceptance_manifest_sha256": "3c52989e937e837d8c0e5a2caf67afa95b07b63b28d4ba6a04591e0d62732dce",
+    "review_formal_run": 38351826992,
+    "review_formal_failure": "stale acceptance: source hash mismatch",
+    "regression_before_refresh": 564,
+    "refresh_verified": true
+  },
+  "git_fixture_stability": {
+    "code_commit": "2f0eeca4374f388325f0ff6c2aebe44daff8f4e2",
+    "acceptance_refresh_commit": "cc4c78279313c536ed19df1041e13cb42da1114f",
+    "observed_failure_run": 38352782084,
+    "observed_failure": "TemporaryDirectory cleanup OSError [Errno 39] Directory not empty: objects",
+    "fixture_fix": "一時Git fixture内だけ maintenance.auto=false / maintenance.autoDetach=false / gc.auto=0 / gc.autoDetach=false。検査assertion・厳格cleanupは維持。",
+    "local_readiness_tests": 9,
+    "independent_full_basis_run": 38353608850,
+    "independent_full_basis_job": 115151341266,
+    "full_tests": 564,
+    "skipped": 0,
+    "source_count": 100,
+    "release_sources": 115,
+    "acceptance_manifest_sha256": "9a69c613df07f766f82d50e984d455fc28d353b963f86bebfc73aaeacf7db2da",
+    "before_refresh_formal_run": 38353608874,
+    "before_refresh_formal_result": "564回帰はPASS、旧受入source hash不一致のみでFAIL",
+    "live_service_connection": "OPEN",
+    "two_future_meetings": "OPEN",
+    "verification_basis_commit": "cc4c78279313c536ed19df1041e13cb42da1114f",
+    "ci": [
+      {
+        "run": 38353772353,
+        "job_id": 115151855479,
+        "steps": 6,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772353"
+      },
+      {
+        "run": 38353772384,
+        "job_id": 115151855271,
+        "steps": 13,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772384"
+      },
+      {
+        "run": 38353772381,
+        "job_id": 115151865970,
+        "steps": 22,
+        "result": "success",
+        "url": "https://github.com/eda-hub/horse-man/actions/runs/38353772381"
+      }
+    ],
+    "refresh_verified": true
+  },
+  "previous_status": "IMPLEMENTATION_ACCEPTED_WINDOWS_AND_TWO_MEETINGS_OPEN",
+  "current_configuration": {
+    "schema_version": "chat-market-acquisition-policy-v1",
+    "effective_instruction_date_jst": "2026-10-13",
+    "task": 29,
+    "execution": "CHAT_AVAILABLE_PUBLIC_SEARCH_AND_READ",
+    "policy_scope": "CHAT_OPERATION_POLICY_NOT_AUTOMATIC_CLI_RUNTIME_CONFIGURATION",
+    "requires": {
+      "webui": false,
+      "dedicated_server": false,
+      "windows": false,
+      "jvlink": false,
+      "user_pc_command": false,
+      "inbound_network": false,
+      "login": false
+    },
+    "primary_source": "JRA_PUBLIC_ODDS_PAGE",
+    "alternate_source_status": "NOT_VERIFIED",
+    "comparison_ticket_types": [
+      "WIN",
+      "PLACE",
+      "BRACKET_QUINELLA",
+      "QUINELLA",
+      "WIDE",
+      "EXACTA",
+      "TRIO",
+      "TRIFECTA"
+    ],
+    "prediction_requires_market": false,
+    "recommendation_requires_market": false,
+    "max_sources": 2,
+    "max_attempts_per_source": 2,
+    "required_observation_fields": [
+      "race_id",
+      "ticket",
+      "source_url",
+      "source_updated_at_jst",
+      "retrieved_at_jst",
+      "odds_or_range",
+      "retrieved_excerpt",
+      "retrieval_kind"
+    ],
+    "accept_only_pre_race_verified_observation": true,
+    "unknown_source_time_is_ineligible": true,
+    "search_snippet_is_price_evidence": false,
+    "raw_http_bytes_must_not_be_inferred": true,
+    "authentication_bypass": false,
+    "windows_followup": "OUT_OF_SCOPE_BY_USER_CHANGE",
+    "chat_writer_integration": "OPEN",
+    "live_meetings": null,
+    "required_live_meetings": 2,
+    "status": "CONFIGURATION_FIXED_LIVE_VALIDATION_OPEN",
+    "procedure": "docs/validation/market-chat-acquisition.md"
+  },
+  "configuration_change": {
+    "instruction": "専用サーバー・Windows不要。ChatGPTチャットから取得する構成へ変更",
+    "historical_acceptance_preserved": true,
+    "legacy_windows_connection": "OUT_OF_SCOPE_BY_USER_CHANGE",
+    "legacy_jvlink_checker": "NOT_APPLICABLE_TO_CHAT_TRANSPORT",
+    "chat_observed_prices": null,
+    "chat_live_meetings": null,
+    "chat_runtime_adapter": "NOT_IMPLEMENTED",
+    "remaining_tasks": [
+      "29-C02",
+      "29-C03",
+      "29-C04",
+      "29-C05",
+      "29-C06",
+      "29-C07",
+      "29-C08"
+    ]
+  }
+}

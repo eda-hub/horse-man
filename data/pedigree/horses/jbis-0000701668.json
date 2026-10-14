@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0000701668",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2000,
+    "external_ids": {
+      "JBIS": "0000701668",
+      "NETKEIBA": "2000101517"
+    },
+    "identity_evidence": {
+      "record_key": "0000701668",
+      "source": "JBIS"
+    },
+    "name": "ゼンノロブロイ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:29.358873+00:00",
+  "identity_observed_at": "2026-10-09T12:33:29.358873+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2000,
+        "external_ids": {
+          "JBIS": "0000701668",
+          "NETKEIBA": "2000101517"
+        },
+        "identity_evidence": {
+          "record_key": "0000701668",
+          "source": "JBIS"
+        },
+        "name": "ゼンノロブロイ",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:29.796691+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2000,
+        "external_ids": {
+          "JBIS": "0000701668"
+        },
+        "identity_evidence": {
+          "record_key": "0000701668",
+          "source": "JBIS"
+        },
+        "name": "ゼンノロブロイ",
+        "status": "RESOLVED"
+      },
+      "event_hash": "cd74d4ae975704f6dc41d672a8b78dca2ec2be737fffd9649c45f6eb9f1900c9",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2000,
+    "external_ids": {
+      "JBIS": "0000701668"
+    },
+    "identity_evidence": {
+      "record_key": "0000701668",
+      "source": "JBIS"
+    },
+    "name": "ゼンノロブロイ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:25.558567+00:00",
+      "content_hash": "a22e6681ee2bd461f3863622481a0666afaaca348756b9afe74b60dad5c9486e",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:25.558567+00:00",
+      "input_hash": "3a083c98b601c8d03dd295d6ce54f748326f2ed4df2e5f9e6cf37106ff1bd633",
+      "previous_revision": null,
+      "revision_id": "rev-3a083c98b601c8d03dd295d6",
+      "saved_at": "2026-10-09T12:34:53.961894+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "76f154d1b81ec7ffafe4022ca9b6d5fdfb20149ed1932e90fe37daf9038316d3",
+        "record_key": "0001336773",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001336773/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333862",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:25.558567+00:00",
+      "content_hash": "ef35a22a24f581cbd4b389089284ba128b9ff5e4611e19015023107a57f1b8f0",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:25.558567+00:00",
+      "input_hash": "8f15e992afa0284823ea808107268a8313a58c1235b64351e1842b03e30e32a9",
+      "previous_revision": null,
+      "revision_id": "rev-8f15e992afa0284823ea8081",
+      "saved_at": "2026-10-09T12:34:53.962705+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "76f154d1b81ec7ffafe4022ca9b6d5fdfb20149ed1932e90fe37daf9038316d3",
+        "record_key": "0001336773",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001336773/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000432408",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0000701668/",
+              "record_hash": "f80cc2da49f907978cf2ea73c1e1f40fa337255ba09372d69f3e3dfb1c989423",
+              "captured_at": "2026-10-10T04:29:45.509Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:29:45.509Z",
+      "captured_at": "2026-10-10T04:29:45.509Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0000701668",
+        "record_hash": "f80cc2da49f907978cf2ea73c1e1f40fa337255ba09372d69f3e3dfb1c989423",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0000701668",
+          "horse_name": "ゼンノロブロイ",
+          "trainer": "藤沢 和雄",
+          "trainer_location": "美浦",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0000701668/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-69b8fd05adb62c64a8942607",
+      "input_hash": "69b8fd05adb62c64a8942607cb88bca033f5329eff0a99c58eddb7f223a3490d",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:29:45.511Z",
+      "content_hash": "f4e8971ad9f76a119dd1bbd04e0d41dbf6d011f7f2c94169319666ab596d7b44"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

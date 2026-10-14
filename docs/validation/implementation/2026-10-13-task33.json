@@ -1,0 +1,106 @@
+{
+  "schema_version": "task33-checkpoint-v1",
+  "task": 33,
+  "status": "PREPARATION_ACCEPTANCE_COMPLETE_LIVE_PROBABILITY_PERFORMANCE_OPEN",
+  "input_pr69_sha": "581b0f79d1f775a3d9ff86dc9bb5eb6f55643df6",
+  "input_pr68_sha": "a580d7f432930a0f133f149a57fe57fca8358d63",
+  "tasks": {
+    "33-01": "SAME_FRAME_MULTI_HORSE_EVENT_AND_DUPLICATION_VERIFIED",
+    "33-02": "CANCELLATION_MISSING_FRAME_AND_UNACCEPTED_PROBABILITY_GENERATION_VERIFIED"
+  },
+  "implementation": {
+    "code_changed": false,
+    "reason": "既存ticket_event/比較検査/共同結果モデルの準備実装が要求を満たすため再実装なし",
+    "new_frame_contract_active": false,
+    "recommendation_frame_generator_supported": false
+  },
+  "validation": {
+    "synthetic": true,
+    "live_races_executed": null,
+    "tests_run": 68,
+    "failures": 0,
+    "skipped": 0,
+    "command": "PYTHONPATH=scripts python3 -m unittest test_dependency_risk test_cycle04_acceptance test_probability_presentation -q",
+    "positive_case_count": 6,
+    "negative_case_count": 12,
+    "positive_cases": [
+      "枠連1-2と2-1は同一事象",
+      "同枠1-1の24着順・12的中・1券・条件付き全損率0.5",
+      "異枠1-2の24着順・12的中・1券・条件付き全損率0.5",
+      "取消後も同枠に実出走2頭なら同枠事象成立",
+      "枠情報不足はMISSING空券/理由の表示を保持",
+      "比較の確率MISSINGはnullを保持"
+    ],
+    "negative_cases": [
+      "同一枠券重複",
+      "表裏枠券重複",
+      "未知枠",
+      "全枠情報欠落",
+      "一部枠情報欠落",
+      "取消馬を含む古い全頭/枠対応",
+      "不正枠0",
+      "取消後同枠が1頭",
+      "取消で対象枠消滅",
+      "未算定確率を0へ代用",
+      "未校正値に校正済み下限",
+      "既存推奨generatorへの枠連追加"
+    ],
+    "enumeration_fixture": {
+      "horses": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "frames": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 2
+      },
+      "distribution": "全24順列を各1/24とする合成・排他的着順モデル",
+      "tickets": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "separate_audit_per_ticket": true,
+      "allocation_yen": 100,
+      "source_ref": "synthetic-24-permutations",
+      "probability_method": "UNCALIBRATED",
+      "interpretation": "条件付きモデル検算のみ。実レース確率/校正/性能の受入ではない"
+    },
+    "source_git_blob_sha": {
+      "scripts/cycle04_operations.py": "c8470b606838d53fba7262c1c041158a61adbea7",
+      "scripts/dependency_risk.py": "fbc3ae480cb45ca190a762a3a0bdcea71f77e337",
+      "scripts/probability_presentation.py": "5845a04dd2c286d4e81cef5ce87ca455e1bca85c",
+      "scripts/recommendation.py": "8fe7d1a679d9da973d17bbc99e29c94e90522e5b",
+      "scripts/test_dependency_risk.py": "0a96fab3773a60798805b0a0ef087950afdc3f65",
+      "scripts/test_cycle04_acceptance.py": "e865eea82e8e6c5ed80f77ab40d5fb0da00482db",
+      "scripts/test_probability_presentation.py": "fd2b3d24579af62150116019a4746e0911693786"
+    }
+  },
+  "protected": {
+    "owner_changed": false,
+    "schema_changed": false,
+    "code_changed": false,
+    "workflow_changed": false,
+    "data_changed": false,
+    "main_changed": false,
+    "existing_acceptance_inputs_changed": false
+  },
+  "remaining": {
+    "live_frame_probability": "NOT_ACCEPTED_CONTINUE_VALIDATION",
+    "calibration": "NOT_ACCEPTED",
+    "frame_recommendation_generation": "NOT_SUPPORTED_NEW_CONTRACT_INACTIVE",
+    "frame_performance": "NOT_ACCEPTED",
+    "task29": "PRE_RACE_LIVE_VALIDATION_OPEN",
+    "performance_promoted": false
+  },
+  "next": "34-01"
+}

@@ -1,5 +1,45 @@
 # 第4サイクル v1.7.0 実運用契約
 
+## クラス移行Shadowの固定3条件と前向き試験
+
+比較原本の`comparison_method_id`は試験計画の`class-transition-evidence-v1`と一致させ、`change_reason`に変更/据置の根拠を保存する。試験途中で異なる比較方法を混ぜない。共通入力と基準の読戻し→入力binding保存/読戻し→比較保存の順を照合し、基準読戻し前のbindingを拒否する。その他の共通事実は`other_facts`の根拠行（horse_no/factor/fact/source_ref/observed_at_jst/direction/strength）で保持し、cutoff後の情報を拒否する。
+
+第37項の準備用読取入口は`scripts/class_transition_shadow.py`。`python3 scripts/class_transition_shadow.py docs/validation/class-transition/fixed-cases.json`で、年齢限定重賞→古馬OP、混合クラス移行、既対戦/入力不足の最大3固定例を照合する。保存した3例は明示的なSYNTHETICで、実馬・過去予想の復元・前向き性能ではない。REPLAYも前向きKPI外。10/12の旧回顧/snapshotにある部分比較と不適格を、真正な新比較ペアへ代用しない。37-01〜03の固定条件のコード検査と、実例での効果検証は分離する。
+
+利用者は2026-10-13に前向き試験を10/17・18・24・25の該当全例と指定した。東京/京都/新潟の実際に依頼・保存された対象から収集し、件数は実該当数を記録する。件数上限や新たな一律受入閾値を作らない。`docs/validation/class-transition/forward-plan.json`は試験方針で、未来の予想/台帳/実測0ではない。37-04の期間/対象・Owner・必要入力・判定方法は固定、37-05の将来実測は開催前につきOPEN。
+
+前向きの読取manifestは`{"plan": <forward-plan.jsonの内容>, "items": [{"gate_path": "保存済みPrediction gateの相対path", "shadow_item_id": "該当ShadowのID", "result_path": "公式結果JSONの相対path"}]}`。`python3 scripts/class_transition_shadow.py MANIFEST.json --root REPO`で検査する。対象日のFORWARD、Production/Shadow双方のELIGIBLE、独立した発走前原本・hash・receiptを既存gate/verified_artifactで確認する。
+
+Shadow原本は`class-transition-shadow-pair-v1`で、race_id/race_date_jst/data_cutoff/scheduled_post_time_jst/mode、baseline_forecast_id、baseline_prediction_sha256、baseline/shadow、assessment、common_input_ref/common_input_sha256、baseline_input_binding_refを持つ。baseline/shadowは同一cutoff・共通入力hash・全頭ranking/probabilitiesを持つ。基準値は検証済みProductionと完全一致させ、全頭集合と確率総和1/2/3を照合する。assessmentは36番の同一レース・馬・cutoffの入力。
+
+共通入力原本は`class-transition-common-input-v1`のrace_id/data_cutoff/assessmentsと、両予想が使ったその他の共通事実を持つ。基準入力bindingは`class-transition-input-binding-v1`のrace_id/data_cutoff/baseline_prediction_sha256/common_input_sha256。共通入力・binding・Shadow原本のすべてを既存独立receiptで発走前に保存/読戻しする。基準の同一入力利用を事後の自己申告だけで適格にしない。標準Prediction schemaや値を書換えず、この比較用bindingを別原本として保持する。
+
+公式全頭結果と対応し、勝率/連対率/3着内率のBrier、◎勝利、上位1/3/6頭の勝馬捕捉、順位変更、基準→比較差を同一ペアで計算する。いずれかのBrier上昇または捕捉悪化があるペアは悪化、悪化なしの改善は改善、差なしは中立。改善した指標だけを選んで採用しない。未知の結果・全頭欠落・未来結果・入力/根拠不足・取消未再固定・同着の未検証境界・重複は理由付き分離。前向き適格ペアは直接/強い代替の構造充足と入力completeを要求する。
+
+平均差は記述診断で、統計的非劣化/校正や性能昇格を自動認証しない。条件別・全該当scopeと未提出/不適格を実day原本へ対応付けてOwnerが終了審査する。期間経過だけでtrial_completeにはならず、sample_coverage_verifiedは終了審査までfalse。データなしは値null/未実測、0適格でも0%の性能にしない。既存50_reviewの複数条件・5例/20例等の目安と良好部分保全を別PRで審査する。37-05、代替手法の効果・校正・前向き非劣化は実測待ちを保持。標準予想/推奨や29番の価格取得をこの試験待ちで止めない。
+
+## 初古馬対戦・昇級の準備用読取監査
+
+`python3 scripts/class_transition.py INPUT.json`で`class-transition-assessment-v1`を照合する。任意の準備用入力で、既存Production/推奨の必須入力や正式schemaを変更しない。出力は比較材料の不足・時点・整合の確認であり、能力点/確率/年齢減点を生成しない。第37項の比較へ引き継ぐ準備機能で、前向き性能は未受入。
+
+入力は`race_id`、`horse_no`、`horse_age`、`data_cutoff`、`target`、`prior_start_count`、`older_encounters`、`previous_class`、`class_promotion`、`recent_five_runs`、`comparison_evidence`を持つ。各事実は`status=ACQUIRED/MISSING`、`value`、`reason`を持ち、ACQUIREDは`source_ref`と`observed_at_jst <= acquired_at_jst <= cutoff`を要求する。MISSINGはnullを保持する。
+
+`target`は年齢条件`age_condition=AGE_RESTRICTED/MIXED`、実際の古馬出走`older_horses_present`、クラス`class`、斤量`carried_weight_kg`を別々の事実で持つ。混合戦という出走資格だけで実際の古馬対戦を断定しない。古馬既対戦数を確定するには`coverage=ALL_PRIOR_STARTS`と全過去走数の整合が必要。近5走に古馬がいないことだけから全過去の0を推測しない。3歳初古馬対戦は対象の実古馬出走と0/正数/不明から判定し、昇級true/false/不明は前走/対象クラスと別に保持する。クラス名の文字列から序列や昇級を推測しない。
+
+近5走は利用可能な`min(5, prior_start_count)`走を新しい順に保持し、各走の`run_id`、`race_at_jst`、`source_ref`、当時の`horse_age`、年齢条件、古馬対戦の有無、クラス、斤量、相手レベルを照合する。実走時刻・情報観測/取得時刻はcutoff以下で、古いレースの相手の後日成績でもcutoff後の情報を逆輸入しない。確認済み近5走の古馬対戦数が全過去件数より多い矛盾を拒否する。
+
+比較根拠は`evidence_id`、提出区分`kind=DIRECT/STRONG_SUBSTITUTE/REFERENCE`、`source_ref`、`claim`、`limitations`、`evidence_at_jst <= observed_at_jst <= acquired_at_jst <= cutoff`を持つ。対象クラスが一致し、年齢構成・斤量が取得済みで、`comparison_dimensions`がCLASS/AGE_CONTEXT/WEIGHTを網羅する場合に構造上の充足を検査する。直接比較は確認済み実走`run_id`と、その実走のクラス/相手レベル/斤量/年齢構成/古馬対戦を必要とする。対象と同クラス、または出所・時点付き`class_relation=HIGHER`の実走が必要で、古馬相手の対象には実古馬対戦も必要。強い代替は`comparison_method`と比較条件/限界を明記する。3歳・軽斤量・連勝というラベルだけを直接証拠にしない。
+
+出力は直接比較→強い代替→参考→比較不能の順で提出根拠の充足を表示する。前2区分の条件を満たさない提出根拠は参考として残し、根拠なしは比較不能。不足項目と`input_complete`は別表示し、直接比較が1件あることだけで他の欠測を消さない。これは提出根拠の構造・情報時点の照合で、出所の真正性・代替方法の実効性・校正・性能の認証ではない。一律3歳減点やProduction値/順位/印・正式推奨への逆流を行わない。
+
+## 2頭軸の比較候補と取消・欠測
+
+`two_axis_candidates.compare`は固定Productionの3着内率70%以上が2頭以上の場合だけ上位2頭を軸候補にする。70%/30%は試験トリガーで、標準採用条件や校正済み同時率ではない。三連複は取消後の固定順位上位6頭から軸以外のm頭でm点、三連単は取消後の3着内率30%以上の軸以外n頭で6n点。順位・確率・旧原本を変更しない。
+
+FINALの比較には検証済み推奨原本の`cancelled_horses`を渡す。取消馬を除いて固定順位を保ち、次順位を候補として再計算する。実出走馬の確率欠落/null/不正、順位重複、取消対応不正は理由付き`MISSING`とし、欠測を0や非該当へ置換しない。取消馬の確率は候補生成に使用しない。軸条件を満たす馬が2頭未満なら理由付き`NOT_APPLICABLE`。
+
+出力は全候補点で、標準推奨の◎・着順役割の制約を満たす採用点とは別。`selected_points`と`joint_probability`はnull、同時率は`NOT_CALCULATED`、標準採用・性能昇格は`NOT_APPROVED`。結果後の再演を前向きKPIへ昇格させない。
+
 正式版はv1.7.0、有効化はPR79のmainマージ後。価格不要のPrediction→Recommendation→保存→結果/回顧を標準にする。開催日は10/17・18・24・25、東京・京都・新潟。開始前は実測・性能をnull/未測定とし、予定144Rを未依頼scopeへ補完しない。
 
 ## main確認と日別実行

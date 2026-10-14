@@ -1,0 +1,66 @@
+{
+  "append_queues": {},
+  "base_inventory_git_blob_sha": "9c50813576bf14f181f423da3759e0d983195c43",
+  "base_inventory_path": "data/pedigree/reconciliations/2026-10-11-delta/inventory.json",
+  "completed_execution_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "completed_subtasks": [
+    "16-01"
+  ],
+  "counts": {
+    "all_entry_rows": 215,
+    "identity_missing_after": 206,
+    "identity_missing_before": 211,
+    "identity_queue_batches_before": 44,
+    "identity_queue_batches_remaining": 43,
+    "identity_resolved_after": 9,
+    "identity_resolved_before": 4,
+    "new_registry_individuals": 0,
+    "new_registry_revisions": 0,
+    "pedigree_queries": 0,
+    "processed": 5,
+    "reused_registry": 5,
+    "statistics_snapshots": 0
+  },
+  "execution_number": 16,
+  "identity_record_hash": "6a02c3e7d72d2af82e368badf75bd3c88d90b2d34d750b05d32a931a1d122234",
+  "input_commit": "02ce2e1c835c53dda322f77610c22520917c3011",
+  "next_subtasks": {
+    "16": "16-02",
+    "17": "17-01"
+  },
+  "observed_at": "2026-10-11T16:30:19.301191+00:00",
+  "parent_states": {
+    "16": "IN_PROGRESS",
+    "17": "NOT_STARTED"
+  },
+  "previous_checkpoint_git_blob_sha": "16f9611cba5f4932a99a8fa4f8f1e1c6633f1cf4",
+  "previous_checkpoint_path": "data/pedigree/reconciliations/2026-10-11-delta/results/kyoto-12/checkpoint.json",
+  "production_eligible": false,
+  "schema_version": "oct11-identity-checkpoint-v1",
+  "status": "BATCH_COMPLETED_PARENT_IN_PROGRESS",
+  "subtask_id": "16-01",
+  "targets": [
+    "2026-10-11-TOKYO-09-07",
+    "2026-10-11-TOKYO-08-06",
+    "2026-10-11-TOKYO-09-08",
+    "2026-10-11-KYOTO-08-16",
+    "2026-10-11-KYOTO-08-13"
+  ],
+  "usage": "REPLAY_ONLY"
+}

@@ -1,0 +1,90 @@
+{
+  "horse_key": "netkeiba-000a013ff2",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2002,
+    "external_ids": {
+      "NETKEIBA": "000a013ff2"
+    },
+    "identity_evidence": {
+      "record_key": "000a013ff2",
+      "source": "NETKEIBA",
+      "source_sheet": "000a024841"
+    },
+    "name": "In Clover (英)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T09:34:28.484458+00:00",
+  "identity_observed_at": "2026-10-10T09:34:28.484458+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2002,
+    "external_ids": {
+      "NETKEIBA": "000a013ff2"
+    },
+    "identity_evidence": {
+      "record_key": "000a013ff2",
+      "source": "NETKEIBA",
+      "source_sheet": "000a024841"
+    },
+    "name": "In Clover (英)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T09:34:29.171899+00:00",
+      "content_hash": "b0dd923b64869323af8cdd6c538d7c45c6baf52c693f4dec970cd95c6d75f12f",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T09:34:29.171891+00:00",
+      "input_hash": "0c309d53ac01a2766ea524af58290b9c9a114ce04e1d015c849f89c5c8c2404a",
+      "previous_revision": null,
+      "revision_id": "rev-0c309d53ac01a2766ea524af",
+      "saved_at": "2026-10-10T09:34:29.173404+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "c77620a0b8f940947757b29aff4ff81f370828da1747fe01d72f3052f65f10bd",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a024841:DS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a024841/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000347623",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T09:34:29.226856+00:00",
+      "content_hash": "feb6dee444654994d3916d0a23032004963bd58aed1758601178aa8fc2331395",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T09:34:29.226849+00:00",
+      "input_hash": "d8c75956356956a1d04324affce163ae2cf4f7c314fa36983267840b441ecf9a",
+      "previous_revision": null,
+      "revision_id": "rev-d8c75956356956a1d04324af",
+      "saved_at": "2026-10-10T09:34:29.227474+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "c77620a0b8f940947757b29aff4ff81f370828da1747fe01d72f3052f65f10bd",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a024841:DD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a024841/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a01258a",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "43",
+  "status": "PARTIAL_BATCH_EXECUTED",
+  "completed_subtasks": [
+    "43-01",
+    "43-02"
+  ],
+  "basis_commit": "aee4eeeca5aa9ac3ba0f4e2863a354724f93908c",
+  "calculated_conditions": 5,
+  "remaining_conditions": 38,
+  "expected_races": 24,
+  "result_races": 1,
+  "unknown_horses_in_result": 13,
+  "overall_research_acceptance": "NOT_ACCEPTED_PARTIAL",
+  "validation": {
+    "repeat_compute_exact_match": true,
+    "unknown_13_preserved_in_all_5_conditions": true,
+    "old_snapshots_changed": 0,
+    "postcommit_ci": "ActionsとPR本文で照合"
+  },
+  "next_independent_task": "44-01",
+  "research_next_tasks": [
+    "40-03",
+    "41-02",
+    "42追加必要分",
+    "43-03（調査入力成立後）",
+    "43-11は全条件/coverage成立後"
+  ]
+}

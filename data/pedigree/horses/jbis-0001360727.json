@@ -1,0 +1,142 @@
+{
+  "horse_key": "jbis-0001360727",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001360727"
+    },
+    "identity_evidence": {
+      "record_key": "0001360727",
+      "source": "JBIS"
+    },
+    "name": "Improbable(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:34.154175+00:00",
+  "identity_observed_at": "2026-10-09T15:04:34.154175+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001360727"
+    },
+    "identity_evidence": {
+      "record_key": "0001360727",
+      "source": "JBIS"
+    },
+    "name": "Improbable(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:49:35.163448+00:00",
+      "content_hash": "d617c137aa30af1cf7a59cfc03c561d33a508624135841aa53ed2ff410077de6",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:49:35.163448+00:00",
+      "input_hash": "024ae75cae6db28cfbc4fd6c8ee0f2459dc69d11defd5043063096cda8a9e981",
+      "previous_revision": null,
+      "revision_id": "rev-024ae75cae6db28cfbc4fd6c",
+      "saved_at": "2026-10-09T15:05:27.127489+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "7c46c51c149b25a9fa25c5adea1a89eb97e62993ed9e84a30408ee28a84e56ac",
+        "record_key": "0001429784",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001429784/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000620969",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:49:35.163448+00:00",
+      "content_hash": "208451438725d27a347dd3067cfda08565898efceede3a4c77ce3d8d9527375b",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:49:35.163448+00:00",
+      "input_hash": "d17eae62895a01d89f36d7cfa5daa58862033ecd65bebe14d86ddacc08d3c5a5",
+      "previous_revision": null,
+      "revision_id": "rev-d17eae62895a01d89f36d7cf",
+      "saved_at": "2026-10-09T15:05:27.134352+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "7c46c51c149b25a9fa25c5adea1a89eb97e62993ed9e84a30408ee28a84e56ac",
+        "record_key": "0001429784",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001429784/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001360726",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:29.601322+00:00",
+      "content_hash": "da4ed3e70be6cd28bfbb49c5cdf5c201894feeadfe8304a54e7d282251875c5c",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:29.601271+00:00",
+      "input_hash": "8ae7edb0c48670699ddbc5f62879d0df53e7dc5fc7661008762e1f6f034825a9",
+      "previous_revision": null,
+      "revision_id": "rev-8ae7edb0c48670699ddbc5f6",
+      "saved_at": "2026-10-10T07:57:29.646749+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "IFHA",
+        "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0001360727",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-10T06:57:01.244664+00:00",
+              "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+              "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76"
+            }
+          },
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-10T07:43:02.612668+00:00",
+              "record_hash": "04198e1e84b887894b7731b82983fe35bc5d1111f8e0d1b22568dd8e1bd2a287",
+              "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=71"
+            }
+          },
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-10T07:43:02.859464+00:00",
+              "record_hash": "d17493d348b0657173a527c48be9ef250ca6647b27643239d2f903f3ed669485",
+              "url": "https://www.ifhaonline.org/resources/WTRRankings/LWBRR.asp?batch=76"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000340159",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1982,
+    "external_ids": {
+      "JBIS": "0000340159"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DSDS",
+      "record_hash": "2ce09495a3fdbca1a90a303faf4b05019ae263e09c3aea41cdd85d8481d052dc",
+      "record_key": "0000340159",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001375644/pedigree/"
+    },
+    "name": "Primo Dominie(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.615999+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.615999+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1982,
+    "external_ids": {
+      "JBIS": "0000340159"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DSDS",
+      "record_hash": "2ce09495a3fdbca1a90a303faf4b05019ae263e09c3aea41cdd85d8481d052dc",
+      "record_key": "0000340159",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001375644/pedigree/"
+    },
+    "name": "Primo Dominie(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:26:23.903801+00:00",
+      "content_hash": "376d5cd35eb786dd8341fcca26361610f5a1fd966fd62e3b13a1778eb6d2c08c",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:26:23.903801+00:00",
+      "input_hash": "6f72b5c4f8385a85d876d842879faaf0a48ccf20a15f0667b9d90fb1eb6f6a66",
+      "previous_revision": null,
+      "revision_id": "rev-6f72b5c4f8385a85d876d842",
+      "saved_at": "2026-10-12T06:30:41.933778+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "2ce09495a3fdbca1a90a303faf4b05019ae263e09c3aea41cdd85d8481d052dc",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001375644:DSDSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001375644/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000337340",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:26:23.903801+00:00",
+      "content_hash": "fdd839c8c44e8a1ca25a7754b72876378dfe3f69242ed730f8316a63cd77eeb1",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:26:23.903801+00:00",
+      "input_hash": "2bc2f9cb93b0fdd01f2dc71cc10053dcdb91131cd6c3a8ee352481abd8dffb44",
+      "previous_revision": null,
+      "revision_id": "rev-2bc2f9cb93b0fdd01f2dc71c",
+      "saved_at": "2026-10-12T06:30:41.935073+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "2ce09495a3fdbca1a90a303faf4b05019ae263e09c3aea41cdd85d8481d052dc",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001375644:DSDSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001375644/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000394205",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

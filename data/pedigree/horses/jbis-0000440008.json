@@ -1,0 +1,128 @@
+{
+  "horse_key": "jbis-0000440008",
+  "identity": {
+    "aliases": [
+      "High Tern (愛)"
+    ],
+    "birth_year": 1982,
+    "external_ids": {
+      "JBIS": "0000440008",
+      "NETKEIBA": "000a00aee4"
+    },
+    "identity_evidence": {
+      "record_key": "0000440008",
+      "source": "JBIS"
+    },
+    "name": "High Tern(IRE)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:26.644494+00:00",
+  "identity_observed_at": "2026-10-09T12:33:26.644494+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "High Tern (愛)"
+        ],
+        "birth_year": 1982,
+        "external_ids": {
+          "JBIS": "0000440008",
+          "NETKEIBA": "000a00aee4"
+        },
+        "identity_evidence": {
+          "record_key": "0000440008",
+          "source": "JBIS"
+        },
+        "name": "High Tern(IRE)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:32.594183+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1982,
+        "external_ids": {
+          "JBIS": "0000440008"
+        },
+        "identity_evidence": {
+          "record_key": "0000440008",
+          "source": "JBIS"
+        },
+        "name": "High Tern(IRE)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "7ed05bedfd40448badffa458863acf6d529c507e27e0aec4146bc11ad0c1744d",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1982,
+    "external_ids": {
+      "JBIS": "0000440008"
+    },
+    "identity_evidence": {
+      "record_key": "0000440008",
+      "source": "JBIS"
+    },
+    "name": "High Tern(IRE)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:06:58.018403+00:00",
+      "content_hash": "23ecb1e9134c53f1f273f22c9b0e30183c7279f227ac44f23acf7dd1fa16c71a",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:06:58.018396+00:00",
+      "input_hash": "b22497d81201d22851fd9d0f7525816385c4dc49f58e52e0b3b0a493dbe444ed",
+      "previous_revision": null,
+      "revision_id": "rev-b22497d81201d22851fd9d0f",
+      "saved_at": "2026-10-10T10:06:58.018885+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "41d2d1cc9d6370e0016efa96b1e9b5f4d5bee809560866eefa17a4be990c7dac",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a027210:SDDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a027210/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336666",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:06:58.026104+00:00",
+      "content_hash": "235a16b69af2d5e6a186436c7ed1fc8dccaccf840b60d537ec34504caffaee66",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:06:58.026097+00:00",
+      "input_hash": "8717476c3843722503b648cd875ea17bbef0c40a682ed19f495c195119429096",
+      "previous_revision": null,
+      "revision_id": "rev-8717476c3843722503b648cd",
+      "saved_at": "2026-10-10T10:06:58.026465+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "41d2d1cc9d6370e0016efa96b1e9b5f4d5bee809560866eefa17a4be990c7dac",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a027210:SDDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a027210/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000386754",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

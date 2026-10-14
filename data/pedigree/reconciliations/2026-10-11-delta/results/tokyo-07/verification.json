@@ -1,0 +1,34 @@
+{
+  "artifacts": {
+    "checkpoint.json": {
+      "bytes": 12779,
+      "sha256": "e40e314910fa66327c4eb247db9f78d12f542860b3915b212e863e57aa1e3690"
+    },
+    "official-extract.txt": {
+      "bytes": 5601,
+      "sha256": "e6f301e2a2985aa649f01c5e49ff008149834a11f6a4568e4dfa25005665cf94"
+    },
+    "result.json": {
+      "bytes": 12789,
+      "sha256": "6de7abeacfc60ace187e5b5de0fd2120d3c20e57182e1e17e04a35a7710581b2"
+    }
+  },
+  "checks": {
+    "append_child_ids_preserve_previous": "PASS",
+    "finish_positions_1_to_16_unique_no_dead_heat": "PASS",
+    "full_table_no_cancel_exclude_dnf_disqualify": "PASS",
+    "horse_numbers_1_to_16_unique": "PASS",
+    "official_race_date_course_round_number": "PASS",
+    "saved_roster_names": "PASS",
+    "source_excerpt_hash_and_result_record_hash": "PASS",
+    "time_over_kept_separate_from_disqualification": "PASS"
+  },
+  "execution_number": 3,
+  "limitations": [
+    "原HTML未保存。公式取得本文のhashを保存。",
+    "本人同定・血統・統計は未実施。"
+  ],
+  "schema_version": "oct11-result-verification-v1",
+  "status": "PASS_WITH_EXPLICIT_HTML_CAPTURE_LIMIT",
+  "verified_at": "2026-10-11T15:45:25.412129+00:00"
+}

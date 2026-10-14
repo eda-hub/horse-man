@@ -1,0 +1,791 @@
+{
+  "schema_version": "foreign-identity-source-review-v1",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "source_head": "eef04c4f1df7dcccc4e74fbe748d8ba0c1caff39",
+  "data_cutoff": "2026-10-10T10:14:52.637751+00:00",
+  "historical_cutoff": "2026-10-04T00:00:00+00:00",
+  "scope_total": 42,
+  "reviewed_in_batch": 1,
+  "registry_promoted": 1,
+  "source_bundle_path": "data/pedigree/reconciliations/2026-10-10-foreign-review/sources-batch-11.json.gz",
+  "source_bundle_sha256": "e41eaf04251aa61c7d63acb939f5d9812060d79ba4122ac04932e675f67ac112",
+  "rows": [
+    {
+      "target": {
+        "provider_id": "0001423797",
+        "netkeiba_id": null,
+        "jbis_id": "0001423797",
+        "reported_name": "Devil's Advocate",
+        "reported_horse_number": 2
+      },
+      "result_scope_index": 6,
+      "primary_profile_key": "0001423797-profile",
+      "primary_pedigree_key": "0001423797-pedigree",
+      "birth_year": 2022,
+      "profile_fields": {
+        "登録": "海外",
+        "品種": "サラ",
+        "性別": "牡",
+        "生年月日": "2022.04.01",
+        "毛色": "鹿毛",
+        "産地": "英国産",
+        "馬主": "",
+        "生産牧場": "",
+        "調教師": "(海 外)",
+        "戦績": "海外：4戦1勝",
+        "総賞金": "0.0万円",
+        "ヘルプページ": "検索方法やデータについてお困りの際はまずこちらのヘルプページをご覧ください。",
+        "サービスの利用にあたって": "サービスを利用することによって利用規約の内容を承諾いただいたものとみなします。"
+      },
+      "ancestors": {
+        "S": {
+          "id": "0001313862",
+          "name": "Too Darn Hot(GB)",
+          "birth_year": 2016
+        },
+        "SS": {
+          "id": "0001111493",
+          "name": "Dubawi(IRE)",
+          "birth_year": 2002
+        },
+        "SD": {
+          "id": "0001085416",
+          "name": "Dar Re Mi(GB)",
+          "birth_year": 2005
+        },
+        "SSS": {
+          "id": "0000372664",
+          "name": "Dubai Millennium(GB)",
+          "birth_year": 1996
+        },
+        "SSD": {
+          "id": "0000444921",
+          "name": "Zomaradah(GB)",
+          "birth_year": 1995
+        },
+        "SDS": {
+          "id": "0000263172",
+          "name": "Singspiel(IRE)",
+          "birth_year": 1992
+        },
+        "SDD": {
+          "id": "0000408054",
+          "name": "Darara(IRE)",
+          "birth_year": 1983
+        },
+        "SSSS": {
+          "id": "0000337444",
+          "name": "Seeking the Gold(USA)",
+          "birth_year": 1985
+        },
+        "SSSD": {
+          "id": "0000410421",
+          "name": "Colorado Dancer(IRE)",
+          "birth_year": 1986
+        },
+        "SSDS": {
+          "id": "0000341455",
+          "name": "Deploy(GB)",
+          "birth_year": 1987
+        },
+        "SSDD": {
+          "id": "0000444922",
+          "name": "Jawaher(IRE)",
+          "birth_year": 1989
+        },
+        "SDSS": {
+          "id": "0000341850",
+          "name": "In The Wings(GB)",
+          "birth_year": 1986
+        },
+        "SDSD": {
+          "id": "0000391586",
+          "name": "Glorious Song(CAN)",
+          "birth_year": 1976
+        },
+        "SDDS": {
+          "id": "0000336543",
+          "name": "Top Ville(IRE)",
+          "birth_year": 1976
+        },
+        "SDDD": {
+          "id": "0000393126",
+          "name": "Delsy(FR)",
+          "birth_year": 1972
+        },
+        "SSSSS": {
+          "id": "0000335975",
+          "name": "Mr. Prospector(USA)",
+          "birth_year": 1970
+        },
+        "SSSSD": {
+          "id": "0000392025",
+          "name": "Con Game(USA)",
+          "birth_year": 1974
+        },
+        "SSSDS": {
+          "id": "0000337091",
+          "name": "Shareef Dancer(USA)",
+          "birth_year": 1980
+        },
+        "SSSDD": {
+          "id": "0000410420",
+          "name": "Fall Aspen(USA)",
+          "birth_year": 1976
+        },
+        "SSDSS": {
+          "id": "0000335305",
+          "name": "Shirley Heights(GB)",
+          "birth_year": 1975
+        },
+        "SSDSD": {
+          "id": "0000408196",
+          "name": "Slightly Dangerous(USA)",
+          "birth_year": 1979
+        },
+        "SSDDS": {
+          "id": "0000336853",
+          "name": "ダンシングブレーヴ(USA)",
+          "birth_year": 1983
+        },
+        "SSDDD": {
+          "id": "0000440008",
+          "name": "High Tern(IRE)",
+          "birth_year": 1982
+        },
+        "SDSSS": {
+          "id": "0000336572",
+          "name": "Sadler's Wells(USA)",
+          "birth_year": 1981
+        },
+        "SDSSD": {
+          "id": "0000130578",
+          "name": "High Hawk(IRE)",
+          "birth_year": 1980
+        },
+        "SDSDS": {
+          "id": "0000335154",
+          "name": "Halo(USA)",
+          "birth_year": 1969
+        },
+        "SDSDD": {
+          "id": "0000391585",
+          "name": "Ballade(USA)",
+          "birth_year": 1972
+        },
+        "SDDSS": {
+          "id": "0000335937",
+          "name": "High Top(GB)",
+          "birth_year": 1969
+        },
+        "SDDSD": {
+          "id": "0000392179",
+          "name": "Sega Ville(FR)",
+          "birth_year": 1968
+        },
+        "SDDDS": {
+          "id": "0000334074",
+          "name": "Abdos(FR)",
+          "birth_year": 1959
+        },
+        "SDDDD": {
+          "id": "0000393125",
+          "name": "Kelty(FR)",
+          "birth_year": 1965
+        },
+        "D": {
+          "id": "0001252061",
+          "name": "Precious Ramotswe(GB)",
+          "birth_year": 2014
+        },
+        "DS": {
+          "id": "0001132797",
+          "name": "Nathaniel(IRE)",
+          "birth_year": 2008
+        },
+        "DD": {
+          "id": "0001016568",
+          "name": "Miss Pinkerton(GB)",
+          "birth_year": 1999
+        },
+        "DSS": {
+          "id": "0000714343",
+          "name": "Galileo(IRE)",
+          "birth_year": 1998
+        },
+        "DSD": {
+          "id": "0000438983",
+          "name": "Magnificient Style(USA)",
+          "birth_year": 1993
+        },
+        "DDS": {
+          "id": "0000337424",
+          "name": "デインヒル(USA)",
+          "birth_year": 1986
+        },
+        "DDD": {
+          "id": "0000444365",
+          "name": "Rebecca Sharp(GB)",
+          "birth_year": 1994
+        },
+        "DSSS": {
+          "id": "0000336572",
+          "name": "Sadler's Wells(USA)",
+          "birth_year": 1981
+        },
+        "DSSD": {
+          "id": "0000225908",
+          "name": "Urban Sea(USA)",
+          "birth_year": 1989
+        },
+        "DSDS": {
+          "id": "0000336890",
+          "name": "Silver Hawk(USA)",
+          "birth_year": 1979
+        },
+        "DSDD": {
+          "id": "0000430858",
+          "name": "Mia Karina(USA)",
+          "birth_year": 1983
+        },
+        "DDSS": {
+          "id": "0000336082",
+          "name": "Danzig(USA)",
+          "birth_year": 1977
+        },
+        "DDSD": {
+          "id": "0000394662",
+          "name": "Razyana(USA)",
+          "birth_year": 1981
+        },
+        "DDDS": {
+          "id": "0000337496",
+          "name": "Machiavellian(USA)",
+          "birth_year": 1987
+        },
+        "DDDD": {
+          "id": "0000438844",
+          "name": "Nuryana(GB)",
+          "birth_year": 1984
+        },
+        "DSSSS": {
+          "id": "0000334002",
+          "name": "Northern Dancer(CAN)",
+          "birth_year": 1961
+        },
+        "DSSSD": {
+          "id": "0000392264",
+          "name": "Fairy Bridge(USA)",
+          "birth_year": 1975
+        },
+        "DSSDS": {
+          "id": "0000336395",
+          "name": "Miswaki(USA)",
+          "birth_year": 1978
+        },
+        "DSSDD": {
+          "id": "0000406125",
+          "name": "Allegretta(GB)",
+          "birth_year": 1978
+        },
+        "DSDSS": {
+          "id": "0000335167",
+          "name": "Roberto(USA)",
+          "birth_year": 1969
+        },
+        "DSDSD": {
+          "id": "0000393146",
+          "name": "Gris Vitesse(USA)",
+          "birth_year": 1966
+        },
+        "DSDDS": {
+          "id": "0000334747",
+          "name": "Icecapade(USA)",
+          "birth_year": 1969
+        },
+        "DSDDD": {
+          "id": "0000394993",
+          "name": "Basin(USA)",
+          "birth_year": 1972
+        },
+        "DDSSS": {
+          "id": "0000334002",
+          "name": "Northern Dancer(CAN)",
+          "birth_year": 1961
+        },
+        "DDSSD": {
+          "id": "0000389652",
+          "name": "Pas de Nom(USA)",
+          "birth_year": 1968
+        },
+        "DDSDS": {
+          "id": "0000335990",
+          "name": "His Majesty(USA)",
+          "birth_year": 1968
+        },
+        "DDSDD": {
+          "id": "0000394654",
+          "name": "Spring Adieu(CAN)",
+          "birth_year": 1974
+        },
+        "DDDSS": {
+          "id": "0000335975",
+          "name": "Mr. Prospector(USA)",
+          "birth_year": 1970
+        },
+        "DDDSD": {
+          "id": "0000394898",
+          "name": "Coup de Folie(USA)",
+          "birth_year": 1982
+        },
+        "DDDDS": {
+          "id": "0000336085",
+          "name": "Nureyev(USA)",
+          "birth_year": 1977
+        },
+        "DDDDD": {
+          "id": "0000411546",
+          "name": "Loralane(GB)",
+          "birth_year": 1977
+        }
+      },
+      "official_parent_evidence": {
+        "sire": "Too Darn Hot(GB)",
+        "dam": "Precious Ramotswe(GB)",
+        "damsire": "Nathaniel(IRE)"
+      },
+      "official_parent_aliases": [],
+      "status": "REGISTERED_5_GENERATIONS",
+      "registry_promoted": true,
+      "horse_key": "jbis-0001423797",
+      "ancestor_keys": {
+        "S": "jbis-0001313862",
+        "SS": "jbis-0001111493",
+        "SD": "jbis-0001085416",
+        "SSS": "jbis-0000372664",
+        "SSD": "jbis-0000444921",
+        "SDS": "jbis-0000263172",
+        "SDD": "jbis-0000408054",
+        "SSSS": "jbis-0000337444",
+        "SSSD": "jbis-0000410421",
+        "SSDS": "jbis-0000341455",
+        "SSDD": "jbis-0000444922",
+        "SDSS": "jbis-0000341850",
+        "SDSD": "jbis-0000391586",
+        "SDDS": "jbis-0000336543",
+        "SDDD": "jbis-0000393126",
+        "SSSSS": "jbis-0000335975",
+        "SSSSD": "jbis-0000392025",
+        "SSSDS": "jbis-0000337091",
+        "SSSDD": "jbis-0000410420",
+        "SSDSS": "jbis-0000335305",
+        "SSDSD": "jbis-0000408196",
+        "SSDDS": "jbis-0000336853",
+        "SSDDD": "jbis-0000440008",
+        "SDSSS": "jbis-0000336572",
+        "SDSSD": "jbis-0000130578",
+        "SDSDS": "jbis-0000335154",
+        "SDSDD": "jbis-0000391585",
+        "SDDSS": "jbis-0000335937",
+        "SDDSD": "jbis-0000392179",
+        "SDDDS": "jbis-0000334074",
+        "SDDDD": "jbis-0000393125",
+        "D": "jbis-0001252061",
+        "DS": "jbis-0001132797",
+        "DD": "netkeiba-000a01b50f",
+        "DSS": "jbis-0000714343",
+        "DSD": "jbis-0000438983",
+        "DDS": "jbis-0000337424",
+        "DDD": "netkeiba-000a01b50e",
+        "DSSS": "jbis-0000336572",
+        "DSSD": "jbis-0000225908",
+        "DSDS": "jbis-0000336890",
+        "DSDD": "jbis-0000430858",
+        "DDSS": "jbis-0000336082",
+        "DDSD": "jbis-0000394662",
+        "DDDS": "jbis-0000337496",
+        "DDDD": "netkeiba-000a012ae0",
+        "DSSSS": "jbis-0000334002",
+        "DSSSD": "jbis-0000392264",
+        "DSSDS": "jbis-0000336395",
+        "DSSDD": "jbis-0000406125",
+        "DSDSS": "jbis-0000335167",
+        "DSDSD": "jbis-0000393146",
+        "DSDDS": "jbis-0000334747",
+        "DSDDD": "jbis-0000394993",
+        "DDSSS": "jbis-0000334002",
+        "DDSSD": "jbis-0000389652",
+        "DDSDS": "jbis-0000335990",
+        "DDSDD": "jbis-0000394654",
+        "DDDSS": "jbis-0000335975",
+        "DDDSD": "jbis-0000394898",
+        "DDDDS": "jbis-0000336085",
+        "DDDDD": "netkeiba-000a01000e"
+      }
+    }
+  ],
+  "provider": "JBIS",
+  "race_id": "FOREIGN-20260819-YORK-INTERNATIONAL",
+  "new_records": 5,
+  "new_parent_revisions": 10,
+  "write_receipts": [
+    {
+      "horse_key": "jbis-0001423797",
+      "before_record_hash": null,
+      "before_revision_hashes": [],
+      "after_record_hash": "d0fe2d357cf182a7ec8398003c6fdc2d1d3c54bd7ea585a843144c00d0acb595",
+      "added_revision_ids": [
+        "rev-ef0a8b5ecf606ece4314bc43",
+        "rev-7b81949adbc798d42b592678"
+      ],
+      "new_identity": true
+    },
+    {
+      "horse_key": "jbis-0001313862",
+      "before_record_hash": null,
+      "before_revision_hashes": [],
+      "after_record_hash": "f19a9fb6a86acbc05109cff3c746b8e6d91cd178e3ef5c526b2234b3058274f5",
+      "added_revision_ids": [
+        "rev-92d2da20f81ab356b31f620e",
+        "rev-df55b3b3250bb8b3ad6abc2a"
+      ],
+      "new_identity": true
+    },
+    {
+      "horse_key": "jbis-0001085416",
+      "before_record_hash": null,
+      "before_revision_hashes": [],
+      "after_record_hash": "b6a130fb574d09d017ae56ef8ecb96ea7fc6a503ed78beae9573f5f8ab379f14",
+      "added_revision_ids": [
+        "rev-0d9eceb6c3a065d2fd547f27",
+        "rev-d5f83ae58c851ec3719269b2"
+      ],
+      "new_identity": true
+    },
+    {
+      "horse_key": "jbis-0000408054",
+      "before_record_hash": null,
+      "before_revision_hashes": [],
+      "after_record_hash": "e03a362a67349ac50875c935018a12f63d33ab59585a3ee2fb2ddced7eee7e63",
+      "added_revision_ids": [
+        "rev-1e6721c7cdaff0a945daeb99",
+        "rev-14a7e8966cbab3c54c05db5d"
+      ],
+      "new_identity": true
+    },
+    {
+      "horse_key": "jbis-0001252061",
+      "before_record_hash": null,
+      "before_revision_hashes": [],
+      "after_record_hash": "3984f41a3977dfdac04b08d58f4b75aaf6172f0757b25557d6b59e9eeb235d7f",
+      "added_revision_ids": [
+        "rev-92c1d412cceb649a1999c1a1",
+        "rev-bea08c0ec69f9f30e8338e82"
+      ],
+      "new_identity": true
+    }
+  ],
+  "identity_crosswalk": [
+    {
+      "provider_id": "0001111493",
+      "horse_key": "jbis-0001111493",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000372664",
+      "horse_key": "jbis-0000372664",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000444921",
+      "horse_key": "jbis-0000444921",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000263172",
+      "horse_key": "jbis-0000263172",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000337444",
+      "horse_key": "jbis-0000337444",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000410421",
+      "horse_key": "jbis-0000410421",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000341455",
+      "horse_key": "jbis-0000341455",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000444922",
+      "horse_key": "jbis-0000444922",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000341850",
+      "horse_key": "jbis-0000341850",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000391586",
+      "horse_key": "jbis-0000391586",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000336543",
+      "horse_key": "jbis-0000336543",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000393126",
+      "horse_key": "jbis-0000393126",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000335975",
+      "horse_key": "jbis-0000335975",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000392025",
+      "horse_key": "jbis-0000392025",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000337091",
+      "horse_key": "jbis-0000337091",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000410420",
+      "horse_key": "jbis-0000410420",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000335305",
+      "horse_key": "jbis-0000335305",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000408196",
+      "horse_key": "jbis-0000408196",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000336853",
+      "horse_key": "jbis-0000336853",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000440008",
+      "horse_key": "jbis-0000440008",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000336572",
+      "horse_key": "jbis-0000336572",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000130578",
+      "horse_key": "jbis-0000130578",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000335154",
+      "horse_key": "jbis-0000335154",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000391585",
+      "horse_key": "jbis-0000391585",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000335937",
+      "horse_key": "jbis-0000335937",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000392179",
+      "horse_key": "jbis-0000392179",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000334074",
+      "horse_key": "jbis-0000334074",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000393125",
+      "horse_key": "jbis-0000393125",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0001132797",
+      "horse_key": "jbis-0001132797",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000714343",
+      "horse_key": "jbis-0000714343",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000438983",
+      "horse_key": "jbis-0000438983",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000337424",
+      "horse_key": "jbis-0000337424",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000225908",
+      "horse_key": "jbis-0000225908",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000336890",
+      "horse_key": "jbis-0000336890",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000430858",
+      "horse_key": "jbis-0000430858",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000336082",
+      "horse_key": "jbis-0000336082",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000394662",
+      "horse_key": "jbis-0000394662",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000337496",
+      "horse_key": "jbis-0000337496",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000334002",
+      "horse_key": "jbis-0000334002",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000392264",
+      "horse_key": "jbis-0000392264",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000336395",
+      "horse_key": "jbis-0000336395",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000406125",
+      "horse_key": "jbis-0000406125",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000335167",
+      "horse_key": "jbis-0000335167",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000393146",
+      "horse_key": "jbis-0000393146",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000334747",
+      "horse_key": "jbis-0000334747",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000394993",
+      "horse_key": "jbis-0000394993",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000389652",
+      "horse_key": "jbis-0000389652",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000335990",
+      "horse_key": "jbis-0000335990",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000394654",
+      "horse_key": "jbis-0000394654",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000394898",
+      "horse_key": "jbis-0000394898",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0000336085",
+      "horse_key": "jbis-0000336085",
+      "method": "EXACT_EXISTING_PROVIDER_ID_NAME_YEAR"
+    },
+    {
+      "provider_id": "0001016568",
+      "horse_key": "netkeiba-000a01b50f",
+      "method": "NAME_YEAR_BOTH_VERIFIED_PARENTS"
+    },
+    {
+      "provider_id": "0000444365",
+      "horse_key": "netkeiba-000a01b50e",
+      "method": "NAME_YEAR_BOTH_VERIFIED_PARENTS"
+    },
+    {
+      "provider_id": "0000438844",
+      "horse_key": "netkeiba-000a012ae0",
+      "method": "NAME_YEAR_BOTH_VERIFIED_PARENTS"
+    },
+    {
+      "provider_id": "0000411546",
+      "horse_key": "netkeiba-000a01000e",
+      "method": "VERIFIED_CHILD_PARENT_NAME_YEAR"
+    },
+    {
+      "provider_id": "0001423797",
+      "horse_key": "jbis-0001423797",
+      "method": "NEW_INDEPENDENT_PROVIDER_ID"
+    },
+    {
+      "provider_id": "0001313862",
+      "horse_key": "jbis-0001313862",
+      "method": "NEW_INDEPENDENT_PROVIDER_ID"
+    },
+    {
+      "provider_id": "0001085416",
+      "horse_key": "jbis-0001085416",
+      "method": "NEW_INDEPENDENT_PROVIDER_ID"
+    },
+    {
+      "provider_id": "0000408054",
+      "horse_key": "jbis-0000408054",
+      "method": "NEW_INDEPENDENT_PROVIDER_ID"
+    },
+    {
+      "provider_id": "0001252061",
+      "horse_key": "jbis-0001252061",
+      "method": "NEW_INDEPENDENT_PROVIDER_ID"
+    }
+  ]
+}

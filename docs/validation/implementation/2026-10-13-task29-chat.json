@@ -1,0 +1,124 @@
+{
+  "schema_version": "task29-chat-checkpoint-v1",
+  "task": 29,
+  "input_pr69_sha": "d1d050b8337f61bbb234df79a6918555b3ae5461",
+  "input_pr68_sha": "e793f0f4d796941a476e5bd9d949e41aac8f4f4c",
+  "status": "IMPLEMENTATION_CI_VERIFIED_LIVE_VALIDATION_OPEN",
+  "tasks": {
+    "29-C02": "SOURCE_RESEARCH_COMPLETE_FORWARD_OPEN",
+    "29-C04-01": "IMPLEMENTED",
+    "29-C04-02": "REGRESSION_PASS",
+    "29-C04-03": "WRITER_RECEIPT_REGRESSION_PASS",
+    "29-C05-01": "PASS",
+    "29-C05-02": "PASS",
+    "29-C05-03": "PASS",
+    "29-C05-04": "PASS",
+    "29-C03-01〜08": "WAIT_ACTUAL_PRE_RACE",
+    "29-C06": "WAIT_ACTUAL_MEETING",
+    "29-C07": "WAIT_SECOND_MEETING",
+    "29-C08": "CHECKER_IMPLEMENTED_ACTUAL_ACCEPTANCE_OPEN"
+  },
+  "local_validation": {
+    "new_tests": 33,
+    "new_failures": 0,
+    "existing_market_tests": 47,
+    "existing_market_failures": 0,
+    "atomic_contract": true,
+    "full_regression": {
+      "tests_run": 585,
+      "errors": 24,
+      "skipped": 6,
+      "result": "NOT_ACCEPTED_LOCAL_HISTORICAL_INPUTS_MISSING"
+    },
+    "real_replay_ticket_types": 8,
+    "real_replay_forward_registered": false,
+    "ci": {
+      "integration": {
+        "run_id": 38366064708,
+        "result": "SUCCESS",
+        "tests_run": 597,
+        "skipped": 0,
+        "source_count": 105,
+        "source_manifest_sha256": "757618d7970f2d22a3212c2d54c185ba632b12b9bfd1470418ea3b2002f97ba9"
+      },
+      "research": {
+        "run_id": 38366064659,
+        "result": "SUCCESS"
+      },
+      "initial_normal": {
+        "run_id": 38366064776,
+        "result": "FAILED_STALE_ACCEPTANCE_HASH",
+        "regression_tests": 597,
+        "action": "統合CIの実成功に一致する105入力hashでacceptanceを更新"
+      },
+      "final": {
+        "commit_sha": "39abfb2824a11d9d984a4534a9e99f13d71ce448",
+        "normal": {
+          "run_id": 38366564646,
+          "result": "SUCCESS",
+          "steps": 13
+        },
+        "integration": {
+          "run_id": 38366564707,
+          "result": "SUCCESS",
+          "steps": 6
+        },
+        "research": {
+          "run_id": 38366564574,
+          "result": "SUCCESS",
+          "steps": 22
+        },
+        "all_regression_tests": 597,
+        "skipped": 0
+      }
+    }
+  },
+  "review_fixes": [
+    "三連単上限を999999.9へ是正",
+    "開催回/日とURLを照合",
+    "後日REPLAY閲覧を発走前時刻へ偽装しない",
+    "2開催だけでは8券種/独立代替を総合受入しない"
+  ],
+  "live_meeting_dates": null,
+  "live_race_count": null,
+  "source_forward_status": {
+    "JRA": "OPEN_BODY_NORMALIZATION_UNSUPPORTED",
+    "SPORTS_NAVI": "REPLAY_TEXT_VERIFIED_FORWARD_OPEN"
+  },
+  "source_urls": [
+    "https://www.jra.go.jp/faq/pop02/1_1.html",
+    "https://www.jra.go.jp/JRADB/accessO.html",
+    "https://support.yahoo-net.jp/PccSports/s/article/H000006045",
+    "https://www.lycorp.co.jp/ja/company/terms/"
+  ],
+  "prediction_recommendation_changed": false,
+  "performance_promoted": false,
+  "windows_followup": "OUT_OF_SCOPE_BY_USER_CHANGE",
+  "next": "29-C03/06の実開催待ち。独立作業30-01",
+  "implementation_commit": "28309091799e12aab81f46aa1ff0acead2e81ad6",
+  "remote_readback_files": 14,
+  "acceptance_commit": "39abfb2824a11d9d984a4534a9e99f13d71ce448",
+  "C02": {
+    "status": "COMPLETE_SOURCE_ASSESSMENT",
+    "required_checks": [
+      "公開取得元",
+      "8券種本文形式",
+      "掲載更新時刻",
+      "実閲覧時刻",
+      "運営元",
+      "更新説明",
+      "利用条件とアクセス制約"
+    ],
+    "evidence": "docs/validation/market-chat-research/2026-10-13/replay-pages.json",
+    "procedure": "docs/validation/market-chat-acquisition.md",
+    "official_result": "パラメータエラー。価格本文取得/正規化は未受入",
+    "alternate_result": "スポーツナビで8券種REPLAYの実本文と2026-10-12T10:28:00+09:00掲載時刻を確認。形式を保存・再解析",
+    "cache_risk": "検索/過去中間値と再閲覧した確定値が一致しない例を確認。最新性保証なし",
+    "forward_acceptance": "29-C03/C06/C07/C08で実確認する。今回の後日閲覧は代用不可"
+  },
+  "unexpected_changes": {
+    "data_tree_unchanged": true,
+    "workflow_tree_unchanged": true,
+    "owner_unchanged": true
+  }
+}

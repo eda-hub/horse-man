@@ -1,0 +1,401 @@
+{
+  "append_notes": [
+    "1番で固定した16/17子番号は振り直さない。新たな14行だけを末尾へ追加。",
+    "17番の追加枠は条件付き。16番で既存血統が確認できれば再利用だけで閉じる。",
+    "18番の新しい国不足は本人・父母父確定後に登録する。国不足0の確定とはしない。"
+  ],
+  "append_queues": {
+    "16": [
+      {
+        "dependencies": [
+          2
+        ],
+        "status": "READY_AFTER_TASK2",
+        "subtask_id": "16-27",
+        "targets": [
+          "2026-10-11-TOKYO-06-01",
+          "2026-10-11-TOKYO-06-02",
+          "2026-10-11-TOKYO-06-03",
+          "2026-10-11-TOKYO-06-04",
+          "2026-10-11-TOKYO-06-06"
+        ]
+      },
+      {
+        "dependencies": [
+          2
+        ],
+        "status": "READY_AFTER_TASK2",
+        "subtask_id": "16-28",
+        "targets": [
+          "2026-10-11-TOKYO-06-08",
+          "2026-10-11-TOKYO-06-09",
+          "2026-10-11-TOKYO-06-10",
+          "2026-10-11-TOKYO-06-11",
+          "2026-10-11-TOKYO-06-12"
+        ]
+      },
+      {
+        "dependencies": [
+          2
+        ],
+        "status": "READY_AFTER_TASK2",
+        "subtask_id": "16-29",
+        "targets": [
+          "2026-10-11-TOKYO-06-13",
+          "2026-10-11-TOKYO-06-14",
+          "2026-10-11-TOKYO-06-15",
+          "2026-10-11-TOKYO-06-16"
+        ]
+      }
+    ],
+    "17": [
+      {
+        "dependencies": [
+          16
+        ],
+        "status": "WAIT_TASK16",
+        "subtask_id": "17-51",
+        "targets": [
+          {
+            "entry_id": "2026-10-11-TOKYO-06-01",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          },
+          {
+            "entry_id": "2026-10-11-TOKYO-06-02",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          }
+        ]
+      },
+      {
+        "dependencies": [
+          16
+        ],
+        "status": "WAIT_TASK16",
+        "subtask_id": "17-52",
+        "targets": [
+          {
+            "entry_id": "2026-10-11-TOKYO-06-03",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          },
+          {
+            "entry_id": "2026-10-11-TOKYO-06-04",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          }
+        ]
+      },
+      {
+        "dependencies": [
+          16
+        ],
+        "status": "WAIT_TASK16",
+        "subtask_id": "17-53",
+        "targets": [
+          {
+            "entry_id": "2026-10-11-TOKYO-06-06",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          },
+          {
+            "entry_id": "2026-10-11-TOKYO-06-08",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          }
+        ]
+      },
+      {
+        "dependencies": [
+          16
+        ],
+        "status": "WAIT_TASK16",
+        "subtask_id": "17-54",
+        "targets": [
+          {
+            "entry_id": "2026-10-11-TOKYO-06-09",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          },
+          {
+            "entry_id": "2026-10-11-TOKYO-06-10",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          }
+        ]
+      },
+      {
+        "dependencies": [
+          16
+        ],
+        "status": "WAIT_TASK16",
+        "subtask_id": "17-55",
+        "targets": [
+          {
+            "entry_id": "2026-10-11-TOKYO-06-11",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          },
+          {
+            "entry_id": "2026-10-11-TOKYO-06-12",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          }
+        ]
+      },
+      {
+        "dependencies": [
+          16
+        ],
+        "status": "WAIT_TASK16",
+        "subtask_id": "17-56",
+        "targets": [
+          {
+            "entry_id": "2026-10-11-TOKYO-06-13",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          },
+          {
+            "entry_id": "2026-10-11-TOKYO-06-14",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          }
+        ]
+      },
+      {
+        "dependencies": [
+          16
+        ],
+        "status": "WAIT_TASK16",
+        "subtask_id": "17-57",
+        "targets": [
+          {
+            "entry_id": "2026-10-11-TOKYO-06-15",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          },
+          {
+            "entry_id": "2026-10-11-TOKYO-06-16",
+            "kind": "NEW_ROSTER_ENTRY_NOT_YET_IDENTITY_CHECKED"
+          }
+        ]
+      }
+    ],
+    "18": []
+  },
+  "base_inventory_git_blob_sha": "9c50813576bf14f181f423da3759e0d983195c43",
+  "base_inventory_path": "data/pedigree/reconciliations/2026-10-11-delta/inventory.json",
+  "completed_execution_numbers": [
+    1,
+    2
+  ],
+  "execution_number": 2,
+  "new_entries": [
+    {
+      "age": 4,
+      "entry_id": "2026-10-11-TOKYO-06-01",
+      "horse_name": "ドルンレースツェン",
+      "horse_number": 1,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 3,
+      "entry_id": "2026-10-11-TOKYO-06-02",
+      "horse_name": "グラスハーティー",
+      "horse_number": 2,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 4,
+      "entry_id": "2026-10-11-TOKYO-06-03",
+      "horse_name": "パッションディーバ",
+      "horse_number": 3,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 4,
+      "entry_id": "2026-10-11-TOKYO-06-04",
+      "horse_name": "ミュークチェルシー",
+      "horse_number": 4,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 3,
+      "entry_id": "2026-10-11-TOKYO-06-06",
+      "horse_name": "ブルームコード",
+      "horse_number": 6,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 3,
+      "entry_id": "2026-10-11-TOKYO-06-08",
+      "horse_name": "フュルスティン",
+      "horse_number": 8,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 3,
+      "entry_id": "2026-10-11-TOKYO-06-09",
+      "horse_name": "スタートレイン",
+      "horse_number": 9,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 4,
+      "entry_id": "2026-10-11-TOKYO-06-10",
+      "horse_name": "ペンテリコン",
+      "horse_number": 10,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 4,
+      "entry_id": "2026-10-11-TOKYO-06-11",
+      "horse_name": "ティピティーナ",
+      "horse_number": 11,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 3,
+      "entry_id": "2026-10-11-TOKYO-06-12",
+      "horse_name": "ラエトゥス",
+      "horse_number": 12,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 3,
+      "entry_id": "2026-10-11-TOKYO-06-13",
+      "horse_name": "テンハートビート",
+      "horse_number": 13,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 3,
+      "entry_id": "2026-10-11-TOKYO-06-14",
+      "horse_name": "エスシーレイジュ",
+      "horse_number": 14,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 3,
+      "entry_id": "2026-10-11-TOKYO-06-15",
+      "horse_name": "カーボフリオ",
+      "horse_number": 15,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    },
+    {
+      "age": 5,
+      "entry_id": "2026-10-11-TOKYO-06-16",
+      "horse_name": "ノアスペシャル",
+      "horse_number": 16,
+      "identity_status": "NOT_RECONCILED",
+      "race_id": "2026-10-11-TOKYO-06",
+      "ref": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+      "sex": "牝"
+    }
+  ],
+  "next_execution_number": 3,
+  "not_started_execution_numbers": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53
+  ],
+  "observed_at": "2026-10-11T15:35:48.540551+00:00",
+  "pedigree_searches_performed": 0,
+  "registry_revisions_added": 0,
+  "result_path": "data/pedigree/reconciliations/2026-10-11-delta/results/tokyo-06/result.json",
+  "result_record_hash": "e0a1b0db46495d88b85a019a0fb451c67dbae16a052820fb69d0b613b3232a29",
+  "schema_version": "oct11-delta-checkpoint-v1",
+  "scope_changes": {
+    "actual_starters": 16,
+    "all_14_races_actual_starters": null,
+    "all_14_races_registered_count": null,
+    "full_roster_verified": true,
+    "known_entry_rows_after": 144,
+    "known_entry_rows_before": 130,
+    "newly_discovered_rows": 14,
+    "original_html_saved_races_after": 0,
+    "race_id": "2026-10-11-TOKYO-06",
+    "races_with_full_saved_roster_after": 9,
+    "races_with_missing_full_roster_after": 5,
+    "registered_count": 16,
+    "structured_official_result_races_after": 1
+  },
+  "source_html_bytes_missing": true,
+  "statistics_snapshots_created": 0,
+  "status": "COMPLETED_OFFICIAL_RESULT_TEXT_WITH_HTML_LIMIT"
+}

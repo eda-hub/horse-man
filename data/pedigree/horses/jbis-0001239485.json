@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001239485",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "JBIS": "0001239485"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "6b25d874c015e6cd203095468b6cb427360c3bc1ca73ddb02954b9ec0484ba14",
+      "record_key": "0001239485",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001383814/pedigree/"
+    },
+    "name": "Night of Thunder(IRE)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.081194+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.081194+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "JBIS": "0001239485"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "6b25d874c015e6cd203095468b6cb427360c3bc1ca73ddb02954b9ec0484ba14",
+      "record_key": "0001239485",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001383814/pedigree/"
+    },
+    "name": "Night of Thunder(IRE)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:21:53.263157+00:00",
+      "content_hash": "0d82612802e1aa378aba01c77ae0357ef26ab21e2d3ab1b0f741e50bfee6eaab",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:21:53.263157+00:00",
+      "input_hash": "67e235d56d66859372fee5c208759b2931731384126d8c9bb2ecad8a3b213db8",
+      "previous_revision": null,
+      "revision_id": "rev-67e235d56d66859372fee5c2",
+      "saved_at": "2026-10-12T06:30:39.753738+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "6b25d874c015e6cd203095468b6cb427360c3bc1ca73ddb02954b9ec0484ba14",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001383814:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001383814/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001111493",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:21:53.263157+00:00",
+      "content_hash": "ae767bea5697abd5a328be7c7fee0d160c390daa1a8e8f1efaffdead97bda3fc",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:21:53.263157+00:00",
+      "input_hash": "8af49eebb8e881f0dfb590cd8db67a0db6465fc46eebb418acc5cb8665a85123",
+      "previous_revision": null,
+      "revision_id": "rev-8af49eebb8e881f0dfb590cd",
+      "saved_at": "2026-10-12T06:30:39.755128+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "6b25d874c015e6cd203095468b6cb427360c3bc1ca73ddb02954b9ec0484ba14",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001383814:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001383814/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001131798",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:06.922872+00:00",
+      "content_hash": "52b4107878c8a681f27e3125ed983f61bf6531deb8aed7356d26ba041ee13e80",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:06.922872+00:00",
+      "input_hash": "ed464cb7f1a5fd2e6bf32eb278bb23e5d18cb7a6b18411fc33dd2ae539091eb5",
+      "previous_revision": null,
+      "revision_id": "rev-ed464cb7f1a5fd2e6bf32eb2",
+      "saved_at": "2026-10-12T07:32:09.031227+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "公式所有者の2015年記事に本人がHannon厩舎でhome workを実施したことを明記。2013年East Everleigh所属経歴と照合。所有者変更で厩舎変更なし、Ireland繁殖移動を所属としない。",
+          "birth_year": 2011,
+          "country": "GB",
+          "horse": "Night of Thunder(IRE)",
+          "trainer": "Richard Hannon",
+          "training_location": "East Everleigh, Wiltshire"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-06/jbis-0001239485-source.json",
+        "record_hash": "46f8abd655dd67a76ed0dc4ac20f126eb38c29ca47c8f8e377a90b682f6312db",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001239485",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.godolphin.com/news/night-of-thunder-ready-to-roll-in-lockinge"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-12T07:32:06.922872+00:00",
+              "record_hash": "46f8abd655dd67a76ed0dc4ac20f126eb38c29ca47c8f8e377a90b682f6312db",
+              "url": "https://www.godolphin.com/news/night-of-thunder-ready-to-roll-in-lockinge"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

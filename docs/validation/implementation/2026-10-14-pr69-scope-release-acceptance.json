@@ -1,0 +1,68 @@
+{
+  "schema_version": "pr69-scope-release-acceptance-v1",
+  "accepted_as_of": "2026-10-14",
+  "checked_pr": "https://github.com/eda-hub/horse-man/pull/69",
+  "checked_branch_head": "141f58a41beb36f6143a36d009bcc5ce17007850",
+  "plan_pr68_merged_sha": "8452246b1715a4777fc5365bc075d5fb71a90627",
+  "scope_source": "docs/validation/implementation/2026-10-14-pr69-merge-scope.json",
+  "boundary_source": "docs/validation/development-and-live-acceptance.md",
+  "priority_plan": "docs/proposals/2026-10-14_pr69_remaining_implementation_plan.md",
+  "code_unchanged_in_scope_decision": true,
+  "protected_files_equal_to_main": [
+    "AGENTS.md",
+    "DECISIONS.md",
+    "docs/manual/README.md",
+    "docs/manual/00_core.md",
+    "docs/manual/10_prediction.md",
+    "docs/manual/20_conditional.md",
+    "docs/manual/30_betting.md",
+    "docs/manual/40_shadow.md",
+    "docs/manual/50_review.md",
+    "docs/manual/60_market.md",
+    "docs/validation/contracts/cycle_04.json",
+    "docs/validation/execution-gates/contract-state.json",
+    "scripts/run_release_readiness.py",
+    "scripts/check_prediction_compliance.py",
+    "scripts/verify_prediction_persistence.py"
+  ],
+  "files_with_existing_added_behavior": [
+    "scripts/recommendation.py",
+    "scripts/cycle04_workflow.py",
+    ".github/workflows/check-cycle03.yml",
+    "docs/validation/contracts/v170-release.json"
+  ],
+  "checks": [
+    {
+      "name": "新旧契約の統合受入と取得済みmain開始確認",
+      "id": 38511852634,
+      "conclusion": "success"
+    },
+    {
+      "name": "血統研究の原票・Registry・条件集計監査",
+      "id": 38511852647,
+      "conclusion": "success"
+    },
+    {
+      "name": "予想実行と第3サイクル台帳の機械監査",
+      "id": 38511852649,
+      "conclusion": "success"
+    }
+  ],
+  "expected_behavior": [
+    "main:v1.7.0運用中のOwner/releaseは不変",
+    "既存の欠測・履歴40件不適格・旧KPI保留57・正式ROI nullは保持",
+    "研究原票・Replay資料は残すが全件COMPLETE化をマージ条件にしない",
+    "29/37-05の将来実測や新しい校正・二頭軸・枠連・Shadow性能の採用を主張しない",
+    "PR69上でマージ前の実測を生成しない"
+  ],
+  "conditions_for_merge": [
+    "最新HEADで3系統CI成功",
+    "draft解除",
+    "mergeable:true",
+    "head SHA一致",
+    "当時のmain contract整合"
+  ],
+  "release_state": "READY_FOR_FINAL_HEAD_CI_AND_MAIN_MERGE",
+  "main_merge_verified": false,
+  "note": "本記録を作るコミットのCIと実main mergeは別途確認し、完了後のmain SHAはPRとmain readbackを正本とする。"
+}

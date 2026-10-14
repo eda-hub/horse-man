@@ -1,0 +1,903 @@
+{
+  "schema_version": "main-integration-checkpoint-v1",
+  "task": "S01",
+  "status": "INTEGRATED_CANDIDATE_VERIFIED",
+  "repository": "eda-hub/horse-man",
+  "branch": "feature/next-cycle-prediction-contract",
+  "inputs": {
+    "common_base_commit": "0520dc25437358df459e7e08219965f9b1e0f732",
+    "previous_pr_head": "11f4f339391be34bb6fbbc15edbd812e4b0641df",
+    "imported_main_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "pr_parent_tree": "3dc274aad3d2ead2e4281097a49463755201d82b",
+    "main_parent_tree": "e7c892a7a026cdc727424eb55dcc4f08e13c6f49",
+    "candidate_tree": "cd5e4d7d51f8cdd32ddf2d6bb4d149e087fc4fad"
+  },
+  "method": "THREE_WAY_COMPARISON_WITH_CURRENT_MAIN_CONTRACT_RESOLUTION",
+  "parents": [
+    "11f4f339391be34bb6fbbc15edbd812e4b0641df",
+    "38dcd3266613e52ced2b6d144d6da8a54fb4a675"
+  ],
+  "main_change_count": 70,
+  "overlays": [
+    {
+      "path": ".github/workflows/check-cycle03.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b50041339a0adf74734f9c676b14bc4860172383",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "AGENTS.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51d2f5fe43c97026f78e2e5d7b8b3dd515b53e0d",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "DECISIONS.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bd2cb2b145b95cfab51a5c2c46ff24d16b4644f6",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "753abfa0a96014ef8aa61ec7e60d04b7f152f9b7",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/jravan/00_project_plan.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "98b54aadc3178904978dd856c2911c936ff1b79e",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/jravan/04_prediction_engine.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8397eea3407787f84a258d0ee10a69fc6dce8d83",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/jravan/07_review_ai.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7ed6d81504bf4abecb630bf356501616f6e029bb",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/jravan/10_operations.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "57f574fd1bcf0f2175ff53a56a3d501a97602bc7",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/jravan/phases/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1d47a2ae507f99a9c1fbb7c3ef4c2eda3b4778dd",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/jravan/phases/phase_3_rule_engine.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a87000fdafaf166b9c74439401d6b42990d5a88b",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/jravan/phases/phase_4_prediction_ui.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c73a936bf0df7d8de029fac1c308f13583e4c988",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/jravan/phases/phase_5_odds_betting.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3e950df654cdddac7315e43d69bd5c31f4115840",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/jravan/phases/phase_6_settlement_automation.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0505ce2668cfea05f292a7476ea9bdb2726ed3dc",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/manual/00_core.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "541693ef8383784897dbdbe9456958389c48a2c9",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/manual/10_prediction.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6c0abac96d526a4dcdcb012c3eab4ad4700058d3",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/manual/20_conditional.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "95fb9cc9f78f0fb27c56005cc1b8ad377d3a7b85",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/manual/30_betting.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1055d9dba9644df05a0184155d7e57e2fd85f0d5",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/manual/40_shadow.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "79901e1449414e5f504b9932b6b8e9de02c6ac52",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/manual/50_review.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "239108488e969c6bc78c267991e4f4da02a3013f",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/manual/60_market.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "909697f26bca4390806a526d4b37c2834ce96811",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/manual/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a17319b68e699351908a07848a1b7ab06d161ec8",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/proposals/2026-10-12_cycle03_summary_application_plan.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7ee3a999a1c6d8d489a1691590abdbc2b27c8826",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "eaf986bdd0083572c26bf97b15cf10d27d3fb61f",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/contracts/cycle04-launch.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6565a2a057f017b2c14b3e2f55e87203d3e16899",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/contracts/cycle04_operations.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "02304a48711eaa237c3612a9245821e0779be5b2",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/contracts/cycle_04.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f8ba02fe2c9b776c16272c1949defa96c5aaa0b5",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/contracts/v170-release.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9fff022a95ed56359efe932980c4229f99a121e9",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/cycle_03.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7e2602b57d966f81aaf5d62e23466675664a6bed",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/cycle_04.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "20dce74582b8b57be3e3a66abacfae92fa06d020",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/execution-gates/contract-state.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f99c2860f22aca865702214393b3c61d8145dd2",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/handoffs/2026-10-11-seven-open-issues.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "392fcfbdcbf8d2f50df079df89407089925e4d19",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/implementation/2026-10-11-task27.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "773fc14767c87d26dec6f19a49aa8ee6d6c75636",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/records/2026-09-27.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bf45b9391c4a41ae0d8b630d7f46bfb266faf777",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "40eb247b24b982d9e6b06411338bd956329d2dee",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/collection.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4fe64917edb265f9ef750c2d278aa1842a85d26c",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/decisions.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b551114714fdc35ec3da1da62d5bd072478391a7",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/main_import_2026-10-13.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "582e945cdbe965c952c1d563c4af27c2b5ab9578",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/pr69_preparation_import.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0db95d889f3e14c50dea73c6b870d01ec5cbcdb8",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_04/acceptance.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6a60d1cb62fb31f97fa75675733f4424ae420fc4",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "docs/validation/templates/chatgpt_prediction_task.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b39b425b349f6a8d821921bea4df570fc276c30c",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/audit_20261012_pr78.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ddfd2d808a976e0d0f74982c407522f6363de9c8",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/build_cycle03_review.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4cde4ad0210060ae7490661e5017d88750a1cad6",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/build_v170_manifest.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e2714e36e8b29b97f1156e6d08fc7a153c8106e8",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/check_betting_performance.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a0288a82c9a17b57f7bd733bb42d0133770f5aa8",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/check_cycle04.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05350f48a9d57641d971d9a039fe75a3bdc6ba5e",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/check_prediction_compliance.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "064c60e1cfddf71d74cbb2bc61e38cc860f43d79",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/cycle04_operations.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "291a5ca2f3a2c87682798f17241aa095baf13f18",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/cycle04_workflow.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c1ea61e847b77ff26fc7ea700fcb1098ea0443ec",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/persistence_status.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f38a184840b6c14f88bbc98bdf791c52e0349cf3",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/recommendation.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dfce05f996d3291a9a08156f7729e9bcfe87f745",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/run_cycle04_acceptance.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3278fc311a248021fb2c49f46d673017649279a1",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/run_release_readiness.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3ad9c9368d19fd3ee626bb882207ca7ef96b530f",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/seal_prediction.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "73131f4c8a871d997b6dbbeb0b506727f20c03bb",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/selection_history.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "eb005a189f0992eaedff0101a0f10296bffc45a9",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/task_completion.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "76ba7f1a8c925885c3cd83c71816bbee875e808c",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_build_cycle03_review.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c0ce4b81292ddf8b2d34578a5175bb8e75a8688a",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_check_betting_performance.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a96fb7dc3ee83fce8af910457e41d531ff199b1f",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_check_cycle03.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e60ccba2f28cfbaf2eaa3f1fe0d33fba97152287",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_cycle04_acceptance.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e865eea82e8e6c5ed80f77ab40d5fb0da00482db",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_cycle04_workflow.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f7452daaae3203e12ce01f7da8aa01448f3ea08e",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_next_prediction_compliance.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bddece008b536f0c0b1158f3225536bcb9c3476b",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_next_prediction_persistence.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "92176f22b1739feaf95fe4c1217371176394f511",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_persistence_status.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ee170d7e5d744442dba06ae6bb8cce2e0cc0505",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_recommendation.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "83a59a83ad16e148995f9dda52454680a85214e2",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_release_readiness.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5005d1378a4a03ae77d0823beff4ca21fc253b90",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_selection_history.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "716be393be7a627fa4e745374ac41218a40e63bf",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_task_completion.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ca98114ef3ba4c9af9adfb880fd51026b709a8a",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_two_axis_candidates.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "55a0b77d2c364940444c15c9f1ccc0d426b7dfe9",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/two_axis_candidates.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bca897df3a761fd2767519e7e7333742bceb3a91",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/verify_prediction_persistence.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "286172c642c847c7851e88364a6599c1a627d663",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_check_prediction_compliance.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "56aa93fca3be91fbc6ffa0ecde519597c4dec1ad",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    },
+    {
+      "path": "scripts/test_verify_prediction_persistence.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a529a8c707a60fb816d81a1f434d888429869a04",
+      "policy": "KEEP_CURRENT_MAIN_BYTES"
+    }
+  ],
+  "both_changed_resolution": [
+    {
+      "path": ".github/workflows/check-cycle03.yml",
+      "merge_exit": 1,
+      "conflicts": 1,
+      "base_sha": "ced16ef61f3b9cea46962f41981250f72dc078b6",
+      "pr_sha": "75f0376de5e9f7a29f4d1fda6f9a6c293e60cd2a",
+      "main_sha": "b50041339a0adf74734f9c676b14bc4860172383",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "AGENTS.md",
+      "merge_exit": 1,
+      "conflicts": 1,
+      "base_sha": "6fb2d84f6c8a0886189b5a1ba1f3af26756207d5",
+      "pr_sha": "8716ebf0d29edb3455c5b8aa5520f1127f78800d",
+      "main_sha": "51d2f5fe43c97026f78e2e5d7b8b3dd515b53e0d",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "DECISIONS.md",
+      "merge_exit": 1,
+      "conflicts": 1,
+      "base_sha": "998474d627f08337bde6f02ff250bc46a8320afa",
+      "pr_sha": "1ad715450504c3e9a6be8c54a4240d10a521d375",
+      "main_sha": "bd2cb2b145b95cfab51a5c2c46ff24d16b4644f6",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "README.md",
+      "merge_exit": 0,
+      "conflicts": 0,
+      "base_sha": "aa7e136e1d0aadfc32ddba7f798cb02d9e2c843d",
+      "pr_sha": "863c12a68bc777f44fc6e500defa49568ace7965",
+      "main_sha": "753abfa0a96014ef8aa61ec7e60d04b7f152f9b7",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/jravan/00_project_plan.md",
+      "merge_exit": 0,
+      "conflicts": 0,
+      "base_sha": "7dc8f2d19981679c1d52c826e4a15ce344124a1c",
+      "pr_sha": "807888f639adc26141846ee95785d4dfb252059a",
+      "main_sha": "98b54aadc3178904978dd856c2911c936ff1b79e",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/jravan/04_prediction_engine.md",
+      "merge_exit": 0,
+      "conflicts": 0,
+      "base_sha": "0d4e9cd716337eebb3e7ffedc74a59c2ac2d9766",
+      "pr_sha": "b61e8ca01bfaeaf125aff4c8bfacafb660a8d1f1",
+      "main_sha": "8397eea3407787f84a258d0ee10a69fc6dce8d83",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/jravan/07_review_ai.md",
+      "merge_exit": 0,
+      "conflicts": 0,
+      "base_sha": "e53645021a96f6ca52a95f92f9ec920140682e03",
+      "pr_sha": "f8bd8e2da33a74fde2d509fbaf0d17a599700b0e",
+      "main_sha": "7ed6d81504bf4abecb630bf356501616f6e029bb",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/jravan/10_operations.md",
+      "merge_exit": 0,
+      "conflicts": 0,
+      "base_sha": "fdec2a08706b05dbfbb5b5df47918d4d5ac46666",
+      "pr_sha": "179988f0187ba9966d1680fdcd800853bf5c1243",
+      "main_sha": "57f574fd1bcf0f2175ff53a56a3d501a97602bc7",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/jravan/phases/README.md",
+      "merge_exit": 1,
+      "conflicts": 1,
+      "base_sha": "2139b285a858f3802c72727ab283d8b0d05c1f5c",
+      "pr_sha": "ed6ef1cd483a05a71fd8f2bdfced590b8a7bc861",
+      "main_sha": "1d47a2ae507f99a9c1fbb7c3ef4c2eda3b4778dd",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/jravan/phases/phase_3_rule_engine.md",
+      "merge_exit": 2,
+      "conflicts": 2,
+      "base_sha": "ada46627615cd0f1d29ec8adf6a4269e22bec39c",
+      "pr_sha": "ffa9327c75f563431b0460b1de190bb9a11c990b",
+      "main_sha": "a87000fdafaf166b9c74439401d6b42990d5a88b",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/jravan/phases/phase_4_prediction_ui.md",
+      "merge_exit": 1,
+      "conflicts": 1,
+      "base_sha": "109b207c2f22e65d55d148f45a0069be13f6f169",
+      "pr_sha": "ca02a9131de371bd79e16cde0c47344bf050012d",
+      "main_sha": "c73a936bf0df7d8de029fac1c308f13583e4c988",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/jravan/phases/phase_5_odds_betting.md",
+      "merge_exit": 4,
+      "conflicts": 4,
+      "base_sha": "6443962b178bcf40f0f02536cc8739133fc31959",
+      "pr_sha": "e394cf67d269844baa021b3a0c0e4540acd936cc",
+      "main_sha": "3e950df654cdddac7315e43d69bd5c31f4115840",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/jravan/phases/phase_6_settlement_automation.md",
+      "merge_exit": 4,
+      "conflicts": 4,
+      "base_sha": "71344ea61f4c6ad7935d1d41bf31f4bd99edc7b8",
+      "pr_sha": "fd5610660baa5e1051562f2249fbdb7c821b1b81",
+      "main_sha": "0505ce2668cfea05f292a7476ea9bdb2726ed3dc",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/validation/README.md",
+      "merge_exit": 0,
+      "conflicts": 0,
+      "base_sha": "d0104ae5e29dc2bdd855628c137a246976712090",
+      "pr_sha": "46c547a6e75145634d057b4122ffe6f0ef53b04e",
+      "main_sha": "eaf986bdd0083572c26bf97b15cf10d27d3fb61f",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "docs/validation/cycle_03.md",
+      "merge_exit": 0,
+      "conflicts": 0,
+      "base_sha": "1c312a3f8c4a170993a8ef455b852856be851d8f",
+      "pr_sha": "5d15a279ebabf810dc6b34790b5b8031e934a4d7",
+      "main_sha": "7e2602b57d966f81aaf5d62e23466675664a6bed",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "保持済み全7日集合/集計・collection入力hashを採用。PR69の旧終了審査追記は親commit参照で保全。"
+    },
+    {
+      "path": "docs/validation/execution-gates/contract-state.json",
+      "merge_exit": 1,
+      "conflicts": 1,
+      "base_sha": null,
+      "pr_sha": "2d47b2e5689910b930cf590e6bf1ae93f4315f98",
+      "main_sha": "5f99c2860f22aca865702214393b3c61d8145dd2",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "scripts/audit_20261012_pr78.py",
+      "merge_exit": 0,
+      "conflicts": 0,
+      "base_sha": "93309d11f6718dc1d665f8c6b42c5f6432a2aaae",
+      "pr_sha": "921ff5147e6eaba5142fb76e30be6d07e605c2c6",
+      "main_sha": "ddfd2d808a976e0d0f74982c407522f6363de9c8",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "scripts/check_prediction_compliance.py",
+      "merge_exit": 2,
+      "conflicts": 2,
+      "base_sha": "65b223a1cc8238ce4dd3a3bfd88bceb7ac965dcc",
+      "pr_sha": "939c4d07dc715c161607822a9d4e51b52c41301a",
+      "main_sha": "064c60e1cfddf71d74cbb2bc61e38cc860f43d79",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "scripts/selection_history.py",
+      "merge_exit": 1,
+      "conflicts": 1,
+      "base_sha": null,
+      "pr_sha": "08842e415f4cc38f009e7403c946be3d6ddfab90",
+      "main_sha": "eb005a189f0992eaedff0101a0f10296bffc45a9",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "scripts/test_recommendation.py",
+      "merge_exit": 1,
+      "conflicts": 1,
+      "base_sha": null,
+      "pr_sha": "c55c65bc6c3137574899f5951e843aaf0d96c2b4",
+      "main_sha": "83a59a83ad16e148995f9dda52454680a85214e2",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    },
+    {
+      "path": "scripts/test_task_completion.py",
+      "merge_exit": 1,
+      "conflicts": 1,
+      "base_sha": null,
+      "pr_sha": "0d9ecad5d40f895652772329b34453711580f98e",
+      "main_sha": "5ca98114ef3ba4c9af9adfb880fd51026b709a8a",
+      "resolution": "CURRENT_MAIN_BYTES",
+      "reason": "現行v1.7.0の全Owner/正式manifest/既存受入と同一。PR固有の研究成果は対象外で保持。"
+    }
+  ],
+  "actual_conflicting_files": 13,
+  "actual_conflicting_hunks": 21,
+  "protected": {
+    "data_tree_before": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "data_tree_after": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "data_tree_unchanged": true,
+    "registry_and_26_snapshots_unchanged": true,
+    "root_entries_except_docs_scripts_github_and_entry_files_unchanged": true,
+    "legacy_evidence_subtrees": [
+      {
+        "path": "docs/validation/snapshots",
+        "before": "500af09e7f127d2c60c21d994d78cc7a76b200e9",
+        "after": "500af09e7f127d2c60c21d994d78cc7a76b200e9",
+        "unchanged": true
+      },
+      {
+        "path": "docs/validation/persistence-intents",
+        "before": "f44874ce192131b1151ee493e21317281b12e8f5",
+        "after": "f44874ce192131b1151ee493e21317281b12e8f5",
+        "unchanged": true
+      },
+      {
+        "path": "docs/validation/persistence-receipts",
+        "before": "7251b5de81da85bf9a268310ea6498b6057a34f0",
+        "after": "7251b5de81da85bf9a268310ea6498b6057a34f0",
+        "unchanged": true
+      },
+      {
+        "path": "docs/validation/preservation",
+        "before": "48be153d4f1a5488f9313bdf6d2187c601cf9d42",
+        "after": "48be153d4f1a5488f9313bdf6d2187c601cf9d42",
+        "unchanged": true
+      },
+      {
+        "path": "docs/validation/betting-evidence",
+        "before": "c365fd8e34f8512d498bbe71459de66cee7acc75",
+        "after": "c365fd8e34f8512d498bbe71459de66cee7acc75",
+        "unchanged": true
+      },
+      {
+        "path": "docs/validation/performance-sources",
+        "before": "6ad32534a9bde9c9d2a9205e78cfa38d9d598bcb",
+        "after": "6ad32534a9bde9c9d2a9205e78cfa38d9d598bcb",
+        "unchanged": true
+      },
+      {
+        "path": "docs/validation/daily-branches",
+        "before": "80e644ae5b8bf85083f8fac8ac2592b4c5ddec4c",
+        "after": "80e644ae5b8bf85083f8fac8ac2592b4c5ddec4c",
+        "unchanged": true
+      },
+      {
+        "path": "docs/validation/implementation",
+        "before": "0f4e0b5e9c3e667bfd4a4b2aa476dec161c46745",
+        "after": "0f4e0b5e9c3e667bfd4a4b2aa476dec161c46745",
+        "unchanged": true
+      }
+    ],
+    "records_changed": [
+      {
+        "path": "2026-09-27.md",
+        "before": null,
+        "after": "bf45b9391c4a41ae0d8b630d7f46bfb266faf777"
+      }
+    ],
+    "records_removed": [],
+    "prior_task25_26_27_artifacts_preserved": true
+  },
+  "release": {
+    "manual_release": "v1.7.0",
+    "contract_status": "ACTIVE",
+    "activation_policy": "MAIN_MERGE",
+    "activated_on_main_by_pr79": true,
+    "new_cutover_performed": false,
+    "release_manifest_sources": 106,
+    "monitored_source_bytes_policy": "MAIN_BYTES_BASELINE_WITH_EXPLICIT_CI_DEPENDENCY_RESTORATION_AND_GENERATED_BRANCH_MANIFEST",
+    "release_fixture_restorations": [
+      {
+        "path": "scripts/test_check_prediction_compliance.py",
+        "main_sha": "56aa93fca3be91fbc6ffa0ecde519597c4dec1ad",
+        "pr_sha": "bddece008b536f0c0b1158f3225536bcb9c3476b",
+        "base_sha": "56aa93fca3be91fbc6ffa0ecde519597c4dec1ad"
+      },
+      {
+        "path": "scripts/test_verify_prediction_persistence.py",
+        "main_sha": "a529a8c707a60fb816d81a1f434d888429869a04",
+        "pr_sha": "92176f22b1739feaf95fe4c1217371176394f511",
+        "base_sha": "a529a8c707a60fb816d81a1f434d888429869a04"
+      }
+    ],
+    "imported_main_manifest_sources": 66
+  },
+  "local_validation": {
+    "tests": 215,
+    "result": "PASS",
+    "modules": [
+      "test_check_prediction_compliance",
+      "test_next_prediction_compliance",
+      "test_verify_prediction_persistence",
+      "test_next_prediction_persistence",
+      "test_recommendation",
+      "test_task_completion",
+      "test_selection_history",
+      "test_persistence_status",
+      "test_check_prediction_cycle"
+    ],
+    "context": "独立scratch候補。実際に三方比較したmainコードとmain既存旧/新版fixtureを採用。合成受入・前向きKPI・運用開始認証を完了へ転用しない。",
+    "followup_validation_location": "PDF原票回帰8件と正式readiness4件は各コードが存在する作業コピーで別に実行。最終結果はPR68/PR69に記録。"
+  },
+  "ci_result_location": "成果commitのGitHub Actions結果とPR68/PR69本文に記録",
+  "deferred": {
+    "S02": "研究監査workflow再接続・正式/準備台帳reader区分。旧研究workflowは親commitとblobで保全。",
+    "S03": "全入口・第4合成受入・旧/新/研究回帰と取得済みmainの運用開始確認を実施。",
+    "original_research_workflow": {
+      "source_commit": "11f4f339391be34bb6fbbc15edbd812e4b0641df",
+      "path": ".github/workflows/check-cycle03.yml",
+      "blob_sha": "75f0376de5e9f7a29f4d1fda6f9a6c293e60cd2a"
+    },
+    "prior_research_instructions": {
+      "source_commit": "11f4f339391be34bb6fbbc15edbd812e4b0641df",
+      "path": "AGENTS.md",
+      "blob_sha": "8716ebf0d29edb3455c5b8aa5520f1127f78800d",
+      "note": "調教国の検索優先・単一国一致/最新所属・利用者95頭回答・バッチ/CAS/readbackの指示を旧原文と既存checkpointから継承。現行正式版と矛盾する切替待ち部分は適用しない。"
+    }
+  },
+  "limits": {
+    "main_merge_performed": false,
+    "pr69_draft_retained": true,
+    "historical_eligibility_promoted": false,
+    "forward_evidence_created": false,
+    "performance_promotion": false,
+    "runtime_connected": false
+  },
+  "next_task": "S02",
+  "integration_adjustments": {
+    "reason": "初回通常CIの489回帰中、研究原PDFを読み取るpdftotext未導入による1 errorを検出。試験/原票検証を省略せず既存PR69の依存準備と過去Git履歴のcheckoutを復元。",
+    "initial_ci": {
+      "run_id": 38330999272,
+      "conclusion": "failure",
+      "tests": 489,
+      "errors": 1,
+      "failing_test": "test_training_country_priority.TrainingCountryPriorityTest.test_accept_saved_checkpoint_and_first_ten",
+      "diagnostic": "FileNotFoundError: pdftotext"
+    },
+    "files": [
+      {
+        "path": ".github/workflows/check-cycle03.yml",
+        "change": "poppler-utilsの依存準備とfetch-depth:0のみ追加。mainの監査ステップを保持。"
+      },
+      {
+        "path": "docs/validation/contracts/v170-release.json",
+        "change": "既存build_v170_manifest.pyで再生成。106入力hash、mainとPR69の全script/Ownerを固定。"
+      }
+    ],
+    "hash_validation": "PASS_ALL_106",
+    "release_readiness": "PASS_ATOMIC_ONLY_OPERATIONAL_READY_FALSE",
+    "release_readiness_tests": {
+      "count": 4,
+      "result": "PASS"
+    },
+    "require_main_policy": "未マージPR69の106-source manifestはmainの66-source manifestと区別する。main開始確認を迂回・緩和しない。",
+    "S02_not_completed": true,
+    "S03_not_completed": true
+  }
+}

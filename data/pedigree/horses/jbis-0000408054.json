@@ -1,0 +1,90 @@
+{
+  "horse_key": "jbis-0000408054",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1983,
+    "external_ids": {
+      "JBIS": "0000408054"
+    },
+    "identity_evidence": {
+      "record_key": "0000408054",
+      "source": "JBIS",
+      "source_sheet": "0001423797"
+    },
+    "name": "Darara(IRE)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:14:52.452621+00:00",
+  "identity_observed_at": "2026-10-10T10:14:52.452621+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1983,
+    "external_ids": {
+      "JBIS": "0000408054"
+    },
+    "identity_evidence": {
+      "record_key": "0000408054",
+      "source": "JBIS",
+      "source_sheet": "0001423797"
+    },
+    "name": "Darara(IRE)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:14:52.473100+00:00",
+      "content_hash": "db630212f63da890e204619a1ddfc7cc4ed5917b06ff7e879bbe2cf049354958",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:14:52.473098+00:00",
+      "input_hash": "1e6721c7cdaff0a945daeb99d56f5d1fcf74277eb51cf9692321efe17c4a91d2",
+      "previous_revision": null,
+      "revision_id": "rev-1e6721c7cdaff0a945daeb99",
+      "saved_at": "2026-10-10T10:14:52.473487+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "JBIS",
+        "record_hash": "d577159847954363d2090420f412561c301c9aa87a178217bf31fa149e10c190",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423797:SDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423797/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336543",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:14:52.474905+00:00",
+      "content_hash": "aed8cae46829af9d8a31cf32a7f347ff3ea78da30513278a87732f2cf7bdef95",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:14:52.474903+00:00",
+      "input_hash": "14a7e8966cbab3c54c05db5d1bc40aeeab1d120d2c9c9ab167829b4af47f4fc7",
+      "previous_revision": null,
+      "revision_id": "rev-14a7e8966cbab3c54c05db5d",
+      "saved_at": "2026-10-10T10:14:52.475203+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "JBIS",
+        "record_hash": "d577159847954363d2090420f412561c301c9aa87a178217bf31fa149e10c190",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423797:SDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423797/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000393126",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

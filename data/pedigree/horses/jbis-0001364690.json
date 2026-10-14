@@ -1,0 +1,92 @@
+{
+  "horse_key": "jbis-0001364690",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2020,
+    "external_ids": {
+      "JBIS": "0001364690"
+    },
+    "identity_evidence": {
+      "raw_sha256": "3faf385c90829b7d4bd2518c39da8b2889039e17e6b5832ea82cf5d6468b731c",
+      "record_key": "0001364690",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001364690/"
+    },
+    "name": "ガンウルフ(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-11T18:54:52.236846+00:00",
+  "identity_observed_at": "2026-10-11T18:54:52.236846+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2020,
+    "external_ids": {
+      "JBIS": "0001364690"
+    },
+    "identity_evidence": {
+      "raw_sha256": "3faf385c90829b7d4bd2518c39da8b2889039e17e6b5832ea82cf5d6468b731c",
+      "record_key": "0001364690",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001364690/"
+    },
+    "name": "ガンウルフ(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:25:06.263235+00:00",
+      "content_hash": "9dbde76a791d57e54da8ddedd9033eaa3f64786c4c90359c09627ec3773edadd",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:25:06.263235+00:00",
+      "input_hash": "32282ed29f33e46d6a12c12e219f9bdb763110c625c8305e39fd23025f679898",
+      "previous_revision": null,
+      "revision_id": "rev-32282ed29f33e46d6a12c12e",
+      "saved_at": "2026-10-12T06:30:45.677200+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "c6cf28c128a026127bb9ed5c4798bb0960234e58aade9351154d7ca474737f7e",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001364690:S",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001364690/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001288621",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:25:06.263235+00:00",
+      "content_hash": "952ae1e83799d5e31e81ed280402853eed067d6015bcb168ff0fbdb664251ddb",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:25:06.263235+00:00",
+      "input_hash": "ba0528a4b9557e4d66536534a89d70f59dad7554aa71f89637bd67b496a30a0e",
+      "previous_revision": null,
+      "revision_id": "rev-ba0528a4b9557e4d66536534",
+      "saved_at": "2026-10-12T06:30:45.687253+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "c6cf28c128a026127bb9ed5c4798bb0960234e58aade9351154d7ca474737f7e",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001364690:D",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001364690/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001132657",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "numbered-implementation-v1",
+  "task": "53-I06",
+  "message": "53-I06：公式全頭結果本文を同着・取消・非完走を保持して正規化",
+  "status": "IMPLEMENTATION_ACCEPTED",
+  "basis_commit": "c474925ae934036ae12a9062148d2639718b2869",
+  "local_validation": "ローカル実行環境が応答停止。完全repoの統合CIで検査する。",
+  "new_tests": 4,
+  "formal_schema_changed": false,
+  "actual_live_acquisition": false,
+  "place_rule_source": "https://www.jra.go.jp/kouza/beginner/baken/",
+  "place_rule_scope": "発売開始時頭数を確認。取消後実出走数から推測しない。",
+  "official_domain_integration": "既存公式結果のapp.jra.jpも取得ドメイン構造検査へ接続。真正性認証ではない。",
+  "synthetic_tests": 5,
+  "saved_source_regression": "2026-10-12 Kyoto01 saved pipe rows; REPLAY only",
+  "global_tests": 712,
+  "source_manifest_sha256": "9300dfa648b1d0d61fe55514122d252105b04b2d1ad63743cb575f5c6ba5df65",
+  "source_count": 127,
+  "validation_basis_commit": "9c09b05bfbdee2833ebe12f5385793ea4fe93990",
+  "ci": [
+    {
+      "id": 38443294259,
+      "conclusion": "success"
+    },
+    {
+      "id": 38443294260,
+      "conclusion": "success"
+    },
+    {
+      "id": 38443294311,
+      "conclusion": "failure"
+    }
+  ]
+}

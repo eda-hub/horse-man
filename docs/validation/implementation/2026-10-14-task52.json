@@ -1,0 +1,227 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "52",
+  "status": "EXISTING_FORMAL_CUTOVER_RECONCILED_NO_RECUTOVER",
+  "basis_commit": "a88ce0e5cc1ad9801b450f95078be864548baba2",
+  "main_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+  "plan_ref": "0bfa36c26de6a059374d3a453ddef40c31f6465c",
+  "completed_subtasks": [
+    "52-01"
+  ],
+  "formal_release": {
+    "manual_release": "v1.7.0",
+    "status": "ACTIVE",
+    "effective_race_date": "2026-10-13",
+    "activation_policy": "MAIN_MERGE",
+    "pr79": {
+      "merged": true,
+      "cutover_head": "510ae92f7b0916b48d2cd2cf6e464fdfc4a14313",
+      "merge_commit": "fd47babd38deea46439c2a7e500c3937c63cb5d7",
+      "merged_at_utc": "2026-10-12T22:46:10Z"
+    },
+    "pr81": {
+      "merged": true,
+      "operation_correction_head": "1011a7857514658eb4b0750e5ec5876a48995b04",
+      "merge_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "merged_at_utc": "2026-10-12T23:15:31Z"
+    },
+    "activation_time": "contract-stateのactivated_at_jst nullはMAIN_MERGE方針。PR79のmain統合時点から有効とし、PR81は是正。最早日だけで自動有効化しない。",
+    "legacy_current_release_key": "cycle_04.jsonのcurrent_release=v1.6.1は旧側の契約値。現行版はmanual READMEとACTIVE next_release=v1.7.0、effective_race_dateにより判定。"
+  },
+  "source_manifest": [
+    {
+      "path": "docs/validation/handoffs/2026-10-13-s01.json",
+      "git_blob_sha": "6aa2de10e156293fd6fe4b12c11685779f1aa1e2"
+    },
+    {
+      "path": "docs/validation/handoffs/2026-10-13-s02.json",
+      "git_blob_sha": "337ff205b7ec85abd4e4c9b77ed160d8f0063ca2"
+    },
+    {
+      "path": "docs/validation/handoffs/2026-10-13-s03.json",
+      "git_blob_sha": "28fb31ccf92b6acc26fe0ba8a31915ff804da776"
+    },
+    {
+      "path": "docs/validation/audit-entrypoints.md",
+      "git_blob_sha": "faf76736d265f4d875730108e3695ee668cdc86f"
+    }
+  ],
+  "integration_history": [
+    {
+      "task": "S01",
+      "result": "既存main三方統合の両親・競合・旧証跡・研究保全を原checkpointで照合。再統合なし。",
+      "source": "docs/validation/handoffs/2026-10-13-s01.json"
+    },
+    {
+      "task": "S02",
+      "result": "正式/研究workflowとMarkdown履歴readerの独立境界を照合。正式JSONの二重登録なし。",
+      "source": "docs/validation/handoffs/2026-10-13-s02.json"
+    },
+    {
+      "task": "S03",
+      "result": "旧新fixtureの維持・正式main開始成功と未マージbranch拒否の独立検査を照合。過去500件と今回688件を区別。",
+      "source": "docs/validation/handoffs/2026-10-13-s03.json"
+    }
+  ],
+  "acceptance": {
+    "pr69_checkpoint": "docs/validation/reviews/cycle_04/acceptance.json",
+    "git_blob_sha": "0f07b19886bcf8355641a314ebaf6697550af9c7",
+    "current_source_count": 115,
+    "current_source_manifest_sha256": "a1595da49a059d0f8ca0d735b054c5d5585ea47927d38bd67a1a6edffb6f89e9",
+    "all_local_source_hashes_match": true,
+    "integration_run": 38427369386,
+    "integration_job": 115400165688,
+    "verification_basis_commit": "a88ce0e5cc1ad9801b450f95078be864548baba2",
+    "actual": {
+      "atomic": {
+        "activation_policy": "MAIN_MERGE",
+        "atomic_contract_verified": true,
+        "cycle_dates": [
+          "2026-10-17",
+          "2026-10-18",
+          "2026-10-24",
+          "2026-10-25"
+        ],
+        "live_races_executed": null,
+        "manual_release": "v1.7.0",
+        "operational_ready": false
+      },
+      "branch": {
+        "operational_ready": false,
+        "reason": "v1.7.0 has not been merged into the fetched main contract",
+        "status": "UNMERGED_CONTRACT_REJECTED"
+      },
+      "branch_manifest_sources": 134,
+      "live_races_executed": null,
+      "main": {
+        "activation_policy": "MAIN_MERGE",
+        "atomic_contract_verified": true,
+        "cycle_dates": [
+          "2026-10-17",
+          "2026-10-18",
+          "2026-10-24",
+          "2026-10-25"
+        ],
+        "live_races_executed": null,
+        "main_commit_time": "2026-10-13T08:15:30+09:00",
+        "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+        "manual_release": "v1.7.0",
+        "operational_ready": true
+      },
+      "main_manifest_sources": 66,
+      "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "monitored_sources_unchanged": true,
+      "performance_promoted": false,
+      "read_only": true,
+      "runtime_connected": false,
+      "schema_version": "integration-start-check-v1",
+      "synthetic_acceptance": {
+        "failures": 0,
+        "formal_cutover": "NOT_PERFORMED",
+        "live_race_count": null,
+        "mode": "SYNTHETIC",
+        "note": "正常系・異常系の合成検査。実レース、未完了研究、実runtime接続、正式版/有効日を認証しない。",
+        "performance_promotion": "NOT_PERFORMED",
+        "result": "PASS",
+        "schema_version": "cycle04-acceptance-v1",
+        "skipped": 0,
+        "source_count": 115,
+        "source_manifest_sha256": "a1595da49a059d0f8ca0d735b054c5d5585ea47927d38bd67a1a6edffb6f89e9",
+        "tests_run": 688
+      }
+    },
+    "related_readiness_tests": 9,
+    "related_failures": 0,
+    "related_skips": 0
+  },
+  "rollback": {
+    "owner": "DECISIONS ADR-022 / docs/validation/contracts/cycle04_operations.md",
+    "policy": "正式切替commitのrevertで全入口/Owner/監査を同時に戻し、新版JSON/旧履歴を削除しない。",
+    "execution": "NOT_REQUESTED_NOT_EXECUTED",
+    "regression": "旧release/schema dispatchと未有効/不一致main拒否を51番306件・52番readiness9件で確認。実rollback運用試験を実施済みとはしない。"
+  },
+  "release_manifests": {
+    "main": {
+      "sources": 66,
+      "git_blob_sha": "9fff022a95ed56359efe932980c4229f99a121e9",
+      "operational_ready": true
+    },
+    "branch": {
+      "sources": 134,
+      "git_blob_sha": "07ef59465b299eb60833194f84f974c282f3fa77",
+      "atomic_contract_verified": true,
+      "operational_ready": false,
+      "status": "UNMERGED_CONTRACT_REJECTED"
+    },
+    "different_manifests_not_overwritten": true
+  },
+  "formal_recutover": false,
+  "main_merge_performed": false,
+  "release_or_gate_changes": false,
+  "performance_promoted": false,
+  "runtime_connected": false,
+  "live_races_executed": null,
+  "sequence": {
+    "requested": "48→49→50→51→52、番号ごとに実施・検証・1コミット・CI全成功後に次へ",
+    "previous_completed": [
+      {
+        "task": 49,
+        "commit": "73cad2fe94b58b744dfb07d188fe79dbbea520ff",
+        "ci": [
+          {
+            "id": 38425895419,
+            "conclusion": "success"
+          },
+          {
+            "id": 38425895452,
+            "conclusion": "success"
+          },
+          {
+            "id": 38425895334,
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "task": 50,
+        "commit": "afb8e44d295e7f712f0b961efd651afd78e86a98",
+        "ci": [
+          {
+            "id": 38426669908,
+            "conclusion": "success"
+          },
+          {
+            "id": 38426669649,
+            "conclusion": "success"
+          },
+          {
+            "id": 38426670026,
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "task": 51,
+        "commit": "a88ce0e5cc1ad9801b450f95078be864548baba2",
+        "ci": [
+          {
+            "id": 38427369386,
+            "conclusion": "success"
+          },
+          {
+            "id": 38427369377,
+            "conclusion": "success"
+          },
+          {
+            "id": 38427369219,
+            "conclusion": "success"
+          }
+        ]
+      }
+    ],
+    "postcommit_ci": "当該HEADのActionsとPR68/69本文で確認"
+  },
+  "residuals": "研究12日PARTIAL(結果1/24R・本人/5代2頭・未確認13・5/43条件)、歴史的保存不足40・未確認解釈・旧KPI保留57/正式ROI null、29の発走前取得2開催、37-05指定4日実測、実確率/校正/性能、実runtime未受入を維持。",
+  "next_independent_task": "53-01",
+  "scope_note": "52番は既存正式切替と準備成果の対応照合。v1.7.0再切替やPR69マージ、性能昇格ではない。"
+}

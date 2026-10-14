@@ -8,10 +8,10 @@
 この3つを混在させない。
 
 ## ルール上の位置付け
-オッズ観測・最終オッズ予測は価格判断の入力であり、価格だけを理由に `10_prediction` のProduction基準順位・基準確率を変更しない。`docs/manual/00_core.md` でProduction/Shadow共通入力として認められた価格観測・価格予測の範囲に従う。
+オッズ観測・最終オッズ予測は市場分析の入力であり、価格だけを理由に `10_prediction` のProduction基準順位・基準確率・印を変更しない。Prediction固定後の任意sidecarとして扱い、未実行でもPredictionと回顧を完了できる。
 
 ## 最終オッズ予測
-現行運用を維持し、予想段階で最終オッズを予測して買い目候補を作る。AIではなくOdds Forecast Engineが担当する。
+最終オッズ予測はAIではなくOdds Forecast Engineが担当する。Predictionとは独立して、市場との乖離や価格予測精度を評価するために使用する。固定ルールによる仮想収益検証を行う場合も、Production固定後にだけ接続する。
 
 初期版は、発走までの時間、現在人気、オッズ帯、レース種別等から過去変動率を集計する統計補正で開始する。十分な履歴が溜まった後にMLを検討する。
 
@@ -27,14 +27,26 @@
 高頻度で全券種・全組合せを永久保存しない。保存対象券種は `30_betting` の現行運用と実際の分析用途に合わせて段階拡張する。
 
 ## 永久保存対象
-- Production FINAL/購入判断に使用したobserved snapshot
+- Production FINAL時点で参照したobserved snapshot（参照した場合）
 - predicted final odds
-- decision時snapshot
+- market validation時snapshot（sidecar実行時）
 - actual final odds
-- 推奨買い目候補、BET/SKIP判断
+- 予測誤差・市場乖離の評価に必要な最小情報
 
 ## baseline_forecast_idとの関係
-オッズ更新だけではProductionの `baseline_forecast_id` を更新しない。価格更新は市場評価・推奨候補・購入判断snapshotとして別履歴に残す。
+オッズ更新だけではProductionの `baseline_forecast_id` を更新しない。価格更新は市場評価snapshotとして別履歴に残す。実購入意思やユーザー予算は保存必須項目にしない。
 
 ## 回顧
-馬の予想、オッズ予測、買い目構築、購入/見送りを別々に評価する。見送り後の理論損益も計算する。
+馬の予想とオッズ予測を別々に評価する。任意の仮想収益検証を実行した場合だけ、その固定ルールの成績を別系列で評価する。全見送り相当レースの仮想精算を必須にはしない。
+
+
+## 任意の市場検証sidecar
+
+市場検証は次を満たす。
+
+- Productionの `baseline_forecast_id` を親に持つ。
+- Production順位・確率・印を変更できない。
+- method_version、data_cutoff、使用odds snapshot、fixed_atを保存する。
+- ユーザー購入額・購入有無・実購入払戻を入力にしない。
+- 未実行でもPrediction KPIの対象/適格性を変えない。
+- 固定ルールによる仮想券を評価する場合、結果後に券種・金額・組み合わせを変更しない。

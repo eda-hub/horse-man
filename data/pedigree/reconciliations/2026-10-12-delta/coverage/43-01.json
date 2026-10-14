@@ -1,0 +1,513 @@
+{
+  "schema_version": "oct12-research-coverage-v1",
+  "subtask_id": "43-01",
+  "basis_commit": "aee4eeeca5aa9ac3ba0f4e2863a354724f93908c",
+  "data_cutoff": "2026-10-13T22:08:05+09:00",
+  "expected_race_ids": [
+    "2026-10-12-KYOTO-01",
+    "2026-10-12-KYOTO-02",
+    "2026-10-12-KYOTO-03",
+    "2026-10-12-KYOTO-04",
+    "2026-10-12-KYOTO-05",
+    "2026-10-12-KYOTO-06",
+    "2026-10-12-KYOTO-07",
+    "2026-10-12-KYOTO-08",
+    "2026-10-12-KYOTO-09",
+    "2026-10-12-KYOTO-10",
+    "2026-10-12-KYOTO-11",
+    "2026-10-12-KYOTO-12",
+    "2026-10-12-TOKYO-01",
+    "2026-10-12-TOKYO-02",
+    "2026-10-12-TOKYO-03",
+    "2026-10-12-TOKYO-04",
+    "2026-10-12-TOKYO-05",
+    "2026-10-12-TOKYO-06",
+    "2026-10-12-TOKYO-07",
+    "2026-10-12-TOKYO-08",
+    "2026-10-12-TOKYO-09",
+    "2026-10-12-TOKYO-10",
+    "2026-10-12-TOKYO-11",
+    "2026-10-12-TOKYO-12"
+  ],
+  "verified_result_race_ids": [
+    "2026-10-12-KYOTO-01"
+  ],
+  "missing_result_races": 23,
+  "all_day_registered_rows": null,
+  "all_day_actual_starters": null,
+  "verified_result_registered_rows": 15,
+  "verified_result_actual_starters": 15,
+  "identity_and_5gen_verified_rows": 2,
+  "unconfirmed_verified_result_rows": 13,
+  "country_subjects_required_in_verified_batch": 4,
+  "country_subjects_verified": 4,
+  "all_day_needed_country_count": null,
+  "completeness": "PARTIAL",
+  "conditions": [
+    {
+      "source_path": "data/condition_stats/definitions/jra-training-regions-delta-20261011-task21.json",
+      "git_blob_sha": "83e27f55b602eeaec8be3532d4521620a6cf75b0",
+      "group": {
+        "axis": "TRAINING_REGION",
+        "group_id": "sire-eu",
+        "subject": "SIRE",
+        "value": "EU"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-training-regions-delta-20261011-task21.json",
+      "git_blob_sha": "83e27f55b602eeaec8be3532d4521620a6cf75b0",
+      "group": {
+        "axis": "TRAINING_REGION",
+        "group_id": "sire-us",
+        "subject": "SIRE",
+        "value": "US"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-training-regions-delta-20261011-task21.json",
+      "git_blob_sha": "83e27f55b602eeaec8be3532d4521620a6cf75b0",
+      "group": {
+        "axis": "TRAINING_REGION",
+        "group_id": "dam_sire-eu",
+        "subject": "DAM_SIRE",
+        "value": "EU"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-training-regions-delta-20261011-task21.json",
+      "git_blob_sha": "83e27f55b602eeaec8be3532d4521620a6cf75b0",
+      "group": {
+        "axis": "TRAINING_REGION",
+        "group_id": "dam_sire-us",
+        "subject": "DAM_SIRE",
+        "value": "US"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-01.json",
+      "git_blob_sha": "5bb5abf1ea027f9d1fb5ccccf951a9559a064329",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000334731",
+        "value": "jbis-0000334731"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-01.json",
+      "git_blob_sha": "5bb5abf1ea027f9d1fb5ccccf951a9559a064329",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000337102",
+        "value": "jbis-0000337102"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-01.json",
+      "git_blob_sha": "5bb5abf1ea027f9d1fb5ccccf951a9559a064329",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0001127392",
+        "value": "jbis-0001127392"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-01.json",
+      "git_blob_sha": "5bb5abf1ea027f9d1fb5ccccf951a9559a064329",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000336082",
+        "value": "jbis-0000336082"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-01.json",
+      "git_blob_sha": "5bb5abf1ea027f9d1fb5ccccf951a9559a064329",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000335167",
+        "value": "jbis-0000335167"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-02.json",
+      "git_blob_sha": "7789e01372b569fcc56eb9d4eadeb83ffbe8ae54",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000336085",
+        "value": "jbis-0000336085"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-02.json",
+      "git_blob_sha": "7789e01372b569fcc56eb9d4eadeb83ffbe8ae54",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000334968",
+        "value": "jbis-0000334968"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-02.json",
+      "git_blob_sha": "7789e01372b569fcc56eb9d4eadeb83ffbe8ae54",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000334002",
+        "value": "jbis-0000334002"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-02.json",
+      "git_blob_sha": "7789e01372b569fcc56eb9d4eadeb83ffbe8ae54",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000335975",
+        "value": "jbis-0000335975"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-02.json",
+      "git_blob_sha": "7789e01372b569fcc56eb9d4eadeb83ffbe8ae54",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000334374",
+        "value": "jbis-0000334374"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-03.json",
+      "git_blob_sha": "6ca920264c4bf936cedfbecf334c5e7dc0c1a9b6",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000333996",
+        "value": "jbis-0000333996"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-03.json",
+      "git_blob_sha": "6ca920264c4bf936cedfbecf334c5e7dc0c1a9b6",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000336572",
+        "value": "jbis-0000336572"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-03.json",
+      "git_blob_sha": "6ca920264c4bf936cedfbecf334c5e7dc0c1a9b6",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000714343",
+        "value": "jbis-0000714343"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-03.json",
+      "git_blob_sha": "6ca920264c4bf936cedfbecf334c5e7dc0c1a9b6",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000347989",
+        "value": "jbis-0000347989"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-03.json",
+      "git_blob_sha": "6ca920264c4bf936cedfbecf334c5e7dc0c1a9b6",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000333862",
+        "value": "jbis-0000333862"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-04.json",
+      "git_blob_sha": "d1fd434e7f55e0336d9a825b5d41a7bc77491871",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000334140",
+        "value": "jbis-0000334140"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-04.json",
+      "git_blob_sha": "d1fd434e7f55e0336d9a825b5d41a7bc77491871",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000334001",
+        "value": "jbis-0000334001"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-04.json",
+      "git_blob_sha": "d1fd434e7f55e0336d9a825b5d41a7bc77491871",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000337424",
+        "value": "jbis-0000337424"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-04.json",
+      "git_blob_sha": "d1fd434e7f55e0336d9a825b5d41a7bc77491871",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000340528",
+        "value": "jbis-0000340528"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-04.json",
+      "git_blob_sha": "d1fd434e7f55e0336d9a825b5d41a7bc77491871",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000161740",
+        "value": "jbis-0000161740"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-designated-ancestors-delta-20261011-22-05.json",
+      "git_blob_sha": "1c6f55df0fa184898fcb5e4fbfb5847d7c4e9779",
+      "group": {
+        "axis": "ANCESTOR",
+        "depth": 5,
+        "group_id": "contains-jbis-0000333952",
+        "value": "jbis-0000333952"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-01.json",
+      "git_blob_sha": "f591bb2ee0f77cb8536d3d150a37906b3e3d4701",
+      "group": {
+        "axis": "SIRE_LINE",
+        "depth": 5,
+        "group_id": "sire_line-jbis-0000333862",
+        "line_root_key": "jbis-0000333862",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000333862"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-01.json",
+      "git_blob_sha": "f591bb2ee0f77cb8536d3d150a37906b3e3d4701",
+      "group": {
+        "axis": "DAM_SIRE_LINE",
+        "depth": 5,
+        "group_id": "dam_sire_line-jbis-0000333862",
+        "line_root_key": "jbis-0000333862",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000333862"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-01.json",
+      "git_blob_sha": "f591bb2ee0f77cb8536d3d150a37906b3e3d4701",
+      "group": {
+        "axis": "SIRE_LINE",
+        "depth": 5,
+        "group_id": "sire_line-jbis-0000347989",
+        "line_root_key": "jbis-0000347989",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000347989"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-01.json",
+      "git_blob_sha": "f591bb2ee0f77cb8536d3d150a37906b3e3d4701",
+      "group": {
+        "axis": "DAM_SIRE_LINE",
+        "depth": 5,
+        "group_id": "dam_sire_line-jbis-0000347989",
+        "line_root_key": "jbis-0000347989",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000347989"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-01.json",
+      "git_blob_sha": "f591bb2ee0f77cb8536d3d150a37906b3e3d4701",
+      "group": {
+        "axis": "SIRE_LINE",
+        "depth": 5,
+        "group_id": "sire_line-jbis-0000335167",
+        "line_root_key": "jbis-0000335167",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000335167"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-02.json",
+      "git_blob_sha": "ea874695e275923069ec9d5cc3cce1503bfe1934",
+      "group": {
+        "axis": "DAM_SIRE_LINE",
+        "depth": 5,
+        "group_id": "dam_sire_line-jbis-0000335167",
+        "line_root_key": "jbis-0000335167",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000335167"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-02.json",
+      "git_blob_sha": "ea874695e275923069ec9d5cc3cce1503bfe1934",
+      "group": {
+        "axis": "SIRE_LINE",
+        "depth": 5,
+        "group_id": "sire_line-jbis-0000336082",
+        "line_root_key": "jbis-0000336082",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000336082"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-02.json",
+      "git_blob_sha": "ea874695e275923069ec9d5cc3cce1503bfe1934",
+      "group": {
+        "axis": "DAM_SIRE_LINE",
+        "depth": 5,
+        "group_id": "dam_sire_line-jbis-0000336082",
+        "line_root_key": "jbis-0000336082",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000336082"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-02.json",
+      "git_blob_sha": "ea874695e275923069ec9d5cc3cce1503bfe1934",
+      "group": {
+        "axis": "SIRE_LINE",
+        "depth": 5,
+        "group_id": "sire_line-jbis-0000337102",
+        "line_root_key": "jbis-0000337102",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000337102"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-02.json",
+      "git_blob_sha": "ea874695e275923069ec9d5cc3cce1503bfe1934",
+      "group": {
+        "axis": "DAM_SIRE_LINE",
+        "depth": 5,
+        "group_id": "dam_sire_line-jbis-0000337102",
+        "line_root_key": "jbis-0000337102",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000337102"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-03.json",
+      "git_blob_sha": "5860fc72186a1dcf88536df852cb23cedf270bc8",
+      "group": {
+        "axis": "SIRE_LINE",
+        "depth": 5,
+        "group_id": "sire_line-jbis-0000335975",
+        "line_root_key": "jbis-0000335975",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000335975"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-03.json",
+      "git_blob_sha": "5860fc72186a1dcf88536df852cb23cedf270bc8",
+      "group": {
+        "axis": "DAM_SIRE_LINE",
+        "depth": 5,
+        "group_id": "dam_sire_line-jbis-0000335975",
+        "line_root_key": "jbis-0000335975",
+        "line_rule": "exact-sire-chain-within-depth-v1",
+        "value": "jbis-0000335975"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-03.json",
+      "git_blob_sha": "5860fc72186a1dcf88536df852cb23cedf270bc8",
+      "group": {
+        "axis": "CROSS",
+        "depth": 5,
+        "group_id": "cross-jbis-0000333862",
+        "min_paths": 2,
+        "value": "jbis-0000333862"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-03.json",
+      "git_blob_sha": "5860fc72186a1dcf88536df852cb23cedf270bc8",
+      "group": {
+        "axis": "CROSS",
+        "depth": 5,
+        "group_id": "cross-jbis-0000334002",
+        "min_paths": 2,
+        "value": "jbis-0000334002"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-03.json",
+      "git_blob_sha": "5860fc72186a1dcf88536df852cb23cedf270bc8",
+      "group": {
+        "axis": "CROSS",
+        "depth": 5,
+        "group_id": "cross-jbis-0000335167",
+        "min_paths": 2,
+        "value": "jbis-0000335167"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-04.json",
+      "git_blob_sha": "56dad90265b85fed9dd6fd51297405b553ec85c1",
+      "group": {
+        "axis": "CROSS",
+        "depth": 5,
+        "group_id": "cross-jbis-0000336082",
+        "min_paths": 2,
+        "value": "jbis-0000336082"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-04.json",
+      "git_blob_sha": "56dad90265b85fed9dd6fd51297405b553ec85c1",
+      "group": {
+        "axis": "CROSS",
+        "depth": 5,
+        "group_id": "cross-jbis-0000334968",
+        "min_paths": 2,
+        "value": "jbis-0000334968"
+      }
+    },
+    {
+      "source_path": "data/condition_stats/definitions/jra-structural-delta-20261011-23-04.json",
+      "git_blob_sha": "56dad90265b85fed9dd6fd51297405b553ec85c1",
+      "group": {
+        "axis": "CROSS",
+        "depth": 5,
+        "group_id": "cross-jbis-0000335975",
+        "min_paths": 2,
+        "value": "jbis-0000335975"
+      }
+    }
+  ],
+  "condition_count": 43,
+  "conditions_calculated_this_batch": 5,
+  "conditions_remaining": 38,
+  "unknown_key_policy": "未同定13行のキーは実entry_id参照。実在馬IDを捏造せずRegistryに個体を作らない。UNKNOWNとして全母数に保持。",
+  "rate_limit": "率は取得済み1R内の確認済み群の記述統計だけ。24R全体の率・網羅・性能受入・Production採用を主張しない。"
+}

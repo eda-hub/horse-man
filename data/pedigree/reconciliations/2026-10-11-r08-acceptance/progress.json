@@ -1,0 +1,168 @@
+{
+  "schema_version": "r08-acceptance-recheck-v1",
+  "start_head": "6ad3dab9e32dc3ffbc090b741fd4a675300101c3",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "data_cutoff": "2026-10-10T16:54:40.087459+00:00",
+  "previous_progress": "data/pedigree/reconciliations/2026-10-10-r08-followup/statistics-progress.json",
+  "country_confirmed": 18,
+  "country_waiting": [
+    {
+      "horse_key": "netkeiba-000a010bed",
+      "name": "Sakhee",
+      "birth_year": 1997,
+      "role": "SIRE_OR_DAM_SIRE",
+      "countries": [
+        "AE",
+        "GB"
+      ],
+      "reason": "TRAINING_COUNTRY_RECENT_DATE_REQUIRED"
+    },
+    {
+      "horse_key": "netkeiba-000a013dbf",
+      "name": "Starspangledbanner",
+      "birth_year": 2006,
+      "role": "SIRE_OR_DAM_SIRE",
+      "countries": [
+        "AU",
+        "IE"
+      ],
+      "reason": "TRAINING_COUNTRY_RECENT_DATE_REQUIRED"
+    }
+  ],
+  "snapshots": [
+    {
+      "scope": "official-three",
+      "definition": "data/condition_stats/definitions/foreign-structural-official-three-20261011.json",
+      "input": "data/condition_stats/inputs/foreign-structural-official-three-20261010.json",
+      "snapshot": "data/condition_stats/snapshots/foreign-structural-official-three-20261011/c93a0cd8a3571710004763a6b3cc6cadf22ef1cb9a5c45bccd210d2d42ada42c.json",
+      "hash": "c93a0cd8a3571710004763a6b3cc6cadf22ef1cb9a5c45bccd210d2d42ada42c",
+      "completeness": "PARTIAL",
+      "all_runners": {
+        "entries": 33,
+        "horses": 33,
+        "races": 3,
+        "valid_starts": 30,
+        "wins": 3,
+        "top2": 6,
+        "top3": 9,
+        "scratched": 3,
+        "excluded": 0,
+        "pending_results": 0,
+        "dnf": 0,
+        "dq": 0,
+        "win_rate": 0.1,
+        "top2_rate": 0.2,
+        "top3_rate": 0.3
+      },
+      "groups": 43,
+      "unknown_entries": 4,
+      "conflict_entries": 0,
+      "bytes": 884429
+    },
+    {
+      "scope": "all-four-pending-bha",
+      "definition": "data/condition_stats/definitions/foreign-structural-all-four-pending-bha-20261011.json",
+      "input": "data/condition_stats/inputs/foreign-structural-all-four-pending-bha-20261010.json",
+      "snapshot": "data/condition_stats/snapshots/foreign-structural-all-four-pending-bha-20261011/977e0e75635f3e91232c3a5dbe833d466e0be32d601112b6f4552d6c165368fd.json",
+      "hash": "977e0e75635f3e91232c3a5dbe833d466e0be32d601112b6f4552d6c165368fd",
+      "completeness": "PARTIAL",
+      "all_runners": {
+        "entries": 42,
+        "horses": 42,
+        "races": 4,
+        "valid_starts": 30,
+        "wins": 3,
+        "top2": 6,
+        "top3": 9,
+        "scratched": 4,
+        "excluded": 0,
+        "pending_results": 8,
+        "dnf": 0,
+        "dq": 0,
+        "win_rate": 0.1,
+        "top2_rate": 0.2,
+        "top3_rate": 0.3
+      },
+      "groups": 43,
+      "unknown_entries": 4,
+      "conflict_entries": 0,
+      "bytes": 1097173
+    }
+  ],
+  "bha_pending_races": 1,
+  "bha_pending_runners": 8,
+  "acceptance_status": "PARTIAL_WITH_EXPLICIT_REMAINING_ITEMS",
+  "user_resolution": {
+    "manifest_path": "data/pedigree/reconciliations/2026-10-11-r08-acceptance/explicit-country-reply.json",
+    "data_cutoff": "2026-10-10T17:07:56.584318+00:00",
+    "externally_confirmed": 18,
+    "user_confirmed": 2,
+    "resolved_total": 20,
+    "remaining": 0,
+    "snapshots": [
+      {
+        "scope": "official-three",
+        "definition": "data/condition_stats/definitions/foreign-structural-official-three-20261011-user-confirmed.json",
+        "input": "data/condition_stats/inputs/foreign-structural-official-three-20261010.json",
+        "snapshot": "data/condition_stats/snapshots/foreign-structural-official-three-20261011-user-confirmed/8d05f0920b40a10dd247157ecc8777b0bb22e6abe514429e92be8c7b03f6819b.json",
+        "hash": "8d05f0920b40a10dd247157ecc8777b0bb22e6abe514429e92be8c7b03f6819b",
+        "completeness": "COMPLETE",
+        "all_runners": {
+          "entries": 33,
+          "horses": 33,
+          "races": 3,
+          "valid_starts": 30,
+          "wins": 3,
+          "top2": 6,
+          "top3": 9,
+          "scratched": 3,
+          "excluded": 0,
+          "pending_results": 0,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.1,
+          "top2_rate": 0.2,
+          "top3_rate": 0.3
+        },
+        "groups": 43,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "bytes": 883541
+      },
+      {
+        "scope": "all-four-pending-bha",
+        "definition": "data/condition_stats/definitions/foreign-structural-all-four-pending-bha-20261011-user-confirmed.json",
+        "input": "data/condition_stats/inputs/foreign-structural-all-four-pending-bha-20261010.json",
+        "snapshot": "data/condition_stats/snapshots/foreign-structural-all-four-pending-bha-20261011-user-confirmed/acb2f46b4b786edcf9f5650c82476f66319bdfa83ef91ae8383bc619bad1d218.json",
+        "hash": "acb2f46b4b786edcf9f5650c82476f66319bdfa83ef91ae8383bc619bad1d218",
+        "completeness": "PARTIAL",
+        "all_runners": {
+          "entries": 42,
+          "horses": 42,
+          "races": 4,
+          "valid_starts": 30,
+          "wins": 3,
+          "top2": 6,
+          "top3": 9,
+          "scratched": 4,
+          "excluded": 0,
+          "pending_results": 8,
+          "dnf": 0,
+          "dq": 0,
+          "win_rate": 0.1,
+          "top2_rate": 0.2,
+          "top3_rate": 0.3
+        },
+        "groups": 43,
+        "unknown_entries": 0,
+        "conflict_entries": 0,
+        "bytes": 1096286
+      }
+    ],
+    "previous_snapshots_preserved": 14,
+    "total_snapshots": 16,
+    "remaining_result_races": 1,
+    "remaining_result_runners": 8
+  }
+}

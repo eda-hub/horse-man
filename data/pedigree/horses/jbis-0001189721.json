@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0001189721",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2014,
+    "external_ids": {
+      "JBIS": "0001189721",
+      "NETKEIBA": "2014106201"
+    },
+    "identity_evidence": {
+      "record_key": "0001189721",
+      "source": "JBIS"
+    },
+    "name": "レイデオロ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:43.244290+00:00",
+  "identity_observed_at": "2026-10-09T12:33:43.244290+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2014,
+        "external_ids": {
+          "JBIS": "0001189721",
+          "NETKEIBA": "2014106201"
+        },
+        "identity_evidence": {
+          "record_key": "0001189721",
+          "source": "JBIS"
+        },
+        "name": "レイデオロ",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:53.400053+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2014,
+        "external_ids": {
+          "JBIS": "0001189721"
+        },
+        "identity_evidence": {
+          "record_key": "0001189721",
+          "source": "JBIS"
+        },
+        "name": "レイデオロ",
+        "status": "RESOLVED"
+      },
+      "event_hash": "bb467e3132bc7e1d4610243eaae3addcbb616632951d03b839114e8621dee1b9",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2014,
+    "external_ids": {
+      "JBIS": "0001189721"
+    },
+    "identity_evidence": {
+      "record_key": "0001189721",
+      "source": "JBIS"
+    },
+    "name": "レイデオロ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:58.467381+00:00",
+      "content_hash": "cdfec81598bd0233c06191a6f05a4d5931b6c2f0b7b2cc4751550009bf9b67ad",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:58.467381+00:00",
+      "input_hash": "2508cb0bfe6e5ad35b8ed4c2d0e111702a50bc4f2e9397c5c8ad9b9174f16991",
+      "previous_revision": null,
+      "revision_id": "rev-2508cb0bfe6e5ad35b8ed4c2",
+      "saved_at": "2026-10-09T12:35:15.194285+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "359a64a5341314742154a1a94365692219a17a6b0f5966fe52ea70ffb4ecd5b6",
+        "record_key": "0001361718",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001361718/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000729458",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:58.467381+00:00",
+      "content_hash": "231171f5dcda948cf34f422ae57ba60c57483edb27e7bec5601a3e394be21eae",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:58.467381+00:00",
+      "input_hash": "0078275ce15ad653a99d666c63f86ea12d21174115b188fc5217a6a2853a5c64",
+      "previous_revision": null,
+      "revision_id": "rev-0078275ce15ad653a99d666c",
+      "saved_at": "2026-10-09T12:35:15.196141+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "359a64a5341314742154a1a94365692219a17a6b0f5966fe52ea70ffb4ecd5b6",
+        "record_key": "0001361718",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001361718/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000995255",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001189721/",
+              "record_hash": "37b9f18db54b9524427798909e8e25b55866e35ca27650f3e4e37cf04294e302",
+              "captured_at": "2026-10-10T04:22:23.348Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:22:23.348Z",
+      "captured_at": "2026-10-10T04:22:23.348Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001189721",
+        "record_hash": "37b9f18db54b9524427798909e8e25b55866e35ca27650f3e4e37cf04294e302",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001189721",
+          "horse_name": "レイデオロ",
+          "trainer": "藤沢 和雄",
+          "trainer_location": "美浦",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001189721/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-e541c38b45a27e684cb0820f",
+      "input_hash": "e541c38b45a27e684cb0820f0256cc89d0e74c53a518ea1da982029e55599a48",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:22:23.350Z",
+      "content_hash": "7883f060f9f6c6800a47e1406973fef530e47389ddc6ea704e10b99b8ee0fe45"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

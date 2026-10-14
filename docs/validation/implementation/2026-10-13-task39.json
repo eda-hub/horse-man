@@ -1,0 +1,448 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "39",
+  "status": "READ_ONLY_ACCEPTED",
+  "repository": "eda-hub/horse-man",
+  "branch": "feature/next-cycle-prediction-contract",
+  "basis_commit": "b19abd9680d3611f523332f546b4cd046182695c",
+  "requirements": [
+    "39-01"
+  ],
+  "integration": {
+    "commit": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+    "parents": [
+      "11f4f339391be34bb6fbbc15edbd812e4b0641df",
+      "38dcd3266613e52ced2b6d144d6da8a54fb4a675"
+    ],
+    "checkpoint": "docs/validation/handoffs/2026-10-13-s01.json",
+    "research_data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "data_tree_unchanged": true
+  },
+  "source_comparisons": [
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/kyoto-10-final.json",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "77f7993fb2de323dd48b07f66c02ca5489c4a451",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "77f7993fb2de323dd48b07f66c02ca5489c4a451",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "77f7993fb2de323dd48b07f66c02ca5489c4a451",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/kyoto-11-final.json",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "8c2945812a93edbaa5eb299a24733db17b62745e",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "8c2945812a93edbaa5eb299a24733db17b62745e",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "8c2945812a93edbaa5eb299a24733db17b62745e",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/kyoto-11-shadow.json",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "89ee2d59df4c35d05d746b4b690ed2b55be1e47d",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "89ee2d59df4c35d05d746b4b690ed2b55be1e47d",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "89ee2d59df4c35d05d746b4b690ed2b55be1e47d",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/morning.json",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "c3e4f12422f73fb409e9b0b25e7cb4b3ba9791ed",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "c3e4f12422f73fb409e9b0b25e7cb4b3ba9791ed",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "c3e4f12422f73fb409e9b0b25e7cb4b3ba9791ed",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/remaining-21.json",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "5a445339e25464e0cf0b177053e524b2c0a1e872",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "5a445339e25464e0cf0b177053e524b2c0a1e872",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "5a445339e25464e0cf0b177053e524b2c0a1e872",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/tokyo-11-final.json",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "e1d98f9fe610af4882360afc51758417ef5cfd14",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "e1d98f9fe610af4882360afc51758417ef5cfd14",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "e1d98f9fe610af4882360afc51758417ef5cfd14",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/tokyo-11-shadow.json",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "feebd2334734b2a44bc855bdda24be335e7f9d75",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "feebd2334734b2a44bc855bdda24be335e7f9d75",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "feebd2334734b2a44bc855bdda24be335e7f9d75",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/tokyo-11-weight.json",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "ac284c7f44b7313cdb57d601a4ecb3141f9696e4",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "ac284c7f44b7313cdb57d601a4ecb3141f9696e4",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "ac284c7f44b7313cdb57d601a4ecb3141f9696e4",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-10-12.md",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "11d4f71baab17bf432fbe9124a63718532757501",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "11d4f71baab17bf432fbe9124a63718532757501",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "11d4f71baab17bf432fbe9124a63718532757501",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/preservation/2026-10-12.md",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "5a98d63cd9ee65bf26ed34b04e221298ca79ce96",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "5a98d63cd9ee65bf26ed34b04e221298ca79ce96",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "5a98d63cd9ee65bf26ed34b04e221298ca79ce96",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/records/2026-10-12.md",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "d9c4a5bf272bf9d8f7faf55c87127aec41b28baf",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "d9c4a5bf272bf9d8f7faf55c87127aec41b28baf",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "d9c4a5bf272bf9d8f7faf55c87127aec41b28baf",
+          "match": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/snapshots/2026-10-12.md",
+      "rows": [
+        {
+          "ref": "b19abd9680d3611f523332f546b4cd046182695c",
+          "sha": "02a7c5dd260beb91af0d04c39399a861f0324b22",
+          "match": true
+        },
+        {
+          "ref": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+          "sha": "02a7c5dd260beb91af0d04c39399a861f0324b22",
+          "match": true
+        },
+        {
+          "ref": "c073cb8e7c574168d0383556c54766e7d5bb0e5e",
+          "sha": "02a7c5dd260beb91af0d04c39399a861f0324b22",
+          "match": true
+        }
+      ]
+    }
+  ],
+  "day": {
+    "ledger_status": "RECORDED",
+    "scope_counts": {
+      "initial": 24,
+      "selected": 6,
+      "final_completed": 3,
+      "selected_without_final": 3,
+      "reviewed": 24,
+      "unreviewed": 0
+    },
+    "selected_without_final_ids": [
+      "2026-10-12-KYOTO-09",
+      "2026-10-12-TOKYO-08",
+      "2026-10-12-TOKYO-10"
+    ],
+    "kpi_contract": "betting-kpi-split-v1",
+    "kpis": {
+      "betting": {
+        "target_ids": [],
+        "eligible_ids": [],
+        "ineligible_ids": [],
+        "pending_ids": [],
+        "evidence_refs": {},
+        "stake_yen": null,
+        "return_yen": null,
+        "counts": {
+          "target_ids": 0,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 0
+        },
+        "ledger_claimed_return_rate_pct": null
+      },
+      "betting_evidence": {
+        "target_ids": [],
+        "eligible_ids": [],
+        "ineligible_ids": [],
+        "pending_ids": [],
+        "evidence_refs": {},
+        "stake_yen": null,
+        "return_yen": null,
+        "counts": {
+          "target_ids": 0,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 0
+        }
+      },
+      "betting_rules": {
+        "target_ids": [],
+        "eligible_ids": [],
+        "ineligible_ids": [],
+        "pending_ids": [],
+        "evidence_refs": {},
+        "stake_yen": null,
+        "return_yen": null,
+        "counts": {
+          "target_ids": 0,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 0
+        }
+      },
+      "production": {
+        "target_ids": [
+          "2026-10-12-KYOTO-01",
+          "2026-10-12-KYOTO-02",
+          "2026-10-12-KYOTO-03",
+          "2026-10-12-KYOTO-04",
+          "2026-10-12-KYOTO-05",
+          "2026-10-12-KYOTO-06",
+          "2026-10-12-KYOTO-07",
+          "2026-10-12-KYOTO-08",
+          "2026-10-12-KYOTO-09",
+          "2026-10-12-KYOTO-10",
+          "2026-10-12-KYOTO-11",
+          "2026-10-12-KYOTO-12",
+          "2026-10-12-TOKYO-01",
+          "2026-10-12-TOKYO-02",
+          "2026-10-12-TOKYO-03",
+          "2026-10-12-TOKYO-04",
+          "2026-10-12-TOKYO-05",
+          "2026-10-12-TOKYO-06",
+          "2026-10-12-TOKYO-07",
+          "2026-10-12-TOKYO-08",
+          "2026-10-12-TOKYO-09",
+          "2026-10-12-TOKYO-10",
+          "2026-10-12-TOKYO-11",
+          "2026-10-12-TOKYO-12"
+        ],
+        "eligible_ids": [],
+        "ineligible_ids": [
+          "2026-10-12-KYOTO-01",
+          "2026-10-12-KYOTO-02",
+          "2026-10-12-KYOTO-03",
+          "2026-10-12-KYOTO-04",
+          "2026-10-12-KYOTO-05",
+          "2026-10-12-KYOTO-06",
+          "2026-10-12-KYOTO-07",
+          "2026-10-12-KYOTO-08",
+          "2026-10-12-KYOTO-09",
+          "2026-10-12-KYOTO-10",
+          "2026-10-12-KYOTO-11",
+          "2026-10-12-KYOTO-12",
+          "2026-10-12-TOKYO-01",
+          "2026-10-12-TOKYO-02",
+          "2026-10-12-TOKYO-03",
+          "2026-10-12-TOKYO-04",
+          "2026-10-12-TOKYO-05",
+          "2026-10-12-TOKYO-06",
+          "2026-10-12-TOKYO-07",
+          "2026-10-12-TOKYO-08",
+          "2026-10-12-TOKYO-09",
+          "2026-10-12-TOKYO-10",
+          "2026-10-12-TOKYO-11",
+          "2026-10-12-TOKYO-12"
+        ],
+        "pending_ids": [],
+        "evidence_refs": {},
+        "stake_yen": null,
+        "return_yen": null,
+        "counts": {
+          "target_ids": 24,
+          "eligible_ids": 0,
+          "ineligible_ids": 24,
+          "pending_ids": 0
+        }
+      },
+      "shadow": {
+        "target_ids": [
+          "2026-10-12-KYOTO-09",
+          "2026-10-12-KYOTO-10",
+          "2026-10-12-KYOTO-11",
+          "2026-10-12-TOKYO-08",
+          "2026-10-12-TOKYO-10",
+          "2026-10-12-TOKYO-11"
+        ],
+        "eligible_ids": [],
+        "ineligible_ids": [
+          "2026-10-12-KYOTO-09",
+          "2026-10-12-KYOTO-10",
+          "2026-10-12-KYOTO-11",
+          "2026-10-12-TOKYO-08",
+          "2026-10-12-TOKYO-10",
+          "2026-10-12-TOKYO-11"
+        ],
+        "pending_ids": [],
+        "evidence_refs": {},
+        "stake_yen": null,
+        "return_yen": null,
+        "counts": {
+          "target_ids": 6,
+          "eligible_ids": 0,
+          "ineligible_ids": 6,
+          "pending_ids": 0
+        }
+      }
+    },
+    "evidence_paths": [
+      "docs/validation/persistence-intents/2026-10-12/kyoto-10-final.json",
+      "docs/validation/persistence-intents/2026-10-12/kyoto-11-final.json",
+      "docs/validation/persistence-intents/2026-10-12/kyoto-11-shadow.json",
+      "docs/validation/persistence-intents/2026-10-12/morning.json",
+      "docs/validation/persistence-intents/2026-10-12/remaining-21.json",
+      "docs/validation/persistence-intents/2026-10-12/tokyo-11-final.json",
+      "docs/validation/persistence-intents/2026-10-12/tokyo-11-shadow.json",
+      "docs/validation/persistence-intents/2026-10-12/tokyo-11-weight.json",
+      "docs/validation/persistence-receipts/2026-10-12.md",
+      "docs/validation/preservation/2026-10-12.md",
+      "docs/validation/snapshots/2026-10-12.md"
+    ],
+    "note": "集合差は候補和から最終完了を除いた件数。明示的な対象外選別・未実施・利用者許容を元記録と個別採否で分類し、全件を最終欠測と呼ばない。"
+  },
+  "validation": {
+    "day_validator": "PASS",
+    "source_manifest_blob_matches": 36,
+    "postcommit_ci": "成果commitのActionsとPR本文で照合"
+  },
+  "limits": {
+    "new_merge": false,
+    "historical_rewrite": false,
+    "eligibility_promotion": false,
+    "research_completion_claim": false
+  },
+  "next_task": "40-01"
+}

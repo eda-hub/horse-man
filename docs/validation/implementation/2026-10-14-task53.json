@@ -1,0 +1,606 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "53",
+  "status": "CHAT_SCOPE_INVENTORY_AND_HANDOFF_ACCEPTED_IMPLEMENTATION_OPEN",
+  "basis_commit": "e195f5eb548afb85a71b464b501a63afddb8df5a",
+  "main_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+  "plan_ref": "08785ea8ca4495cc78930bf51d1b714816235780",
+  "plan_path": "docs/proposals/2026-10-14_chat_connection_handoff_task53.md",
+  "plan_git_blob_sha": "24632e2f9d84ce70117286c9048207d6dfc5e7fb",
+  "numbered_plan_git_blob_sha": "b1bfad38ab959e0d39e8210c4c456a813fd1a627",
+  "completed_subtasks": [
+    "53-01",
+    "53-02",
+    "53-03",
+    "53-04",
+    "53-05"
+  ],
+  "scope": {
+    "execution": "CHAT_AVAILABLE_PUBLIC_SEARCH_AND_READ_WITH_GIT_AND_NON_UI_WORKSPACE_HELPERS",
+    "formal_release": "MAIN_V1_7_0",
+    "requires_windows": false,
+    "requires_jvlink": false,
+    "requires_database": false,
+    "requires_dedicated_server": false,
+    "requires_webui": false,
+    "requires_user_pc_commands": false,
+    "requires_external_ai_adapter": false,
+    "old_runtime_phase_acceptance": "OUT_OF_CURRENT_CHAT_SCOPE_NOT_IMPLEMENTED_NOT_CERTIFIED"
+  },
+  "source_manifest": [
+    {
+      "path": "docs/manual/README.md",
+      "git_blob_sha": "a17319b68e699351908a07848a1b7ab06d161ec8"
+    },
+    {
+      "path": "docs/manual/00_core.md",
+      "git_blob_sha": "541693ef8383784897dbdbe9456958389c48a2c9"
+    },
+    {
+      "path": "docs/manual/10_prediction.md",
+      "git_blob_sha": "6c0abac96d526a4dcdcb012c3eab4ad4700058d3"
+    },
+    {
+      "path": "docs/manual/30_betting.md",
+      "git_blob_sha": "1055d9dba9644df05a0184155d7e57e2fd85f0d5"
+    },
+    {
+      "path": "docs/manual/40_shadow.md",
+      "git_blob_sha": "79901e1449414e5f504b9932b6b8e9de02c6ac52"
+    },
+    {
+      "path": "docs/manual/50_review.md",
+      "git_blob_sha": "239108488e969c6bc78c267991e4f4da02a3013f"
+    },
+    {
+      "path": "docs/manual/60_market.md",
+      "git_blob_sha": "909697f26bca4390806a526d4b37c2834ce96811"
+    },
+    {
+      "path": "docs/validation/contracts/chat-market-acquisition.json",
+      "git_blob_sha": "d6c13d4ec47e2f82cbe9b319ce30335163d12222"
+    },
+    {
+      "path": "docs/validation/contracts/cycle04_operations.md",
+      "git_blob_sha": "c99c9b3a66ec7f9b1f194717786fc5ceb8287efa"
+    },
+    {
+      "path": "docs/validation/class-transition/forward-plan.json",
+      "git_blob_sha": "5e622cdf32aac3056521bc088b09001b9114e648"
+    },
+    {
+      "path": "docs/validation/market-chat-acquisition.md",
+      "git_blob_sha": "cfac90adc387e06350d0f411c4535aeb728da1b4"
+    },
+    {
+      "path": "docs/jravan/phases/phase_2_data_expansion.md",
+      "git_blob_sha": "fff27bba22501dc5ec38358c8729065363a737dc"
+    },
+    {
+      "path": "docs/jravan/phases/phase_3_rule_engine.md",
+      "git_blob_sha": "a87000fdafaf166b9c74439401d6b42990d5a88b"
+    },
+    {
+      "path": "docs/jravan/phases/phase_5_odds_betting.md",
+      "git_blob_sha": "3e950df654cdddac7315e43d69bd5c31f4115840"
+    },
+    {
+      "path": "docs/jravan/phases/phase_6_settlement_automation.md",
+      "git_blob_sha": "0505ce2668cfea05f292a7476ea9bdb2726ed3dc"
+    },
+    {
+      "path": "docs/jravan/phases/phase_7_ai_review.md",
+      "git_blob_sha": "db91063fe4b03e64448b052c7d9db416f0782db8"
+    },
+    {
+      "path": "docs/jravan/phases/phase_8_backtest_rules.md",
+      "git_blob_sha": "a4852dab562ee85b43e976b7ae13ccc639a28744"
+    },
+    {
+      "path": "scripts/cycle04_workflow.py",
+      "git_blob_sha": "5d8034c5177e1d2b8b96f8de6f554f31acf75b5d"
+    },
+    {
+      "path": "scripts/cycle04_operations.py",
+      "git_blob_sha": "c8470b606838d53fba7262c1c041158a61adbea7"
+    },
+    {
+      "path": "scripts/class_transition_shadow.py",
+      "git_blob_sha": "dfb56a7a61f82d1065cdedd25a2b68f39e8d531b"
+    },
+    {
+      "path": "scripts/chat_market_acquisition.py",
+      "git_blob_sha": "8216519d6c41115198ea3f392c012a604daa654d"
+    },
+    {
+      "path": "scripts/task_completion.py",
+      "git_blob_sha": "76ba7f1a8c925885c3cd83c71816bbee875e808c"
+    },
+    {
+      "path": "scripts/seal_prediction.py",
+      "git_blob_sha": "73131f4c8a871d997b6dbbeb0b506727f20c03bb"
+    },
+    {
+      "path": "scripts/recommendation.py",
+      "git_blob_sha": "8fe7d1a679d9da973d17bbc99e29c94e90522e5b"
+    },
+    {
+      "path": "scripts/verify_prediction_persistence.py",
+      "git_blob_sha": "286172c642c847c7851e88364a6599c1a627d663"
+    },
+    {
+      "path": "scripts/check_prediction_compliance.py",
+      "git_blob_sha": "064c60e1cfddf71d74cbb2bc61e38cc860f43d79"
+    }
+  ],
+  "findings": [
+    {
+      "subtask": "53-01",
+      "phase": 2,
+      "existing": "Git Registry/固定研究snapshot・市場本文保存・構造化全頭入力validator・独立receipt",
+      "gap": "非価格取得本文の共通記録/全頭入力変換/出所対応。DB唯一Writerは現構成の対象外。",
+      "implementation_tasks": [
+        "53-I01",
+        "53-I02",
+        "53-I03"
+      ]
+    },
+    {
+      "subtask": "53-02",
+      "phase": 3,
+      "existing": "seal/recommendation/task_completion/cycle04_workflowの保存/推奨/台帳接続",
+      "gap": "既存参照の組立てと読取再開表示。能力点/確率の新モデルやAI非依存engine新設は本棚卸し対象外。",
+      "implementation_tasks": [
+        "53-I04",
+        "53-I05"
+      ]
+    },
+    {
+      "subtask": "53-03",
+      "phase": 6,
+      "existing": "全頭結果validate/settle/review・回顧済み変更拒否・初回scope回顧",
+      "gap": "公開結果本文→既存JSON、本文/構造化値の照合、明示訂正sidecarの接続。",
+      "implementation_tasks": [
+        "53-I06",
+        "53-I07",
+        "53-I08"
+      ]
+    },
+    {
+      "subtask": "53-04",
+      "phase": 8,
+      "existing": "37の固定3例・同時点ペア/receipt/gate/共通入力binding・Brier/捕捉/差",
+      "gap": "全該当期待集合とのcoverage照合とOwner審査資料。現collectionはsample_coverage_verified=false/trial_complete=false。",
+      "implementation_tasks": [
+        "53-I09",
+        "53-I10"
+      ]
+    },
+    {
+      "subtask": "53-05",
+      "phase": [
+        5,
+        7
+      ],
+      "existing": "29のチャット取得/正規化/保存/市場独立性とPhase7非UI方針",
+      "gap": "29既存実測の残条件、新取得補助との独立性、回顧資料/改善候補の読取接続。",
+      "implementation_tasks": [
+        "53-I11",
+        "53-I12",
+        "53-I13",
+        "53-I14"
+      ]
+    }
+  ],
+  "implementation_tasks": [
+    {
+      "id": "53-I01",
+      "phase": 2,
+      "title": "非価格情報の取得要求・取得本文の記録",
+      "owner": "00_core / 10_prediction / 入力取得",
+      "dependencies": [],
+      "inputs": "依頼の公式scope・馬番集合・cutoff・必要項目、実閲覧URL/本文/時刻/取得状態",
+      "gap": "market専用本文記録は存在するが、非価格情報の共通取得記録入口は確認したscriptsにない。",
+      "reuse": [
+        "scripts/chat_market_acquisition.py",
+        "docs/validation/contracts/cycle04_operations.md"
+      ],
+      "acceptance": "閲覧本文とHTTP原bytesを区別し、本文hash/実閲覧時刻/掲載時刻/出所/試行理由を保持。失敗・未試行・時刻不明を成功へ変換しない。上流転載を独立証拠へ数えない。",
+      "wait": "提供元ごとの実ページ構造は実取得時に確認。未知の成功本文を合成して公式取得成功としない。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I02",
+      "phase": 2,
+      "title": "確認済み非価格本文から全頭入力への変換",
+      "owner": "10_prediction / 入力取得",
+      "dependencies": [
+        "53-I01"
+      ],
+      "inputs": "取得記録・確認済み馬体重/近走/相手レベル・馬番集合",
+      "gap": "validate_inputsは構造化JSONを検査するが、非価格の公開本文をrace-input-coverage-v1へ変換する共通入口はない。",
+      "reuse": [
+        "scripts/cycle04_operations.py"
+      ],
+      "acceptance": "既存race-input-coverage-v1へ全馬行を生成。馬体重/近5走/相手レベル、初出走、取消、公式失敗後fallbackを区別。本文にない値を0/取得済みへ補完せず、未来/重複/別race/時点逆順を拒否。既存validatorを通す。",
+      "wait": "クラス序列・相手強度の独自基準を作らず、Ownerと出所付きの既存事実のみ使用。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I03",
+      "phase": 2,
+      "title": "取得記録と入力artifactの出所対応を検査",
+      "owner": "00_core / 入力保存",
+      "dependencies": [
+        "53-I01",
+        "53-I02"
+      ],
+      "inputs": "本文原本/変換入力/hash/同一artifact receipt・項目別参照",
+      "gap": "入力JSONのhash・receiptは検査されるが、各取得値が保存本文のどの箇所から来たかを一般的に再照合する接続は未受入。",
+      "reuse": [
+        "scripts/cycle04_operations.py",
+        "scripts/verify_prediction_persistence.py"
+      ],
+      "acceptance": "項目ごとの本文参照・確認済み抽出を対応付け、原本改変/出所差替え/入力混入を拒否。静的資料を再利用し動的情報のみ更新。JSON保存成功とGit読戻し成功を区別。",
+      "wait": "新しい支持資料は独立sidecarに限定し、正式Predictionのschema/必須入力を無言で拡張しない。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I04",
+      "phase": 3,
+      "title": "固定予想・推奨の既存入口へ渡す参照の組立て",
+      "owner": "00_core / 30_betting / 保存CLI",
+      "dependencies": [
+        "53-I03"
+      ],
+      "inputs": "既存基準・全頭評価・入力参照・宣言/FIX/本体/receipt/gate・選定履歴",
+      "gap": "保存・推奨・record_predictionは接続済み。利用者確認済み参照からentryを組み立てる補助入口の不足を局所化。",
+      "reuse": [
+        "scripts/seal_prediction.py",
+        "scripts/recommendation.py",
+        "scripts/cycle04_workflow.py",
+        "scripts/task_completion.py"
+      ],
+      "acceptance": "既存entry/operations形式へ参照を組み立て、既存validatorで同一race/cutoff/基準/hashを確認。価格/実購入なしで推奨まで接続。基準を再生成せず順位/確率を独自算定しない。declared scopeと旧履歴を保持。",
+      "wait": "Git書込み/読戻しは従来API工程。将来engine/DBは現構成の前提にしない。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I05",
+      "phase": 3,
+      "title": "保存途中からの再開点を読取表示",
+      "owner": "00_core / 個別完了",
+      "dependencies": [
+        "53-I04"
+      ],
+      "inputs": "既存artifact/receipt/gate/FIX/選定revisionと実保存結果",
+      "gap": "個別不足表示は存在。再開に必要な固定参照と次の未完了工程を一括提示する補助を具体化。",
+      "reuse": [
+        "scripts/task_completion.py",
+        "scripts/persistence_status.py",
+        "scripts/verify_prediction_persistence.py"
+      ],
+      "acceptance": "完了工程を再実行せず、同一bytes/hashの再試行・不一致・期限超過・別branchを区別。現在の未確認状態だけを表示し、当時の保存/receipt時刻を生成しない。取得済みmainと未マージbranchを混同しない。",
+      "wait": "独立した常駐タスク/自動予想/予約を新設しない。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I06",
+      "phase": 6,
+      "title": "公式結果本文を既存結果JSONへ変換",
+      "owner": "50_review / 結果取得",
+      "dependencies": [
+        "53-I01"
+      ],
+      "inputs": "同一race/dateの公式全出走結果本文・取得時刻・URL・固定馬番集合",
+      "gap": "validate_official_result/settle/reviewは構造化結果を処理するが、現在の公開本文からfinish_groupsへ変換する共通入口は未受入。",
+      "reuse": [
+        "scripts/cycle04_operations.py",
+        "scripts/recommendation.py",
+        "scripts/cycle04_workflow.py"
+      ],
+      "acceptance": "全着順・同着group・取消/除外・非完走を正規化し、本文/構造化結果hashを分離。馬名への装具文字混入・部分結果・別race/date・結果前取得を拒否し、既存全頭validatorを通す。",
+      "wait": "公式原HTMLが取れないときは既存の公式取得本文保存契約を使い、HTTP原bytes hashを捏造しない。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I07",
+      "phase": 6,
+      "title": "公式結果の本文・構造化値・固定原本を再照合",
+      "owner": "50_review / 結果監査",
+      "dependencies": [
+        "53-I06",
+        "53-I04"
+      ],
+      "inputs": "結果本文/抽出記録/結果JSON・Prediction/推奨固定参照",
+      "gap": "現在の結果validatorは出所URL・race/date・全頭集合を照合するが、保存本文からの着順再構成と一致検査の汎用入口は未受入。",
+      "reuse": [
+        "scripts/cycle04_operations.py",
+        "scripts/recommendation.py",
+        "scripts/cycle04_workflow.py"
+      ],
+      "acceptance": "race/date/全頭着順/取消/同着を本文と再照合し、改変・未確定・訂正待ちを理由付き保留。払戻なしで推奨的中を再計算。初回scope全件・推奨なし・未最終を回顧対象に保持。",
+      "wait": "過去の結果や固定予想を再作成しない。原票真正性は取得形式の限界を明示。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I08",
+      "phase": 6,
+      "title": "公式結果訂正を別履歴として記録・比較",
+      "owner": "50_review / 訂正履歴",
+      "dependencies": [
+        "53-I07"
+      ],
+      "inputs": "元result_ref/回顧・公式訂正の出所/取得時刻・新結果hash・訂正理由",
+      "gap": "reviewは回顧済み改変を拒否しexplicit correction historyを要求するが、その追加履歴の専用入口は未受入。",
+      "reuse": [
+        "scripts/cycle04_workflow.py"
+      ],
+      "acceptance": "旧結果・旧回顧・旧集計を保持して訂正sidecarを追記し、旧新の差分を表示。単純な台帳上書きを拒否。訂正のKPI採用はOwner審査前に自動変更しない。",
+      "wait": "正式訂正がない実レースへ訂正履歴を作らない。新契約変更が必要ならOwner審査と独立PRへ分離。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I09",
+      "phase": 8,
+      "title": "前向き比較の対象網羅を照合",
+      "owner": "40_shadow / 50_review",
+      "dependencies": [
+        "53-I07"
+      ],
+      "inputs": "実依頼初回scope・事前assessment・該当/非該当/未確認・提出pair一覧・公式結果",
+      "gap": "class_transition_shadow.collectionは提出ペアを照合するがsample_coverage_verified=false/trial_complete=falseを保持。全該当対象との集合照合は未受入。",
+      "reuse": [
+        "scripts/class_transition_shadow.py",
+        "docs/validation/class-transition/forward-plan.json",
+        "scripts/cycle04_workflow.py"
+      ],
+      "acceptance": "指定10/17・18・24・25の実依頼全該当例で対象/提出/欠測/非該当を集合照合。重複・選択的除外・未確認を非該当化する入力を拒否。合成/REPLAYは実測母数外。網羅成功でも非劣化/性能昇格を認証しない。",
+      "wait": "開催日前にダミーscope・実測0・事前証跡を生成しない。37-05を重複した別試験へ作り直さない。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I10",
+      "phase": 8,
+      "title": "校正・非劣化審査用の入力を読取出力",
+      "owner": "10_prediction / 40_shadow / 50_review",
+      "dependencies": [
+        "53-I09"
+      ],
+      "inputs": "網羅確認済み前向きペア・固定確率・公式結果・層別条件・不足",
+      "gap": "Brier/捕捉/改善・中立・悪化は算定済みだが、実確率/条件別校正・非劣化受入は未実測。審査資料の接続を分離。",
+      "reuse": [
+        "scripts/class_transition_shadow.py",
+        "scripts/cycle04_workflow.py",
+        "scripts/probability_presentation.py",
+        "scripts/dependency_risk.py"
+      ],
+      "acceptance": "同一cutoff/基準/条件/対象集合でBrier・捕捉・点数/依存の入力を出力。旧KPI/任意市場ROIを混入せず、0母数はnull。新共通閾値・校正済み下限を創作せず、採否は既存50_reviewの別審査。",
+      "wait": "30〜37の実確率/校正/性能と37-05は実データ待ち。独自モデル・数値補正の実装は本タスクの対象外。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I11",
+      "phase": 5,
+      "title": "既存29番の発走前取得・2開催受入を実行",
+      "owner": "60_market / 取得",
+      "dependencies": [],
+      "inputs": "実開催の公式scope・固定予想/推奨・対象券・締切・実本文/receipt",
+      "gap": "チャット取得/8券種正規化/保存接続/checkerは実装済み。発走前8券種・独立提供元・2開催の真正な実測が未受入。",
+      "reuse": [
+        "scripts/chat_market_acquisition.py",
+        "scripts/check_chat_market_live_validation.py",
+        "docs/validation/market-chat-acquisition.md"
+      ],
+      "acceptance": "既存29-C03/C06/C07/C08を同一証跡で受入。実前向き8券種・2提供元・2開催、当時Git/独立receiptを照合。市場未完了でも価格不要Prediction/推奨を完結。",
+      "wait": "開催・公開本文取得可否待ち。JRA本文正規化は実本文確認前は未対応。新しい実測日/対象数を勝手に確定しない。",
+      "status": "EXISTING_LIVE_VALIDATION_WAIT",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I12",
+      "phase": 5,
+      "title": "入力取得補助と任意市場の独立性を接続検査",
+      "owner": "60_market / 00_core",
+      "dependencies": [
+        "53-I03",
+        "53-I04"
+      ],
+      "inputs": "同一固定Prediction/推奨・任意市場の各取得状態",
+      "gap": "既存市場の独立性は受入済み。新規の非価格取得/参照組立て補助を追加した後の接続回帰だけを登録。",
+      "reuse": [
+        "scripts/market_sidecar.py",
+        "scripts/cycle04_workflow.py",
+        "scripts/chat_market_acquisition.py"
+      ],
+      "acceptance": "未依頼/未試行/失敗/締切/取得済みの全状態で固定Prediction/推奨bytes・KPIを保全。市場cutoffを独立保持し、取得本文保存と正式登録を分離。",
+      "wait": "市場取得・校正を取得/予想補助の必須条件へしない。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I13",
+      "phase": 7,
+      "title": "非UIの回顧資料を固定参照から生成",
+      "owner": "50_review / 回顧支援",
+      "dependencies": [
+        "53-I07"
+      ],
+      "inputs": "固定原本・公式結果・独立KPI・不足・誤差分類・正常部分/次検証",
+      "gap": "Phase7は非UIへ整合済み。最小Review Packageの専用生成入口は確認したscriptsにない。",
+      "reuse": [
+        "scripts/cycle04_workflow.py",
+        "docs/jravan/phases/phase_7_ai_review.md"
+      ],
+      "acceptance": "初回scope全件・未最終/推奨なしを保持し、hash/race/date/cutoff/baselineを対応付けた読取資料を生成。旧実購入は歴史診断に分離。AI API・UI・DB接続を要求しない。",
+      "wait": "ChatGPTによる現行回顧を外部AI Adapterの稼働証明としない。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    },
+    {
+      "id": "53-I14",
+      "phase": 7,
+      "title": "改善候補の不足・Owner・次試験を引継ぐ",
+      "owner": "50_review / 改善候補",
+      "dependencies": [
+        "53-I13",
+        "53-I10"
+      ],
+      "inputs": "回顧資料・改善候補・根拠/不足/保護対象・既存採否",
+      "gap": "既存47番採否は保存済み。今後のチャット候補を一意な固定参照から構造化して引き継ぐ補助入口を具体化。",
+      "reuse": [
+        "docs/jravan/phases/phase_7_ai_review.md",
+        "docs/manual/50_review.md"
+      ],
+      "acceptance": "採用候補/継続検証/棄却/判断保留、Owner・根拠・次試験を保持。AIがmanual/固定原本/DBへ直接反映せず、人間承認/非劣化/別PRを迂回しない。",
+      "wait": "53は候補仕様/棚卸しのみ。未知のrule/model/閾値を自動採用しない。",
+      "status": "PLANNED_NOT_IMPLEMENTED",
+      "execution": "CHAT_PUBLIC_READ_AND_WORKSPACE_HELPERS",
+      "requires_windows": false,
+      "requires_database": false,
+      "requires_server": false,
+      "requires_webui": false
+    }
+  ],
+  "inventory_limits": {
+    "checked_locations": "固定HEADのrootディレクトリとscripts一覧、上記契約/Phase・主要入口全文。未確認の外部branch/端末/サービスの不存在は断定しない。",
+    "root_entries": [
+      "AGENTS.md",
+      "DECISIONS.md",
+      "README.md",
+      "data",
+      "docs",
+      "scripts"
+    ],
+    "independent_service_engine_directory_seen": false,
+    "live_public_retrieval_performed": false,
+    "old_source_documents_changed": false,
+    "new_formal_schema_activated": false,
+    "entrypoint_names_in_handoff": "後続補助の設計案。既存正式schema/CLIと未実装候補を区別。"
+  },
+  "validation": {
+    "tests_run": 87,
+    "failures": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "file": "test_cycle04_workflow.py",
+        "tests": 25
+      },
+      {
+        "file": "test_class_transition_shadow.py",
+        "tests": 18
+      },
+      {
+        "file": "test_chat_market_acquisition.py",
+        "tests": 26
+      },
+      {
+        "file": "test_task_completion.py",
+        "tests": 18
+      }
+    ],
+    "task_count": 14,
+    "all_tasks_have_owner_input_dependency_and_acceptance": true,
+    "dependency_graph_acyclic": true,
+    "phase_coverage": [
+      2,
+      3,
+      5,
+      6,
+      7,
+      8
+    ],
+    "all_subtasks_mapped": true,
+    "plan_saved_and_readback_matched": true,
+    "postcommit_ci": "各HEADのActionsとPR68/69本文で確認"
+  },
+  "protected": {
+    "code_changed": false,
+    "formal_owner_changed": false,
+    "formal_schema_changed": false,
+    "old_artifacts_changed": false,
+    "registry_or_research_snapshots_changed": false,
+    "release_manifest_inputs_changed": false,
+    "acceptance_inputs_changed": false,
+    "formal_recutover": false,
+    "main_merge": false,
+    "performance_promoted": false,
+    "runtime_connected": false,
+    "live_races_executed": null
+  },
+  "residuals": {
+    "research": "12日PARTIAL：公式結果1/24R・本人/5代2頭・未確認13・5/43条件。",
+    "historical_persistence_unresolved": 40,
+    "legacy_kpi_pending": 57,
+    "legacy_formal_roi": null,
+    "legacy_interpretations": "未確認/派生/仮説を原票確認済みへ昇格しない。",
+    "market": "29の発走前8券種/2提供元/2開催は実測待ち。同じ残件を53-I11で参照。",
+    "forward": "37-05の10/17・18・24・25の実依頼全該当例。架空の0/ダミーscope/後付け事前証跡なし。",
+    "probability_and_performance": "実確率/校正/枠連生成/集中・二頭軸/各比較の非劣化・性能は未受入。"
+  },
+  "next_independent_implementation_task": "53-I01",
+  "completion_note": "53の棚卸し・引継ぎのみ完了。14タスクの実装・将来実測・アプリ全体の完成とは区別。"
+}

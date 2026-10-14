@@ -1,0 +1,129 @@
+{
+  "horse_key": "netkeiba-000a01fe88",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2013,
+    "external_ids": {
+      "NETKEIBA": "000a01fe88"
+    },
+    "identity_evidence": {
+      "record_key": "000a01fe88",
+      "source": "NETKEIBA",
+      "source_sheet": "000a0278c0"
+    },
+    "name": "Preservationist (米)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:03:23.531382+00:00",
+  "identity_observed_at": "2026-10-10T10:03:23.531382+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2013,
+    "external_ids": {
+      "NETKEIBA": "000a01fe88"
+    },
+    "identity_evidence": {
+      "record_key": "000a01fe88",
+      "source": "NETKEIBA",
+      "source_sheet": "000a0278c0"
+    },
+    "name": "Preservationist (米)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:03:23.936434+00:00",
+      "content_hash": "589e92cb6f91819877f997cdcdb2491a401e68e66442526a6023fa5272f971f0",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:03:23.936427+00:00",
+      "input_hash": "9ebbf3a5b767241509202a4dc8775ad807a85c0b78358d7c3620c9bb1afa522e",
+      "previous_revision": null,
+      "revision_id": "rev-9ebbf3a5b767241509202a4d",
+      "saved_at": "2026-10-10T10:03:23.939136+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "51f47b433bcf66e2ecbd21b9dda243357976c8a337a2080572e0b21bf7951183",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a0278c0:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a0278c0/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000369802",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:03:23.947264+00:00",
+      "content_hash": "cf2829df5cb876e4677b7c27adbd8af34ceca7b2bebf6de57c5270d86bd69ade",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:03:23.947258+00:00",
+      "input_hash": "4e827ab366671322722bb17fab3c5b1a07ff04d1bff7451d14e06ac32e92f88d",
+      "previous_revision": null,
+      "revision_id": "rev-4e827ab366671322722bb17f",
+      "saved_at": "2026-10-10T10:03:23.947552+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "51f47b433bcf66e2ecbd21b9dda243357976c8a337a2080572e0b21bf7951183",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a0278c0:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a0278c0/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a01feb5",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T12:40:08.944072+00:00",
+      "content_hash": "55e50f94274ff5846c9e637687a6a9e779cca4fd5c589a22233ef212b1ee739c",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T12:40:08.944068+00:00",
+      "input_hash": "57140d1466eaddfcee7cc8b95dc7342369439528118429f3b2b0becbcf257d32",
+      "previous_revision": null,
+      "revision_id": "rev-57140d1466eaddfcee7cc8b9",
+      "saved_at": "2026-10-10T12:40:09.966318+00:00",
+      "source": {
+        "acquisition_method": "reviewed-own-individual-training-affiliation",
+        "origin_group": "AHONOORA",
+        "record_hash": "985105c1cd6dbe8fa408ad987a6ce620a636dfb09c535ee0f93cac60071b45c1",
+        "record_key": "netkeiba-000a01fe88",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://ahonoora.com/preservationist.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-10T12:33:56.779278+00:00",
+              "record_hash": "985105c1cd6dbe8fa408ad987a6ce620a636dfb09c535ee0f93cac60071b45c1",
+              "url": "https://ahonoora.com/preservationist.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年と本人調教師の所属国/Trained列を原文照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

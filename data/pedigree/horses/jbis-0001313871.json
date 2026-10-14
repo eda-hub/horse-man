@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001313871",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001313871"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "ad65306f8715dd40d96ea1760668ccb6d5732c6d0eae2dbb713bcc0fa8ea2378",
+      "record_key": "0001313871",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001398707/pedigree/"
+    },
+    "name": "ソットサス(FR)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.416443+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.416443+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001313871"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "ad65306f8715dd40d96ea1760668ccb6d5732c6d0eae2dbb713bcc0fa8ea2378",
+      "record_key": "0001313871",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001398707/pedigree/"
+    },
+    "name": "ソットサス(FR)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:04.214840+00:00",
+      "content_hash": "b63e5ef7b255d3b5a904832e063f4ca75e37f0c6874d5eae0c701ce991a7ab60",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:04.214840+00:00",
+      "input_hash": "26a6dcff5efcc7b8aa64f5e608426fb3538d2586ace4f70eec87fd0a6427d91a",
+      "previous_revision": null,
+      "revision_id": "rev-26a6dcff5efcc7b8aa64f5e6",
+      "saved_at": "2026-10-12T06:30:45.228131+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "ad65306f8715dd40d96ea1760668ccb6d5732c6d0eae2dbb713bcc0fa8ea2378",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001398707:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001398707/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001177659",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:04.214840+00:00",
+      "content_hash": "05438efdcbbe297ae4a5a9419968787742adc7da3737f2a71b6e50dccb277418",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:04.214840+00:00",
+      "input_hash": "0ba0a51a22cc5ec00bec265f36c5e88cb22dd72a73509b3011acefc98f8b7f68",
+      "previous_revision": null,
+      "revision_id": "rev-0ba0a51a22cc5ec00bec265f",
+      "saved_at": "2026-10-12T06:30:45.229633+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "ad65306f8715dd40d96ea1760668ccb6d5732c6d0eae2dbb713bcc0fa8ea2378",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001398707:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001398707/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001181251",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:09.281321+00:00",
+      "content_hash": "3bfa23ddc3d9963d001100c8546b1787fd955ddadfde84b7d5a0a8170fb10f01",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:09.281321+00:00",
+      "input_hash": "3a0013445a7f3ee4d60a1190e78b02b55f7db3744f387f11c6f5fe63924d3582",
+      "previous_revision": null,
+      "revision_id": "rev-3a0013445a7f3ee4d60a1190",
+      "saved_at": "2026-10-12T07:32:11.440274+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "2020年France Galop公式の本人SottsassがDeauvilleでRaabihahと調教した記述を確認。退役後Ireland等への繁殖移動を所属変更にしない。",
+          "birth_year": 2016,
+          "country": "FR",
+          "horse": "ソットサス(FR)",
+          "trainer": "Jean-Claude Rouget",
+          "training_location": "Deauville"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-07/jbis-0001313871-source.json",
+        "record_hash": "7e258e4562e5c242ffc66fcdf8f06c11cd470085bb0e48be4c2b9592ea1d4ee4",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001313871",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.france-galop.com/en/content/views-arc-trainer-jean-claude-rouget-talks-horses"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "FR",
+            "source": {
+              "captured_at": "2026-10-12T07:32:09.281321+00:00",
+              "record_hash": "7e258e4562e5c242ffc66fcdf8f06c11cd470085bb0e48be4c2b9592ea1d4ee4",
+              "url": "https://www.france-galop.com/en/content/views-arc-trainer-jean-claude-rouget-talks-horses"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

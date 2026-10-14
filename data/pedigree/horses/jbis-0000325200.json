@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0000325200",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1998,
+    "external_ids": {
+      "JBIS": "0000325200",
+      "NETKEIBA": "1998101786"
+    },
+    "identity_evidence": {
+      "record_key": "0000325200",
+      "source": "JBIS"
+    },
+    "name": "ジャングルポケット",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:32:54.867602+00:00",
+  "identity_observed_at": "2026-10-09T12:32:54.867602+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 1998,
+        "external_ids": {
+          "JBIS": "0000325200",
+          "NETKEIBA": "1998101786"
+        },
+        "identity_evidence": {
+          "record_key": "0000325200",
+          "source": "JBIS"
+        },
+        "name": "ジャングルポケット",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:34.334294+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1998,
+        "external_ids": {
+          "JBIS": "0000325200"
+        },
+        "identity_evidence": {
+          "record_key": "0000325200",
+          "source": "JBIS"
+        },
+        "name": "ジャングルポケット",
+        "status": "RESOLVED"
+      },
+      "event_hash": "ee47c823a1cb061aaf82d958f9a0e2e7b3037c9c85bd6c79d4114ac5b65265b3",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1998,
+    "external_ids": {
+      "JBIS": "0000325200"
+    },
+    "identity_evidence": {
+      "record_key": "0000325200",
+      "source": "JBIS"
+    },
+    "name": "ジャングルポケット",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:58.027582+00:00",
+      "content_hash": "f5ea0b415e37106affaa0f4a6b56935f7d8094063fe7c6492344d255f7825eea",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:58.027582+00:00",
+      "input_hash": "11d06e26da5535ce931332df95dfd67efec22e6444bbbf072bcdbcf226cdef47",
+      "previous_revision": null,
+      "revision_id": "rev-11d06e26da5535ce931332df",
+      "saved_at": "2026-10-09T12:33:57.136780+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "1ff2caaa2586e5a7c78da2aa653dc342c3e1f70742fd7eb24dbf52427719533d",
+        "record_key": "0001369090",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001369090/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000161740",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:58.027582+00:00",
+      "content_hash": "d656a0913b4956dab08b61416d152ea60ab0b51ac2539ffbff4a1ae38651d580",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:58.027582+00:00",
+      "input_hash": "cc7da48c775e93ba16b596cb61548a0e1afac03f0a250a4489c4d0be9413f7be",
+      "previous_revision": null,
+      "revision_id": "rev-cc7da48c775e93ba16b596cb",
+      "saved_at": "2026-10-09T12:33:57.137056+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "1ff2caaa2586e5a7c78da2aa653dc342c3e1f70742fd7eb24dbf52427719533d",
+        "record_key": "0001369090",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001369090/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000383950",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0000325200/",
+              "record_hash": "fb405da3bd4246a183117905293d309ac3b8485ad647d121efbe407721b12daa",
+              "captured_at": "2026-10-10T04:28:29.667Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:28:29.667Z",
+      "captured_at": "2026-10-10T04:28:29.667Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0000325200",
+        "record_hash": "fb405da3bd4246a183117905293d309ac3b8485ad647d121efbe407721b12daa",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0000325200",
+          "horse_name": "ジャングルポケット",
+          "trainer": "渡辺 栄",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0000325200/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-40e8bc69514c1ea23219e738",
+      "input_hash": "40e8bc69514c1ea23219e73805f992da044a4c8f1689448b00e70a5222598c98",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:28:29.669Z",
+      "content_hash": "e7eab068e31ff45f5a7dc752bb1abca304c09585a8b9db58b7168a6cfb05a1d0"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

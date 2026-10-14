@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001000965",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2004,
+    "external_ids": {
+      "JBIS": "0001000965"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "ab207a82de87feed360c62cd1c361df45aad6de44741cb0e08263480cd2ed5ae",
+      "record_key": "0001000965",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001357142/pedigree/"
+    },
+    "name": "Holy Roman Emperor(IRE)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.882399+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.882399+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2004,
+    "external_ids": {
+      "JBIS": "0001000965"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "ab207a82de87feed360c62cd1c361df45aad6de44741cb0e08263480cd2ed5ae",
+      "record_key": "0001000965",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001357142/pedigree/"
+    },
+    "name": "Holy Roman Emperor(IRE)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:24:24.246679+00:00",
+      "content_hash": "9fab87d1558cec26e495beaa9fb9cd0837f5995da52b3864a89a3830729e99ff",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:24:24.246679+00:00",
+      "input_hash": "aae733d54d264a969f629682b5ea5b08c323c61d79aa018a9e29e98e8a12cfb5",
+      "previous_revision": null,
+      "revision_id": "rev-aae733d54d264a969f629682",
+      "saved_at": "2026-10-12T06:30:46.877528+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "ab207a82de87feed360c62cd1c361df45aad6de44741cb0e08263480cd2ed5ae",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001357142:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001357142/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000337424",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:24:24.246679+00:00",
+      "content_hash": "064ef0cbf1f1acdaaf8038cb86feb026938e920cfef2ddffb1ad986b2935e418",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:24:24.246679+00:00",
+      "input_hash": "b16c0233828890d7d8bdded6730b3ef22b09063d3e0d29a44a7cddd3da9a25b7",
+      "previous_revision": null,
+      "revision_id": "rev-b16c0233828890d7d8bdded6",
+      "saved_at": "2026-10-12T06:30:46.878848+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "ab207a82de87feed360c62cd1c361df45aad6de44741cb0e08263480cd2ed5ae",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001357142:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001357142/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000397183",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:31:53.969576+00:00",
+      "content_hash": "9ff847e82906b3bde122083c84f7b1411354ba260c33f2b30f9736df260809dd",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:31:53.969576+00:00",
+      "input_hash": "ce0ad8d711a909cf60a87d07a5a93a0d9602afd81670c7ad215812fc45f7132c",
+      "previous_revision": null,
+      "revision_id": "rev-ce0ad8d711a909cf60a87d07",
+      "saved_at": "2026-10-12T07:32:01.693313+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人とGeorge WashingtonをBallydoyleで調教したことを明記。HRI公式2006年報告のIrish trained分類と同一馬を照合。",
+          "birth_year": 2004,
+          "country": "IE",
+          "horse": "Holy Roman Emperor(IRE)",
+          "trainer": "Aidan O'Brien",
+          "training_location": "Ballydoyle, County Tipperary"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-03/jbis-0001000965-source.json",
+        "record_hash": "7dc8a87fe22d570fdf4696d9974c78d5984da73771dbc48eda446d2e25f07020",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001000965",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.espn.co.uk/sports/horse/news/story?id=2796199"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "IE",
+            "source": {
+              "captured_at": "2026-10-12T07:31:53.969576+00:00",
+              "record_hash": "7dc8a87fe22d570fdf4696d9974c78d5984da73771dbc48eda446d2e25f07020",
+              "url": "https://www.espn.co.uk/sports/horse/news/story?id=2796199"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001313451",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2015,
+    "external_ids": {
+      "JBIS": "0001313451"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "3449dbdda2baee293f9e79ba2bb133d7b8568f93dbafcb8e7207f3ea6396b148",
+      "record_key": "0001313451",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001401317/pedigree/"
+    },
+    "name": "Justify(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:35.940710+00:00",
+  "identity_observed_at": "2026-10-12T06:30:35.940710+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2015,
+    "external_ids": {
+      "JBIS": "0001313451"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "3449dbdda2baee293f9e79ba2bb133d7b8568f93dbafcb8e7207f3ea6396b148",
+      "record_key": "0001313451",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001401317/pedigree/"
+    },
+    "name": "Justify(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:25:32.963437+00:00",
+      "content_hash": "a79afd6e03ea656a29f34edcb0d42900061b93f147244150a20e0ed9b8b7813c",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:25:32.963437+00:00",
+      "input_hash": "724913ce694efc9aa7b94ea21857d3988d137be471ebc77927ebda9901e0577c",
+      "previous_revision": null,
+      "revision_id": "rev-724913ce694efc9aa7b94ea2",
+      "saved_at": "2026-10-12T06:30:47.132353+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "3449dbdda2baee293f9e79ba2bb133d7b8568f93dbafcb8e7207f3ea6396b148",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001401317:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001401317/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001003260",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:25:32.963437+00:00",
+      "content_hash": "0b1e104f387f31b521b6a158ee35a2bc4d532f9ce97bcd091e24fbb6b208b68e",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:25:32.963437+00:00",
+      "input_hash": "7ef1f1998b44de23cdf53a88b3beeae0b5acab2d079c228d9128aed6b6c4e3bc",
+      "previous_revision": null,
+      "revision_id": "rev-7ef1f1998b44de23cdf53a88",
+      "saved_at": "2026-10-12T06:30:47.133663+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "3449dbdda2baee293f9e79ba2bb133d7b8568f93dbafcb8e7207f3ea6396b148",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001401317:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001401317/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001180540",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:09.281321+00:00",
+      "content_hash": "1c18191bcee17fb2b18bdc050afb67e60d5ff8725202ab225e7ef7aceeab7766",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:09.281321+00:00",
+      "input_hash": "760bb3ab429837f49e579869ff16245479f8fdfdb25767dfbb052e876ca678c6",
+      "previous_revision": null,
+      "revision_id": "rev-760bb3ab429837f49e579869",
+      "saved_at": "2026-10-12T07:32:11.437690+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "2018-07-10記事の本人がSanta Anitaで調教継続していたことを確認。公式調教師・NYRA本人Triple Crown経歴と同一馬を照合。",
+          "birth_year": 2015,
+          "country": "US",
+          "horse": "Justify(USA)",
+          "trainer": "Bob Baffert",
+          "training_location": "Santa Anita, California"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-07/jbis-0001313451-source.json",
+        "record_hash": "2192d15b66c324bb7139eff0c13415d156e2cfa73b0fd09c7716370db5d9c8d7",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001313451",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.latimes.com/sports/la-sp-justify-ankle-problem-20180710-story.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:32:09.281321+00:00",
+              "record_hash": "2192d15b66c324bb7139eff0c13415d156e2cfa73b0fd09c7716370db5d9c8d7",
+              "url": "https://www.latimes.com/sports/la-sp-justify-ankle-problem-20180710-story.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

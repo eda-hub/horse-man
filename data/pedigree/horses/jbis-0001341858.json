@@ -1,0 +1,92 @@
+{
+  "horse_key": "jbis-0001341858",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2021,
+    "external_ids": {
+      "JBIS": "0001341858"
+    },
+    "identity_evidence": {
+      "raw_sha256": "625e9a92d5a9fdf5d087e0e0aa1e665e9df5ac7a2364ff3633b95fdaf51e7293",
+      "record_key": "0001341858",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001341858/"
+    },
+    "name": "セールヴォラン",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-11T18:54:52.208237+00:00",
+  "identity_observed_at": "2026-10-11T18:54:52.208237+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2021,
+    "external_ids": {
+      "JBIS": "0001341858"
+    },
+    "identity_evidence": {
+      "raw_sha256": "625e9a92d5a9fdf5d087e0e0aa1e665e9df5ac7a2364ff3633b95fdaf51e7293",
+      "record_key": "0001341858",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001341858/"
+    },
+    "name": "セールヴォラン",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:23:05.172622+00:00",
+      "content_hash": "7f8b04dd84124c387d74628b7c8fe823b8e385a495a38043c122c83ce82fd2f7",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:23:05.172622+00:00",
+      "input_hash": "4bd8e90af6cf3c2a8d7fc6e8ba546b7bf4932f8bb239fea7d3d5bdab4c7297c7",
+      "previous_revision": null,
+      "revision_id": "rev-4bd8e90af6cf3c2a8d7fc6e8",
+      "saved_at": "2026-10-12T06:30:39.299464+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "36b230f0bdad274850da16bd3927ff70b128b890d71b8de72ea6a43acd5500ab",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001341858:S",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001341858/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001153071",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:23:05.172622+00:00",
+      "content_hash": "25c0fc6eaabdcfc53dd86f06259d01004c93d54e4179322691780dfcd2cb4b71",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:23:05.172622+00:00",
+      "input_hash": "57d4989fac082822a71b881501d95f1f73125690378ba7173909d100abbc3942",
+      "previous_revision": null,
+      "revision_id": "rev-57d4989fac082822a71b8815",
+      "saved_at": "2026-10-12T06:30:39.337209+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "36b230f0bdad274850da16bd3927ff70b128b890d71b8de72ea6a43acd5500ab",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001341858:D",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001341858/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001241800",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

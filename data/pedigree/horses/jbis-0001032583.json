@@ -1,0 +1,174 @@
+{
+  "horse_key": "jbis-0001032583",
+  "identity": {
+    "aliases": [
+      "War Front (米)"
+    ],
+    "birth_year": 2002,
+    "external_ids": {
+      "JBIS": "0001032583",
+      "NETKEIBA": "000a011d00"
+    },
+    "identity_evidence": {
+      "record_key": "0001032583",
+      "source": "JBIS"
+    },
+    "name": "War Front(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T12:33:37.632477+00:00",
+  "identity_observed_at": "2026-10-09T12:33:37.632477+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "War Front (米)"
+        ],
+        "birth_year": 2002,
+        "external_ids": {
+          "JBIS": "0001032583",
+          "NETKEIBA": "000a011d00"
+        },
+        "identity_evidence": {
+          "record_key": "0001032583",
+          "source": "JBIS"
+        },
+        "name": "War Front(USA)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:31.844098+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2002,
+        "external_ids": {
+          "JBIS": "0001032583"
+        },
+        "identity_evidence": {
+          "record_key": "0001032583",
+          "source": "JBIS"
+        },
+        "name": "War Front(USA)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "26c63ac11f64b1f189b70c80f893c0c57b9516dd411c22f9523f67eaee087e72",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2002,
+    "external_ids": {
+      "JBIS": "0001032583"
+    },
+    "identity_evidence": {
+      "record_key": "0001032583",
+      "source": "JBIS"
+    },
+    "name": "War Front(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T12:16:42.515375+00:00",
+      "content_hash": "e91058504041c93707b6b84bc5ae1d5d4f1831e379197b9920d8590477b353c1",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T12:16:42.515375+00:00",
+      "input_hash": "dd08fb6b282f408543fe315bf882b540a598ab995b144c4905cf0f38f20ec3b9",
+      "previous_revision": null,
+      "revision_id": "rev-dd08fb6b282f408543fe315b",
+      "saved_at": "2026-10-09T12:35:06.456600+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "07e912c00381afa8e7442070a621d604ebc7bc9ccc93a0d9d5348eda19d1a7e6",
+        "record_key": "0001326655",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001326655/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336082",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T12:16:42.515375+00:00",
+      "content_hash": "f88bcc4e6f2cd1b17633a2397f542c73dda2445c22910af663048cf5c52e24ad",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T12:16:42.515375+00:00",
+      "input_hash": "c77036e9cfbf51523d17cb6e53aa7efd114cf009ea6265f15627c1656cff7c1e",
+      "previous_revision": null,
+      "revision_id": "rev-c77036e9cfbf51523d17cb6e",
+      "saved_at": "2026-10-09T12:35:06.457651+00:00",
+      "source": {
+        "acquisition_method": "https-html-five-generation-cell-extraction-and-profile-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "07e912c00381afa8e7442070a621d604ebc7bc9ccc93a0d9d5348eda19d1a7e6",
+        "record_key": "0001326655",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001326655/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000444717",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: JBIS原票の個体ID・全62祖先位置、基本情報6関係・共通親子関係の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "url": "https://www.americanclassicpedigrees.com/war-front.html",
+              "record_hash": "8abcef6a8a83fc8e968b678928e1a713ecadb3daf3b466af84d0b5d727ee1628",
+              "captured_at": "2026-10-10T04:34:49.851Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:34:49.851Z",
+      "captured_at": "2026-10-10T04:34:49.851Z",
+      "source": {
+        "source_class": "MEDIA_ORIGINAL",
+        "origin_group": "AMERICAN_CLASSIC_PEDIGREES",
+        "acquisition_method": "manual-reviewed-original-trainer-training-base",
+        "record_key": "0001032583",
+        "record_hash": "8abcef6a8a83fc8e968b678928e1a713ecadb3daf3b466af84d0b5d727ee1628",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001032583",
+          "horse_name": "War Front(USA)",
+          "trainer": "Allen Jerkens",
+          "trainer_location": "United States New York training stable",
+          "training_country": "US",
+          "document": "original racing connections and yard base"
+        },
+        "url": "https://www.americanclassicpedigrees.com/war-front.html"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開原著調教所属照合"
+      },
+      "revision_id": "rev-2d69d8bad5a46e5f61db8d4f",
+      "input_hash": "2d69d8bad5a46e5f61db8d4ff3b1dee4dac9528f31b7b32470281ee7f11692ab",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:34:49.852Z",
+      "content_hash": "84a18aadab3988b6e1425a4410b0ccbc5b3a9e83093d526e4afafc6f90a032df"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

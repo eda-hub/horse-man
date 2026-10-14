@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001223183",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "JBIS": "0001223183"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "7d0b73400c398743aa4a8fa2071c88d898406e378c7291878ff2bdb2fa86c47f",
+      "record_key": "0001223183",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001383905/pedigree/"
+    },
+    "name": "Kingman(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.490766+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.490766+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "JBIS": "0001223183"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "7d0b73400c398743aa4a8fa2071c88d898406e378c7291878ff2bdb2fa86c47f",
+      "record_key": "0001223183",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001383905/pedigree/"
+    },
+    "name": "Kingman(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:26:23.544934+00:00",
+      "content_hash": "eca1a40c4528edbd6a3897cb3205d8c3ceeba470cd068999c4c40942e29f620d",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:26:23.544934+00:00",
+      "input_hash": "659499c3b48a8020b415088a27640164deb9556893eda061c6ed5351e89105bc",
+      "previous_revision": null,
+      "revision_id": "rev-659499c3b48a8020b415088a",
+      "saved_at": "2026-10-12T06:30:41.374929+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "7d0b73400c398743aa4a8fa2071c88d898406e378c7291878ff2bdb2fa86c47f",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001383905:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001383905/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000372680",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:26:23.544934+00:00",
+      "content_hash": "0153f1b66a0cb47e17f5fe323cfc2e40fee2348b15438afb18e05e4d59972089",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:26:23.544934+00:00",
+      "input_hash": "a335381780598b14dbcc4878605252f90de2c7a71175585404363ec25f842177",
+      "previous_revision": null,
+      "revision_id": "rev-a335381780598b14dbcc4878",
+      "saved_at": "2026-10-12T06:30:41.376520+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "7d0b73400c398743aa4a8fa2071c88d898406e378c7291878ff2bdb2fa86c47f",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001383905:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001383905/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000743723",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:06.922872+00:00",
+      "content_hash": "57b6b4b6bec2577c7fb3348284eabd16893e039239b39b6b6bd8fe7629692c46",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:06.922872+00:00",
+      "input_hash": "74dd7f672895852360992b0d335ee1d9f383c7acef3f74941d170026e741c87e",
+      "previous_revision": null,
+      "revision_id": "rev-74dd7f672895852360992b0d",
+      "saved_at": "2026-10-12T07:32:09.027066+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人所有牧場Juddmonte公式のGosdenとNewmarket所属経歴、2014年Cartier Horse of Yearの同一馬を照合。",
+          "birth_year": 2011,
+          "country": "GB",
+          "horse": "Kingman(GB)",
+          "trainer": "John Gosden",
+          "training_location": "Clarehaven, Newmarket"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-06/jbis-0001223183-source.json",
+        "record_hash": "d19a791b7c347a3069015892e309034c874ffb2d06fcc20069b7bc821901063a",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001223183",
+        "source_class": "BREEDING_DB",
+        "url": "https://stallions.juddmonte.com/post/john-gosden-on-the-qualities-that-make-kingman-such-a-successful-sire"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "GB",
+            "source": {
+              "captured_at": "2026-10-12T07:32:06.922872+00:00",
+              "record_hash": "d19a791b7c347a3069015892e309034c874ffb2d06fcc20069b7bc821901063a",
+              "url": "https://stallions.juddmonte.com/post/john-gosden-on-the-qualities-that-make-kingman-such-a-successful-sire"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

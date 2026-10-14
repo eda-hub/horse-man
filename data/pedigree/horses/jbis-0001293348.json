@@ -1,0 +1,174 @@
+{
+  "horse_key": "jbis-0001293348",
+  "identity": {
+    "aliases": [
+      "ブリックスアンドモルタル"
+    ],
+    "birth_year": 2014,
+    "external_ids": {
+      "JBIS": "0001293348",
+      "NETKEIBA": "000a014377"
+    },
+    "identity_evidence": {
+      "record_key": "0001293348",
+      "source": "JBIS"
+    },
+    "name": "ブリックスアンドモルタル(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:32.866890+00:00",
+  "identity_observed_at": "2026-10-09T15:04:32.866890+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "ブリックスアンドモルタル"
+        ],
+        "birth_year": 2014,
+        "external_ids": {
+          "JBIS": "0001293348",
+          "NETKEIBA": "000a014377"
+        },
+        "identity_evidence": {
+          "record_key": "0001293348",
+          "source": "JBIS"
+        },
+        "name": "ブリックスアンドモルタル(USA)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:44.709642+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2014,
+        "external_ids": {
+          "JBIS": "0001293348"
+        },
+        "identity_evidence": {
+          "record_key": "0001293348",
+          "source": "JBIS"
+        },
+        "name": "ブリックスアンドモルタル(USA)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "ea6e243fb3718985484caef1ef8c04d376778cd694104ebe2e336f861ceaaf96",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2014,
+    "external_ids": {
+      "JBIS": "0001293348"
+    },
+    "identity_evidence": {
+      "record_key": "0001293348",
+      "source": "JBIS"
+    },
+    "name": "ブリックスアンドモルタル(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:43:33.193633+00:00",
+      "content_hash": "0493aca0b8434347df16ff039c73f7f9d5dc7541c102ac46ba165fae3a6a6a42",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:43:33.193633+00:00",
+      "input_hash": "57890caf1b0c2f0e35b0015dd82489e3b3d9839853ad007615fc240a73d3b9aa",
+      "previous_revision": null,
+      "revision_id": "rev-57890caf1b0c2f0e35b0015d",
+      "saved_at": "2026-10-09T15:05:22.566519+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "c79f1b1444414ca7b86adf8354bfe6f5046fcbc024293f0889b1183090abb953",
+        "record_key": "0001355059",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001355059/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000372708",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:43:33.193633+00:00",
+      "content_hash": "fa9bb977e09d7ac97c90dbad5a0da61b93f0eded39c95680aba3a1235d4b74f7",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:43:33.193633+00:00",
+      "input_hash": "1d0affb8ef252b5a7b564a10c0e7b80c871dce831afb5e665a96824288715166",
+      "previous_revision": null,
+      "revision_id": "rev-1d0affb8ef252b5a7b564a10",
+      "saved_at": "2026-10-09T15:05:22.575183+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "c79f1b1444414ca7b86adf8354bfe6f5046fcbc024293f0889b1183090abb953",
+        "record_key": "0001355059",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001355059/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000615687",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "url": "https://www.belmontstakes.com/news/bricks-and-mortar-tops-chad-brown-trained-trifecta-in-g1-manhattan",
+              "record_hash": "85be1035899c4341e74544fab8e2ba7480e08356d3afdecd81d6428856780e59",
+              "captured_at": "2026-10-10T04:40:33.008Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:40:33.008Z",
+      "captured_at": "2026-10-10T04:40:33.008Z",
+      "source": {
+        "source_class": "MEDIA_ORIGINAL",
+        "origin_group": "NYRA",
+        "acquisition_method": "manual-reviewed-original-training-affiliation-evidence",
+        "record_key": "0001293348",
+        "record_hash": "85be1035899c4341e74544fab8e2ba7480e08356d3afdecd81d6428856780e59",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001293348",
+          "horse_name": "ブリックスアンドモルタル(USA)",
+          "trainer": "Chad Brown",
+          "trainer_location": "New York racing stable",
+          "training_country": "US",
+          "document": "original racehorse trainer and training base evidence"
+        },
+        "url": "https://www.belmontstakes.com/news/bricks-and-mortar-tops-chad-brown-trained-trifecta-in-g1-manhattan"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 調教師と調教所属地を原著で確認"
+      },
+      "revision_id": "rev-f4f04ffa28c3d54b6a1726d0",
+      "input_hash": "f4f04ffa28c3d54b6a1726d0ffaf7ee7b1a95811636406f139bdc27bc73a3d04",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:40:33.011Z",
+      "content_hash": "b961e9e4d33bc0342798985dc8fbdc528f44480f7862642b27a15fb32f2a9777"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000449918",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1990,
+    "external_ids": {
+      "JBIS": "0000449918"
+    },
+    "identity_evidence": {
+      "ancestor_path": "SDD",
+      "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+      "record_key": "0000449918",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+    },
+    "name": "Magical Flash(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.866841+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.866841+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1990,
+    "external_ids": {
+      "JBIS": "0000449918"
+    },
+    "identity_evidence": {
+      "ancestor_path": "SDD",
+      "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+      "record_key": "0000449918",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+    },
+    "name": "Magical Flash(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:45.479720+00:00",
+      "content_hash": "fc6a616c585470bca8aa2edd555a052eafd8434645ed3a474dc228af7ca5e305",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:45.479720+00:00",
+      "input_hash": "d26ebc6cd213c6a57fd5708bc2eb10f3e636b06bfcb72b85dda1a8f626b66bb8",
+      "previous_revision": null,
+      "revision_id": "rev-d26ebc6cd213c6a57fd5708b",
+      "saved_at": "2026-10-12T06:30:43.117866+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423340:SDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336395",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:45.479720+00:00",
+      "content_hash": "b7bb5d19d71084ce17ff529110036ad8dc9b1c91a295c7a4cf7ac6e4448094fa",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:45.479720+00:00",
+      "input_hash": "8c62a028d8d2cb8f7b371234dd5fbe33157704c333dfac62f109fac17f9c1e37",
+      "previous_revision": null,
+      "revision_id": "rev-8c62a028d8d2cb8f7b371234",
+      "saved_at": "2026-10-12T06:30:43.119614+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9f7053869dcab63b8ae1f00abcd19ec17c8e61ee4862270a21dc5be5f788ad",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423340:SDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423340/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000405244",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

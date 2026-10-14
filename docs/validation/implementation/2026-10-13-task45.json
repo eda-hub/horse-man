@@ -1,0 +1,851 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "45",
+  "status": "READ_ONLY_ACCEPTED",
+  "basis_commit": "e28978801480e03078362d313307f636eb4b77a0",
+  "completed_subtasks": [
+    "45-01",
+    "45-02",
+    "45-03",
+    "45-04",
+    "45-05",
+    "45-06",
+    "45-07",
+    "45-08"
+  ],
+  "original_collection": {
+    "path": "docs/validation/reviews/cycle_03/collection.json",
+    "git_blob_sha": "4fe64917edb265f9ef750c2d278aa1842a85d26c",
+    "as_of_date_jst": "2026-10-13",
+    "basis_commit": "d164153c27431e0be901e042e359fecbc568994a"
+  },
+  "source_manifest": [
+    {
+      "path": "docs/validation/cycle_03.md",
+      "bytes": 64030,
+      "git_blob_sha": "7e2602b57d966f81aaf5d62e23466675664a6bed",
+      "sha256": "20460d4e04558053558f78f17d9c2c520f8d6df935af0f4debf11282a037f64c"
+    },
+    {
+      "path": "docs/validation/execution-gates/2026-09-27/20260927-HAN-07.json",
+      "bytes": 1267,
+      "git_blob_sha": "688f40d1717d9822d8c341791155e98a50c7aeb6",
+      "sha256": "305b14ea3c15a175f509d64e8b9234ef4b2f0c7b546cb3907a1dbcbda68dca7d"
+    },
+    {
+      "path": "docs/validation/execution-gates/2026-09-27/20260927-HAN-08.json",
+      "bytes": 1427,
+      "git_blob_sha": "37a5cd8a6dce79366d2587f163e6bfef745dba09",
+      "sha256": "0e0024e1ba5842d33721a60454a2533c4fb866d27d6a5fae0bf85ed2d36a50d4"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-03/morning-v2.json",
+      "bytes": 913,
+      "git_blob_sha": "010110bb494833b8325051d2bef80f4a6cba40e3",
+      "sha256": "cf7fc2ce1cb17ee437ff03d163bd4b5db604baa1688779d0e66b05145f9bfd46"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-04/reacquire-0943.json",
+      "bytes": 356,
+      "git_blob_sha": "1bb6d8af759bf18b2537435e6507ae67ef0931d6",
+      "sha256": "1728c5e8cabf42a69b5fbf2ef598bd3689d6b97d0278b9b1a491d247ae161b8b"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/initial-future.json",
+      "bytes": 792,
+      "git_blob_sha": "a224a072b318a67f100d4f64cff438428b1eaef1",
+      "sha256": "705f30bb740199df9dde600f5f066f75a105c84bd95c5744aca37dcfcbd21684"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/kyoto-07-final.json",
+      "bytes": 285,
+      "git_blob_sha": "704e0a5aecb252819764aaae3685bd85cefb100e",
+      "sha256": "a144445244f7c34c7361717b8c8455ffd8e7a27c8fd551f0bed222afe8432faa"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/kyoto-07-shadow.json",
+      "bytes": 285,
+      "git_blob_sha": "b1921784f81f4983780ea5c4e8edbd9b43808e42",
+      "sha256": "dc812c89001b5ef3caafbcaca9dc37387909f4bbdfc057447cfb2d3a0ad9b8bc"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/kyoto-08-forecast.json",
+      "bytes": 285,
+      "git_blob_sha": "e60030feca1a60087868b90fd9a08ff520d72bca",
+      "sha256": "f1fe4db09b9e2d5ada006e00b08357e27ce937a7f379798db4b0a6867f3d46f4"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/kyoto-08-shadow.json",
+      "bytes": 285,
+      "git_blob_sha": "00b371d280909f3003f5cc94750839b84169917f",
+      "sha256": "83a992074d85f4dba146ba7b8413c8fd8b91e25eead85be8f6dac22e535ed077"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/kyoto-09-forecast.json",
+      "bytes": 285,
+      "git_blob_sha": "f73b9c3859ba9607095126ad70b5055cdff2881a",
+      "sha256": "8d9ad55598305e1dfc94b639ba4c0a2c6abef440593e710642594560eebecdc0"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/kyoto-09-shadow.json",
+      "bytes": 285,
+      "git_blob_sha": "4424822f434b41b35dfc25fb5046be4ad36a7583",
+      "sha256": "02d9923770b053bceb154859c898bf9ba8097effbae043c29c16556b6aa588ff"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/kyoto-11-forecast.json",
+      "bytes": 285,
+      "git_blob_sha": "71dd5acb914dd0269cbbd4020d86dc71017355bc",
+      "sha256": "f7441a4eb72a5902d3a9c2df606c34e84288e51e2e6e2bcb437ad71b02d10b55"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/kyoto-11-shadow.json",
+      "bytes": 285,
+      "git_blob_sha": "44e676d69eda49dce1cc4c312b0cbc6b74234015",
+      "sha256": "2739d73601c6c3b0b59a0cdb97d328cfe346da7596d2abaef561dbd9ccb8c71d"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/tokyo-08-forecast.json",
+      "bytes": 285,
+      "git_blob_sha": "b3a80dc17c0ba6ef7923ab25b66423570db4e360",
+      "sha256": "1669aa81dca2856fed47a0db76d0ec53a05d577f555656dcc82364382a58ced4"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/tokyo-08-shadow.json",
+      "bytes": 285,
+      "git_blob_sha": "b8ccfa401f112c913524aee58b789ef53c52f8b6",
+      "sha256": "00ae903a78a0aa557a30a128a88483a1046e58099926efa6163d8a69634dc09e"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/tokyo-09-forecast.json",
+      "bytes": 285,
+      "git_blob_sha": "c16175f73b0c78f2b6c2b22ace8c7c8d3a046213",
+      "sha256": "6755206ba7af46f4fb96146587a2921dc962c62fc9633d6f970136b7dd415e0f"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/tokyo-09-shadow.json",
+      "bytes": 285,
+      "git_blob_sha": "7d8e52ceee567c36e3e7c85b982a43d921791250",
+      "sha256": "7f7881af4945d59c81eb17bc82332d6ff8b375b95a7b22a8dee7ad34a337622e"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/tokyo-11-forecast.json",
+      "bytes": 285,
+      "git_blob_sha": "fcb2fcae4559125de2733fbd7695f991e517252f",
+      "sha256": "b011f1b299c3ed03c1f9095c0bacfbc7e5d2ec0d4e2933a2eba3767d7603f9ca"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-10/tokyo-11-shadow.json",
+      "bytes": 285,
+      "git_blob_sha": "d0031808a95ab17ee0c1b98b70d6c97bbde718f8",
+      "sha256": "1b47cfd757f351e37312ddd6b5356e6a8aa40ee33589c59f1d1dcafa593bee8c"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/kyoto-07-final.json",
+      "bytes": 285,
+      "git_blob_sha": "c4a75f67e69a1377ae9416c66a1931d5b1ef8891",
+      "sha256": "a44580d7eb25954bd013d5ea2dbe0737eff0e4c23a7ead368068154bbc8ce26e"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/kyoto-08-final.json",
+      "bytes": 285,
+      "git_blob_sha": "d52457ede91b9cb02744d051f97c9ccbc027b052",
+      "sha256": "27e71e40e77e954ff0fe7160f7b179b47753bc9a63624ecfae408ddcfd2955d7"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/kyoto-09-final.json",
+      "bytes": 285,
+      "git_blob_sha": "f5f990c882e1558ba226ed2250c9ebefd5689bdb",
+      "sha256": "12889906d0441087ea27b6e4c3beaa0c22c6ffacc71bbcd2905795585895e658"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/kyoto-10-final.json",
+      "bytes": 285,
+      "git_blob_sha": "51efe04ccc75067d578d650c5d4fe94195b8f315",
+      "sha256": "bb9e2e2ca2c2ae350349ab65e71d499252c7b6695841e68b9b065884b8aacd86"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/kyoto-11-final.json",
+      "bytes": 285,
+      "git_blob_sha": "bbcd253f797a8d38cc7b201dfc4adf429fed96bf",
+      "sha256": "f881e00d7495d569889de73239575612d67456d93468729ebaba2c7d8a7abc26"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/morning.json",
+      "bytes": 630,
+      "git_blob_sha": "00c57b2e1c33add6a505557c8889551ec7af6102",
+      "sha256": "9471850b5674541b06f23feb0bedc1fcd09b788cfa78b549ab88d5aeb273da27"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/tokyo-08-final-price.json",
+      "bytes": 285,
+      "git_blob_sha": "ef0d8ee4a4b5f5a60c491a08817e8def5d7426cf",
+      "sha256": "6235a46e029b752698f07a6f5890c9e2ea43ea8ac84aaef2f4de89a7c3ba23b6"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/tokyo-08-final.json",
+      "bytes": 285,
+      "git_blob_sha": "94c75eef8c97d24df1c757d76bc2f28a2c9c8c0a",
+      "sha256": "fc1f8270a5893864a64e66ac1df7492c806e5134eca19204326d05056ee58c4c"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/tokyo-09-final.json",
+      "bytes": 285,
+      "git_blob_sha": "7b8885c9ba73413865378cbfd33141becc1d77a2",
+      "sha256": "9951b4024586ecc83d82c8ab239bf840486dcae4e3bd5a6e84ec0e2274e72e27"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-11/tokyo-11-final.json",
+      "bytes": 285,
+      "git_blob_sha": "7d0550762498fb153d79aad95f4bf437c4cfadc6",
+      "sha256": "eccab451eab00bc6035c875a9a254c43ac829c0f4ce4d4f1f3a64d43d1f36136"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/kyoto-10-final.json",
+      "bytes": 285,
+      "git_blob_sha": "77f7993fb2de323dd48b07f66c02ca5489c4a451",
+      "sha256": "40fbd056692d0f4457e6a8af3e2a459b30881dccfc44fe26e83af8d3147eac34"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/kyoto-11-final.json",
+      "bytes": 285,
+      "git_blob_sha": "8c2945812a93edbaa5eb299a24733db17b62745e",
+      "sha256": "3912f4743eac18f00920ca9781ad3f6d5aea2283756c6ade43e9f4f674c1db55"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/kyoto-11-shadow.json",
+      "bytes": 344,
+      "git_blob_sha": "89ee2d59df4c35d05d746b4b690ed2b55be1e47d",
+      "sha256": "4c4d6ed2c15727f92afea219b6173c39f40ae876b590799669e145d88d573181"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/morning.json",
+      "bytes": 900,
+      "git_blob_sha": "c3e4f12422f73fb409e9b0b25e7cb4b3ba9791ed",
+      "sha256": "c1fd457a09dcc045c5e5a99a28d2b00d57b9611dad83426fb9fe3cb7d5567fd1"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/remaining-21.json",
+      "bytes": 823,
+      "git_blob_sha": "5a445339e25464e0cf0b177053e524b2c0a1e872",
+      "sha256": "920a56304c2fbc0e4665e54bc6739870af61ee7e3ed46e633e3469ea489bfa16"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/tokyo-11-final.json",
+      "bytes": 285,
+      "git_blob_sha": "e1d98f9fe610af4882360afc51758417ef5cfd14",
+      "sha256": "e11d41f5c8ce3eb336471cf9bb5b17b8f67848d82f6b428f5034d704e46daffa"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/tokyo-11-shadow.json",
+      "bytes": 287,
+      "git_blob_sha": "feebd2334734b2a44bc855bdda24be335e7f9d75",
+      "sha256": "3937e8ba00e1cddc19a0df305e271dd07e88cda04b888c80d44745c518c004a9"
+    },
+    {
+      "path": "docs/validation/persistence-intents/2026-10-12/tokyo-11-weight.json",
+      "bytes": 287,
+      "git_blob_sha": "ac284c7f44b7313cdb57d601a4ecb3141f9696e4",
+      "sha256": "52caf2ffd1cec4dba567e395f23dae1bc3db9e1b8071a66046bf71a9fbef1fc3"
+    },
+    {
+      "path": "docs/validation/persistence-intents/failed-attempts/2026-10-03-morning.json",
+      "bytes": 818,
+      "git_blob_sha": "8a4668e606fd2d8feb7ddfad947ddba49edd6494",
+      "sha256": "8708299617c0135dd6b8a0a3d85fd6e0067e98de4c0255ace31caf4b03dc149c"
+    },
+    {
+      "path": "docs/validation/persistence-intents/failed-attempts/2026-10-04-morning-0930.json",
+      "bytes": 768,
+      "git_blob_sha": "0838f71fc76acee2bec11d2aae01b69416b64dc1",
+      "sha256": "fe74106e976392db099aabf077d0682aca07de11735ce8480bda9d5bec6f78cd"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-09-26.md",
+      "bytes": 15033,
+      "git_blob_sha": "341f00c4331bf8019211fcc79794a68f850cf034",
+      "sha256": "e915b574ed6098ab0153ef95b69f5776ab12512e593f624ab0b0f7686f555824"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-09-27.md",
+      "bytes": 24172,
+      "git_blob_sha": "22ba109b5bae641b1f248062b3ac8636362e155e",
+      "sha256": "52bb00cf84ab07118f332f4ef6e86eca45be416721c2a71e9da0460ebcb02660"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-10-04.md",
+      "bytes": 7527,
+      "git_blob_sha": "43a14b2b4601b8b62dd93bc57e6b41df2d536faa",
+      "sha256": "bb9de1563d5e6ac2b3edf0e94b175a9764a75da08bb9ab36beacd3eb46c41437"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-10-10.md",
+      "bytes": 20522,
+      "git_blob_sha": "62c98d8a629aa3b16284472124c6d2542bad3923",
+      "sha256": "c6d368b420da5f4da88290728dd7c8c0e7488c7c93d733409f7962e1812e4396"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-10-11.md",
+      "bytes": 29544,
+      "git_blob_sha": "05d715d06543d3ea1a30b45677dc72f09a4ac71e",
+      "sha256": "d7b5dee3e9525ef942a473a4b7ad31a1bdb933c93de932368f0a354a7bd8d4e8"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-10-12.md",
+      "bytes": 21564,
+      "git_blob_sha": "11d4f71baab17bf432fbe9124a63718532757501",
+      "sha256": "0a25584b32f3a58c72e8c53e13274482db538d47225181d94d874c2f8cfd01b4"
+    },
+    {
+      "path": "docs/validation/preservation/2026-09-26.md",
+      "bytes": 6145,
+      "git_blob_sha": "e517ea5614678840efbf937f86c846338055c739",
+      "sha256": "df0fbf7ed1038f0bdeeb3c326fc4b5cf15b9e5fd1f8ae0490b7f44c0048fee2a"
+    },
+    {
+      "path": "docs/validation/preservation/2026-09-27.md",
+      "bytes": 3488,
+      "git_blob_sha": "7f51332f6613edd7850c4d682ecd7d2666dff7f0",
+      "sha256": "977891507917b68b153f085555a87fac47e7668d206dd09d93044eb11b057d79"
+    },
+    {
+      "path": "docs/validation/preservation/2026-10-10.md",
+      "bytes": 2094,
+      "git_blob_sha": "d143f8f41e0e9dd7e69cc6b3a0ba1343b250852d",
+      "sha256": "3ba34fb54e82372d6cc88f30f776769bb10df34bb6bd4ac22a6d09906ee56e5e"
+    },
+    {
+      "path": "docs/validation/preservation/2026-10-12.md",
+      "bytes": 12541,
+      "git_blob_sha": "5a98d63cd9ee65bf26ed34b04e221298ca79ce96",
+      "sha256": "6d262466cdd8400a69454024b588ae156afde783f375b0515669c8e279e5ef6f"
+    },
+    {
+      "path": "docs/validation/records/2026-09-26.md",
+      "bytes": 25466,
+      "git_blob_sha": "9caeaf512a4d3f852521e16d669cc43e240a28bb",
+      "sha256": "4bb9aea978c0cc774bdfad5e3dcbbb9c5562dc1d895b22e6a547f68222aa739f"
+    },
+    {
+      "path": "docs/validation/records/2026-09-27.md",
+      "bytes": 35438,
+      "git_blob_sha": "bf45b9391c4a41ae0d8b630d7f46bfb266faf777",
+      "sha256": "859200f690f79ba65b9321740e99a6bea2ef27758693ffb815fe95127a69ec83"
+    },
+    {
+      "path": "docs/validation/records/2026-10-03.md",
+      "bytes": 25824,
+      "git_blob_sha": "5033877c4687bf191a8ed0eb0c70e2f65b0439aa",
+      "sha256": "53b57ad4a228ad9319caef0c5e9d6d94263bad0e738192fadaf2a36ac3064fb2"
+    },
+    {
+      "path": "docs/validation/records/2026-10-04.md",
+      "bytes": 57567,
+      "git_blob_sha": "66b69183935897eb286c90445334c6bc428d4658",
+      "sha256": "dd78b4f0f4761fde78c321b8eab6bd9797aeff10973d29c13f074281c02cdd06"
+    },
+    {
+      "path": "docs/validation/records/2026-10-10.md",
+      "bytes": 39761,
+      "git_blob_sha": "a01e2f0cddd0adb6b9445248e20c033dd28b1a85",
+      "sha256": "3928fed3f706857f6f282fd2ddbcfb7f1fb17a82ce83aa79b2529141955531e2"
+    },
+    {
+      "path": "docs/validation/records/2026-10-11.md",
+      "bytes": 36634,
+      "git_blob_sha": "c4aaa3cc356af40ac5ac25335bf6c88862488f7e",
+      "sha256": "42a64b22e9a5089aa9d0287223aa6baf1c569c56e66313ceb3defc3203b3184c"
+    },
+    {
+      "path": "docs/validation/records/2026-10-12.md",
+      "bytes": 35455,
+      "git_blob_sha": "d9c4a5bf272bf9d8f7faf55c87127aec41b28baf",
+      "sha256": "9ebc5a01fef07ef540aede147016a937fc7b7ba43b087185dc2d861717dbb06e"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-09-26.md",
+      "bytes": 20190,
+      "git_blob_sha": "59e72d33f6f0f300234bf45c8601b54cb18379cb",
+      "sha256": "6190b0767345855ec639ac112b7bebc86acd3b7488774331b75c2c4059250222"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-09-27.md",
+      "bytes": 90287,
+      "git_blob_sha": "305917df6b4df68a65acedc02159256cb993e7bd",
+      "sha256": "a4ed77318d25c01b65dc2e9741d12f9f2b2ea53f4e1b047e784e57d85bcb673f"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-10-03.md",
+      "bytes": 12758,
+      "git_blob_sha": "1dcba60f191000dc38b1f00c0bdfca69a0bb0b0d",
+      "sha256": "cbdb3a17e49a3dbc0bee38ef78251685ae48bf5a62dd680210719cf619ef0f66"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-10-04.md",
+      "bytes": 71051,
+      "git_blob_sha": "3df5eff72cc22ca063d0f24ee390d642756bad82",
+      "sha256": "71522441b2abde91dd427cca1506a367ab2dc96fd4204b4305e0ec6a3526f9cc"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-10-10.md",
+      "bytes": 107946,
+      "git_blob_sha": "094c95a7523b7b80b0504fb026d69eae8ce7a9c6",
+      "sha256": "1b308cec289aa927a2d68ddf1fbb5f732df19ba55728d47aa753a40c42668a0f"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-10-11.md",
+      "bytes": 118210,
+      "git_blob_sha": "0ce6ff1df8cf7eea216a8f84fb3389b2b50d2c81",
+      "sha256": "77bf9b869bf17ce7b6bc372a398e1b3d58be15f52bb627cf1119a6cd4fead118"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-10-12.md",
+      "bytes": 49902,
+      "git_blob_sha": "02a7c5dd260beb91af0d04c39399a861f0324b22",
+      "sha256": "2664fb742ab76341675dd654e4cae2e0944a656e275de6965af50c39f5505766"
+    }
+  ],
+  "daily_checks": [
+    {
+      "subtask_id": "45-01",
+      "race_date_jst": "2026-09-26",
+      "status": "MATCH_ORIGINAL",
+      "record_git_blob_sha": "9caeaf512a4d3f852521e16d669cc43e240a28bb",
+      "scope_counts": {
+        "initial": 24,
+        "selected": 11,
+        "final_completed": 8,
+        "selected_without_final": 3,
+        "reviewed": 24,
+        "unreviewed": 0
+      },
+      "selected_without_final_ids": [
+        "202606040812",
+        "202609040808",
+        "202609040812"
+      ],
+      "kpi_counts": {
+        "betting": {
+          "target_ids": 2,
+          "eligible_ids": 0,
+          "ineligible_ids": 2,
+          "pending_ids": 0
+        },
+        "production": {
+          "target_ids": 24,
+          "eligible_ids": 3,
+          "ineligible_ids": 21,
+          "pending_ids": 0
+        },
+        "shadow": {
+          "target_ids": 11,
+          "eligible_ids": 0,
+          "ineligible_ids": 11,
+          "pending_ids": 0
+        }
+      },
+      "kpi_contract": "LEGACY_UNSPLIT"
+    },
+    {
+      "subtask_id": "45-02",
+      "race_date_jst": "2026-09-27",
+      "status": "MATCH_ORIGINAL",
+      "record_git_blob_sha": "bf45b9391c4a41ae0d8b630d7f46bfb266faf777",
+      "scope_counts": {
+        "initial": 24,
+        "selected": 13,
+        "final_completed": 9,
+        "selected_without_final": 4,
+        "reviewed": 24,
+        "unreviewed": 0
+      },
+      "selected_without_final_ids": [
+        "202606040906",
+        "202606040907",
+        "202606040912",
+        "202609040912"
+      ],
+      "kpi_counts": {
+        "betting": {
+          "target_ids": 7,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 7
+        },
+        "betting_evidence": {
+          "target_ids": 7,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 7
+        },
+        "betting_rules": {
+          "target_ids": 7,
+          "eligible_ids": 0,
+          "ineligible_ids": 7,
+          "pending_ids": 0
+        },
+        "production": {
+          "target_ids": 24,
+          "eligible_ids": 0,
+          "ineligible_ids": 22,
+          "pending_ids": 2
+        },
+        "shadow": {
+          "target_ids": 13,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 13
+        }
+      },
+      "kpi_contract": "betting-kpi-split-v1"
+    },
+    {
+      "subtask_id": "45-03",
+      "race_date_jst": "2026-10-03",
+      "status": "MATCH_ORIGINAL",
+      "record_git_blob_sha": "5033877c4687bf191a8ed0eb0c70e2f65b0439aa",
+      "scope_counts": {
+        "initial": 24,
+        "selected": 6,
+        "final_completed": 5,
+        "selected_without_final": 1,
+        "reviewed": 24,
+        "unreviewed": 0
+      },
+      "selected_without_final_ids": [
+        "2026-10-03-KYOTO-11"
+      ],
+      "kpi_counts": {
+        "betting": {
+          "target_ids": 5,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 5
+        },
+        "betting_evidence": {
+          "target_ids": 5,
+          "eligible_ids": 0,
+          "ineligible_ids": 5,
+          "pending_ids": 0
+        },
+        "betting_rules": {
+          "target_ids": 5,
+          "eligible_ids": 0,
+          "ineligible_ids": 5,
+          "pending_ids": 0
+        },
+        "production": {
+          "target_ids": 24,
+          "eligible_ids": 0,
+          "ineligible_ids": 24,
+          "pending_ids": 0
+        },
+        "shadow": {
+          "target_ids": 5,
+          "eligible_ids": 0,
+          "ineligible_ids": 5,
+          "pending_ids": 0
+        }
+      },
+      "kpi_contract": "betting-kpi-split-v1"
+    },
+    {
+      "subtask_id": "45-04",
+      "race_date_jst": "2026-10-04",
+      "status": "MATCH_ORIGINAL",
+      "record_git_blob_sha": "66b69183935897eb286c90445334c6bc428d4658",
+      "scope_counts": {
+        "initial": 24,
+        "selected": 15,
+        "final_completed": 5,
+        "selected_without_final": 10,
+        "reviewed": 24,
+        "unreviewed": 0
+      },
+      "selected_without_final_ids": [
+        "2026-10-04-KYOTO-01",
+        "2026-10-04-KYOTO-02",
+        "2026-10-04-KYOTO-05",
+        "2026-10-04-KYOTO-06",
+        "2026-10-04-KYOTO-09",
+        "2026-10-04-TOKYO-01",
+        "2026-10-04-TOKYO-06",
+        "2026-10-04-TOKYO-07",
+        "2026-10-04-TOKYO-08",
+        "2026-10-04-TOKYO-09"
+      ],
+      "kpi_counts": {
+        "betting": {
+          "target_ids": 12,
+          "eligible_ids": 0,
+          "ineligible_ids": 7,
+          "pending_ids": 5
+        },
+        "betting_evidence": {
+          "target_ids": 12,
+          "eligible_ids": 0,
+          "ineligible_ids": 12,
+          "pending_ids": 0
+        },
+        "betting_rules": {
+          "target_ids": 12,
+          "eligible_ids": 0,
+          "ineligible_ids": 12,
+          "pending_ids": 0
+        },
+        "production": {
+          "target_ids": 24,
+          "eligible_ids": 0,
+          "ineligible_ids": 24,
+          "pending_ids": 0
+        },
+        "shadow": {
+          "target_ids": 15,
+          "eligible_ids": 0,
+          "ineligible_ids": 15,
+          "pending_ids": 0
+        }
+      },
+      "kpi_contract": "betting-kpi-split-v1"
+    },
+    {
+      "subtask_id": "45-05",
+      "race_date_jst": "2026-10-10",
+      "status": "MATCH_ORIGINAL",
+      "record_git_blob_sha": "a01e2f0cddd0adb6b9445248e20c033dd28b1a85",
+      "scope_counts": {
+        "initial": 24,
+        "selected": 7,
+        "final_completed": 7,
+        "selected_without_final": 0,
+        "reviewed": 24,
+        "unreviewed": 0
+      },
+      "selected_without_final_ids": [],
+      "kpi_counts": {
+        "betting": {
+          "target_ids": 0,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 0
+        },
+        "betting_evidence": {
+          "target_ids": 0,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 0
+        },
+        "betting_rules": {
+          "target_ids": 0,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 0
+        },
+        "production": {
+          "target_ids": 24,
+          "eligible_ids": 0,
+          "ineligible_ids": 24,
+          "pending_ids": 0
+        },
+        "shadow": {
+          "target_ids": 7,
+          "eligible_ids": 0,
+          "ineligible_ids": 7,
+          "pending_ids": 0
+        }
+      },
+      "kpi_contract": "betting-kpi-split-v1"
+    },
+    {
+      "subtask_id": "45-06",
+      "race_date_jst": "2026-10-11",
+      "status": "MATCH_ORIGINAL",
+      "record_git_blob_sha": "c4aaa3cc356af40ac5ac25335bf6c88862488f7e",
+      "scope_counts": {
+        "initial": 14,
+        "selected": 8,
+        "final_completed": 8,
+        "selected_without_final": 0,
+        "reviewed": 14,
+        "unreviewed": 0
+      },
+      "selected_without_final_ids": [],
+      "kpi_counts": {
+        "betting": {
+          "target_ids": 5,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 5
+        },
+        "betting_evidence": {
+          "target_ids": 5,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 5
+        },
+        "betting_rules": {
+          "target_ids": 5,
+          "eligible_ids": 0,
+          "ineligible_ids": 5,
+          "pending_ids": 0
+        },
+        "production": {
+          "target_ids": 14,
+          "eligible_ids": 0,
+          "ineligible_ids": 6,
+          "pending_ids": 8
+        },
+        "shadow": {
+          "target_ids": 8,
+          "eligible_ids": 0,
+          "ineligible_ids": 8,
+          "pending_ids": 0
+        }
+      },
+      "kpi_contract": "betting-kpi-split-v1"
+    },
+    {
+      "subtask_id": "45-07",
+      "race_date_jst": "2026-10-12",
+      "status": "MATCH_ORIGINAL",
+      "record_git_blob_sha": "d9c4a5bf272bf9d8f7faf55c87127aec41b28baf",
+      "scope_counts": {
+        "initial": 24,
+        "selected": 6,
+        "final_completed": 3,
+        "selected_without_final": 3,
+        "reviewed": 24,
+        "unreviewed": 0
+      },
+      "selected_without_final_ids": [
+        "2026-10-12-KYOTO-09",
+        "2026-10-12-TOKYO-08",
+        "2026-10-12-TOKYO-10"
+      ],
+      "kpi_counts": {
+        "betting": {
+          "target_ids": 0,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 0
+        },
+        "betting_evidence": {
+          "target_ids": 0,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 0
+        },
+        "betting_rules": {
+          "target_ids": 0,
+          "eligible_ids": 0,
+          "ineligible_ids": 0,
+          "pending_ids": 0
+        },
+        "production": {
+          "target_ids": 24,
+          "eligible_ids": 0,
+          "ineligible_ids": 24,
+          "pending_ids": 0
+        },
+        "shadow": {
+          "target_ids": 6,
+          "eligible_ids": 0,
+          "ineligible_ids": 6,
+          "pending_ids": 0
+        }
+      },
+      "kpi_contract": "betting-kpi-split-v1"
+    }
+  ],
+  "cycle_check": {
+    "subtask_id": "45-08",
+    "status": "EXACT_RECALCULATION_MATCH",
+    "expected_dates": [
+      "2026-09-26",
+      "2026-09-27",
+      "2026-10-03",
+      "2026-10-04",
+      "2026-10-10",
+      "2026-10-11",
+      "2026-10-12"
+    ],
+    "missing_dates": [],
+    "duplicate_race_ids": 0,
+    "scope": {
+      "initial": 158,
+      "selected": 66,
+      "final_completed": 45,
+      "selected_without_final": 21,
+      "reviewed": 158,
+      "unreviewed": 0
+    },
+    "selected_union": 66,
+    "effective_final_scope_after_explicit_oct03_exclusion": 65,
+    "selected_without_final": 21,
+    "explicit_exclusion": 1,
+    "unimplemented": 20,
+    "user_waived_in_unimplemented": 3,
+    "kpi_pending_decisions": 57,
+    "original_collection_status": "REVIEW_REQUIRED",
+    "formal_eligibility_not_promoted": true,
+    "formal_roi": null,
+    "split_reference": {
+      "recorded_dates": [
+        "2026-09-27",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ],
+      "fixed_plan_ids": [
+        "2026-10-03-KYOTO-06",
+        "2026-10-03-KYOTO-08",
+        "2026-10-03-KYOTO-09",
+        "2026-10-03-TOKYO-09",
+        "2026-10-03-TOKYO-11",
+        "2026-10-04-KYOTO-08",
+        "2026-10-04-KYOTO-10",
+        "2026-10-04-KYOTO-11",
+        "2026-10-04-TOKYO-10",
+        "2026-10-04-TOKYO-11",
+        "2026-10-11-KYOTO-09",
+        "2026-10-11-KYOTO-11",
+        "2026-10-11-TOKYO-08",
+        "2026-10-11-TOKYO-09",
+        "2026-10-11-TOKYO-11",
+        "202606040908",
+        "202606040910",
+        "202606040911",
+        "202609040908",
+        "202609040909",
+        "202609040910",
+        "202609040911"
+      ],
+      "missing_fixed_plan_ids": [
+        "2026-10-04-KYOTO-01",
+        "2026-10-04-KYOTO-06",
+        "2026-10-04-KYOTO-09",
+        "2026-10-04-TOKYO-01",
+        "2026-10-04-TOKYO-07",
+        "2026-10-04-TOKYO-08",
+        "2026-10-04-TOKYO-09"
+      ],
+      "stake_yen": 220000,
+      "return_yen": 191750,
+      "reference_return_rate_pct": 87.159091,
+      "note": "分離契約の固定全券精算。旧契約・未登録日・別研究・海外・実購入を含まない。正式ROIではない。"
+    }
+  },
+  "validation": {
+    "fingerprint_count": 64,
+    "remote_git_blobs": "MATCH_ALL_64",
+    "local_original_bytes_and_sha256": "MATCH_ALL_64",
+    "build_cycle03_review_exact_original": "PASS",
+    "check_cycle03_require_complete": "PASS_7_DATES",
+    "new_closure_decision": false,
+    "original_snapshots_written": false,
+    "postcommit_ci": "ActionsとPR本文で照合"
+  },
+  "next_task": "46-01"
+}

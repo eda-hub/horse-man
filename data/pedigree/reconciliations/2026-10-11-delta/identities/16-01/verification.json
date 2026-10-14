@@ -1,0 +1,32 @@
+{
+  "artifacts": {
+    "checkpoint.json": {
+      "bytes": 1750,
+      "sha256": "727b4a28b5539e106a05a2961bc8c6f7f8201619e1fa7b7104504b5bb45e67fa"
+    },
+    "identities.json": {
+      "bytes": 13320,
+      "sha256": "8f7c6fe91a5e6c8042f95223735cbe9505255c78af10006ffe23b6fe33808b75"
+    },
+    "official-identity-extract.txt": {
+      "bytes": 11587,
+      "sha256": "bc1a60ecd92ce7f808709f3610e2839b38b52838a959419a0cbbaf567d48409c"
+    }
+  },
+  "checks": {
+    "birth_date_sire_dam_jra_jbis_ids": "PASS",
+    "fixed_five_targets_and_dependencies": "PASS",
+    "no_registry_or_original_result_mutation": "PASS",
+    "official_result_identity": "PASS",
+    "remaining_counts_and_original_queue_order": "PASS",
+    "remote_registry_blob_sha": "PASS",
+    "reused_evidence_git_blob_sha": "PASS"
+  },
+  "limitations": [
+    "当該JRA取得本文は原HTML byte/hashではない。発走後の同定対応はREPLAY専用。",
+    "17-01の対象2頭は今回の16-01対象ではなく本人未同定。"
+  ],
+  "schema_version": "oct11-batch-verification-v1",
+  "status": "PASS",
+  "subtask_id": "16-01"
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": "task31-checkpoint-v1",
+  "task": 31,
+  "input_pr69_sha": "969fbc3faa42b289e2d8277a681ef356148d697e",
+  "input_pr68_sha": "94325ec571b831258a3b718b5e28fd075f9381e3",
+  "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_MODEL_VALIDATION_CONTINUES",
+  "tasks": {
+    "31-01": "CANDIDATE_SELECTED_AND_HORSE_ANCHOR_DEPENDENCY_VERIFIED",
+    "31-02": "SCENARIO_AND_TICKET_OVERLAP_DOUBLE_COUNT_REJECTION_VERIFIED",
+    "31-03": "HYPOTHETICAL_CONCENTRATION_AND_CONDITIONAL_FULL_LOSS_VERIFIED"
+  },
+  "implementation": {
+    "entry": "scripts/dependency_risk.py",
+    "recommendation_display": "馬別/シナリオ別採用点数。候補点数未記録を採用点数へ代用しない。軸番号不明を推測しない",
+    "procedure": "docs/validation/dependency-risk.md",
+    "financial_inputs_optional": true,
+    "full_loss_from_explicit_joint_finish_distribution_only": true,
+    "marginal_probability_products": false,
+    "new_allocation_limits": false,
+    "allocation_is_actual_purchase": false
+  },
+  "validation": {
+    "new_tests": 21,
+    "local_related_tests": 133,
+    "failures": 0,
+    "skipped": 0,
+    "ci": {
+      "basis_commit": "f2aa61945b33d21b94d7b0812d89c1a21b44f213",
+      "integration_run": 38373898585,
+      "research_run": 38373898680,
+      "result": "SUCCESS",
+      "tests_run": 633,
+      "skipped": 0,
+      "source_count": 109,
+      "source_manifest_sha256": "dbcd1065d490456a901a69e263866a9d006abe0db0b235339e895429e2bc6254",
+      "initial_normal_failure": {
+        "run_id": 38372328053,
+        "tests_run": 632,
+        "reason": "旧受入stale hashのみ。実統合CI成功109入力へ更新"
+      },
+      "first_implementation_runs": {
+        "integration": 38372095906,
+        "research": 38372095940,
+        "normal_stale": 38372096031
+      },
+      "final_normal": "SUCCESS",
+      "pre_boundary_acceptance": {
+        "commit_sha": "1047ae36994d0feb6104df789db1738c793c2a95",
+        "normal_run": 38372723274,
+        "integration_run": 38372723200,
+        "research_run": 38372723203,
+        "result": "ALL_SUCCESS",
+        "tests_run": 632
+      },
+      "boundary_normal_run": 38373209240,
+      "boundary_normal_status": "FAILED_STALE_ACCEPTANCE_VERIFIED",
+      "post_boundary_acceptance": {
+        "commit_sha": "bfb7d725596d6ce57fba6157f58ce7ca13da5c38",
+        "normal_run": 38373537699,
+        "integration_run": 38373537698,
+        "research_run": 38373537731,
+        "result": "ALL_SUCCESS",
+        "tests_run": 633
+      },
+      "frame_normal_failure": {
+        "run_id": 38373898654,
+        "tests_run": 633,
+        "reason": "旧受入hashを検出。実成功の109入力で更新"
+      },
+      "final": {
+        "commit_sha": "9940898207e468787a33a55d870ad5a758cd2c6a",
+        "normal_run": 38374557949,
+        "integration_run": 38374557994,
+        "research_run": 38374558006,
+        "result": "ALL_SUCCESS",
+        "tests_run": 633,
+        "skipped": 0
+      }
+    }
+  },
+  "protected": {
+    "prediction_values_changed": false,
+    "recommendation_tickets_changed": false,
+    "recommendation_formal_schema_changed": false,
+    "owner_changed": false,
+    "old_records_changed": false,
+    "workflow_changed": false,
+    "data_changed": false
+  },
+  "remaining": {
+    "live_dependency_model_validity": "CONTINUE_VALIDATION",
+    "calibration": "CONTINUE_VALIDATION",
+    "performance_promoted": false,
+    "task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
+  },
+  "next": "32-01",
+  "implementation_commit": "2be36d5a062c92d29b758e1312b1c1bbeff8f302",
+  "review_fix_commit": "aef9308c6003a4bdd9e3999122274806fe01d449",
+  "boundary_review_commit": "1cdc53d104aeaf429439ac5a7b51534cde29bbb1",
+  "frame_dependency_review_commit": "f2aa61945b33d21b94d7b0812d89c1a21b44f213",
+  "remote_readback": "ALL_CHANGED_FILES_MATCH",
+  "review_fixes": [
+    "枠別仮想配分の表示",
+    "全損率が0〜1を外れる入力の拒否",
+    "枠連を含む構成の軸依存率は未算定"
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "schema_version": "numbered-task-acceptance-v1",
+  "task": 28,
+  "status": "COMPLETE",
+  "inputs": {
+    "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "pr69": "e8d875cb843c815d6e40e38fbcf908c65e99dfda",
+    "pr68": "e10ecb56d9a6dce0f9787da419fb68ce742c251d"
+  },
+  "reuse": [
+    "validate_market",
+    "record_market",
+    "verified_artifact",
+    "FINAL_scope",
+    "independent_KPI"
+  ],
+  "changes": [
+    "v2 mandatory acquisition history",
+    "acquired unevaluated EV null",
+    "all saved markets including pending readback",
+    "Japanese read-only display"
+  ],
+  "tests": {
+    "new": 18,
+    "existing_cycle04": 56,
+    "result": "PASS",
+    "full": 518,
+    "skipped": 0,
+    "readiness": 9
+  },
+  "manifest_sources": 109,
+  "protected": {
+    "data_tree": "0691e0fee7bfdf4671042e99c465c10a451d1ac9",
+    "historical_records_changed": false,
+    "owner_changed": false,
+    "existing_workflow_changed": false,
+    "live_market_acquisition": false,
+    "performance_promoted": false,
+    "registry_horses": 15321,
+    "condition_snapshots": 26,
+    "invalid_snapshots": 0
+  },
+  "residual": {
+    "task": 29,
+    "status": "OPEN",
+    "reason": "過去原因不明・実取得1経路/代替1経路・応答hash/リトライ/2開催実測"
+  },
+  "next_task": 29,
+  "full_acceptance": {
+    "atomic": {
+      "activation_policy": "MAIN_MERGE",
+      "atomic_contract_verified": true,
+      "cycle_dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "live_races_executed": null,
+      "manual_release": "v1.7.0",
+      "operational_ready": false
+    },
+    "branch": {
+      "operational_ready": false,
+      "reason": "v1.7.0 has not been merged into the fetched main contract",
+      "status": "UNMERGED_CONTRACT_REJECTED"
+    },
+    "branch_manifest_sources": 109,
+    "live_races_executed": null,
+    "main": {
+      "activation_policy": "MAIN_MERGE",
+      "atomic_contract_verified": true,
+      "cycle_dates": [
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25"
+      ],
+      "live_races_executed": null,
+      "main_commit_time": "2026-10-13T08:15:30+09:00",
+      "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "manual_release": "v1.7.0",
+      "operational_ready": true
+    },
+    "main_manifest_sources": 66,
+    "main_ref_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+    "monitored_sources_unchanged": true,
+    "performance_promoted": false,
+    "read_only": true,
+    "runtime_connected": false,
+    "schema_version": "integration-start-check-v1",
+    "synthetic_acceptance": {
+      "failures": 0,
+      "formal_cutover": "NOT_PERFORMED",
+      "live_race_count": null,
+      "mode": "SYNTHETIC",
+      "note": "正常系・異常系の合成検査。実レース、未完了研究、実runtime接続、正式版/有効日を認証しない。",
+      "performance_promotion": "NOT_PERFORMED",
+      "result": "PASS",
+      "schema_version": "cycle04-acceptance-v1",
+      "skipped": 0,
+      "source_count": 94,
+      "source_manifest_sha256": "989ab29dfdd6c5f02fe78cca394f60d1118b88fd1342bb9894a4e12c1e8dce4f",
+      "tests_run": 518
+    }
+  },
+  "acceptance_refresh": {
+    "basis_commit": "6479ba0dc7498748155660e86473590194af372a",
+    "basis_run": 38345045909,
+    "source_count": 94,
+    "source_manifest_sha256": "989ab29dfdd6c5f02fe78cca394f60d1118b88fd1342bb9894a4e12c1e8dce4f",
+    "method": "実CIの全518件成功と一致する94入力hashを保存",
+    "initial_formal_run": 38345045910,
+    "initial_failure": "stale acceptance: source hash mismatch"
+  },
+  "implementation_commit": "6479ba0dc7498748155660e86473590194af372a",
+  "verification_basis_commit": "6cc39c8a70fcaca3944dba2e5a9a56fdfc720ea2",
+  "requirements": [
+    {
+      "requirement": "未試行/失敗/締切/取得済と未評価/正/不足を分離",
+      "result": "PASS",
+      "tests": "MarketStates"
+    },
+    {
+      "requirement": "source/時刻/全試行保存・照合",
+      "result": "PASS",
+      "schema": "market-analysis-v2 / market-acquisition-v1"
+    },
+    {
+      "requirement": "価格なしでPrediction/Recommendation完結",
+      "result": "PASS",
+      "tests": "MarketPersistence"
+    },
+    {
+      "requirement": "既存APIと旧履歴互換・新形式の履歴必須",
+      "result": "PASS"
+    },
+    {
+      "requirement": "全回帰/第3/第4/readiness/研究監査",
+      "result": "PASS"
+    }
+  ],
+  "ci": [
+    {
+      "run_id": 38345257282,
+      "job_id": 115125059820,
+      "steps": 13,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38345257282"
+    },
+    {
+      "run_id": 38345257283,
+      "job_id": 115125059986,
+      "steps": 6,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38345257283"
+    },
+    {
+      "run_id": 38345257521,
+      "job_id": 115125060817,
+      "steps": 22,
+      "result": "success",
+      "url": "https://github.com/eda-hub/horse-man/actions/runs/38345257521"
+    }
+  ]
+}

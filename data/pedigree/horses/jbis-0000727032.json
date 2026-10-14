@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0000727032",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2001,
+    "external_ids": {
+      "JBIS": "0000727032"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "3f18dfe9e0eaa36e1445dc5f1efca439c86752cb43b2a849ff6db0aaff1c448d",
+      "record_key": "0000727032",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001354493/pedigree/"
+    },
+    "name": "メイショウボーラー",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.631624+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.631624+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2001,
+    "external_ids": {
+      "JBIS": "0000727032"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "3f18dfe9e0eaa36e1445dc5f1efca439c86752cb43b2a849ff6db0aaff1c448d",
+      "record_key": "0000727032",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001354493/pedigree/"
+    },
+    "name": "メイショウボーラー",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:14.116426+00:00",
+      "content_hash": "a438a91221d7ace92ea4b38cdc9feebe143e1df915d4a753f83263303ef5395f",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:14.116426+00:00",
+      "input_hash": "27fc470b5cf83e802a88673d4148495f1af806ef322f2fface6ffc88a355df71",
+      "previous_revision": null,
+      "revision_id": "rev-27fc470b5cf83e802a88673d",
+      "saved_at": "2026-10-12T06:30:38.073562+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "3f18dfe9e0eaa36e1445dc5f1efca439c86752cb43b2a849ff6db0aaff1c448d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001354493:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001354493/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000287925",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:14.116426+00:00",
+      "content_hash": "b173cd4ee0faebeea2b59c9f669b5b2607103bda50892282e5c96831cdcc656c",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:14.116426+00:00",
+      "input_hash": "ef740c2b939f0515d68cef23439e67072a5e99cff14cf2c9a66de8725cc718fd",
+      "previous_revision": null,
+      "revision_id": "rev-ef740c2b939f0515d68cef23",
+      "saved_at": "2026-10-12T06:30:38.074851+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "3f18dfe9e0eaa36e1445dc5f1efca439c86752cb43b2a849ff6db0aaff1c448d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001354493:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001354493/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000384189",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:17:15.677041+00:00",
+      "content_hash": "9204a79ea5cdc8111fbd5d1532b607b97019ee8ba6084e0758eb103a4431fc4c",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:17:15.677041+00:00",
+      "input_hash": "6e58ed0923f27b226991b83b8aa6301d26e022bbaa769f13fa9de4b25da95dbc",
+      "previous_revision": null,
+      "revision_id": "rev-6e58ed0923f27b226991b83b",
+      "saved_at": "2026-10-12T07:17:23.562136+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "JRA本人プロフィールの調教師白井寿昭（栗東）。2001-04-16・父タイキシャトル・母ナイスレイズと独立IDを照合。",
+          "birth_year": 2001,
+          "country": "JP",
+          "horse": "メイショウボーラー",
+          "trainer": "白井寿昭",
+          "training_location": "栗東"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-02/jbis-0000727032-source.json",
+        "record_hash": "b97cc708a73e3e6cdf30fdb9932e89436f505ea1067397ca6a6bef8879f99969",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0000727032",
+        "source_class": "OFFICIAL_JRA",
+        "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102001100650/D1"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "captured_at": "2026-10-12T07:17:15.677041+00:00",
+              "record_hash": "b97cc708a73e3e6cdf30fdb9932e89436f505ea1067397ca6a6bef8879f99969",
+              "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102001100650/D1"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18-02 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

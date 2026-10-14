@@ -1,5 +1,116 @@
 # Execution Compliance Gate
 
+このディレクトリは、チャットやAIの自己申告ではなく、機械判定で予想・回顧・適用Shadowのルール準拠状態を確定するための実行台帳を置く。
+
+## 契約version
+
+checkerは `manual_release + schema_version` の組み合わせで検証契約を選択する。
+
+| manual release | gate schema | 用途 |
+|---|---|---|
+| `v1.6.1` | `prediction-compliance-v1` | 第3サイクルまでの旧契約。Betting監査を含む |
+| `v1.7.0` | `prediction-compliance-v2` | 次期Prediction中心契約。2026-10-13は最短開始可能日であり、自動切替日ではない |
+
+`prediction-compliance-v1` の意味は変更しない。mainの現行releaseが将来更新されても、過去のv1 gateは旧validatorで検証する。未知のrelease/schema組み合わせはfail closedとする。
+
+### 正式切替状態
+
+`docs/validation/execution-gates/contract-state.json` を次期契約の切替状態の正本とする。
+
+- `earliest_race_date=2026-10-13` はv2を開始できる最短日であり、v1をその日に自動失効させない。
+- `status=PENDING` の間は、10月13日以降でも現行 `v1.6.1` gateを継続できる。
+- 正式切替時はmanual releaseを `v1.7.0` へ変更する同じ変更で `status=ACTIVE`、`effective_race_date`、`activated_at_jst` を固定する。
+- ACTIVE後は `effective_race_date` 以前のv1履歴を引き続き検証し、同日以降の新規v1 gateを拒否する。
+- v2 gateは `earliest_race_date` と `effective_race_date` の両方を満たす場合だけ認証する。
+- manual releaseとcontract-stateが矛盾する場合はfail closedする。
+
+
+推奨買い目は予想v2とは別の `recommendation-compliance-v1` で検証する。詳細は [推奨買い目の契約・保存・監査](../recommendations/README.md)。`contract-state.json` の `recommendation_effective_race_date=null` の間は、準備済みv2 gateにも新推奨を遡及必須化しない。Stage 2で有効開催日を固定すると、それ以降のPrediction gateに対応する推奨gateが必須になる（推奨なし・明示的印のみ・未完了も分類）。PredictionとRecommendationの合否および市場sidecarの合否は混ぜない。
+
+`prediction-compliance-v2` は実購入・BettingをProduction正式性の必須入力にしない。Production、適用Shadow、発走前証跡、data cutoff相当の時点性、結果後回顧を監査する。市場・仮想収益検証を行う場合は任意sidecarとして別契約に分離する。
+
+### v2 Production必須構造
+
+- `ranking`: Production順位。3頭以上、馬番重複不可
+- `marks.honmei / taikou / tanana`: ranking 1〜3位と完全一致
+- `marks.renka`: 4位以下を順位順に保持する任意配列
+- `probabilities`: 少なくとも上位3頭の勝率・連対相当・3着内率
+- `prediction_confidence`: `A / B / C / D`
+- `data_cutoff`: Predictionで利用可能な情報時点。発走予定時刻より前であること
+- `evidence_items`: 少なくとも上位3頭について、根拠事実・出所・観測時刻・方向・強度を保持。観測時刻はdata_cutoffを越えない
+- `evidence_ref`: Production KPIをELIGIBLEとする場合の発走前snapshot/receipt参照
+- `prediction-snapshot-v2` JSONは `working_branch` と `scheduled_post_time_jst` を含み、persistence intentの `artifact_path`・race scope・receipt・SHA-256読戻し検証を通過すること
+- Productionを `ELIGIBLE` にするsnapshotはJSONの `prediction-snapshot-v2` とし、gateの `baseline_forecast_id / ranking / marks / probabilities / prediction_confidence / evidence_items / data_cutoff / fixed_at_jst / manual release・commit` と完全一致すること
+
+印は順位から導出する。4位以下にも勝利可能性は認め、確率・レンジ・シナリオで表現する。勝利可能性があることだけを理由に3位以内へ順位を操作しない。
+
+### v2 最小例
+
+```json
+{
+  "schema_version": "prediction-compliance-v2",
+  "race_id": "20261013-TOK-01",
+  "race_date_jst": "2026-10-13",
+  "mode": "FORWARD",
+  "working_branch": "prediction/2026-10-13",
+  "manual_release": "v1.7.0",
+  "manual_ref_commit": "40文字のcommit SHA",
+  "scheduled_post_time_jst": "2026-10-13T10:10:00+09:00",
+  "data_cutoff": "2026-10-13T09:50:00+09:00",
+  "timing_route": "SNAPSHOT_CANDIDATE",
+  "production": {
+    "baseline_forecast_id": "20261013-TOK-01-P001",
+    "ranking": [5, 2, 6, 4, 1, 3],
+    "marks": {"honmei": 5, "taikou": 2, "tanana": 6, "renka": [4, 1, 3]},
+    "probabilities": [
+      {"horse_no": 5, "win_probability": 0.22, "top2_probability": 0.39, "top3_probability": 0.53},
+      {"horse_no": 2, "win_probability": 0.18, "top2_probability": 0.34, "top3_probability": 0.49},
+      {"horse_no": 6, "win_probability": 0.14, "top2_probability": 0.29, "top3_probability": 0.43}
+    ],
+    "prediction_confidence": "B",
+    "evidence_items": [
+      {
+        "horse_no": 5,
+        "factor": "ability",
+        "fact": "確認済み事実",
+        "source_ref": "source-or-provenance-id",
+        "observed_at_jst": "2026-10-13T09:40:00+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 2,
+        "factor": "recent_form",
+        "fact": "確認済み事実",
+        "source_ref": "source-or-provenance-id",
+        "observed_at_jst": "2026-10-13T09:40:00+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 6,
+        "factor": "opponent_strength",
+        "fact": "確認済み事実",
+        "source_ref": "source-or-provenance-id",
+        "observed_at_jst": "2026-10-13T09:40:00+09:00",
+        "direction": "neutral",
+        "strength": "weak"
+      }
+    ],
+    "fixed_at_jst": "2026-10-13T09:55:00+09:00"
+  },
+  "kpi_eligibility": {
+    "production": "INELIGIBLE",
+    "shadow": "INELIGIBLE"
+  },
+  "shadow_items": [],
+  "review": {"status": "NOT_STARTED"}
+}
+```
+
+以下のv1節は、`v1.6.1 + prediction-compliance-v1` の履歴契約として保持する。
+
+
 このディレクトリは、チャットやAIの自己申告ではなく、機械判定で予想・買い目・回顧のルール準拠状態を確定するための実行台帳を置く。
 
 ## 原則
@@ -17,7 +128,7 @@
 - GitHub Actionsは `--audit` で欠落一覧を報告する。これは書込後の監査であり、予想とreceiptの保存を止める判定ではない。終了コード0でも `AUDIT_INCOMPLETE` があれば、該当レースはゲート認証済みではない。正式KPIへ登録する前に通常の厳格照合を通す。
 - `COVERAGE YYYY-MM-DD: gates=N missing_certifications=M ungated_snapshots=K` は、保存済みゲート件数、正式適格を主張しているのに証跡がない件数、ゲート未登録のsnapshot参照数を表す。未登録のsnapshotは予想記録として保持されるが、KPI適格の認証ではない。日付はファイルから読み取り、特定日の例外は設けない。
 - 発走後に作ったReplay Shadowは、結果を入力へ直接使っていなくても `ELIGIBLE` にできない。
-- KPIを `ELIGIBLE` にするには、参照artifactとreceiptが実在し、receipt近傍に `PRE_RACE_ELIGIBLE` が存在することをcheckerが確認する。
+- KPIを `ELIGIBLE` にするには、参照artifactとreceiptが実在し、receipt近傍に `PRE_RACE_ELIGIBLE` が存在することをcheckerが確認する。v2 Productionでは存在確認だけでなく、構造化snapshot内容とgate内容の完全一致を確認する。v2日別台帳のProduction/Shadow `ELIGIBLE` は対応するexecution gateの存在・同一適格状態も必須とする。
 - 既存の `## persistence_receipt` 形式と `persistence-receipt-v1` JSON形式の両方を同一レコードとして照合する。両形式が同じreceipt_idで矛盾する場合は拒否する。receiptの形式差だけを理由に、発走前保存済みの予想を見落とさない。
 - E-11はv1.6.1の確信度尺度矛盾が解消されるまで `PENDING_RULE_CONFLICT` 以外を許可しない。
 - 買い目は採用前の `natural_candidates` を必ず保持する。採用しなかった候補には `rejected_candidates.reason` を要求する。

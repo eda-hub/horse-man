@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0001364081",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2013,
+    "external_ids": {
+      "JBIS": "0001364081"
+    },
+    "identity_evidence": {
+      "ancestor_path": "D",
+      "record_hash": "58b48a596cdef8a6f3b3277073b32228e32cd3b2f4ae588941eab77755dd0f44",
+      "record_key": "0001364081",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001365013/pedigree/"
+    },
+    "name": "ファウンドアダイヤモンド(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.905216+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.905216+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2013,
+    "external_ids": {
+      "JBIS": "0001364081"
+    },
+    "identity_evidence": {
+      "ancestor_path": "D",
+      "record_hash": "58b48a596cdef8a6f3b3277073b32228e32cd3b2f4ae588941eab77755dd0f44",
+      "record_key": "0001364081",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001365013/pedigree/"
+    },
+    "name": "ファウンドアダイヤモンド(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:23:25.077972+00:00",
+      "content_hash": "7496c0be15311ebeaf962cb5a51921b045a94bee8197057a4d1c4e43dba2a585",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:23:25.077972+00:00",
+      "input_hash": "7f973384dded9be080606fe3cd64ed4ddabc490803181802f52890bb5aead5ed",
+      "previous_revision": null,
+      "revision_id": "rev-7f973384dded9be080606fe3",
+      "saved_at": "2026-10-12T06:30:39.123386+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "58b48a596cdef8a6f3b3277073b32228e32cd3b2f4ae588941eab77755dd0f44",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001365013:DS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001365013/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001086106",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:23:25.077972+00:00",
+      "content_hash": "3710abbfcec814742fb00604559f25ad2cffa7ad232856695213aa2d4ce47441",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:23:25.077972+00:00",
+      "input_hash": "6ee7d0bed8c695f078aa373cbe9935173f9406ebcbf9ac1ef43cf99a85b58434",
+      "previous_revision": null,
+      "revision_id": "rev-6ee7d0bed8c695f078aa373c",
+      "saved_at": "2026-10-12T06:30:39.124996+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "58b48a596cdef8a6f3b3277073b32228e32cd3b2f4ae588941eab77755dd0f44",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001365013:DD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001365013/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001360724",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

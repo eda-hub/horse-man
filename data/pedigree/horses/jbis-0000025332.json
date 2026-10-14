@@ -1,0 +1,124 @@
+{
+  "horse_key": "jbis-0000025332",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1968,
+    "external_ids": {
+      "JBIS": "0000025332",
+      "NETKEIBA": "1968102837"
+    },
+    "identity_evidence": {
+      "record_key": "0000025332",
+      "source": "JBIS"
+    },
+    "name": "ズイシヨウ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:17.428335+00:00",
+  "identity_observed_at": "2026-10-09T15:04:17.428335+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 1968,
+        "external_ids": {
+          "JBIS": "0000025332",
+          "NETKEIBA": "1968102837"
+        },
+        "identity_evidence": {
+          "record_key": "0000025332",
+          "source": "JBIS"
+        },
+        "name": "ズイシヨウ",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:32:22.277551+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1968,
+        "external_ids": {
+          "JBIS": "0000025332"
+        },
+        "identity_evidence": {
+          "record_key": "0000025332",
+          "source": "JBIS"
+        },
+        "name": "ズイシヨウ",
+        "status": "RESOLVED"
+      },
+      "event_hash": "bd5b90993c89a08c8327f1070b022a2bb2e4c4ac8947df05893b17dd2aa34ff6",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1968,
+    "external_ids": {
+      "JBIS": "0000025332"
+    },
+    "identity_evidence": {
+      "record_key": "0000025332",
+      "source": "JBIS"
+    },
+    "name": "ズイシヨウ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:34.726631+00:00",
+      "content_hash": "506e928d451ef338f6f7962a807d224dcf495e8f691552a5f9ebeb69ee8fdb68",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:34.726631+00:00",
+      "input_hash": "07648accd07e89dff2ba3a63f79e736dcd9db8120c76531aa70f97870798be37",
+      "previous_revision": null,
+      "revision_id": "rev-07648accd07e89dff2ba3a63",
+      "saved_at": "2026-10-12T06:30:37.755248+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "befa4e21fd89581e9c4a6b50d0c3aff9ed4b2a71057ba5ec2eda8720ecac54ce",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001318417:DSSDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001318417/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333257",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:34.726631+00:00",
+      "content_hash": "948dee16d5efaf58df8c514eb5a9892c5033b577d460cf742ae288cf647d1f10",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:34.726631+00:00",
+      "input_hash": "c4551b578c75fd75d2385acd12fb8dec2545a86924048438869344a4769c880a",
+      "previous_revision": null,
+      "revision_id": "rev-c4551b578c75fd75d2385acd",
+      "saved_at": "2026-10-12T06:30:37.756776+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "befa4e21fd89581e9c4a6b50d0c3aff9ed4b2a71057ba5ec2eda8720ecac54ce",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001318417:DSSDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001318417/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000008878",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

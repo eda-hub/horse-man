@@ -1,0 +1,128 @@
+{
+  "horse_key": "jbis-0000405468",
+  "identity": {
+    "aliases": [
+      "Summertime Promise (米)"
+    ],
+    "birth_year": 1972,
+    "external_ids": {
+      "JBIS": "0000405468",
+      "NETKEIBA": "000a009d7b"
+    },
+    "identity_evidence": {
+      "record_key": "0000405468",
+      "source": "JBIS"
+    },
+    "name": "Summertime Promise(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:21.631109+00:00",
+  "identity_observed_at": "2026-10-09T15:04:21.631109+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [
+          "Summertime Promise (米)"
+        ],
+        "birth_year": 1972,
+        "external_ids": {
+          "JBIS": "0000405468",
+          "NETKEIBA": "000a009d7b"
+        },
+        "identity_evidence": {
+          "record_key": "0000405468",
+          "source": "JBIS"
+        },
+        "name": "Summertime Promise(USA)",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:43.522472+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 1972,
+        "external_ids": {
+          "JBIS": "0000405468"
+        },
+        "identity_evidence": {
+          "record_key": "0000405468",
+          "source": "JBIS"
+        },
+        "name": "Summertime Promise(USA)",
+        "status": "RESOLVED"
+      },
+      "event_hash": "60bdecae46d752caff4216c68eed15b96c2603aa51944486d0700c595c6d6a21",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1972,
+    "external_ids": {
+      "JBIS": "0000405468"
+    },
+    "identity_evidence": {
+      "record_key": "0000405468",
+      "source": "JBIS"
+    },
+    "name": "Summertime Promise(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:55.034226+00:00",
+      "content_hash": "9f2d1c7157c2a26b8070f1e7eb92d8cf0c7a409ba25f202a442722ecee693eb8",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:55.034226+00:00",
+      "input_hash": "a537b505b593e8c68c26d310cd4d8fee301e9b4b761798df4e66d4dc8fb22c34",
+      "previous_revision": null,
+      "revision_id": "rev-a537b505b593e8c68c26d310",
+      "saved_at": "2026-10-12T06:30:44.599043+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "3f43fd91e5787c9739d6ee749eccab38d391287beb67dff07a80d531d511ccf0",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001303278:SSDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001303278/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000333996",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:55.034226+00:00",
+      "content_hash": "4f4a275c3a50921602f6862a251b8d520edd79794427927f7ddaad00f60150f9",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:55.034226+00:00",
+      "input_hash": "3d194abcbff520bbb53b63f7b306be5b92c0b42cfe8e1864dfa5540996f081c2",
+      "previous_revision": null,
+      "revision_id": "rev-3d194abcbff520bbb53b63f7",
+      "saved_at": "2026-10-12T06:30:44.600576+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "3f43fd91e5787c9739d6ee749eccab38d391287beb67dff07a80d531d511ccf0",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001303278:SSDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001303278/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000386226",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

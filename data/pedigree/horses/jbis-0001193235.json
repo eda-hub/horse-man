@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001193235",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "JBIS": "0001193235"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "fe9c2b8d5e163d2f06f8328951d6c297e44a3de5ab4304cfe286783f7a745ffa",
+      "record_key": "0001193235",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001365965/pedigree/"
+    },
+    "name": "Mr Speaker(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.663728+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.663728+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2011,
+    "external_ids": {
+      "JBIS": "0001193235"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "fe9c2b8d5e163d2f06f8328951d6c297e44a3de5ab4304cfe286783f7a745ffa",
+      "record_key": "0001193235",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001365965/pedigree/"
+    },
+    "name": "Mr Speaker(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:55.204206+00:00",
+      "content_hash": "a1f939f7b9b3d29501568fb4fd8a83f0f0d46761d4c7f49db9f2724d30dc31b9",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:55.204206+00:00",
+      "input_hash": "5c80babb82785fbd13f19cb24ec75256ae159a1909ff34f391931ed80e0c1da4",
+      "previous_revision": null,
+      "revision_id": "rev-5c80babb82785fbd13f19cb2",
+      "saved_at": "2026-10-12T06:30:38.194810+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9c2b8d5e163d2f06f8328951d6c297e44a3de5ab4304cfe286783f7a745ffa",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001365965:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001365965/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000337958",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:55.204206+00:00",
+      "content_hash": "3a541e5f273b622f8bb5b4ed481fb510263f73460aa344eb3474213199097b3a",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:55.204206+00:00",
+      "input_hash": "737b93dacb3be60acba9fa7f6b6012a89e4d573c56975883cabc1ac10ae6d089",
+      "previous_revision": null,
+      "revision_id": "rev-737b93dacb3be60acba9fa7f",
+      "saved_at": "2026-10-12T06:30:38.196551+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fe9c2b8d5e163d2f06f8328951d6c297e44a3de5ab4304cfe286783f7a745ffa",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001365965:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001365965/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000898909",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:04.608074+00:00",
+      "content_hash": "a70bdb9c3621d2cd411ebdd9a499d5de2b9005151951f720cfec1659d70ca47a",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:04.608074+00:00",
+      "input_hash": "3c10be7de62ed3f37bb8f00cf64e3529adc5a42bc0addf3f754d78dcd1bcc9a8",
+      "previous_revision": null,
+      "revision_id": "rev-3c10be7de62ed3f37bb8f00c",
+      "saved_at": "2026-10-12T07:32:06.678687+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人がMcGaugheyの管理下でBelmont芝コースの調教を継続している原記事を確認。2015年引退記事のPulpit/Salute・Phipps Stableと同一個体を照合。",
+          "birth_year": 2011,
+          "country": "US",
+          "horse": "Mr Speaker(USA)",
+          "trainer": "Shug McGaughey",
+          "training_location": "Belmont Park"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-05/jbis-0001193235-source.json",
+        "record_hash": "394730c1bc31ba2fbed58ab37a38348ddea56cd51c0ff22cf54dfb0b340f71bb",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001193235",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://www.thoroughbreddailynews.com/mr-speaker-should-have-say-in-hill-prince-shared-archive/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:32:04.608074+00:00",
+              "record_hash": "394730c1bc31ba2fbed58ab37a38348ddea56cd51c0ff22cf54dfb0b340f71bb",
+              "url": "https://www.thoroughbreddailynews.com/mr-speaker-should-have-say-in-hill-prince-shared-archive/"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

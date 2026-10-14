@@ -1,0 +1,90 @@
+{
+  "horse_key": "jbis-0001252061",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2014,
+    "external_ids": {
+      "JBIS": "0001252061"
+    },
+    "identity_evidence": {
+      "record_key": "0001252061",
+      "source": "JBIS",
+      "source_sheet": "0001423797"
+    },
+    "name": "Precious Ramotswe(GB)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:14:52.454113+00:00",
+  "identity_observed_at": "2026-10-10T10:14:52.454113+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2014,
+    "external_ids": {
+      "JBIS": "0001252061"
+    },
+    "identity_evidence": {
+      "record_key": "0001252061",
+      "source": "JBIS",
+      "source_sheet": "0001423797"
+    },
+    "name": "Precious Ramotswe(GB)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:14:52.481510+00:00",
+      "content_hash": "954e1ef8c2280f2b669a3093b161eaac3a18743d36ad4305e742e3116563dc19",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:14:52.481507+00:00",
+      "input_hash": "92c1d412cceb649a1999c1a17ff764eca59493c0366210bce1f25092966f6dbd",
+      "previous_revision": null,
+      "revision_id": "rev-92c1d412cceb649a1999c1a1",
+      "saved_at": "2026-10-10T10:14:52.484317+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "JBIS",
+        "record_hash": "d577159847954363d2090420f412561c301c9aa87a178217bf31fa149e10c190",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423797:DS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423797/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001132797",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:14:52.485665+00:00",
+      "content_hash": "28aeb35162c0b0cfdcb847270082708eb632a92cb3947fa4d4be7fdc610c8873",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:14:52.485663+00:00",
+      "input_hash": "bea08c0ec69f9f30e8338e82bb8be54df85405b17ef063fcdb178c9f9f82bb5e",
+      "previous_revision": null,
+      "revision_id": "rev-bea08c0ec69f9f30e8338e82",
+      "saved_at": "2026-10-10T10:14:52.488664+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "JBIS",
+        "record_hash": "d577159847954363d2090420f412561c301c9aa87a178217bf31fa149e10c190",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001423797:DD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001423797/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a01b50f",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

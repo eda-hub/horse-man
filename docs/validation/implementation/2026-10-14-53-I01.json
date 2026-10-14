@@ -1,0 +1,36 @@
+{
+  "schema_version": "numbered-implementation-v1",
+  "task": "53-I01",
+  "status": "IMPLEMENTATION_ACCEPTED",
+  "basis_commit": "8f905e35b9a331248141785adfd31f3d63ab941f",
+  "local_tests": 5,
+  "failures": 0,
+  "skipped": 0,
+  "formal_schema_changed": false,
+  "real_acquisition_performed": false,
+  "global_ci": "実統合CI成功の117入力hashを保存。最終HEADのCIはPR本文で確認。",
+  "files": [
+    "scripts/chat_fact_capture.py",
+    "scripts/test_chat_fact_capture.py",
+    "docs/validation/chat-fact-helpers.md"
+  ],
+  "remaining": "53-I02以降と既存29/37の実測待ちを保持",
+  "global_tests": 693,
+  "source_count": 117,
+  "source_manifest_sha256": "adf100e8e19a85b7bc44bccaa2b6dd619994212bd196f2217c95ab1e7e971e52",
+  "validation_basis_commit": "d396574a71d498ca9f56165dedd25717eb5e831f",
+  "ci": [
+    {
+      "id": 38433637129,
+      "conclusion": "success"
+    },
+    {
+      "id": 38433637289,
+      "conclusion": "success"
+    },
+    {
+      "id": 38433637339,
+      "conclusion": "success"
+    }
+  ]
+}

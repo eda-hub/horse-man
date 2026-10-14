@@ -1,0 +1,38 @@
+{
+  "schema_version": "oct11-task16-completion-readback-v1",
+  "execution_number": 16,
+  "status": "PASS",
+  "input_commit": "1c3443d02c313a3923e9d4ce993a431a32f593e4",
+  "completed_subtasks": 44,
+  "all_entries": 215,
+  "previously_resolved_entries": 9,
+  "remaining_entries_processed": 206,
+  "unresolved_entries": 0,
+  "registry_roots_added": 162,
+  "registry_roots_reused": 53,
+  "checks": {
+    "固定inventoryと追加checkpointの対象順44バッチ": "PASS",
+    "全44バッチのidentities・checkpoint・verification": "PASS",
+    "既存同定4行とバッチ211行の合計・一意性": "PASS",
+    "公式14レース215行の馬番・馬名・性齢": "PASS",
+    "外国産馬9頭の本人名末尾国表記を除いた公式名一致": "PASS",
+    "全215本人レコードのリモートtree存在": "PASS",
+    "追加162本人レコードのGit blob SHA読戻し": "PASS",
+    "原票229ファイルのGit blob SHA読戻し": "PASS"
+  },
+  "ci": {
+    "run_id": 38166351994,
+    "url": "https://github.com/eda-hub/horse-man/actions/runs/38166351994",
+    "conclusion": "success",
+    "regression_tests": 310
+  },
+  "limitations": [
+    "今回の再開確認は保存済み成果の読戻し照合。外部原票の再取得・gzip原票の展開再検査は実施していない。",
+    "既存通常CIの結果と今回の対象順・全出走対応・リモートGit blob照合を区別する。",
+    "17番の必要5代血統検査・取得・登録の完了を意味しない。"
+  ],
+  "production_eligible": false,
+  "usage": "REPLAY_ONLY",
+  "next_execution_number": 17,
+  "next_subtask": "17-01"
+}

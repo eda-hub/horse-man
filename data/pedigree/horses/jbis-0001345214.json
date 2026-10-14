@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0001345214",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001345214"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "82a1dca0ab801c76454963f38f6cde74fc5028247483562d525addb3ba8ddb32",
+      "record_key": "0001345214",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001401356/pedigree/"
+    },
+    "name": "Vekoma(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:34.989560+00:00",
+  "identity_observed_at": "2026-10-12T06:30:34.989560+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2016,
+    "external_ids": {
+      "JBIS": "0001345214"
+    },
+    "identity_evidence": {
+      "ancestor_path": "S",
+      "record_hash": "82a1dca0ab801c76454963f38f6cde74fc5028247483562d525addb3ba8ddb32",
+      "record_key": "0001345214",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001401356/pedigree/"
+    },
+    "name": "Vekoma(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:25:06.156194+00:00",
+      "content_hash": "34f621f2ce1a5eb2def931e19ab8409b6351930d89173dba75752ecbdb8d7365",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:25:06.156194+00:00",
+      "input_hash": "95aac30380e7ec054280461d0f46cf8e0c9bcd3e16fe47a92acf3ca9a5b90dfd",
+      "previous_revision": null,
+      "revision_id": "rev-95aac30380e7ec054280461d",
+      "saved_at": "2026-10-12T06:30:43.597146+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "82a1dca0ab801c76454963f38f6cde74fc5028247483562d525addb3ba8ddb32",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001401356:SS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001401356/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000965271",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:25:06.156194+00:00",
+      "content_hash": "d4bf754c9aabe2677a8657f854b06b82cf4ff32ae7d39e3c87c0bdcb7d97144e",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:25:06.156194+00:00",
+      "input_hash": "7d29e0d472c75f4cf3d56d0958799d7b049fec7dee637e573a786cb58b978a18",
+      "previous_revision": null,
+      "revision_id": "rev-7d29e0d472c75f4cf3d56d09",
+      "saved_at": "2026-10-12T06:30:43.598308+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "82a1dca0ab801c76454963f38f6cde74fc5028247483562d525addb3ba8ddb32",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001401356:SD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001401356/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0001128243",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:32:09.281321+00:00",
+      "content_hash": "5b1061d327d6e7fc4d9df2450774792f379973231beaaaabd0f025bd2e7b0b10",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:32:09.281321+00:00",
+      "input_hash": "a2daf3625a1a1d56dbe0bb97cbf68239a9dce088984b31de549de88b94d4d8be",
+      "previous_revision": null,
+      "revision_id": "rev-a2daf3625a1a1d56dbe0bb97",
+      "saved_at": "2026-10-12T07:32:11.442526+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "本人がGeorge WeaverのPalm Beach Downs厩舎からDerbyへ向けて調教する本人記事、父Candy Ride・母Mona De Mommaの独立ID対応を照合。",
+          "birth_year": 2016,
+          "country": "US",
+          "horse": "Vekoma(USA)",
+          "trainer": "George Weaver",
+          "training_location": "Palm Beach Downs, Florida"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-07/jbis-0001345214-source.json",
+        "record_hash": "ba478cefe25013c07150daf6132b61a00837d6707a17432871e6cac67a2e46db",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0001345214",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://paulickreport.com/news/triple-crown/weaver-vekomas-uncharacteristic-gallop-has-always-been-his-style"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-12T07:32:09.281321+00:00",
+              "record_hash": "ba478cefe25013c07150daf6132b61a00837d6707a17432871e6cac67a2e46db",
+              "url": "https://paulickreport.com/news/triple-crown/weaver-vekomas-uncharacteristic-gallop-has-always-been-his-style"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18番全残件 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

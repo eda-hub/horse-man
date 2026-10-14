@@ -1,0 +1,68 @@
+{
+  "schema_version": "task30-checkpoint-v1",
+  "task": 30,
+  "input_pr69_sha": "399a294b98ec4aa0df388ad26f8bfbd05085fb33",
+  "input_pr68_sha": "3ca5c1994c686d533c472459ba13ea04184ac44d",
+  "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_CALIBRATION_CONTINUES",
+  "tasks": {
+    "30-01": "CENTER_AND_BASIS_DISPLAY_VERIFIED",
+    "30-02": "NULL_VERSUS_ZERO_VERIFIED",
+    "30-03": "RANGE_AND_CALIBRATED_LOWER_SEPARATION_VERIFIED"
+  },
+  "implementation": {
+    "entry": "scripts/probability_presentation.py",
+    "existing_entry": "cycle04_operations.validate_ticket_comparison",
+    "procedure": "docs/validation/probability-presentation.md",
+    "production_formal_schema_changed": false,
+    "production_basis_not_recorded": "既存Productionの校正区分・レンジは未記録として表示し、比較券の区分を移植しない",
+    "calibration_reference_existence_is_authentication": false
+  },
+  "validation": {
+    "new_tests": 15,
+    "local_related_tests": 131,
+    "failures": 0,
+    "skipped": 0,
+    "local_history_inputs_retrieved": true,
+    "ci": {
+      "basis_commit": "f0ae73a4c89b1fb8cb57a62c9f0b5f7f68d5eb48",
+      "integration_run": 38369677242,
+      "research_run": 38369677264,
+      "result": "SUCCESS",
+      "tests_run": 612,
+      "skipped": 0,
+      "source_count": 107,
+      "source_manifest_sha256": "f0eccfce239ca268c829dde675044963c0d842fba6fd7584859c9d13b9565d35",
+      "initial_normal_failure": {
+        "run_id": 38369677285,
+        "tests_run": 612,
+        "reason": "旧受入hashのstaleを検出。統合CIの実成功107入力hashで更新"
+      },
+      "final_normal": "SUCCESS",
+      "final": {
+        "commit_sha": "9421b7f7f8662e3e91b13d23d97baf5ec6bd58c7",
+        "normal_run": 38370041074,
+        "integration_run": 38370040981,
+        "research_run": 38370041243,
+        "result": "ALL_SUCCESS",
+        "tests_run": 612,
+        "skipped": 0
+      }
+    }
+  },
+  "protected": {
+    "prediction_values_changed": false,
+    "recommendation_changed": false,
+    "old_artifacts_changed": false,
+    "owner_changed": false,
+    "workflow_changed": false,
+    "data_changed": false
+  },
+  "remaining": {
+    "actual_calibration": "CONTINUE_VALIDATION",
+    "performance_promoted": false,
+    "market_task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
+  },
+  "next": "31-01",
+  "implementation_commit": "f0ae73a4c89b1fb8cb57a62c9f0b5f7f68d5eb48",
+  "remote_readback": "ALL_CHANGED_FILES_MATCH"
+}

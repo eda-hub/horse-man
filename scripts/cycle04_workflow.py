@@ -13,7 +13,7 @@ from pathlib import Path
 
 from check_cycle04 import CONTRACT_PATH, DATES, SCHEMA, validate_day
 from check_prediction_compliance import iso, validate_gate
-from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_market
+from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_market, validate_market_payload
 from recommendation import verify as verify_recommendation, settle
 from run_release_readiness import check as check_release
 from two_axis_candidates import compare as compare_two_axis
@@ -147,7 +147,7 @@ def select(root, date, ref):
     return save(root,day,before)
 
 
-def record_prediction(root,date,entry):
+def record_prediction(root,date,entry,*,preview=False):
     day,before = read_day(root,date);race = entry.get('race_id')
     require(race in day['initial_scope'], 'prediction outside initial scope')
     row = day['races'][race];phase = entry.get('phase')
@@ -184,16 +184,19 @@ def record_prediction(root,date,entry):
     if gate.get('shadow_items'):
         set_state(day['kpis']['shadow'],race,shadow_state,'該当Shadowの独立状態')
     if phase == 'FINAL':
-        row['two_axis_comparison'] = compare_two_axis(gate['production'])
         rec_path = entry.get('recommendation_gate_path')
         require(rec_path, 'FINAL requires recommendation state and independent gate')
         rec = verify_recommendation(root,safe_path(root,rec_path))
         require(rec['race_id'] == race and rec['race_date_jst'] == date, 'recommendation identity mismatch')
+        row['two_axis_comparison'] = compare_two_axis(gate['production'],
+                                                    cancelled_horses=rec.get('cancelled_horses',[]))
         row['recommendation_gate_path'] = rec_path; row['recommendation_state'] = rec['status']
         rec_gate = load(safe_path(root,rec_path))
         set_state(day['kpis']['recommendation'],race,rec_gate['kpi_eligibility'],'固定推奨の独立状態：'+rec['status'])
         if race not in day['final_scope']: day['final_scope'].append(race)
         day['unfinished_reasons'].pop(race,None)
+    if preview:
+        return path_for_validation(root,day)
     return save(root,day,before)
 
 
@@ -202,11 +205,13 @@ def record_market(root,date,entry):
     require(race in day['final_scope'],'optional market requires a fixed FINAL scope')
     require(race not in day['reviewed_scope'],'reviewed market is immutable')
     row=day['races'][race];payload,_=verified_artifact(root,entry.get('market_ref'),row['scheduled_post_time_jst'])
-    require(payload.get('schema_version')=='market-analysis-v1' and payload.get('race_id')==race and
+    require(payload.get('race_id')==race and
             payload.get('race_date_jst')==date,'independent market identity mismatch')
     cutoff=payload.get('data_cutoff')
     require(iso(cutoff,'market cutoff')<iso(row['scheduled_post_time_jst'],'post'),'market cutoff must precede post')
-    state=validate_market(payload.get('market'),cutoff)
+    state=validate_market_payload(payload,cutoff)
+    from market_acquisition import verify_responses
+    verify_responses(root,payload)
     row['market_ref']=copy.deepcopy(entry['market_ref']);row['market']=copy.deepcopy(payload['market'])
     row['market_cutoff']=cutoff
     set_state(day['kpis']['market'],race,'ELIGIBLE' if state=='ACQUIRED' else 'PENDING',

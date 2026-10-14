@@ -1,0 +1,73 @@
+{
+  "schema_version": "explicit-pedigree-research-selection-v1",
+  "mode": "REPLAY",
+  "production_eligible": false,
+  "defined_at": "2026-10-10T12:42:30.177088+00:00",
+  "ancestor_subjects": [
+    "jbis-0000334731",
+    "jbis-0000337102",
+    "jbis-0001127392",
+    "jbis-0000336082",
+    "jbis-0000335167",
+    "jbis-0000336085",
+    "jbis-0000334968",
+    "jbis-0000334002",
+    "jbis-0000335975",
+    "jbis-0000334374",
+    "jbis-0000333996",
+    "jbis-0000336572",
+    "jbis-0000714343",
+    "jbis-0000347989",
+    "jbis-0000333862",
+    "jbis-0000334140",
+    "jbis-0000334001",
+    "jbis-0000337424",
+    "jbis-0000340528",
+    "jbis-0000161740",
+    "jbis-0000333952"
+  ],
+  "straight_line_roots": [
+    "サンデーサイレンス",
+    "Kingmambo",
+    "Roberto",
+    "Danzig",
+    "Storm Cat",
+    "Mr. Prospector"
+  ],
+  "cross_roots": [
+    "サンデーサイレンス",
+    "Northern Dancer",
+    "Roberto",
+    "Danzig",
+    "Lyphard",
+    "Mr. Prospector"
+  ],
+  "line_rule": "対象馬から父はS/SS/SSS/SSSS/SSSSS、母父はDS/DSS/DSSS/DSSSSの経路で指定個体の独立IDと一致。広い系統名の曖昧な分類を移植しない。",
+  "cross_rule": "対象馬の5代62位置に同一独立IDが2位置以上。特定の3×4等と同義ではなく、全位置を保存して集計する。",
+  "sources": [
+    {
+      "path": "data/pedigree/reconciliations/2026-10-10-training-priority/designated-ancestor-target-review.json",
+      "sha256": "a85273e7ca2f6248fd5b22f724a5b74723c925121663ad44f1a28b8ef6c131a9"
+    },
+    {
+      "path": "docs/yosou/jra_racing/chukyoKinen.md",
+      "original_commit": "439faa54a524ce9d242f100788f2a80fa2b0b698",
+      "lines": [
+        95,
+        96,
+        100,
+        102
+      ]
+    },
+    {
+      "path": "docs/yosou/jra_racing/keenelandCup.md",
+      "original_commit": "439faa54a524ce9d242f100788f2a80fa2b0b698",
+      "lines": [
+        191,
+        192,
+        193
+      ]
+    }
+  ],
+  "limitations": "選定39条件だけの記述統計。単年の該当率を優位性・適性・因果・Production加点へ昇格しない。5代を超える父系・クロスは範囲外。"
+}

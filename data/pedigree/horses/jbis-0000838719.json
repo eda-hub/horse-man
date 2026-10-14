@@ -1,0 +1,94 @@
+{
+  "horse_key": "jbis-0000838719",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1994,
+    "external_ids": {
+      "JBIS": "0000838719"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "0d708eb6f759419659aa6ecc841dbcedf7c2533b4dabac16e4d24781100e2728",
+      "record_key": "0000838719",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001358351/pedigree/"
+    },
+    "name": "Siberian Fur(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.730575+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.730575+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1994,
+    "external_ids": {
+      "JBIS": "0000838719"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DDD",
+      "record_hash": "0d708eb6f759419659aa6ecc841dbcedf7c2533b4dabac16e4d24781100e2728",
+      "record_key": "0000838719",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001358351/pedigree/"
+    },
+    "name": "Siberian Fur(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:55.641030+00:00",
+      "content_hash": "dd4072b9459173e1a2600656fe3954214a6fd44c3478a1f67d12653ecb2f86f0",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:55.641030+00:00",
+      "input_hash": "6885db43623e5175fcd6bbf92c715abdd129f61444991a5fc56aaad1977a4854",
+      "previous_revision": null,
+      "revision_id": "rev-6885db43623e5175fcd6bbf9",
+      "saved_at": "2026-10-12T06:30:38.450661+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "0d708eb6f759419659aa6ecc841dbcedf7c2533b4dabac16e4d24781100e2728",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001358351:DDDS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001358351/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000336573",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:55.641030+00:00",
+      "content_hash": "1131f12bc65d00d1064f386470f34d391cde1edf7f44738cf9ff812f1c8c33f8",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:55.641030+00:00",
+      "input_hash": "f05e5b819cac82aa3d88594fed7aa5fbf4512baf109e4bac9a0af92396fb5334",
+      "previous_revision": null,
+      "revision_id": "rev-f05e5b819cac82aa3d88594f",
+      "saved_at": "2026-10-12T06:30:38.451930+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "0d708eb6f759419659aa6ecc841dbcedf7c2533b4dabac16e4d24781100e2728",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001358351:DDDD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001358351/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000820648",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

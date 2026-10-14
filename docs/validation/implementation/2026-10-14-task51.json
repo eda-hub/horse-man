@@ -1,0 +1,250 @@
+{
+  "schema_version": "numbered-execution-checkpoint-v1",
+  "task": "51",
+  "status": "EXISTING_ACCEPTANCE_REVERIFIED_RESIDUALS_RETAINED",
+  "basis_commit": "afb8e44d295e7f712f0b961efd651afd78e86a98",
+  "main_commit": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+  "plan_ref": "0bfa36c26de6a059374d3a453ddef40c31f6465c",
+  "upper_plan": {
+    "path": "docs/proposals/2026-10-06_next_cycle_prediction_architecture_implementation_plan.md",
+    "git_blob_sha": "33240c83bf08e181694835307c3c6fd50d3eb372"
+  },
+  "completed_subtasks": [
+    "51-01",
+    "51-02",
+    "51-03",
+    "51-04",
+    "51-05"
+  ],
+  "scenario_reviews": [
+    {
+      "subtask": "51-01",
+      "result": "PASS_SYNTHETIC",
+      "checks": "市場/オッズAPI/実購入なしの初回→選定→最終推奨→独立保存/読戻しを照合。事前宣言→独立FIX→本体/receipt→個別gate。",
+      "tests": [
+        "test_01_end_to_end_odds_free",
+        "test_02_odds_change_does_not_change_recommendation",
+        "test_scope_initial_final_official_review_and_independent_denominators",
+        "test_independent_hash_then_body_immutable_retry"
+      ]
+    },
+    {
+      "subtask": "51-02",
+      "result": "PASS_SYNTHETIC",
+      "checks": "固定原本/同一race/date/公式全頭結果を照合し、推奨的中を再計算。払戻/実購入なしの独立KPI。部分結果/偽精算/空回顧/結果前取得を拒否。取消・同着は別判定。",
+      "tests": [
+        "test_11_settle_tied_scratch_and_pending",
+        "test_15_report_uses_official_results_not_payout",
+        "test_26_result_race_and_date_must_match_even_with_same_finish",
+        "test_validator_recomputes_settlement_instead_of_trusting_the_ledger",
+        "test_validator_rejects_partial_results_even_when_rehashed_in_the_ledger"
+      ]
+    },
+    {
+      "subtask": "51-03",
+      "result": "PASS_SYNTHETIC",
+      "checks": "writer失敗/同時writerで既存台帳bytesを保持。staged readback不一致を置換前に拒否し、一時file/lockを除去。置換後readback不一致も成功へ変換しない。表示の未試行/失敗/不一致/個別未完了を分離。",
+      "tests": [
+        "test_writer_failure_and_concurrent_writer_preserve_the_prior_ledger",
+        "test_wrong_fix_hash_is_a_readback_mismatch",
+        "test_readback_mismatch_does_not_mark_body_verified"
+      ],
+      "additional_probes": 2
+    },
+    {
+      "subtask": "51-04",
+      "result": "PASS_SYNTHETIC",
+      "checks": "SELECTだけ→最終BUY追記、CANCEL→DESELECT→再SELECT、新revision/固定Production参照/旧gate保存を照合。巻戻し/別履歴/旧plan再使用/回顧済み変更を拒否。",
+      "tests": [
+        "test_select_only_does_not_require_a_fixed_ticket_plan",
+        "test_deselection_retains_revision_history_and_allows_reselection",
+        "test_final_can_append_its_fixed_plan_to_the_prior_select_only_history",
+        "test_18_seal_revision_archives_previous_gate_without_double_count",
+        "test_24_updated_prediction_allows_revision_with_archived_original_proof"
+      ]
+    },
+    {
+      "subtask": "51-05",
+      "result": "PASS_SYNTHETIC_AND_LEGACY_READ_ONLY",
+      "checks": "新旧release/schemaのdispatch、旧Betting必須拒否・新版価格不要、改変/遅延/未来/Replay/receipt不一致/未登録を拒否。旧11日実履歴の保留とROI nullを再現。",
+      "tests": [
+        "test_09_hash_and_tamper_or_missing_gate_detected",
+        "test_12_old_v2_prediction_stays_valid_without_recommendation",
+        "test_legacy_gate_remains_valid_after_manual_release_advances",
+        "test_unknown_contract_is_rejected",
+        "test_real_oct11_remains_pending",
+        "test_saved_audit_sources_and_totals_reproduce"
+      ]
+    }
+  ],
+  "upper_25_7_cases": [
+    {
+      "case": 1,
+      "review": "価格なし独立保存/結果照合：51-01/02"
+    },
+    {
+      "case": 2,
+      "review": "価格/人気だけの変更で推奨不変：recommendation 02、market_sidecarの49番受入"
+    },
+    {
+      "case": 3,
+      "review": "◎○本線/3着役割/旧☆・非◎縦目の新規拒否：recommendation 03/04/17/21/29"
+    },
+    {
+      "case": 4,
+      "review": "券種理由/点数/高不確実性/軸依存の構造と不足：recommendation、dependency_risk、probability_presentation。実シナリオの有効性/最適性は未受入。"
+    },
+    {
+      "case": 5,
+      "review": "順序なし重複排除/順序付き別券/取消・未知馬・同一馬拒否：recommendation 05/06/19/20"
+    },
+    {
+      "case": 6,
+      "review": "理由付き推奨なし/印のみ/保留/未完了分離：recommendation 08/17/32、task_completion"
+    },
+    {
+      "case": 7,
+      "review": "役割/出所時点/未来・Shadow不正拒否：recommendation 04/07、next compliance"
+    },
+    {
+      "case": 8,
+      "review": "推奨原本/点数/理由/Prediction hash改変/未宣言・未登録拒否：recommendation 09/22/23/28"
+    },
+    {
+      "case": 9,
+      "review": "取消/更新の新revision/旧固定gate不変：recommendation 18/24、workflow再選定"
+    },
+    {
+      "case": 10,
+      "review": "日別scope/独立KPI/保留/未完了保持：workflow全体/acceptance KPI重複拒否"
+    },
+    {
+      "case": 11,
+      "review": "旧v1.6.1の必須欠落FAILと記録時schema互換：旧27+12テスト、新版51+21テスト"
+    },
+    {
+      "case": 12,
+      "review": "保存済み買い目と表示一致/非UI・予算/新実購入不要：recommendation 14/15、forbidden field拒否"
+    }
+  ],
+  "upper_25_8": {
+    "result": "PREPARATION_ACCEPTED_PERFORMANCE_OPEN",
+    "checks": "70%/30%直前・一致・直後/3頭以上軸の固定順位/候補m/6n/取消・欠測/同時率nullを13回帰で再照合。候補全点と推奨採用点を分離。結果後17点例を旧ROI/前向き母数へ追加しない。",
+    "prior_acceptance": "35番受入を保持。実同時率/校正/前向き対照性能は未受入。"
+  },
+  "validation": {
+    "suites": [
+      {
+        "suite": "test_cycle04_workflow.py",
+        "tests_run": 25,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_cycle04_acceptance.py",
+        "tests_run": 32,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_recommendation.py",
+        "tests_run": 32,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_persistence_status.py",
+        "tests_run": 14,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_task_completion.py",
+        "tests_run": 18,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_selection_history.py",
+        "tests_run": 25,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_next_prediction_compliance.py",
+        "tests_run": 51,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_next_prediction_persistence.py",
+        "tests_run": 21,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_check_prediction_compliance.py",
+        "tests_run": 27,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_verify_prediction_persistence.py",
+        "tests_run": 12,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_two_axis_candidates.py",
+        "tests_run": 13,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_dependency_risk.py",
+        "tests_run": 21,
+        "failures": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "test_probability_presentation.py",
+        "tests_run": 15,
+        "failures": 0,
+        "skipped": 0
+      }
+    ],
+    "tests_run": 306,
+    "failures": 0,
+    "skipped": 0,
+    "additional_readback_probes": {
+      "count": 2,
+      "staged_mismatch_rejected_before_replace": true,
+      "prior_bytes_preserved_on_staged_failure": true,
+      "post_replace_mismatch_rejected": true,
+      "post_replace_note": "同内容の合成台帳を用いて拒否とcleanupを確認。置換後の実外部改変を自動rollbackできるとは主張しない。",
+      "temporary_files_and_locks_removed": true,
+      "live_races_executed": null
+    },
+    "previous_task_ci": [
+      {
+        "id": 38426669908,
+        "conclusion": "success"
+      },
+      {
+        "id": 38426669649,
+        "conclusion": "success"
+      },
+      {
+        "id": 38426670026,
+        "conclusion": "success"
+      }
+    ],
+    "postcommit_ci": "当該HEADのActionsとPR本文で確認"
+  },
+  "code_changes": 0,
+  "formal_recutover": false,
+  "performance_promoted": false,
+  "runtime_connected": false,
+  "residuals": "前向き性能/校正/枠連生成/29取得2開催/37指定4日実測はOPEN。歴史的保存不足40・旧KPI保留57・研究PARTIALを保持。",
+  "next_independent_task": "52-01"
+}

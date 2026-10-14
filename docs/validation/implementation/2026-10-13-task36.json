@@ -1,0 +1,121 @@
+{
+  "schema_version": "task36-checkpoint-v1",
+  "task": 36,
+  "status": "IMPLEMENTATION_ACCEPTANCE_COMPLETE_FORWARD_EFFECT_VALIDATION_CONTINUES",
+  "input_pr69_sha": "b5be8481f127d5d00c6a84e0cf07dd6d5b5fd700",
+  "input_pr68_sha": "af6c45d87627216e3c7cc06547338f9e4afdbb5d",
+  "tasks": {
+    "36-01": "LIFETIME_OLDER_ENCOUNTER_ZERO_POSITIVE_UNKNOWN_AND_CUTOFF_VERIFIED",
+    "36-02": "FIRST_OLDER_ENCOUNTER_AND_CLASS_PROMOTION_SEPARATED",
+    "36-03": "DIRECT_STRONG_SUBSTITUTE_REFERENCE_NOT_COMPARABLE_AND_WEIGHT_VERIFIED"
+  },
+  "implementation": {
+    "entry": "scripts/class_transition.py",
+    "procedure": "docs/validation/contracts/cycle04_operations.md",
+    "input_schema": "class-transition-assessment-v1",
+    "mode": "PREPARATION_READ_ONLY",
+    "core_required_input_changed": false,
+    "lifetime_count_coverage_required": "ALL_PRIOR_STARTS",
+    "recent_five_not_lifetime_zero": true,
+    "first_older_encounter_and_promotion_independent": true,
+    "comparison_sufficiency": [
+      "DIRECT",
+      "STRONG_SUBSTITUTE",
+      "REFERENCE",
+      "NOT_COMPARABLE"
+    ],
+    "evidence_authentication": false,
+    "automatic_ability_score": false,
+    "blanket_age_penalty": false
+  },
+  "validation": {
+    "new_tests": 25,
+    "local_related_tests": 91,
+    "failures": 0,
+    "skipped": 0,
+    "command": "PYTHONPATH=scripts python3 -m unittest test_class_transition test_cycle04_acceptance test_cycle04_workflow test_release_readiness -q",
+    "synthetic": true,
+    "live_races_executed": null,
+    "coverage": [
+      "古馬既対戦0/正数/不明",
+      "初古馬対戦×昇級の独立4組合せ",
+      "混合という出走資格と実際の古馬出走を分離",
+      "全過去確認と近5走の範囲/件数整合",
+      "年齢限定/混合・クラス・斤量・相手レベルを独立保持",
+      "未来情報/逆順取得/出走重複/実走前情報を拒否",
+      "相手のcutoff後の後日成績の逆流を拒否",
+      "全過去件数と近5走の矛盾を拒否",
+      "4種の根拠充足と直接比較の実走参照",
+      "下級クラス/古馬未対戦だけの直接ラベルは参考",
+      "出所付き上位クラス比較と同一/上下関係矛盾",
+      "斤量/年齢構成/対象クラス/比較方法/比較軸の不足は参考",
+      "未算定null保持・CLI読取のみ・原本不変",
+      "3歳以外の対象外を不明と区別",
+      "過去走0と前走クラス/昇級確定の矛盾を拒否"
+    ],
+    "ci": {
+      "basis_commit": "98a67edbdb633d4f643c7a78dfe149fc2f11f0b5",
+      "integration_run": 38391118360,
+      "research_run": 38391118258,
+      "tests_run": 670,
+      "failures": 0,
+      "skipped": 0,
+      "source_count": 111,
+      "source_manifest_sha256": "bf09c8cc7c1be35567ebfe2bea60498a4447edeb8348d4103fdd43c82739c1a3",
+      "manifest_source_count": 130,
+      "result": "ALL_SUCCESS",
+      "history_review_normal_run": 38391118539,
+      "normal_failure_reason": "旧受入hashのstaleのみ。実統合成功111入力で更新",
+      "previous_669_acceptance": {
+        "commit": "56fe45713d95979ac01c22c078f2ce424fbd7508",
+        "normal": 38390861093,
+        "integration": 38390861095,
+        "research": 38390861092,
+        "result": "ALL_SUCCESS"
+      },
+      "acceptance_commit": "d5afcbe898f38b1d70d7ca54c03ef7e13d645978",
+      "acceptance_runs": {
+        "normal": 38391370363,
+        "integration": 38391370342,
+        "research": 38391370359,
+        "result": "ALL_SUCCESS"
+      }
+    },
+    "previous_ci": {
+      "basis_commit": "3886b3444a576e97fb8c52f9f35aeb0dda244166",
+      "integration_run": 38390575060,
+      "research_run": 38390575054,
+      "tests_run": 669,
+      "failures": 0,
+      "skipped": 0,
+      "source_count": 111,
+      "source_manifest_sha256": "9be540a93632f43034cd161ad726f022386312361e5bd25ae4bb36ebd389f8a6",
+      "manifest_source_count": 130,
+      "result": "INTEGRATION_RESEARCH_SUCCESS",
+      "initial_normal_run": 38390337602,
+      "review_normal_run": 38390575285,
+      "normal_failure_reason": "旧受入hashのstaleのみ。実統合CI成功111入力に更新",
+      "first_integration_run": 38390337870,
+      "first_research_run": 38390337885
+    }
+  },
+  "protected": {
+    "production_values_changed": false,
+    "recommendation_tickets_changed": false,
+    "owner_changed": false,
+    "formal_schema_changed": false,
+    "workflow_files_changed": false,
+    "data_changed": false,
+    "main_changed": false
+  },
+  "remaining": {
+    "comparison_method_effectiveness": "CONTINUE_VALIDATION",
+    "forward_non_degradation": "NOT_EXECUTED_TASK37",
+    "performance_promotion": "NOT_APPROVED",
+    "task29": "PRE_RACE_LIVE_VALIDATION_OPEN"
+  },
+  "next": "37-01",
+  "implementation_commit": "afc6f4bb3d07751023190e2e1d7c31504a8ee4bc",
+  "review_commit": "3886b3444a576e97fb8c52f9f35aeb0dda244166",
+  "history_review_commit": "98a67edbdb633d4f643c7a78dfe149fc2f11f0b5"
+}

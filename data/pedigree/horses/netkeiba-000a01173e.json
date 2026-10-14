@@ -1,0 +1,129 @@
+{
+  "horse_key": "netkeiba-000a01173e",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "NETKEIBA": "000a01173e"
+    },
+    "identity_evidence": {
+      "record_key": "000a01173e",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02797d"
+    },
+    "name": "Big Brown (米)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-10T10:03:23.522359+00:00",
+  "identity_observed_at": "2026-10-10T10:03:23.522359+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2005,
+    "external_ids": {
+      "NETKEIBA": "000a01173e"
+    },
+    "identity_evidence": {
+      "record_key": "000a01173e",
+      "source": "NETKEIBA",
+      "source_sheet": "000a02797d"
+    },
+    "name": "Big Brown (米)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-10T10:03:23.675994+00:00",
+      "content_hash": "3158cf800d76c284fd7e4c74e7f2a693a9f66617e9946356c1527e3e2b50c2e0",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-10T10:03:23.675987+00:00",
+      "input_hash": "ece1a57e7d867e1da7b2d0bae5722c8702529e4e69e008b75325844d85b4f044",
+      "previous_revision": null,
+      "revision_id": "rev-ece1a57e7d867e1da7b2d0ba",
+      "saved_at": "2026-10-10T10:03:23.677337+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "96c47684ce8374086869ad9eaa46971870f897ce4e5ff5d7cc8ebc3ba5fc3df4",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02797d:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02797d/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000337863",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T10:03:23.684290+00:00",
+      "content_hash": "823a43e40b2f3352f7be22c45e875ba63f04a001d1a8d6cfde20a11bde505dbc",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-10T10:03:23.684283+00:00",
+      "input_hash": "f96890739f3706d069f38dc46cc542d4f20a6ed9c5fc9be4a05778c225b67d0c",
+      "previous_revision": null,
+      "revision_id": "rev-f96890739f3706d069f38dc4",
+      "saved_at": "2026-10-10T10:03:23.684867+00:00",
+      "source": {
+        "acquisition_method": "original-62-position-table-cross-sheet-existing-edge-check",
+        "origin_group": "NETKEIBA",
+        "record_hash": "96c47684ce8374086869ad9eaa46971870f897ce4e5ff5d7cc8ebc3ba5fc3df4",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "000a02797d:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://db.netkeiba.com/horse/ped/000a02797d/"
+      },
+      "status": "VERIFIED",
+      "value": "netkeiba-000a011743",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年・公式父母母父・原表62位置・既存親子関係を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T12:39:24.183517+00:00",
+      "content_hash": "f0877ebdf8e0b305d8571abaaa50352def3070a80168f283124ab9802733645c",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T12:39:24.183513+00:00",
+      "input_hash": "504a9a6f875594a6bb6b20d80b3d6243b69d1019484d1fd8ba711907337469d6",
+      "previous_revision": null,
+      "revision_id": "rev-504a9a6f875594a6bb6b20d8",
+      "saved_at": "2026-10-10T12:39:25.095430+00:00",
+      "source": {
+        "acquisition_method": "reviewed-own-individual-training-affiliation",
+        "origin_group": "AHONOORA",
+        "record_hash": "0511a0fc1be43d75a0b3454f2c7a2254481b4a28a9955dc02460d38e1c58b393",
+        "record_key": "netkeiba-000a01173e",
+        "source_class": "WEB_AGGREGATOR",
+        "url": "https://ahonoora.com/big_brown.html"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "US",
+            "source": {
+              "captured_at": "2026-10-10T12:33:41.928309+00:00",
+              "record_hash": "0511a0fc1be43d75a0b3454f2c7a2254481b4a28a9955dc02460d38e1c58b393",
+              "url": "https://ahonoora.com/big_brown.html"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "本人名・生年と本人調教師の所属国/Trained列を原文照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

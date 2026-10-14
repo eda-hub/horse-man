@@ -1,0 +1,67 @@
+{
+  "comparison": "NON_MATCH",
+  "data_cutoff": "2026-10-12T08:29:17.321478+00:00",
+  "definition_id": "jra-training-regions-delta-20261011-task21",
+  "groups": [
+    {
+      "axis": "TRAINING_REGION",
+      "group_id": "sire-eu",
+      "subject": "SIRE",
+      "value": "EU"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "group_id": "sire-us",
+      "subject": "SIRE",
+      "value": "US"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "group_id": "dam_sire-eu",
+      "subject": "DAM_SIRE",
+      "value": "EU"
+    },
+    {
+      "axis": "TRAINING_REGION",
+      "group_id": "dam_sire-us",
+      "subject": "DAM_SIRE",
+      "value": "US"
+    }
+  ],
+  "mode": "REPLAY",
+  "period_end": "2026-10-11",
+  "period_start": "2026-10-11",
+  "result_rule": "official-finish-position-v1",
+  "schema_version": "pedigree-condition-stat-definition-v1",
+  "scope": {},
+  "selection_note": "JRA159レースの父/母父EU・USと指定祖先21個体の5代内包＋本人調教地域。全条件直積・曖昧な父系・クロス条件を自動生成しない。",
+  "training_classification": {
+    "country_selection": "SEARCH_MATCH_PRIORITY_V1",
+    "first_observed_at": "2026-10-10T10:36:57.027650+00:00",
+    "other_region_note": "既存613父・母父の確認国のうちEU/US以外を一覧固定。未定義国はUNKNOWN。",
+    "regions": {
+      "EU": [
+        "GB",
+        "IE",
+        "FR",
+        "DE",
+        "IT"
+      ],
+      "OTHER": [
+        "AR",
+        "AU",
+        "CA",
+        "JP"
+      ],
+      "US": [
+        "US"
+      ]
+    },
+    "source": {
+      "record_hash": "86dc25129ffc405d4b54779bc9349e299fda7d179a3f1288dd8e04847d8b4e2b",
+      "record_key": "data/pedigree/reconciliations/2026-10-10-training-priority/region-classification-reply.json",
+      "source_class": "USER_PROVIDED"
+    },
+    "version": "user-europe-five-countries-v1"
+  }
+}

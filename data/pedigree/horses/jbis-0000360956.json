@@ -1,0 +1,143 @@
+{
+  "horse_key": "jbis-0000360956",
+  "identity": {
+    "aliases": [],
+    "birth_year": 1992,
+    "external_ids": {
+      "JBIS": "0000360956"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "fc3419985e86dc8488592385ae9f338a49178ecbc16640a7144bd68d4513cf2d",
+      "record_key": "0000360956",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001314506/pedigree/"
+    },
+    "name": "Solon(GER)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-12T06:30:33.998059+00:00",
+  "identity_observed_at": "2026-10-12T06:30:33.998059+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 1992,
+    "external_ids": {
+      "JBIS": "0000360956"
+    },
+    "identity_evidence": {
+      "ancestor_path": "DS",
+      "record_hash": "fc3419985e86dc8488592385ae9f338a49178ecbc16640a7144bd68d4513cf2d",
+      "record_key": "0000360956",
+      "source": "JBIS",
+      "source_url": "https://www.jbis.or.jp/horse/0001314506/pedigree/"
+    },
+    "name": "Solon(GER)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-12T06:22:55.134525+00:00",
+      "content_hash": "b975542929e3b38070f5cfd194539f272145dc3b1e1451387803d3e5ed442566",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-12T06:22:55.134525+00:00",
+      "input_hash": "2a8fee5d24cc829792c58e2145854831bbd581a6dc1a2cad6f47ad430c660d3c",
+      "previous_revision": null,
+      "revision_id": "rev-2a8fee5d24cc829792c58e21",
+      "saved_at": "2026-10-12T06:30:39.427920+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fc3419985e86dc8488592385ae9f338a49178ecbc16640a7144bd68d4513cf2d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001314506:DSS",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001314506/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000340164",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T06:22:55.134525+00:00",
+      "content_hash": "cf4d2e63e4ccf5fdc9edf818a180ceba8c1c322c260531321d22a9d792b2acb4",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-12T06:22:55.134525+00:00",
+      "input_hash": "35506d2c826df549e18faa78277033c5605d451fd4f97e1479bc41ca09016ab5",
+      "previous_revision": null,
+      "revision_id": "rev-35506d2c826df549e18faa78",
+      "saved_at": "2026-10-12T06:30:39.429225+00:00",
+      "source": {
+        "acquisition_method": "original-pedigree-explicit-id-parent-path",
+        "origin_group": "JBIS",
+        "record_hash": "fc3419985e86dc8488592385ae9f338a49178ecbc16640a7144bd68d4513cf2d",
+        "record_hash_kind": "response-body-sha256",
+        "record_key": "0001314506:DSD",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001314506/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000432173",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "JBIS原HTMLの本人ID・父母ID・各祖先IDと親子位置を照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-12T07:07:26.462213+00:00",
+      "content_hash": "99c6f486d1e133a1efc4f7925b2929872818a54f4f0e03c7369143efcc2b6dc7",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-12T07:07:26.462213+00:00",
+      "input_hash": "2c17d42e632156ebdba79c1a3fef7901d65a62ae4ab8ef0bb936feb2313e0993",
+      "previous_revision": null,
+      "revision_id": "rev-2c17d42e632156ebdba79c1a",
+      "saved_at": "2026-10-12T07:07:33.252512+00:00",
+      "source": {
+        "acquisition_method": "web-search-and-open-extracted-fields",
+        "extracted_fields": {
+          "basis": "公式競馬場プログラムの本人調教師とLocal Suitor産駒の経歴を、本人1992年・Scilla/Alpenkönigのプロフィールと照合。公式厩舎沿革で1959-1997/98のJentzschの所属厩舎Kölnを確認。開催国・生産国GERを根拠にしない。",
+          "birth_year": 1992,
+          "country": "DE",
+          "horse": "Solon",
+          "trainer": "Heinz Jentzsch",
+          "training_location": "Rennstall Asterblüte, Köln"
+        },
+        "origin_group": "PR69_OCT11_TASK18_TRAINING_EVIDENCE",
+        "original_evidence_file": "data/pedigree/reconciliations/2026-10-11-delta/countries/18-01/jbis-0000360956-source.json",
+        "record_hash": "f0744c3cdfaeb360a5f41249969c333dbd22c264102bb3337a572c9ee2574766",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "record_key": "jbis-0000360956",
+        "source_class": "MEDIA_ORIGINAL",
+        "url": "https://galopprennbahn-dresden-seidnitz.de/wp-content/uploads/2022/09/Programmheft_24September22.pdf"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [
+          {
+            "country": "DE",
+            "source": {
+              "captured_at": "2026-10-12T07:07:26.462213+00:00",
+              "record_hash": "f0744c3cdfaeb360a5f41249969c333dbd22c264102bb3337a572c9ee2574766",
+              "url": "https://galopprennbahn-dresden-seidnitz.de/wp-content/uploads/2022/09/Programmheft_24September22.pdf"
+            }
+          }
+        ],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "18-01 本人・実際の調教師所属/調教施設/厩舎沿革照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

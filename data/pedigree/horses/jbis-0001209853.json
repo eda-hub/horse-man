@@ -1,0 +1,147 @@
+{
+  "horse_key": "jbis-0001209853",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2006,
+    "external_ids": {
+      "JBIS": "0001209853"
+    },
+    "identity_evidence": {
+      "record_key": "0001209853",
+      "source": "JBIS"
+    },
+    "name": "Custom for Carlos(USA)",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:31.842776+00:00",
+  "identity_observed_at": "2026-10-09T15:04:31.842776+00:00",
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2006,
+    "external_ids": {
+      "JBIS": "0001209853"
+    },
+    "identity_evidence": {
+      "record_key": "0001209853",
+      "source": "JBIS"
+    },
+    "name": "Custom for Carlos(USA)",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:46:23.538593+00:00",
+      "content_hash": "580f40673687ef36d3b97d92e922daaae2df1ca6411c1f725e1e2feb881f9d27",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:46:23.538593+00:00",
+      "input_hash": "e6a9b3d498d326b27d12b505fe16ce98e56e7526e86de12491b919dff41f4ed5",
+      "previous_revision": null,
+      "revision_id": "rev-e6a9b3d498d326b27d12b505",
+      "saved_at": "2026-10-09T15:05:19.355888+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "ca6e45c8ffe225b20faf7b2934af6997989ace901914f6aef40df85fa5c33ece",
+        "record_key": "0001360339",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001360339/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000372626",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:46:23.538593+00:00",
+      "content_hash": "a6d7f361d87b4878f260bf43da335919453bbab54b9419110c4c05c09fbd3d21",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:46:23.538593+00:00",
+      "input_hash": "1f5dba47cd13c3a13c37b306f2211d5d7776b8c04be82b14eaeb7ff2059976a7",
+      "previous_revision": null,
+      "revision_id": "rev-1f5dba47cd13c3a13c37b306",
+      "saved_at": "2026-10-09T15:05:19.361802+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "ca6e45c8ffe225b20faf7b2934af6997989ace901914f6aef40df85fa5c33ece",
+        "record_key": "0001360339",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001360339/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000971031",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T07:57:27.633764+00:00",
+      "content_hash": "6a9ffa30102674d1f0ee2cc02561c0ffdcd56f047989bd64487eab3235529c07",
+      "field": "attribute:training_country_matches",
+      "first_observed_at": "2026-10-10T07:57:27.633741+00:00",
+      "input_hash": "1eb6a770aacd3e59b85e752caedf01aef56e339c69060d218569fc2e8e80453c",
+      "previous_revision": null,
+      "revision_id": "rev-1eb6a770aacd3e59b85e752c",
+      "saved_at": "2026-10-10T07:57:27.701588+00:00",
+      "source": {
+        "acquisition_method": "reviewed-explicit-training-affiliation-or-scoped-zero-match",
+        "origin_group": "JBIS",
+        "record_hash": "9ea303d1122ed4744cc13c6bdca0c7417225c7ca7af80715b66933ba33753089",
+        "record_hash_kind": "http-response-body-bytes-sha256",
+        "record_key": "jbis-0001209853",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001209853/"
+      },
+      "status": "VERIFIED",
+      "value": {
+        "matches": [],
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true
+      },
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 Codex 本人ID・生年・本人調教師欄／Trained列／明示所属分類を原票で照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-10T09:03:46.759763+00:00",
+      "content_hash": "ffa14033965e83532cc4a5cc7259d02476779302506f08afceb61fb0b7e9a670",
+      "field": "attribute:training_country_user",
+      "first_observed_at": "2026-10-10T17:58:46+09:00",
+      "input_hash": "f7bb5b593616702e230e2d74a5081cc3adac4e0265a0501cdf362fcda1ccd7f8",
+      "previous_revision": null,
+      "revision_id": "rev-f7bb5b593616702e230e2d74",
+      "saved_at": "2026-10-10T09:03:46.801762+00:00",
+      "source": {
+        "acquisition_method": "user-chat",
+        "origin_group": "USER_CHAT",
+        "original_search_cutoff": "2026-10-10T07:58:22.155591+00:00",
+        "record_hash": "efa107e26c1d3731d0d3a4408b5890d18fde7efc39908de792c75cd621b681ee",
+        "record_key": "jbis-0001209853",
+        "resolution_policy": "USER_CONFIRMED_NAME_SUFFIX_V1",
+        "source_class": "USER_PROVIDED",
+        "subject_name": "Custom for Carlos(USA)",
+        "user_received_at": "2026-10-10T17:58:46+09:00",
+        "user_reply_text": "確認待ち一覧について。\n名前の末尾に（USA）とあればそれが調教国で良い。漢字の場合も同一。\nひとつ質問：馬名を参照するときに（）も含まれないよね？例：ベンバトルを参照する場合、「ベンバトル(GB)と完全一致しないといけない」など、理想は\"ベンバトル\"と馬名で参照されること。"
+      },
+      "status": "VERIFIED",
+      "value": "US",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 利用者の末尾国指定を本人ID・確認待ち一覧と照合",
+        "source_checked": true
+      }
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}

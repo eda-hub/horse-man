@@ -1,0 +1,170 @@
+{
+  "horse_key": "jbis-0001110554",
+  "identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001110554",
+      "NETKEIBA": "2009105084"
+    },
+    "identity_evidence": {
+      "record_key": "0001110554",
+      "source": "JBIS"
+    },
+    "name": "ディープブリランテ",
+    "status": "RESOLVED"
+  },
+  "identity_confirmed_at": "2026-10-09T15:04:29.562270+00:00",
+  "identity_observed_at": "2026-10-09T15:04:29.562270+00:00",
+  "identity_revisions": [
+    {
+      "after": {
+        "aliases": [],
+        "birth_year": 2009,
+        "external_ids": {
+          "JBIS": "0001110554",
+          "NETKEIBA": "2009105084"
+        },
+        "identity_evidence": {
+          "record_key": "0001110554",
+          "source": "JBIS"
+        },
+        "name": "ディープブリランテ",
+        "status": "RESOLVED"
+      },
+      "at": "2026-10-09T17:30:36.775286+00:00",
+      "before": {
+        "aliases": [],
+        "birth_year": 2009,
+        "external_ids": {
+          "JBIS": "0001110554"
+        },
+        "identity_evidence": {
+          "record_key": "0001110554",
+          "source": "JBIS"
+        },
+        "name": "ディープブリランテ",
+        "status": "RESOLVED"
+      },
+      "event_hash": "7255b49c6dfc4937b133181a28f593a77a45558cb0ffa1da8ba20267614de443",
+      "reason": "取得済み別サイト原票の生年・両親または検証済み親子関係を照合し、同じ個体のID/公表別名を追記。旧cutoffへ遡及しない。",
+      "reviewed_by": "原票同定照合"
+    }
+  ],
+  "initial_identity": {
+    "aliases": [],
+    "birth_year": 2009,
+    "external_ids": {
+      "JBIS": "0001110554"
+    },
+    "identity_evidence": {
+      "record_key": "0001110554",
+      "source": "JBIS"
+    },
+    "name": "ディープブリランテ",
+    "status": "RESOLVED"
+  },
+  "revisions": [
+    {
+      "captured_at": "2026-10-09T14:48:57.787731+00:00",
+      "content_hash": "ef52416ec5080ab4ed8a6b6b163b73bd30d31a4399fb8b9fdf1714350505e9d8",
+      "field": "parent:S",
+      "first_observed_at": "2026-10-09T14:48:57.787731+00:00",
+      "input_hash": "d42800250f138507c750d2589e1308345401e32f2eb5b11301030f8144dad44b",
+      "previous_revision": null,
+      "revision_id": "rev-d42800250f138507c750d258",
+      "saved_at": "2026-10-09T15:05:13.444591+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "ec08ad30cda779817d66829ece25ee1d07e415be2b0a07cc8c37a19bbedcc71a",
+        "record_key": "0001393062",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001393062/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000742976",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "captured_at": "2026-10-09T14:48:57.787731+00:00",
+      "content_hash": "ccda7762e998a0b8a626d56364acb88184e21c29376e32a6d42a73b5a159af2d",
+      "field": "parent:D",
+      "first_observed_at": "2026-10-09T14:48:57.787731+00:00",
+      "input_hash": "b15af6f45f81d07fdecf66131bd5dc9b2e3e5db2b9f3210a004924ce755315c2",
+      "previous_revision": null,
+      "revision_id": "rev-b15af6f45f81d07fdecf6613",
+      "saved_at": "2026-10-09T15:05:13.445708+00:00",
+      "source": {
+        "acquisition_method": "https-html-62-cell-basic-six-parent-cross-check",
+        "origin_group": "JBIS",
+        "record_hash": "ec08ad30cda779817d66829ece25ee1d07e415be2b0a07cc8c37a19bbedcc71a",
+        "record_key": "0001393062",
+        "source_class": "BREEDING_DB",
+        "url": "https://www.jbis.or.jp/horse/0001393062/pedigree/"
+      },
+      "status": "VERIFIED",
+      "value": "jbis-0000852566",
+      "verification": {
+        "identity_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "Codex: 個体ID・生年・父母母父・全62位置の照合",
+        "source_checked": true
+      }
+    },
+    {
+      "field": "attribute:training_country_matches",
+      "value": {
+        "schema_version": "training-country-matches-v1",
+        "search_completed": true,
+        "matches": [
+          {
+            "country": "JP",
+            "source": {
+              "url": "https://www.jbis.or.jp/horse/0001110554/",
+              "record_hash": "fde6d214229b6687b481379b1a20143325370b18b87e9b8eed2116d9c71278be",
+              "captured_at": "2026-10-10T04:38:35.345Z"
+            }
+          }
+        ]
+      },
+      "status": "VERIFIED",
+      "first_observed_at": "2026-10-10T04:38:35.345Z",
+      "captured_at": "2026-10-10T04:38:35.345Z",
+      "source": {
+        "source_class": "BREEDING_DB",
+        "origin_group": "JBIS",
+        "acquisition_method": "manual-reviewed-jbis-profile-extracted-fields",
+        "record_key": "0001110554",
+        "record_hash": "fde6d214229b6687b481379b1a20143325370b18b87e9b8eed2116d9c71278be",
+        "record_hash_kind": "canonical-extracted-fields-sha256",
+        "extracted_fields": {
+          "horse_key": "jbis-0001110554",
+          "horse_name": "ディープブリランテ",
+          "trainer": "矢作 芳人",
+          "trainer_location": "栗東",
+          "training_country": "JP",
+          "document": "JBIS基本情報の調教師（所属）"
+        },
+        "url": "https://www.jbis.or.jp/horse/0001110554/"
+      },
+      "verification": {
+        "identity_checked": true,
+        "source_checked": true,
+        "relationship_checked": true,
+        "reviewed_by": "2026-10-10 公開JBIS個体プロフィール照合"
+      },
+      "revision_id": "rev-6ca1147b37f92619d9856836",
+      "input_hash": "6ca1147b37f92619d9856836f5ac2d0ce8cec146e3acedb0ff35dbe937b925f2",
+      "previous_revision": null,
+      "saved_at": "2026-10-10T04:38:35.347Z",
+      "content_hash": "2c9680fc0d3dadea26d404425ede9852fda5ea8681eb8fe04d2da4ec469c8a50"
+    }
+  ],
+  "schema_version": "pedigree-registry-v1"
+}
