@@ -63,12 +63,30 @@ def coverage(root, manifest, as_of=None):
                       'assessment_ref':entry['assessment_ref'],'audited_assessments':reports}
     classified={race:by_race.get(race,{'state':'UNKNOWN','reason':'全頭事前assessment未確認'}) for race in scope}
     applicable={r for r,v in classified.items() if v['state']=='APPLICABLE'}
-    submitted=set();clean=[]
+    submitted=set();clean=[];pair_bindings={}
     for item in items:
         require(isinstance(item,dict) and 'gate_ref' in item and 'result_ref' in item,'frozen pair gate/result hashes required')
         fixed=fixed_json(root,item['gate_ref']);race=fixed.get('race_id')
         require(race in applicable and race not in submitted,'unknown/nonapplicable/duplicate pair cannot be selected')
-        require(item['gate_path']==item['gate_ref']['artifact_path']==scope[race]['row'].get('prediction_gate_path'),'pair gate differs from initial-scope original')
+        require(item['gate_path']==item['gate_ref']['artifact_path'],
+                'pair gate path/fixed hash reference mismatch')
+        row=scope[race]['row']
+        history=row.get('shadow_history',[])
+        matches=[h for h in history
+                 if h['prediction_gate_path']==item['gate_path'] and
+                 h['prediction_gate_sha256']==item['gate_ref']['sha256'] and
+                 h['kpi_state'] in {'ELIGIBLE','PENDING','INELIGIBLE'} and
+                 any(x['item_id']==item['shadow_item_id'] for x in h['items'])]
+        require(len(matches)==1,'pair must match one original fixed phase shadow history')
+        phase=matches[0]
+        require(phase['baseline_forecast_id']==fixed['production']['baseline_forecast_id'] and
+                phase['data_cutoff']==fixed['data_cutoff'],
+                'pair phase baseline/cutoff mismatch')
+        pair_bindings[race]={'phase':phase['phase'],
+                            'prediction_gate_sha256':phase['prediction_gate_sha256'],
+                            'baseline_forecast_id':phase['baseline_forecast_id'],
+                            'data_cutoff':phase['data_cutoff'],
+                            'shadow_item_id':item['shadow_item_id']}
         result=fixed_json(root,item['result_ref'])
         require(item['result_path']==item['result_ref']['artifact_path'] and result.get('race_id')==race,'result reference mismatch')
         submitted.add(race);clean.append({k:v for k,v in item.items() if k not in {'gate_ref','result_ref'}})
@@ -83,6 +101,7 @@ def coverage(root, manifest, as_of=None):
     return {'schema_version':'chat-forward-coverage-v1','initial_scope':sorted(scope),'classification':classified,
             'applicable_ids':sorted(applicable),'submitted_ids':sorted(submitted),'accepted_ids':sorted(accepted),
             'missing_ids':sorted(missing),'unknown_ids':sorted(unknown),
+            'submitted_pair_bindings':pair_bindings,
             'not_applicable_ids':sorted(r for r,v in classified.items() if v['state']=='NOT_APPLICABLE'),
             'sample_coverage_verified':verified,'all_planned_days_present':set(dates)==set(DATES),
             'eligible_pair_count':len(accepted) if scope else None,'collection':report,
