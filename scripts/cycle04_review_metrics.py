@@ -207,7 +207,21 @@ def independent_metrics(root, days):
     unm = {phase: {"coverage": coverage(races), "horse_count": 0, "race_count": 0,
                    "first": 0, "second": 0, "top3": 0}
            for phase in ("INITIAL", "FINAL")}
-    changes = {"coverage": coverage(races), "states": Counter(), "comparisons": []}
+    changes = {"coverage": coverage(races), "states": Counter(),
+               "by_evidence_state": {}, "comparisons": []}
+    def count_change(state, old_rank, new_rank, finish):
+        group = changes["by_evidence_state"].setdefault(state,
+            {"count": 0, "anchor_win_improved": 0, "anchor_win_worsened": 0,
+             "unchanged_outcome": 0, "new_anchor_win_rate": None})
+        old_won = old_rank[0] in {h for h, place in finish.items() if place == 1}
+        new_won = new_rank[0] in {h for h, place in finish.items() if place == 1}
+        group["count"] += 1
+        group["anchor_win_improved"] += int(not old_won and new_won)
+        group["anchor_win_worsened"] += int(old_won and not new_won)
+        group["unchanged_outcome"] += int(old_won == new_won)
+        group.setdefault("new_anchor_wins", 0)
+        group["new_anchor_wins"] += int(new_won)
+
     recs = {"coverage": coverage(races), "unique_races": 0, "unique_tickets": 0,
             "miss_tickets": 0, "label_counts": Counter(), "labeled_tickets": [],
             "states_excluded": Counter()}
@@ -266,6 +280,8 @@ def independent_metrics(root, days):
                     if old["production"]["ranking"] == new["production"]["ranking"]:
                         change_cov["included_ids"].append(ident)
                         changes["states"]["UNCHANGED"] += 1
+                        count_change("UNCHANGED", old["production"]["ranking"],
+                                     new["production"]["ranking"], pos)
                     else:
                         evidence = (row.get("review") or {}).get("change_evidence", [])
                         matches = [v for v in evidence if v.get("initial_gate_sha256") == first["prediction_gate_sha256"]
@@ -291,6 +307,8 @@ def independent_metrics(root, days):
                                     continue
                             change_cov["included_ids"].append(ident)
                             changes["states"][e["status"]] += 1
+                            count_change(e["status"], old["production"]["ranking"],
+                                         new["production"]["ranking"], pos)
                             changes["comparisons"].append({"race_id": race, "race_date_jst": date,
                                 "initial_gate_sha256": first["prediction_gate_sha256"],
                                 "final_gate_sha256": last["prediction_gate_sha256"],
@@ -343,6 +361,9 @@ def independent_metrics(root, days):
     close_coverage(changes["coverage"])
     close_coverage(recs["coverage"])
     changes["states"] = dict(changes["states"])
+    for group in changes["by_evidence_state"].values():
+        group["new_anchor_win_rate"] = (group.pop("new_anchor_wins") / group["count"]
+                                        if group["count"] else None)
     recs["label_counts"] = dict(recs["label_counts"])
     recs["states_excluded"] = dict(recs["states_excluded"])
     recs["miss_ticket_rate"] = recs["miss_tickets"] / recs["unique_tickets"] if recs["unique_tickets"] else None
