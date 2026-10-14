@@ -15,6 +15,11 @@ OWNERS = ['README.md', '00_core.md', '10_prediction.md', '20_conditional.md',
           '30_betting.md', '40_shadow.md', '50_review.md', '60_market.md']
 
 
+def contract_acceptance_path(root):
+    contract = json.loads((root/'docs/validation/contracts/cycle_04.json').read_text())
+    return contract.get('acceptance_path')
+
+
 def check(root, require_main=False):
     root = Path(root).resolve()
     manifest = json.loads((root/MANIFEST).read_text())
@@ -35,7 +40,8 @@ def check(root, require_main=False):
                 'docs/validation/README.md', 'docs/validation/cycle_04.md',
                 'docs/jravan/phases/phase_3_rule_engine.md', 'docs/jravan/phases/phase_4_prediction_ui.md',
                 'docs/jravan/phases/phase_5_odds_betting.md', 'docs/jravan/phases/phase_6_settlement_automation.md',
-                'docs/validation/templates/chatgpt_prediction_task.md'}
+                'docs/validation/templates/chatgpt_prediction_task.md',
+                contract_acceptance_path(root)}
     require(required <= {s['path'] for s in sources}, 'atomic release source coverage missing')
     for s in sources:
         require(hashlib.sha256(safe_path(root,s['path']).read_bytes()).hexdigest() == s['sha256'],
@@ -61,6 +67,13 @@ def check(root, require_main=False):
             deployed = git('show', 'refs/remotes/origin/main:'+source['path']).encode('utf-8')
             require(hashlib.sha256(deployed).hexdigest() == source['sha256'],
                     'main/local release source mismatch: '+source['path'])
+        # release hashだけでは未実行・失敗・古い受入を認証しない。
+        from check_cycle04 import validate_acceptance
+        validate_acceptance(root, contract)
+        acceptance_path = contract.get('acceptance_path')
+        deployed_acceptance = git('show', 'refs/remotes/origin/main:' + acceptance_path).encode('utf-8')
+        require(deployed_acceptance == safe_path(root, acceptance_path).read_bytes(),
+                'main/local acceptance mismatch')
         result.update(operational_ready=True, main_ref_commit=main_sha,
                       main_commit_time=git('log', '-1', '--format=%cI', main_sha).strip())
     return result

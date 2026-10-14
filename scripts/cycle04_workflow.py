@@ -14,7 +14,7 @@ from pathlib import Path
 from check_cycle04 import CONTRACT_PATH, DATES, SCHEMA, validate_day
 from cycle04_shadow_state import snapshot as shadow_snapshot, previous_items as prior_shadow_items
 from check_prediction_compliance import iso, validate_gate
-from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_market, validate_market_payload
+from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_formal_result, validate_market, validate_market_payload
 from recommendation import verify as verify_recommendation, settle
 from run_release_readiness import check as check_release
 from two_axis_candidates import compare as compare_two_axis
@@ -255,10 +255,15 @@ def review(root,date,entry):
         validate_official_result(result,race=race,date=date,post=row['scheduled_post_time_jst'],
                                 horses=prediction['production']['ranking'])
     result_ref={'artifact_path':entry['result_path'],'sha256':hashlib.sha256(raw).hexdigest()}
+    manifest_ref = entry.get('result_reconciliation_ref')
+    # レース単位で検査してから台帳を変更する。本文や不適格結果は消さない。
+    validate_formal_result(root, row, race=race, date=date, result_ref=result_ref,
+                           manifest_ref=manifest_ref)
     if race in day['reviewed_scope']:
-        require(row.get('result_ref')==result_ref and row.get('review')==analysis,
+        require(row.get('result_ref')==result_ref and row.get('result_reconciliation_ref')==manifest_ref and row.get('review')==analysis,
                 'reviewed result is immutable; use an explicit correction history')
     row['result_ref'] = result_ref
+    row['result_reconciliation_ref'] = copy.deepcopy(manifest_ref)
     row['review'] = copy.deepcopy(analysis)
     if race not in day['reviewed_scope']:day['reviewed_scope'].append(race)
     if row.get('recommendation_gate_path'):

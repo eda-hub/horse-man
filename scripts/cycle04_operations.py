@@ -317,3 +317,14 @@ def validate_official_result(result, *, race, date, post, horses=None):
                 set(finished+result.get('non_finishers',[]))==set(horses),
                 'official full-field result coverage mismatch')
     return result
+
+
+
+def validate_formal_result(root, row, *, race, date, result_ref, manifest_ref):
+    """保存本文・変換・結果・事前FIX参照を厳密照合する標準の正式適格性入口。
+
+    診断moduleを遅延importし、capture→workflow→checkerの循環を回避する。
+    """
+    from chat_result_reconciliation import validate_formal_result as audit
+    return audit(root, row, race=race, date=date, result_ref=result_ref,
+                 manifest_ref=manifest_ref)

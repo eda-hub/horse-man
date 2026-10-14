@@ -13,7 +13,7 @@ from cycle04_operations import (BET_TYPES, fingerprint, validate_inputs, validat
                                validate_selection, validate_ticket_comparison, ticket_event)
 from seal_prediction import seal
 from selection_history import digest
-from test_next_prediction_compliance import receipt_record, write, write_contract_state
+from test_next_prediction_compliance import add_next_shadow, receipt_record, write, write_contract_state
 import test_recommendation as fixtures
 from test_recommendation import DATE, RACE, POST
 
@@ -142,6 +142,27 @@ class Cycle04Acceptance(unittest.TestCase):
         p = self.root / f'{DATE}.json'
         p.write_text(json.dumps(d))
         return validate_day(self.root, p, c)
+
+    def test_shadow_eligible_needs_unchanged_pre_race_original_in_day_ledger(self):
+        d, c = self.complete_day()
+        gate_path = self.root / d['races'][RACE]['prediction_gate_path']
+        gate = json.loads(gate_path.read_text())
+        ref, _ = add_next_shadow(self.root, gate)
+        gate_path.write_text(json.dumps(gate))
+        shadow = d['kpis']['shadow']
+        shadow.update(target_ids=[RACE], eligible_ids=[RACE], pending_ids=[],
+                      ineligible_ids=[], reasons={RACE: '発走前独立原本とreceipt確認'})
+        # 第4開催日がまだ未来でも、合成受入は時刻を固定してのみ検査する。
+        class SyntheticClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                instant = datetime.fromisoformat('2026-10-17T12:00:00+09:00')
+                return instant.astimezone(tz) if tz else instant.replace(tzinfo=None)
+        with patch('check_prediction_compliance.datetime', SyntheticClock):
+            self.assertEqual(self.day(d, c), d)
+            (self.root / ref['artifact_path']).write_text('{"artifact_id":"shadow-forward-01","changed":true}')
+            with self.assertRaises(ComplianceError):
+                self.day(d, c)
 
     def test_end_to_end_prediction_recommendation_input_gap_no_price(self):
         d, c = self.complete_day()
@@ -359,7 +380,9 @@ class Cycle04Acceptance(unittest.TestCase):
         row['review']={'error_classification':'test','non_degradation':'test','next_validation':'test'}
         from recommendation import settle,verify
         row['recommendation_result']=settle(verify(self.root,self.root/row['recommendation_gate_path']),result)
-        self.day(d,c)
+        # 旧来のresult単独保存は正式結果の出所証跡として認証しない。
+        with self.assertRaisesRegex(ComplianceError, 'frozen path/hash'):
+            self.day(d,c)
         result['retrieved_at_jst']=DATE+'T09:00:00+09:00';write(self.root,path,json.dumps(result))
         row['result_ref']['sha256']=fingerprint((self.root/path).read_bytes())
         with self.assertRaises(ComplianceError):self.day(d,c)
@@ -419,6 +442,15 @@ class Cycle04Acceptance(unittest.TestCase):
             return copy.deepcopy(report) if path.name=='acceptance.json' else original_load(path)
         with patch('check_cycle04.load',side_effect=fixture_load):
             check_preparation(root)
+            for state in ('NOT_RUN', 'FAIL'):
+                report.update(result=state, tests_run=None, failures=None, skipped=None)
+                with self.subTest(state=state), self.assertRaisesRegex(ComplianceError, 'acceptance not passed'):
+                    check_preparation(root)
+            report.update(result='PASS', tests_run=1, failures=0, skipped=0)
+            report['skipped'] = 1
+            with self.assertRaisesRegex(ComplianceError, 'acceptance not passed'):
+                check_preparation(root)
+            report['skipped'] = 0
             report['source_manifest'][0]['sha256']='0'*64
             with self.assertRaises(ComplianceError):check_preparation(root)
             report['source_manifest'][0]['sha256']=fingerprint((root/report['source_manifest'][0]['path']).read_bytes())

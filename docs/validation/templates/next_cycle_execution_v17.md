@@ -126,4 +126,7 @@ python3 scripts/check_prediction_cycle.py
 - 日別台帳のELIGIBLE / INELIGIBLE / PENDINGとgateの `kpi_eligibility` が一致しない場合は不正。
 - Production ELIGIBLEでは、gateが参照する `prediction-snapshot-v2` の内容とgate内の順位・印・確率・根拠・baseline ID等が完全一致しなければならない。
 - Shadow ELIGIBLEでは、少なくとも1件のELIGIBLEなShadow evidence itemと発走前receiptを要求する。
+- 新規FORWARD ShadowのELIGIBLE参照には `artifact_id`/`artifact_path`/`sha256`/`receipt_id`/`receipt_path`/`timing_eligibility`/`persist_verified_at_jst` を必須とする。receiptの`content_sha256`と実原本bytesのハッシュを一致させ、保存確認≤receipt読戻し＜発走予定、かつ未来の確認ではないことを照合する。
+- refのSHA-256は当時固定した値を保存し、欠落・改変・発走後読戻しを現在の内容や時刻で補完しない。該当項目を保留・不適格として理由を保存し、Productionと価格不要推奨の保存結果は変更しない。
+- クラス移行の比較原本・共通入力・bindingは、上記に加えて共通cutoff以前の読戻しと保存順を専用比較入口で検査する。
 - 非ELIGIBLEでgate自体が存在しないレースに、内容のないダミーgateを作る必要はない。

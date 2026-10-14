@@ -10,7 +10,8 @@ from check_prediction_compliance import (ComplianceError, contract_state, iso, r
                                          validate_gate, LEGACY_RELEASE)
 from cycle04_operations import (fingerprint, positive_set, require, safe_path,
                                validate_inputs, validate_market, validate_market_payload, validate_selection,
-                               validate_ticket_comparison, verified_artifact, validate_official_result)
+                               validate_ticket_comparison, verified_artifact, validate_official_result,
+                               validate_formal_result)
 from recommendation import verify as verify_recommendation, settle
 from cycle04_shadow_state import verify_history as verify_shadow_history
 
@@ -79,11 +80,19 @@ def check_preparation(root):
             'deselected_by_user': excluded, 'not_executed': len(difference) - excluded,
             'user_accepted_omissions_within_not_executed': sum(r['status'] == 'OMISSION_ACCEPTED_BY_USER' for r in classifications)},
             'candidate difference count mismatch')
+    validate_acceptance(root, c)
+    return c
+
+
+def validate_acceptance(root, contract):
+    """準備検査と正式開始で同じ受入状態・固定ソースを検査する。"""
+    c = contract
     acceptance = load(safe_path(root, c.get('acceptance_path')))
     require(acceptance.get('schema_version') == 'cycle04-acceptance-v1' and
             acceptance.get('mode') == 'SYNTHETIC' and acceptance.get('live_race_count') is None,
             'synthetic acceptance must not claim live races')
-    require(acceptance.get('result') == 'PASS' and acceptance.get('failures') == 0 and
+    require(acceptance.get('result') == 'PASS' and type(acceptance.get('failures')) is int and acceptance['failures'] == 0 and
+            type(acceptance.get('skipped')) is int and acceptance['skipped'] == 0 and
             type(acceptance.get('tests_run')) is int and acceptance['tests_run'] > 0,
             'acceptance not passed')
     manifest = acceptance.get('source_manifest')
@@ -94,12 +103,14 @@ def check_preparation(root):
                         'scripts/selection_history.py', 'scripts/verify_prediction_persistence.py',
                         'scripts/seal_prediction.py',
                         c['decisions_path']}
+    required_sources |= {p.relative_to(root).as_posix() for p in
+                         set(root.glob('scripts/*.py')) | set(root.glob('docs/manual/*.md'))}
     require(required_sources.issubset({x.get('path') for x in manifest}), 'acceptance source coverage missing')
     require(len({x.get('path') for x in manifest}) == len(manifest), 'duplicate acceptance source')
     for item in manifest:
         require(fingerprint(safe_path(root, item.get('path')).read_bytes()) == item.get('sha256'),
                 'stale acceptance: source hash mismatch')
-    return c
+    return acceptance
 
 
 def require_active(root, contract):
@@ -185,6 +196,8 @@ def validate_day(root, path, contract):
         prediction=validate_gate(root,safe_path(root,row['prediction_gate_path'])) if row.get('prediction_gate_path') else None
         validate_official_result(result,race=race,date=date,post=row['scheduled_post_time_jst'],
                                 horses=prediction['production']['ranking'] if prediction else None)
+        validate_formal_result(root, row, race=race, date=date, result_ref=ref,
+                               manifest_ref=row.get('result_reconciliation_ref'))
         review=row.get('review')
         require(isinstance(review,dict) and all(isinstance(review.get(k),(str,dict)) and bool(review[k])
                     for k in ('error_classification','non_degradation','next_validation')),
