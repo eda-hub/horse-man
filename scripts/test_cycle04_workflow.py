@@ -141,6 +141,93 @@ class OperationalWorkflow(unittest.TestCase):
         self.assertEqual(day['kpis']['shadow']['pending_ids'],[RACE])
         self.assertEqual(day['kpis']['recommendation']['eligible_ids'],[RACE])
 
+    def unresolved_first_final(self):
+        path=self.register();initial=self.shadow_gate()
+        self.entry['shadow_applicability']={'status':'APPLICABLE',
+            'reason':'初回の固定Shadow比較','item_ids':['TEST-SHADOW']}
+        workflow.record_prediction(self.root,DATE,self.entry);self.select()
+        self.final_without_shadow(initial)
+        self.entry['shadow_applicability']={'status':'UNKNOWN',
+            'reason':'FINAL①で個別条件の判断が未完了','item_ids':[],
+            'previous_item_dispositions':{
+                'TEST-SHADOW':{'status':'UNKNOWN','reason':'個別証拠が未収集'}}}
+        workflow.record_prediction(self.root,DATE,self.entry)
+        return path,initial
+
+    def revised_empty_final(self,initial,name):
+        final=copy.deepcopy(initial)
+        final['shadow_items']=[]
+        final['kpi_eligibility']['shadow']='NOT_APPLICABLE'
+        path='docs/validation/execution-gates/'+DATE+'/'+name+'.json'
+        write(self.root,path,json.dumps(final))
+        self.entry['prediction_gate_path']=path
+        return path
+
+    def test_unresolved_shadow_cannot_disappear_on_second_final_without_disposition(self):
+        path,initial=self.unresolved_first_final()
+        self.revised_empty_final(initial,'final-revision-without-disposition')
+        self.entry['shadow_applicability']={'status':'NOT_APPLICABLE',
+            'reason':'FINAL②にShadow項目がない','item_ids':[]}
+        before=path.read_bytes()
+        with self.assertRaisesRegex(ComplianceError,'removed shadow items need explicit dispositions'):
+            workflow.record_prediction(self.root,DATE,self.entry,preview=True)
+        with self.assertRaisesRegex(ComplianceError,'removed shadow items need explicit dispositions'):
+            workflow.record_prediction(self.root,DATE,self.entry)
+        self.assertEqual(path.read_bytes(),before)
+        day,_=workflow.read_day(self.root,DATE)
+        self.assertEqual(day['kpis']['shadow']['pending_ids'],[RACE])
+        self.assertEqual(len(day['races'][RACE]['shadow_history']),2)
+        self.assertEqual(workflow.summary(self.root)['kpis']['shadow']['pending_ids'],1)
+
+    def test_repeated_unknown_final_keeps_pending_until_explicit_reasoned_resolution(self):
+        path,initial=self.unresolved_first_final()
+        self.revised_empty_final(initial,'final-revision-unknown')
+        self.entry['shadow_applicability']={'status':'UNKNOWN',
+            'reason':'FINAL②でも個別条件がまだ未確認','item_ids':[],
+            'previous_item_dispositions':{
+                'TEST-SHADOW':{'status':'UNKNOWN','reason':'追加資料待ちのため保留継続'}}}
+        workflow.record_prediction(self.root,DATE,self.entry)
+        interim=path.read_bytes()
+        workflow.record_prediction(self.root,DATE,self.entry)
+        self.assertEqual(interim,path.read_bytes())
+        day,_=workflow.read_day(self.root,DATE)
+        self.assertEqual(day['kpis']['shadow']['pending_ids'],[RACE])
+        self.assertIn('FINAL②',day['kpis']['shadow']['reasons'][RACE])
+        self.assertEqual([h['kpi_state'] for h in day['races'][RACE]['shadow_history']],
+                         ['ELIGIBLE','PENDING','PENDING'])
+        self.assertEqual(day['kpis']['recommendation']['eligible_ids'],[RACE])
+        self.assertEqual(workflow.summary(self.root)['kpis']['shadow']['pending_ids'],1)
+
+        self.revised_empty_final(initial,'final-revision-resolved')
+        self.entry['shadow_applicability']={'status':'NOT_APPLICABLE',
+            'reason':'FINAL③で元の仮説が明確に不成立','item_ids':[],
+            'previous_item_dispositions':{
+                'TEST-SHADOW':{'status':'NOT_APPLICABLE',
+                               'reason':'確認済み条件では対象外と個別判断した'}}}
+        workflow.record_prediction(self.root,DATE,self.entry)
+        resolved,_=workflow.read_day(self.root,DATE)
+        self.assertEqual(resolved['kpis']['shadow']['target_ids'],[])
+        self.assertNotIn(RACE,resolved['kpis']['shadow']['reasons'])
+        self.assertEqual([h['kpi_state'] for h in resolved['races'][RACE]['shadow_history']],
+                         ['ELIGIBLE','PENDING','PENDING','NOT_APPLICABLE'])
+        self.assertEqual(resolved['kpis']['production']['eligible_ids'],[RACE])
+        self.assertEqual(resolved['kpis']['recommendation']['eligible_ids'],[RACE])
+
+    def test_direct_day_edit_cannot_erase_unresolved_final_item(self):
+        path,initial=self.unresolved_first_final()
+        # validatorも最新KPIと過去判断を照合し、writer迂回の後付け対象外を拒否。
+        day=json.loads(path.read_text())
+        day['races'][RACE]['shadow_history'][-1]['applicability']={
+            'status':'NOT_APPLICABLE','reason':'履歴に判断を残さず対象外と偽装',
+            'item_ids':[]}
+        day['races'][RACE]['shadow_history'][-1]['kpi_state']='NOT_APPLICABLE'
+        workflow.clear_state(day['kpis']['shadow'],RACE)
+        path.write_text(json.dumps(day))
+        with self.assertRaisesRegex(ComplianceError,'removed shadow items need explicit dispositions'):
+            workflow.read_day(self.root,DATE)
+        with self.assertRaisesRegex(ComplianceError,'removed shadow items need explicit dispositions'):
+            workflow.summary(self.root)
+
     def test_initial_eligible_final_ineligible_is_local_to_shadow(self):
         from test_next_prediction_compliance import write
         self.register();gate=self.shadow_gate()
