@@ -63,6 +63,68 @@ class OperationalWorkflow(unittest.TestCase):
         self.assertEqual(after['kpis']['market']['eligible_ids'],0)
         self.assertEqual(len(workflow.read_day(self.root,DATE)[0]['races'][RACE]['prediction_history']),2)
 
+    def shadow_gate(self, name='first-shadow'):
+        from test_next_prediction_compliance import write
+        original=self.root/self.entry['prediction_gate_path']
+        gate=json.loads(original.read_text())
+        proof=self.fixture.artifact(name,'shadow/'+name+'.json',
+            {'schema_version':'shadow-comparison-test-v1','race_id':RACE,
+             'race_date_jst':DATE,'data_cutoff':gate['data_cutoff'],
+             'baseline_forecast_id':gate['production']['baseline_forecast_id']},at='09:48')
+        proof.update(timing_eligibility='PRE_RACE_ELIGIBLE',
+                     persist_verified_at_jst=DATE+'T09:48:00+09:00')
+        gate['shadow_items']=[{'item_id':'TEST-SHADOW','state':'FIXED',
+                              'kpi_eligibility':'ELIGIBLE','evidence_ref':proof}]
+        gate['kpi_eligibility']['shadow']='ELIGIBLE'
+        write(self.root,self.entry['prediction_gate_path'],json.dumps(gate))
+        return gate
+
+    def final_without_shadow(self, gate):
+        from test_next_prediction_compliance import write
+        final=copy.deepcopy(gate);final['shadow_items']=[]
+        final['kpi_eligibility']['shadow']='NOT_APPLICABLE'
+        path='docs/validation/execution-gates/'+DATE+'/final-no-shadow.json'
+        write(self.root,path,json.dumps(final))
+        self.entry['phase']='FINAL';self.entry['prediction_gate_path']=path
+        return path
+
+    def test_initial_eligible_final_explicitly_not_applicable_keeps_history(self):
+        self.register();gate=self.shadow_gate()
+        self.entry['shadow_applicability']={'status':'APPLICABLE','reason':'初回比較を保存',
+                                            'item_ids':['TEST-SHADOW']}
+        workflow.record_prediction(self.root,DATE,self.entry);self.select()
+        path=self.final_without_shadow(gate)
+        self.entry['shadow_applicability']={'status':'NOT_APPLICABLE',
+              'reason':'最終時点の比較条件を再評価し、該当なし',
+              'item_ids':[],'previous_item_dispositions':{
+                  'TEST-SHADOW':{'status':'NOT_APPLICABLE','reason':'最終条件で対象外'}}}
+        workflow.record_prediction(self.root,DATE,self.entry)
+        day,_=workflow.read_day(self.root,DATE)
+        self.assertEqual(day['final_scope'],[RACE])
+        self.assertEqual(day['kpis']['shadow']['target_ids'],[])
+        self.assertEqual(day['kpis']['recommendation']['eligible_ids'],[RACE])
+        history=day['races'][RACE]['shadow_history']
+        self.assertEqual(len(history),2)
+        self.assertEqual(history[0]['items'][0]['item_id'],'TEST-SHADOW')
+        self.assertEqual(history[0]['kpi_state'],'ELIGIBLE')
+        self.assertEqual(history[1]['kpi_state'],'NOT_APPLICABLE')
+        self.assertEqual(history[1]['prediction_gate_path'],path)
+
+    def test_initial_eligible_final_unknown_is_pending_without_blocking_final(self):
+        self.register();gate=self.shadow_gate()
+        self.entry['shadow_applicability']={'status':'APPLICABLE','reason':'初回固定比較',
+                                            'item_ids':['TEST-SHADOW']}
+        workflow.record_prediction(self.root,DATE,self.entry);self.select()
+        self.final_without_shadow(gate)
+        self.entry['shadow_applicability']={'status':'UNKNOWN','reason':'最終の対象条件が未確認',
+             'item_ids':[],'previous_item_dispositions':{
+                 'TEST-SHADOW':{'status':'UNKNOWN','reason':'最終時点の条件未確認'}}}
+        workflow.record_prediction(self.root,DATE,self.entry)
+        day,_=workflow.read_day(self.root,DATE)
+        self.assertEqual(day['final_scope'],[RACE])
+        self.assertEqual(day['kpis']['shadow']['pending_ids'],[RACE])
+        self.assertEqual(day['kpis']['recommendation']['eligible_ids'],[RACE])
+
     def test_two_axis_comparison_uses_verified_recommendation_cancellations(self):
         from unittest.mock import patch
         self.register();self.select();self.entry['phase']='FINAL'
