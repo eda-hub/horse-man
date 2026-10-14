@@ -26,5 +26,45 @@
       "id": 38449136258,
       "conclusion": "failure"
     }
-  ]
+  ],
+  "implementation_commit": "cfdfaad5a3624fa48e26ed7ba67d8d54b365bab1",
+  "ci_history": [
+    {
+      "basis_commit": "0ad28415676d368097fb60e721667fe1d0b95abe",
+      "ci": [
+        {
+          "id": 38449136352,
+          "conclusion": "success"
+        },
+        {
+          "id": 38449136243,
+          "conclusion": "success"
+        },
+        {
+          "id": 38449136258,
+          "conclusion": "failure"
+        }
+      ],
+      "note": "過去のCI結果。failureを保持し、最新HEADの結果と混同しない"
+    }
+  ],
+  "latest_ci_basis_commit": "cfdfaad5a3624fa48e26ed7ba67d8d54b365bab1",
+  "latest_ci": [
+    {
+      "id": 38449456483,
+      "name": "新旧契約の統合受入と取得済みmain開始確認",
+      "conclusion": "success"
+    },
+    {
+      "id": 38449456447,
+      "name": "血統研究の原票・Registry・条件集計監査",
+      "conclusion": "success"
+    },
+    {
+      "id": 38449456545,
+      "name": "予想実行と第3サイクル台帳の機械監査",
+      "conclusion": "success"
+    }
+  ],
+  "record_alignment_subtask": "01-03"
 }

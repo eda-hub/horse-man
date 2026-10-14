@@ -139,7 +139,7 @@
       "id": "53-I14",
       "title": "改善候補の不足・Owner・次試験を引継ぐ",
       "status": "IMPLEMENTATION_ACCEPTED",
-      "implementation_commit": null,
+      "implementation_commit": "cfdfaad5a3624fa48e26ed7ba67d8d54b365bab1",
       "acceptance_record": "docs/validation/implementation/2026-10-14-53-I14.json",
       "helper_implementation_accepted": true,
       "live_acceptance_certified": false,
@@ -155,7 +155,7 @@
   "release_manifest_updated_for_changed_sources": true,
   "acceptance_updated_from_actual_full_repository_ci": true,
   "local_validation_limit": "I06以降のローカル実行環境は応答停止。完全repoのCI出力で検証。ローカル成功を主張しない。",
-  "live_validation_wait": "53-I11=既存29-C03/C06/C07/C08。発走前8券種・独立2提供元・2開催の真正な証跡待ち。",
+  "live_validation_wait": "53-I11=既存29-C03/C06/C07/C08。mainマージ後の実運用で発走前8券種・独立2提供元・2開催を収集。PR69上で実測しない。",
   "forward_wait": "37-05の指定10/17・18・24・25の実依頼全該当例。ダミーscope/実測0/後付け事前証跡なし。",
   "residuals": {
     "research": "12日PARTIAL：公式結果1/24R・本人/5代2頭・未確認13・5/43条件。",
@@ -167,5 +167,27 @@
     "forward": "37-05の10/17・18・24・25の実依頼全該当例。架空の0/ダミーscope/後付け事前証跡なし。",
     "probability_and_performance": "実確率/校正/枠連生成/集中・二頭軸/各比較の非劣化・性能は未受入。"
   },
-  "merge_scope": "補助実装をレビュー可能にする。実測・校正・性能受入をコードCI成功へ置換せず、mainマージ自体は未実施。"
+  "merge_scope": "全開発作業を完遂してPR69をmainへマージ。29/37-05/校正/性能/負荷はmainマージ後の実運用で取得・評価し、実測完了を開発マージ条件にしない。",
+  "latest_acceptance": {
+    "implementation_commit": "cfdfaad5a3624fa48e26ed7ba67d8d54b365bab1",
+    "ci": [
+      {
+        "id": 38449456483,
+        "name": "新旧契約の統合受入と取得済みmain開始確認",
+        "conclusion": "success"
+      },
+      {
+        "id": 38449456447,
+        "name": "血統研究の原票・Registry・条件集計監査",
+        "conclusion": "success"
+      },
+      {
+        "id": 38449456545,
+        "name": "予想実行と第3サイクル台帳の機械監査",
+        "conclusion": "success"
+      }
+    ],
+    "live_acceptance_certified": false,
+    "performance_promoted": false
+  }
 }
