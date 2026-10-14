@@ -1,0 +1,1064 @@
+{
+  "schema_version": "main-update-reimplementation-review-v1",
+  "review_date_jst": "2026-10-13",
+  "repository": "eda-hub/horse-man",
+  "main": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+  "pr69_head": "11f4f339391be34bb6fbbc15edbd812e4b0641df",
+  "pr68_head": "92f8ad0c61f3bfe534312597b2a1383174c57be5",
+  "latest_observed_main_before_update": "d164153c27431e0be901e042e359fecbc568994a",
+  "integrated_main": "0520dc25437358df459e7e08219965f9b1e0f732",
+  "compare_counts": {
+    "since_last_observation": {
+      "commits": 10,
+      "files": 65
+    },
+    "since_integrated": {
+      "commits": 23,
+      "files": 70
+    }
+  },
+  "merge_status": {
+    "github_mergeable": false,
+    "state": "dirty",
+    "per_path_conflicts_not_simulated": true
+  },
+  "main_ci": [
+    {
+      "id": 38321179543,
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "38dcd3266613e52ced2b6d144d6da8a54fb4a675",
+      "html_url": "https://github.com/eda-hub/horse-man/actions/runs/38321179543"
+    }
+  ],
+  "file_relations": [
+    {
+      "path": ".github/workflows/check-cycle03.yml",
+      "main_sha": "b50041339a0adf74734f9c676b14bc4860172383",
+      "base_sha": "ced16ef61f3b9cea46962f41981250f72dc078b6",
+      "pr_sha": "75f0376de5e9f7a29f4d1fda6f9a6c293e60cd2a",
+      "pr_changed": true
+    },
+    {
+      "path": "AGENTS.md",
+      "main_sha": "51d2f5fe43c97026f78e2e5d7b8b3dd515b53e0d",
+      "base_sha": "6fb2d84f6c8a0886189b5a1ba1f3af26756207d5",
+      "pr_sha": "8716ebf0d29edb3455c5b8aa5520f1127f78800d",
+      "pr_changed": true
+    },
+    {
+      "path": "DECISIONS.md",
+      "main_sha": "bd2cb2b145b95cfab51a5c2c46ff24d16b4644f6",
+      "base_sha": "998474d627f08337bde6f02ff250bc46a8320afa",
+      "pr_sha": "1ad715450504c3e9a6be8c54a4240d10a521d375",
+      "pr_changed": true
+    },
+    {
+      "path": "README.md",
+      "main_sha": "753abfa0a96014ef8aa61ec7e60d04b7f152f9b7",
+      "base_sha": "aa7e136e1d0aadfc32ddba7f798cb02d9e2c843d",
+      "pr_sha": "863c12a68bc777f44fc6e500defa49568ace7965",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/jravan/00_project_plan.md",
+      "main_sha": "98b54aadc3178904978dd856c2911c936ff1b79e",
+      "base_sha": "7dc8f2d19981679c1d52c826e4a15ce344124a1c",
+      "pr_sha": "807888f639adc26141846ee95785d4dfb252059a",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/jravan/04_prediction_engine.md",
+      "main_sha": "8397eea3407787f84a258d0ee10a69fc6dce8d83",
+      "base_sha": "0d4e9cd716337eebb3e7ffedc74a59c2ac2d9766",
+      "pr_sha": "b61e8ca01bfaeaf125aff4c8bfacafb660a8d1f1",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/jravan/07_review_ai.md",
+      "main_sha": "7ed6d81504bf4abecb630bf356501616f6e029bb",
+      "base_sha": "e53645021a96f6ca52a95f92f9ec920140682e03",
+      "pr_sha": "f8bd8e2da33a74fde2d509fbaf0d17a599700b0e",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/jravan/10_operations.md",
+      "main_sha": "57f574fd1bcf0f2175ff53a56a3d501a97602bc7",
+      "base_sha": "fdec2a08706b05dbfbb5b5df47918d4d5ac46666",
+      "pr_sha": "179988f0187ba9966d1680fdcd800853bf5c1243",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/jravan/phases/README.md",
+      "main_sha": "1d47a2ae507f99a9c1fbb7c3ef4c2eda3b4778dd",
+      "base_sha": "2139b285a858f3802c72727ab283d8b0d05c1f5c",
+      "pr_sha": "ed6ef1cd483a05a71fd8f2bdfced590b8a7bc861",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/jravan/phases/phase_3_rule_engine.md",
+      "main_sha": "a87000fdafaf166b9c74439401d6b42990d5a88b",
+      "base_sha": "ada46627615cd0f1d29ec8adf6a4269e22bec39c",
+      "pr_sha": "ffa9327c75f563431b0460b1de190bb9a11c990b",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/jravan/phases/phase_4_prediction_ui.md",
+      "main_sha": "c73a936bf0df7d8de029fac1c308f13583e4c988",
+      "base_sha": "109b207c2f22e65d55d148f45a0069be13f6f169",
+      "pr_sha": "ca02a9131de371bd79e16cde0c47344bf050012d",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/jravan/phases/phase_5_odds_betting.md",
+      "main_sha": "3e950df654cdddac7315e43d69bd5c31f4115840",
+      "base_sha": "6443962b178bcf40f0f02536cc8739133fc31959",
+      "pr_sha": "e394cf67d269844baa021b3a0c0e4540acd936cc",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/jravan/phases/phase_6_settlement_automation.md",
+      "main_sha": "0505ce2668cfea05f292a7476ea9bdb2726ed3dc",
+      "base_sha": "71344ea61f4c6ad7935d1d41bf31f4bd99edc7b8",
+      "pr_sha": "fd5610660baa5e1051562f2249fbdb7c821b1b81",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/manual/00_core.md",
+      "main_sha": "541693ef8383784897dbdbe9456958389c48a2c9",
+      "base_sha": "f2fb396ebbddc2df51e3c9c43cc19ffc148f82da",
+      "pr_sha": "f2fb396ebbddc2df51e3c9c43cc19ffc148f82da",
+      "pr_changed": false
+    },
+    {
+      "path": "docs/manual/10_prediction.md",
+      "main_sha": "6c0abac96d526a4dcdcb012c3eab4ad4700058d3",
+      "base_sha": "3a8a3f34ac6811673f9920a33d9f2cb0619fd23a",
+      "pr_sha": "3a8a3f34ac6811673f9920a33d9f2cb0619fd23a",
+      "pr_changed": false
+    },
+    {
+      "path": "docs/manual/20_conditional.md",
+      "main_sha": "95fb9cc9f78f0fb27c56005cc1b8ad377d3a7b85",
+      "base_sha": "7075e02d561e8b30974bc20336fa19d9c04cd903",
+      "pr_sha": "7075e02d561e8b30974bc20336fa19d9c04cd903",
+      "pr_changed": false
+    },
+    {
+      "path": "docs/manual/30_betting.md",
+      "main_sha": "1055d9dba9644df05a0184155d7e57e2fd85f0d5",
+      "base_sha": "1ca5e556b96808d647ef860426609841b0fe8f29",
+      "pr_sha": "1ca5e556b96808d647ef860426609841b0fe8f29",
+      "pr_changed": false
+    },
+    {
+      "path": "docs/manual/40_shadow.md",
+      "main_sha": "79901e1449414e5f504b9932b6b8e9de02c6ac52",
+      "base_sha": "d4c8e367a41f22829712af9346e2f825a6172e26",
+      "pr_sha": "d4c8e367a41f22829712af9346e2f825a6172e26",
+      "pr_changed": false
+    },
+    {
+      "path": "docs/manual/50_review.md",
+      "main_sha": "239108488e969c6bc78c267991e4f4da02a3013f",
+      "base_sha": "b4ca74ccb9f1a289961d7e756ad118151fd37223",
+      "pr_sha": "b4ca74ccb9f1a289961d7e756ad118151fd37223",
+      "pr_changed": false
+    },
+    {
+      "path": "docs/manual/60_market.md",
+      "main_sha": "909697f26bca4390806a526d4b37c2834ce96811",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/manual/README.md",
+      "main_sha": "a17319b68e699351908a07848a1b7ab06d161ec8",
+      "base_sha": "848b25f425d98849aad94dd01d424aee8a39dcf6",
+      "pr_sha": "848b25f425d98849aad94dd01d424aee8a39dcf6",
+      "pr_changed": false
+    },
+    {
+      "path": "docs/proposals/2026-10-12_cycle03_summary_application_plan.md",
+      "main_sha": "7ee3a999a1c6d8d489a1691590abdbc2b27c8826",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/README.md",
+      "main_sha": "eaf986bdd0083572c26bf97b15cf10d27d3fb61f",
+      "base_sha": "d0104ae5e29dc2bdd855628c137a246976712090",
+      "pr_sha": "46c547a6e75145634d057b4122ffe6f0ef53b04e",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/validation/contracts/cycle04-launch.json",
+      "main_sha": "6565a2a057f017b2c14b3e2f55e87203d3e16899",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/contracts/cycle04_operations.md",
+      "main_sha": "02304a48711eaa237c3612a9245821e0779be5b2",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/contracts/cycle_04.json",
+      "main_sha": "f8ba02fe2c9b776c16272c1949defa96c5aaa0b5",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/contracts/v170-release.json",
+      "main_sha": "9fff022a95ed56359efe932980c4229f99a121e9",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/cycle_03.md",
+      "main_sha": "7e2602b57d966f81aaf5d62e23466675664a6bed",
+      "base_sha": "1c312a3f8c4a170993a8ef455b852856be851d8f",
+      "pr_sha": "5d15a279ebabf810dc6b34790b5b8031e934a4d7",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/validation/cycle_04.md",
+      "main_sha": "20dce74582b8b57be3e3a66abacfae92fa06d020",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/execution-gates/contract-state.json",
+      "main_sha": "5f99c2860f22aca865702214393b3c61d8145dd2",
+      "base_sha": null,
+      "pr_sha": "2d47b2e5689910b930cf590e6bf1ae93f4315f98",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/validation/handoffs/2026-10-11-seven-open-issues.md",
+      "main_sha": "392fcfbdcbf8d2f50df079df89407089925e4d19",
+      "base_sha": null,
+      "pr_sha": "392fcfbdcbf8d2f50df079df89407089925e4d19",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/validation/implementation/2026-10-11-task27.json",
+      "main_sha": "773fc14767c87d26dec6f19a49aa8ee6d6c75636",
+      "base_sha": null,
+      "pr_sha": "773fc14767c87d26dec6f19a49aa8ee6d6c75636",
+      "pr_changed": true
+    },
+    {
+      "path": "docs/validation/records/2026-09-27.md",
+      "main_sha": "bf45b9391c4a41ae0d8b630d7f46bfb266faf777",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/README.md",
+      "main_sha": "40eb247b24b982d9e6b06411338bd956329d2dee",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/collection.json",
+      "main_sha": "4fe64917edb265f9ef750c2d278aa1842a85d26c",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/decisions.json",
+      "main_sha": "b551114714fdc35ec3da1da62d5bd072478391a7",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/main_import_2026-10-13.json",
+      "main_sha": "582e945cdbe965c952c1d563c4af27c2b5ab9578",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/reviews/cycle_03/pr69_preparation_import.json",
+      "main_sha": "0db95d889f3e14c50dea73c6b870d01ec5cbcdb8",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/reviews/cycle_04/acceptance.json",
+      "main_sha": "6a60d1cb62fb31f97fa75675733f4424ae420fc4",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "docs/validation/templates/chatgpt_prediction_task.md",
+      "main_sha": "b39b425b349f6a8d821921bea4df570fc276c30c",
+      "base_sha": "4f032b88b4b4be6f39f15db128cbb5e3fd00459f",
+      "pr_sha": "4f032b88b4b4be6f39f15db128cbb5e3fd00459f",
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/audit_20261012_pr78.py",
+      "main_sha": "ddfd2d808a976e0d0f74982c407522f6363de9c8",
+      "base_sha": "93309d11f6718dc1d665f8c6b42c5f6432a2aaae",
+      "pr_sha": "921ff5147e6eaba5142fb76e30be6d07e605c2c6",
+      "pr_changed": true
+    },
+    {
+      "path": "scripts/build_cycle03_review.py",
+      "main_sha": "4cde4ad0210060ae7490661e5017d88750a1cad6",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/build_v170_manifest.py",
+      "main_sha": "e2714e36e8b29b97f1156e6d08fc7a153c8106e8",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/check_betting_performance.py",
+      "main_sha": "a0288a82c9a17b57f7bd733bb42d0133770f5aa8",
+      "base_sha": "1d51fe7e49999a83cabca6c8944c2b32b47642fc",
+      "pr_sha": "1d51fe7e49999a83cabca6c8944c2b32b47642fc",
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/check_cycle04.py",
+      "main_sha": "05350f48a9d57641d971d9a039fe75a3bdc6ba5e",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/check_prediction_compliance.py",
+      "main_sha": "064c60e1cfddf71d74cbb2bc61e38cc860f43d79",
+      "base_sha": "65b223a1cc8238ce4dd3a3bfd88bceb7ac965dcc",
+      "pr_sha": "939c4d07dc715c161607822a9d4e51b52c41301a",
+      "pr_changed": true
+    },
+    {
+      "path": "scripts/cycle04_operations.py",
+      "main_sha": "291a5ca2f3a2c87682798f17241aa095baf13f18",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/cycle04_workflow.py",
+      "main_sha": "c1ea61e847b77ff26fc7ea700fcb1098ea0443ec",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/persistence_status.py",
+      "main_sha": "f38a184840b6c14f88bbc98bdf791c52e0349cf3",
+      "base_sha": null,
+      "pr_sha": "f38a184840b6c14f88bbc98bdf791c52e0349cf3",
+      "pr_changed": true
+    },
+    {
+      "path": "scripts/recommendation.py",
+      "main_sha": "dfce05f996d3291a9a08156f7729e9bcfe87f745",
+      "base_sha": null,
+      "pr_sha": "dfce05f996d3291a9a08156f7729e9bcfe87f745",
+      "pr_changed": true
+    },
+    {
+      "path": "scripts/run_cycle04_acceptance.py",
+      "main_sha": "3278fc311a248021fb2c49f46d673017649279a1",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/run_release_readiness.py",
+      "main_sha": "3ad9c9368d19fd3ee626bb882207ca7ef96b530f",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/seal_prediction.py",
+      "main_sha": "73131f4c8a871d997b6dbbeb0b506727f20c03bb",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/selection_history.py",
+      "main_sha": "eb005a189f0992eaedff0101a0f10296bffc45a9",
+      "base_sha": null,
+      "pr_sha": "08842e415f4cc38f009e7403c946be3d6ddfab90",
+      "pr_changed": true
+    },
+    {
+      "path": "scripts/task_completion.py",
+      "main_sha": "76ba7f1a8c925885c3cd83c71816bbee875e808c",
+      "base_sha": null,
+      "pr_sha": "76ba7f1a8c925885c3cd83c71816bbee875e808c",
+      "pr_changed": true
+    },
+    {
+      "path": "scripts/test_build_cycle03_review.py",
+      "main_sha": "c0ce4b81292ddf8b2d34578a5175bb8e75a8688a",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/test_check_betting_performance.py",
+      "main_sha": "a96fb7dc3ee83fce8af910457e41d531ff199b1f",
+      "base_sha": "661fcdf760eebe277a54fdb555627724f27486d3",
+      "pr_sha": "661fcdf760eebe277a54fdb555627724f27486d3",
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/test_check_cycle03.py",
+      "main_sha": "e60ccba2f28cfbaf2eaa3f1fe0d33fba97152287",
+      "base_sha": "c606a71c48efa134ad4da22672993006912e506d",
+      "pr_sha": "c606a71c48efa134ad4da22672993006912e506d",
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/test_cycle04_acceptance.py",
+      "main_sha": "e865eea82e8e6c5ed80f77ab40d5fb0da00482db",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/test_cycle04_workflow.py",
+      "main_sha": "f7452daaae3203e12ce01f7da8aa01448f3ea08e",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/test_next_prediction_compliance.py",
+      "main_sha": "bddece008b536f0c0b1158f3225536bcb9c3476b",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/test_next_prediction_persistence.py",
+      "main_sha": "92176f22b1739feaf95fe4c1217371176394f511",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/test_persistence_status.py",
+      "main_sha": "5ee170d7e5d744442dba06ae6bb8cce2e0cc0505",
+      "base_sha": null,
+      "pr_sha": "5ee170d7e5d744442dba06ae6bb8cce2e0cc0505",
+      "pr_changed": true
+    },
+    {
+      "path": "scripts/test_recommendation.py",
+      "main_sha": "83a59a83ad16e148995f9dda52454680a85214e2",
+      "base_sha": null,
+      "pr_sha": "c55c65bc6c3137574899f5951e843aaf0d96c2b4",
+      "pr_changed": true
+    },
+    {
+      "path": "scripts/test_release_readiness.py",
+      "main_sha": "5005d1378a4a03ae77d0823beff4ca21fc253b90",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/test_selection_history.py",
+      "main_sha": "716be393be7a627fa4e745374ac41218a40e63bf",
+      "base_sha": null,
+      "pr_sha": "716be393be7a627fa4e745374ac41218a40e63bf",
+      "pr_changed": true
+    },
+    {
+      "path": "scripts/test_task_completion.py",
+      "main_sha": "5ca98114ef3ba4c9af9adfb880fd51026b709a8a",
+      "base_sha": null,
+      "pr_sha": "0d9ecad5d40f895652772329b34453711580f98e",
+      "pr_changed": true
+    },
+    {
+      "path": "scripts/test_two_axis_candidates.py",
+      "main_sha": "55a0b77d2c364940444c15c9f1ccc0d426b7dfe9",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/two_axis_candidates.py",
+      "main_sha": "bca897df3a761fd2767519e7e7333742bceb3a91",
+      "base_sha": null,
+      "pr_sha": null,
+      "pr_changed": false
+    },
+    {
+      "path": "scripts/verify_prediction_persistence.py",
+      "main_sha": "286172c642c847c7851e88364a6599c1a627d663",
+      "base_sha": "c3ab4209d6d9ff8d7a7d05e5da5821fbaa3485fb",
+      "pr_sha": "286172c642c847c7851e88364a6599c1a627d663",
+      "pr_changed": true
+    }
+  ],
+  "script_relations": [
+    {
+      "path": "scripts/audit_20261012_pr78.py",
+      "relation": "DIFFERENT",
+      "main_blob": "ddfd2d808a976e0d0f74982c407522f6363de9c8",
+      "pr_blob": "921ff5147e6eaba5142fb76e30be6d07e605c2c6"
+    },
+    {
+      "path": "scripts/build_cycle03_review.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "4cde4ad0210060ae7490661e5017d88750a1cad6"
+    },
+    {
+      "path": "scripts/build_v170_manifest.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "e2714e36e8b29b97f1156e6d08fc7a153c8106e8"
+    },
+    {
+      "path": "scripts/check_betting_performance.py",
+      "relation": "DIFFERENT",
+      "main_blob": "a0288a82c9a17b57f7bd733bb42d0133770f5aa8",
+      "pr_blob": "1d51fe7e49999a83cabca6c8944c2b32b47642fc"
+    },
+    {
+      "path": "scripts/check_cycle04.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "05350f48a9d57641d971d9a039fe75a3bdc6ba5e"
+    },
+    {
+      "path": "scripts/check_prediction_compliance.py",
+      "relation": "DIFFERENT",
+      "main_blob": "064c60e1cfddf71d74cbb2bc61e38cc860f43d79",
+      "pr_blob": "939c4d07dc715c161607822a9d4e51b52c41301a"
+    },
+    {
+      "path": "scripts/cycle04_operations.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "291a5ca2f3a2c87682798f17241aa095baf13f18"
+    },
+    {
+      "path": "scripts/cycle04_workflow.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "c1ea61e847b77ff26fc7ea700fcb1098ea0443ec"
+    },
+    {
+      "path": "scripts/persistence_status.py",
+      "relation": "SAME",
+      "main_blob": "f38a184840b6c14f88bbc98bdf791c52e0349cf3",
+      "pr_blob": "f38a184840b6c14f88bbc98bdf791c52e0349cf3"
+    },
+    {
+      "path": "scripts/recommendation.py",
+      "relation": "SAME",
+      "main_blob": "dfce05f996d3291a9a08156f7729e9bcfe87f745",
+      "pr_blob": "dfce05f996d3291a9a08156f7729e9bcfe87f745"
+    },
+    {
+      "path": "scripts/run_cycle04_acceptance.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "3278fc311a248021fb2c49f46d673017649279a1"
+    },
+    {
+      "path": "scripts/run_release_readiness.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "3ad9c9368d19fd3ee626bb882207ca7ef96b530f"
+    },
+    {
+      "path": "scripts/seal_prediction.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "73131f4c8a871d997b6dbbeb0b506727f20c03bb"
+    },
+    {
+      "path": "scripts/selection_history.py",
+      "relation": "DIFFERENT",
+      "main_blob": "eb005a189f0992eaedff0101a0f10296bffc45a9",
+      "pr_blob": "08842e415f4cc38f009e7403c946be3d6ddfab90"
+    },
+    {
+      "path": "scripts/task_completion.py",
+      "relation": "SAME",
+      "main_blob": "76ba7f1a8c925885c3cd83c71816bbee875e808c",
+      "pr_blob": "76ba7f1a8c925885c3cd83c71816bbee875e808c"
+    },
+    {
+      "path": "scripts/test_build_cycle03_review.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "c0ce4b81292ddf8b2d34578a5175bb8e75a8688a"
+    },
+    {
+      "path": "scripts/test_check_betting_performance.py",
+      "relation": "DIFFERENT",
+      "main_blob": "a96fb7dc3ee83fce8af910457e41d531ff199b1f",
+      "pr_blob": "661fcdf760eebe277a54fdb555627724f27486d3"
+    },
+    {
+      "path": "scripts/test_check_cycle03.py",
+      "relation": "DIFFERENT",
+      "main_blob": "e60ccba2f28cfbaf2eaa3f1fe0d33fba97152287",
+      "pr_blob": "c606a71c48efa134ad4da22672993006912e506d"
+    },
+    {
+      "path": "scripts/test_cycle04_acceptance.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "e865eea82e8e6c5ed80f77ab40d5fb0da00482db"
+    },
+    {
+      "path": "scripts/test_cycle04_workflow.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "f7452daaae3203e12ce01f7da8aa01448f3ea08e"
+    },
+    {
+      "path": "scripts/test_next_prediction_compliance.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "bddece008b536f0c0b1158f3225536bcb9c3476b"
+    },
+    {
+      "path": "scripts/test_next_prediction_persistence.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "92176f22b1739feaf95fe4c1217371176394f511"
+    },
+    {
+      "path": "scripts/test_persistence_status.py",
+      "relation": "SAME",
+      "main_blob": "5ee170d7e5d744442dba06ae6bb8cce2e0cc0505",
+      "pr_blob": "5ee170d7e5d744442dba06ae6bb8cce2e0cc0505"
+    },
+    {
+      "path": "scripts/test_recommendation.py",
+      "relation": "DIFFERENT",
+      "main_blob": "83a59a83ad16e148995f9dda52454680a85214e2",
+      "pr_blob": "c55c65bc6c3137574899f5951e843aaf0d96c2b4"
+    },
+    {
+      "path": "scripts/test_release_readiness.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "5005d1378a4a03ae77d0823beff4ca21fc253b90"
+    },
+    {
+      "path": "scripts/test_selection_history.py",
+      "relation": "SAME",
+      "main_blob": "716be393be7a627fa4e745374ac41218a40e63bf",
+      "pr_blob": "716be393be7a627fa4e745374ac41218a40e63bf"
+    },
+    {
+      "path": "scripts/test_task_completion.py",
+      "relation": "DIFFERENT",
+      "main_blob": "5ca98114ef3ba4c9af9adfb880fd51026b709a8a",
+      "pr_blob": "0d9ecad5d40f895652772329b34453711580f98e"
+    },
+    {
+      "path": "scripts/test_two_axis_candidates.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "55a0b77d2c364940444c15c9f1ccc0d426b7dfe9"
+    },
+    {
+      "path": "scripts/two_axis_candidates.py",
+      "relation": "MAIN_ONLY",
+      "main_blob": "bca897df3a761fd2767519e7e7333742bceb3a91"
+    },
+    {
+      "path": "scripts/verify_prediction_persistence.py",
+      "relation": "SAME",
+      "main_blob": "286172c642c847c7851e88364a6599c1a627d663",
+      "pr_blob": "286172c642c847c7851e88364a6599c1a627d663"
+    }
+  ],
+  "other_script_differences": [
+    {
+      "path": "scripts/audit_20261012_pr78.py",
+      "pr_sha": "921ff5147e6eaba5142fb76e30be6d07e605c2c6",
+      "main_sha": "ddfd2d808a976e0d0f74982c407522f6363de9c8"
+    },
+    {
+      "path": "scripts/check_betting_performance.py",
+      "pr_sha": "1d51fe7e49999a83cabca6c8944c2b32b47642fc",
+      "main_sha": "a0288a82c9a17b57f7bd733bb42d0133770f5aa8"
+    },
+    {
+      "path": "scripts/check_designated_ancestor_scope.py",
+      "pr_sha": "17fca528a7ebcda927ff7a6371ddb7886b5b5922",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_foreign_pedigree_review.py",
+      "pr_sha": "3bed7c9d12baf3eaf82ae360f601593e0d2dc497",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_historical_pr_refs.py",
+      "pr_sha": "bb3ce9ead104b52191e57794150fae14341717e2",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_legacy_fact_followup.py",
+      "pr_sha": "0e0435bd7ffa1790f0491d954b5201ab0464c4ff",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_oct11_pedigree_delta.py",
+      "pr_sha": "eeda1670320fef91c7e2e5ef127bfe8925f76439",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_pedigree_alternative.py",
+      "pr_sha": "f266507d4eb9efa0985dbda4b0c9a336c1fe28a5",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_pedigree_followup.py",
+      "pr_sha": "5d3d33dbc4cf6bb5b43e726042f1d1d1feae5bed",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_pedigree_reconciliation.py",
+      "pr_sha": "9b0d487023c07ff8a822fefd20665e26508a9215",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_prediction_compliance.py",
+      "pr_sha": "939c4d07dc715c161607822a9d4e51b52c41301a",
+      "main_sha": "064c60e1cfddf71d74cbb2bc61e38cc860f43d79"
+    },
+    {
+      "path": "scripts/check_prediction_cycle.py",
+      "pr_sha": "6a8ba355c175fc11089daa0ad185b520c0468bf3",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_r08_acceptance.py",
+      "pr_sha": "8a57b5ddf0d69214e3354fa4ef4924e0535956e6",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_remaining_reviews.py",
+      "pr_sha": "1738228c0138c452b088be713bd49ff356221947",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_training_country_ancestors.py",
+      "pr_sha": "39b8eb656a7580eb6420b1ad9d8e438e53c40ae5",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_training_country_priority.py",
+      "pr_sha": "38006cb08f60c7ad117d9f31eaeb238cc16f317b",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_training_country_r02.py",
+      "pr_sha": "e7cd5e0768423d7494a92439b29b0f6addca6875",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_training_country_raw_evidence.py",
+      "pr_sha": "064487f0bc1a9de77430682dae0345f9448ac6ee",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_training_country_remaining.py",
+      "pr_sha": "d1449eb416da9f06d4e5584dea0178ca93276715",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_training_country_reviewed_batches.py",
+      "pr_sha": "4e73e82db41b015321ff3eca4ee935ea77a23b9f",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/check_training_country_user_confirmations.py",
+      "pr_sha": "ecb183e8c21c067f4a679f401738ade0e2751eac",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/import_legacy_subjects.py",
+      "pr_sha": "c51d37f962bcad783dc2d2fe035085f1825af1fa",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/pedigree_batch.py",
+      "pr_sha": "ac0151bdaf38b95fce6a7c78fa70428aae7ba57a",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/pedigree_registry.py",
+      "pr_sha": "794d34b6005d70a7abcdf5797f4ab7ee15c335de",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/pedigree_stats.py",
+      "pr_sha": "7a95dd6e3261ddab9461bdfd0ee7c802cebd75fa",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/selection_history.py",
+      "pr_sha": "08842e415f4cc38f009e7403c946be3d6ddfab90",
+      "main_sha": "eb005a189f0992eaedff0101a0f10296bffc45a9"
+    },
+    {
+      "path": "scripts/test_check_betting_performance.py",
+      "pr_sha": "661fcdf760eebe277a54fdb555627724f27486d3",
+      "main_sha": "a96fb7dc3ee83fce8af910457e41d531ff199b1f"
+    },
+    {
+      "path": "scripts/test_check_cycle03.py",
+      "pr_sha": "c606a71c48efa134ad4da22672993006912e506d",
+      "main_sha": "e60ccba2f28cfbaf2eaa3f1fe0d33fba97152287"
+    },
+    {
+      "path": "scripts/test_check_prediction_compliance.py",
+      "pr_sha": "bddece008b536f0c0b1158f3225536bcb9c3476b",
+      "main_sha": "56aa93fca3be91fbc6ffa0ecde519597c4dec1ad"
+    },
+    {
+      "path": "scripts/test_check_prediction_cycle.py",
+      "pr_sha": "3da91b25baa377c5d6d43159ad53a9e2fb7e588c",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_designated_ancestor_scope.py",
+      "pr_sha": "e2292be6a7efa11bf0f8257c2489b2ded17ce7a7",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_foreign_pedigree_continuation.py",
+      "pr_sha": "8f742c1eaa98705fd99d9f5861ef6c0cf6316f73",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_foreign_pedigree_review.py",
+      "pr_sha": "a8b2a2f6764f6aac8b11ea197e8a949591f1e7d4",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_historical_pr_refs.py",
+      "pr_sha": "633b301a038ef1dd117d51e76fd8e745d7c4a577",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_legacy_fact_followup.py",
+      "pr_sha": "815638abfb7ce6feb45f02ea51109f1d0d81f9cf",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_pedigree_alternative.py",
+      "pr_sha": "fe0976d024349803b6010ec84b8c806a851219d3",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_pedigree_batch.py",
+      "pr_sha": "c5d36499ad5f9614705496ea9aba4cdc524fa18c",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_pedigree_reconciliation.py",
+      "pr_sha": "d164e4ae716ca6589bf7506946d4d83f4336efa5",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_pedigree_registry.py",
+      "pr_sha": "471fc84b21da152ab72b26564063c39d279ec701",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_pedigree_schema_contract.py",
+      "pr_sha": "e40f764b406af49bfde16e3ba4f50fe43975be7c",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_pedigree_stats.py",
+      "pr_sha": "6451c00005f84747ed2609f0230f31aa6b9cc458",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_r08_acceptance.py",
+      "pr_sha": "2cb282b691becaa99315b61529ea4523ba5cf126",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_recommendation.py",
+      "pr_sha": "c55c65bc6c3137574899f5951e843aaf0d96c2b4",
+      "main_sha": "83a59a83ad16e148995f9dda52454680a85214e2"
+    },
+    {
+      "path": "scripts/test_remaining_reviews.py",
+      "pr_sha": "9a3604cc761af3122a82d2c9a73022649541e78e",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_task_completion.py",
+      "pr_sha": "0d9ecad5d40f895652772329b34453711580f98e",
+      "main_sha": "5ca98114ef3ba4c9af9adfb880fd51026b709a8a"
+    },
+    {
+      "path": "scripts/test_training_country_ancestor_reply.py",
+      "pr_sha": "6a8baac13da18ce78dda78aacf4983f606103b39",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_training_country_ancestors.py",
+      "pr_sha": "601a101d82b6b365fca2ade93451ec86a250bf72",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_training_country_priority.py",
+      "pr_sha": "237873bef095936533159752d3bbfe902c0b143b",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_training_country_remaining.py",
+      "pr_sha": "96714d8f0541f65f69280ac668b83ebbe01daa36",
+      "main_sha": null
+    },
+    {
+      "path": "scripts/test_verify_prediction_persistence.py",
+      "pr_sha": "92176f22b1739feaf95fe4c1217371176394f511",
+      "main_sha": "a529a8c707a60fb816d81a1f434d888429869a04"
+    }
+  ],
+  "import_provenance": {
+    "schema_version": "pr69-preparation-import-v1",
+    "source_commit": "11f4f339391be34bb6fbbc15edbd812e4b0641df",
+    "target_parent": "3d9014723a7fdaff1d6c981bdfb3d516490a4719",
+    "scope": "保存・個別完了・用途履歴・価格不要推奨の依存だけ再利用。PR69全体・血統研究・runtime・正式manual切替は取り込まない",
+    "files": [
+      {
+        "source_path": "scripts/check_prediction_compliance.py",
+        "source_blob_sha": "939c4d07dc715c161607822a9d4e51b52c41301a",
+        "target_path": "scripts/check_prediction_compliance.py",
+        "adaptation": "PENDING next_release=nullを許容、ACTIVE未定拒否"
+      },
+      {
+        "source_path": "scripts/verify_prediction_persistence.py",
+        "source_blob_sha": "286172c642c847c7851e88364a6599c1a627d663",
+        "target_path": "scripts/verify_prediction_persistence.py",
+        "adaptation": "準備成果を再利用"
+      },
+      {
+        "source_path": "scripts/persistence_status.py",
+        "source_blob_sha": "f38a184840b6c14f88bbc98bdf791c52e0349cf3",
+        "target_path": "scripts/persistence_status.py",
+        "adaptation": "準備成果を再利用"
+      },
+      {
+        "source_path": "scripts/task_completion.py",
+        "source_blob_sha": "76ba7f1a8c925885c3cd83c71816bbee875e808c",
+        "target_path": "scripts/task_completion.py",
+        "adaptation": "準備成果を再利用"
+      },
+      {
+        "source_path": "scripts/selection_history.py",
+        "source_blob_sha": "08842e415f4cc38f009e7403c946be3d6ddfab90",
+        "target_path": "scripts/selection_history.py",
+        "adaptation": "推奨/任意市場の独立用途を追加"
+      },
+      {
+        "source_path": "scripts/recommendation.py",
+        "source_blob_sha": "dfce05f996d3291a9a08156f7729e9bcfe87f745",
+        "target_path": "scripts/recommendation.py",
+        "adaptation": "準備成果を再利用"
+      },
+      {
+        "source_path": "scripts/audit_20261012_pr78.py",
+        "source_blob_sha": "921ff5147e6eaba5142fb76e30be6d07e605c2c6",
+        "target_path": "scripts/audit_20261012_pr78.py",
+        "adaptation": "既存audit markerの新旧互換と固定commit/blob読取adapter"
+      },
+      {
+        "source_path": "scripts/test_persistence_status.py",
+        "source_blob_sha": "5ee170d7e5d744442dba06ae6bb8cce2e0cc0505",
+        "target_path": "scripts/test_persistence_status.py",
+        "adaptation": "既存main回帰を保持し、準備fixture参照を分離"
+      },
+      {
+        "source_path": "scripts/test_task_completion.py",
+        "source_blob_sha": "0d9ecad5d40f895652772329b34453711580f98e",
+        "target_path": "scripts/test_task_completion.py",
+        "adaptation": "既存main回帰を保持し、準備fixture参照を分離"
+      },
+      {
+        "source_path": "scripts/test_selection_history.py",
+        "source_blob_sha": "716be393be7a627fa4e745374ac41218a40e63bf",
+        "target_path": "scripts/test_selection_history.py",
+        "adaptation": "推奨/任意市場の独立用途を追加"
+      },
+      {
+        "source_path": "scripts/test_recommendation.py",
+        "source_blob_sha": "c55c65bc6c3137574899f5951e843aaf0d96c2b4",
+        "target_path": "scripts/test_recommendation.py",
+        "adaptation": "既存main回帰を保持し、準備fixture参照を分離"
+      },
+      {
+        "source_path": "scripts/test_check_prediction_compliance.py",
+        "source_blob_sha": "bddece008b536f0c0b1158f3225536bcb9c3476b",
+        "target_path": "scripts/test_next_prediction_compliance.py",
+        "adaptation": "mainの旧回帰を維持し、次期契約fixtureを別ファイルへ配置"
+      },
+      {
+        "source_path": "scripts/test_verify_prediction_persistence.py",
+        "source_blob_sha": "92176f22b1739feaf95fe4c1217371176394f511",
+        "target_path": "scripts/test_next_prediction_persistence.py",
+        "adaptation": "既存main回帰を保持し、準備fixture参照を分離"
+      },
+      {
+        "source_path": "docs/validation/handoffs/2026-10-11-seven-open-issues.md",
+        "source_blob_sha": "392fcfbdcbf8d2f50df079df89407089925e4d19",
+        "target_path": "docs/validation/handoffs/2026-10-11-seven-open-issues.md",
+        "adaptation": "準備成果を再利用"
+      },
+      {
+        "source_path": "docs/validation/implementation/2026-10-11-task27.json",
+        "source_blob_sha": "773fc14767c87d26dec6f19a49aa8ee6d6c75636",
+        "target_path": "docs/validation/implementation/2026-10-11-task27.json",
+        "adaptation": "準備成果を再利用"
+      }
+    ]
+  },
+  "execution_order": [
+    "S01_MAIN_THREE_WAY_INTEGRATION",
+    "S02_CONTRACT_CI_AND_LEDGER_ROUTING",
+    "S03_FIXTURE_AND_ACCEPTANCE_COMPATIBILITY",
+    "28-37_EXISTING_ACCEPTANCE_AND_MISSING_DELTAS",
+    "38-43_RECORD_ACCEPTANCE_AND_RESEARCH_BATCHES",
+    "44-47_EXISTING_COLLECTION_DECISION_RECONCILIATION",
+    "48-52_VERIFY_ALREADY_DEPLOYED_CUTOVER",
+    "53_NON_UI_PHASE_HANDOFF"
+  ],
+  "scope": {
+    "code_changed": false,
+    "main_integrated": false,
+    "release_reactivated": false,
+    "historical_records_changed": false,
+    "numbered_plan_rewritten": true
+  },
+  "limitations": [
+    "コード差分・main既存受入を確認。PR69統合後の回帰・readinessはS03で実施し、今回成功とは数えない。",
+    "GitHubのPR競合判定を確認。path別の実競合はS01で三方統合して固定する。",
+    "第4開催前の前向き実測・価格2開催・Windows/JRA-VAN接続は確認していない。"
+  ]
+}
