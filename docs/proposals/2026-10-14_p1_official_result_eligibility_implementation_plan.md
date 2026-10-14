@@ -101,3 +101,10 @@
 - **完全な統合完了判定は保留。** Actionsでジョブが実行できる状態になったら、最新の全回帰→受入 `--write`→release manifest生成→通常checker→統合受入 `--full`→3系統CIの順で再実行する。未マージbranchの `--require-main` が拒否することは正常であり、開始認証を緩めない。
 
 セルフレビュー：変更は当該公式結果経路と回帰・文書・manifestに限定。実日別台帳、既存Production/Recommendation保存原本、旧v1.6.1履歴、Shadow、任意市場は書き換えていない。
+
+## 再開確認（2026-10-14 15:35 JST）
+
+- PR #82、対象branch、AGENTS、本計画と最新base/headを読戻した。base mainは `b288bc1f39f61d68c6cf536608c11689575315e8`、検証対象headは `c9acf111d3767a4f655445ec9ad0e492f57bfc35`。前回のGitHub connector方式で再開し、実装済み部分は作り直していない。
+- 上記headの統合 `38522451242`、台帳 `38522451232`、血統 `38522451304` の失敗ジョブを再実行した。3系統ともattempt 2でfailure。check-run/jobはそれぞれ `115717080399`、`115717083264`、`115717086607`、実行stepsなし。ジョブログは404 BlobNotFound。check-runに失敗注釈2件ずつ存在するが、annotations URLはconnectorの許可endpoint外として400で拒否され、内容未取得。原因を課金・runner・コードのいずれとも断定しない。
+- ローカルのGit取得も試みたが、GitHubおよび環境のGit proxy経路ともUsername取得不能でclone失敗。全回帰・標準スクリプトによるmanifest生成・通常checker・統合受入の直接実行はできていない。
+- 実装、実レース原票、manifestの検証結果を偽装せずDraftを維持。完了条件は前節のまま。実行環境の復旧、またはAGENTSの再開方式規約に沿って利用者が承認した実行可能な方式が必要。
