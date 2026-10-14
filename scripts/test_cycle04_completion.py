@@ -70,6 +70,49 @@ class CompletionAcceptance(unittest.TestCase):
                 'day_refs':[],'summary_ref':None},[])
         self.assertNotEqual(self.evaluate()['state'],'理由付き終了')
 
+    def test_normal_completion_requires_all_four_days_and_saved_summary(self):
+        days=[]
+        for date in DATES:
+            race=date.replace('-','')+'-TOK-01'
+            days.append({'race_date_jst':date,'initial_scope':[race],
+                         'selected_scope':[race],'final_scope':[race],'reviewed_scope':[race],
+                         'unfinished_reasons':{},
+                         'races':{race:{'prediction_history':[{'phase':'INITIAL','prediction_ref':{}},
+                                                               {'phase':'FINAL','prediction_ref':{}}],
+                                        'recommendation_state':'NO_RECOMMENDATION',
+                                        'result_ref':{'artifact_path':'fixed-result.json'},
+                                        'review':{'error_classification':'確認','non_degradation':'維持',
+                                                  'next_validation':'続行'}}},
+                         'kpis':{'production':{'eligible_ids':[race],'ineligible_ids':[],
+                                                'pending_ids':[],'reasons':{race:'確認'}},
+                                 'recommendation':{'eligible_ids':[],'ineligible_ids':[race],
+                                                   'pending_ids':[],'reasons':{race:'正常推奨なし'}},
+                                 'shadow':{'eligible_ids':[],'ineligible_ids':[],
+                                           'pending_ids':[race],'reasons':{race:'Shadow未測定'}}}})
+        refs={'day_refs':[], 'summary_ref':None}
+        with patch('cycle04_completion._prediction_check',return_value=[]), \
+             patch('cycle04_completion._recommendation_check',return_value=[]), \
+             patch('cycle04_completion.verify_summary_refs') as verifier:
+            incomplete=evaluate_days(self.root,days)
+            self.assertFalse(incomplete['normal_cycle_complete'])
+            self.assertEqual(incomplete['state'],'終了審査待ち')
+            completed=evaluate_days(self.root,days,frozen_refs=refs)
+            self.assertTrue(completed['normal_cycle_complete'])
+            self.assertEqual(completed['state'],'正常一巡完了')
+            self.assertEqual(len(completed['shadow_gaps']),4)
+            verifier.assert_called_once()
+
+    def test_completion_cli_refuses_missing_stages_even_with_four_day_count(self):
+        from check_cycle04 import main as checker_main
+        from contextlib import redirect_stderr
+        import io
+        contract=json.loads((self.root/'docs/validation/contracts/cycle_04.json').read_text())
+        with patch('check_cycle04.check_preparation',return_value=contract):
+            with redirect_stderr(io.StringIO()) as errors:
+                code=checker_main(['--root',str(self.root),'--require-complete'])
+        self.assertEqual(code,1)
+        self.assertIn('正常一巡未完了',errors.getvalue())
+
     def test_completed_stages_still_require_summary_and_all_dates(self):
         self.case.reviewed() if False else None
         self.case.select() if False else None
