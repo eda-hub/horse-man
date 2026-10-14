@@ -12,6 +12,7 @@ from cycle04_operations import (fingerprint, positive_set, require, safe_path,
                                validate_inputs, validate_market, validate_market_payload, validate_selection,
                                validate_ticket_comparison, verified_artifact, validate_official_result)
 from recommendation import verify as verify_recommendation, settle
+from cycle04_shadow_state import verify_history as verify_shadow_history
 
 CONTRACT_PATH = 'docs/validation/contracts/cycle_04.json'
 DATES = ['2026-10-17', '2026-10-18', '2026-10-24', '2026-10-25']
@@ -189,6 +190,7 @@ def validate_day(root, path, contract):
         if row.get('recommendation_gate_path'):
             rec=verify_recommendation(root,safe_path(root,row['recommendation_gate_path']))
             require(row.get('recommendation_result')==settle(rec,result),'recommendation settlement mismatch')
+    shadow_latest = {}
     for race,row in rows.items():
         history=row.get('prediction_history',[])
         require(isinstance(history,list),'prediction history list required')
@@ -210,6 +212,13 @@ def validate_day(root, path, contract):
                     history[-1]['prediction_ref']==row.get('operations',{}).get('prediction_ref'),
                     'latest prediction/history mismatch')
             require((history[-1]['phase']=='FINAL')==(race in final),'final/history scope mismatch')
+        if row.get('shadow_tracking_version') is not None:
+            require(row['shadow_tracking_version'] == 'phase-shadow-v1' and
+                    len(row.get('shadow_history', [])) == len(history),
+                    'complete phase shadow tracking required')
+        latest = verify_shadow_history(root, row, race, date, history)
+        if latest is not None:
+            shadow_latest[race] = latest
     for name, scope in [('production', initial), ('recommendation', final), ('shadow', initial),
                         ('market', final), ('actual_purchase', initial)]:
         k = d.get('kpis', {}).get(name)
@@ -224,6 +233,19 @@ def validate_day(root, path, contract):
         require(set().union(*groups) == target and sum(map(len, groups)) == len(target), 'KPI partition mismatch')
         require(isinstance(k.get('reasons'), dict) and set(k['reasons']) == target
                 and all(isinstance(v, str) and v.strip() for v in k['reasons'].values()), 'KPI reasons missing')
+        if name == 'shadow':
+            for race, latest in shadow_latest.items():
+                state = latest['kpi_state']
+                if state == 'NOT_APPLICABLE':
+                    require(race not in target,
+                            'stale shadow KPI must be cleared for explicit final non-applicability')
+                else:
+                    field = {'ELIGIBLE':'eligible_ids',
+                             'INELIGIBLE':'ineligible_ids','PENDING':'pending_ids'}[state]
+                    require(race in string_set(k[field], 'shadow latest '+field) and
+                            k['reasons'].get(race) ==
+                            latest['phase']+' Shadow：'+latest['applicability']['reason'],
+                            'shadow latest KPI/state/reason mismatch')
         for race in groups[0]:
             require_active(root, contract)
             row = rows[race]
