@@ -5,7 +5,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p1-official-result-eligibility`
 - 調査基準main：`b288bc1f39f61d68c6cf536608c11689575315e8`
-- 状態：計画作成済み／実装未着手
+- 状態：実装・固定manifest更新済み。最新の全回帰・統合受入と3系統CI確認は実行基盤側で保留。
 - 目的：通常の回顧・日別検査・サイクル集計が、固定された公式本文と対応する結果だけを新規の前向き成績へ算入するようにする。
 - 完了対象：結果の出所・本文・変換・本体・時点・実測区分の接続欠陥。結果取得サイトの自動収集や新しい性能評価モデルは対象外。
 
@@ -64,12 +64,12 @@
 
 関連テストから開始し、全回帰と通常checkerへ広げる。少なくとも `test_cycle04_workflow`、`test_cycle04_acceptance`、`test_chat_result_conversion`、`test_chat_result_reconciliation`、`test_chat_review_package` と旧予想/推奨の回帰を実施する。全回帰は `python3 -m unittest discover -s scripts -p 'test_*.py'`。受入更新・release整合・統合受入は共通規約に従う。
 
-実装時に本書へ「小項目／commit SHA／変更path／実行コマンド／期待結果／実結果／残件」を追記する。現在の全小項目は未着手。
+実装時に本書へ「小項目／commit SHA／変更path／実行コマンド／期待結果／実結果／残件」を追記する。最新実績・残件は本書末尾を参照。
 
 ## 共通の作業・統合規約
 
 - 対象は常に `eda-hub/horse-man`。本書は実装計画であり、現行Productionルールの代用にしない。
-- 利用者の依頼は計画書作成まで。以下の実装修正・実レース記録作成はまだ実施しない。
+- 本書作成時の依頼は計画書作成までだったが、2026-10-14の追加指示によりPR #82の実装を開始した。実レースの記録作成・性能昇格は今回の対象外。
 - 既存v1.7.0の予想骨格、価格不要推奨、Production/Shadow/任意市場の分離、旧v1.6.1履歴を維持する。実購入・価格・払戻・実測性能を標準完了の必須入力に戻さない。
 - 合成fixtureは一時領域で検査し、実日別台帳・未来の事前証跡・実測0を作らない。第4開催の実測、過去研究の網羅、性能昇格を本修正PRのマージ条件にしない。
 - コミット・PR説明・作業記録は日本語。各小項目を実装・対応テスト・セルフレビューまで行い、小項目ごとにコミットする。未完了項目を完了と記載しない。
@@ -79,3 +79,25 @@
 - 全回帰、通常checker、合成受入、release整合、統合受入と3系統CIを確認する。開始認証の `--require-main` は未マージの候補branchを認証するために改変しない。統合受入は取得済みmainと候補branchの契約一致/未マージ拒否を正しく区別する。
 - 必要な過去Git履歴・原票・PDF依存を取得できない検査は実行不能として残す。失敗をコード欠陥と混同せず、未実行を成功にしない。完了報告には実行コマンド・結果・CI対象SHA・残件を対応付ける。
 - 修正の切り戻しは対象変更のrevertで行い、保存済み予想・receipt・結果・比較履歴を削除しない。後続PR統合後は依存を確認し、関連契約・受入・manifestを同時に整合させる。
+
+## 実装実績・検証記録（2026-10-14）
+
+対象branchは `fix/p1-official-result-eligibility`、調査基準mainは `b288bc1f39f61d68c6cf536608c11689575315e8`。mainは変更していない。実レースの結果や未来の事前証跡、実測0は作成していない。
+
+| 小項目 | 代表commit SHA／変更path | 実施・検査結果 | 未完了事項 |
+|---|---|---|---|
+| 01 | `15fc27edea6465f42de1c4bd18889bae2c83c9b6`, `69d3a541110160581d4a7e05dc69e1954271b82b` ／ `scripts/test_cycle04_result_eligibility.py` | 単独OFFICIAL、Replay/Synthetic、未来取得、URL差替え、固定参照切離し、日別台帳改変を負例に固定。変更前の算入成功は本書の再現欄に記録。 | 最終CI再実行 |
+| 02 | `62e6f6625f4e3a1d029d37470954a5d35c6f5388`, `0d0ca7164bc4f3dedd35e167ff787c8cd809ab8b`, `b44bd3872456387c96edda4a25c85a41519693eb` ／ `scripts/chat_result_reconciliation.py`, `scripts/cycle04_operations.py` | capture/conversion/resultの固定6参照を独立manifestに固定し、原文再変換、FORWARD、実時計、レース/発走と予想/推奨の同一原本を要求。遅延importで循環防止、読取診断の認証フラグは保持。 | 追加修正後の全回帰 |
+| 03 | `a39c53c72dbfe65b6a7b4bcad75e55883f210039`, `189244fdc1d37642d4615c8e3e59667a63452d7c` ／ `scripts/cycle04_workflow.py`, `scripts/check_cycle04.py` | writer保存前・validate_day・summaryで同じ適格性検査。照合不合格時は既存台帳を上書きせず、他の保存済み原票を保全。 | 最終CI再実行 |
+| 04 | `37976cf0e8665a88625e1721d807414322a8852b`, `47f544aa0942737b8f5bd3c7fc619c70854af349`, `c8eec2a46909121bf73dc48c93882b39282a78c9`, `e15508e43e8a3757791fa24667a7ba3958cdd74d`, `3aeec23af9b1a0f058a57dd735616d7cb5b5f7f4` ／ `scripts/chat_review_package.py`, `scripts/test_cycle04_workflow.py`, `scripts/test_chat_review_package.py`, 既存運用契約と標準テンプレート | 初回のみ・FINAL・推奨有無、同着・取消・複勝対象着数を既存ロジックで検査。回顧資料にも原本参照と照合状態を出す。 | 新規回顧資料テストのCI確認 |
+| 05 | `143ccbbccc23dc581966ee0b7583eea063014d50`, `6c44d4df7fc669a1a7a22133c3abddc8ab20b079` ／ `docs/validation/reviews/cycle_04/acceptance.json`, `docs/validation/contracts/v170-release.json` | GitHubから取得したソースbytesのSHA-256を再計算し、受入750件・143ソース、release162ソースのmanifestへ反映。ファイル再生成用コマンドの実行成功を主張しない。 | **最新750件の全回帰、実行コマンドでの再生成、通常checker、統合受入、3系統CI成功確認が未完了** |
+
+### コマンド・CI結果・阻害事項
+
+- `python3 -m unittest discover -s scripts -p 'test_*.py'` は `c3a13ff6b937107f8917b457e7659502274a82d5` のActions「予想実行と第3サイクル台帳の機械監査」で**回帰テストステップ成功**（当時749件）。予想保存の監査・第3台帳検査も成功、第4checkerは旧受入source hashの不一致で停止。その後変更されたテスト1件を含む最新750件の実行結果は未取得。
+- `python3 scripts/check_integration_acceptance.py --full` は上記時点で旧release source hash不一致により停止。後続でmanifestを再計算したが、最終検証の実行結果は未取得。
+- `python3 scripts/run_cycle04_acceptance.py --write` および `python3 scripts/build_v170_manifest.py` は、GitHubファイル編集経路では直接コマンドを実行できないため**未実行**。該当JSONは取得した各ファイルbytesからSHA-256を計算し更新した。次回の標準スクリプトで生成結果と照合する必要がある。
+- `6c44d4df7fc669a1a7a22133c3abddc8ab20b079` の3系統CIはすべて失敗したが、いずれも開始から2〜3秒で終了し**ジョブステップ数0**。ジョブログの取得は404（BlobNotFound）。コードエラーと判別できず、外部Actions実行基盤の阻害として区別。実行IDは統合 `38522232059`、台帳 `38522232035`、血統 `38522232023`。同種の事象は直前のCIで発生し、3系統の失敗ジョブを再実行しても再発。
+- **完全な統合完了判定は保留。** Actionsでジョブが実行できる状態になったら、最新の全回帰→受入 `--write`→release manifest生成→通常checker→統合受入 `--full`→3系統CIの順で再実行する。未マージbranchの `--require-main` が拒否することは正常であり、開始認証を緩めない。
+
+セルフレビュー：変更は当該公式結果経路と回帰・文書・manifestに限定。実日別台帳、既存Production/Recommendation保存原本、旧v1.6.1履歴、Shadow、任意市場は書き換えていない。
