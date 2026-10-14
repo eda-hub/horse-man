@@ -177,3 +177,5 @@
 - `assess` は別の当時gate項目が `ELIGIBLE` でも、削除済みの未解決項目が残ればShadowレース単位状態を `PENDING` にする。確定した `NOT_APPLICABLE` と非空の個別理由が保存されるまで対象集合から保留・理由を消さない。Production/推奨のKPIは独立に保つ。
 - writer回帰は複数FINAL再改訂で未判断のFINAL②をrejectし旧台帳bytesを維持する。FINAL②のUNKNOWN継続と再登録冪等、FINAL③の個別理由付き解決、手動で偽装した台帳をvalidator・summaryが拒否すること、旧項目UNKNOWNと新規適格項目の混在時も保留することを検査する。
 - 既存原本・固定gate・receipt・公式結果を変更しない。合成受入 `run_cycle04_acceptance.py --write` の実行成功後にのみ `build_v170_manifest.py` でsource hashを再生成し、全3系統CIと取得済みmain統合受入を最新SHAで検証する。検証完了前に成功と記さない。
+- **実行結果**：<https://github.com/eda-hub/horse-man/actions/runs/38567128954>で標準合成受入**791件PASS、失敗0、skip0**、source_manifest145件、release manifest165件を生成。続いて`check_cycle04.py`、原子的`run_release_readiness.py`、`check_integration_acceptance.py --full`の全ステップが成功。生成物の保存コミット`c31bcb73a6d6b0d4da82d3aef04b796f85778d15`を確認。一時CIファイルはコミット`80e9393b5f30471cc7f6c98e0d1115d0ebec060d`で削除。最終SHAのCI3系統が成功してからレビュー残件をクローズする。
+
