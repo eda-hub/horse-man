@@ -573,6 +573,19 @@ class T(unittest.TestCase):
         self.put(r,g)
         with self.assertRaises(ComplianceError):run(r)
 
+  def test_next_forward_shadow_rejects_future_pre_race_readback(self):
+    from datetime import datetime
+    from unittest.mock import patch
+    class BeforeRaceClock(datetime):
+      @classmethod
+      def now(cls, tz=None):
+        instant=datetime.fromisoformat('2026-10-14T15:00:00+09:00')
+        return instant.astimezone(tz) if tz else instant.replace(tzinfo=None)
+    r=self.root_next();g=next_gate('2026-10-17','20261017-TOK-01')
+    add_next_shadow(r,g);self.put(r,g)
+    with patch('check_prediction_compliance.datetime',BeforeRaceClock):
+      with self.assertRaisesRegex(ComplianceError,'future Shadow persistence/readback'):run(r)
+
   def test_next_forward_shadow_rejects_replay_and_preserves_pending(self):
     r=self.root_next();g=next_gate()
     add_next_shadow(r,g);g['mode']='REPLAY';g['timing_route']='LATE_PRESERVATION'
