@@ -100,7 +100,7 @@
 
 | 小項目 | 実装commit・変更path | 検証・実結果 | 状態・残件 |
 |---|---|---|---|
-| 01 | `80d477380db8f57260f6143aad3846ee719d448f`、`c5407aaaeb4a213f89cc7af2d31f56edcd617b27`：`scripts/test_cycle04_completion.py` | 既存4日回顧誤判定、初回/選定済みFINAL欠落、未選定初回、推奨なし、集計未固定、終了承認無しをfixture化。後から追加した正常成功/CLIケースは未再実行 | テスト追加済み。後段の全件再実行待ち |
+| 01 | `80d477380db8f57260f6143aad3846ee719d448f`、`c5407aaaeb4a213f89cc7af2d31f56edcd617b27`、`ada8a304f799a863def248dbf019466e7fd84fee`：`scripts/test_cycle04_completion.py` | 既存4日回顧誤判定、初回/選定済みFINAL欠落、未選定初回、推奨なし、集計未固定、終了承認無しをfixture化。後から追加した正常成功/CLI・古いhash/別日scope拒否ケースは未再実行 | テスト追加済み。後段の全件再実行待ち |
 | 02 | `088d8e8c9b6f74a6bf7d62e295e106179e4f6956`、`098b165f94732047721f9c66c83a1924d65d4880`：`scripts/cycle04_completion.py` | 工程別判定と`task_completion`の既存個別検査を利用。Shadow/入力/市場/Ownerの不足を独立表示。純粋コードの新規テストは後述CIの制約あり | 実装済み、先行3件の統合時点で再確認 |
 | 03 | `3f395c279be49eeedee764b0f27de4698039c827`、`0e43e6d865a42d764f6e1279e23ed65191acb197`、`7855b2687bf23937df482d32fd36cdb86548890d`、`aae67bd1d7edd9edeacd7c403275c5ea5717d919`：`check_cycle04.py`、`cycle04_workflow.py`、`chat_review_package.py`、`chat_improvement_handoff.py` | CLIの`--require-complete`は4日全工程・固定集計読戻しを必要とし、summary/回顧引継ぎへ状態を同一判定器で接続。`chat_resume.py`と`task_completion.py`は既存検査を再利用し書き換えなし | コード実装済み。最終CLI受入待ち |
 | 04 | `088d8e8c9b6f74a6bf7d62e295e106179e4f6956`、`098b165f94732047721f9c66c83a1924d65d4880`：固定Git SHA/bytesと人間の終了審査記録の読取検査 | `git show COMMIT:path`とローカルSHA256の一致を要求し、承認無しの理由付き終了を拒否。人間の本人確認・実レース終了をコードが代行しない | 契約/検査追加済み。将来の実記録未作成 |
