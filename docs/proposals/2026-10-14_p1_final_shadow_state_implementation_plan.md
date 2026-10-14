@@ -5,7 +5,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p1-final-shadow-state`
 - 調査基準main：`b288bc1f39f61d68c6cf536608c11689575315e8`
-- 状態：計画作成済み／実装未着手
+- 状態：01〜04のコード・文書変更をブランチへコミット済み／実行受入・先行PR統合は未完了
 - 目的：初回Shadowの履歴を保全し、最終時点の比較状態を正しいgateへ結び付け、Shadow状態の持越しで正常な最終Prediction/推奨登録が失敗しないようにする。
 - 対象外：Shadow仮説の削除/昇格、Production再予想、推奨ロジック変更、実測性能の受入。
 
@@ -62,12 +62,12 @@
 
 最低限 `test_cycle04_workflow`、`test_cycle04_acceptance`、`test_chat_entry_assembly`、`test_chat_review_package`、`test_chat_helper_market_independence`、`test_chat_forward_coverage`、`test_chat_calibration_review`、`test_class_transition_shadow` を実施する。全回帰・合成受入・release/統合検証は共通規約に従う。
 
-実装時に本書へ「小項目／commit SHA／変更path／実行コマンド／期待結果／実結果／残件」を追記する。現在の全小項目は未着手。
+実装時に本書へ「小項目／commit SHA／変更path／実行コマンド／期待結果／実結果／残件」を追記する。実施状態の詳細は末尾の実装記録を正とする。
 
 ## 共通の作業・統合規約
 
 - 対象は常に `eda-hub/horse-man`。本書は実装計画であり、現行Productionルールの代用にしない。
-- 利用者の依頼は計画書作成まで。以下の実装修正・実レース記録作成はまだ実施しない。
+- 計画書作成時の依頼範囲は計画までだったが、2026-10-14にPR #84の実施を新たに指示されたため、対象の実装修正を開始した。実レース記録作成・性能昇格は依頼されていない。
 - 既存v1.7.0の予想骨格、価格不要推奨、Production/Shadow/任意市場の分離、旧v1.6.1履歴を維持する。実購入・価格・払戻・実測性能を標準完了の必須入力に戻さない。
 - 合成fixtureは一時領域で検査し、実日別台帳・未来の事前証跡・実測0を作らない。第4開催の実測、過去研究の網羅、性能昇格を本修正PRのマージ条件にしない。
 - コミット・PR説明・作業記録は日本語。各小項目を実装・対応テスト・セルフレビューまで行い、小項目ごとにコミットする。未完了項目を完了と記載しない。
@@ -77,3 +77,30 @@
 - 全回帰、通常checker、合成受入、release整合、統合受入と3系統CIを確認する。開始認証の `--require-main` は未マージの候補branchを認証するために改変しない。統合受入は取得済みmainと候補branchの契約一致/未マージ拒否を正しく区別する。
 - 必要な過去Git履歴・原票・PDF依存を取得できない検査は実行不能として残す。失敗をコード欠陥と混同せず、未実行を成功にしない。完了報告には実行コマンド・結果・CI対象SHA・残件を対応付ける。
 - 修正の切り戻しは対象変更のrevertで行い、保存済み予想・receipt・結果・比較履歴を削除しない。後続PR統合後は依存を確認し、関連契約・受入・manifestを同時に整合させる。
+
+## 実装記録（2026-10-14 JST、PR #84）
+
+本表の「追加済み」はGitHubブランチへの保存・読戻しを指す。**Python回帰の実行成功・CI合格を意味しない**。先行PR #82/#83はいずれも実装中かつ未マージであり、共通ファイルの最終統合を未実施のまま完了としない。
+
+| 小項目 | 代表commit SHA | 変更path・内容 | 検証コマンドと期待結果 | 実結果・残件 |
+|---|---|---|---|---|
+| 01 | `b2cc23531b25494bbec4d2f007399d1eed9dcd38` | `scripts/test_cycle04_workflow.py`。初回Shadow適格→最終Shadow空が旧実装では失敗する回帰、明示対象外・保留の遷移を追加 | `PYTHONPATH=scripts python3 -m unittest test_cycle04_workflow`：最終独立保存成功・初回固定原本存続 | テスト追加コミット済み。ローカルPython実行環境に対象private repoを取得できず実行未確認。 |
+| 02 | `f34203c2ab3c078b2563f833631777a7288f0775`, `81af0a4a4f7fbd8dbca319f5011c0b09b697ae51` | 新規`scripts/cycle04_shadow_state.py`、`scripts/cycle04_workflow.py`。明示適用判定・項目別取扱い・phase/gate SHA・baseline/cutoffと証跡を固定した追記型履歴を保存。最新KPIは履歴と分離 | `PYTHONPATH=scripts python3 -m unittest test_cycle04_workflow test_cycle04_acceptance`：最新KPI持越しなし、旧履歴改ざん拒否、同一gate冪等 | コード追加済み。複数項目・差替え・旧履歴欠落・最終不適格等の追加試験もコミット。テスト未実行。 |
+| 03 | `4317eb14a2615825f38255a398a6924cfa7a8d4e`, `d3e0cf9325c7182e81cdbddaf68e94fca7090b97` | `scripts/check_cycle04.py`・writer・`scripts/test_chat_entry_assembly.py`。履歴hash・状態・KPI集合を照合、適用なしなら最新Shadowをクリア、保留と不適格の最新状態を認証。previewとwriterは同じ`record_prediction`を通す | `PYTHONPATH=scripts python3 -m unittest test_cycle04_workflow test_chat_entry_assembly test_chat_helper_market_independence`：FINAL登録のProduction/推奨独立性、preview無書込み | コード・試験追加済み。テスト未実行。 |
+| 04 | `14280e8cf090b9646b7ea793581a8a7296189909`, `4d2b58955adbd914128429b4c9c80a643185441c`, `1045f95f00432ebb0e137e380f48ec0c66471587` | `scripts/chat_review_package.py`、`chat_forward_coverage.py`、`chat_calibration_review.py`、関連テスト、`docs/validation/contracts/cycle04_operations.md`、`docs/validation/templates/chatgpt_prediction_task.md`。phase別履歴・旧履歴不足・固定比較キー、提出時点のgate/baseline/cutoff照合、重複・混在防止 | `PYTHONPATH=scripts python3 -m unittest test_chat_review_package test_chat_forward_coverage test_chat_calibration_review test_class_transition_shadow`：初回/最終を独立回顧、欠測や重複を非適格として扱う | コード・契約・試験追加済み。テスト未実行。 |
+| 05 | 未作成（統合受入成功を示すSHAなし） | 全回帰→合成受入`--write`→release manifest再生成→3系統CI→統合受入 | `python3 -m unittest discover -s scripts -p 'test_*.py'`、`python3 scripts/run_cycle04_acceptance.py --write`、`python3 scripts/build_v170_manifest.py`、`python3 scripts/check_cycle04.py`、`python3 scripts/check_integration_acceptance.py --full`。すべて成功し、生成物とCI対象SHAの一致を確認 | **未完了**。private repoのPython実行不可、取得済みActionsは3系統とも`failure`でステップ配列空、ログ取得も`BlobNotFound`。失敗原因は特定できず、コード欠陥か実行環境かを未判定。成功受入/manifestの再生成なし。 |
+
+### 補足の追加修正
+
+- `32e8006805dd3297053dff58744884f7c936c7ca`：前向き網羅のassessmentを、最終の可変参照ではなく提出比較の固定phase/cutoffに結合。
+- `bd1dcf4dc41756c809078b9f7790c1a67529faeb`：先行PR #83が導入する未来時刻のShadow適格拒否に対応し、合成fixtureだけ固定時計を使用。実記録は生成しない。
+- `f3f585e1847e437eb521fe8824c5eae2298b13e1`：合成Shadow比較原本の保存時刻をProduction固定後へ修正。
+- `ebf6636dc054d5d1cc7270c85201a996288ef0bf`：初回対象外→最終適格、および初回適格→最終不適格の回帰ケースを追加。
+- 最新のコード状態はPR #84 headのコミットを正とし、途中SHAでCIを代用しない。
+
+### 統合時の必須作業・未解決
+
+1. **先行順序**：#82（公式結果の適格性）、#83（Shadow発走前原本）を`main`へ統合後、このブランチで最新`main`差分と共通ファイルを手動照合する。#83の強化済み`forward_shadow_evidence`を外さず、当時の固定原本・hash・receipt・発走前時刻を保持する。#85（サイクル完了）は本修正の後。
+2. **検証環境**：GitHub Actionsのrunner未開始に見える実行（各jobの`steps=[]`）とログ取得404を解消またはPythonを実行できる完全なcheckout（private repo、履歴、PDF依存を含む）を用意し、上記コマンドを実際に実行する。結果を実行時SHAと対応付ける。
+3. **受入・manifest**：先行統合後の最終ファイルで`run_cycle04_acceptance.py --write`を成功させてから、`build_v170_manifest.py`で全hashを再生成し、通常checker、release/readiness、統合受入、3系統CIを確認する。`--require-main`は未マージbranchの認証に使わない。
+4. **保存保全**：実レース原本、固定Prediction/推奨の既存bytes、過去のreceipt・履歴は変更しない。現時点で完成・CI合格・本番開始・性能昇格を宣言しない。
