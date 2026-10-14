@@ -411,7 +411,7 @@ class OperationalWorkflow(unittest.TestCase):
         write(self.root,'result.json',json.dumps(result))
         with self.assertRaisesRegex(ComplianceError,'full-field result'):
             workflow.review(self.root,DATE,{'race_id':RACE,'result_path':'result.json',
-                            'review':{'error_classification':'test','non_degradation':'test','next_validation':'test'}})
+                            'review':__import__('test_cycle04_result_eligibility').sample_review()})
         self.assertEqual(path.read_bytes(),original)
 
     def test_initial_cannot_roll_back_completed_final(self):
@@ -522,7 +522,7 @@ class OperationalWorkflow(unittest.TestCase):
     def test_empty_review_is_not_a_completed_review(self):
         path,_=self.reviewed();day=json.loads(path.read_text());day['races'][RACE]['review']={}
         path.write_text(json.dumps(day))
-        with self.assertRaisesRegex(ComplianceError,'requires error'):
+        with self.assertRaisesRegex(ComplianceError,'review latest/history mismatch'):
             workflow.summary(self.root)
 
     def test_writer_failure_and_concurrent_writer_preserve_the_prior_ledger(self):
