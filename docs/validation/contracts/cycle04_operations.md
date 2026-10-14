@@ -128,3 +128,31 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 確信度別、入力完備/不足別、午前/午後別の◎成績、初回→最終の順位変更と◎的中の改善/悪化、回顧ラベルの件数を集計する。初回比較がないレースは不足IDを残す。固定予想に取消馬が残る場合は精度の分母へ入れず比較不能の理由を記録し、推奨の取消券判定は独立して実施する。取消後に再固定済みの予想は実出走集合で照合する。
 
 任意市場を依頼された場合だけ`--date YYYY-MM-DD --record-market market-entry.json`を使う。entryはrace_idとmarket_ref、独立artifactはmarket-analysis-v1・race_id/race_date_jst・data_cutoff・marketを持つ。価格はPrediction固定後の独立cutoffで取得可能だが、cutoff・保存/読戻しは発走前を要求する。Predictionの順位・確率・基準・推奨・cutoffを変更しない。
+
+## 初回・最終Shadowの固定履歴と適用判定（phase-shadow-v1）
+
+`record_prediction` のentryはINITIAL/FINALそれぞれに `shadow_applicability` を明示する。省略、空配列からの自動対象外化、理由なしは拒否する。`status` は `APPLICABLE`（gateのshadow_itemsとitem_idsが一致）、`NOT_APPLICABLE`（該当条件を調べて対象外、item_ids空）、`UNKNOWN`（判定材料不足、item_ids空）のいずれか。全状態で空でない `reason` が必要。適用判定は当時の既存Shadow仮説の条件から行い、gateを照合しただけでは該当条件の真偽を自動認証しない。未確認はUNKNOWN/保留とし、後から偽の判定・証跡を作らない。
+
+```json
+{
+  "shadow_applicability": {
+    "status": "NOT_APPLICABLE",
+    "reason": "最終時点の当該仮説の条件が成立しないと確認",
+    "item_ids": [],
+    "previous_item_dispositions": {
+      "既存比較項目ID": {
+        "status": "NOT_APPLICABLE",
+        "reason": "最終時点における個別の非該当条件"
+      }
+    }
+  }
+}
+```
+
+`previous_item_dispositions` は前回の固定gateに存在し、今回のgateから消えた項目IDだけを全件登録する。取り消し理由を一括の空配列だけで代用しない。未確定は `UNKNOWN`、不足が確定した場合は `INELIGIBLE` と区別する。上記JSONは書式例であり、実レースの適用状態・時刻・原本を作成した事実ではない。
+
+新規日別行は `shadow_tracking_version=phase-shadow-v1` を持ち、`shadow_history` を `prediction_history` と同じ順序・件数で追記する。各履歴はphase、固定Prediction gateのpath/SHA-256、baseline ID、data_cutoff、item_idと個別状態/evidence_ref、適用判定、レース単位のShadow状態を固定する。同一gate/phaseの再登録は冪等だが、過去の適用理由・履歴の差替えは禁止する。既存行に履歴がない場合、旧固定gateとPrediction履歴は保存するが、欠落した当時の適用判断・receiptを後から捏造せず、回顧の `shadow_history_gaps` に表示する。
+
+日別 `kpis.shadow` は**最新**PredictionのShadow適用状態だけをレース単位で表す。`NOT_APPLICABLE` は対象集合から以前の適格・不適格・保留および理由を除去し、`UNKNOWN` は理由付き保留とする。複数項目に適格と保留/不適格が混在した場合、全項目適格とはせず、保留を優先し、次いで不適格とする。初回の適格比較は `shadow_history` に残り、最終の対象外で失効・削除しない。Shadow不足はProductionの独立FIXと価格不要推奨の保存を失敗にしない。
+
+`chat_review_package.py` は最新レースKPIと `shadow_comparisons_by_fixed_phase` を別々に出力し、同一レース・phase・gate SHA・baseline・cutoff・項目IDの組を一意の比較キーとする。異なるcutoff・基準を合算しない。`chat_forward_coverage.py` は最新gateだけでなく当時の固定phase履歴へ提出ペアを照合する。`chat_calibration_review.py` もphase/baseline/cutoffを維持する。対象が未確定の場合は保留を保ち、実測0や自動性能昇格に変換しない。旧台帳と初回比較の真正性は保存済みgate/receiptから検査し、未知の適用判断を自動補完しない。
