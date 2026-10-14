@@ -10,11 +10,25 @@ STATES = {'ELIGIBLE', 'INELIGIBLE', 'PENDING', 'NOT_APPLICABLE'}
 APPLICABILITY = {'APPLICABLE', 'NOT_APPLICABLE', 'UNKNOWN'}
 
 
-def previous_items(history, root):
+def previous_items(history, root, shadow_history=()):
+    """直前gateの項目に、全固定履歴で判断未完了の項目を累積する。
+
+    空のFINALを挟んでもUNKNOWN項目を失わせない。履歴の個別判断を
+    巻き戻さず、再出現した項目はそのgateにおける個別判定へ委ねる。
+    """
+    unresolved = set()
+    for record in shadow_history:
+        # 再出現したIDは今回の固定項目として再評価される。
+        unresolved.difference_update(item['item_id'] for item in record['items'])
+        for item_id, decision in record['applicability'].get('previous_item_dispositions', {}).items():
+            if decision['status'] == 'UNKNOWN':
+                unresolved.add(item_id)
+            else:
+                unresolved.discard(item_id)
     if not history:
-        return set()
+        return unresolved
     gate = validate_gate(root, safe_path(root, history[-1]['prediction_gate_path']))
-    return {item['item_id'] for item in gate.get('shadow_items', [])}
+    return unresolved | {item['item_id'] for item in gate.get('shadow_items', [])}
 
 
 def assess(gate, applicability, prior_ids=()):
@@ -65,6 +79,9 @@ def assess(gate, applicability, prior_ids=()):
         if state == 'ELIGIBLE':
             require(gate['kpi_eligibility']['shadow'] == 'ELIGIBLE',
                     'eligible shadow must match gate')
+    # 未解決項目が残る限り、別項目が適格でもレース全体のShadowは保留。
+    if any(d['status'] == 'UNKNOWN' for d in dispositions.values()):
+        state = 'PENDING'
     return state
 
 
@@ -102,7 +119,7 @@ def verify_history(root, row, race, date, history):
         gate = validate_gate(root, gate_path)
         require(gate['race_id'] == race and gate['race_date_jst'] == date,
                 'shadow history race mismatch')
-        prior = previous_items(history[:offset + index], root)
+        prior = previous_items(history[:offset + index], root, entries[:index])
         expected = snapshot(root, gate, ident, recorded.get('applicability'), prior)
         require(recorded == expected, 'shadow history evidence/state mismatch')
     require(entries[-1]['prediction_gate_path'] == row.get('prediction_gate_path') and
