@@ -20,6 +20,8 @@ class ReleaseReadiness(unittest.TestCase):
         for item in build(ROOT)['source_manifest']:
             p=self.root/item['path'];p.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(ROOT/item['path'],p)
+        self.acceptance_path = 'docs/validation/reviews/cycle_04/acceptance.json'
+        self.write_acceptance()
         manifest=build(self.root)
         (self.root/readiness.MANIFEST).write_text(json.dumps(manifest))
         self.git('init','-q')
@@ -32,6 +34,33 @@ class ReleaseReadiness(unittest.TestCase):
         self.git('config','user.name','release test')
         self.git('add','.')
         self.git('commit','-qm','正式切替の合成fixture')
+
+    def write_acceptance(self):
+        from test_cycle04_acceptance import synthetic_acceptance
+        (self.root/self.acceptance_path).write_text(json.dumps(synthetic_acceptance(self.root)))
+
+    def reseal(self):
+        (self.root/readiness.MANIFEST).write_text(json.dumps(build(self.root)))
+        self.git('add', '.')
+        self.git('commit', '-qm', '受入境界の合成fixture')
+        self.main_ref()
+
+    def test_main_rejects_not_run_failed_skipped_and_stale_acceptance(self):
+        for state in ('NOT_RUN', 'FAIL', 'SKIPPED', 'STALE'):
+            self.write_acceptance()
+            path = self.root/self.acceptance_path
+            report = json.loads(path.read_text())
+            if state in ('NOT_RUN', 'FAIL'):
+                report.update(result=state, tests_run=None, failures=None, skipped=None)
+            elif state == 'SKIPPED':
+                report['skipped'] = 1
+            else:
+                report['source_manifest'][0]['sha256'] = '0'*64
+            path.write_text(json.dumps(report))
+            self.reseal()
+            with self.subTest(state=state), self.assertRaisesRegex(
+                    ComplianceError, 'acceptance not passed|stale acceptance'):
+                readiness.check(self.root, True)
 
     def git(self,*args):
         return subprocess.run(['git',*args],cwd=self.root,check=True,capture_output=True,text=True).stdout.strip()
@@ -69,6 +98,7 @@ class MainReferenceChecks(unittest.TestCase):
     setUp = ReleaseReadiness.setUp
     git = ReleaseReadiness.git
     main_ref = ReleaseReadiness.main_ref
+    write_acceptance = ReleaseReadiness.write_acceptance
 
     def check(self, expected=None):
         from check_integration_acceptance import check_main_reference
