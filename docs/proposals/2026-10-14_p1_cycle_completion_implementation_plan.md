@@ -181,3 +181,11 @@
 - 修正：各履歴固有のgate SHA256/レース/日付/baseline、予想refの同一性、事前宣言とFIX manifestの実原本hash/receipt/保存時刻、独立manifestからの当時の予想FIX hashと宣言の結合を読み直す。保存順は「宣言読戻し ≤ FIX時刻 ≤ FIX保存 ≤ FIX読戻し ≤ 本体保存」。旧参照欠落時に `row.operations` 最新参照へフォールバックしない。
 - 合成回帰：標準writerで独立した初回・最終FIX/宣言原本を保存し、最終登録・公式結果照合・回顧後、(1)初回FIX削除、(2)初回FIX改変、(3)初回宣言削除、(4)履歴固定参照削除、(5)当時FIX receiptの保存順崩れ、をそれぞれ再検査する。初回段階の不足とsummaryの不足報告、正常一巡拒否を検査する。検査のために実レース記録や新規の将来receiptを恒久生成しない。
 - 検証：最新差分の全回帰、`run_cycle04_acceptance.py --write`、`build_v170_manifest.py`、通常checker、統合検査、3系統CIを実行し、実際の結果を後から記録する。古い802件受入は今回の修正に対する成功証跡ではない。
+
+### FIX固定履歴P1再修正の検証結果
+
+- コード：`scripts/cycle04_completion.py`、コミット `51f60ca4c01712768764ad6461801d0c81a4c933`、`6ccb09b43017d8ee939fb971b40b563416394db1`。各初回・最終履歴のgate/予想原本・宣言・FIX manifest・3種類のreceipt/保存順/固定時刻を照合。元の `row.operations` や後続FIXによる救済は一切しない。gateにハッシュが実際にある場合はそれも一致を要求する。
+- 回帰：`scripts/test_cycle04_completion.py` に標準writerによる独立FIX/宣言原本を使った **5テスト** を追加（`c1698bbc751b919a230bf998f2ea5f1a528a0068`、`8019ffd2150a89e50bec0a8a6bc921b8c82b68c9`）。初回FIXの削除と改変、初回宣言削除、初回固定refの欠落、FIX receipt時刻の異常を確認。初回FIXが破損したときは `evaluate_days` と `summary` が `PREDICTION_CHECK_PENDING/INITIAL` を報告。宣言削除は同じ原本を利用する推奨側の正式結果検査も先に拒否するため、工程不足の独立検査と結果検査の拒否を区別した。
+- 一時CI [38575031638](https://github.com/eda-hub/horse-man/actions/runs/38575031638) は重点回帰、`python3 -m unittest discover -s scripts -p 'test_*.py'`、`python3 scripts/run_cycle04_acceptance.py --write`、`python3 scripts/build_v170_manifest.py`、`python3 scripts/run_release_readiness.py`、`python3 scripts/check_cycle04.py` の全段階でPASS。合成受入 **807件・失敗0・skip0・PASS**。受入・releaseの標準生成物保存コミットは `60d62d8e6fc3fc2dd127c8f82c1e8eda3958ebf5`。
+- 初回の重点回帰で不一致3件が出たが、固定gateに必須でないshaを要求した過剰検査と、合成推奨が初回宣言を共有しているために正式結果検査が先に失敗するfixtureの境界を修正して再実行した。失敗実績を削除せず、この結果で閉じる。
+- 一時workflowは検証専用であり恒久成果物に含めない。撤去後のコード・文書・受入ファイルから構成した最終SHAで3系統CIを検査するまでレビューを完全とはしない。
