@@ -135,6 +135,12 @@ python3 scripts/check_prediction_cycle.py
 - クラス移行の比較原本・共通入力・bindingは、上記に加えて共通cutoff以前の読戻しと保存順を専用比較入口で検査する。
 - 非ELIGIBLEでgate自体が存在しないレースに、内容のないダミーgateを作る必要はない。
 
+## 公式発走時刻の変更があった場合
+
+- 日次台帳の初回発走予定は書き換えない。登録済みrace/dateの `schedule_changes` に公式原文path/hash・引用位置・旧/新予定・取得/確認/読戻し時刻・改訂順を追記する。
+- 詳細は `docs/validation/contracts/cycle04_post_changes.md`。変更取得前のLATE/REPLAYは不適格のまま残す。前倒し・開催日移動・取消・確認不能は保留する。
+- 新規FIX・事前宣言・receipt・gateは取得済みの新予定に固定し、変更前の原本は残す。
+
 ## 第4回顧の新規記録（PR88・v1.7.0・Owner未変更）
 
 新規の回顧は `docs/validation/templates/cycle04_review_entry_v2.json` の `cycle04-review-v2` を用い、`DRAFT` または `COMPLETE` を明示する。`COMPLETE` は `error_classification` / `non_degradation` / `next_validation` と、`protected_good_parts`（保護）、`revalidation_targets`（再検証）、`improvement_targets`（改善対象）それぞれの状態・理由・必要入力が確定しているときだけ宣言する。該当なしも `NOT_APPLICABLE` と非空の理由が必要。未評価は `PENDING` と必要入力を残し、Prediction/結果固定とは独立に回顧完了へ算入しない。
