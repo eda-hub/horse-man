@@ -45,6 +45,16 @@ class SelectionHistoryTest(unittest.TestCase):
         self.assertTrue(report['history_valid'])
         self.assertFalse(report['kpi_certified'])
 
+    def test_new_event_keeps_old_deadline_in_previous_revision(self):
+        self.history['scheduled_posts']['race-a'] = '2026-10-11T13:01:00+09:00'
+        self.add('SELECT')
+        self.buy(scheduled_post_time_jst='2026-10-11T13:10:00+09:00')
+        self.assertEqual(self.check()['event_count'], 2)
+        self.assertNotIn('scheduled_post_time_jst', self.history['events'][0])
+        self.history['events'][1]['scheduled_post_time_jst'] = '2026-10-11T13:01:00+09:00'
+        with self.assertRaisesRegex(ValueError, 'late'):
+            self.check()
+
     def test_buy_without_selection(self):
         self.buy()
         with self.assertRaisesRegex(ValueError, 'additional selection'):

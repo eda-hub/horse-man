@@ -13,9 +13,12 @@ from pathlib import Path
 
 from check_cycle04 import CONTRACT_PATH, DATES, SCHEMA, validate_day
 from cycle04_shadow_state import snapshot as shadow_snapshot, previous_items as prior_shadow_items
+from cycle04_schedule_change import history as schedule_history, effective_post, assert_post
 from check_prediction_compliance import iso, validate_gate
-from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_formal_result, validate_market, validate_market_payload
+from cycle04_operations import require, safe_path, verified_artifact, selection_ref_post, validate_selection, validate_official_result, validate_formal_result, validate_market, validate_market_payload
 from recommendation import verify as verify_recommendation, settle
+from cycle04_review_metrics import (review_status, review_hash, independent_metrics,
+                                    REVISION_SCHEMA)
 from run_release_readiness import check as check_release
 from two_axis_candidates import compare as compare_two_axis
 
@@ -128,17 +131,35 @@ def register_scope(root, scope, now=None, extend=False):
     return save(root,day)
 
 
+def register_post_change(root, date, ref, now=None, *, preview=False):
+    """事前に独立保存した変更原本の参照を日別台帳に一件ずつ追記する。"""
+    day, before = read_day(root, date)
+    race = ref.get('race_id')
+    require(race in day['initial_scope'], 'schedule change outside registered scope')
+    require(set(ref) == {'race_id', 'change_ref'} and
+            isinstance(ref['change_ref'], dict), 'fixed change reference required')
+    row = day['races'][race]
+    row.setdefault('schedule_changes', []).append(copy.deepcopy(ref['change_ref']))
+    schedule_history(root, row, race, date, now=now)
+    if preview:
+        return path_for_validation(root, day)
+    return save(root, day, before)
+
+
 def select(root, date, ref):
     day, before = read_day(root,date)
     race = ref.get('race_id'); require(race in day['initial_scope'], 'selection outside initial scope')
     post = day['races'][race]['scheduled_post_time_jst']
-    history, _ = verified_artifact(root,ref['selection_ref'],post)
+    selected_post = selection_ref_post(root, ref['selection_ref'], post)
+    history, latest_receipt = verified_artifact(root,ref['selection_ref'],selected_post)
+    assert_post(root, day['races'][race], race, date, selected_post,
+                at=latest_receipt['receipt_verified_at_jst'])
     verified = validate_selection(root,history,{race:post})
     require(race not in day['reviewed_scope'],'reviewed selection is immutable')
     row=day['races'][race]
     prior=row.get('selection_ref')
     if prior:
-        old,_=verified_artifact(root,prior,post)
+        old,_=verified_artifact(root,prior,selection_ref_post(root,prior,post))
         require(history['events'][:len(old['events'])]==old['events'], 'selection history cannot roll back or diverge')
     active=any(s['race_id']==race and s['purpose']=='RECOMMENDATION' for s in verified['active_selections'])
     require(active or prior is not None,'selection requires a recommendation purpose SELECT revision')
@@ -166,8 +187,10 @@ def record_prediction(root,date,entry,*,preview=False):
     if phase=='FINAL':
         latest=row.get('selection_ref');incoming=entry['operations'].get('selection_ref')
         if latest!=incoming:
-            prior,_=verified_artifact(root,latest,row['scheduled_post_time_jst'])
-            updated,_=verified_artifact(root,incoming,row['scheduled_post_time_jst'])
+            prior,_=verified_artifact(root,latest,selection_ref_post(root,latest,row['scheduled_post_time_jst']))
+            updated,select_receipt=verified_artifact(root,incoming,selection_ref_post(root,incoming,row['scheduled_post_time_jst']))
+            assert_post(root, row, race, date, selection_ref_post(root,incoming,row['scheduled_post_time_jst']),
+                        at=select_receipt['receipt_verified_at_jst'])
             verified=validate_selection(root,updated,{race:row['scheduled_post_time_jst']})
             require(len(updated['events'])>len(prior['events']) and
                     updated['events'][:len(prior['events'])]==prior['events'] and
@@ -176,6 +199,13 @@ def record_prediction(root,date,entry,*,preview=False):
             row['selection_ref']=copy.deepcopy(incoming)
             if incoming not in row['selection_history']:row['selection_history'].append(copy.deepcopy(incoming))
     gate = validate_gate(root,safe_path(root,entry.get('prediction_gate_path')))
+    # 通常系の受入順序は保持し、変更がある場合だけ追加の独立receiptを確認する。
+    if row.get('schedule_changes'):
+        _, gate_receipt = verified_artifact(root, entry['operations']['prediction_ref'],
+                                             gate['scheduled_post_time_jst'])
+        assert_post(root, row, race, date, gate['scheduled_post_time_jst'],
+                    at=gate_receipt['receipt_verified_at_jst'],
+                    forward=gate['kpi_eligibility']['production'] == 'ELIGIBLE')
     require(gate['race_id'] == race and gate['race_date_jst'] == date and gate['manual_release'] == 'v1.7.0',
             'prediction identity/release mismatch')
     row.update(prediction_gate_path=entry['prediction_gate_path'],operations=entry['operations'],
@@ -227,16 +257,20 @@ def record_market(root,date,entry):
     day,before=read_day(root,date);race=entry.get('race_id')
     require(race in day['final_scope'],'optional market requires a fixed FINAL scope')
     require(race not in day['reviewed_scope'],'reviewed market is immutable')
-    row=day['races'][race];payload,_=verified_artifact(root,entry.get('market_ref'),row['scheduled_post_time_jst'])
+    row=day['races'][race]
+    market_post=entry.get('scheduled_post_time_jst',row['scheduled_post_time_jst'])
+    payload,market_receipt=verified_artifact(root,entry.get('market_ref'),market_post)
+    assert_post(root,row,race,date,market_post,at=market_receipt['receipt_verified_at_jst'])
     require(payload.get('race_id')==race and
             payload.get('race_date_jst')==date,'independent market identity mismatch')
     cutoff=payload.get('data_cutoff')
-    require(iso(cutoff,'market cutoff')<iso(row['scheduled_post_time_jst'],'post'),'market cutoff must precede post')
+    require(iso(cutoff,'market cutoff')<iso(market_post,'post'),'market cutoff must precede post')
     state=validate_market_payload(payload,cutoff)
     from market_acquisition import verify_responses
     verify_responses(root,payload)
     row['market_ref']=copy.deepcopy(entry['market_ref']);row['market']=copy.deepcopy(payload['market'])
     row['market_cutoff']=cutoff
+    row['market_scheduled_post_time_jst']=market_post
     set_state(day['kpis']['market'],race,'ELIGIBLE' if state=='ACQUIRED' else 'PENDING',
               '任意市場の独立保存・取得状態：'+state)
     return save(root,day,before)
@@ -248,28 +282,59 @@ def review(root,date,entry):
     result_path = safe_path(root,entry.get('result_path'));raw = result_path.read_bytes();result = json.loads(raw)
     require(result.get('race_id') == race and result.get('race_date_jst') == date and result.get('status') == 'OFFICIAL',
             'official result identity required')
-    require(iso(result.get('retrieved_at_jst'),'result retrieved') >= iso(day['races'][race]['scheduled_post_time_jst'],'post'),
+    require(iso(result.get('retrieved_at_jst'),'result retrieved') >= effective_post(root, day['races'][race], race, date, at=result['retrieved_at_jst']),
             'future result used before race')
     analysis = entry.get('review')
-    require(isinstance(analysis,dict) and all(analysis.get(k) for k in ('error_classification','non_degradation','next_validation')),
-            'review error/non-degradation/next validation required')
+    status = review_status(analysis)
+    require(status['state'] in {'DRAFT', 'COMPLETE'},
+            'new review requires schema, Owner items and DRAFT/COMPLETE state')
     row = day['races'][race]
     if row.get('prediction_gate_path'):
         prediction = validate_gate(root,safe_path(root,row['prediction_gate_path']))
-        validate_official_result(result,race=race,date=date,post=row['scheduled_post_time_jst'],
+        validate_official_result(result,race=race,date=date,post=effective_post(root, row, race, date, at=result['retrieved_at_jst']).isoformat(),
                                 horses=prediction['production']['ranking'])
     result_ref={'artifact_path':entry['result_path'],'sha256':hashlib.sha256(raw).hexdigest()}
     manifest_ref = entry.get('result_reconciliation_ref')
     # レース単位で検査してから台帳を変更する。本文や不適格結果は消さない。
     validate_formal_result(root, row, race=race, date=date, result_ref=result_ref,
                            manifest_ref=manifest_ref)
-    if race in day['reviewed_scope']:
-        require(row.get('result_ref')==result_ref and row.get('result_reconciliation_ref')==manifest_ref and row.get('review')==analysis,
+    earlier = row.get('review')
+    if earlier is not None:
+        require(row.get('result_ref') == result_ref and row.get('result_reconciliation_ref') == manifest_ref,
+                'reviewed result is immutable; a different official result needs its own correction process')
+        require(row.get('review_history') and
+                row['review_history'][-1]['review'] == earlier,
+                'older review cannot be replaced without its original revision history')
+        ref = entry.get('revision_ref')
+        require(isinstance(ref, dict) and set(ref) == {'artifact_path', 'sha256'},
                 'reviewed result is immutable; use an explicit correction history')
+        path = f'docs/validation/review-revisions/{date}/{race}/'
+        require(ref['artifact_path'].startswith(path) and ref['artifact_path'].endswith('.json'),
+                'review revision path invalid')
+        raw_revision = safe_path(root, ref['artifact_path']).read_bytes()
+        require(hashlib.sha256(raw_revision).hexdigest() == ref['sha256'],
+                'review revision fixed hash mismatch')
+        index = len(row['review_history']) + 1
+        expected = {'schema_version': REVISION_SCHEMA, 'race_date_jst': date, 'race_id': race,
+                    'revision': index, 'supersedes_sha256': row['review_history'][-1]['sha256'],
+                    'review': analysis}
+        require(json.loads(raw_revision) == expected, 'review revision identity or chain mismatch')
+        require(race not in day['reviewed_scope'] or status['state'] == 'COMPLETE',
+                'completed review cannot be downgraded to DRAFT')
+        previous = row['review_history'][-1]['sha256']
+    else:
+        require(not entry.get('revision_ref'), 'first review cannot claim an amendment')
+        previous = None
+        ref = None
+        index = 1
     row['result_ref'] = result_ref
     row['result_reconciliation_ref'] = copy.deepcopy(manifest_ref)
     row['review'] = copy.deepcopy(analysis)
-    if race not in day['reviewed_scope']:day['reviewed_scope'].append(race)
+    row.setdefault('review_history', []).append({'revision': index, 'previous_sha256': previous,
+        'sha256': review_hash(analysis), 'review': copy.deepcopy(analysis),
+        'revision_ref': copy.deepcopy(ref)})
+    if status['state'] == 'COMPLETE' and race not in day['reviewed_scope']:
+        day['reviewed_scope'].append(race)
     if row.get('recommendation_gate_path'):
         row['recommendation_result'] = settle(verify_recommendation(root,safe_path(root,row['recommendation_gate_path'])),result)
     return save(root,day,before)
@@ -288,7 +353,7 @@ def summary(root):
               'additional_review_metrics':{'status':'PENDING_REVIEW_AGGREGATION','reason':'未回顧・比較入力不足は未測定として残す。','reviewed_count':0,'error_labels':{},
                    'by_prediction_confidence':{},'by_input_completeness':{},'by_race_period':{},
                    'initial_to_final':{'paired':0,'ranking_changed':0,'anchor_win_improved':0,'anchor_win_worsened':0,
-                                       'unchanged_outcome':0,'missing_initial_ids':[]}}}
+                                       'unchanged_outcome':0,'missing_initial_ids':[], 'ambiguous_revision_ids':[]}}}
     for name in ('production','recommendation','shadow','market'):
         result['kpis'][name]={field:sum(len(d['kpis'][name][field]) for d in days)
                              for field in ('target_ids','eligible_ids','ineligible_ids','pending_ids')}
@@ -323,21 +388,24 @@ def summary(root):
                 if comparable:
                     for category,label in [('by_prediction_confidence',prod['prediction_confidence']),
                         ('by_input_completeness','COMPLETE' if row['input_complete'] else 'INCOMPLETE'),
-                        ('by_race_period','MORNING' if iso(row['scheduled_post_time_jst'],'post').astimezone(
+                        ('by_race_period','MORNING' if iso(gate['scheduled_post_time_jst'],'post').astimezone(
                             iso(day['race_date_jst']+'T00:00:00+09:00','JST').tzinfo).hour<12 else 'AFTERNOON')]:
                         group=review_metrics[category].setdefault(label,{'count':0,'honmei_win_count':0,'honmei_top3_count':0})
                         group['count']+=1;group['honmei_win_count']+=int(anchor in win);group['honmei_top3_count']+=int(finish.get(anchor,999)<=3)
                     paired=review_metrics['initial_to_final']
-                    initial=next((h for h in row.get('prediction_history',[]) if h['phase']=='INITIAL'),None)
+                    history=row.get('prediction_history',[])
+                    initial=[h for h in history if h['phase']=='INITIAL']
+                    finals=[h for h in history if h['phase']=='FINAL']
                     if race in day['final_scope']:
-                        if initial:
-                            first=validate_gate(root,safe_path(root,initial['prediction_gate_path']))['production']['ranking']
+                        if len(initial)==len(finals)==1:
+                            first=validate_gate(root,safe_path(root,initial[0]['prediction_gate_path']))['production']['ranking']
                             paired['paired']+=1;paired['ranking_changed']+=int(first!=ranking)
                             old_hit=first[0] in win;new_hit=anchor in win
                             paired['anchor_win_improved']+=int(not old_hit and new_hit)
                             paired['anchor_win_worsened']+=int(old_hit and not new_hit)
                             paired['unchanged_outcome']+=int(old_hit==new_hit)
-                        else:paired['missing_initial_ids'].append(race)
+                        elif not initial:paired['missing_initial_ids'].append(race)
+                        else:paired['ambiguous_revision_ids'].append(race)
                 if comparable:predictions.append({'win':anchor in win,'top2':finish.get(anchor,999)<=2,'top3':finish.get(anchor,999)<=3,
                     'capture':bool(set(ranking[:3]) & win),'brier':sum((p['win_probability']-int(p['horse_no'] in win))**2 for p in prod['probabilities'])/len(ranking),
                     'top2_brier':sum((p['top2_probability']-int(finish.get(p['horse_no'],999)<=2))**2 for p in prod['probabilities'])/len(ranking),
@@ -376,6 +444,7 @@ def summary(root):
         for group in by_type.values():group['hit_rate']=group['hit_tickets']/group['valid_tickets']
         result['recommendation_performance']['by_type']=by_type
         result['recommendation_performance']['tickets_per_race']=sum(r['valid_tickets'] for r in recs)/len(recs)
+    result['independent_review_metrics'] = independent_metrics(root, days)
     review_metrics=result['additional_review_metrics']
     if review_metrics['reviewed_count']:review_metrics['status']='RECORDED_WITH_LIMITATIONS'
     for category in ('by_prediction_confidence','by_input_completeness','by_race_period'):
@@ -402,15 +471,19 @@ def main(argv=None):
     mode=parser.add_mutually_exclusive_group(required=True)
     mode.add_argument('--register-scope',type=Path)
     mode.add_argument('--extend-scope',type=Path)
+    mode.add_argument('--register-post-change',type=Path)
     mode.add_argument('--select',type=Path)
     mode.add_argument('--record-prediction',type=Path)
     mode.add_argument('--review',type=Path)
     mode.add_argument('--record-market',type=Path)
     mode.add_argument('--summary',action='store_true')
     parser.add_argument('--date')
+    parser.add_argument('--preview',action='store_true',help='公式発走変更の台帳保存前検査のみ')
     args=parser.parse_args(argv)
     try:
         root=args.root.resolve();check_release(root,require_main=True)
+        require(not args.preview or bool(args.register_post_change),
+                '--preview is supported only for --register-post-change')
         if args.summary:
             print(json.dumps(summary(root),ensure_ascii=False,indent=2));return 0
         if args.register_scope or args.extend_scope:
@@ -420,11 +493,15 @@ def main(argv=None):
         else:
             require(args.date,'race date required')
             check_working_branch(root,args.date)
-            if args.select:out=select(root,args.date,load(args.select))
+            if args.register_post_change:out=register_post_change(root,args.date,load(args.register_post_change),preview=args.preview)
+            elif args.select:out=select(root,args.date,load(args.select))
             elif args.record_prediction:out=record_prediction(root,args.date,load(args.record_prediction))
             elif args.record_market:out=record_market(root,args.date,load(args.record_market))
             else:out=review(root,args.date,load(args.review))
-        print(f'日別台帳のローカル保存・検査成功：{out}。日次branchへのGit保存・読戻しを行ってください。')
+        if args.preview:
+            print('公式発走変更の検証成功（プレビューのみ・台帳未保存）。')
+        else:
+            print(f'日別台帳のローカル保存・検査成功：{out}。日次branchへのGit保存・読戻しを行ってください。')
         return 0
     except (ValueError,OSError,KeyError,TypeError) as exc:
         print('第4運用未完了：'+str(exc),file=sys.stderr);return 1

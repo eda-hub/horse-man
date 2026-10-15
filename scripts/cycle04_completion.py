@@ -8,9 +8,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from check_prediction_compliance import iso
+from cycle04_schedule_change import assert_post
 from cycle04_operations import require, safe_path, verified_artifact, fingerprint
 from check_prediction_compliance import validate_gate
 from task_completion import prediction_completion, recommendation_completion
+from cycle04_review_metrics import review_status
 
 from check_cycle04 import DATES
 DAY_DIRECTORY = 'docs/validation/records/cycle_04/'
@@ -53,7 +55,6 @@ def _prediction_check(root, date, row, entry, *, latest):
     race = gate['race_id']
     post = row['scheduled_post_time_jst']
     require(gate['race_date_jst'] == date and
-            gate['scheduled_post_time_jst'] == post and
             gate['production']['baseline_forecast_id'] == entry.get('baseline_forecast_id'),
             label + '：レース・日付・発走・基準予想の不一致')
 
@@ -68,8 +69,11 @@ def _prediction_check(root, date, row, entry, *, latest):
                 ('artifact_id', 'artifact_path')) and
             (not gate_ref.get('sha256') or pred_ref.get('sha256') == gate_ref['sha256']),
             label + '：固定gateと予想本体の同一性不一致')
+    post = gate['scheduled_post_time_jst']
     snapshot, body_receipt = verified_artifact(root, pred_ref, post,
                                                expected_id=gate_ref['artifact_id'])
+    assert_post(root, row, race, date, post, at=body_receipt['receipt_verified_at_jst'],
+                forward=gate['kpi_eligibility']['production'] == 'ELIGIBLE')
     intent, intent_receipt = verified_artifact(root, intent_ref, post)
     fix, fix_receipt = verified_artifact(root, fix_ref, post)
 
@@ -165,15 +169,22 @@ def evaluate_days(root, days, *, frozen_refs=None, closure_ref=None):
                     if issues_rec:
                         _issue(issues, date, race, 'RECOMMENDATION_CHECK_PENDING',
                                '最終推奨の独立保存/個別完了未確認：' + ', '.join(issues_rec))
+            status = review_status(row.get('review'))
             if race not in day['reviewed_scope']:
-                _issue(issues, date, race, 'REVIEW_MISSING', '公式結果照合・回顧が未完了')
-            else:
-                if not row.get('result_ref') or not row.get('review'):
-                    _issue(issues, date, race, 'RESULT_REVIEW_MISSING', '公式結果または回顧の固定参照不足')
-                analysis = row.get('review') or {}
-                if not analysis.get('protected_good_parts'):
-                    owner_gaps.append({'race_date_jst': date, 'race_id': race,
-                                       'reason': '回顧Ownerの保護対象が未記録'})
+                _issue(issues, date, race, 'REVIEW_MISSING',
+                       '公式結果照合・回顧が未完了：' + status['state'])
+            elif not row.get('result_ref') or not row.get('review'):
+                _issue(issues, date, race, 'RESULT_REVIEW_MISSING',
+                       '公式結果または回顧の固定参照不足')
+            if status['state'] != 'COMPLETE' or status['missing']:
+                owner_gaps.append({'race_date_jst': date, 'race_id': race,
+                                   'reason': '回顧Owner評価未完了：' + status['state'],
+                                   'missing_fields': status['missing'],
+                                   'required_inputs': ([x + '_required_inputs' for x in status['missing']
+                                                        if x.endswith(':PENDING')])})
+                if race in day['reviewed_scope']:
+                    _issue(issues, date, race, 'REVIEW_OWNER_PENDING',
+                           '回顧Owner未完了：' + ', '.join(status['missing']))
             state = day['kpis']['production']
             if race in state['pending_ids'] or race in state['ineligible_ids']:
                 _issue(issues, date, race, 'PREDICTION_NOT_ELIGIBLE',
@@ -193,7 +204,7 @@ def evaluate_days(root, days, *, frozen_refs=None, closure_ref=None):
             if race in day['kpis']['shadow']['pending_ids'] or race in day['kpis']['shadow']['ineligible_ids']:
                 shadow_gaps.append({'race_date_jst': date, 'race_id': race,
                                     'reason': day['kpis']['shadow']['reasons'].get(race, '該当Shadow不足')})
-    stage_complete = not issues and bool(races)
+    stage_complete = not issues and not owner_gaps and bool(races)
     result = {'schema_version': 'cycle04-completion-status-v1',
               'recorded_dates': sorted(by_date), 'missing_dates': missing,
               'initial_scope': races, 'issues': issues, 'unresolved_count': len(issues),

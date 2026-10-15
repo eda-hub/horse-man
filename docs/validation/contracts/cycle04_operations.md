@@ -64,7 +64,7 @@ python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --review review-entry.json
 python3 scripts/cycle04_workflow.py --summary
 ```
 
-予想entryは`race_id`、`phase=INITIAL/FINAL`、`prediction_gate_path`、`operations`（下記の独立証跡）、`input_complete`、不足理由/影響、`market`を持つ。FINALは`recommendation_gate_path`も必須。selection entryはrace_idとselection_ref。SELECTだけで候補を登録でき、買い目固定を先に要求しない。同じ入口でCANCEL→DESELECTまたは再SELECTの連続履歴を適用する。履歴の巻戻し・分岐は拒否し、最終は最新の選定履歴へ買い目固定イベントを追記した連続履歴も受け取り、独立証跡を照合して保存する。選定後に買い目を作る通常の順序で完了できる。review entryはrace_idとresult_path、review（error_classification / non_degradation / next_validation）。公式結果はOFFICIAL、同一ID/開催日、source_url、発走後retrieved_at_jst、同着をまとめたfinish_groups、place_placesを持つ。着順・non_finishers・scratched_horsesの和は固定予想の全頭と一致させ、不完全な結果を完了へ算入しない。
+予想entryは`race_id`、`phase=INITIAL/FINAL`、`prediction_gate_path`、`operations`（下記の独立証跡）、`input_complete`、不足理由/影響、`market`を持つ。FINALは`recommendation_gate_path`も必須。selection entryはrace_idとselection_ref。SELECTだけで候補を登録でき、買い目固定を先に要求しない。同じ入口でCANCEL→DESELECTまたは再SELECTの連続履歴を適用する。履歴の巻戻し・分岐は拒否し、最終は最新の選定履歴へ買い目固定イベントを追記した連続履歴も受け取り、独立証跡を照合して保存する。選定後に買い目を作る通常の順序で完了できる。review entryはrace_id、result_path、result_reconciliation_refとv2回顧の状態・Owner必須項目を持つ（末尾のPR88契約を参照）。公式結果はOFFICIAL、同一ID/開催日、source_url、発走後retrieved_at_jst、同着をまとめたfinish_groups、place_placesを持つ。着順・non_finishers・scratched_horsesの和は固定予想の全頭と一致させ、不完全な結果を完了へ算入しない。
 
 日別JSONは`docs/validation/records/cycle_04/YYYY-MM-DD.json`。初回・最終の独立固定参照を履歴として保持する。書込みCLIは対象日の`prediction/YYYY-MM-DD`だけを許可し、main・別日・detachedでは拒否する。writerロックと一時ファイル読戻し→原子的置換で中途半端な台帳を残さない。異常終了後にロックが残る場合はwriterが終了したことを確認してから除去する。
 
@@ -125,7 +125,7 @@ PR69の価格不要推奨生成・独立保存・結果照合を再利用する�
 
 FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先行保存・読戻しした `intent_ref` を保持する。日別operationsのintentと同一参照であることを検査し、宣言の保存先・deadline・日次branchも本体と照合する。単に同じsnapshot IDを記載した別宣言で代用しない。
 
-各レース行の `scheduled_post_time_jst` は開催日（JST）と一致し、適格gateの実発走予定と同じ時刻であることを必須とする。別日・別時刻のreceipt/gateで認証しない。
+各レース行の `scheduled_post_time_jst` は初回公式登録時刻として不変とする。公式変更がない場合は適格gate・receipt・結果との直接一致を維持する。公式変更がある場合のみ、同一race/dateの固定公式本文と連続した変更chainを照合し、各gate・receiptの当時の読戻し時点で有効だった予定時刻と一致する場合に限る。遅延で過去のLATEを適格化しない。別日変更は保留する。手順と独立artifact形式は `docs/validation/contracts/cycle04_post_changes.md`。
 
 近5走の `opponent_level` は `{status, value, source_ref, observed_at_jst}` の構造化属性にする。ACQUIREDにはcutoff以前の情報時点・出所・値が必要。MISSINGは値nullとreasonを保持し、入力充足へ含めない。近走の開催日が過去でも、その対戦相手の未来結果を現在の評価に利用しない。
 
@@ -215,3 +215,24 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 初回から最終までの各 `prediction_history[]` は、履歴自身の `prediction_gate_path`/`prediction_gate_sha256`、`prediction_ref`、`intent_ref`、`fix_ref` を個別に固定し、工程完了時にそれぞれの実原本・SHA256・同一receipt・発走前保存/読戻しを再照合する。固定gateのレース・日付・発走時刻・baselineと予想本体を一致させ、宣言のrace/snapshot/path/期限、FIX manifestのsnapshot/path/hash/固定時刻・宣言参照を一致させる。必須順序は「宣言の読戻し ≤ 予想FIX時刻 ≤ FIX manifest保存 ≤ FIX manifest読戻し ≤ 予想本体保存」。原本欠落・改変・時刻逆転は初回履歴の工程不足として残し、最新FINALの正常な宣言/FIX、最新 `row.operations`、同一予想本体hashで補完しない。通常の最終gateの証拠と過去FIX原本の確認は別の検査であり、過去証跡を後付けで作成しない。
 
 `cycle04_workflow.py --summary` は修復前の原本を消さず履歴単位の `PREDICTION_CHECK_PENDING` とその理由を出す。正常一巡の `--require-complete` は当該不足がある限り拒否する。理由付き終了でも不足を全件保持し、性能適格化しない。
+
+
+## 回顧Owner必須項目・独立成績・追記履歴（PR88）
+
+- 新規回顧入力は `docs/validation/templates/cycle04_review_entry_v2.json` を使用し、`schema_version=cycle04-review-v2` と `state=DRAFT/COMPLETE` を明示する。既存の旧schema回顧は読取可能だが `HISTORICAL_REVIEW_SCHEMA` とOwner不足を示し、現在の完了条件へ遡及昇格しない。上記の旧3項目だけの入力例は新規Writerでは受け付けない。
+- `protected_good_parts`、`revalidation_targets`、`improvement_targets` は空文字なしの配列、`_status=RECORDED/NOT_APPLICABLE/PENDING`、非空の `_reason`、`_required_inputs` を持つ。RECORDEDは項目1件以上・必要入力空、NOT_APPLICABLEは項目空・理由付き・必要入力空、PENDINGは項目空・理由と必要入力1件以上。COMPLETEはPENDING/未入力を拒否する。
+- 公式結果はDRAFTでも従来の本文/変換/manifest検査を満たせば固定できるが、`reviewed_scope` に入るのはCOMPLETEだけ。DRAFTを回顧完了数・正常一巡へ算入しない。未最終・低確信・推奨なしも回顧scopeから除外しない。
+- 初版は日別 `review_history[0]` に固定hashと内容を残す。回顧の追記・訂正は、元のreviewを上書きせず、`docs/validation/review-revisions/YYYY-MM-DD/RACE_ID/<revision>.json` の独立原本を保存・読戻しし、review-entryへ `revision_ref={artifact_path,sha256}` を指定する。revision原本は `schema_version=cycle04-review-revision-v1`、`race_date_jst`、`race_id`、単調増加 `revision`、直前のreview内容hash `supersedes_sha256`、新しい `review` を持つ。過去の内容/hash/参照は履歴へ残す。結果原本・結果manifestの差替えはこの回顧改訂で許可しない。
+- 初回→最終の変更根拠は `change_evidence` に `initial_gate_sha256/final_gate_sha256`、双方の `baseline_forecast_id` と `cutoff`、`status=PRE_RACE_CONFIRMED/INSUFFICIENT/PENDING`、非空の `reason` を持つ。事前確認済みは固定 `evidence_ref`、元の事前原本に実在する正確な `fixed_quote`、発走前receipt、最終cutoff以前の読戻し・同一race/dateを必要とする。PENDINGには `required_inputs` を残してCOMPLETEを拒否する。複数FINALなど比較phaseが曖昧な事例を混ぜない。Ownerの「強い新事実」を結果から自動分類しない。
+- `cycle04_workflow.py --summary` と `chat_review_package.py` の `independent_review_metrics` は、固定INITIAL/FINAL時点での無印馬の1着・2着・3着内、事前変更根拠、推奨失敗（軸崩れ・着順不一致・相手/第三馬漏れ）を独立表示する。各系列は `target_ids`、`eligible_ids`、`included_ids`、`missing`（理由と必要入力）を持つ。0適格は率null。複数原因は同じ券に付与できるため、ラベル件数と `unique_races`/`unique_tickets` を別表示する。
+- 推奨失敗は固定 `RECOMMENDED` の独立gate、公式全頭結果、既存settleを使用する。取消券INVALIDは適格な的中分母から除く。NO_RECOMMENDATION・EXPLICIT_MARKS_ONLY・PENDINGをMISSに算入しない。価格、購入、払戻、性能昇格は追加しない。
+- 正常一巡は全COMPLETE回顧・保存証拠・集計Git読戻しを必要とする。Owner効果採否と性能昇格は人間の別審査とし、自動承認しない。理由付き終了はOwner不足とGit固定参照を記録する。
+
+
+### PR88 追加レビューの3件是正（2026-10-15）
+
+- phase別無印成績は、固定された当該INITIAL/FINAL `prediction_gate_path` を再検査し、日別race modeと各gate modeがともに `FORWARD`、かつ `kpi_eligibility.production=ELIGIBLE` の場合だけ適格とする。`PENDING` / `INELIGIBLE` / `REPLAY` と未完了回顧は、`coverage.missing` に原因・必要入力を残して対象集合から脱落させず、eligible/includedの分母へ加えない。初回→最終比較は**両方**の固定phaseが前向きProduction適格な場合だけ可能であり、最新FINALの適格性をINITIALへ流用しない。
+- `DRAFT` は `error_classification` / `non_degradation` / `next_validation` が空でもOwner不足として記録・公式結果固定可能。ただし `reviewed_scope` と精度/追加集計には算入しない。`COMPLETE` のみ既存の必須項目と保護・再検証・改善の確定状態を満たす必要がある。旧記録の既存3項目チェックは継続する。
+- 順序付き馬単・三連単の失敗 `ORDER_MISMATCH` は、同着を含む `finish_groups` と矛盾しない上位N着の全順序（境界同着は必要着数だけ）から判定する。候補中に同じ馬の組合せが存在し、並びだけ不一致の場合に分類する。的中/無効の判定は従来の `recommendation.settle` のまま。順序不要券に着順不一致を誤付与しない。
+
+- 推奨失敗分類の `recommendation_failure_classification` も無印・phase比較と同様に、`reviewed_scope` に入ったCOMPLETE回顧だけを分母（`eligible_ids`/`included_ids`、`unique_races`/`unique_tickets`、`miss_tickets`）へ算入する。正式なFINAL推奨・公式結果・SETTLED精算が先に固定されていても、回顧がDRAFTなら `coverage.target_ids` を維持し、`missing[date:race]={reason:REVIEW_NOT_COMPLETE,required_inputs:[completed_review]}` に記録して未算入とする。回顧を独立revision原本でCOMPLETEへ改訂した場合にのみ、元の推奨・公式結果・精算をそのまま再利用し算入する。

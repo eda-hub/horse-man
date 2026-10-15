@@ -17,6 +17,26 @@ from test_recommendation import DATE, RACE
 
 
 
+def sample_review(state='COMPLETE'):
+    """回顧Ownerの合成入力。実レースの判断を自動補完しない。"""
+    return {'schema_version': 'cycle04-review-v2', 'state': state,
+            'error_classification': '合成検証', 'non_degradation': '既存条件は維持',
+            'next_validation': '次回に固定結果を比較',
+            'protected_good_parts': ['独立した固定予想の保存'],
+            'protected_good_parts_status': 'RECORDED',
+            'protected_good_parts_reason': '独立FIX照合に成功',
+            'protected_good_parts_required_inputs': [],
+            'revalidation_targets': ['入力の取得条件'],
+            'revalidation_targets_status': 'RECORDED',
+            'revalidation_targets_reason': '追加結果で検証',
+            'revalidation_targets_required_inputs': [],
+            'improvement_targets': [],
+            'improvement_targets_status': 'NOT_APPLICABLE',
+            'improvement_targets_reason': '合成例に再現したエラーなし',
+            'improvement_targets_required_inputs': [],
+            'change_evidence': []}
+
+
 def make_result_entry(case, *, scratched=(), mode='FORWARD'):
     """合成fixtureから照合manifestを独立保存。実測成績ではない。"""
     root = case.root
@@ -75,8 +95,7 @@ def make_result_entry(case, *, scratched=(), mode='FORWARD'):
                        'refs': refs})
     return {'race_id': RACE, 'result_path': refs['result']['artifact_path'],
             'result_reconciliation_ref': manifest,
-            'review': {'error_classification': '検証', 'non_degradation': '保全',
-                       'next_validation': '次回比較'}}
+            'review': sample_review()}
 
 
 class FormalResultRegression(unittest.TestCase):
