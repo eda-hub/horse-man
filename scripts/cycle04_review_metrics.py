@@ -289,6 +289,9 @@ def independent_metrics(root, days):
             for phase, rec in unm.items():
                 cov = rec["coverage"]
                 frames = phases[phase]
+                if race not in day["reviewed_scope"]:
+                    missing(cov, ident, "REVIEW_NOT_COMPLETE", ["completed_review"])
+                    continue
                 if not result or not frames:
                     missing(cov, ident, "RESULT_OR_PHASE_MISSING", ["official_result", phase + "_fixed_gate"])
                     continue
@@ -320,7 +323,9 @@ def independent_metrics(root, days):
                     rec["second"] += int(pos.get(horse) == 2)
                     rec["top3"] += int(pos.get(horse, 999) <= 3)
             change_cov = changes["coverage"]
-            if not result or len(phases["INITIAL"]) != 1 or len(phases["FINAL"]) != 1:
+            if race not in day["reviewed_scope"]:
+                missing(change_cov, ident, "REVIEW_NOT_COMPLETE", ["completed_review"])
+            elif not result or len(phases["INITIAL"]) != 1 or len(phases["FINAL"]) != 1:
                 missing(change_cov, ident, "UNPAIRED_OR_AMBIGUOUS_FIXED_PHASES",
                         ["official_result", "single_initial_gate", "single_final_gate"])
             else:
