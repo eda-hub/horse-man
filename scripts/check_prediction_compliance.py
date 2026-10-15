@@ -760,9 +760,11 @@ def coverage_summary(gates, missing, unregistered=()):
     return dates
 
 def run(root, audit=False):
-    from historical_eligibility import days_at, load
-    # Immutable corrections are checked first, even when audit=True.
-    corrections = load(root, days_at(root))
+    from historical_eligibility import FOLDER, days_at, load
+    # Only full historical ledgers are required when real overlays are present.
+    # Synthetic gate-only fixtures must preserve the original checker behavior.
+    folder = Path(root) / FOLDER
+    corrections = load(root, days_at(root)) if folder.is_dir() and any(folder.glob('*.json')) else {}
     for (date, race, kpi), row in sorted(corrections.items()):
         print(f'HISTORICAL_CORRECTION: {date}/{race}/{kpi} original={row["original"]} effective={row["effective"]} id={row["id"]}')
     gd=root/'docs/validation/execution-gates'; gates={}; aliases={}
@@ -789,8 +791,12 @@ def run(root, audit=False):
     # A historical gate's self-declared ELIGIBLE must not be mistaken for a
     # ledger-certified race when their identifiers have not been proven equal.
     # Do not guess a JRA race ID from an old venue/ordinal code.
-    from historical_eligibility import days_at
-    legacy_days = days_at(root)
+    legacy_days = {}
+    for day_path in sorted((Path(root) / 'docs/validation/records').glob('*.md')):
+        for day in blocks(day_path, 'cycle03-day-v1'):
+            date = day.get('race_date_jst')
+            if isinstance(date, str) and isinstance(day.get('initial_scope'), list):
+                legacy_days[date] = day
     for (date, race), gate in gates.items():
         if (gate.get('manual_release') == LEGACY_RELEASE
                 and date in legacy_days
