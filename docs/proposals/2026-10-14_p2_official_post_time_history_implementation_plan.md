@@ -96,4 +96,4 @@
 - **P1：後判明前倒しの過去予想誤適格化**：認識時点の時刻との整合と、後から読戻した全改訂の発走境界を別々に検証。保存当時の旧予定は残し、実際の前倒し境界以降に保存/読戻ししたものの前向き適格宣言を拒否。旧Markdown複数レースにも共通検査。
 - 変更：`a1c8b1e`（共通検査）、`5a1fc70`（保存検証）、`0f0b2ef`（正常・異常回帰）、`5cc5feb`（旧テスト期待値整合）。
 - GitHub Actions一時統合受入：`38682837847`。**全840テスト、失敗0、skip0、合成PASS**。同実行で `build_v170_manifest.py` を実生成し、`check_cycle04.py`、`run_release_readiness.py`、`check_integration_acceptance.py --full` がすべて成功。生成物のGit保存commit：`f5cb7d9`。
-- リポジトリ内の以前の832件PASS・3系統CI成功は修正前のものと区別する。最新の標準3系統CIは一時ワークフローを除去した最終headで確認する。実レース適格昇格は認証しない。
+- リポジトリ内の以前の832件PASS・3系統CI成功は修正前のものと区別する。一時ワークフロー除去後のHEAD `4b041b6` で標準3系統CIを実行・成功確認：`check-cycle03.yml` [38683153900](https://github.com/eda-hub/horse-man/actions/runs/38683153900)、`check-integration-acceptance.yml` [38683153910](https://github.com/eda-hub/horse-man/actions/runs/38683153910)、`check-pedigree-research.yml` [38683153824](https://github.com/eda-hub/horse-man/actions/runs/38683153824)。本計画書のみ後続更新で、受入・releaseのhash対象外。実レース適格昇格は認証しない。
