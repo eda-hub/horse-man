@@ -1,0 +1,34 @@
+{
+  "race_id": "YYYYMMDD-TOK-01",
+  "result_path": "docs/validation/results/YYYY-MM-DD/RACE.json",
+  "result_reconciliation_ref": {
+    "artifact_path": "docs/validation/result-reconciliation/YYYY-MM-DD/RACE.json",
+    "sha256": "<保存済みmanifestのSHA256>"
+  },
+  "review": {
+    "schema_version": "cycle04-review-v2",
+    "state": "DRAFT",
+    "error_classification": "<評価済みの誤差分類。未評価ならDRAFTのまま>",
+    "non_degradation": "<変更しない正常機能と検証方針>",
+    "next_validation": "<次回の具体的な試験>",
+    "protected_good_parts": [],
+    "protected_good_parts_status": "PENDING",
+    "protected_good_parts_reason": "Ownerによる保護対象の審査待ち",
+    "protected_good_parts_required_inputs": [
+      "Ownerの保護対象判断"
+    ],
+    "revalidation_targets": [],
+    "revalidation_targets_status": "PENDING",
+    "revalidation_targets_reason": "再検証の範囲を確認待ち",
+    "revalidation_targets_required_inputs": [
+      "固定原本の比較"
+    ],
+    "improvement_targets": [],
+    "improvement_targets_status": "PENDING",
+    "improvement_targets_reason": "再現した同型エラーの確認待ち",
+    "improvement_targets_required_inputs": [
+      "再現性の検討"
+    ],
+    "change_evidence": []
+  }
+}

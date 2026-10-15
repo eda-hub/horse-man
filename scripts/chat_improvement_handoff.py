@@ -70,6 +70,8 @@ def handoff(root, request):
     return {'schema_version':'chat-improvement-handoff-v1','review_package_ref':request['review_package_ref'],
             'calibration_input_ref':request['calibration_input_ref'],'candidates':out,'read_only':True,
             'cycle_completion':copy.deepcopy(package.get('cycle_completion')),
+             'review_owner_gaps':copy.deepcopy((package.get('cycle_completion') or {}).get('review_owner_gaps', [])),
+             'independent_review_metrics':copy.deepcopy(package.get('independent_review_metrics')),
             'closure_review':'HUMAN_OWNER_REVIEW_REQUIRED',
             'manual_updated':False,'prediction_original_updated':False,'database_updated':False,
             'performance_promotion':'NOT_APPROVED'}

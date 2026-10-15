@@ -154,6 +154,7 @@ class CompletionAcceptance(unittest.TestCase):
         self.assertNotEqual(self.evaluate()['state'],'理由付き終了')
 
     def test_normal_completion_requires_all_six_days_and_saved_summary(self):
+        from test_cycle04_result_eligibility import sample_review
         days=[]
         for date in DATES:
             race=date.replace('-','')+'-TOK-01'
@@ -164,8 +165,7 @@ class CompletionAcceptance(unittest.TestCase):
                                                                {'phase':'FINAL','prediction_ref':{}}],
                                         'recommendation_state':'NO_RECOMMENDATION',
                                         'result_ref':{'artifact_path':'fixed-result.json'},
-                                        'review':{'error_classification':'確認','non_degradation':'維持',
-                                                  'next_validation':'続行'}}},
+                                        'review':sample_review()}},
                          'kpis':{'market':{'eligible_ids':[],'ineligible_ids':[], 'pending_ids':[], 'reasons':{}},'production':{'eligible_ids':[race],'ineligible_ids':[],
                                                 'pending_ids':[],'reasons':{race:'確認'}},
                                  'recommendation':{'eligible_ids':[],'ineligible_ids':[race],

@@ -46,6 +46,20 @@ class ImprovementHandoff(unittest.TestCase):
             if field=='source':c['evidence'][0]['source']='CALIBRATION_INPUT'
             with self.assertRaises(ValueError):handoff(self.root,req)
 
+    def test_owner_gaps_and_review_metrics_are_not_lost(self):
+        document=json.loads((self.root/'review.json').read_text())
+        document['cycle_completion']={'review_owner_gaps':[{'race_id':'synthetic-race',
+            'missing_fields':['protected_good_parts']}]}
+        document['independent_review_metrics']={'unmarked_by_fixed_phase':{'INITIAL':{
+            'coverage':{'target_ids':['synthetic-race'],'eligible_count':0,'value':None}}}}
+        raw=json.dumps(document,ensure_ascii=False).encode()
+        (self.root/'review.json').write_bytes(raw)
+        self.request['review_package_ref']['sha256']=fingerprint(raw)
+        result=handoff(self.root,self.request)
+        self.assertEqual(result['review_owner_gaps'][0]['race_id'],'synthetic-race')
+        self.assertIsNone(result['independent_review_metrics']['unmarked_by_fixed_phase']['INITIAL']['coverage']['value'])
+        self.assertFalse(result['manual_updated'])
+
     def test_substituted_package_and_unknown_disposition_rejected(self):
         req=copy.deepcopy(self.request);req['review_package_ref']['sha256']='0'*64
         with self.assertRaises(ValueError):handoff(self.root,req)
