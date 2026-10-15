@@ -27,18 +27,18 @@
 | 202606040811（9/26中山11R） | production | ELIGIBLE | 上記原commit/blob | S01/R02のGit snapshot・receipt、発走前と記録 | execution gate原票なし、個別の当時契約認証 | PENDING / INELIGIBLE の要判断 |
 | 202609040810（9/26阪神10R） | production | ELIGIBLE | 同上 | S01/R02のGit snapshot・receipt、発走前と記録 | execution gate原票なし、個別の当時契約認証 | PENDING / INELIGIBLE の要判断 |
 | 202609040811（9/26阪神11R） | production | ELIGIBLE | 同上 | S01/R02のGit snapshot・receipt、発走前と記録 | execution gate原票なし、個別の当時契約認証 | PENDING / INELIGIBLE の要判断 |
-| 20260927-HAN-07（9/27阪神7R） | production | PENDING（台帳）/ ELIGIBLE（gate） | 台帳9/27・execution-gates/2026-09-27/20260927-HAN-07.json | gate原本あり | gate側と再審査後の台帳状態が不一致 | 元gateを消さず保留の正当性を監査 |
-| 20260927-HAN-08（9/27阪神8R） | production | PENDING（台帳）/ ELIGIBLE（gate） | 台帳9/27・execution-gates/2026-09-27/20260927-HAN-08.json | gate原本あり | 同上 | 同上 |
+| 20260927-HAN-07（9/27阪神7R） | production | PENDING（台帳）/ ELIGIBLE（gate） | 台帳9/27・execution-gates/2026-09-27/20260927-HAN-07.json | gate原本あり | gate側と再審査後の台帳状態が不一致。識別子対応も未証明 | 元gateを消さず同一性・保留の正当性を監査 |
+| 20260927-HAN-08（9/27阪神8R） | production | PENDING（台帳）/ ELIGIBLE（gate） | 台帳9/27・execution-gates/2026-09-27/20260927-HAN-08.json | gate原本あり | 同上（識別子対応未証明） | 同上 |
 
 - 9/26の3件は **receipt未保存とは言えない**。原票には `PERSIST_VERIFIED` / `RECEIPT_VERIFIED` / `PRE_RACE_ELIGIBLE` のR02がある。一方、当時gate原票がないことは別の欠落である。これだけで予想精度や仮想精算が失敗だったとは断定しない。
-- 9/27既存gate2件の `production=ELIGIBLE` は、現行台帳 `production=PENDING` と異なる。gateの自己申告による自動昇格、台帳の黙示変更はしない。
+- 9/27既存gate2件の `production=ELIGIBLE` は、台帳内の阪神7R/8R（`202609040907` / `202609040908`）の `production=PENDING` と意味上異なる。ただしgateキーは `20260927-HAN-07` / `20260927-HAN-08` と異なり、現在のcheckerはIDを直接結合できない。このため機械的に「同一raceのgate不一致」と断定せず、**紐付け未証明の適格自己申告**として別に報告・拒否する。実証なしのID推測・昇格・黙示変更はしない。
 - 対象が未確定のため、**承認済み訂正overlayは0件**。元宣言の違反候補は通常checkerに残す。証跡なしの事後gate/FIX/receipt/intentは作らない。
 - 正式KPI影響候補: 9/26旧Production適格3件の分母、9/27の未認証Production 2件の扱い。旧Betting性能・保存品質・購入ルール・Shadow・参考仮想精算へ横展開しない。
 - 判断依頼: 上記3レースを保留とするか不適格とするか、判断者（Owner・確認者）と確定日時・根拠を確認する。9/27のgate自己申告の意味は当時の提出時刻・原commit確認後に整理する。結果や推奨を上書きしない。
 
 ## 原本照合と追加検証
 
-- `scripts/check_prediction_compliance.py` の `cycle_links` は、適格レースにgateが無い場合に通常実行を不合格とし、`--audit` のみ不足として出力する構造である。9/27は台帳とgateの状態が異なるため別途不一致判定が発生する。
+- `scripts/check_prediction_compliance.py` の `cycle_links` は、適格レースにgateが無い場合に通常実行を不合格とし、`--audit` のみ不足として出力する構造である。9/27の既存gateと台帳のJRA形式race IDは異なるため、元コードはgateの状態不一致を直接検出しない。今回の実装は紐付けのない旧ELIGIBLE gateを `UNLINKED_GATE_CLAIM` として別途拒否する。
 - 旧原本と現在の台帳のバイト列は異なる（別blob）。その事実を「当時の宣言が存在しない」と読み替えず、Git履歴のoriginal commitに固定する。
 - 保存済み第3レビュー `docs/validation/reviews/cycle_03/collection.json` は当時の集計。独立した訂正後ビューを生成しても元資料を改変しない。
 - 実装後の実行環境で通常/audit checker、全回帰、標準受入、release、統合、3系統CIの実コマンド出力を取得するまで合格とは呼ばない。
