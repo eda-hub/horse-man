@@ -78,6 +78,6 @@
 ### 検証実行元と監査境界
 
 - 受入原本生成の実行：GitHub Actions `38668825199`、生成基点 `e7cdd9b7d85818edb8a635f4d46685a7e7597723`、成功（2026-10-15 UTC）。Pythonの合成受入結果をGitHub Actionsログから読戻して同一JSON形式で保存した。検証用一時workflowは `5b7adab` で除去し、v1.7.0 source manifestの管理対象ではないことを `build_v170_manifest.py` の入力一覧で確認した。
-- 標準3系統：`check-cycle03.yml`（全回帰/実台帳・release監査）、`check-integration-acceptance.yml`（取得済みmainとの分離）、`check-pedigree-research.yml`（血統監査）。最終コミットについて各CIが成功したログを確認するまで、この項目の最終統合成功を主張しない。
+- 標準3系統（検証済みcommit `db04f3c9a6f20c7595dea7a47bd92af591167154`）：`check-cycle03.yml` **成功**（GitHub Actions `38669113019`）、`check-integration-acceptance.yml` **成功**（`38669113023`）、`check-pedigree-research.yml` **成功**（`38669113025`）。標準CIを省略せず3件ともGitHub Actionsのjob完了結果で確認した。これらはPRブランチの検査でありmainマージ完了の宣言ではない。
 - 本検証は**合成受入のみ**であり、JRAの実際の発走変更、実レース実行数、取消/翌日延期の同一性、Production/Shadowの性能昇格、PR89のmain反映は認証しない。
 - 翌日延期・開催日またぎの同一race/date扱いは自動判定しない設計。公式資料またはOwner判断が必要になった時点で保留にし、利用者に対象レースと相違内容を提示する。
