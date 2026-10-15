@@ -47,6 +47,19 @@
 - 実データの訂正候補は対象と根拠を提示し、必要な確認を得た範囲だけ反映する。未確定候補は原宣言と不足表示のまま保持する。
 - 通常checkerとauditの差分を明示し、過去違反を除去したふりで全正常・新性能昇格を宣言しない。
 
+## 実装状況・現在の照合結果（2026-10-15）
+
+- 作業対象は本PR `fix/p2-historical-eligibility`。最新main `e731b857b082f555fa9c3d2a4b4fe9b37cb42b36` を統合し、PR88・89の既存変更を保護した。
+- 01 旧適格宣言の[実原票棚卸し](../validation/reviews/cycle_03/historical_eligibility_inventory.md)を追加した。歴史的原commit `8e4e3a59a4ffce60bde751554abc4fa8cf34cee2` と旧日別台帳blob `80ca492ac9bc9ca8b10bbf29504a10d84c60f49d` を確認。旧宣言Production適格3件/9月26日、execution gate原票0件。snapshot/receipt R02は実在し、別の欠落として区別する。9月27日gate2件は旧台帳のrace IDと直接一致しない。
+- 02 Git commit/path/blob固定参照、根拠・Owner/確認者・確認日時・影響KPI・厳格なrevision chainを持つ `scripts/historical_eligibility.py` と[監査契約](../validation/contracts/historical_eligibility.md)を追加。発走前証跡の後付けや暗黙の適格昇格は禁止。
+- 03 通常checkerで原宣言の不一致と承認済み訂正後状態を区分。紐付け未証明の旧gateは別理由で拒否。旧第3checkerと終了資料には独立JSON表示を追加し、元の正式台帳/仮想精算は不変。
+- 04 元表示と訂正後表示、Owner/確認者不足、回顧README・運用READMEの参照を整合。独立KPIを混合しない。
+- 05 異常系・正常系のGit原本照合回帰 `test_historical_eligibility.py` を追加し、GitHub Actionsの3系統で検証中。CLI実測・標準受入・release/manifest・統合の最終結果はGitHub Actions実行終了後に更新する。事実確認・承認なしの元成績訂正は未実施。
+
+### 採否未確定・承認待ち
+
+9/26の3つのProduction適格宣言を**保留**とするか**不適格**とするかは、当時の証跡確認と利用者判断が必要。承認するOwner・確認者、判断日時、根拠commitを確定しない限り、訂正overlayは1件も登録しない。9/27の既存gateと旧台帳のレースID対応も未証明なので、勝手に照合済みとしない。この判断待ちはコードの回帰検証・旧履歴の監査を止める理由にしない。
+
 ## 実績・未確定事項
 
 実装時に対象race/KPI／元commit/path/hash／判断／確認者・Owner／変更commit／実行コマンド／期待値／実結果／残件を追記する。
