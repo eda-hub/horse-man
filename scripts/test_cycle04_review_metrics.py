@@ -53,6 +53,29 @@ class OwnerSchema(unittest.TestCase):
         self.assertEqual(review_status(old)["state"], "LEGACY_INCOMPLETE")
         self.assertIn("HISTORICAL_REVIEW_SCHEMA", review_status(old)["missing"])
 
+    def test_dead_heat_order_mismatch_uses_feasible_finish_order(self):
+        from recommendation import settle
+        result = {"race_id": RACE, "race_date_jst": DATE, "status": "OFFICIAL",
+                  "source_url": "https://example.invalid/official",
+                  "retrieved_at_jst": DATE + "T12:30:00+09:00",
+                  "finish_groups": [[1], [2, 3], [4]],
+                  "scratched_horses": [], "place_places": 3}
+        rec = {"race_id": RACE, "race_date_jst": DATE, "status": "RECOMMENDED",
+               "scheduled_post_time_jst": DATE + "T10:10:00+09:00",
+               "tickets": [{"type": "EXACTA", "horses": [2, 1]}]}
+        self.assertEqual(settle(rec, result)["tickets"][0]["result"], "MISS")
+        pos = {1: 1, 2: 2, 3: 2, 4: 4}
+        self.assertIn("ORDER_MISMATCH",
+                      classify_ticket(rec["tickets"][0], pos, anchor=2))
+        self.assertIn("ORDER_MISMATCH",
+                      classify_ticket({"type": "TRIFECTA", "horses": [2, 1, 3]},
+                                      pos, anchor=2))
+        # 境界で同着となった有効券・非順序券まで着順不一致にしない。
+        self.assertNotIn("ORDER_MISMATCH",
+                         classify_ticket({"type": "EXACTA", "horses": [1, 3]}, pos, 1))
+        self.assertNotIn("ORDER_MISMATCH",
+                         classify_ticket({"type": "WIDE", "horses": [2, 3]}, pos, 2))
+
     def test_multiple_failure_labels_have_no_deduped_denominator(self):
         # 軸5が3着内外かつ相手4も3着内外となる複数原因。
         pos = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
@@ -75,6 +98,86 @@ class OwnerWorkflow(unittest.TestCase):
 
     def entry(self):
         return self.case.result_entry()
+
+    def test_unfilled_draft_preserves_official_result_and_owner_gaps(self):
+        entry = self.entry()
+        entry["review"] = sample_review("DRAFT")
+        for field in ("error_classification", "non_degradation", "next_validation"):
+            entry["review"][field] = ""
+        entry["review"]["protected_good_parts"] = []
+        entry["review"]["protected_good_parts_status"] = "PENDING"
+        entry["review"]["protected_good_parts_reason"] = "保護対象の判断待ち"
+        entry["review"]["protected_good_parts_required_inputs"] = ["Owner判断"]
+        # 全必須項目が空のCOMPLETEは同一の結果でも書込み前に拒否する。
+        complete = copy.deepcopy(entry)
+        complete["review"]["state"] = "COMPLETE"
+        path = self.root / workflow.DIRECTORY / (DATE + ".json")
+        original = path.read_bytes()
+        with self.assertRaises(ComplianceError):
+            workflow.review(self.root, DATE, complete)
+        self.assertEqual(path.read_bytes(), original)
+        workflow.review(self.root, DATE, entry)
+        day, _ = workflow.read_day(self.root, DATE)
+        row = day["races"][RACE]
+        self.assertNotIn(RACE, day["reviewed_scope"])
+        self.assertEqual(row["review"]["error_classification"], "")
+        self.assertEqual(row["result_ref"]["artifact_path"], entry["result_path"])
+        self.assertEqual(row["result_reconciliation_ref"], entry["result_reconciliation_ref"])
+        self.assertEqual(len(row["review_history"]), 1)
+        report = workflow.summary(self.root)
+        self.assertEqual(report["reviewed_races"], 0)
+        self.assertTrue(any(g["race_id"] == RACE for g in
+                            report["completion"]["review_owner_gaps"]))
+
+    def test_each_fixed_phase_requires_forward_eligible_production(self):
+        self.case.select()
+        self.case.entry["phase"] = "FINAL"
+        workflow.record_prediction(self.root, DATE, self.case.entry)
+        workflow.review(self.root, DATE, self.entry())
+        frozen_day, _ = workflow.read_day(self.root, DATE)
+        baseline = independent_metrics(self.root, [frozen_day])
+        self.assertEqual(baseline["initial_final_change_evidence"]["coverage"]["included_count"], 1)
+        self.assertEqual(baseline["unmarked_by_fixed_phase"]["INITIAL"]["coverage"]["included_count"], 1)
+        self.assertEqual(baseline["unmarked_by_fixed_phase"]["FINAL"]["coverage"]["included_count"], 1)
+        # 合成されたgateの状態ごとに、本当に集計対象から排除されることを検証。
+        for status, mode in (("PENDING", "FORWARD"),
+                             ("INELIGIBLE", "FORWARD"),
+                             ("INELIGIBLE", "REPLAY")):
+            for target in ("INITIAL", "FINAL"):
+                with self.subTest(status=status, mode=mode, phase=target):
+                    day = copy.deepcopy(frozen_day)
+                    row = day["races"][RACE]
+                    index = next(i for i, item in enumerate(row["prediction_history"])
+                                 if item["phase"] == target)
+                    original_gate = self.root / row["prediction_history"][index]["prediction_gate_path"]
+                    gate = json.loads(original_gate.read_text())
+                    gate["mode"] = mode
+                    gate["kpi_eligibility"]["production"] = status
+                    if mode == "REPLAY":
+                        gate["timing_route"] = "LATE_PRESERVATION"
+                    dest = self.root / "synthetic-review-gates" / (target + "-" + status + "-" + mode + ".json")
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    dest.write_text(json.dumps(gate))
+                    row["prediction_history"][index]["prediction_gate_path"] = dest.relative_to(self.root).as_posix()
+                    metrics = independent_metrics(self.root, [day])
+                    excluded = metrics["unmarked_by_fixed_phase"][target]["coverage"]
+                    other = "FINAL" if target == "INITIAL" else "INITIAL"
+                    self.assertEqual(excluded["included_count"], 0)
+                    self.assertEqual(excluded["eligible_count"], 0)
+                    self.assertIn(status if mode == "FORWARD" else "NOT_FORWARD",
+                                  excluded["missing"][f"{DATE}:{RACE}"]["reason"])
+                    self.assertEqual(metrics["unmarked_by_fixed_phase"][other]["coverage"]["included_count"], 1)
+                    change = metrics["initial_final_change_evidence"]["coverage"]
+                    self.assertEqual(change["eligible_count"], 0)
+                    self.assertEqual(change["included_count"], 0)
+                    self.assertIn("PHASE_NOT_FORWARD_ELIGIBLE",
+                                  change["missing"][f"{DATE}:{RACE}"]["reason"])
+        row_only = copy.deepcopy(frozen_day)
+        row_only["races"][RACE]["mode"] = "REPLAY"
+        metrics = independent_metrics(self.root, [row_only])
+        for phase in ("INITIAL", "FINAL"):
+            self.assertEqual(metrics["unmarked_by_fixed_phase"][phase]["coverage"]["eligible_count"], 0)
+        self.assertEqual(metrics["initial_final_change_evidence"]["coverage"]["eligible_count"], 0)
 
     def test_draft_keeps_result_but_never_claims_review_completed(self):
         entry = self.entry()
