@@ -126,6 +126,10 @@ class OwnerWorkflow(unittest.TestCase):
         self.assertEqual(len(row["review_history"]), 1)
         report = workflow.summary(self.root)
         self.assertEqual(report["reviewed_races"], 0)
+        self.assertEqual(report["independent_review_metrics"]["unmarked_by_fixed_phase"]["INITIAL"]["coverage"]["eligible_count"], 0)
+        self.assertEqual(report["independent_review_metrics"]["initial_final_change_evidence"]["coverage"]["eligible_count"], 0)
+        self.assertIn("REVIEW_NOT_COMPLETE",
+                      report["independent_review_metrics"]["unmarked_by_fixed_phase"]["INITIAL"]["coverage"]["missing"][f"{DATE}:{RACE}"]["reason"])
         self.assertTrue(any(g["race_id"] == RACE for g in
                             report["completion"]["review_owner_gaps"]))
 
