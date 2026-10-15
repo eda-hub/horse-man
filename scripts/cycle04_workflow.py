@@ -131,7 +131,7 @@ def register_scope(root, scope, now=None, extend=False):
     return save(root,day)
 
 
-def register_post_change(root, date, ref, now=None):
+def register_post_change(root, date, ref, now=None, *, preview=False):
     """事前に独立保存した変更原本の参照を日別台帳に一件ずつ追記する。"""
     day, before = read_day(root, date)
     race = ref.get('race_id')
@@ -141,6 +141,8 @@ def register_post_change(root, date, ref, now=None):
     row = day['races'][race]
     row.setdefault('schedule_changes', []).append(copy.deepcopy(ref['change_ref']))
     schedule_history(root, row, race, date, now=now)
+    if preview:
+        return path_for_validation(root, day)
     return save(root, day, before)
 
 
@@ -476,9 +478,12 @@ def main(argv=None):
     mode.add_argument('--record-market',type=Path)
     mode.add_argument('--summary',action='store_true')
     parser.add_argument('--date')
+    parser.add_argument('--preview',action='store_true',help='公式発走変更の台帳保存前検査のみ')
     args=parser.parse_args(argv)
     try:
         root=args.root.resolve();check_release(root,require_main=True)
+        require(not args.preview or bool(args.register_post_change),
+                '--preview is supported only for --register-post-change')
         if args.summary:
             print(json.dumps(summary(root),ensure_ascii=False,indent=2));return 0
         if args.register_scope or args.extend_scope:
@@ -488,12 +493,15 @@ def main(argv=None):
         else:
             require(args.date,'race date required')
             check_working_branch(root,args.date)
-            if args.register_post_change:out=register_post_change(root,args.date,load(args.register_post_change))
+            if args.register_post_change:out=register_post_change(root,args.date,load(args.register_post_change),preview=args.preview)
             elif args.select:out=select(root,args.date,load(args.select))
             elif args.record_prediction:out=record_prediction(root,args.date,load(args.record_prediction))
             elif args.record_market:out=record_market(root,args.date,load(args.record_market))
             else:out=review(root,args.date,load(args.review))
-        print(f'日別台帳のローカル保存・検査成功：{out}。日次branchへのGit保存・読戻しを行ってください。')
+        if args.preview:
+            print('公式発走変更の検証成功（プレビューのみ・台帳未保存）。')
+        else:
+            print(f'日別台帳のローカル保存・検査成功：{out}。日次branchへのGit保存・読戻しを行ってください。')
         return 0
     except (ValueError,OSError,KeyError,TypeError) as exc:
         print('第4運用未完了：'+str(exc),file=sys.stderr);return 1
