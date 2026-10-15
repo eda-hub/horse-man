@@ -240,12 +240,31 @@ def validate_market_payload(payload, cutoff):
     return validate_market(market, cutoff)
 
 
+def selection_ref_post(root, ref, original_post):
+    """選定履歴そのものの最新版は最新イベントの予定で保存する。"""
+    require(isinstance(ref, dict), 'selection history reference required')
+    raw = safe_path(root, ref.get('artifact_path')).read_bytes()
+    require(fingerprint(raw) == ref.get('sha256'), 'selection history fixed hash mismatch')
+    events = json.loads(raw).get('events', [])
+    require(isinstance(events, list) and events, 'nonempty selection events required')
+    return events[-1].get('scheduled_post_time_jst', original_post)
+
+
 def validate_selection(root, history, post_by_race):
     require(history.get('scheduled_posts') == post_by_race, 'selection deadline/scope mismatch')
     result = validate_history(history, root)
+    from cycle04_schedule_change import registered_row, assert_post
     for event in history['events']:
         core = {k: v for k, v in event.items() if k != 'evidence'}
-        data, receipt = verified_artifact(root, event['evidence'], post_by_race[event['race_id']])
+        race = event['race_id']
+        event_post = event.get('scheduled_post_time_jst', post_by_race[race])
+        data, receipt = verified_artifact(root, event['evidence'], event_post)
+        row = registered_row(root, race, iso(event['at'], 'selection event').date().isoformat())
+        require(row is not None or 'scheduled_post_time_jst' not in event,
+                'new selection deadline requires registered official schedule')
+        if row is not None:
+            assert_post(root, row, race, iso(event['at'], 'selection event').date().isoformat(),
+                        event_post, at=receipt['receipt_verified_at_jst'])
         require(data == core, 'selection original mismatch')
         require(iso(event['at'], 'event') <= iso(receipt['persist_verified_at_jst'], 'event persistence'),
                 'selection persisted before event existed')
