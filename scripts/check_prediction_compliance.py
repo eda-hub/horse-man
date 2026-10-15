@@ -587,7 +587,22 @@ def validate_gate(root,path):
         raise ComplianceError(f'{path}: unsupported manual_release/schema combination: {contract}')
     if contract==(LEGACY_RELEASE,LEGACY_SCHEMA):
         return validate_gate_v1(root,path,g)
-    return validate_gate_v2(root,path,g)
+    validated = validate_gate_v2(root,path,g)
+    # 第4登録済みの正式予想にのみ適用する。旧v1.6.1の判定契約は変更しない。
+    from cycle04_schedule_change import registered_row, assert_post
+    row = registered_row(root, g['race_id'], g['race_date_jst'])
+    if row is not None and g.get('mode') == 'FORWARD' and (
+            g.get('kpi_eligibility', {}).get('production') == 'ELIGIBLE' or
+            g.get('kpi_eligibility', {}).get('shadow') == 'ELIGIBLE'):
+        ref = g['production']['evidence_ref']
+        receipts = receipt_records(Path(root) / ref['receipt_path'])
+        matched = [r for r in receipts if r.get('receipt_id') == ref.get('receipt_id')
+                   and r.get('artifact_path') == ref.get('artifact_path')]
+        if len(matched) != 1:
+            raise ComplianceError('registered race prediction receipt missing')
+        assert_post(root, row, g['race_id'], g['race_date_jst'], g['scheduled_post_time_jst'],
+                    at=matched[0]['receipt_verified_at_jst'])
+    return validated
 
 def blocks(path,tag):
     s=path.read_text(encoding='utf-8')
