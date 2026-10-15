@@ -175,9 +175,17 @@ def main(argv=None):
     parser.add_argument("--as-of-date-jst", help="確認日。保存済み資料の検査時は資料内の日付を使用")
     parser.add_argument("--basis-commit", help="参照した原記録のcommit SHA。適格性認証ではない")
     parser.add_argument("--require-complete", action="store_true", help="日別台帳/回顧の不足があれば不合格")
+    parser.add_argument("--historical-view", action="store_true", help="旧終了資料を改変せず原宣言と承認済み訂正の独立ビューを表示")
     args = parser.parse_args(argv)
     try:
         root = args.root.resolve()
+        if args.historical_view:
+            if args.write or args.check:
+                raise ValueError("履歴訂正ビューは原終了資料の--write/--checkと併用できません")
+            from historical_eligibility import days_at, load, report
+            days = days_at(root)
+            print(json.dumps(report(days, load(root, days)), ensure_ascii=False, indent=2))
+            return 0
         output = safe_output(root, args.output)
         saved = json.loads(output.read_text(encoding="utf-8")) if args.check else None
         as_of = args.as_of_date_jst or (saved["as_of_date_jst"] if saved else None)
