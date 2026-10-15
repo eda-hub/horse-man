@@ -205,9 +205,8 @@ def registered_row(root, race, date):
     if not path.is_file():
         return None
     ledger = json.loads(path.read_text(encoding="utf-8"))
-    require(ledger.get("cycle_id") == "cycle_04" and
-            ledger.get("race_date_jst") == date,
-            "registered day contract required for official schedule history")
+    if ledger.get("cycle_id") != "cycle_04" or ledger.get("race_date_jst") != date:
+        return None  # 合成検査の旧/部分台帳を正式登録済みとは見なさない
     if race not in ledger.get("initial_scope", []):
         return None  # 未登録レースを発走履歴の存在として誤認しない
     return ledger["races"][race]
