@@ -136,7 +136,9 @@ def validate_formal_result(root, row, *, race, date, result_ref, manifest_ref):
     bundle = fixed_json(root, refs['capture'])
     req = bundle['request']
     require(req['purpose'] == 'RESULT' and req['race_id'] == race and req['race_date_jst'] == date, 'formal result race/date mismatch')
-    result_post(root, row, race, date, captured_at=result['retrieved_at_jst'], result_post_time=req['scheduled_post_time_jst'])
+    result_post(root, row, race, date,
+                captured_at=report['result']['retrieved_at_jst'],
+                result_post_time=req['scheduled_post_time_jst'])
     require(report['race_id'] == race and report['race_date_jst'] == date and
             report['mode'] == 'FORWARD',
             'only quoted FORWARD result can enter formal review')
