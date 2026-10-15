@@ -197,6 +197,84 @@ class OwnerWorkflow(unittest.TestCase):
         self.assertEqual(day["races"][RACE]["review_history"][0]["revision"], 1)
         self.assertEqual(workflow.summary(self.root)["reviewed_races"], 0)
 
+    def test_fixed_final_recommendation_draft_to_complete_only_then_counts_failures(self):
+        # FINAL適格推奨・公式結果は同じ固定原本。回顧の状態だけを改訂する。
+        self.case.select()
+        self.case.entry["phase"] = "FINAL"
+        workflow.record_prediction(self.root, DATE, self.case.entry)
+        entry = self.entry()
+        entry["review"] = sample_review("DRAFT")
+        entry["review"]["error_classification"] = ""
+        entry["review"]["protected_good_parts"] = []
+        entry["review"]["protected_good_parts_status"] = "PENDING"
+        entry["review"]["protected_good_parts_reason"] = "Ownerの評価待ち"
+        entry["review"]["protected_good_parts_required_inputs"] = ["Ownerの完了判断"]
+        workflow.review(self.root, DATE, entry)
+
+        day, _ = workflow.read_day(self.root, DATE)
+        row = day["races"][RACE]
+        self.assertEqual(row["review"]["state"], "DRAFT")
+        self.assertEqual(day["reviewed_scope"], [])
+        self.assertEqual(row["recommendation_state"], "RECOMMENDED")
+        self.assertIn(RACE, day["kpis"]["recommendation"]["eligible_ids"])
+        self.assertEqual(row["recommendation_result"]["status"], "SETTLED")
+        self.assertTrue(any(t["result"] != "INVALID"
+                            for t in row["recommendation_result"]["tickets"]))
+        original_result = copy.deepcopy(row["result_ref"])
+        original_manifest = copy.deepcopy(row["result_reconciliation_ref"])
+        original_settlement = copy.deepcopy(row["recommendation_result"])
+        first_revision = copy.deepcopy(row["review_history"][0])
+        before = workflow.summary(self.root)["independent_review_metrics"]["recommendation_failure_classification"]
+        self.assertEqual(before["coverage"]["target_ids"], [f"{DATE}:{RACE}"])
+        self.assertEqual(before["coverage"]["eligible_count"], 0)
+        self.assertEqual(before["coverage"]["included_count"], 0)
+        self.assertEqual(before["unique_races"], 0)
+        self.assertEqual(before["unique_tickets"], 0)
+        self.assertEqual(before["miss_tickets"], 0)
+        self.assertEqual(before["label_counts"], {})
+        self.assertEqual(before["labeled_tickets"], [])
+        self.assertIsNone(before["miss_ticket_rate"])
+        self.assertEqual(before["coverage"]["missing"][f"{DATE}:{RACE}"],
+                         {"reason": "REVIEW_NOT_COMPLETE",
+                          "required_inputs": ["completed_review"]})
+
+        # 同じ公式結果・FINAL推奨に対し、独立した改訂原本を経由してCOMPLETEへ。
+        entry["review"] = sample_review("COMPLETE")
+        with self.assertRaisesRegex(ComplianceError, "explicit correction history"):
+            workflow.review(self.root, DATE, entry)
+        revision = {"schema_version": "cycle04-review-revision-v1",
+                    "race_date_jst": DATE, "race_id": RACE, "revision": 2,
+                    "supersedes_sha256": first_revision["sha256"], "review": entry["review"]}
+        path = f"docs/validation/review-revisions/{DATE}/{RACE}/2.json"
+        dest = self.root / path
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        raw = (json.dumps(revision, ensure_ascii=False, indent=2) + "\n").encode()
+        dest.write_bytes(raw)
+        entry["revision_ref"] = {"artifact_path": path, "sha256": hashlib.sha256(raw).hexdigest()}
+        workflow.review(self.root, DATE, entry)
+        completed_day, _ = workflow.read_day(self.root, DATE)
+        completed_row = completed_day["races"][RACE]
+        self.assertEqual(completed_day["reviewed_scope"], [RACE])
+        self.assertEqual(completed_row["result_ref"], original_result)
+        self.assertEqual(completed_row["result_reconciliation_ref"], original_manifest)
+        self.assertEqual(completed_row["recommendation_result"], original_settlement)
+        self.assertEqual(completed_row["review_history"][0], first_revision)
+        self.assertEqual(completed_row["review_history"][1]["previous_sha256"],
+                         first_revision["sha256"])
+        after = workflow.summary(self.root)["independent_review_metrics"]["recommendation_failure_classification"]
+        self.assertEqual(after["coverage"]["target_ids"], before["coverage"]["target_ids"])
+        self.assertEqual(after["coverage"]["eligible_count"], 1)
+        self.assertEqual(after["coverage"]["included_count"], 1)
+        self.assertEqual(after["coverage"]["missing"], {})
+        self.assertEqual(after["unique_races"], 1)
+        valid = [t for t in original_settlement["tickets"] if t["result"] != "INVALID"]
+        misses = [t for t in valid if t["result"] == "MISS"]
+        self.assertGreater(len(valid), 0)
+        self.assertEqual(after["unique_tickets"], len(valid))
+        self.assertEqual(after["miss_tickets"], len(misses))
+        self.assertEqual(after["miss_ticket_rate"], len(misses) / len(valid))
+        self.assertEqual(len(after["labeled_tickets"]), len(misses))
+
     def test_draft_to_complete_needs_fixed_revision_and_preserves_original(self):
         entry = self.entry()
         entry["review"] = sample_review("DRAFT")
