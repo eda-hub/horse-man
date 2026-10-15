@@ -141,19 +141,32 @@ def effective_post(root, row, race, date, *, at, now=None):
     return post
 
 
-def _git_recorded_before(root, race, date, revision, moment):
-    """実Git checkoutでは変更原本が証跡時点までにGitへ保存済みか検査する。"""
+def _git_recorded_before(root, race, date, revision, moment, source_ref=None):
+    """公式本文と変更原本のGit初出bytesが、利用証跡より前に固定されているか。"""
     if not (Path(root) / ".git").exists():
-        return  # isolated synthetic fixtures cannot claim Git provenance
-    path = f"{DIRECTORY}/{date}/{race}/{revision:04d}.json"
-    command = ["git", "log", "-1", "--diff-filter=A", "--format=%cI",
-               "HEAD", "--", path]
-    result = subprocess.run(command, cwd=root, text=True, capture_output=True,
-                            check=False)
-    require(result.returncode == 0 and result.stdout.strip(),
-            "schedule change has no tracked Git creation proof")
-    require(iso(result.stdout.strip().splitlines()[0], "change Git timestamp") <= iso(moment, "evidence readback"),
-            "schedule change committed after claimed evidence/readback")
+        return  # unit-test fixture only: no production Git provenance claim
+
+    def check_path(relative):
+        path = path_at(root, relative)
+        command = ["git", "log", "-1", "--diff-filter=A", "--format=%H %cI",
+                   "HEAD", "--", relative]
+        result = subprocess.run(command, cwd=root, capture_output=True,
+                                text=True, check=False)
+        require(result.returncode == 0 and result.stdout.strip(),
+                "schedule original has no tracked Git creation proof")
+        sha, recorded = result.stdout.strip().splitlines()[0].split(maxsplit=1)
+        require(iso(recorded, "Git original timestamp") <= iso(moment, "evidence readback"),
+                "schedule original was committed after evidence/readback")
+        original = subprocess.run(["git", "show", sha + ":" + relative],
+                                  cwd=root, capture_output=True, check=False)
+        require(original.returncode == 0 and
+                hashlib.sha256(original.stdout).digest() ==
+                hashlib.sha256(path.read_bytes()).digest(),
+                "schedule original bytes differ from Git creation proof")
+
+    check_path(f"{DIRECTORY}/{date}/{race}/{revision:04d}.json")
+    if source_ref is not None:
+        check_path(source_ref["artifact_path"])
 
 
 def assert_post(root, row, race, date, post, *, at, forward=True, now=None):
@@ -169,7 +182,8 @@ def assert_post(root, row, race, date, post, *, at, forward=True, now=None):
                    history(root, row, race, date, now=now)
                    if readback <= iso(at, "evidence readback")]
         if applied:
-            _git_recorded_before(root, race, date, applied[-1]["revision"], at)
+            _git_recorded_before(root, race, date, applied[-1]["revision"], at,
+                                 source_ref=applied[-1]["official_text_ref"])
     return actual
 
 
@@ -181,7 +195,8 @@ def result_post(root, row, race, date, *, captured_at, result_post_time):
     applied = [change for new_post, readback, change in history(root, row, race, date)
                if readback <= iso(captured_at, "result capture")]
     if applied:
-        _git_recorded_before(root, race, date, applied[-1]["revision"], captured_at)
+        _git_recorded_before(root, race, date, applied[-1]["revision"], captured_at,
+                             source_ref=applied[-1]["official_text_ref"])
     return current
 
 
