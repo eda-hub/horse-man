@@ -8,6 +8,7 @@ from pathlib import Path
 
 from check_prediction_compliance import (ComplianceError, contract_state, iso, release,
                                          validate_gate, LEGACY_RELEASE)
+from cycle04_schedule_change import history as schedule_history, effective_post, assert_post
 from cycle04_operations import (fingerprint, positive_set, require, safe_path,
                                validate_inputs, validate_market, validate_market_payload, validate_selection,
                                validate_ticket_comparison, verified_artifact, validate_official_result,
@@ -153,6 +154,7 @@ def validate_day(root, path, contract):
     for race, row in rows.items():
         require(isinstance(row, dict), 'race record object required')
         post = iso(row.get('scheduled_post_time_jst'), 'race scheduled post')
+        schedule_history(root, row, race, date)
         require(post.astimezone(iso(date + 'T00:00:00+09:00', 'race date').tzinfo).date().isoformat() == date,
                 'race scheduled post date mismatch')
         if row.get('market_ref'):
@@ -199,7 +201,7 @@ def validate_day(root, path, contract):
         require(fingerprint(raw) == ref.get('sha256'), 'official result hash mismatch')
         result = json.loads(raw)
         prediction=validate_gate(root,safe_path(root,row['prediction_gate_path'])) if row.get('prediction_gate_path') else None
-        validate_official_result(result,race=race,date=date,post=row['scheduled_post_time_jst'],
+        validate_official_result(result,race=race,date=date,post=effective_post(root, row, race, date, at=result['retrieved_at_jst']).isoformat(),
                                 horses=prediction['production']['ranking'] if prediction else None)
         validate_formal_result(root, row, race=race, date=date, result_ref=ref,
                                manifest_ref=row.get('result_reconciliation_ref'))
@@ -234,8 +236,11 @@ def validate_day(root, path, contract):
             require(gate['race_id']==race and gate['race_date_jst']==date and
                     gate['production']['baseline_forecast_id']==entry.get('baseline_forecast_id'),
                     'prediction history identity mismatch')
-            body,_=verified_artifact(root,entry.get('prediction_ref'),row['scheduled_post_time_jst'],
+            body,history_receipt=verified_artifact(root,entry.get('prediction_ref'),gate['scheduled_post_time_jst'],
                                     expected_id=gate['production']['evidence_ref']['artifact_id'])
+            assert_post(root, row, race, date, gate['scheduled_post_time_jst'],
+                        at=history_receipt['receipt_verified_at_jst'],
+                        forward=gate['kpi_eligibility']['production']=='ELIGIBLE')
             require(entry['prediction_ref']['artifact_path']==gate['production']['evidence_ref']['artifact_path'],
                     'prediction history body mismatch')
         if history:
@@ -286,8 +291,9 @@ def validate_day(root, path, contract):
                 gate = validate_gate(root, gate_path)
                 require(gate['race_id'] == race and gate['race_date_jst'] == date,
                         'gate race mismatch')
-                require(iso(gate['scheduled_post_time_jst'], 'gate post') ==
-                        iso(row['scheduled_post_time_jst'], 'race post'), 'race/gate scheduled post mismatch')
+                _, verified_receipt = verified_artifact(root, gate['production']['evidence_ref'], gate['scheduled_post_time_jst'])
+                assert_post(root, row, race, date, gate['scheduled_post_time_jst'],
+                            at=verified_receipt['receipt_verified_at_jst'])
                 if name == 'recommendation':
                     rec = verify_recommendation(root, safe_path(root, row.get('recommendation_gate_path')))
                     require(rec['race_id'] == race, 'recommendation race mismatch')
