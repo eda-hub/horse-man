@@ -218,11 +218,17 @@ def main():
     parser.add_argument("--cycle-file", type=Path, default=Path("docs/validation/cycle_03.md"))
     parser.add_argument("--require-data", action="store_true")
     parser.add_argument("--require-complete", action="store_true")
+    parser.add_argument("--effective-kpis", action="store_true", help="旧原票と承認済み訂正後のKPIを別出力する")
+    parser.add_argument("--root", type=Path, default=Path("."), help="訂正のGit原本を照合するリポジトリ")
     parser.add_argument("--print-summary", action="store_true",
                         help="print the calculated fenced JSON block for review and inclusion in the cycle file")
     args = parser.parse_args()
     try:
         run(args.records_dir, args.cycle_file, args.require_data, args.require_complete, args.print_summary)
+        if args.effective_kpis:
+            from historical_eligibility import days_at, load, report
+            days = days_at(args.root)
+            print(json.dumps(report(days, load(args.root, days)), ensure_ascii=False, indent=2))
     except (ValueError, OSError) as exc:
         print(f"INVALID: {exc}", file=sys.stderr)
         return 1
