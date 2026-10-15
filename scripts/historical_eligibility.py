@@ -130,7 +130,8 @@ def load(root, days):
         required(o.get("owner"), "owner")
         reviewed = timestamp(o.get("reviewed_at_jst"))
         affected = o.get("affected_aggregates")
-        if not isinstance(affected, list) or f"cycle03:{kpi}" not in affected or len(set(affected)) != len(affected) or any(not isinstance(x, str) or not x.startswith("cycle03:") for x in affected):
+        if (not isinstance(affected, list) or any(not isinstance(x, str) or not x.startswith("cycle03:") for x in affected)
+                or f"cycle03:{kpi}" not in affected or len(set(affected)) != len(affected)):
             raise CorrectionError("independent KPI impact required")
         basis = o.get("basis")
         if not isinstance(basis, list) or not basis:
@@ -183,23 +184,45 @@ def days_at(root):
     return days
 
 def report(days, corrections):
-    originals, applied = {}, {}
+    originals, applied, money = {}, {}, {}
+    reference_stake = reference_return = 0
     for date, day in sorted(days.items()):
         originals[date], applied[date] = {}, {}
         for kpi, k in sorted(day["kpis"].items()):
             orig = {x: 0 for x in STATES}
             new = {x: 0 for x in STATES}
+            old_eligible, new_eligible = [], []
             for race in k["target_ids"]:
                 s = state(day, race, kpi)
+                updated = effective(corrections, date, race, kpi, s)
                 orig[s] += 1
-                new[effective(corrections, date, race, kpi, s)] += 1
+                new[updated] += 1
+                if s == "ELIGIBLE":
+                    old_eligible.append(race)
+                if updated == "ELIGIBLE":
+                    new_eligible.append(race)
             originals[date][kpi], applied[date][kpi] = orig, new
+            if kpi == "betting" and day.get("kpi_contract") == "betting-kpi-split-v1":
+                settlement = day["fixed_plan_settlement"]
+                reference_stake += settlement["stake_yen"]
+                reference_return += settlement["return_yen"]
+                def measured(races):
+                    stake = sum(settlement["races"][r]["stake_yen"] for r in races) if races else None
+                    returned = sum(settlement["races"][r]["return_yen"] for r in races) if races else None
+                    return {"stake_yen": stake, "return_yen": returned,
+                            "roi_pct": round(100 * returned / stake, 6) if stake else None}
+                money[date] = {"original_formal": measured(old_eligible),
+                               "corrected_formal": measured(new_eligible),
+                               "fixed_settlement_reference": {"stake_yen": settlement["stake_yen"],
+                                                              "return_yen": settlement["return_yen"]}}
     return {"schema_version": "historical-eligibility-view-v1",
             "original_claim_counts": originals, "corrected_claim_counts": applied,
             "approved_corrections": [{"date": d, "race": r, "kpi": k, **v}
                                       for (d, r, k), v in sorted(corrections.items())],
-            "historical_settlement": "UNCHANGED",
-            "certification": "audit overlay does not produce pre-race evidence or certified ROI"}
+            "split_betting_performance": money,
+            "fixed_settlement_reference_total": {"stake_yen": reference_stake,
+                                                 "return_yen": reference_return},
+            "certification": "overlay cannot create pre-race evidence; reference settlement is not certified ROI"}
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
