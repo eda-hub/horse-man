@@ -112,6 +112,38 @@ class HistoricalEligibilityTests(unittest.TestCase):
         with self.assertRaisesRegex(ComplianceError, "lacks execution gate"):
             run(self.root)
 
+    def test_existing_cycle_reference_settlement_remains_separate(self):
+        repo = Path(__file__).resolve().parents[1]
+        days = days_at(repo)
+        view = report(days, load(repo, days))
+        self.assertEqual(view["original_claim_counts"]["2026-09-26"]["production"]["ELIGIBLE"], 3)
+        self.assertEqual(view["fixed_settlement_reference_total"],
+                         {"stake_yen": 220000, "return_yen": 191750})
+        self.assertIsNone(view["split_betting_performance"]["2026-09-27"]["original_formal"]["roi_pct"])
+
+    def test_unlinked_legacy_gate_cannot_certify_different_ledger_id(self):
+        from test_check_prediction_compliance import gate, receipt_record, write_receipts
+        prod = self.day["kpis"]["production"]
+        prod["eligible_ids"], prod["pending_ids"], prod["evidence_refs"] = [], [RACE], {}
+        write(self.root, FILE, fenced("cycle03-day-v1", self.day))
+        separate = "20260926-NAK-02"
+        g = gate(date=DAY, race=separate)
+        g["kpi_eligibility"]["production"] = "ELIGIBLE"
+        artifact = "docs/validation/snapshots/2026-09-26.md"
+        receipt = "docs/validation/persistence-receipts/2026-09-26.md"
+        aid, rid = "20260926-NAK-02-S01", "20260926-NAK-02-R02"
+        write(self.root, artifact, "snapshot_id: " + aid + "\n")
+        write_receipts(self.root, receipt, [receipt_record(rid, aid, artifact)])
+        g["production"]["evidence_ref"] = {
+            "artifact_path": artifact, "artifact_id": aid, "receipt_path": receipt,
+            "receipt_id": rid, "timing_eligibility": "PRE_RACE_ELIGIBLE",
+            "persist_verified_at_jst": "2026-09-26T10:00:00+09:00"
+        }
+        write(self.root, f"docs/validation/execution-gates/{DAY}/{separate}.json",
+              json.dumps(g, ensure_ascii=False))
+        with self.assertRaisesRegex(ComplianceError, "UNLINKED_GATE_CLAIM"):
+            run(self.root)
+
     def test_refused_cross_race_kpi_and_original_hash(self):
         for patch in ({"race_id": "20260926-NAK-99"},
                       {"kpi": "shadow", "affected_aggregates": ["cycle03:shadow"]},
