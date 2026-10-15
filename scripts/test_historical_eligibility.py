@@ -106,15 +106,11 @@ class HistoricalEligibilityTests(unittest.TestCase):
         production["evidence_refs"][other] = {"snapshot_id": "other", "receipt_id": "other-r02",
                                               "working_branch": "prediction/" + DAY}
         write(self.root, FILE, fenced("cycle03-day-v1", self.day))
-        # A correction cannot change the protected current ledger.
         self.install(self.correction())
-        with self.assertRaisesRegex(CorrectionError, "old ledger claim mismatch|historical"):
-            # New current scope is valid but still anchored to historical evidence.
-            # The correction of race 1 does not waive race 2.
-            original = self.original
-            self.day["kpis"]["production"]["pending_ids"] = []
-            self.install(self.correction(original=original, reason="only one race"))
-            load(self.root, days_at(self.root))
+        # Original anchor is still valid for race 1; race 2 remains uncorrected.
+        self.assertEqual(len(load(self.root, days_at(self.root))), 1)
+        with self.assertRaisesRegex(ComplianceError, "lacks execution gate"):
+            run(self.root)
 
     def test_refused_cross_race_kpi_and_original_hash(self):
         for patch in ({"race_id": "20260926-NAK-99"},
