@@ -228,7 +228,7 @@ def main():
         if args.effective_kpis:
             from historical_eligibility import days_at, load, report
             days = days_at(args.root)
-            print(json.dumps(report(days, load(args.root, days)), ensure_ascii=False, indent=2))
+            print(json.dumps(report(days, load(args.root, days), root=args.root), ensure_ascii=False, indent=2))
     except (ValueError, OSError) as exc:
         print(f"INVALID: {exc}", file=sys.stderr)
         return 1

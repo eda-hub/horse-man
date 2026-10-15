@@ -676,10 +676,11 @@ def cycle_links(root,gates,corrections=None):
                     o=d.get('kpis',{}).get(name,{})
                     expected='ELIGIBLE' if race in o.get('eligible_ids',[]) else 'INELIGIBLE' if race in o.get('ineligible_ids',[]) else 'PENDING' if race in o.get('pending_ids',[]) else None
                     if expected:
+                        # Keep original ledger-to-gate certification independent of the
+                        # separately approved, effective KPI downgrade.
                         corrected = effective(corrections, date, race, name, expected)
                         if corrected != expected:
-                            print(f'ORIGINAL_DECLARATION_CONFLICT: {path} {race}/{name}: original={expected}, corrected={corrected}')
-                        expected = corrected
+                            print(f'HISTORICAL_EFFECTIVE_STATE: {path} {race}/{name}: original={expected}, effective={corrected}')
                     if name=='betting_evidence':
                         if expected=='ELIGIBLE':
                             ref=o['evidence_refs'][race]

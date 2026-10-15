@@ -184,7 +184,7 @@ def main(argv=None):
                 raise ValueError("履歴訂正ビューは原終了資料の--write/--checkと併用できません")
             from historical_eligibility import days_at, load, report
             days = days_at(root)
-            print(json.dumps(report(days, load(root, days)), ensure_ascii=False, indent=2))
+            print(json.dumps(report(days, load(root, days), root=root), ensure_ascii=False, indent=2))
             return 0
         output = safe_output(root, args.output)
         saved = json.loads(output.read_text(encoding="utf-8")) if args.check else None

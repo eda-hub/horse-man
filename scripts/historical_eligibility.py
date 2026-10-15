@@ -183,7 +183,41 @@ def days_at(root):
             days[date] = obj
     return days
 
-def report(days, corrections):
+def verified_formal(root, day, races):
+    """Never publish formal financial figures without per-race fixed-plan provenance."""
+    empty = {"stake_yen": None, "return_yen": None, "roi_pct": None}
+    if not races:
+        return {**empty, "reason": "NO_ELIGIBLE_RACES"}
+    from check_betting_performance import validate_source, snapshot_tickets
+    settlement = day["fixed_plan_settlement"]["races"]
+    refs = day["kpis"]["betting"].get("evidence_refs", {})
+    total_stake = total_return = 0
+    for race in races:
+        item = settlement.get(race)
+        ref = refs.get(race)
+        if not isinstance(item, dict) or not isinstance(ref, dict):
+            return {**empty, "reason": f"UNVERIFIED_SOURCE: {race}: fixed plan/source reference missing"}
+        try:
+            source = validate_source(root, ref, race)
+            if (source["snapshot_path"] != item["snapshot_path"]
+                    or source["snapshot_id"] != item["snapshot_id"]):
+                raise ValueError("source and settlement snapshot identity mismatch")
+            tickets = snapshot_tickets(root, item["snapshot_path"], item["snapshot_id"])
+            if item["stake_yen"] != sum(t["stake_yen"] for t in tickets):
+                raise ValueError("source and settlement ticket stakes differ")
+        except (ValueError, OSError, KeyError, TypeError, AttributeError,
+                json.JSONDecodeError, UnicodeError) as exc:
+            return {**empty, "reason": f"UNVERIFIED_SOURCE: {race}: {exc}"}
+        total_stake += item["stake_yen"]
+        total_return += item["return_yen"]
+    if not total_stake:
+        return {**empty, "reason": "ZERO_VERIFIED_STAKE"}
+    return {"stake_yen": total_stake, "return_yen": total_return,
+            "roi_pct": round(100 * total_return / total_stake, 6), "reason": None}
+
+
+def report(days, corrections, root=None):
+    root = Path(root).resolve() if root is not None else Path(__file__).resolve().parents[1]
     originals, applied, money = {}, {}, {}
     reference_stake = reference_return = 0
     for date, day in sorted(days.items()):
@@ -206,13 +240,8 @@ def report(days, corrections):
                 settlement = day["fixed_plan_settlement"]
                 reference_stake += settlement["stake_yen"]
                 reference_return += settlement["return_yen"]
-                def measured(races):
-                    stake = sum(settlement["races"][r]["stake_yen"] for r in races) if races else None
-                    returned = sum(settlement["races"][r]["return_yen"] for r in races) if races else None
-                    return {"stake_yen": stake, "return_yen": returned,
-                            "roi_pct": round(100 * returned / stake, 6) if stake else None}
-                money[date] = {"original_formal": measured(old_eligible),
-                               "corrected_formal": measured(new_eligible),
+                money[date] = {"original_formal": verified_formal(root, day, old_eligible),
+                               "corrected_formal": verified_formal(root, day, new_eligible),
                                "fixed_settlement_reference": {"stake_yen": settlement["stake_yen"],
                                                               "return_yen": settlement["return_yen"]}}
     return {"schema_version": "historical-eligibility-view-v1",
@@ -232,7 +261,7 @@ def main(argv=None):
     try:
         days = days_at(args.root)
         corrections = load(args.root, days)
-        result = report(days, corrections)
+        result = report(days, corrections, root=args.root)
         if args.json:
             print(json.dumps(result, ensure_ascii=False, indent=2))
         else:
