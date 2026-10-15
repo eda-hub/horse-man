@@ -259,11 +259,11 @@ def validate_selection(root, history, post_by_race):
         race = event['race_id']
         event_post = event.get('scheduled_post_time_jst', post_by_race[race])
         data, receipt = verified_artifact(root, event['evidence'], event_post)
-        row = registered_row(root, race, iso(event['at'], 'selection event').date().isoformat())
+        row = registered_row(root, race, post_by_race[race][:10])
         require(row is not None or 'scheduled_post_time_jst' not in event,
                 'new selection deadline requires registered official schedule')
         if row is not None:
-            assert_post(root, row, race, iso(event['at'], 'selection event').date().isoformat(),
+            assert_post(root, row, race, post_by_race[race][:10],
                         event_post, at=receipt['receipt_verified_at_jst'])
         require(data == core, 'selection original mismatch')
         require(iso(event['at'], 'event') <= iso(receipt['persist_verified_at_jst'], 'event persistence'),
