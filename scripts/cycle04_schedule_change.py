@@ -202,16 +202,20 @@ def assert_pre_race(root, row, race, date, *, at, persisted_at=None, now=None):
     stored = iso(persisted_at, "evidence persistence") if persisted_at else instant
     known = iso(row.get("scheduled_post_time_jst"), "initial official post")
     changes = history(root, row, race, date, now=now)
+    previous = known
     for new_post, readback, _ in changes:
         if readback <= instant:
+            # 証跡の読戻しまでに確認した改訂は最新値で置き換える。
+            # 延長途中の時刻を、後から独立した期限として再検査しない。
             known = new_post
+        elif new_post < previous:
+            # 読戻し後に初めて判明した前倒しだけを遡及検査する。
+            # 後日確認の単なる延長でLATEを復活させることはない。
+            require(stored < new_post and instant < new_post,
+                    "later official advance invalidates pre-race eligibility")
+        previous = new_post
     require(stored < known and instant < known,
             "schedule change cannot rehabilitate late/replay evidence")
-    # 取得前の延長でLATEを復活させないのと対称に、
-    # 後日読戻した前倒しで実際の発走後だった証跡も認証しない。
-    for new_post, _, _ in changes:
-        require(stored < new_post and instant < new_post,
-                "later official advance invalidates pre-race eligibility")
     return known
 
 
