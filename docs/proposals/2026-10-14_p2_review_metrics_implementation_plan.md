@@ -115,3 +115,15 @@ python3 scripts/check_integration_acceptance.py --full
 専用再現は `scripts/test_cycle04_review_metrics.py` に `0a10725e`、`87beaca4` で追加。各phaseのPENDING/INELIGIBLE/REPLAY、片方のみ不適格、日別REPLAY、公式結果付きの空分類DRAFTと完了拒否、1着単独/2着同着による馬単2→1不的中、三連単、非順序券を検証する。
 
 検査：`python3 -m unittest discover -s scripts -p 'test_*.py'`、`python3 scripts/run_cycle04_acceptance.py --write`、`python3 scripts/build_v170_manifest.py`、`python3 scripts/check_cycle04.py`、`python3 scripts/run_release_readiness.py`、`python3 scripts/check_integration_acceptance.py --full`、GitHub Actions既存3系統。受入/manifestは最終ソースに対して生成されたbyte列を保存し、実行確認までPASSを記録しない。実レース結果・固定予想/receipt・Production能力/推奨ルールを変更しない。
+
+
+### レビュー是正の再受入・固定参照（実測）
+
+- 統合受入：GitHub Actions run [38659381607](https://github.com/eda-hub/horse-man/actions/runs/38659381607)、job `116176755556`。
+- `python3 scripts/run_cycle04_acceptance.py --write`：**821テスト、失敗0、skip0、SYNTHETIC**。`live_race_count=null`。対象source 149件。
+- `python3 scripts/build_v170_manifest.py`：`manual_release=v1.7.0`、169対象source。`run_release_readiness.py` の原子的整合、`check_cycle04.py` の準備照合・第4実測0/6日・未開始を確認した。
+- `python3 scripts/check_integration_acceptance.py --full`：実mainの開始確認・候補branchの差分拒否・第3サイクル再計算・全合成受入を実行し、ジョブがSUCCESS。
+- 合成受入の生成原本をログのBase64から復号し `docs/validation/reviews/cycle_04/acceptance.json` に `fb8249477c4f9149696e40c2180bb32304aff845` で保存。
+- release固定参照も生成原本を `docs/validation/contracts/v170-release.json` に `9a88563feccffcd41c4685c65c5258984a6a3a53` で保存。原本ハッシュを手計算・コピーで合わせない。
+- 一時的に追加した生成用GitHub Actionsステップは `b6a046e3e514a47f85df19874ad8f821570f8fca` で撤去し、既存ワークフローへ完全復旧した。
+- 回帰は `test_cycle04_review_metrics.py` の新規ケースを含む。最新状態の通常CI 3系統の結果はPR checksから確認する。実レース・自動性能昇格・人間の採用承認は行わない。
