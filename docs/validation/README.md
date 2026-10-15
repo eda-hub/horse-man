@@ -6,6 +6,7 @@
 - 入口：mainのmanual README→共通Production→価格不要推奨→独立保存→結果/回顧。
 - [第4計画](cycle_04.md)、[正式運用契約](contracts/cycle04_operations.md)、[標準テンプレート](templates/chatgpt_prediction_task.md)。
 - `run_release_readiness.py --require-main` で有効化を確認し、`cycle04_workflow.py` で公式scope登録・選定・初回/最終記録・回顧・独立集計を実行する。
+- 公式発走時刻が変更された場合は `docs/validation/contracts/cycle04_post_changes.md` の追記原本・観測時点・旧FIX保全手順を使用する。事後の遅延確認によって不適格記録を適格化しない。
 - `check_cycle04.py --require-active` は正式契約を確認。終了時の `--require-complete` は6日分の実測・初回全scope回顧を要求する。
 - 第3の原記録・保留・正式ROI未算定は維持し、旧記録をv1.7.0の母数へ移さない。保存手順の旧記載は以下の歴史的契約として参照する。
 
