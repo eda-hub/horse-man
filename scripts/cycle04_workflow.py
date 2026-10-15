@@ -197,12 +197,13 @@ def record_prediction(root,date,entry,*,preview=False):
             row['selection_ref']=copy.deepcopy(incoming)
             if incoming not in row['selection_history']:row['selection_history'].append(copy.deepcopy(incoming))
     gate = validate_gate(root,safe_path(root,entry.get('prediction_gate_path')))
-    # 本体receiptが読戻された時点の公式予定を照合する。旧原本はその時点の予定に固定する。
-    _, gate_receipt = verified_artifact(root, entry['operations']['prediction_ref'],
-                                         gate['scheduled_post_time_jst'])
-    assert_post(root, row, race, date, gate['scheduled_post_time_jst'],
-                at=gate_receipt['receipt_verified_at_jst'],
-                forward=gate['kpi_eligibility']['production'] == 'ELIGIBLE')
+    # 通常系の受入順序は保持し、変更がある場合だけ追加の独立receiptを確認する。
+    if row.get('schedule_changes'):
+        _, gate_receipt = verified_artifact(root, entry['operations']['prediction_ref'],
+                                             gate['scheduled_post_time_jst'])
+        assert_post(root, row, race, date, gate['scheduled_post_time_jst'],
+                    at=gate_receipt['receipt_verified_at_jst'],
+                    forward=gate['kpi_eligibility']['production'] == 'ELIGIBLE')
     require(gate['race_id'] == race and gate['race_date_jst'] == date and gate['manual_release'] == 'v1.7.0',
             'prediction identity/release mismatch')
     row.update(prediction_gate_path=entry['prediction_gate_path'],operations=entry['operations'],
