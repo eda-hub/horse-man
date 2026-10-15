@@ -176,6 +176,12 @@ def forward_shadow_evidence(root, ref, label, scheduled_post, *, race_id, data_c
     now = datetime.now(timezone.utc)
     if persisted > now or readback > now:
         raise ComplianceError(f'{label}: future Shadow persistence/readback cannot be eligible')
+    from cycle04_schedule_change import registered_row, assert_post
+    race_date = scheduled_post.date().isoformat()
+    row = registered_row(root, race_id, race_date)
+    if row is not None:
+        assert_post(root, row, race_id, race_date, scheduled_post.isoformat(),
+                    at=receipt['receipt_verified_at_jst'])
     return Path(root) / ref['artifact_path']
 
 
@@ -591,9 +597,7 @@ def validate_gate(root,path):
     # 第4登録済みの正式予想にのみ適用する。旧v1.6.1の判定契約は変更しない。
     from cycle04_schedule_change import registered_row, assert_post
     row = registered_row(root, g['race_id'], g['race_date_jst'])
-    if row is not None and g.get('mode') == 'FORWARD' and (
-            g.get('kpi_eligibility', {}).get('production') == 'ELIGIBLE' or
-            g.get('kpi_eligibility', {}).get('shadow') == 'ELIGIBLE'):
+    if row is not None and g.get('mode') == 'FORWARD' and g.get('kpi_eligibility', {}).get('production') == 'ELIGIBLE':
         ref = g['production']['evidence_ref']
         receipts = receipt_records(Path(root) / ref['receipt_path'])
         matched = [r for r in receipts if r.get('receipt_id') == ref.get('receipt_id')
