@@ -4,6 +4,7 @@
 """
 import hashlib
 import json
+from itertools import permutations
 from collections import Counter
 
 from cycle04_operations import require, safe_path, verified_artifact
@@ -199,6 +200,33 @@ def close_coverage(cov, numerator=None, denominator=None):
     return cov
 
 
+def valid_finish_prefixes(position, count):
+    """同着の全ての有効な先頭count着順を列挙。境界同着は必要着数まで選ぶ。"""
+    groups = {}
+    for horse, place in position.items():
+        groups.setdefault(place, []).append(horse)
+    prefixes = [()]
+    for place in sorted(groups):
+        remaining = count - len(prefixes[0])
+        if not remaining:
+            break
+        choices = list(permutations(groups[place], min(remaining, len(groups[place]))))
+        prefixes = [prefix + choice for prefix in prefixes for choice in choices]
+    return prefixes if prefixes and len(prefixes[0]) == count else []
+
+
+def forward_prediction_reason(row, gate, phase):
+    """各phase自身のmode・Production gate適格性を必須とする。"""
+    if row.get("mode") != "FORWARD":
+        return "RACE_NOT_FORWARD"
+    if gate.get("mode") != "FORWARD":
+        return phase + "_NOT_FORWARD"
+    if gate.get("kpi_eligibility", {}).get("production") != "ELIGIBLE":
+        return (phase + "_PRODUCTION_" +
+                str(gate.get("kpi_eligibility", {}).get("production", "MISSING")))
+    return None
+
+
 def classify_ticket(ticket, position, anchor, *, place_places=3):
     """settleがMISSとした票だけを説明する。重複原因は消さない。"""
     kind, horses = ticket["type"], ticket["horses"]
@@ -209,8 +237,10 @@ def classify_ticket(ticket, position, anchor, *, place_places=3):
     labels = []
     if anchor in horses and anchor not in top:
         labels.append("AXIS_COLLAPSE")
-    if kind in {"EXACTA", "TRIFECTA"} and set(horses) == top and [
-            position.get(h) for h in horses] != list(range(1, n + 1)):
+    if kind in {"EXACTA", "TRIFECTA"} and any(
+            set(order) == set(horses) and order != tuple(horses)
+            for order in valid_finish_prefixes(position, n)
+    ):
         labels.append("ORDER_MISMATCH")
     if kind in {"TRIO", "TRIFECTA"} and len(present) == 2:
         labels.append("THIRD_HORSE_MISSING")
@@ -266,6 +296,11 @@ def independent_metrics(root, days):
                     missing(cov, ident, "AMBIGUOUS_PHASE_REVISIONS", [phase + "_revision_selection"])
                     continue
                 gate = validate_gate(root, safe_path(root, frames[0]["prediction_gate_path"]))
+                eligibility_reason = forward_prediction_reason(row, gate, phase)
+                if eligibility_reason:
+                    missing(cov, ident, eligibility_reason,
+                            [phase + "_forward_eligible_production_gate"])
+                    continue
                 production = gate["production"]
                 marks = production.get("marks")
                 marked = ({marks.get("honmei"), marks.get("taikou"), marks.get("tanana")} |
@@ -292,7 +327,14 @@ def independent_metrics(root, days):
                 first, last = phases["INITIAL"][0], phases["FINAL"][0]
                 old = validate_gate(root, safe_path(root, first["prediction_gate_path"]))
                 new = validate_gate(root, safe_path(root, last["prediction_gate_path"]))
-                if (set(result.get("scratched_horses", [])) & (set(old["production"]["ranking"]) |
+                initial_reason = forward_prediction_reason(row, old, "INITIAL")
+                final_reason = forward_prediction_reason(row, new, "FINAL")
+                if initial_reason or final_reason:
+                    missing(change_cov, ident, "PHASE_NOT_FORWARD_ELIGIBLE: " +
+                            ", ".join(x for x in (initial_reason, final_reason) if x),
+                            [phase + "_forward_eligible_production_gate" for phase, reason
+                             in (("INITIAL", initial_reason), ("FINAL", final_reason)) if reason])
+                elif (set(result.get("scratched_horses", [])) & (set(old["production"]["ranking"]) |
                                                                set(new["production"]["ranking"]))):
                     missing(change_cov, ident, "SCRATCHED_PHASE_NOT_COMPARABLE", ["comparable_phase_revision"])
                 else:
