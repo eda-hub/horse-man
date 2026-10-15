@@ -5,7 +5,7 @@
 ## 原本・訂正・表示の境界
 
 - 元日別台帳・receipt・gate・固定買い目・結果・仮想精算は改変・削除しない。原票のGit履歴を正本とする。
-- 訂正は `docs/validation/historical-corrections/*.json` に、1レース×1KPI×1改訂のJSONとして保存する。実記録への訂正は利用者の確認とOwner・確認者の特定後だけ。今回の実装では実記録の訂正は**0件**。
+- 訂正は `docs/validation/historical-corrections/*.json` に、1レース×1KPI×1改訂のJSONとして保存する。実記録への訂正は利用者の確認とOwner・確認者の特定後だけ。2026-10-15の利用者判断に基づき9/26のProduction3件のみ訂正overlayを確定。原台帳・結果・保存証跡の改変は**0件**。
 - 訂正対象は厳密に `race_date_jst` / `race_id` / `kpi` / `original.path` / `original.commit_sha` / `original.blob_sha` / `original.status` で特定する。コミットは実在する完全SHA、blobは当時のバイト列のGit object SHAと照合し、当時のday blockにも同じ宣言が存在することを要求する。
 - `before` → `after` は **ELIGIBLE → PENDING → INELIGIBLE** の方向のみ許す。適格への昇格は訂正記録だけではできない。過去の発走前証跡を後から作成してFORWARD適格に見せない。
 - `basis` は1件以上の `{path, commit_sha, blob_sha, role}` を持ち、Gitの原本と照合する。欠落を判断した説明は `reason` に書き、単なる自己申告を当時の事前証跡と呼ばない。

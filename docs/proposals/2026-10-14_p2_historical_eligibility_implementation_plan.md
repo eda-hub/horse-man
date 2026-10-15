@@ -3,7 +3,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p2-historical-eligibility`
 - 優先順位：P2の3番目。現行運用と旧履歴を分離し、終了審査までに整理する。
-- 状態（2026-10-15更新）：実装・標準受入が成功。過去の適格性/成績の訂正は利用者承認が未確定のため0件。
+- 状態（2026-10-15更新）：実装・標準受入が成功。2026-10-15の利用者判断により9/26の旧Production3件へ不適格の訂正overlayを追加。原台帳・結果・保存証跡の改変は0件。
 
 ## 背景・確認が必要な範囲
 
@@ -54,7 +54,7 @@
 - 02 Git commit/path/blob固定参照、根拠・Owner/確認者・確認日時・影響KPI・厳格なrevision chainを持つ `scripts/historical_eligibility.py` と[監査契約](../validation/contracts/historical_eligibility.md)を追加。発走前証跡の後付けや暗黙の適格昇格は禁止。
 - 03 通常checkerで原宣言の不一致と承認済み訂正後状態を区分。紐付け未証明の旧gateは別理由で拒否。旧第3checkerと終了資料には独立JSON表示を追加し、元の正式台帳/仮想精算は不変。
 - 04 元表示と訂正後表示、Owner/確認者不足、回顧README・運用READMEの参照を整合。独立KPIを混合しない。
-- 05 異常系・正常系のGit原本照合回帰 `test_historical_eligibility.py` を追加。2026-10-15の[標準受入・生成実行](https://github.com/eda-hub/horse-man/actions/runs/38687542285)は**成功**し、`run_cycle04_acceptance.py --write` の851テストが失敗0/skip0、`build_v170_manifest.py` による標準生成、`check_cycle04.py`、`run_release_readiness.py`、`check_integration_acceptance.py --full` が終了コード0。生成物はその実行の出力を保存し、独立読戻しの後に一時生成ワークフローを削除した。3系統の最終PRヘッドCI実績は[予想/第3](https://github.com/eda-hub/horse-man/actions/runs/38688087320)・[血統](https://github.com/eda-hub/horse-man/actions/runs/38688087313)・[新旧統合](https://github.com/eda-hub/horse-man/actions/runs/38688087323)を参照（結果は各runを正とする）。事実確認・承認なしの元成績訂正は未実施。
+- 05 異常系・正常系のGit原本照合回帰 `test_historical_eligibility.py` を追加。2026-10-15の[標準受入・生成実行](https://github.com/eda-hub/horse-man/actions/runs/38687542285)は**成功**し、`run_cycle04_acceptance.py --write` の851テストが失敗0/skip0、`build_v170_manifest.py` による標準生成、`check_cycle04.py`、`run_release_readiness.py`、`check_integration_acceptance.py --full` が終了コード0。生成物はその実行の出力を保存し、独立読戻しの後に一時生成ワークフローを削除した。3系統の最終PRヘッドCI実績は[予想/第3](https://github.com/eda-hub/horse-man/actions/runs/38688087320)・[血統](https://github.com/eda-hub/horse-man/actions/runs/38688087313)・[新旧統合](https://github.com/eda-hub/horse-man/actions/runs/38688087323)を参照（結果は各runを正とする）。利用者が承認した9/26 Production3件のみ訂正。元の予想、receipt、結果、仮想精算は改変していない。
 
 ### 項目別の実装commitと検証対応
 
@@ -66,18 +66,21 @@
 | 04 表示・文書 | `484e64ba6612592aea5f5ce258d365d14298a04c` | 履歴監査契約、旧台帳README、運用READMEを接続 |
 | 05 回帰・受入 | `c224195a6aa0f4d0a57a80851d201766a2e108ac`・`99ddb7976d3b504edb05387780dfcd01dcc0b7bf`・`98b0dd32781b4712ab934947be2f1ba308eb7535` | 異常/正常回帰、851件の標準受入成功、正式生成物の更新。3系統CIの最終状態は上記リンクを正とする |
 
-### 採否未確定・承認待ち
+### 9/26の不適格確定（2026-10-15の利用者判断）
 
-9/26の3つのProduction適格宣言を**保留**とするか**不適格**とするかは、当時の証跡確認と利用者判断が必要。承認するOwner・確認者、判断日時、根拠commitを確定しない限り、訂正overlayは1件も登録しない。9/27の既存gateと旧台帳のレースID対応も未証明なので、勝手に照合済みとしない。この判断待ちはコードの回帰検証・旧履歴の監査を止める理由にしない。
+- 中山11R `202606040811`、阪神10R `202609040810`、阪神11R `202609040811` の **Productionのみ** `ELIGIBLE → INELIGIBLE` と確定。
+- 訂正commit: `4044cf508f21a7e06560a4d2d7b6002e38b210cd`。当時の台帳・snapshot・receipt・結果・仮想精算のファイルを変更せず、3件の監査overlayを追加した。
+- 判断者: 利用者（本チャット）。原本照合者: ChatGPT。確認時刻: 2026-10-15T14:50:10+09:00。根拠: 旧日別台帳とsnapshot/receiptの固定Git commit/path/blobおよび当時gateの欠落。予想失敗・発走後作成を断定するものではない。
+- 訂正後の9/26 Productionは適格0/不適格24/保留0。原台帳に保存された歴史的なELIGIBLE宣言3件は変更しない。9/27のgateと日別台帳のrace ID対応は引き続き別件として未解決。
 
 ## 実績・未確定事項
 
-元原票・対象race/KPI・証拠commit/path/blob・コード修正と検証結果は上の実装状況と監査棚卸しへ固定済み。訂正の確認者・Owner・判定日時・KPI成績影響は実例の承認まで未確定。計画書作成時点の「未着手」という説明は歴史的記録であり、現在のコード実装状態ではない。
+元原票・対象race/KPI・証拠commit/path/blob・コード修正と検証結果は上の実装状況と監査棚卸しへ固定済み。9/26の判断者・原本照合者・記録日時・正式KPI影響は上記の通り固定。9/27のID対応とgate自己申告は未解決。計画書作成時点の「未着手」という説明は歴史的記録であり、現在のコード実装状態ではない。
 
 ## 共通作業・統合規約
 
 - 対象：`eda-hub/horse-man`。基点main：`984ee26fac173af8c7f8c4e5b7f5ab4df844bf1a`。現行版v1.7.0、PR82〜85統合済み。
-- 当初は計画書作成のみのDraft PRであったが、2026-10-15の実装指示に沿ってコード修正・合成受入・生成物更新まで実施した。実レース記録・未承認の適格性訂正・mainマージは行わない。本書を現行Productionルールとして使用しない。
+- 当初は計画書作成のみのDraft PRであったが、2026-10-15の実装指示に沿ってコード修正・合成受入・生成物更新まで実施した。実レース記録・9/26の3件以外の未承認訂正・mainマージは行わない。本書を現行Productionルールとして使用しない。
 - 再開時に最新main、AGENTS、manual README、関係Owner、本書、対象branchを読戻す。基点後の変更と実測追加を確認し、従来のGitHub接続・作業記録を踏襲する。
 - 統合順は回顧項目・集計→公式発走変更→旧履歴整理。後続は先行PR統合後の最新mainへ追従し、共通validator・契約・テストを手動で整合する。公式時刻変更が実際に発生した場合は、その課題を先行してよい。
 - Production/Shadow/任意市場、Prediction/Recommendation/購入を分離。価格・実購入・払戻を標準入力へ戻さない。第4の6開催日・11/1までの収集日程は維持する。実測未取得はnull・不足とし、予定192Rやfixtureを実績にしない。
