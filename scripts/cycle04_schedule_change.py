@@ -133,7 +133,6 @@ def history(root, row, race, date, *, now=None):
 def effective_post(root, row, race, date, *, at, now=None):
     """その時点までに取得・読戻し済みの変更だけを適用する。"""
     instant = iso(at, "schedule evidence timestamp")
-    require(instant <= (now or datetime.now(timezone.utc)), "future evidence timestamp cannot be used")
     post = iso(row.get("scheduled_post_time_jst"), "original post")
     for new_post, readback, _ in history(root, row, race, date, now=now):
         if readback <= instant:
@@ -207,7 +206,8 @@ def registered_row(root, race, date):
         return None
     ledger = json.loads(path.read_text(encoding="utf-8"))
     require(ledger.get("cycle_id") == "cycle_04" and
-            ledger.get("race_date_jst") == date and
-            race in ledger.get("initial_scope", []),
-            "registered race/date required for official schedule history")
+            ledger.get("race_date_jst") == date,
+            "registered day contract required for official schedule history")
+    if race not in ledger.get("initial_scope", []):
+        return None  # 未登録レースを発走履歴の存在として誤認しない
     return ledger["races"][race]
