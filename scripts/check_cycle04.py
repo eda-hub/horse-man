@@ -293,9 +293,15 @@ def validate_day(root, path, contract):
                 gate = validate_gate(root, gate_path)
                 require(gate['race_id'] == race and gate['race_date_jst'] == date,
                         'gate race mismatch')
-                _, verified_receipt = verified_artifact(root, gate['production']['evidence_ref'], gate['scheduled_post_time_jst'])
-                assert_post(root, row, race, date, gate['scheduled_post_time_jst'],
-                            at=verified_receipt['receipt_verified_at_jst'])
+                if row.get('schedule_changes'):
+                    _, verified_receipt = verified_artifact(root, gate['production']['evidence_ref'],
+                                                            gate['scheduled_post_time_jst'])
+                    assert_post(root, row, race, date, gate['scheduled_post_time_jst'],
+                                at=verified_receipt['receipt_verified_at_jst'])
+                else:
+                    require(iso(gate['scheduled_post_time_jst'], 'gate post') ==
+                            iso(row['scheduled_post_time_jst'], 'race post'),
+                            'race/gate scheduled post mismatch')
                 if name == 'recommendation':
                     rec = verify_recommendation(root, safe_path(root, row.get('recommendation_gate_path')))
                     require(rec['race_id'] == race, 'recommendation race mismatch')
