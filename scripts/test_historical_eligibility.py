@@ -104,7 +104,7 @@ class HistoricalEligibilityTests(unittest.TestCase):
         artifact = f"docs/validation/snapshots/{DAY}.md"
         receipt = f"docs/validation/persistence-receipts/{DAY}.md"
         aid, rid = RACE + "-P001-S01", RACE + "-R02"
-        write(self.root, artifact, "snapshot_id: " + aid + "\\n")
+        write(self.root, artifact, "snapshot_id: " + aid + "\n")
         write_receipts(self.root, receipt, [receipt_record(rid, aid, artifact)])
         g["production"]["evidence_ref"] = {
             "artifact_path": artifact, "artifact_id": aid,
@@ -140,10 +140,10 @@ class HistoricalEligibilityTests(unittest.TestCase):
         original_path = f"docs/validation/betting-sources/{DAY}/original.json"
         aid = "fixed-01"
         write(self.root, artifact, (
-            f"## 固定計画\\nsnapshot_id: {aid}\\n"
-            "ticket_purpose: OFFICIAL_VIRTUAL\\n"
-            "### 検証用仮想購入（正式帳簿）\\n"
-            "- 馬連 1-2: 10,000円\\n"))
+            f"## 固定計画\nsnapshot_id: {aid}\n"
+            "ticket_purpose: OFFICIAL_VIRTUAL\n"
+            "### 検証用仮想購入（正式帳簿）\n"
+            "- 馬連 1-2: 10,000円\n"))
         tickets = snapshot_tickets(self.root, artifact, aid)
         fixed_at = "2026-09-26T09:50:00+09:00"
         original_bytes = json.dumps({
