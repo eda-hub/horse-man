@@ -54,7 +54,7 @@
 - 02 Git commit/path/blob固定参照、根拠・Owner/確認者・確認日時・影響KPI・厳格なrevision chainを持つ `scripts/historical_eligibility.py` と[監査契約](../validation/contracts/historical_eligibility.md)を追加。発走前証跡の後付けや暗黙の適格昇格は禁止。
 - 03 通常checkerで原宣言の不一致と承認済み訂正後状態を区分。紐付け未証明の旧gateは別理由で拒否。旧第3checkerと終了資料には独立JSON表示を追加し、元の正式台帳/仮想精算は不変。
 - 04 元表示と訂正後表示、Owner/確認者不足、回顧README・運用READMEの参照を整合。独立KPIを混合しない。
-- 05 異常系・正常系のGit原本照合回帰 `test_historical_eligibility.py` を追加し、GitHub Actionsの3系統で検証中。CLI実測・標準受入・release/manifest・統合の最終結果はGitHub Actions実行終了後に更新する。事実確認・承認なしの元成績訂正は未実施。
+- 05 異常系・正常系のGit原本照合回帰 `test_historical_eligibility.py` を追加。2026-10-15の[標準受入・生成実行](https://github.com/eda-hub/horse-man/actions/runs/38687542285)は**成功**し、`run_cycle04_acceptance.py --write` の851テストが失敗0/skip0、`build_v170_manifest.py` による標準生成、`check_cycle04.py`、`run_release_readiness.py`、`check_integration_acceptance.py --full` が終了コード0。生成物はその実行の出力を保存し、独立読戻しの後に一時生成ワークフローを削除した。3系統の最終PRヘッドCI実績は[予想/第3](https://github.com/eda-hub/horse-man/actions/runs/38688087320)・[血統](https://github.com/eda-hub/horse-man/actions/runs/38688087313)・[新旧統合](https://github.com/eda-hub/horse-man/actions/runs/38688087323)を参照（結果は各runを正とする）。事実確認・承認なしの元成績訂正は未実施。
 
 ### 採否未確定・承認待ち
 
