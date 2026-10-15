@@ -102,3 +102,16 @@ python3 scripts/check_integration_acceptance.py --full
 - 固定原本コミット：受入 `43370aae5761d25bb9e47e109cd13ac32347b69c`、release `4456bf0edbb42668fdb3e81058a7f9e012113cbf`。
 - 受入実測用の一時的な `.github/workflows/check-integration-acceptance.yml` の変更は差分から撤去した。Production Ownerと既存3 CIを弱めない。
 - 「無印好走」合成閾値、および「強い新事実」の採用判定は既存Ownerに新基準がないため未定義。独立集計自体は完成、正式な追加閾値はOwner判断があるまで保留。
+
+
+## 2026-10-15 PR88レビュー再現3件への是正（P1/P2）
+
+| 指摘 | 修正commit | 再現と修正の判定 |
+|---|---|---|
+| P1：PENDING/INELIGIBLE/REPLAYの追加集計誤算入 | `a76a1438`, `1294de0b` | phaseごとの固定gate mode/Production KPI状態と日別mode、COMPLETE回顧scopeを検査。対象は欠測理由・必要入力付きで保持するが適格/算入数から外す。比較には初回・最終両方の適格性が必要。 |
+| P2：未評価DRAFTが公式結果ごと拒否される | `3310a78b` | v2 DRAFTの未記入3項目は不足として保持し、公式結果の真正manifestとreview revisionを保存。COMPLETEだけ必須判断、旧schema必須3項目は従来の読取規約を維持。 |
+| P2：同着時の馬単着順不一致を未分類にする | `a76a1438` | 有効な同着着順の順列のうち、券と同一メンバーが存在し、順序だけ違う場合 `ORDER_MISMATCH` とする。精算settleのHIT/MISS判定は変更しない。 |
+
+専用再現は `scripts/test_cycle04_review_metrics.py` に `0a10725e`、`87beaca4` で追加。各phaseのPENDING/INELIGIBLE/REPLAY、片方のみ不適格、日別REPLAY、公式結果付きの空分類DRAFTと完了拒否、1着単独/2着同着による馬単2→1不的中、三連単、非順序券を検証する。
+
+検査：`python3 -m unittest discover -s scripts -p 'test_*.py'`、`python3 scripts/run_cycle04_acceptance.py --write`、`python3 scripts/build_v170_manifest.py`、`python3 scripts/check_cycle04.py`、`python3 scripts/run_release_readiness.py`、`python3 scripts/check_integration_acceptance.py --full`、GitHub Actions既存3系統。受入/manifestは最終ソースに対して生成されたbyte列を保存し、実行確認までPASSを記録しない。実レース結果・固定予想/receipt・Production能力/推奨ルールを変更しない。
