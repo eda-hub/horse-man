@@ -6,6 +6,8 @@
 
 実購入・Bettingを必須工程にせず、発走前のProduction予想を順位・確率・印・根拠とともに固定し、結果後に予想精度を回顧できる状態へする。
 
+公式発走時刻の変更時は `docs/validation/contracts/cycle04_post_changes.md` に従い、独立した公式原文・変更履歴のGit読戻しを確認する。初回登録時刻、旧FIX・事前宣言・receiptは変更しない。変更後の新規固定だけを新予定で実施する。
+
 ## 発走前に必須の出力
 
 - race_id / race_date / scheduled_post_time / data_cutoff
