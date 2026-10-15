@@ -106,4 +106,4 @@
 - 回帰：複数回延長後の有効予定より前の予想保存、複数延長後に前倒しが判明した保存の不適格化、後日延長による過去LATEの不適格維持。既存の単独前倒し・改訂順・原本固定テストは保持。
 - 実装コミット：`3d989ad`、テスト：`160efdf`、運用契約：`4c9dbee`。元の固定証跡・初回予定・公式本文/receiptは変更しない。
 - 再受入：GitHub Actions [38684808645](https://github.com/eda-hub/horse-man/actions/runs/38684808645) で `run_cycle04_acceptance.py --write`、`build_v170_manifest.py`、`check_cycle04.py`、`run_release_readiness.py`、`check_integration_acceptance.py --full` が成功。**843件、失敗0、skip0、合成PASS**。生成原本を `64e8433` に保存し、release 171ソースを再hash。
-- 一時検証ワークフローは `ef89c0d` で削除済み。本実績の記録後に標準3系統CIを最終HEADで再確認する。合成受入は実レース・実績昇格・main統合を認証しない。
+- 一時検証ワークフローは `ef89c0d` で削除済み。一時ワークフロー削除・実績反映後のHEAD `b0df2ea` で標準3系統CIを再実行し、台帳・予想監査 [38685032758](https://github.com/eda-hub/horse-man/actions/runs/38685032758)、統合受入 [38685032658](https://github.com/eda-hub/horse-man/actions/runs/38685032658)、血統研究 [38685032690](https://github.com/eda-hub/horse-man/actions/runs/38685032690) がすべて成功した。この検証実績の文書更新は受入・releaseハッシュ対象外。合成受入は実レース・実績昇格・main統合を認証しない。
