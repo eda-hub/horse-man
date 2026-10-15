@@ -55,7 +55,9 @@ def validate_history(history, root):
         if race not in deadlines or purpose not in PURPOSES:
             raise ValueError('race outside scope or unknown purpose')
         at = timestamp(event.get('at'))
-        if at >= deadlines[race] or (last_time is not None and at < last_time):
+        # 旧イベントのdeadlineは保持し、公式変更後の新規イベントだけ明示する。
+        deadline = timestamp(event.get('scheduled_post_time_jst', posts[race]))
+        if at >= deadline or (last_time is not None and at < last_time):
             raise ValueError('late or reverse-time history')
         if not isinstance(event.get('reason'), str) or not event['reason'].strip():
             raise ValueError('reason required')
