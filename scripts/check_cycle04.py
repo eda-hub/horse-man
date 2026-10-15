@@ -204,9 +204,13 @@ def validate_day(root, path, contract):
         validate_formal_result(root, row, race=race, date=date, result_ref=ref,
                                manifest_ref=row.get('result_reconciliation_ref'))
         status = validate_revision_history(root, row, race, date, row['scheduled_post_time_jst'])
-        require(not any(name in status['missing'] for name in
-                        ('error_classification', 'non_degradation', 'next_validation')),
-                'reviewed scope requires error/non-degradation/next validation')
+        # 下書きは不足した誤差分類をそのまま残し、結果と改訂履歴だけを固定する。
+        # 新v2のCOMPLETEはreview_statusが全Owner必須項目を検証済み。
+        # 旧回顧だけは当時の3項目を保持し、遡及的な完了扱いはしない。
+        if status['state'] == 'LEGACY_INCOMPLETE':
+            require(not any(name in status['missing'] for name in
+                            ('error_classification', 'non_degradation', 'next_validation')),
+                    'reviewed scope requires error/non-degradation/next validation')
         if status['state'] == 'COMPLETE':
             require(race in reviewed, 'COMPLETE review must be in reviewed scope')
         elif status['state'] == 'DRAFT':
