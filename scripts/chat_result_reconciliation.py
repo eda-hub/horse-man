@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from chat_result_conversion import normalize_result
 from check_prediction_compliance import iso, validate_gate
+from cycle04_schedule_change import assert_post, result_post
 from cycle04_operations import require, safe_path, fingerprint, verified_artifact, validate_official_result
 from recommendation import verify as verify_recommendation, settle
 
@@ -19,7 +20,7 @@ def fixed_json(root, ref):
     return data
 
 
-def reconcile(bundle, conversion, result, *, gate=None, recommendation=None, as_of=None):
+def reconcile(bundle, conversion, result, *, gate=None, recommendation=None, as_of=None, schedule_row=None, schedule_root=None):
     rebuilt = normalize_result(bundle, conversion['annotation'])
     require(rebuilt == conversion, 'saved result conversion differs from source reconstruction')
     require(result == rebuilt['result'], 'official result differs from quoted source')
@@ -27,10 +28,13 @@ def reconcile(bundle, conversion, result, *, gate=None, recommendation=None, as_
     now = iso(as_of,'audit time') if as_of else datetime.now(timezone.utc)
     require(iso(result['retrieved_at_jst'],'result retrieval') <= now, 'future result cannot be reviewed')
     if gate is not None:
-        for key in ('race_id','race_date_jst','scheduled_post_time_jst'):
+        for key in ('race_id','race_date_jst'):
             require(gate.get(key) == req[key], 'fixed prediction/result identity mismatch')
+        if gate.get('scheduled_post_time_jst') != req['scheduled_post_time_jst']:
+            require(schedule_row is not None and schedule_root is not None, 'result post change requires verified schedule history')
+            result_post(schedule_root, schedule_row, req['race_id'], req['race_date_jst'], captured_at=result['retrieved_at_jst'], result_post_time=req['scheduled_post_time_jst'])
         validate_official_result(result, race=gate['race_id'], date=gate['race_date_jst'],
-                                 post=gate['scheduled_post_time_jst'], horses=gate['production']['ranking'])
+                                 post=req['scheduled_post_time_jst'], horses=gate['production']['ranking'])
     outcome = {'status':'NOT_APPLICABLE','tickets':[]} if recommendation is None else settle(recommendation,result)
     return {'schema_version':'chat-result-reconciliation-v1','race_id':req['race_id'],
             'race_date_jst':req['race_date_jst'],'result':result,'mode':rebuilt['mode'],
@@ -39,7 +43,7 @@ def reconcile(bundle, conversion, result, *, gate=None, recommendation=None, as_
             'origin_authenticity_certified':False,'payout_required':False}
 
 
-def audit_saved(root, refs, as_of=None):
+def audit_saved(root, refs, as_of=None, *, schedule_row=None):
     require(isinstance(refs,dict) and set(refs) == {'capture','conversion','result','prediction_gate','prediction_original','recommendation_gate'},
             'all fixed references, including absent gates, required')
     bundle = fixed_json(root,refs['capture']); conversion = fixed_json(root,refs['conversion'])
@@ -54,7 +58,9 @@ def audit_saved(root, refs, as_of=None):
         gate_ref = gate['production']['evidence_ref']
         for key in ('artifact_id','artifact_path','receipt_path','receipt_id'):
             require(original.get(key)==gate_ref.get(key), 'prediction original reference differs from fixed gate')
-        prediction,_ = verified_artifact(root,original,gate['scheduled_post_time_jst'])
+        prediction, receipt = verified_artifact(root,original,gate['scheduled_post_time_jst'])
+        if schedule_row is not None:
+            assert_post(root, schedule_row, gate['race_id'], gate['race_date_jst'], gate['scheduled_post_time_jst'], at=receipt['receipt_verified_at_jst'], forward=gate['kpi_eligibility']['production']=='ELIGIBLE')
         for key in ('ranking','probabilities'):
             require(prediction.get(key) == gate['production'][key], 'fixed prediction original differs')
     require(gate is not None or refs['prediction_original'] is None, 'original cannot be detached from its gate')
@@ -71,7 +77,7 @@ def audit_saved(root, refs, as_of=None):
                 rec.get('prediction_ref', {}).get('artifact_path') ==
                 gate['production']['evidence_ref']['artifact_path'],
                 'recommendation fixed prediction/cutoff identity mismatch')
-    report = reconcile(bundle,conversion,result,gate=gate,recommendation=rec,as_of=as_of)
+    report = reconcile(bundle,conversion,result,gate=gate,recommendation=rec,as_of=as_of, schedule_row=schedule_row, schedule_root=root)
     report['fixed_refs'] = refs
     return report
 
@@ -126,14 +132,13 @@ def validate_formal_result(root, row, *, race, date, result_ref, manifest_ref):
     else:
         require(refs.get('recommendation_gate') is None,
                 'result references a detached recommendation')
-    report = audit_saved(root, refs, as_of=now.isoformat())
+    report = audit_saved(root, refs, as_of=now.isoformat(), schedule_row=row)
     bundle = fixed_json(root, refs['capture'])
     req = bundle['request']
-    require(req['purpose'] == 'RESULT' and req['race_id'] == race and
-            req['race_date_jst'] == date and
-            iso(req['scheduled_post_time_jst'], 'result post') ==
-            iso(row.get('scheduled_post_time_jst'), 'registered post'),
-            'formal result race/date/scheduled post mismatch')
+    require(req['purpose'] == 'RESULT' and req['race_id'] == race and req['race_date_jst'] == date, 'formal result race/date mismatch')
+    result_post(root, row, race, date,
+                captured_at=report['result']['retrieved_at_jst'],
+                result_post_time=req['scheduled_post_time_jst'])
     require(report['race_id'] == race and report['race_date_jst'] == date and
             report['mode'] == 'FORWARD',
             'only quoted FORWARD result can enter formal review')

@@ -125,7 +125,7 @@ PR69の価格不要推奨生成・独立保存・結果照合を再利用する�
 
 FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先行保存・読戻しした `intent_ref` を保持する。日別operationsのintentと同一参照であることを検査し、宣言の保存先・deadline・日次branchも本体と照合する。単に同じsnapshot IDを記載した別宣言で代用しない。
 
-各レース行の `scheduled_post_time_jst` は開催日（JST）と一致し、適格gateの実発走予定と同じ時刻であることを必須とする。別日・別時刻のreceipt/gateで認証しない。
+各レース行の `scheduled_post_time_jst` は初回公式登録時刻として不変とする。公式変更がない場合は適格gate・receipt・結果との直接一致を維持する。公式変更がある場合のみ、同一race/dateの固定公式本文と連続した変更chainを照合し、各gate・receiptの当時の読戻し時点で有効だった予定時刻と一致する場合に限る。遅延で過去のLATEを適格化しない。別日変更は保留する。手順と独立artifact形式は `docs/validation/contracts/cycle04_post_changes.md`。
 
 近5走の `opponent_level` は `{status, value, source_ref, observed_at_jst}` の構造化属性にする。ACQUIREDにはcutoff以前の情報時点・出所・値が必要。MISSINGは値nullとreasonを保持し、入力充足へ含めない。近走の開催日が過去でも、その対戦相手の未来結果を現在の評価に利用しない。
 

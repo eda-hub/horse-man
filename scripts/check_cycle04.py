@@ -8,8 +8,9 @@ from pathlib import Path
 
 from check_prediction_compliance import (ComplianceError, contract_state, iso, release,
                                          validate_gate, LEGACY_RELEASE)
+from cycle04_schedule_change import history as schedule_history, effective_post, assert_post
 from cycle04_operations import (fingerprint, positive_set, require, safe_path,
-                               validate_inputs, validate_market, validate_market_payload, validate_selection,
+                               validate_inputs, validate_market, validate_market_payload, validate_selection, selection_ref_post,
                                validate_ticket_comparison, verified_artifact, validate_official_result,
                                validate_formal_result)
 from recommendation import verify as verify_recommendation, settle
@@ -153,16 +154,19 @@ def validate_day(root, path, contract):
     for race, row in rows.items():
         require(isinstance(row, dict), 'race record object required')
         post = iso(row.get('scheduled_post_time_jst'), 'race scheduled post')
+        schedule_history(root, row, race, date)
         require(post.astimezone(iso(date + 'T00:00:00+09:00', 'race date').tzinfo).date().isoformat() == date,
                 'race scheduled post date mismatch')
         if row.get('market_ref'):
             require(race in final, 'optional market requires fixed FINAL scope')
-            payload, _ = verified_artifact(root, row['market_ref'], row['scheduled_post_time_jst'])
+            market_post = row.get('market_scheduled_post_time_jst', row['scheduled_post_time_jst'])
+            payload, market_receipt = verified_artifact(root, row['market_ref'], market_post)
+            assert_post(root, row, race, date, market_post, at=market_receipt['receipt_verified_at_jst'])
             cutoff = row.get('market_cutoff')
             require(payload.get('race_id') == race and payload.get('race_date_jst') == date
                     and payload.get('market') == row.get('market') and
                     payload.get('data_cutoff') == cutoff, 'independent market record mismatch')
-            require(iso(cutoff, 'market cutoff') < post, 'market cutoff must precede post')
+            require(iso(cutoff, 'market cutoff') < iso(market_post, 'market post'), 'market cutoff must precede post')
             validate_market_payload(payload, cutoff)
             from market_acquisition import verify_responses
             verify_responses(root, payload)
@@ -199,7 +203,7 @@ def validate_day(root, path, contract):
         require(fingerprint(raw) == ref.get('sha256'), 'official result hash mismatch')
         result = json.loads(raw)
         prediction=validate_gate(root,safe_path(root,row['prediction_gate_path'])) if row.get('prediction_gate_path') else None
-        validate_official_result(result,race=race,date=date,post=row['scheduled_post_time_jst'],
+        validate_official_result(result,race=race,date=date,post=effective_post(root, row, race, date, at=result['retrieved_at_jst']).isoformat(),
                                 horses=prediction['production']['ranking'] if prediction else None)
         validate_formal_result(root, row, race=race, date=date, result_ref=ref,
                                manifest_ref=row.get('result_reconciliation_ref'))
@@ -234,8 +238,11 @@ def validate_day(root, path, contract):
             require(gate['race_id']==race and gate['race_date_jst']==date and
                     gate['production']['baseline_forecast_id']==entry.get('baseline_forecast_id'),
                     'prediction history identity mismatch')
-            body,_=verified_artifact(root,entry.get('prediction_ref'),row['scheduled_post_time_jst'],
+            body,history_receipt=verified_artifact(root,entry.get('prediction_ref'),gate['scheduled_post_time_jst'],
                                     expected_id=gate['production']['evidence_ref']['artifact_id'])
+            assert_post(root, row, race, date, gate['scheduled_post_time_jst'],
+                        at=history_receipt['receipt_verified_at_jst'],
+                        forward=gate['kpi_eligibility']['production']=='ELIGIBLE')
             require(entry['prediction_ref']['artifact_path']==gate['production']['evidence_ref']['artifact_path'],
                     'prediction history body mismatch')
         if history:
@@ -286,8 +293,15 @@ def validate_day(root, path, contract):
                 gate = validate_gate(root, gate_path)
                 require(gate['race_id'] == race and gate['race_date_jst'] == date,
                         'gate race mismatch')
-                require(iso(gate['scheduled_post_time_jst'], 'gate post') ==
-                        iso(row['scheduled_post_time_jst'], 'race post'), 'race/gate scheduled post mismatch')
+                if row.get('schedule_changes'):
+                    _, verified_receipt = verified_artifact(root, gate['production']['evidence_ref'],
+                                                            gate['scheduled_post_time_jst'])
+                    assert_post(root, row, race, date, gate['scheduled_post_time_jst'],
+                                at=verified_receipt['receipt_verified_at_jst'])
+                else:
+                    require(iso(gate['scheduled_post_time_jst'], 'gate post') ==
+                            iso(row['scheduled_post_time_jst'], 'race post'),
+                            'race/gate scheduled post mismatch')
                 if name == 'recommendation':
                     rec = verify_recommendation(root, safe_path(root, row.get('recommendation_gate_path')))
                     require(rec['race_id'] == race, 'recommendation race mismatch')
@@ -347,8 +361,10 @@ def validate_day(root, path, contract):
                 market_cutoff=row.get('market_cutoff',gate['data_cutoff'])
                 require(iso(market_cutoff,'market cutoff')<iso(post,'post'),'market cutoff must precede post')
                 validate_market(row.get('market'),market_cutoff)
-                history, _ = verified_artifact(root, op.get('selection_ref'), post)
-                selection = validate_selection(root, history, {race: post})
+                original_post = row['scheduled_post_time_jst']
+                history, _ = verified_artifact(root, op.get('selection_ref'),
+                                               selection_ref_post(root, op.get('selection_ref'), original_post))
+                selection = validate_selection(root, history, {race: original_post})
                 if race in final:
                     require(any(p['race_id'] == race and p['purpose'] == 'RECOMMENDATION' and p['active']
                                 for p in selection['plans'].values()), 'final recommendation lacks selection revision')
@@ -357,7 +373,9 @@ def validate_day(root, path, contract):
             else:
                 require(name != 'actual_purchase', 'v1.7.0 does not certify new actual purchase records')
                 # 任意市場・実購入は専用証跡を要求。推奨の適格性を転用しない。
-                payload, _ = verified_artifact(root, row.get(name + '_ref'), row.get('scheduled_post_time_jst'))
+                market_post = row.get('market_scheduled_post_time_jst', row.get('scheduled_post_time_jst'))
+                payload, receipt = verified_artifact(root, row.get(name + '_ref'), market_post)
+                assert_post(root, row, race, date, market_post, at=receipt['receipt_verified_at_jst'])
                 require(payload.get('race_id') == race and payload.get('race_date_jst') == date,
                         'market/actual artifact race mismatch')
                 if name == 'market':
@@ -366,7 +384,7 @@ def validate_day(root, path, contract):
                     require(payload.get('data_cutoff',row.get('data_cutoff'))==row.get('market_cutoff',row.get('data_cutoff')),
                             'independent market cutoff mismatch')
                     require(iso(row.get('market_cutoff',row.get('data_cutoff')),'market cutoff')<
-                            iso(row['scheduled_post_time_jst'],'post'),'market cutoff must precede post')
+                            iso(market_post,'post'),'market cutoff must precede post')
                     require(validate_market(row.get('market'), row.get('market_cutoff',row.get('data_cutoff'))) == 'ACQUIRED',
                             'market KPI needs acquired price')
                 else:
