@@ -635,7 +635,9 @@ def receipt_records(path):
                     raise ComplianceError(f'{path}: structured/plain receipt {ident}/{key} mismatch')
     return list(structured.values())+[record for ident,record in plain.items() if ident not in structured]
 
-def cycle_links(root,gates):
+def cycle_links(root,gates,corrections=None):
+    from historical_eligibility import effective
+    corrections = corrections or {}
     rd=root/'docs/validation/records'
     if not rd.exists(): return []
     missing=[]
@@ -663,13 +665,21 @@ def cycle_links(root,gates):
                 eligible=[name for name in names
                           if race in d.get('kpis',{}).get(name,{}).get('eligible_ids',[])]
                 if (date,race) not in gates:
-                    if eligible:
-                        missing.append(f'{path}: ELIGIBLE {",".join(eligible)} lacks execution gate for {race}')
+                    for name in eligible:
+                        corrected = effective(corrections, date, race, name, 'ELIGIBLE')
+                        print(f'ORIGINAL_DECLARATION_CONFLICT: {path} {race}/{name}: original=ELIGIBLE, execution gate absent; effective={corrected}')
+                        if corrected == 'ELIGIBLE':
+                            missing.append(f'{path}: ELIGIBLE {name} lacks execution gate for {race}')
                     continue
                 g=gates[(date,race)]
                 for name in names:
                     o=d.get('kpis',{}).get(name,{})
                     expected='ELIGIBLE' if race in o.get('eligible_ids',[]) else 'INELIGIBLE' if race in o.get('ineligible_ids',[]) else 'PENDING' if race in o.get('pending_ids',[]) else None
+                    if expected:
+                        corrected = effective(corrections, date, race, name, expected)
+                        if corrected != expected:
+                            print(f'ORIGINAL_DECLARATION_CONFLICT: {path} {race}/{name}: original={expected}, corrected={corrected}')
+                        expected = corrected
                     if name=='betting_evidence':
                         if expected=='ELIGIBLE':
                             ref=o['evidence_refs'][race]
@@ -750,6 +760,11 @@ def coverage_summary(gates, missing, unregistered=()):
     return dates
 
 def run(root, audit=False):
+    from historical_eligibility import days_at, load
+    # Immutable corrections are checked first, even when audit=True.
+    corrections = load(root, days_at(root))
+    for (date, race, kpi), row in sorted(corrections.items()):
+        print(f'HISTORICAL_CORRECTION: {date}/{race}/{kpi} original={row["original"]} effective={row["effective"]} id={row["id"]}')
     gd=root/'docs/validation/execution-gates'; gates={}; aliases={}
     for path in sorted(gd.glob('*/*.json')) if gd.exists() else []:
         g=validate_gate(root,path); key=(g['race_date_jst'],g['race_id'])
@@ -770,7 +785,7 @@ def run(root, audit=False):
             raise ComplianceError(f'snapshot race alias overlaps another gate: {alias}')
     snapshot_gate_keys={**gates,**{alias:gates[key] for alias,key in aliases.items()}}
     snapshot_missing,unregistered=snapshot_links(root,snapshot_gate_keys)
-    missing=snapshot_missing+cycle_links(root,gates)
+    missing=snapshot_missing+cycle_links(root,gates,corrections)
     summary=coverage_summary(gates,missing,unregistered)
     for date,counts in sorted(summary.items()):
         print(f'COVERAGE {date}: gates={counts["gates"]} missing_certifications={counts["missing_links"]} ungated_snapshots={counts["ungated_snapshots"]}')
