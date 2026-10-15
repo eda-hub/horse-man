@@ -797,7 +797,7 @@ def run(root, audit=False):
                 and race not in legacy_days[date]['initial_scope']
                 and any(gate.get('kpi_eligibility', {}).get(name) == 'ELIGIBLE'
                         for name in ('production', 'betting', 'shadow'))):
-            missing.append(f'{date}/{race}: UNLINKED_GATE_CLAIM: legacy eligible gate has no proven day-ledger race identity')
+            missing.append(f'docs/validation/execution-gates/{date}/{race}.json: UNLINKED_GATE_CLAIM: legacy eligible gate has no proven day-ledger race identity')
     summary=coverage_summary(gates,missing,unregistered)
     for date,counts in sorted(summary.items()):
         print(f'COVERAGE {date}: gates={counts["gates"]} missing_certifications={counts["missing_links"]} ungated_snapshots={counts["ungated_snapshots"]}')
