@@ -79,6 +79,20 @@ def _source(root, change, race, date):
             and _minute(excerpt, change["old_post_time_jst"])
             and _minute(excerpt, change["new_post_time_jst"]),
             "official schedule quotation does not establish date/race/old/new times")
+    # 引用中に旧・新が存在するだけでは逆向きの時刻改変を排除できない。
+    # 矢印で明示された旧→新の組を必須とし、異なる順序は認証しない。
+    time_pattern = r"(?:[01]?\\d|2[0-3])[:：][0-5]\\d"
+    transitions = re.findall(
+        rf"(?<!\\d)({time_pattern})\\s*(?:→|⇒|->|から)\\s*({time_pattern})(?!\\d)",
+        excerpt,
+    )
+    def normalized(value):
+        return value.replace("：", ":").zfill(5)
+    expected = (iso(change["old_post_time_jst"], "old official post").strftime("%H:%M"),
+                iso(change["new_post_time_jst"], "new official post").strftime("%H:%M"))
+    require(len(transitions) == 1 and
+            tuple(normalized(value) for value in transitions[0]) == expected,
+            "official schedule quotation does not prove old-to-new direction")
     obtained = iso(source.get("retrieved_at_jst"), "official source retrieval")
     observed = iso(change.get("observed_at_jst"), "schedule observation")
     readback = iso(change.get("readback_verified_at_jst"), "schedule readback")
