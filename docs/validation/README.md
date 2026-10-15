@@ -9,6 +9,8 @@
 - 公式発走時刻が変更された場合は `docs/validation/contracts/cycle04_post_changes.md` の追記原本・観測時点・旧FIX保全手順を使用する。事後の遅延確認によって不適格記録を適格化しない。
 - `check_cycle04.py --require-active` は正式契約を確認。終了時の `--require-complete` は6日分の実測・初回全scope回顧を要求する。
 - 第3の原記録・保留・正式ROI未算定は維持し、旧記録をv1.7.0の母数へ移さない。保存手順の旧記載は以下の歴史的契約として参照する。
+- 旧第3サイクルの原宣言と保存証跡の不一致は[履歴監査契約](contracts/historical_eligibility.md)・[原本棚卸し](reviews/cycle_03/historical_eligibility_inventory.md)で独立管理する。旧KPIと訂正後KPI、正式Bettingと参考仮想精算は別表示し、第4へ逆流させない。未確認の訂正は保存しない。
+
 
 ---
 
