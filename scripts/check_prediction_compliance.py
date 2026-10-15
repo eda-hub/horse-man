@@ -786,6 +786,18 @@ def run(root, audit=False):
     snapshot_gate_keys={**gates,**{alias:gates[key] for alias,key in aliases.items()}}
     snapshot_missing,unregistered=snapshot_links(root,snapshot_gate_keys)
     missing=snapshot_missing+cycle_links(root,gates,corrections)
+    # A historical gate's self-declared ELIGIBLE must not be mistaken for a
+    # ledger-certified race when their identifiers have not been proven equal.
+    # Do not guess a JRA race ID from an old venue/ordinal code.
+    from historical_eligibility import days_at
+    legacy_days = days_at(root)
+    for (date, race), gate in gates.items():
+        if (gate.get('manual_release') == LEGACY_RELEASE
+                and date in legacy_days
+                and race not in legacy_days[date]['initial_scope']
+                and any(gate.get('kpi_eligibility', {}).get(name) == 'ELIGIBLE'
+                        for name in ('production', 'betting', 'shadow'))):
+            missing.append(f'{date}/{race}: UNLINKED_GATE_CLAIM: legacy eligible gate has no proven day-ledger race identity')
     summary=coverage_summary(gates,missing,unregistered)
     for date,counts in sorted(summary.items()):
         print(f'COVERAGE {date}: gates={counts["gates"]} missing_certifications={counts["missing_links"]} ungated_snapshots={counts["ungated_snapshots"]}')
