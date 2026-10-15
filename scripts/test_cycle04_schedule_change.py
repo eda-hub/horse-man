@@ -99,6 +99,13 @@ class OfficialScheduleHistory(unittest.TestCase):
         self.assertEqual(effective_post(self.root, self.row, RACE, DATE,
                                         at=DATE+"T09:35:00+09:00").minute, 20)
 
+    def test_revisions_cannot_be_observed_out_of_order(self):
+        self.add_change(read="09:30", observed="09:29", obtained="09:28")
+        self.add_change(old_time="10:10", new_time="10:20",
+                        obtained="09:21", observed="09:22", read="09:23")
+        with self.assertRaises(ComplianceError):
+            history(self.root, self.row, RACE, DATE)
+
     def test_advance_invalidates_old_late_gate(self):
         self.add_change(old_time="10:00", new_time="09:50")
         with self.assertRaises(ComplianceError):
