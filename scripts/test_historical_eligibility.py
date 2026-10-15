@@ -96,6 +96,140 @@ class HistoricalEligibilityTests(unittest.TestCase):
         self.assertIn(RACE, (self.root / FILE).read_text(encoding="utf-8"))
         self.assertEqual(invoke(self.root, "rev-parse", f"HEAD:{FILE}"), self.original["blob_sha"])
 
+    def test_existing_verified_gate_survives_approved_demotion(self):
+        # The old gate is a historical artifact, never rewritten to INELIGIBLE.
+        from test_check_prediction_compliance import gate, receipt_record, write_receipts
+        g = gate(date=DAY, race=RACE)
+        g["kpi_eligibility"]["production"] = "ELIGIBLE"
+        artifact = f"docs/validation/snapshots/{DAY}.md"
+        receipt = f"docs/validation/persistence-receipts/{DAY}.md"
+        aid, rid = RACE + "-P001-S01", RACE + "-R02"
+        write(self.root, artifact, "snapshot_id: " + aid + "\\n")
+        write_receipts(self.root, receipt, [receipt_record(rid, aid, artifact)])
+        g["production"]["evidence_ref"] = {
+            "artifact_path": artifact, "artifact_id": aid,
+            "receipt_path": receipt, "receipt_id": rid,
+            "timing_eligibility": "PRE_RACE_ELIGIBLE",
+            "persist_verified_at_jst": "2026-09-26T10:00:00+09:00"
+        }
+        gate_path = f"docs/validation/execution-gates/{DAY}/{RACE}.json"
+        write(self.root, gate_path, json.dumps(g, ensure_ascii=False))
+        with redirect_stdout(io.StringIO()):
+            self.assertEqual(run(self.root), [])
+        original_gate = (self.root / gate_path).read_bytes()
+
+        self.install(self.correction(after="INELIGIBLE"))
+        with redirect_stdout(io.StringIO()) as out:
+            self.assertEqual(run(self.root), [])
+        self.assertIn("HISTORICAL_EFFECTIVE_STATE", out.getvalue())
+        self.assertEqual((self.root / gate_path).read_bytes(), original_gate)
+        view = report(days_at(self.root), load(self.root, days_at(self.root)), root=self.root)
+        self.assertEqual(view["corrected_claim_counts"][DAY]["production"]["INELIGIBLE"], 1)
+
+        # An actual pre-existing discrepancy is still an error, not forgiven.
+        g["kpi_eligibility"]["production"] = "PENDING"
+        write(self.root, gate_path, json.dumps(g, ensure_ascii=False))
+        with self.assertRaisesRegex(ComplianceError, "gate state mismatch"):
+            run(self.root)
+
+    def create_split_betting(self):
+        from check_betting_performance import snapshot_tickets, tickets_hash
+        race = RACE
+        artifact = f"docs/validation/snapshots/{DAY}.md"
+        source_path = f"docs/validation/betting-sources/{DAY}/source.json"
+        original_path = f"docs/validation/betting-sources/{DAY}/original.json"
+        aid = "fixed-01"
+        write(self.root, artifact, (
+            f"## 固定計画\\nsnapshot_id: {aid}\\n"
+            "ticket_purpose: OFFICIAL_VIRTUAL\\n"
+            "### 検証用仮想購入（正式帳簿）\\n"
+            "- 馬連 1-2: 10,000円\\n"))
+        tickets = snapshot_tickets(self.root, artifact, aid)
+        fixed_at = "2026-09-26T09:50:00+09:00"
+        original_bytes = json.dumps({
+            "race_id": race, "source_sent_at_jst": fixed_at,
+            "tickets": tickets
+        }, ensure_ascii=False).encode()
+        target = self.root / original_path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(original_bytes)
+        ref = {
+            "source_type": "GIT_PRE_RACE_SNAPSHOT",
+            "source_ref": "https://github.com/eda-hub/horse-man/blob/" + "a" * 40 + "/" + artifact,
+            "source_path": source_path,
+            "working_branch": "prediction/" + DAY
+        }
+        source = {**ref, "schema_version": "fixed-plan-source-v1",
+                  "race_id": race, "verification_status": "VERIFIED",
+                  "source_sent_at_jst": fixed_at,
+                  "scheduled_post_time_jst": "2026-09-26T10:10:00+09:00",
+                  "result_checked_at_jst": "2026-09-26T11:00:00+09:00",
+                  "original_path": original_path,
+                  "original_sha256": hashlib.sha256(original_bytes).hexdigest(),
+                  "snapshot_path": artifact, "snapshot_id": aid,
+                  "tickets_sha256": tickets_hash(tickets),
+                  "verified_by": "監査担当", "verification_note": "事前出所と買い目を確認"}
+        write(self.root, source_path, json.dumps(source, ensure_ascii=False))
+        day = copy.deepcopy(self.day)
+        day["kpi_contract"] = "betting-kpi-split-v1"
+        day["purchase_candidates"] = [race]
+        day["kpis"]["betting"] = {
+            "target_ids": [race], "eligible_ids": [race],
+            "pending_ids": [], "ineligible_ids": [], "evidence_refs": {race: ref},
+            "stake_yen": 10000, "return_yen": 16000
+        }
+        day["fixed_plan_settlement"] = {
+            "stake_yen": 10000, "return_yen": 16000,
+            "races": {race: {"snapshot_path": artifact, "snapshot_id": aid,
+                             "stake_yen": 10000, "return_yen": 16000,
+                             "source_verification": "VERIFIED"}}
+        }
+        return day, ref, source_path
+
+    def test_formal_roi_requires_real_verified_source(self):
+        day, ref, source_path = self.create_split_betting()
+        valid = report({DAY: day}, {}, root=self.root)
+        entry = valid["split_betting_performance"][DAY]
+        self.assertEqual(entry["original_formal"]["roi_pct"], 160)
+        self.assertIsNone(entry["original_formal"]["reason"])
+        self.assertEqual(entry["fixed_settlement_reference"]["return_yen"], 16000)
+
+        # A nonexistent provenance path is not a certified 160% result.
+        ref["source_path"] = "docs/validation/betting-sources/missing.json"
+        invalid = report({DAY: day}, {}, root=self.root)["split_betting_performance"][DAY]
+        for view in ("original_formal", "corrected_formal"):
+            self.assertIsNone(invalid[view]["roi_pct"])
+            self.assertIsNone(invalid[view]["stake_yen"])
+            self.assertIsNone(invalid[view]["return_yen"])
+            self.assertIn("UNVERIFIED_SOURCE", invalid[view]["reason"])
+        self.assertEqual(invalid["fixed_settlement_reference"], entry["fixed_settlement_reference"])
+
+        # Existing but tampered provenance is equally untrusted.
+        ref["source_path"] = source_path
+        doc = json.loads((self.root / source_path).read_text(encoding="utf-8"))
+        doc["original_sha256"] = "0" * 64
+        write(self.root, source_path, json.dumps(doc, ensure_ascii=False))
+        damaged = report({DAY: day}, {}, root=self.root)["split_betting_performance"][DAY]
+        self.assertIsNone(damaged["original_formal"]["roi_pct"])
+        self.assertIn("hash mismatch", damaged["original_formal"]["reason"])
+
+    def test_formal_roi_after_demotion_and_unmatched_settlement(self):
+        day, _, _ = self.create_split_betting()
+        corrected = {(DAY, RACE, "betting"): {
+            "original": "ELIGIBLE", "effective": "INELIGIBLE"}}
+        item = report({DAY: day}, corrected, root=self.root)["split_betting_performance"][DAY]
+        self.assertEqual(item["original_formal"]["roi_pct"], 160)
+        self.assertIsNone(item["corrected_formal"]["roi_pct"])
+        self.assertEqual(item["corrected_formal"]["reason"], "NO_ELIGIBLE_RACES")
+        self.assertEqual(item["fixed_settlement_reference"]["stake_yen"], 10000)
+
+        # Identical provenance, but a mismatched settlement identity,
+        # must not produce a numeric formal ROI.
+        day["fixed_plan_settlement"]["races"][RACE]["snapshot_id"] = "wrong-id"
+        broken = report({DAY: day}, {}, root=self.root)["split_betting_performance"][DAY]
+        self.assertIsNone(broken["original_formal"]["roi_pct"])
+        self.assertIn("snapshot identity mismatch", broken["original_formal"]["reason"])
+
     def test_demotion_does_not_whitelist_unrelated_races(self):
         other = "20260926-NAK-02"
         self.day["initial_scope"].append(other)
