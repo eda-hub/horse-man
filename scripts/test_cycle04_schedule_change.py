@@ -99,6 +99,42 @@ class OfficialScheduleHistory(unittest.TestCase):
         self.assertEqual(effective_post(self.root, self.row, RACE, DATE,
                                         at=DATE+"T09:35:00+09:00").minute, 20)
 
+    def test_two_delays_allow_snapshot_after_superseded_deadline(self):
+        # 9:22に10:10、10:05に10:20を確認。10:15の新規予想は有効。
+        self.add_change(new_time="10:10", read="09:22")
+        self.add_change(old_time="10:10", new_time="10:20",
+                        obtained="10:03", observed="10:04", read="10:05")
+        post = DATE + "T10:20:00+09:00"
+        assert_post(self.root, self.row, RACE, DATE, post,
+                    at=DATE + "T10:15:00+09:00")
+        self.assertEqual(effective_post(self.root, self.row, RACE, DATE,
+                                        at=DATE + "T10:15:00+09:00").isoformat(), post)
+
+    def test_late_discovered_advance_after_two_delays_rejects_snapshot(self):
+        self.add_change(new_time="10:10", read="09:22")
+        self.add_change(old_time="10:10", new_time="10:20",
+                        obtained="10:03", observed="10:04", read="10:05")
+        # 10:15には10:20と認識。後で10:12への前倒しが分かった。
+        self.add_change(old_time="10:20", new_time="10:12",
+                        obtained="10:16", observed="10:17", read="10:18")
+        with self.assertRaisesRegex(ComplianceError, "later official advance"):
+            assert_post(self.root, self.row, RACE, DATE,
+                        DATE + "T10:20:00+09:00",
+                        at=DATE + "T10:15:00+09:00")
+        # 同じ変更履歴で、前倒し予定より前に保存した原本は維持できる。
+        assert_post(self.root, self.row, RACE, DATE,
+                    DATE + "T10:20:00+09:00",
+                    at=DATE + "T10:10:00+09:00")
+
+    def test_later_extension_never_rehabilitates_original_late_snapshot(self):
+        self.add_change(new_time="10:10",
+                        obtained="10:03", observed="10:04", read="10:05")
+        self.add_change(old_time="10:10", new_time="10:20",
+                        obtained="10:06", observed="10:07", read="10:08")
+        with self.assertRaisesRegex(ComplianceError, "cannot rehabilitate"):
+            assert_post(self.root, self.row, RACE, DATE, ORIGINAL,
+                        at=DATE + "T10:02:00+09:00")
+
     def test_revisions_cannot_be_observed_out_of_order(self):
         self.add_change(read="09:30", observed="09:29", obtained="09:28")
         self.add_change(old_time="10:10", new_time="10:20",
