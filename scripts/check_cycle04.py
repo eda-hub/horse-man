@@ -159,12 +159,14 @@ def validate_day(root, path, contract):
                 'race scheduled post date mismatch')
         if row.get('market_ref'):
             require(race in final, 'optional market requires fixed FINAL scope')
-            payload, _ = verified_artifact(root, row['market_ref'], row['scheduled_post_time_jst'])
+            market_post = row.get('market_scheduled_post_time_jst', row['scheduled_post_time_jst'])
+            payload, market_receipt = verified_artifact(root, row['market_ref'], market_post)
+            assert_post(root, row, race, date, market_post, at=market_receipt['receipt_verified_at_jst'])
             cutoff = row.get('market_cutoff')
             require(payload.get('race_id') == race and payload.get('race_date_jst') == date
                     and payload.get('market') == row.get('market') and
                     payload.get('data_cutoff') == cutoff, 'independent market record mismatch')
-            require(iso(cutoff, 'market cutoff') < post, 'market cutoff must precede post')
+            require(iso(cutoff, 'market cutoff') < iso(market_post, 'market post'), 'market cutoff must precede post')
             validate_market_payload(payload, cutoff)
             from market_acquisition import verify_responses
             verify_responses(root, payload)
@@ -365,7 +367,9 @@ def validate_day(root, path, contract):
             else:
                 require(name != 'actual_purchase', 'v1.7.0 does not certify new actual purchase records')
                 # 任意市場・実購入は専用証跡を要求。推奨の適格性を転用しない。
-                payload, _ = verified_artifact(root, row.get(name + '_ref'), row.get('scheduled_post_time_jst'))
+                market_post = row.get('market_scheduled_post_time_jst', row.get('scheduled_post_time_jst'))
+                payload, receipt = verified_artifact(root, row.get(name + '_ref'), market_post)
+                assert_post(root, row, race, date, market_post, at=receipt['receipt_verified_at_jst'])
                 require(payload.get('race_id') == race and payload.get('race_date_jst') == date,
                         'market/actual artifact race mismatch')
                 if name == 'market':
@@ -374,7 +378,7 @@ def validate_day(root, path, contract):
                     require(payload.get('data_cutoff',row.get('data_cutoff'))==row.get('market_cutoff',row.get('data_cutoff')),
                             'independent market cutoff mismatch')
                     require(iso(row.get('market_cutoff',row.get('data_cutoff')),'market cutoff')<
-                            iso(row['scheduled_post_time_jst'],'post'),'market cutoff must precede post')
+                            iso(market_post,'post'),'market cutoff must precede post')
                     require(validate_market(row.get('market'), row.get('market_cutoff',row.get('data_cutoff'))) == 'ACQUIRED',
                             'market KPI needs acquired price')
                 else:
