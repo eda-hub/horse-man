@@ -152,7 +152,7 @@ class OfficialScheduleHistory(unittest.TestCase):
         source_ref = event["official_text_ref"]
         official = json.loads((self.root / source_ref["artifact_path"]).read_text())
         actual_quote = "2026年10月14日 東京1R 発走時刻変更 10:10 → 10:00"
-        official["text"] = "公式のお知らせ\\n" + actual_quote + "\\n"
+        official["text"] = "公式のお知らせ\n" + actual_quote + "\n"
         event["official_text_ref"] = self.saved(source_ref["artifact_path"], official)
         event["quotation"]["text"] = actual_quote
         event["quotation"]["end"] = event["quotation"]["start"] + len(actual_quote)
@@ -166,13 +166,58 @@ class OfficialScheduleHistory(unittest.TestCase):
         source_ref = event["official_text_ref"]
         official = json.loads((self.root / source_ref["artifact_path"]).read_text())
         quote = "2026年10月14日 東京1R 発走時刻変更 10:00 と 10:10"
-        official["text"] = "公式のお知らせ\\n" + quote + "\\n"
+        official["text"] = "公式のお知らせ\n" + quote + "\n"
         event["official_text_ref"] = self.saved(source_ref["artifact_path"], official)
         event["quotation"]["text"] = quote
         event["quotation"]["end"] = event["quotation"]["start"] + len(quote)
         self.row["schedule_changes"][-1] = self.saved(ref["artifact_path"], event)
         with self.assertRaisesRegex(ComplianceError, "direction"):
             history(self.root, self.row, RACE, DATE)
+
+    def rewrite_quote(self, ref, quote):
+        event = json.loads((self.root / ref["artifact_path"]).read_text())
+        source_ref = event["official_text_ref"]
+        source = json.loads((self.root / source_ref["artifact_path"]).read_text())
+        prefix = "公式のお知らせ\n"
+        source["text"] = prefix + quote + "\n"
+        event["official_text_ref"] = self.saved(source_ref["artifact_path"], source)
+        event["quotation"] = {"start": len(prefix), "end": len(prefix) + len(quote),
+                              "text": quote}
+        self.row["schedule_changes"][-1] = self.saved(ref["artifact_path"], event)
+
+    def test_wrong_venue_change_cannot_be_borrowed(self):
+        _, ref = self.add_change()
+        self.rewrite_quote(
+            ref, "2026年10月14日 東京1R 発走予定10:00。"
+                 "京都1R 発走変更10:00 → 10:10")
+        with self.assertRaisesRegex(ComplianceError, "ambiguous venue/race"):
+            history(self.root, self.row, RACE, DATE)
+
+    def test_other_race_change_cannot_be_borrowed(self):
+        _, ref = self.add_change()
+        self.rewrite_quote(
+            ref, "2026年10月14日 東京1R 発走予定10:00。"
+                 "東京2R 発走変更10:00 → 10:10")
+        with self.assertRaisesRegex(ComplianceError, "ambiguous venue/race"):
+            history(self.root, self.row, RACE, DATE)
+
+    def test_unobserved_advance_blocks_late_snapshot(self):
+        self.add_change(old_time="10:00", new_time="09:50",
+                        obtained="10:01", observed="10:02", read="10:03")
+        # 読戻し時点の認識は10:00だが、実際は09:50に前倒しされていた。
+        with self.assertRaisesRegex(ComplianceError, "later official advance"):
+            assert_post(self.root, self.row, RACE, DATE, ORIGINAL,
+                        at=DATE+"T09:55:00+09:00")
+        # 発走前の既存原本は改変不要で、引き続き照合できる。
+        assert_post(self.root, self.row, RACE, DATE, ORIGINAL,
+                    at=DATE+"T09:45:00+09:00")
+
+    def test_japanese_clock_and_advance_are_recognized(self):
+        _, ref = self.add_change(new_time="09:50")
+        self.rewrite_quote(ref, "2026年10月14日 東京1R 発走時刻変更 10時00分 → 9時50分")
+        self.assertEqual(len(history(self.root, self.row, RACE, DATE)), 1)
+        assert_post(self.root, self.row, RACE, DATE, DATE+"T09:50:00+09:00",
+                    at=DATE+"T09:30:00+09:00")
 
     def test_future_reversed_and_cross_day_fail(self):
         self.add_change(obtained="09:25", observed="09:21", read="09:22")
