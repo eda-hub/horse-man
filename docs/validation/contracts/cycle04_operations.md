@@ -227,3 +227,10 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 - `cycle04_workflow.py --summary` と `chat_review_package.py` の `independent_review_metrics` は、固定INITIAL/FINAL時点での無印馬の1着・2着・3着内、事前変更根拠、推奨失敗（軸崩れ・着順不一致・相手/第三馬漏れ）を独立表示する。各系列は `target_ids`、`eligible_ids`、`included_ids`、`missing`（理由と必要入力）を持つ。0適格は率null。複数原因は同じ券に付与できるため、ラベル件数と `unique_races`/`unique_tickets` を別表示する。
 - 推奨失敗は固定 `RECOMMENDED` の独立gate、公式全頭結果、既存settleを使用する。取消券INVALIDは適格な的中分母から除く。NO_RECOMMENDATION・EXPLICIT_MARKS_ONLY・PENDINGをMISSに算入しない。価格、購入、払戻、性能昇格は追加しない。
 - 正常一巡は全COMPLETE回顧・保存証拠・集計Git読戻しを必要とする。Owner効果採否と性能昇格は人間の別審査とし、自動承認しない。理由付き終了はOwner不足とGit固定参照を記録する。
+
+
+### PR88 追加レビューの3件是正（2026-10-15）
+
+- phase別無印成績は、固定された当該INITIAL/FINAL `prediction_gate_path` を再検査し、日別race modeと各gate modeがともに `FORWARD`、かつ `kpi_eligibility.production=ELIGIBLE` の場合だけ適格とする。`PENDING` / `INELIGIBLE` / `REPLAY` と未完了回顧は、`coverage.missing` に原因・必要入力を残して対象集合から脱落させず、eligible/includedの分母へ加えない。初回→最終比較は**両方**の固定phaseが前向きProduction適格な場合だけ可能であり、最新FINALの適格性をINITIALへ流用しない。
+- `DRAFT` は `error_classification` / `non_degradation` / `next_validation` が空でもOwner不足として記録・公式結果固定可能。ただし `reviewed_scope` と精度/追加集計には算入しない。`COMPLETE` のみ既存の必須項目と保護・再検証・改善の確定状態を満たす必要がある。旧記録の既存3項目チェックは継続する。
+- 順序付き馬単・三連単の失敗 `ORDER_MISMATCH` は、同着を含む `finish_groups` と矛盾しない上位N着の全順序（境界同着は必要着数だけ）から判定する。候補中に同じ馬の組合せが存在し、並びだけ不一致の場合に分類する。的中/無効の判定は従来の `recommendation.settle` のまま。順序不要券に着順不一致を誤付与しない。
