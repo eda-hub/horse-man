@@ -127,3 +127,10 @@ python3 scripts/check_integration_acceptance.py --full
 - release固定参照も生成原本を `docs/validation/contracts/v170-release.json` に `9a88563feccffcd41c4685c65c5258984a6a3a53` で保存。原本ハッシュを手計算・コピーで合わせない。
 - 一時的に追加した生成用GitHub Actionsステップは `b6a046e3e514a47f85df19874ad8f821570f8fca` で撤去し、既存ワークフローへ完全復旧した。
 - 回帰は `test_cycle04_review_metrics.py` の新規ケースを含む。最新状態の通常CI 3系統の結果はPR checksから確認する。実レース・自動性能昇格・人間の採用承認は行わない。
+
+## 2026-10-15 P2：推奨失敗のDRAFT算入再発防止
+
+- 再現：固定FINAL推奨と公式結果・SETTLED精算が存在し、レビューがDRAFTのまま `recommendation_failure_classification` に適格/算入される事象。
+- 是正：推奨失敗分類の対象 `target_ids` を維持したまま `reviewed_scope` に未登録のレースを `REVIEW_NOT_COMPLETE`（必要入力 `completed_review`）として `missing` に保持。適格、算入、ユニークレース・券、MISS票、ラベル、率の分母から除外する。予想・推奨・公式結果・精算は変更しない。
+- 回帰：`scripts/test_cycle04_review_metrics.py::OwnerWorkflow.test_fixed_final_recommendation_draft_to_complete_only_then_counts_failures`。正式なFINAL推奨・公式結果の入力をwriterで固定し、DRAFT時は不算入で理由を保持、無修正改訂の拒否と独立revision原本保存を経たCOMPLETE時に初めて算入、参照済み公式結果・精算が不変であることを検査する。
+- 受入・release固定manifestは最新のコード・契約・回帰を対象に再生成し、通常3CIと統合検査で最終コミットの整合を確認する。成功を実競馬の運用測定・性能昇格とは混同しない。
