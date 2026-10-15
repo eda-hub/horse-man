@@ -144,6 +144,36 @@ class OfficialScheduleHistory(unittest.TestCase):
         with self.assertRaises(ComplianceError):
             history(self.root, self.row, RACE, DATE)
 
+    def test_official_quote_cannot_reverse_advance_into_delay(self):
+        # 公式は10:10→10:00。変更原本が逆順を宣言しても許容しない。
+        self.row["scheduled_post_time_jst"] = DATE + "T10:00:00+09:00"
+        _, ref = self.add_change(old_time="10:00", new_time="10:10")
+        event = json.loads((self.root / ref["artifact_path"]).read_text())
+        source_ref = event["official_text_ref"]
+        official = json.loads((self.root / source_ref["artifact_path"]).read_text())
+        actual_quote = "2026年10月14日 東京1R 発走時刻変更 10:10 → 10:00"
+        official["text"] = "公式のお知らせ\\n" + actual_quote + "\\n"
+        event["official_text_ref"] = self.saved(source_ref["artifact_path"], official)
+        event["quotation"]["text"] = actual_quote
+        event["quotation"]["end"] = event["quotation"]["start"] + len(actual_quote)
+        self.row["schedule_changes"][-1] = self.saved(ref["artifact_path"], event)
+        with self.assertRaisesRegex(ComplianceError, "direction"):
+            history(self.root, self.row, RACE, DATE)
+
+    def test_quotation_with_unrelated_times_is_not_direction_proof(self):
+        _, ref = self.add_change()
+        event = json.loads((self.root / ref["artifact_path"]).read_text())
+        source_ref = event["official_text_ref"]
+        official = json.loads((self.root / source_ref["artifact_path"]).read_text())
+        quote = "2026年10月14日 東京1R 発走時刻変更 10:00 と 10:10"
+        official["text"] = "公式のお知らせ\\n" + quote + "\\n"
+        event["official_text_ref"] = self.saved(source_ref["artifact_path"], official)
+        event["quotation"]["text"] = quote
+        event["quotation"]["end"] = event["quotation"]["start"] + len(quote)
+        self.row["schedule_changes"][-1] = self.saved(ref["artifact_path"], event)
+        with self.assertRaisesRegex(ComplianceError, "direction"):
+            history(self.root, self.row, RACE, DATE)
+
     def test_future_reversed_and_cross_day_fail(self):
         self.add_change(obtained="09:25", observed="09:21", read="09:22")
         with self.assertRaises(ComplianceError):
