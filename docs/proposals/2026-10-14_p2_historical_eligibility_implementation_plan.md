@@ -3,7 +3,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p2-historical-eligibility`
 - 優先順位：P2の3番目。現行運用と旧履歴を分離し、終了審査までに整理する。
-- 状態：調査・実装計画のみ。今回、過去の適格性/成績は訂正しない。
+- 状態（2026-10-15更新）：実装・標準受入が成功。過去の適格性/成績の訂正は利用者承認が未確定のため0件。
 
 ## 背景・確認が必要な範囲
 
@@ -56,19 +56,28 @@
 - 04 元表示と訂正後表示、Owner/確認者不足、回顧README・運用READMEの参照を整合。独立KPIを混合しない。
 - 05 異常系・正常系のGit原本照合回帰 `test_historical_eligibility.py` を追加。2026-10-15の[標準受入・生成実行](https://github.com/eda-hub/horse-man/actions/runs/38687542285)は**成功**し、`run_cycle04_acceptance.py --write` の851テストが失敗0/skip0、`build_v170_manifest.py` による標準生成、`check_cycle04.py`、`run_release_readiness.py`、`check_integration_acceptance.py --full` が終了コード0。生成物はその実行の出力を保存し、独立読戻しの後に一時生成ワークフローを削除した。3系統の最終PRヘッドCI実績は[予想/第3](https://github.com/eda-hub/horse-man/actions/runs/38688087320)・[血統](https://github.com/eda-hub/horse-man/actions/runs/38688087313)・[新旧統合](https://github.com/eda-hub/horse-man/actions/runs/38688087323)を参照（結果は各runを正とする）。事実確認・承認なしの元成績訂正は未実施。
 
+### 項目別の実装commitと検証対応
+
+| 項目 | 主な実装commit | 変更・検証の対応 |
+|---|---|---|
+| 01 原本棚卸し | `9edbdba3ae1c0ee458f8dec8927132c6c17e5b4f` | 7日分の原宣言・9/26のR02証跡・9/27のID不一致を調査記録へ固定 |
+| 02 訂正契約 | `ca0c0986c1d304e84f23280b89190a88f62641e5` | 原commit/blob・必要証拠・判断者・時刻・連続revision/hashの照合 |
+| 03 checker/KPI | `126060f078ea9d6225b00e9eafc0e7c41e8b692d`・`50b6507abfac0d9b8c96c9ab78e067486929e824`・`d3e5a26bab1ec9d8a20b9ee20be2e664ff5d902e` | 原宣言と有効状態の独立監査・集計表示 |
+| 04 表示・文書 | `484e64ba6612592aea5f5ce258d365d14298a04c` | 履歴監査契約、旧台帳README、運用READMEを接続 |
+| 05 回帰・受入 | `c224195a6aa0f4d0a57a80851d201766a2e108ac`・`99ddb7976d3b504edb05387780dfcd01dcc0b7bf`・`98b0dd32781b4712ab934947be2f1ba308eb7535` | 異常/正常回帰、851件の標準受入成功、正式生成物の更新。3系統CIの最終状態は上記リンクを正とする |
+
 ### 採否未確定・承認待ち
 
 9/26の3つのProduction適格宣言を**保留**とするか**不適格**とするかは、当時の証跡確認と利用者判断が必要。承認するOwner・確認者、判断日時、根拠commitを確定しない限り、訂正overlayは1件も登録しない。9/27の既存gateと旧台帳のレースID対応も未証明なので、勝手に照合済みとしない。この判断待ちはコードの回帰検証・旧履歴の監査を止める理由にしない。
 
 ## 実績・未確定事項
 
-実装時に対象race/KPI／元commit/path/hash／判断／確認者・Owner／変更commit／実行コマンド／期待値／実結果／残件を追記する。
-各旧宣言の実証、訂正分類と成績影響は未確定。本書作成時は原票の網羅監査・コード変更・実記録訂正を行っていない。
+元原票・対象race/KPI・証拠commit/path/blob・コード修正と検証結果は上の実装状況と監査棚卸しへ固定済み。訂正の確認者・Owner・判定日時・KPI成績影響は実例の承認まで未確定。計画書作成時点の「未着手」という説明は歴史的記録であり、現在のコード実装状態ではない。
 
 ## 共通作業・統合規約
 
 - 対象：`eda-hub/horse-man`。基点main：`984ee26fac173af8c7f8c4e5b7f5ab4df844bf1a`。現行版v1.7.0、PR82〜85統合済み。
-- 本依頼はブランチ・修正計画・実施計画書の作成まで。コード修正・実レース記録・適格性訂正・mainマージは未着手。本書を現行Productionルールとして使用しない。
+- 当初は計画書作成のみのDraft PRであったが、2026-10-15の実装指示に沿ってコード修正・合成受入・生成物更新まで実施した。実レース記録・未承認の適格性訂正・mainマージは行わない。本書を現行Productionルールとして使用しない。
 - 再開時に最新main、AGENTS、manual README、関係Owner、本書、対象branchを読戻す。基点後の変更と実測追加を確認し、従来のGitHub接続・作業記録を踏襲する。
 - 統合順は回顧項目・集計→公式発走変更→旧履歴整理。後続は先行PR統合後の最新mainへ追従し、共通validator・契約・テストを手動で整合する。公式時刻変更が実際に発生した場合は、その課題を先行してよい。
 - Production/Shadow/任意市場、Prediction/Recommendation/購入を分離。価格・実購入・払戻を標準入力へ戻さない。第4の6開催日・11/1までの収集日程は維持する。実測未取得はnull・不足とし、予定192Rやfixtureを実績にしない。
