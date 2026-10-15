@@ -2,6 +2,7 @@
 import hashlib
 import json
 import re
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -133,6 +134,21 @@ def effective_post(root, row, race, date, *, at, now=None):
     return post
 
 
+def _git_recorded_before(root, race, date, revision, moment):
+    """実Git checkoutでは変更原本が証跡時点までにGitへ保存済みか検査する。"""
+    if not (Path(root) / ".git").exists():
+        return  # isolated synthetic fixtures cannot claim Git provenance
+    path = f"{DIRECTORY}/{date}/{race}/{revision:04d}.json"
+    command = ["git", "log", "-1", "--diff-filter=A", "--format=%cI",
+               "HEAD", "--", path]
+    result = subprocess.run(command, cwd=root, text=True, capture_output=True,
+                            check=False)
+    require(result.returncode == 0 and result.stdout.strip(),
+            "schedule change has no tracked Git creation proof")
+    require(iso(result.stdout.strip().splitlines()[0], "change Git timestamp") <= iso(moment, "evidence readback"),
+            "schedule change committed after claimed evidence/readback")
+
+
 def assert_post(root, row, race, date, post, *, at, forward=True, now=None):
     """過去のLATEを遅延後に適格化しない。確認後の新規固定は当時予定へ結び付ける。"""
     actual = effective_post(root, row, race, date, at=at, now=now)
@@ -142,6 +158,11 @@ def assert_post(root, row, race, date, post, *, at, forward=True, now=None):
     if forward:
         require(iso(at, "evidence readback") < actual,
                 "schedule change cannot rehabilitate late/replay evidence")
+        applied = [change for changed, readback, change in
+                   history(root, row, race, date, now=now)
+                   if readback <= iso(at, "evidence readback")]
+        if applied:
+            _git_recorded_before(root, race, date, applied[-1]["revision"], at)
     return actual
 
 
