@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from check_prediction_compliance import iso
+from cycle04_schedule_change import assert_post
 from cycle04_operations import require, safe_path, verified_artifact, fingerprint
 from check_prediction_compliance import validate_gate
 from task_completion import prediction_completion, recommendation_completion
@@ -54,7 +55,6 @@ def _prediction_check(root, date, row, entry, *, latest):
     race = gate['race_id']
     post = row['scheduled_post_time_jst']
     require(gate['race_date_jst'] == date and
-            gate['scheduled_post_time_jst'] == post and
             gate['production']['baseline_forecast_id'] == entry.get('baseline_forecast_id'),
             label + '：レース・日付・発走・基準予想の不一致')
 
@@ -69,8 +69,11 @@ def _prediction_check(root, date, row, entry, *, latest):
                 ('artifact_id', 'artifact_path')) and
             (not gate_ref.get('sha256') or pred_ref.get('sha256') == gate_ref['sha256']),
             label + '：固定gateと予想本体の同一性不一致')
+    post = gate['scheduled_post_time_jst']
     snapshot, body_receipt = verified_artifact(root, pred_ref, post,
                                                expected_id=gate_ref['artifact_id'])
+    assert_post(root, row, race, date, post, at=body_receipt['receipt_verified_at_jst'],
+                forward=gate['kpi_eligibility']['production'] == 'ELIGIBLE')
     intent, intent_receipt = verified_artifact(root, intent_ref, post)
     fix, fix_receipt = verified_artifact(root, fix_ref, post)
 
