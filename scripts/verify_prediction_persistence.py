@@ -141,7 +141,7 @@ def verify(root, date, snapshot_id, deadline=None, expected_races=(), expected_a
         receipt_post=receipt.get('scheduled_post_time_jst')
         limit=min(post,iso(receipt_post,f'{snapshot_id}/scheduled_post_time_jst')) if receipt_post else post
         if receipt_time and verified<limit and iso(receipt_time,f'{snapshot_id}/receipt_verified_at_jst')<limit:
-            from cycle04_schedule_change import registered_row, assert_post, effective_post
+            from cycle04_schedule_change import registered_row, assert_post, assert_pre_race
             for race in snapshot.get('race_ids', []):
                 row = registered_row(root, race, date)
                 if row is None:
@@ -149,9 +149,8 @@ def verify(root, date, snapshot_id, deadline=None, expected_races=(), expected_a
                 if snapshot['kind'] == 'markdown':
                     # 旧複数レースsnapshotのreceiptは最早発走時刻という共通期限。
                     # 個別raceの公式予定とは同値比較せず、両方の読戻しが発走前か確認する。
-                    effective = effective_post(root, row, race, date, at=receipt_time)
-                    if verified >= effective or iso(receipt_time, f'{snapshot_id}/receipt_verified_at_jst') >= effective:
-                        raise ComplianceError(f'{snapshot_id}: race readback at/after official post: {race}')
+                    assert_pre_race(root, row, race, date, at=receipt_time,
+                                    persisted_at=receipt['persist_verified_at_jst'])
                 else:
                     assert_post(root, row, race, date, receipt['scheduled_post_time_jst'],
                                 at=receipt_time)
