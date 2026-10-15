@@ -151,3 +151,16 @@ def result_post(root, row, race, date, *, captured_at, result_post_time):
     require(current == iso(result_post_time, "official result post"),
             "official result scheduled post lacks verified schedule history")
     return current
+
+
+def registered_row(root, race, date):
+    """既存の第4台帳だけを見る。未登録の日別台帳を暗黙作成しない。"""
+    path = Path(root) / "docs/validation/records/cycle_04" / (date + ".json")
+    if not path.is_file():
+        return None
+    ledger = json.loads(path.read_text(encoding="utf-8"))
+    require(ledger.get("cycle_id") == "cycle_04" and
+            ledger.get("race_date_jst") == date and
+            race in ledger.get("initial_scope", []),
+            "registered race/date required for official schedule history")
+    return ledger["races"][race]
