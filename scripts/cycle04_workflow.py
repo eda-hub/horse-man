@@ -15,7 +15,7 @@ from check_cycle04 import CONTRACT_PATH, DATES, SCHEMA, validate_day
 from cycle04_shadow_state import snapshot as shadow_snapshot, previous_items as prior_shadow_items
 from cycle04_schedule_change import history as schedule_history, effective_post, assert_post
 from check_prediction_compliance import iso, validate_gate
-from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_formal_result, validate_market, validate_market_payload
+from cycle04_operations import require, safe_path, verified_artifact, selection_ref_post, validate_selection, validate_official_result, validate_formal_result, validate_market, validate_market_payload
 from recommendation import verify as verify_recommendation, settle
 from cycle04_review_metrics import (review_status, review_hash, independent_metrics,
                                     REVISION_SCHEMA)
@@ -148,13 +148,16 @@ def select(root, date, ref):
     day, before = read_day(root,date)
     race = ref.get('race_id'); require(race in day['initial_scope'], 'selection outside initial scope')
     post = day['races'][race]['scheduled_post_time_jst']
-    history, _ = verified_artifact(root,ref['selection_ref'],post)
+    selected_post = selection_ref_post(root, ref['selection_ref'], post)
+    history, latest_receipt = verified_artifact(root,ref['selection_ref'],selected_post)
+    assert_post(root, day['races'][race], race, date, selected_post,
+                at=latest_receipt['receipt_verified_at_jst'])
     verified = validate_selection(root,history,{race:post})
     require(race not in day['reviewed_scope'],'reviewed selection is immutable')
     row=day['races'][race]
     prior=row.get('selection_ref')
     if prior:
-        old,_=verified_artifact(root,prior,post)
+        old,_=verified_artifact(root,prior,selection_ref_post(root,prior,post))
         require(history['events'][:len(old['events'])]==old['events'], 'selection history cannot roll back or diverge')
     active=any(s['race_id']==race and s['purpose']=='RECOMMENDATION' for s in verified['active_selections'])
     require(active or prior is not None,'selection requires a recommendation purpose SELECT revision')
@@ -182,8 +185,10 @@ def record_prediction(root,date,entry,*,preview=False):
     if phase=='FINAL':
         latest=row.get('selection_ref');incoming=entry['operations'].get('selection_ref')
         if latest!=incoming:
-            prior,_=verified_artifact(root,latest,row['scheduled_post_time_jst'])
-            updated,_=verified_artifact(root,incoming,row['scheduled_post_time_jst'])
+            prior,_=verified_artifact(root,latest,selection_ref_post(root,latest,row['scheduled_post_time_jst']))
+            updated,select_receipt=verified_artifact(root,incoming,selection_ref_post(root,incoming,row['scheduled_post_time_jst']))
+            assert_post(root, row, race, date, selection_ref_post(root,incoming,row['scheduled_post_time_jst']),
+                        at=select_receipt['receipt_verified_at_jst'])
             verified=validate_selection(root,updated,{race:row['scheduled_post_time_jst']})
             require(len(updated['events'])>len(prior['events']) and
                     updated['events'][:len(prior['events'])]==prior['events'] and
