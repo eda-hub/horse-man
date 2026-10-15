@@ -65,34 +65,48 @@ def _source(root, change, race, date):
             and 0 <= quote["start"] < quote["end"] <= len(body)
             and body[quote["start"]:quote["end"]] == quote["text"],
             "schedule change quotation/source text mismatch")
-    # 変更の時刻だけでは別レースへの流用を検出できない。
+    # 旧→新の向きだけでなく、日付・開催場・レース・時刻が
+    # *同一の記載* に結び付いているかを検査する。別場/別レースの
+    # 発走変更との寄せ集めは、正式認証せず保留する。
     ident = re.fullmatch(r"\d{8}-(TOK|KYO|NII)-(\d{2})", race)
     require(ident is not None, "unsupported official schedule race identity")
     y, m, d = map(int, date.split("-"))
     excerpt = quote["text"]
-    require((date in excerpt or date.replace("-", "") in excerpt or
-             re.search(rf"{y}年\s*0?{m}月\s*0?{d}日", excerpt))
-            and VENUES[ident[1]] in excerpt
-            and re.search(rf"(?<!\d)0?{int(ident[2])}(?:R|レース)(?!\d)", excerpt)
-            and "発走" in excerpt
-            and not any(word in excerpt for word in ("開催中止", "レース中止", "翌日延期"))
-            and _minute(excerpt, change["old_post_time_jst"])
-            and _minute(excerpt, change["new_post_time_jst"]),
-            "official schedule quotation does not establish date/race/old/new times")
-    # 引用中に旧・新が存在するだけでは逆向きの時刻改変を排除できない。
-    # 矢印で明示された旧→新の組を必須とし、異なる順序は認証しない。
-    time_pattern = r"(?:[01]?\\d|2[0-3])[:：][0-5]\\d"
-    transitions = re.findall(
-        rf"(?<!\\d)({time_pattern})\\s*(?:→|⇒|->|から)\\s*({time_pattern})(?!\\d)",
-        excerpt,
+    require(not any(word in excerpt for word in ("開催中止", "レース中止", "翌日延期")),
+            "cancelled or postponed schedule requires owner confirmation")
+    venue_mentions = re.findall("|".join(map(re.escape, VENUES.values())), excerpt)
+    race_mentions = re.findall(r"(?<!\d)0?([1-9]|1[0-2])(?:R|レース)(?!\d)", excerpt)
+    require(venue_mentions == [VENUES[ident[1]]] and
+            race_mentions == [str(int(ident[2]))],
+            "official schedule quotation contains ambiguous venue/race identity")
+
+    clock = r"(?:[01]?\d|2[0-3])(?:[:：][0-5]\d|時\s*[0-5]?\d分)"
+    transition = re.compile(
+        rf"(?<!\d)({clock})\s*(?:→|⇒|->|から)\s*({clock})(?!\d)"
     )
-    def normalized(value):
-        return value.replace("：", ":").zfill(5)
+    def normalize_clock(value):
+        match = re.fullmatch(r"(\d{1,2})(?:[:：](\d{2})|時\s*(\d{1,2})分)", value)
+        require(match is not None, "invalid official post time in quotation")
+        return f"{int(match[1]):02d}:{int(match[2] or match[3]):02d}"
+
     expected = (iso(change["old_post_time_jst"], "old official post").strftime("%H:%M"),
                 iso(change["new_post_time_jst"], "new official post").strftime("%H:%M"))
-    require(len(transitions) == 1 and
-            tuple(normalized(value) for value in transitions[0]) == expected,
-            "official schedule quotation does not prove old-to-new direction")
+    records = [part.strip() for part in re.split(r"[。\r\n；;]", excerpt) if part.strip()]
+    matches = []
+    for record in records:
+        if VENUES[ident[1]] not in record or not re.search(
+                rf"(?<!\d)0?{int(ident[2])}(?:R|レース)(?!\d)", record):
+            continue
+        date_present = (date in record or date.replace("-", "") in record or
+                        re.search(rf"{y}年\s*0?{m}月\s*0?{d}日", record))
+        changes = transition.findall(record)
+        if date_present and "発走" in record and "変更" in record and len(changes) == 1:
+            matches.append(changes[0])
+    # 同じレースの1記載に唯一の変更が示されている場合のみ認証。
+    # 無関係な行に別の変更があれば、引用範囲を絞るまで認証しない。
+    require(len(matches) == 1 and len(transition.findall(excerpt)) == 1 and
+            tuple(normalize_clock(value) for value in matches[0]) == expected,
+            "official schedule quotation does not prove race-bound old-to-new direction")
     obtained = iso(source.get("retrieved_at_jst"), "official source retrieval")
     observed = iso(change.get("observed_at_jst"), "schedule observation")
     readback = iso(change.get("readback_verified_at_jst"), "schedule readback")
@@ -182,15 +196,33 @@ def _git_recorded_before(root, race, date, revision, moment, source_ref=None):
         check_path(source_ref["artifact_path"])
 
 
+def assert_pre_race(root, row, race, date, *, at, persisted_at=None, now=None):
+    """当時認識していた時刻と、後日判明した前倒し境界を別々に照合する。"""
+    instant = iso(at, "evidence readback")
+    stored = iso(persisted_at, "evidence persistence") if persisted_at else instant
+    known = iso(row.get("scheduled_post_time_jst"), "initial official post")
+    changes = history(root, row, race, date, now=now)
+    for new_post, readback, _ in changes:
+        if readback <= instant:
+            known = new_post
+    require(stored < known and instant < known,
+            "schedule change cannot rehabilitate late/replay evidence")
+    # 取得前の延長でLATEを復活させないのと対称に、
+    # 後日読戻した前倒しで実際の発走後だった証跡も認証しない。
+    for new_post, _, _ in changes:
+        require(stored < new_post and instant < new_post,
+                "later official advance invalidates pre-race eligibility")
+    return known
+
+
 def assert_post(root, row, race, date, post, *, at, forward=True, now=None):
-    """過去のLATEを遅延後に適格化しない。確認後の新規固定は当時予定へ結び付ける。"""
+    """当時予定を照合し、前向き適格の場合は後判明前倒しも審査する。"""
     actual = effective_post(root, row, race, date, at=at, now=now)
     provided = iso(post, "evidence scheduled post")
     require(actual == provided,
             "schedule mismatch: evidence post is not official post known at readback")
     if forward:
-        require(iso(at, "evidence readback") < actual,
-                "schedule change cannot rehabilitate late/replay evidence")
+        assert_pre_race(root, row, race, date, at=at, now=now)
         applied = [change for changed, readback, change in
                    history(root, row, race, date, now=now)
                    if readback <= iso(at, "evidence readback")]
