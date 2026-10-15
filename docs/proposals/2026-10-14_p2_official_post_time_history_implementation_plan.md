@@ -97,3 +97,13 @@
 - 変更：`a1c8b1e`（共通検査）、`5a1fc70`（保存検証）、`0f0b2ef`（正常・異常回帰）、`5cc5feb`（旧テスト期待値整合）。
 - GitHub Actions一時統合受入：`38682837847`。**全840テスト、失敗0、skip0、合成PASS**。同実行で `build_v170_manifest.py` を実生成し、`check_cycle04.py`、`run_release_readiness.py`、`check_integration_acceptance.py --full` がすべて成功。生成物のGit保存commit：`f5cb7d9`。
 - リポジトリ内の以前の832件PASS・3系統CI成功は修正前のものと区別する。一時ワークフロー除去後のHEAD `4b041b6` で標準3系統CIを実行・成功確認：`check-cycle03.yml` [38683153900](https://github.com/eda-hub/horse-man/actions/runs/38683153900)、`check-integration-acceptance.yml` [38683153910](https://github.com/eda-hub/horse-man/actions/runs/38683153910)、`check-pedigree-research.yml` [38683153824](https://github.com/eda-hub/horse-man/actions/runs/38683153824)。本計画書のみ後続更新で、受入・releaseのhash対象外。実レース適格昇格は認証しない。
+
+
+## 2026-10-15 P2：複数延長の中間予定を後判明前倒しと混同する問題
+
+- 再現：初回予定10:00→9:22確認の延長10:10→10:05確認の延長10:20。10:15の10:20予定での保存・読戻しは前向き適格。以前の実装では10:10を独立した期限として再審査し誤拒否した。
+- 修正：`assert_pre_race`で、保存時点までに確認済みの改訂は最新予定に畳み込む。証跡の後に読戻しした改訂についてだけ、直前の予定に対する前倒しを遡及的に審査する。従来の既知予定による期限判定と、後日延長による旧LATE/REPLAYの復活禁止は維持する。
+- 回帰：複数回延長後の有効予定より前の予想保存、複数延長後に前倒しが判明した保存の不適格化、後日延長による過去LATEの不適格維持。既存の単独前倒し・改訂順・原本固定テストは保持。
+- 実装コミット：`3d989ad`、テスト：`160efdf`、運用契約：`4c9dbee`。元の固定証跡・初回予定・公式本文/receiptは変更しない。
+- 再受入：GitHub Actions [38684808645](https://github.com/eda-hub/horse-man/actions/runs/38684808645) で `run_cycle04_acceptance.py --write`、`build_v170_manifest.py`、`check_cycle04.py`、`run_release_readiness.py`、`check_integration_acceptance.py --full` が成功。**843件、失敗0、skip0、合成PASS**。生成原本を `64e8433` に保存し、release 171ソースを再hash。
+- 一時検証ワークフローは `ef89c0d` で削除済み。本実績の記録後に標準3系統CIを最終HEADで再確認する。合成受入は実レース・実績昇格・main統合を認証しない。
