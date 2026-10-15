@@ -32,7 +32,7 @@ def reconcile(bundle, conversion, result, *, gate=None, recommendation=None, as_
             require(gate.get(key) == req[key], 'fixed prediction/result identity mismatch')
         if gate.get('scheduled_post_time_jst') != req['scheduled_post_time_jst']:
             require(schedule_row is not None and schedule_root is not None, 'result post change requires verified schedule history')
-            result_post(schedule_root, schedule_row, req['race_id'], req['race_date_jst'], captured_at=bundle['recorded_at'], result_post_time=req['scheduled_post_time_jst'])
+            result_post(schedule_root, schedule_row, req['race_id'], req['race_date_jst'], captured_at=result['retrieved_at_jst'], result_post_time=req['scheduled_post_time_jst'])
         validate_official_result(result, race=gate['race_id'], date=gate['race_date_jst'],
                                  post=req['scheduled_post_time_jst'], horses=gate['production']['ranking'])
     outcome = {'status':'NOT_APPLICABLE','tickets':[]} if recommendation is None else settle(recommendation,result)
@@ -136,7 +136,7 @@ def validate_formal_result(root, row, *, race, date, result_ref, manifest_ref):
     bundle = fixed_json(root, refs['capture'])
     req = bundle['request']
     require(req['purpose'] == 'RESULT' and req['race_id'] == race and req['race_date_jst'] == date, 'formal result race/date mismatch')
-    result_post(root, row, race, date, captured_at=bundle['recorded_at'], result_post_time=req['scheduled_post_time_jst'])
+    result_post(root, row, race, date, captured_at=result['retrieved_at_jst'], result_post_time=req['scheduled_post_time_jst'])
     require(report['race_id'] == race and report['race_date_jst'] == date and
             report['mode'] == 'FORWARD',
             'only quoted FORWARD result can enter formal review')
