@@ -35,6 +35,10 @@
 - 順位変更悪化件数:
 - 無印好走馬件数:
 - 根拠不足変更件数:
+- 無印馬の固定INITIAL / FINALごとの1着・2着・3着内件数（対象・適格・算入・欠測）:
+- 初回→最終の固定根拠状態（事前証拠確認済み／不足／未評価）とゲートSHA・cutoff:
+- 推奨失敗（軸崩れ／着順不一致／相手・第三馬漏れ）、ユニークレース・券分母:
+- 合成「無印好走」指標: Owner未定義ならnull（新たな閾値は設けない）:
 
 ## 推奨買い目（正式切替後の独立契約）
 
@@ -130,3 +134,11 @@ python3 scripts/check_prediction_cycle.py
 - refのSHA-256は当時固定した値を保存し、欠落・改変・発走後読戻しを現在の内容や時刻で補完しない。該当項目を保留・不適格として理由を保存し、Productionと価格不要推奨の保存結果は変更しない。
 - クラス移行の比較原本・共通入力・bindingは、上記に加えて共通cutoff以前の読戻しと保存順を専用比較入口で検査する。
 - 非ELIGIBLEでgate自体が存在しないレースに、内容のないダミーgateを作る必要はない。
+
+## 第4回顧の新規記録（PR88・v1.7.0・Owner未変更）
+
+新規の回顧は `docs/validation/templates/cycle04_review_entry_v2.json` の `cycle04-review-v2` を用い、`DRAFT` または `COMPLETE` を明示する。`COMPLETE` は `error_classification` / `non_degradation` / `next_validation` と、`protected_good_parts`（保護）、`revalidation_targets`（再検証）、`improvement_targets`（改善対象）それぞれの状態・理由・必要入力が確定しているときだけ宣言する。該当なしも `NOT_APPLICABLE` と非空の理由が必要。未評価は `PENDING` と必要入力を残し、Prediction/結果固定とは独立に回顧完了へ算入しない。
+
+回顧の訂正は既存原本の書換えではなく `review_history` と独立 `review-revisions` 原本参照を追記する。初回/最終順位変更は両方の固定gate SHA、baseline、cutoffと事前根拠receiptが紐づかなければ不足にする。結果から事前の「強い新事実」を逆算しない。
+
+終了審査は正常一巡と人間Ownerの採否/性能昇格を分離する。第4以前の回顧に新項目がない場合、現在の証跡を後付けせず履歴不足として扱う。

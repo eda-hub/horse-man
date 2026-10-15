@@ -16,6 +16,8 @@ from cycle04_shadow_state import snapshot as shadow_snapshot, previous_items as 
 from check_prediction_compliance import iso, validate_gate
 from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_formal_result, validate_market, validate_market_payload
 from recommendation import verify as verify_recommendation, settle
+from cycle04_review_metrics import (review_status, review_hash, independent_metrics,
+                                    REVISION_SCHEMA)
 from run_release_readiness import check as check_release
 from two_axis_candidates import compare as compare_two_axis
 
@@ -251,8 +253,9 @@ def review(root,date,entry):
     require(iso(result.get('retrieved_at_jst'),'result retrieved') >= iso(day['races'][race]['scheduled_post_time_jst'],'post'),
             'future result used before race')
     analysis = entry.get('review')
-    require(isinstance(analysis,dict) and all(analysis.get(k) for k in ('error_classification','non_degradation','next_validation')),
-            'review error/non-degradation/next validation required')
+    status = review_status(analysis)
+    require(status['state'] in {'DRAFT', 'COMPLETE'},
+            'new review requires schema, Owner items and DRAFT/COMPLETE state')
     row = day['races'][race]
     if row.get('prediction_gate_path'):
         prediction = validate_gate(root,safe_path(root,row['prediction_gate_path']))
@@ -263,13 +266,43 @@ def review(root,date,entry):
     # レース単位で検査してから台帳を変更する。本文や不適格結果は消さない。
     validate_formal_result(root, row, race=race, date=date, result_ref=result_ref,
                            manifest_ref=manifest_ref)
-    if race in day['reviewed_scope']:
-        require(row.get('result_ref')==result_ref and row.get('result_reconciliation_ref')==manifest_ref and row.get('review')==analysis,
+    earlier = row.get('review')
+    if earlier is not None:
+        require(row.get('result_ref') == result_ref and row.get('result_reconciliation_ref') == manifest_ref,
+                'reviewed result is immutable; a different official result needs its own correction process')
+        require(row.get('review_history') and
+                row['review_history'][-1]['review'] == earlier,
+                'older review cannot be replaced without its original revision history')
+        ref = entry.get('revision_ref')
+        require(isinstance(ref, dict) and set(ref) == {'artifact_path', 'sha256'},
                 'reviewed result is immutable; use an explicit correction history')
+        path = f'docs/validation/review-revisions/{date}/{race}/'
+        require(ref['artifact_path'].startswith(path) and ref['artifact_path'].endswith('.json'),
+                'review revision path invalid')
+        raw_revision = safe_path(root, ref['artifact_path']).read_bytes()
+        require(hashlib.sha256(raw_revision).hexdigest() == ref['sha256'],
+                'review revision fixed hash mismatch')
+        index = len(row['review_history']) + 1
+        expected = {'schema_version': REVISION_SCHEMA, 'race_date_jst': date, 'race_id': race,
+                    'revision': index, 'supersedes_sha256': row['review_history'][-1]['sha256'],
+                    'review': analysis}
+        require(json.loads(raw_revision) == expected, 'review revision identity or chain mismatch')
+        require(race not in day['reviewed_scope'] or status['state'] == 'COMPLETE',
+                'completed review cannot be downgraded to DRAFT')
+        previous = row['review_history'][-1]['sha256']
+    else:
+        require(not entry.get('revision_ref'), 'first review cannot claim an amendment')
+        previous = None
+        ref = None
+        index = 1
     row['result_ref'] = result_ref
     row['result_reconciliation_ref'] = copy.deepcopy(manifest_ref)
     row['review'] = copy.deepcopy(analysis)
-    if race not in day['reviewed_scope']:day['reviewed_scope'].append(race)
+    row.setdefault('review_history', []).append({'revision': index, 'previous_sha256': previous,
+        'sha256': review_hash(analysis), 'review': copy.deepcopy(analysis),
+        'revision_ref': copy.deepcopy(ref)})
+    if status['state'] == 'COMPLETE' and race not in day['reviewed_scope']:
+        day['reviewed_scope'].append(race)
     if row.get('recommendation_gate_path'):
         row['recommendation_result'] = settle(verify_recommendation(root,safe_path(root,row['recommendation_gate_path'])),result)
     return save(root,day,before)
@@ -288,7 +321,7 @@ def summary(root):
               'additional_review_metrics':{'status':'PENDING_REVIEW_AGGREGATION','reason':'未回顧・比較入力不足は未測定として残す。','reviewed_count':0,'error_labels':{},
                    'by_prediction_confidence':{},'by_input_completeness':{},'by_race_period':{},
                    'initial_to_final':{'paired':0,'ranking_changed':0,'anchor_win_improved':0,'anchor_win_worsened':0,
-                                       'unchanged_outcome':0,'missing_initial_ids':[]}}}
+                                       'unchanged_outcome':0,'missing_initial_ids':[], 'ambiguous_revision_ids':[]}}}
     for name in ('production','recommendation','shadow','market'):
         result['kpis'][name]={field:sum(len(d['kpis'][name][field]) for d in days)
                              for field in ('target_ids','eligible_ids','ineligible_ids','pending_ids')}
@@ -328,16 +361,19 @@ def summary(root):
                         group=review_metrics[category].setdefault(label,{'count':0,'honmei_win_count':0,'honmei_top3_count':0})
                         group['count']+=1;group['honmei_win_count']+=int(anchor in win);group['honmei_top3_count']+=int(finish.get(anchor,999)<=3)
                     paired=review_metrics['initial_to_final']
-                    initial=next((h for h in row.get('prediction_history',[]) if h['phase']=='INITIAL'),None)
+                    history=row.get('prediction_history',[])
+                    initial=[h for h in history if h['phase']=='INITIAL']
+                    finals=[h for h in history if h['phase']=='FINAL']
                     if race in day['final_scope']:
-                        if initial:
-                            first=validate_gate(root,safe_path(root,initial['prediction_gate_path']))['production']['ranking']
+                        if len(initial)==len(finals)==1:
+                            first=validate_gate(root,safe_path(root,initial[0]['prediction_gate_path']))['production']['ranking']
                             paired['paired']+=1;paired['ranking_changed']+=int(first!=ranking)
                             old_hit=first[0] in win;new_hit=anchor in win
                             paired['anchor_win_improved']+=int(not old_hit and new_hit)
                             paired['anchor_win_worsened']+=int(old_hit and not new_hit)
                             paired['unchanged_outcome']+=int(old_hit==new_hit)
-                        else:paired['missing_initial_ids'].append(race)
+                        elif not initial:paired['missing_initial_ids'].append(race)
+                        else:paired['ambiguous_revision_ids'].append(race)
                 if comparable:predictions.append({'win':anchor in win,'top2':finish.get(anchor,999)<=2,'top3':finish.get(anchor,999)<=3,
                     'capture':bool(set(ranking[:3]) & win),'brier':sum((p['win_probability']-int(p['horse_no'] in win))**2 for p in prod['probabilities'])/len(ranking),
                     'top2_brier':sum((p['top2_probability']-int(finish.get(p['horse_no'],999)<=2))**2 for p in prod['probabilities'])/len(ranking),
@@ -376,6 +412,7 @@ def summary(root):
         for group in by_type.values():group['hit_rate']=group['hit_tickets']/group['valid_tickets']
         result['recommendation_performance']['by_type']=by_type
         result['recommendation_performance']['tickets_per_race']=sum(r['valid_tickets'] for r in recs)/len(recs)
+    result['independent_review_metrics'] = independent_metrics(root, days)
     review_metrics=result['additional_review_metrics']
     if review_metrics['reviewed_count']:review_metrics['status']='RECORDED_WITH_LIMITATIONS'
     for category in ('by_prediction_confidence','by_input_completeness','by_race_period'):

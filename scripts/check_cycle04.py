@@ -13,6 +13,7 @@ from cycle04_operations import (fingerprint, positive_set, require, safe_path,
                                validate_ticket_comparison, verified_artifact, validate_official_result,
                                validate_formal_result)
 from recommendation import verify as verify_recommendation, settle
+from cycle04_review_metrics import validate_revision_history
 from cycle04_shadow_state import verify_history as verify_shadow_history
 
 CONTRACT_PATH = 'docs/validation/contracts/cycle_04.json'
@@ -186,10 +187,14 @@ def validate_day(root, path, contract):
         for race,row in rows.items():
             require(not row.get('prediction_gate_path') or row.get('prediction_history'),
                     'saved prediction requires immutable history')
-    for race in reviewed:
-        row = rows[race]
+    for race, row in rows.items():
         ref = row.get('result_ref')
-        require(isinstance(ref, dict), 'reviewed race requires an official result artifact')
+        if ref is None:
+            require(race not in reviewed, 'reviewed race requires an official result artifact')
+            require(row.get('review') is None and row.get('review_history') is None,
+                    'review without official result')
+            continue
+        require(isinstance(ref, dict), 'official result reference must be an object')
         raw = safe_path(root, ref.get('artifact_path')).read_bytes()
         require(fingerprint(raw) == ref.get('sha256'), 'official result hash mismatch')
         result = json.loads(raw)
@@ -198,10 +203,21 @@ def validate_day(root, path, contract):
                                 horses=prediction['production']['ranking'] if prediction else None)
         validate_formal_result(root, row, race=race, date=date, result_ref=ref,
                                manifest_ref=row.get('result_reconciliation_ref'))
-        review=row.get('review')
-        require(isinstance(review,dict) and all(isinstance(review.get(k),(str,dict)) and bool(review[k])
-                    for k in ('error_classification','non_degradation','next_validation')),
-                'reviewed scope requires error/non-degradation/next validation')
+        status = validate_revision_history(root, row, race, date, row['scheduled_post_time_jst'])
+        # 下書きは不足した誤差分類をそのまま残し、結果と改訂履歴だけを固定する。
+        # 新v2のCOMPLETEはreview_statusが全Owner必須項目を検証済み。
+        # 旧回顧だけは当時の3項目を保持し、遡及的な完了扱いはしない。
+        if status['state'] == 'LEGACY_INCOMPLETE':
+            require(not any(name in status['missing'] for name in
+                            ('error_classification', 'non_degradation', 'next_validation')),
+                    'reviewed scope requires error/non-degradation/next validation')
+        if status['state'] == 'COMPLETE':
+            require(race in reviewed, 'COMPLETE review must be in reviewed scope')
+        elif status['state'] == 'DRAFT':
+            require(race not in reviewed, 'DRAFT review cannot be marked complete')
+        else:
+            # 旧記録は読取可能でも新しいOwner完了要件を満たしたことにはしない。
+            require(race in reviewed, 'legacy review must preserve historical reviewed scope')
         if row.get('recommendation_gate_path'):
             rec=verify_recommendation(root,safe_path(root,row['recommendation_gate_path']))
             require(row.get('recommendation_result')==settle(rec,result),'recommendation settlement mismatch')
