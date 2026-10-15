@@ -2,7 +2,7 @@
   "schema_version": "cycle04-acceptance-v1",
   "mode": "SYNTHETIC",
   "result": "PASS",
-  "tests_run": 822,
+  "tests_run": 832,
   "failures": 0,
   "skipped": 0,
   "live_race_count": null,
@@ -51,7 +51,7 @@
     },
     {
       "path": "docs/validation/contracts/cycle04_operations.md",
-      "sha256": "82e1635f7e98e207547bfe8dbd3086395886895c903cebc21b07f7d6d7762247"
+      "sha256": "180add8340852561997e0564612e24b046f104ca2f18e7c127c95a680a05a2f3"
     },
     {
       "path": "docs/validation/contracts/cycle_04.json",
@@ -135,7 +135,7 @@
     },
     {
       "path": "scripts/chat_result_reconciliation.py",
-      "sha256": "b5ee216d5752813d4bd157ac78e26ec0142b518cbbdde36eed0e9e936fbf5bd8"
+      "sha256": "2c2edfc07b40a1f3f23a4b90bf72089533ea2b5f565a8aa0ec2103e18f83236a"
     },
     {
       "path": "scripts/chat_resume.py",
@@ -163,7 +163,7 @@
     },
     {
       "path": "scripts/check_cycle04.py",
-      "sha256": "713af678ecd76a4941547891143d9fcce1c52d9ebd93a61e6de859237b7d8a23"
+      "sha256": "d4d5807c7d5bdf5a3907864e23369b4d02ef0f4376426e81cfc840087a2bff39"
     },
     {
       "path": "scripts/check_designated_ancestor_scope.py",
@@ -207,7 +207,7 @@
     },
     {
       "path": "scripts/check_prediction_compliance.py",
-      "sha256": "5a11fd443810af3d0ff69adc5fe62551ae1a2e6e04159591a08ed5f84e6ac567"
+      "sha256": "4e6197187157b420f0377e510c8339194d9889d9d308e3ee2cebefbf480b53e6"
     },
     {
       "path": "scripts/check_prediction_cycle.py",
@@ -259,15 +259,19 @@
     },
     {
       "path": "scripts/cycle04_completion.py",
-      "sha256": "2b324a39adf24af64f2edb2752d98500087ed7e74ef4f04a9bd909218174349c"
+      "sha256": "27b2c597cb8caefbca5683acc97ad78f194986c0ec91b493be7fc100f075b3fb"
     },
     {
       "path": "scripts/cycle04_operations.py",
-      "sha256": "1983f5a4e3ce6e37cb31d0375109d37597d3214e006173445337eb9fbd65b828"
+      "sha256": "b14c04cc93ea07f2d6104233ee390942d1840041c4cdd49e8ce83bb2e231fd70"
     },
     {
       "path": "scripts/cycle04_review_metrics.py",
       "sha256": "1b1a63fca2ece99658010b7faba169ee9cde6bd66ca5707529d02c6d740550e6"
+    },
+    {
+      "path": "scripts/cycle04_schedule_change.py",
+      "sha256": "7c78d6b928651e2b0b5bfea1194bfd704780b60de649222df1131fc0d4e4e624"
     },
     {
       "path": "scripts/cycle04_shadow_state.py",
@@ -275,7 +279,7 @@
     },
     {
       "path": "scripts/cycle04_workflow.py",
-      "sha256": "a6b8e205b3c727bed656d93850ca664a9b87a9cbc612c73b1c8c06b81e29d4cd"
+      "sha256": "9379022eb9ac06e1bdcf5bc8452b83eb5b80c6104b2ef93f336fcc4ea421178e"
     },
     {
       "path": "scripts/dependency_risk.py",
@@ -319,7 +323,7 @@
     },
     {
       "path": "scripts/recommendation.py",
-      "sha256": "88f55c01d835ff975654f29f17e637fba524da97abbe8d019187385553032150"
+      "sha256": "4be8e08bb27f7a28d715024cf78771be8ed8e5442b215cfee7a98ac24c6c7f1d"
     },
     {
       "path": "scripts/run_cycle04_acceptance.py",
@@ -335,7 +339,7 @@
     },
     {
       "path": "scripts/selection_history.py",
-      "sha256": "2609a77aca4344d068b757dd789459f275e297ede27c16cad148a4863bdb1f63"
+      "sha256": "ebf92ce52bbe63939ca5499ad57cc75c0e4ad4ec0dfe0bae09dffbc1b30cb331"
     },
     {
       "path": "scripts/task_completion.py",
@@ -462,6 +466,10 @@
       "sha256": "d66388d175a12c2b9f10153eebfd2c3d56b7174d3d7c289c8cb19dbfab7f991d"
     },
     {
+      "path": "scripts/test_cycle04_schedule_change.py",
+      "sha256": "558c859a47a4f497bfd9d6c61d35e583b0550e96a80c69c1de4b7f194f9c3fa9"
+    },
+    {
       "path": "scripts/test_cycle04_workflow.py",
       "sha256": "10140a467608e5c0fbe0caaaad40f426c6c86ebf7a23afff56e391d3e0efad01"
     },
@@ -567,7 +575,7 @@
     },
     {
       "path": "scripts/test_selection_history.py",
-      "sha256": "a86d4abea0b719b6657aabc35f1de39d6e5956683d23e45cd19cbd2657a15b4d"
+      "sha256": "71880bc8245878eeb7b92ebd2b92fcf05e131d94f856f6343e0c7428233fe5d0"
     },
     {
       "path": "scripts/test_task_completion.py",
@@ -603,7 +611,7 @@
     },
     {
       "path": "scripts/verify_prediction_persistence.py",
-      "sha256": "382feca2c819a65e2d88b7e86375e96192fbec950697ef7c022c4772c39acca7"
+      "sha256": "7ee5f7f1f4839d87167b508e62ad8b3973dec00ea613484e9fb4c8ff1763a009"
     }
   ],
   "note": "正常系・異常系の合成検査。実レース、未完了研究、実runtime接続、正式版/有効日を認証しない。"
