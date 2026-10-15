@@ -66,6 +66,14 @@
 | 04 表示・文書 | `484e64ba6612592aea5f5ce258d365d14298a04c` | 履歴監査契約、旧台帳README、運用READMEを接続 |
 | 05 回帰・受入 | `c224195a6aa0f4d0a57a80851d201766a2e108ac`・`99ddb7976d3b504edb05387780dfcd01dcc0b7bf`・`98b0dd32781b4712ab934947be2f1ba308eb7535` | 異常/正常回帰、851件の標準受入成功、正式生成物の更新。3系統CIの最終状態は上記リンクを正とする |
 
+### 2026-10-15 P2再レビュー指摘の追加是正
+
+- **既存gateとの不整合**：旧日別台帳と元gateは訂正前の原宣言（例：ELIGIBLE）で照合する。承認済み訂正overlay（例：INELIGIBLE）は正式KPIの有効状態として別出力し、元gateには書き戻さない。実装commit `617100607c8bdee33db126f29480ecff33a9dc5c`。
+- **未認証の正式ROI表示**： `original_formal` / `corrected_formal` それぞれの全適格raceに `validate_source` とsnapshot同一性・賭金一致を要求する。出所不存在・hash改ざん・参照不一致・適格0件は金額とROIをnullにして理由を表示し、固定全券の参考精算は維持する。同commit。
+- 回帰テスト追加commit `ef0871390479c1e50f3669fae6c3ef2a0f8fcc0e`。元gate=ELIGIBLEのまま有効状態をINELIGIBLEに下げる正常例、元gate自体の不一致を拒否する異常例、出所不存在・原本hash改ざん・精算参照不一致で数値ROIを出さない異常例、認証成功時のみ160%になる正常例を追加。
+- 標準再生成： `python3 scripts/run_cycle04_acceptance.py --write` で**854テスト・失敗0・skip0**、`python3 scripts/build_v170_manifest.py` でrelease hash更新。両生成物は[標準生成ワークフロー実行](https://github.com/eda-hub/horse-man/actions/runs/38698511504)の実出力を読戻してコミットし、一時ワークフローは削除。変更commit `82bcef4cea2ccb82a9da7effab69fcc9db987052`、`744770b2669e9d610c85f6f09a1bebf0fa99dcb6`。
+- 本追記以前の851件は旧実装時の履歴であり、**最新の受入母数は854件**。本件の修正は9/26のProduction3件の承認状態を変更せず、9/27のgate-ID未解決も勝手に昇格・訂正しない。
+
 ### 9/26の不適格確定（2026-10-15の利用者判断）
 
 - 中山11R `202606040811`、阪神10R `202609040810`、阪神11R `202609040811` の **Productionのみ** `ELIGIBLE → INELIGIBLE` と確定。
