@@ -381,6 +381,11 @@ def independent_metrics(root, days):
                                 "final_gate_sha256": last["prediction_gate_sha256"],
                                 "status": e["status"], "reason": e["reason"]})
             rcov = recs["coverage"]
+            # 推奨と公式結果の固定はDRAFTでも可能だが、回顧完了までは追加集計しない。
+            # reviewed_scopeはvalidate_dayがCOMPLETEと対応付けて検査する。
+            if race not in day["reviewed_scope"]:
+                missing(rcov, ident, "REVIEW_NOT_COMPLETE", ["completed_review"])
+                continue
             status = row.get("recommendation_state", "PENDING")
             if status != "RECOMMENDED":
                 recs["states_excluded"][status] += 1
