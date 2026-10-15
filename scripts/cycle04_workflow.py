@@ -13,6 +13,7 @@ from pathlib import Path
 
 from check_cycle04 import CONTRACT_PATH, DATES, SCHEMA, validate_day
 from cycle04_shadow_state import snapshot as shadow_snapshot, previous_items as prior_shadow_items
+from cycle04_schedule_change import history as schedule_history, effective_post, assert_post
 from check_prediction_compliance import iso, validate_gate
 from cycle04_operations import require, safe_path, verified_artifact, validate_selection, validate_official_result, validate_formal_result, validate_market, validate_market_payload
 from recommendation import verify as verify_recommendation, settle
@@ -130,6 +131,19 @@ def register_scope(root, scope, now=None, extend=False):
     return save(root,day)
 
 
+def register_post_change(root, date, ref, now=None):
+    """事前に独立保存した変更原本の参照を日別台帳に一件ずつ追記する。"""
+    day, before = read_day(root, date)
+    race = ref.get('race_id')
+    require(race in day['initial_scope'], 'schedule change outside registered scope')
+    require(set(ref) == {'race_id', 'change_ref'} and
+            isinstance(ref['change_ref'], dict), 'fixed change reference required')
+    row = day['races'][race]
+    row.setdefault('schedule_changes', []).append(copy.deepcopy(ref['change_ref']))
+    schedule_history(root, row, race, date, now=now)
+    return save(root, day, before)
+
+
 def select(root, date, ref):
     day, before = read_day(root,date)
     race = ref.get('race_id'); require(race in day['initial_scope'], 'selection outside initial scope')
@@ -178,6 +192,12 @@ def record_prediction(root,date,entry,*,preview=False):
             row['selection_ref']=copy.deepcopy(incoming)
             if incoming not in row['selection_history']:row['selection_history'].append(copy.deepcopy(incoming))
     gate = validate_gate(root,safe_path(root,entry.get('prediction_gate_path')))
+    # 本体receiptが読戻された時点の公式予定を照合する。旧原本はその時点の予定に固定する。
+    _, gate_receipt = verified_artifact(root, entry['operations']['prediction_ref'],
+                                         gate['scheduled_post_time_jst'])
+    assert_post(root, row, race, date, gate['scheduled_post_time_jst'],
+                at=gate_receipt['receipt_verified_at_jst'],
+                forward=gate['kpi_eligibility']['production'] == 'ELIGIBLE')
     require(gate['race_id'] == race and gate['race_date_jst'] == date and gate['manual_release'] == 'v1.7.0',
             'prediction identity/release mismatch')
     row.update(prediction_gate_path=entry['prediction_gate_path'],operations=entry['operations'],
@@ -250,7 +270,7 @@ def review(root,date,entry):
     result_path = safe_path(root,entry.get('result_path'));raw = result_path.read_bytes();result = json.loads(raw)
     require(result.get('race_id') == race and result.get('race_date_jst') == date and result.get('status') == 'OFFICIAL',
             'official result identity required')
-    require(iso(result.get('retrieved_at_jst'),'result retrieved') >= iso(day['races'][race]['scheduled_post_time_jst'],'post'),
+    require(iso(result.get('retrieved_at_jst'),'result retrieved') >= effective_post(root, day['races'][race], race, date, at=result['retrieved_at_jst']),
             'future result used before race')
     analysis = entry.get('review')
     status = review_status(analysis)
@@ -259,7 +279,7 @@ def review(root,date,entry):
     row = day['races'][race]
     if row.get('prediction_gate_path'):
         prediction = validate_gate(root,safe_path(root,row['prediction_gate_path']))
-        validate_official_result(result,race=race,date=date,post=row['scheduled_post_time_jst'],
+        validate_official_result(result,race=race,date=date,post=effective_post(root, row, race, date, at=result['retrieved_at_jst']).isoformat(),
                                 horses=prediction['production']['ranking'])
     result_ref={'artifact_path':entry['result_path'],'sha256':hashlib.sha256(raw).hexdigest()}
     manifest_ref = entry.get('result_reconciliation_ref')
@@ -356,7 +376,7 @@ def summary(root):
                 if comparable:
                     for category,label in [('by_prediction_confidence',prod['prediction_confidence']),
                         ('by_input_completeness','COMPLETE' if row['input_complete'] else 'INCOMPLETE'),
-                        ('by_race_period','MORNING' if iso(row['scheduled_post_time_jst'],'post').astimezone(
+                        ('by_race_period','MORNING' if iso(gate['scheduled_post_time_jst'],'post').astimezone(
                             iso(day['race_date_jst']+'T00:00:00+09:00','JST').tzinfo).hour<12 else 'AFTERNOON')]:
                         group=review_metrics[category].setdefault(label,{'count':0,'honmei_win_count':0,'honmei_top3_count':0})
                         group['count']+=1;group['honmei_win_count']+=int(anchor in win);group['honmei_top3_count']+=int(finish.get(anchor,999)<=3)
@@ -439,6 +459,7 @@ def main(argv=None):
     mode=parser.add_mutually_exclusive_group(required=True)
     mode.add_argument('--register-scope',type=Path)
     mode.add_argument('--extend-scope',type=Path)
+    mode.add_argument('--register-post-change',type=Path)
     mode.add_argument('--select',type=Path)
     mode.add_argument('--record-prediction',type=Path)
     mode.add_argument('--review',type=Path)
@@ -457,7 +478,8 @@ def main(argv=None):
         else:
             require(args.date,'race date required')
             check_working_branch(root,args.date)
-            if args.select:out=select(root,args.date,load(args.select))
+            if args.register_post_change:out=register_post_change(root,args.date,load(args.register_post_change))
+            elif args.select:out=select(root,args.date,load(args.select))
             elif args.record_prediction:out=record_prediction(root,args.date,load(args.record_prediction))
             elif args.record_market:out=record_market(root,args.date,load(args.record_market))
             else:out=review(root,args.date,load(args.review))
