@@ -141,6 +141,12 @@ def verify(root, date, snapshot_id, deadline=None, expected_races=(), expected_a
         receipt_post=receipt.get('scheduled_post_time_jst')
         limit=min(post,iso(receipt_post,f'{snapshot_id}/scheduled_post_time_jst')) if receipt_post else post
         if receipt_time and verified<limit and iso(receipt_time,f'{snapshot_id}/receipt_verified_at_jst')<limit:
+            from cycle04_schedule_change import registered_row, assert_post
+            for race in snapshot.get('race_ids', []):
+                row = registered_row(root, race, date)
+                if row is not None:
+                    assert_post(root, row, race, date, receipt['scheduled_post_time_jst'],
+                                at=receipt_time)
             return receipt['receipt_id']
     raise ComplianceError(f'{snapshot_id}: receipt readback time missing or at/after deadline')
 
