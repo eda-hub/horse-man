@@ -74,6 +74,8 @@ def _source(root, change, race, date):
              re.search(rf"{y}年\s*0?{m}月\s*0?{d}日", excerpt))
             and VENUES[ident[1]] in excerpt
             and re.search(rf"(?<!\d)0?{int(ident[2])}(?:R|レース)(?!\d)", excerpt)
+            and "発走" in excerpt
+            and not any(word in excerpt for word in ("開催中止", "レース中止", "翌日延期"))
             and _minute(excerpt, change["old_post_time_jst"])
             and _minute(excerpt, change["new_post_time_jst"]),
             "official schedule quotation does not establish date/race/old/new times")
@@ -127,6 +129,7 @@ def history(root, row, race, date, *, now=None):
 def effective_post(root, row, race, date, *, at, now=None):
     """その時点までに取得・読戻し済みの変更だけを適用する。"""
     instant = iso(at, "schedule evidence timestamp")
+    require(instant <= (now or datetime.now(timezone.utc)), "future evidence timestamp cannot be used")
     post = iso(row.get("scheduled_post_time_jst"), "original post")
     for new_post, readback, _ in history(root, row, race, date, now=now):
         if readback <= instant:
@@ -171,6 +174,10 @@ def result_post(root, row, race, date, *, captured_at, result_post_time):
     current = effective_post(root, row, race, date, at=captured_at)
     require(current == iso(result_post_time, "official result post"),
             "official result scheduled post lacks verified schedule history")
+    applied = [change for new_post, readback, change in history(root, row, race, date)
+               if readback <= iso(captured_at, "result capture")]
+    if applied:
+        _git_recorded_before(root, race, date, applied[-1]["revision"], captured_at)
     return current
 
 
