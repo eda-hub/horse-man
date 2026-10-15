@@ -134,3 +134,9 @@ python3 scripts/check_integration_acceptance.py --full
 - 是正：推奨失敗分類の対象 `target_ids` を維持したまま `reviewed_scope` に未登録のレースを `REVIEW_NOT_COMPLETE`（必要入力 `completed_review`）として `missing` に保持。適格、算入、ユニークレース・券、MISS票、ラベル、率の分母から除外する。予想・推奨・公式結果・精算は変更しない。
 - 回帰：`scripts/test_cycle04_review_metrics.py::OwnerWorkflow.test_fixed_final_recommendation_draft_to_complete_only_then_counts_failures`。正式なFINAL推奨・公式結果の入力をwriterで固定し、DRAFT時は不算入で理由を保持、無修正改訂の拒否と独立revision原本保存を経たCOMPLETE時に初めて算入、参照済み公式結果・精算が不変であることを検査する。
 - 受入・release固定manifestは最新のコード・契約・回帰を対象に再生成し、通常3CIと統合検査で最終コミットの整合を確認する。成功を実競馬の運用測定・性能昇格とは混同しない。
+
+### P2推奨DRAFT回帰の実測
+
+- GitHub Actions [run 38664024886](https://github.com/eda-hub/horse-man/actions/runs/38664024886)、job `116191664837`：`run_cycle04_acceptance.py --write` で **合成822件、失敗0、skip0**。149ソースをハッシュ照合した受入原本を `3747f1d8e827e2ac0cba49fe7f2df7e8c78ec1e1` で固定した。
+- `build_v170_manifest.py`、`check_cycle04.py`、`run_release_readiness.py` を実行し、169ソースのrelease固定原本を `a7e35659fbf8e8a0d3972921480860f6a0421922` で保存した。`check_integration_acceptance.py --full` も成功。
+- 一時生成用ワークフローは `3925ac19b7f8951504bcfddcfd2a15ea5075ca3e` でmain版へ戻した。固定原本と通常CIは最終HEADを基準に再検証する。実レース0/6日・性能昇格なし。
