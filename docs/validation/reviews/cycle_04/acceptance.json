@@ -2,7 +2,7 @@
   "schema_version": "cycle04-acceptance-v1",
   "mode": "SYNTHETIC",
   "result": "PASS",
-  "tests_run": 843,
+  "tests_run": 854,
   "failures": 0,
   "skipped": 0,
   "live_race_count": null,
@@ -83,7 +83,7 @@
     },
     {
       "path": "scripts/build_cycle03_review.py",
-      "sha256": "4433a02ac48f24e9ee917d410e5aa3102344c6ffb906d07ded5321e08ce3262e"
+      "sha256": "079b50b6702e6371fa88f83ddf305a579855298c7bf3e5d7ecedf94ad3c16341"
     },
     {
       "path": "scripts/build_v170_manifest.py",
@@ -155,7 +155,7 @@
     },
     {
       "path": "scripts/check_cycle03.py",
-      "sha256": "09d2301b5fa1a15c4abc4a914a727caf129eb745e32141bf15f8fe038cdafc3f"
+      "sha256": "c963503e6184ac886d13af349db1a21cac0e15e6c30a328c8ef689898b5357cc"
     },
     {
       "path": "scripts/check_cycle03_advisory.py",
@@ -207,7 +207,7 @@
     },
     {
       "path": "scripts/check_prediction_compliance.py",
-      "sha256": "4e6197187157b420f0377e510c8339194d9889d9d308e3ee2cebefbf480b53e6"
+      "sha256": "334b846f302260fc0f7d15cfa27912dca592f7f22d9f8df2445c20a0ee84f70c"
     },
     {
       "path": "scripts/check_prediction_cycle.py",
@@ -284,6 +284,10 @@
     {
       "path": "scripts/dependency_risk.py",
       "sha256": "390b09285f7418f9fa380757922b2ba4ae91f62fecb5af7d8346c7b38b5f4fc2"
+    },
+    {
+      "path": "scripts/historical_eligibility.py",
+      "sha256": "774adbe457e80277f34583596a6a7c565ce43d1b63433327a7344c38bd3261b9"
     },
     {
       "path": "scripts/import_legacy_subjects.py",
@@ -488,6 +492,10 @@
     {
       "path": "scripts/test_foreign_pedigree_review.py",
       "sha256": "b87aebe94d3e970b9b41c274cf9b8f3ff92929bc477d5147445c334d9c113bb6"
+    },
+    {
+      "path": "scripts/test_historical_eligibility.py",
+      "sha256": "6ddca237b96db3fb501e284a7031457cc5679be00ad4e8bcec40d45221fa45e3"
     },
     {
       "path": "scripts/test_historical_pr_refs.py",
