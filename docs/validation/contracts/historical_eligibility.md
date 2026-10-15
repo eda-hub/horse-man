@@ -20,13 +20,13 @@
 `scripts/check_prediction_compliance.py` は次を分離して報告する。
 
 1. 原台帳の適格宣言に必要なgateが無い場合、`ORIGINAL_DECLARATION_CONFLICT` として**訂正後も元の問題を表示**する。
-2. Git原本と改訂chainを照合済みの承認済み訂正がある場合だけ、そのrace/KPIの有効な状態を使用する。別レース・別KPIを免除しない。
+2. Git原本と改訂chainを照合済みの承認済み訂正がある場合だけ、そのrace/KPIの有効な状態を別管理する。**既存gateが残るレースは元台帳の原宣言と元gateの整合性を照合し、元gateの状態を訂正後の状態へ書き換えたり、両者を直接比較したりしない。** 原宣言と元gateの不一致は訂正overlayでも免除しない。別レース・別KPIも免除しない。
 3. 旧gateが適格を自己申告していても旧台帳のrace IDとの対応が証明できない場合は `UNLINKED_GATE_CLAIM`。日付や競馬場名から暗黙にJRA race IDを推測しない。
 4. `--audit` は不足の可視化であり、正式適格の認証ではない。構造違反・偽のhash・履歴分岐はauditでも拒否する。
 
 旧第3の `scripts/check_cycle03.py` は元台帳の集合・精算一致を引き続き検査し、`--effective-kpis` で別ビューを表示する。 `scripts/build_cycle03_review.py --historical-view` は元の `collection.json` を書き換えず同じ独立ビューを表示し、`--write` / `--check` との併用を拒否する。
 
-訂正後ビューには原宣言と訂正後のKPI別件数、個別訂正、分離契約の旧固定全券精算値と正式性能参照（適格券だけ）を**別項目**で出す。正式性能の適格性は従来の `fixed-plan-source-v1` が必要。保存品質と購入ルールのKPIへ勝手に連動させない。未認証のROIはnullであり参考精算を正式成績へ昇格しない。
+訂正後ビューには原宣言と訂正後のKPI別件数、個別訂正、分離契約の旧固定全券精算値と正式性能参照（適格券だけ）を**別項目**で出す。正式性能の適格性は既存の `check_betting_performance.validate_source()` による `fixed-plan-source-v1` の原本hash・出所時刻・買い目同一性と、精算snapshot参照・券の賭金合計の照合に**全適格券が成功した場合だけ**成立する。一部でも未認証ならoriginal/corrected各ビューの賭金・払戻・ROIは全てnullとし、レースID付きの理由を出す。適格券0件なら理由 `NO_ELIGIBLE_RACES` でnullとする。固定全券の参考精算は別項目に保持する。保存品質と購入ルールのKPIへ勝手に連動させない。参考精算を正式成績へ昇格しない。
 
 ## 確認手順（リポジトリ直下）
 
