@@ -254,16 +254,20 @@ def record_market(root,date,entry):
     day,before=read_day(root,date);race=entry.get('race_id')
     require(race in day['final_scope'],'optional market requires a fixed FINAL scope')
     require(race not in day['reviewed_scope'],'reviewed market is immutable')
-    row=day['races'][race];payload,_=verified_artifact(root,entry.get('market_ref'),row['scheduled_post_time_jst'])
+    row=day['races'][race]
+    market_post=entry.get('scheduled_post_time_jst',row['scheduled_post_time_jst'])
+    payload,market_receipt=verified_artifact(root,entry.get('market_ref'),market_post)
+    assert_post(root,row,race,date,market_post,at=market_receipt['receipt_verified_at_jst'])
     require(payload.get('race_id')==race and
             payload.get('race_date_jst')==date,'independent market identity mismatch')
     cutoff=payload.get('data_cutoff')
-    require(iso(cutoff,'market cutoff')<iso(row['scheduled_post_time_jst'],'post'),'market cutoff must precede post')
+    require(iso(cutoff,'market cutoff')<iso(market_post,'post'),'market cutoff must precede post')
     state=validate_market_payload(payload,cutoff)
     from market_acquisition import verify_responses
     verify_responses(root,payload)
     row['market_ref']=copy.deepcopy(entry['market_ref']);row['market']=copy.deepcopy(payload['market'])
     row['market_cutoff']=cutoff
+    row['market_scheduled_post_time_jst']=market_post
     set_state(day['kpis']['market'],race,'ELIGIBLE' if state=='ACQUIRED' else 'PENDING',
               '任意市場の独立保存・取得状態：'+state)
     return save(root,day,before)
