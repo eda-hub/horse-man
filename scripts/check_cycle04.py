@@ -10,7 +10,7 @@ from check_prediction_compliance import (ComplianceError, contract_state, iso, r
                                          validate_gate, LEGACY_RELEASE)
 from cycle04_schedule_change import history as schedule_history, effective_post, assert_post
 from cycle04_operations import (fingerprint, positive_set, require, safe_path,
-                               validate_inputs, validate_market, validate_market_payload, validate_selection,
+                               validate_inputs, validate_market, validate_market_payload, validate_selection, selection_ref_post,
                                validate_ticket_comparison, verified_artifact, validate_official_result,
                                validate_formal_result)
 from recommendation import verify as verify_recommendation, settle
@@ -353,8 +353,10 @@ def validate_day(root, path, contract):
                 market_cutoff=row.get('market_cutoff',gate['data_cutoff'])
                 require(iso(market_cutoff,'market cutoff')<iso(post,'post'),'market cutoff must precede post')
                 validate_market(row.get('market'),market_cutoff)
-                history, _ = verified_artifact(root, op.get('selection_ref'), post)
-                selection = validate_selection(root, history, {race: post})
+                original_post = row['scheduled_post_time_jst']
+                history, _ = verified_artifact(root, op.get('selection_ref'),
+                                               selection_ref_post(root, op.get('selection_ref'), original_post))
+                selection = validate_selection(root, history, {race: original_post})
                 if race in final:
                     require(any(p['race_id'] == race and p['purpose'] == 'RECOMMENDATION' and p['active']
                                 for p in selection['plans'].values()), 'final recommendation lacks selection revision')
