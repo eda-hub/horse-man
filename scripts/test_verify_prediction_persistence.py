@@ -116,6 +116,31 @@ class PersistenceTest(unittest.TestCase):
         self.snapshot(); self.receipt(f'{DATE}T09:51:00+09:00')
         with self.assertRaisesRegex(ComplianceError,'after deadline'): check_intent(self.root,self.path)
 
+    def registered_races(self, first='10:00', second='10:30'):
+        ledger = {
+            'cycle_id': 'cycle_04', 'race_date_jst': DATE,
+            'initial_scope': RACES,
+            'races': {
+                RACES[0]: {'scheduled_post_time_jst': f'{DATE}T{first}:00+09:00'},
+                RACES[1]: {'scheduled_post_time_jst': f'{DATE}T{second}:00+09:00'}
+            }
+        }
+        write(self.root, f'docs/validation/records/cycle_04/{DATE}.json',
+              json.dumps(ledger))
+
+    def test_multiple_races_share_receipt_deadline_not_official_post(self):
+        self.snapshot()
+        self.receipt()
+        self.registered_races()
+        self.assertEqual(verify(self.root, DATE, SNAP), SNAP+'-R02')
+
+    def test_multiple_races_reject_readback_after_individual_post(self):
+        self.snapshot()
+        self.receipt()
+        self.registered_races(first='09:40')
+        with self.assertRaisesRegex(ComplianceError, 'race readback at/after'):
+            verify(self.root, DATE, SNAP)
+
     def test_direct_verification_works_without_intent(self):
         self.snapshot(); self.receipt()
         self.assertEqual(verify(self.root,DATE,SNAP),SNAP+'-R02')
