@@ -4,6 +4,13 @@
 
 [採否・繰越・次期適用の実装計画](../../../proposals/2026-10-12_cycle03_summary_application_plan.md)と[再現可能な入力・集合・精算のJSON](collection.json)を参照する。本資料は結果後の集計であり、発走前証跡や正式ルールを作るものではない。
 
+
+## 旧適格性の原宣言と監査overlay（PR90）
+
+[旧7日分の適格宣言・当時の原票棚卸し](historical_eligibility_inventory.md)を参照する。2026-09-26のProduction適格宣言3件はsnapshot・receiptの保存を確認できたが、当時のexecution gate原票が無い。旧台帳自体は訂正しない。2026-09-27の既存gate2件は台帳とのレース識別子の対応が証明されておらず、gateのELIGIBLEを台帳の認証として使えない。原本保全と訂正の承認手続きは[履歴監査契約](../../contracts/historical_eligibility.md)を参照する。
+
+`python3 scripts/historical_eligibility.py --json` は過去の原宣言と承認済み訂正後のKPI件数を分けて表示する。 `python3 scripts/build_cycle03_review.py --historical-view` は終了資料の原本を書き換えない。利用者承認がない履歴訂正は0件であり、旧集計を正式認証または新v1.7.0の性能に昇格しない。仮想精算の旧値220,000円→191,750円は変更しない。
+
 ## 判定と制限
 
 | 項目 | 結果 |
