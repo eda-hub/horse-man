@@ -100,6 +100,7 @@ def history(root, row, race, date, *, now=None):
     previous_hash = None
     current = initial
     checked = []
+    previous_readback = None
     instant = now or datetime.now(timezone.utc)
     for index, ref in enumerate(refs, 1):
         require(isinstance(ref, dict), "schedule change ref required")
@@ -120,7 +121,10 @@ def history(root, row, race, date, *, now=None):
                 and old_post.utcoffset() == initial.utcoffset(),
                 "different-day schedule requires owner confirmation, not automatic migration")
         readback = _source(root, change, race, date)
+        require(previous_readback is None or previous_readback < readback,
+                "schedule revision observations must follow previous readback")
         require(readback <= instant, "future schedule change observation/readback")
+        previous_readback = readback
         checked.append((new_post, readback, change))
         current, previous_hash = new_post, ref["sha256"]
     return checked
