@@ -60,7 +60,10 @@ JRA公式の掲載時刻が不明ならnullとする。レース日時・場名�
 
 上記entry JSONを change-entry.json として保存し、次を日次作業ブランチで実行する。
 
+    python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --register-post-change change-entry.json --preview
     python3 scripts/cycle04_workflow.py --date YYYY-MM-DD --register-post-change change-entry.json
+
+プレビューは原本と既存台帳の全検査のみを実施し、恒久台帳へ書き込まない。成功を確認してから正式登録する。
 
 新時刻を既存 --register-scope / --extend-scope によって再定義しない。変更原本・公式原文・日別台帳をGit保存・読戻しし、変更前に固定した予想と別の新時刻用証跡を維持する。
 
