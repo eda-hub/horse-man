@@ -1,0 +1,44 @@
+{
+  "schema_version": "historical-eligibility-correction-v1",
+  "correction_id": "cycle03-20260926-han10-production-r1",
+  "race_date_jst": "2026-09-26",
+  "race_id": "202609040810",
+  "kpi": "production",
+  "revision": 1,
+  "previous_record_sha256": null,
+  "original": {
+    "path": "docs/validation/records/2026-09-26.md",
+    "status": "ELIGIBLE",
+    "commit_sha": "8e4e3a59a4ffce60bde751554abc4fa8cf34cee2",
+    "blob_sha": "80ca492ac9bc9ca8b10bbf29504a10d84c60f49d"
+  },
+  "before": "ELIGIBLE",
+  "after": "INELIGIBLE",
+  "reason": "阪神10Rの旧Productionは日別台帳でELIGIBLEと宣言されたが、当時のexecution gate原票が存在せず正式KPI適格性を立証できない。2026-10-15の利用者判断に従い、当時の予想・receipt・結果・仮想精算を改変せずINELIGIBLEと扱う。",
+  "basis": [
+    {
+      "path": "docs/validation/records/2026-09-26.md",
+      "commit_sha": "8e4e3a59a4ffce60bde751554abc4fa8cf34cee2",
+      "blob_sha": "80ca492ac9bc9ca8b10bbf29504a10d84c60f49d",
+      "role": "当時のProduction適格宣言を含む日別台帳"
+    },
+    {
+      "path": "docs/validation/snapshots/2026-09-26.md",
+      "commit_sha": "e731b857b082f555fa9c3d2a4b4fe9b37cb42b36",
+      "blob_sha": "59e72d33f6f0f300234bf45c8601b54cb18379cb",
+      "role": "元の予想snapshot。存在確認であり発走前gateの代替ではない"
+    },
+    {
+      "path": "docs/validation/persistence-receipts/2026-09-26.md",
+      "commit_sha": "e731b857b082f555fa9c3d2a4b4fe9b37cb42b36",
+      "blob_sha": "341f00c4331bf8019211fcc79794a68f850cf034",
+      "role": "元の保存・読戻しreceipt。存在確認であり発走前gateの代替ではない"
+    }
+  ],
+  "owner": "利用者（2026-10-15の本チャットで方針決定）",
+  "reviewed_by": "ChatGPT（GitHub原票・保存証跡の読取り確認）",
+  "reviewed_at_jst": "2026-10-15T14:50:10+09:00",
+  "affected_aggregates": [
+    "cycle03:production"
+  ]
+}
