@@ -3,7 +3,7 @@
 - 作成日：2026-10-14（JST）
 - 作業branch：`fix/p2-official-post-time-history`
 - 優先順位：P2の2番目。実際の公式変更発生時は先行対応する。
-- 状態：計画のみ。実レースの変更履歴・時刻・receiptは作成しない。
+- 状態：実装・合成回帰受入済み。実レースの変更履歴・時刻・receiptは作成していない。
 
 ## 問題・根拠・目的
 
@@ -49,12 +49,12 @@
 ## 未確定事項の扱い・実績
 
 翌日延期・race ID変更等は現行Owner/公式情報で判断可能な範囲を調査し、不明なら利用者へ影響と選択肢を提示する。定義不足を適当な時刻やrace IDで補わない。
-実装時に項目／commit SHA／変更path／コマンド／実結果／残件を追記。現時点は未実装・未検証。
+後述の実装実績に項目、commit SHA、変更path、コマンド、結果、未確認事項を記録する。
 
 ## 共通作業・統合規約
 
-- 対象：`eda-hub/horse-man`。基点main：`984ee26fac173af8c7f8c4e5b7f5ab4df844bf1a`。現行版v1.7.0、PR82〜85統合済み。
-- 本依頼はブランチ・修正計画・実施計画書の作成まで。コード修正・実レース記録・適格性訂正・mainマージは未着手。本書を現行Productionルールとして使用しない。
+- 対象：`eda-hub/horse-man`。作業時に統合したmain：`082a0209ef1ba5579b1cdf9abde1a2bd0b4d5953`（merge commit `bc0e5636e0cb40954c83d3fd8f8678c5d7004777`）。現行版v1.7.0、PR82〜85統合済み。
+- 初回PR作成時は計画書までだったが、2026-10-15に当該計画の実装・合成受入を追加した。実レースの変更記録・結果/receipt作成・既存適格性の訂正・mainマージは実施していない。本書だけをProductionルールとして扱わない。
 - 再開時に最新main、AGENTS、manual README、関係Owner、本書、対象branchを読戻す。基点後の変更と実測追加を確認し、従来のGitHub接続・作業記録を踏襲する。
 - 統合順は回顧項目・集計→公式発走変更→旧履歴整理。後続は先行PR統合後の最新mainへ追従し、共通validator・契約・テストを手動で整合する。公式時刻変更が実際に発生した場合は、その課題を先行してよい。
 - Production/Shadow/任意市場、Prediction/Recommendation/購入を分離。価格・実購入・払戻を標準入力へ戻さない。第4の6開催日・11/1までの収集日程は維持する。実測未取得はnull・不足とし、予定192Rやfixtureを実績にしない。
@@ -64,3 +64,20 @@
 - 標準受入は全回帰失敗0・skip0の実出力だけをPASSにする。手動hash追従や先行PRの成功証跡コピーをしない。候補branchの `--require-main` 拒否と、取得済みmainの開始認証成功を区別する。
 - 過去の通常checker不合格は、最新コードの回帰失敗とは切り分けて原因と対象を記録する。黙ってauditへ切り替えて全正常と報告せず、合成試験と実運用・過去記録の状態を区別する。
 - 切り戻しは変更commitのrevertと契約/受入/releaseの再整合で行う。新しく保存された記録を削除しない。schema変更には旧記録の読取・不足表示を残す。
+
+## 2026-10-15 実装・合成検証実績
+
+| 項目 | 対象と代表commit | 実績 |
+|---|---|---|
+| 01：合成再現 | `scripts/test_cycle04_schedule_change.py`（`08749c2`、`7468860`）、`test_selection_history.py`（`4b72401`） | 変更なし、延長、前倒し、時刻逆転、複数改訂、異レース引用、改ざん、未来観測、旧選定予定の保全を追加 |
+| 02：変更原本・writer | `scripts/cycle04_schedule_change.py`（`57eea8f`、`c313929`、`e838473`）、`scripts/cycle04_workflow.py`（`25f3dc0`、`060300f`） | 変更原本と公式引用の二重固定、連番・前SHA・観測順、同一race/date、Git初回保存原本bytes照合、--register-post-change と --preview を追加 |
+| 03：全工程接続 | `scripts/check_cycle04.py`（`90b6b16`）、`cycle04_operations.py`（`0f909de`）、`check_prediction_compliance.py`（`00e94d4`）、`verify_prediction_persistence.py`（`5a87899`）、`cycle04_completion.py`（`08fb631`）、`recommendation.py`（`0518f7d`）、`selection_history.py`（`ce3d795`）、`chat_result_reconciliation.py`（`e79a5ec`） | 予想・固定receipt・Shadow・推奨・選定・任意市場・正式結果/回顧・完了を、当時の予定と独立原本で照合。旧v1.6.1は変更なし |
+| 04：運用・互換 | `docs/validation/contracts/cycle04_post_changes.md`（`89746a6`、`e7cdd9b`）と既存契約/第4テンプレート更新 | 初回時刻の保持、公式の確認不可/取消/中止/翌日延期の保留、旧固定証跡非改変、読み取り専用プレビューを文書化 |
+| 05：標準合成受入 | `docs/validation/reviews/cycle_04/acceptance.json`（`82621ed`）、`docs/validation/contracts/v170-release.json`（`c3b70cd`） | GitHub Actionsで `run_cycle04_acceptance.py --write` を実行。**832テスト、失敗0、skip0、PASS**。同じCI実行で `build_v170_manifest.py` を実行し171件のソースSHAを再生成し保存。 |
+
+### 検証実行元と監査境界
+
+- 受入原本生成の実行：GitHub Actions `38668825199`、生成基点 `e7cdd9b7d85818edb8a635f4d46685a7e7597723`、成功（2026-10-15 UTC）。Pythonの合成受入結果をGitHub Actionsログから読戻して同一JSON形式で保存した。検証用一時workflowは `5b7adab` で除去し、v1.7.0 source manifestの管理対象ではないことを `build_v170_manifest.py` の入力一覧で確認した。
+- 標準3系統：`check-cycle03.yml`（全回帰/実台帳・release監査）、`check-integration-acceptance.yml`（取得済みmainとの分離）、`check-pedigree-research.yml`（血統監査）。最終コミットについて各CIが成功したログを確認するまで、この項目の最終統合成功を主張しない。
+- 本検証は**合成受入のみ**であり、JRAの実際の発走変更、実レース実行数、取消/翌日延期の同一性、Production/Shadowの性能昇格、PR89のmain反映は認証しない。
+- 翌日延期・開催日またぎの同一race/date扱いは自動判定しない設計。公式資料またはOwner判断が必要になった時点で保留にし、利用者に対象レースと相違内容を提示する。
