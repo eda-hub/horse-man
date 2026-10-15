@@ -138,7 +138,7 @@ class PersistenceTest(unittest.TestCase):
         self.snapshot()
         self.receipt()
         self.registered_races(first='09:40')
-        with self.assertRaisesRegex(ComplianceError, 'race readback at/after'):
+        with self.assertRaisesRegex(ComplianceError, 'cannot rehabilitate late/replay'):
             verify(self.root, DATE, SNAP)
 
     def test_direct_verification_works_without_intent(self):
