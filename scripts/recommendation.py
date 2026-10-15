@@ -370,6 +370,12 @@ def verify(root, gate_path, allow_stale_current=False):
     readback = iso(receipt.get("receipt_verified_at_jst"), "receipt_verified_at_jst")
     require(fixed <= saved <= readback < post,
             "recommendation fixed/persist/receipt timestamps out of order")
+    from cycle04_schedule_change import registered_row, assert_post
+    registered = registered_row(root, rec["race_id"], date)
+    if registered is not None:
+        assert_post(root, registered, rec["race_id"], date,
+                    rec["scheduled_post_time_jst"], at=receipt["receipt_verified_at_jst"],
+                    forward=gate.get("kpi_eligibility") == "ELIGIBLE")
     require(receipt.get("content_sha256") == sha256(artifact) ==
             gate.get("content_sha256"), "recommendation receipt content hash mismatch")
     require(link.get("persist_verified_at_jst") == receipt.get("persist_verified_at_jst"),
