@@ -236,3 +236,17 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 - 順序付き馬単・三連単の失敗 `ORDER_MISMATCH` は、同着を含む `finish_groups` と矛盾しない上位N着の全順序（境界同着は必要着数だけ）から判定する。候補中に同じ馬の組合せが存在し、並びだけ不一致の場合に分類する。的中/無効の判定は従来の `recommendation.settle` のまま。順序不要券に着順不一致を誤付与しない。
 
 - 推奨失敗分類の `recommendation_failure_classification` も無印・phase比較と同様に、`reviewed_scope` に入ったCOMPLETE回顧だけを分母（`eligible_ids`/`included_ids`、`unique_races`/`unique_tickets`、`miss_tickets`）へ算入する。正式なFINAL推奨・公式結果・SETTLED精算が先に固定されていても、回顧がDRAFTなら `coverage.target_ids` を維持し、`missing[date:race]={reason:REVIEW_NOT_COMPLETE,required_inputs:[completed_review]}` に記録して未算入とする。回顧を独立revision原本でCOMPLETEへ改訂した場合にのみ、元の推奨・公式結果・精算をそのまま再利用し算入する。
+
+
+## 保存拒否と発走時計の是正（2026-10-17、実装後の新規試行に適用）
+
+正式レースでの発走前保存は次の順序を必須とする。未マージのPR・計画を既存本番で有効と自己申告しない。
+
+1. 対象開催日とrace ID、公式scope、公式発走変更chain、日次branchと作業対象pathを確認する。実際のChatGPT/GitHub連携の権限と利用経路を確認する。未確認なら成功と表現しない。
+2. 書込み直前・本体読戻し直後・receipt読戻し直後に、現在UTCを取得して `prediction_clock.py` / `verify_prediction_persistence.py --clock-status --date YYYY-MM-DD --clock-race-id RACE_ID` で判定する。第4運用入口は `cycle04_workflow.py --clock-status --date YYYY-MM-DD --clock-race-id RACE_ID`。JST表示、残秒、根拠、状態を返す。実時計が取れない環境では読取専用の計算値を用意できても、実測と混同せず時刻未判定とする。時計が5秒超古い、オフセット/秒精度がない、monotonicとの乖離が2秒超、境界不明なら未判定。予定到達は実発走確認済みではない。
+3. 正式intentは分析前にGit保存・固定commitから同一bytes読戻しする。FIX独立manifest→本体→receipt→個別検査の順序を守る。自己申告のreadback、ローカル保存、Actions成功だけで正式完了にしない。
+4. 固定bytesとSHA-256を保持し、障害を `prediction_persistence_io.py` の拒否分類・操作記録に残す。権限/branch制約、SHA競合、通信/timeout、CI失敗、安全性拒否、理由不明を分ける。拒否された操作を別経路や高権限で迂回しない。通信系のみ、同一原本の遠隔読取り後に最大2回まで許可済みの保存を再試行する。独立した許可済み経路がなければ切替不可と明記する。
+5. 実行環境にPythonと承認済みGitHub Contents API認証情報がある場合は、`python3 scripts/prediction_persistence_io.py --date YYYY-MM-DD --race-id RACE_ID --path RELATIVE_PATH --payload-file FIXED_FILE --operation-id UNIQUE_ID --write` を使用できる。既存ファイル更新は事前にSHA競合を確認して `--allow-update` を明示する。トークンや権限の自動取得・branch自動作成はしない。ChatGPTのGitHub連携利用時は同等の書込→返却commit固定読戻しを連携ツールで実行し、Pythonアダプター成功と取り違えない。
+6. 失敗時は固定原本と秘匿済み障害記録を実行環境に保全し、GitHub正式保存は未完了と表示する。機密文字列を公開リポジトリに記録しない。事故記録の正式保存先は `docs/validation/persistence-incidents/YYYY-MM-DD/` だが、これは当時のreceiptを代替しない。旧データ・過去の証跡を遡及補完しない。
+
+時計判定・保存成功・読戻し一致・宣言/FIX順序・個別完了・正式KPIは独立した項目として表示する。現在の時計が発走後というだけで、過去の固定commitによる発走前保存を遅延へ書換えない。実チャット/予約/再開の経路試験は合成CIと別に記録する。安全性拒否の内部理由はログ未取得につき未確定のまま扱う。
