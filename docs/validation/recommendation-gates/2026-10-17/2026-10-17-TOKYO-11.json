@@ -1,0 +1,30 @@
+{
+  "schema_version": "recommendation-compliance-v1",
+  "race_id": "2026-10-17-TOKYO-11",
+  "race_date_jst": "2026-10-17",
+  "recommendation_id": "20261017-TOKYO-11-REC-S01",
+  "status": "RECOMMENDED",
+  "prediction_ref": {
+    "artifact_path": "docs/validation/snapshots/2026-10-17/20261017-TOKYO-11-FINAL-S01.json",
+    "artifact_id": "20261017-TOKYO-11-FINAL-S01",
+    "sha256": "2b57c289088e097f46273f9b817dc15c697025e8975ec5c29f3bd1bdd16ba4b7",
+    "baseline_forecast_id": "20261017-TOKYO-11-BASE-01"
+  },
+  "content_sha256": "4bb04b837856dade567578357e0040b6a291ebc7c89d5987eae684ee42075d66",
+  "intent_path": "docs/validation/recommendation-intents/2026-10-17/tokyo-11-final.json",
+  "mode": "FORWARD",
+  "prediction_gate_ref": {
+    "artifact_path": "docs/validation/recommendation-prediction-gates/2026-10-17/20261017-TOKYO-11-REC-S01.json",
+    "sha256": "a502d86c877778ece5beb0b183423623d8b4bf3c15317da9391dac781b2ab663"
+  },
+  "kpi_eligibility": "INELIGIBLE",
+  "evidence_ref": {
+    "artifact_id": "20261017-TOKYO-11-REC-S01",
+    "artifact_path": "docs/validation/recommendations/2026-10-17/20261017-TOKYO-11-REC-S01.json",
+    "receipt_path": "docs/validation/persistence-receipts/2026-10-17.md",
+    "receipt_id": "20261017-TOKYO-11-REC-S01-R02",
+    "timing_eligibility": "PRE_RACE_ELIGIBLE",
+    "persist_verified_at_jst": "2026-10-17T15:36:35.747+09:00"
+  },
+  "incomplete_reason": "Production gate PENDING: official Python check and cycle04 scope/ledger not yet executed."
+}
