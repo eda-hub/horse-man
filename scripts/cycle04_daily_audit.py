@@ -41,7 +41,9 @@ def audit_days(root, days, *, now=None):
                         missing.append('推奨PENDING')
                 emit(date, race, stage, ('OVERDUE' if now >= post else 'WAITING') if missing else 'COMPLETE',
                      ' / '.join(missing) if missing else '固定・保存・個別照合済み')
-            ref = row.get('result_ref') or row.get('result_ready_ref')
+            from cycle04_result_binding import verify_result_bindings
+            binding = verify_result_bindings(root,row,race,date,now=now)
+            ref = binding['active']['result_ref'] if binding else None
             if ref:
                 raw = safe_path(root, ref.get('artifact_path')).read_bytes()
                 require(fingerprint(raw) == ref.get('sha256'), '監査結果原票hash不一致')
@@ -51,7 +53,7 @@ def audit_days(root, days, *, now=None):
                 result_post = effective_post(root,row,race,date,at=retrieved.isoformat(),now=now)
                 validate_official_result(result, race=race, date=date, post=result_post.isoformat(), horses=None)
                 validate_formal_result(root,row,race=race,date=date,result_ref=ref,
-                    manifest_ref=row.get('result_reconciliation_ref') or row.get('result_ready_reconciliation_ref'))
+                    manifest_ref=binding['active']['reconciliation_ref'])
                 status = review_status(row.get('review'))
                 complete = race in day['reviewed_scope'] and status['state'] == 'COMPLETE' and not status['missing']
                 emit(date, race, 'REVIEW', 'COMPLETE' if complete else 'OVERDUE',
@@ -78,5 +80,6 @@ def audit_days(root, days, *, now=None):
                     emit(date, race, 'REGISTRATION', 'OVERDUE', '依頼宣言に対応する日別scope未登録')
     overdue = [r for r in rows if r['state'] == 'OVERDUE']
     return {'schema_version': 'cycle04-daily-audit-v1', 'checked_at': now.isoformat(),
-            'rows': rows, 'overdue_count': len(overdue),
-            'state': 'INCOMPLETE' if overdue else ('WAITING' if any(r['state'].startswith('WAITING') for r in rows) else 'COMPLETE')}
+            'rows': rows, 'target_count': len({(r['race_date_jst'],r['race_id']) for r in rows}),
+            'overdue_count': len(overdue),
+            'state': 'NOT_REQUESTED' if not rows else 'INCOMPLETE' if overdue else ('WAITING' if any(r['state'].startswith('WAITING') for r in rows) else 'COMPLETE')}

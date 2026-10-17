@@ -134,7 +134,7 @@ def validate_manifest(root):
         require(item.get('role') and item.get('reason') and
                 item.get('decision') in {'RETAIN','DELETE_VERIFIED','PENDING'},'manifest判断不備')
         # フラグを信用せず、実commit/path/blob/本文hashを毎回照合する。
-        fixed_bytes(root,path,item.get('git_blob_sha1'),item.get('sha256'),manifest['source_commit'])
+        frozen=fixed_bytes(root,path,item.get('git_blob_sha1'),item.get('sha256'),manifest['source_commit'])
         require(re.fullmatch(r'[0-9a-f]{40}',item.get('git_blob_sha1','')) and
                 re.fullmatch(r'[0-9a-f]{64}',item.get('sha256','')),'固定hashが必要')
         current=root/path
@@ -148,8 +148,17 @@ def validate_manifest(root):
                 require(path not in (root/reader).read_text(),'現行入口に削除元の直接参照: '+reader)
             deleted.append(path)
         else:
-            require(current.is_file() and digest(root,path)==item['sha256'],
-                    '保持する原本が失われたか改変: '+path)
+            if path == 'docs/validation/cycle_03.md':
+                from cycle04_archive_links import retarget
+                deleted_paths={x['path'] for x in files if x['decision']=='DELETE_VERIFIED'}
+                expected=retarget(root,current,frozen,deleted_paths)
+                require(current.is_file() and current.read_bytes()==expected and
+                        digest(root,path)==item.get('working_sha256'), '旧台帳は固定原本からのリンク先変更だけ許可: '+path)
+            else:
+                require(current.is_file() and digest(root,path)==item['sha256'],
+                        '保持する原本が失われたか改変: '+path)
+    from cycle04_archive_links import verify_links
+    verify_links(root,set(deleted))
     # 原票を作業ツリーへ戻さず、固定64入力を再取得して集合・金額を再計算。
     recompute(root)
     require(manifest.get('carryover_path')==CARRYOVER,'課題台帳の正本参照')

@@ -2,7 +2,7 @@
   "schema_version": "cycle04-acceptance-v1",
   "mode": "SYNTHETIC",
   "result": "PASS",
-  "tests_run": 920,
+  "tests_run": 932,
   "failures": 0,
   "skipped": 0,
   "live_race_count": null,
@@ -63,7 +63,7 @@
     },
     {
       "path": "docs/validation/contracts/cycle04_operations.md",
-      "sha256": "a743994a28eabccc3e77c3372fc4f98d6a49e0ab91149e8c73d5aaf204f2721b"
+      "sha256": "6ece40fd027249bd790ed0196c5439497a34a8b61635cbb1bb5b50ce1c1b2dfe"
     },
     {
       "path": "docs/validation/contracts/cycle_04.json",
@@ -87,7 +87,7 @@
     },
     {
       "path": "docs/validation/reviews/cycle_04/migration-manifest.json",
-      "sha256": "15d2ce2fd5545021b8182bc9f18cfce4afc58a101dede12b1c79b312491a6d7c"
+      "sha256": "fc478b535cbb632c2e5a254d470e6939d83965ed88fcea4946fc4867ff71c05d"
     },
     {
       "path": "docs/validation/reviews/cycle_04/summary.json",
@@ -183,7 +183,7 @@
     },
     {
       "path": "scripts/check_cycle04.py",
-      "sha256": "5cee10a4316b690eefbb79f3592e6fbcbad4b497d2bce63da27b233b407a6720"
+      "sha256": "794b37cf9769e52e1ee590041938d32f5619fb8e604ece6a6b08f94d70296690"
     },
     {
       "path": "scripts/check_cycle04_full_day_reconciliation.py",
@@ -290,20 +290,24 @@
       "sha256": "283a39662180c592e28f282a2c2a611fb3d27a0606022bfa9435a4ce7ed5575a"
     },
     {
+      "path": "scripts/cycle04_archive_links.py",
+      "sha256": "cbe37bf138d3b078a79f7996d75abc00897ffb6a18f601653a29ea83afbf36bc"
+    },
+    {
       "path": "scripts/cycle04_completion.py",
       "sha256": "27b2c597cb8caefbca5683acc97ad78f194986c0ec91b493be7fc100f075b3fb"
     },
     {
       "path": "scripts/cycle04_daily_audit.py",
-      "sha256": "74b43ac8eca43c555518ca598a21c3260ee1c1ccaa50ba965fee37343cc836fa"
+      "sha256": "2387bdb915651e8e2de2f9d8fc5fb0e7056a188025cf14e4ca4c3ff42bb1e536"
     },
     {
       "path": "scripts/cycle04_history.py",
-      "sha256": "1d12c96172c5a0565cf4b717b49561f4b40f954e4cb0e1ad008dee6fe7907720"
+      "sha256": "82d4b61154e31bdc0c2d393f03b66e7a8550f3cad4e465af005047e4a90a14a3"
     },
     {
       "path": "scripts/cycle04_migration.py",
-      "sha256": "fa0448e8e2de58a203fa07f35098aa5e804ef42d3b22e6977321d48618df1a55"
+      "sha256": "06fafe3dc7e9c67f7d507cd09240f696ee1b57f22d1b12af72ac6522229f185a"
     },
     {
       "path": "scripts/cycle04_operations.py",
@@ -312,6 +316,10 @@
     {
       "path": "scripts/cycle04_recommendation_diagnostics.py",
       "sha256": "8abc66a835f4dd58174bc3d015a3fcffbab952269a82c241103af87ab030d187"
+    },
+    {
+      "path": "scripts/cycle04_result_binding.py",
+      "sha256": "eb262182286cd070f2cc75f926a6ceba2ceb44775730b7198cc7d06d80aacbcf"
     },
     {
       "path": "scripts/cycle04_review_metrics.py",
@@ -327,7 +335,7 @@
     },
     {
       "path": "scripts/cycle04_workflow.py",
-      "sha256": "d91f55cc9026763ff09acb6a17417535cda8362f6393a3aaca9482b01d612630"
+      "sha256": "e93eec23ae9cd689a60596fdc014ab467fc7ac010c363fca91f89fb05b7fd1d6"
     },
     {
       "path": "scripts/dependency_risk.py",
@@ -403,7 +411,7 @@
     },
     {
       "path": "scripts/test_build_cycle03_review.py",
-      "sha256": "2713c0f260ca815efdbdb013a626eadbfadb8364d96b5870fd4c7c9f11da1d0f"
+      "sha256": "ca62b39865403cadc205e1c71322afa5d347aaef563558d53e22b28ffebb998e"
     },
     {
       "path": "scripts/test_chat_calibration_review.py",
@@ -502,12 +510,16 @@
       "sha256": "0cf00935726fa4b08b7e795b1406e363ee3a7b21614b5688a5abd26dc9ebc2b0"
     },
     {
+      "path": "scripts/test_cycle04_archive_links.py",
+      "sha256": "dbac745085b236623f4fe23277af8ce30d6db00435d428b8e139909fce1239f8"
+    },
+    {
       "path": "scripts/test_cycle04_completion.py",
       "sha256": "4614abd925bc7f962342d4fb39cf3bad87f9c99b20453ab479268cbf4305a898"
     },
     {
       "path": "scripts/test_cycle04_daily_audit.py",
-      "sha256": "a00978590cecea50ea41d690599b73890a93bba4cabdba937ca94d0541ab2466"
+      "sha256": "b9a583ea3629097f7cae0c58654a0dedbbeb51230c8e6231b968d387a601c4cc"
     },
     {
       "path": "scripts/test_cycle04_full_day_reconciliation.py",
@@ -530,6 +542,10 @@
       "sha256": "ce75ead3411ebe92b61b53647f91a83d9c08db1d4ed984f23e8ada38c2e26abf"
     },
     {
+      "path": "scripts/test_cycle04_result_binding.py",
+      "sha256": "6f5a93da79b56c747d2f24d18ea103626d6686a550b30a5708a2958181f7af50"
+    },
+    {
       "path": "scripts/test_cycle04_result_eligibility.py",
       "sha256": "763bc8eeefb4575e000ffa1cf495182ebc91838daf14f9ecb69aac392e16a832"
     },
@@ -547,7 +563,7 @@
     },
     {
       "path": "scripts/test_cycle04_workflow.py",
-      "sha256": "5bc5b37d3830b45db293d6f8c64a6e41779c20b76e2443709b934e739f87d29a"
+      "sha256": "381229705ec90d2abe94b0002d05773aa970c7ba1255b6f634892c7224d31c25"
     },
     {
       "path": "scripts/test_dependency_risk.py",

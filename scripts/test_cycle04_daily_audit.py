@@ -37,6 +37,8 @@ class DailyAuditTest(unittest.TestCase):
     def test_future_unrequested_dates_do_not_create_missing_rows(self):
         report=audit.audit_days(self.root,[],now=datetime.fromisoformat(DATE+'T09:00:00+09:00'))
         self.assertEqual(report['rows'],[])
+        self.assertEqual(report['state'],'NOT_REQUESTED')
+        self.assertEqual(report['target_count'],0)
     def test_result_unknown_waits_but_official_result_makes_missing_review_overdue(self):
         result={'status':'OFFICIAL','race_date_jst':DATE,'race_id':RACE,
                 'source_url':'https://www.jra.go.jp/result','retrieved_at_jst':DATE+'T10:05:00+09:00',
@@ -44,7 +46,7 @@ class DailyAuditTest(unittest.TestCase):
         path='docs/validation/test-result.json';full=self.root/path;full.parent.mkdir(parents=True)
         raw=json.dumps(result).encode();full.write_bytes(raw)
         self.day['races'][RACE]['result_ready_ref']={'artifact_path':path,'sha256':audit.fingerprint(raw)}
-        with patch.object(audit,'validate_formal_result'):
+        with patch.object(audit,'validate_formal_result'), patch('cycle04_result_binding.validate_formal_result'):
             report=self.run_at('10:06:00')
         review=[x for x in report['rows'] if x['stage']=='REVIEW'][0]
         self.assertEqual(review['state'],'OVERDUE')

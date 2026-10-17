@@ -57,7 +57,7 @@ def read_json(root, path):
     return json.loads(read(root, path))
 
 
-def recompute(root):
+def recomputed_report(root):
     """64原入力を固定Gitから実取得し、既存アルゴリズムで集合・KPI・精算を比較する。"""
     saved = read_json(root, COLLECTION)
     inputs = saved['source_manifest']
@@ -76,7 +76,12 @@ def recompute(root):
         actual = build(target, saved['as_of_date_jst'], saved['basis_commit'])
         if actual != saved:
             raise ValueError('固定履歴の再計算値が不一致')
-    return {'inputs': len(inputs), 'collection': saved['collection'],
+    return actual
+
+
+def recompute(root):
+    saved=recomputed_report(root)
+    return {'inputs': len(saved['source_manifest']), 'collection': saved['collection'],
             'scope': saved['scope_totals_recorded_days_only'],
             'settlement': saved['split_fixed_plan_reference'],
             'pending_kpi_decisions': saved['pending_kpi_decision_count']}

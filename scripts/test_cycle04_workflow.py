@@ -423,7 +423,7 @@ class OperationalWorkflow(unittest.TestCase):
                 'source_url':'https://www.jra.go.jp/test/result','retrieved_at_jst':DATE+'T11:00:00+09:00',
                 'finish_groups':[[5],[2],[6]],'place_places':3}
         write(self.root,'result.json',json.dumps(result))
-        with self.assertRaisesRegex(ComplianceError,'full-field result'):
+        with self.assertRaisesRegex(ComplianceError,'full-field result|固定結果原票hash不一致'):
             workflow.review(self.root,DATE,{'race_id':RACE,'result_path':'result.json',
                             'review':__import__('test_cycle04_result_eligibility').sample_review()})
         self.assertEqual(path.read_bytes(),original)
@@ -530,7 +530,7 @@ class OperationalWorkflow(unittest.TestCase):
         result['finish_groups']=result['finish_groups'][:3];result_path.write_text(json.dumps(result))
         day['races'][RACE]['result_ref']['sha256']=hashlib.sha256(result_path.read_bytes()).hexdigest()
         path.write_text(json.dumps(day))
-        with self.assertRaisesRegex(ComplianceError,'full-field result'):
+        with self.assertRaisesRegex(ComplianceError,'full-field result|固定結果原票hash不一致'):
             workflow.summary(self.root)
 
     def test_empty_review_is_not_a_completed_review(self):

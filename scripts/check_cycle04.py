@@ -211,6 +211,8 @@ def validate_day(root, path, contract):
             require(not row.get('prediction_gate_path') or row.get('prediction_history'),
                     'saved prediction requires immutable history')
     for race, row in rows.items():
+        from cycle04_result_binding import verify_result_bindings
+        verify_result_bindings(root,row,race,date)
         ref = row.get('result_ref')
         if ref is None:
             require(race not in reviewed, 'reviewed race requires an official result artifact')

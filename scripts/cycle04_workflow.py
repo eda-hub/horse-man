@@ -287,8 +287,11 @@ def request_review(root, date, entry, now=None):
     validate_official_result(result,race=race,date=date,post=post.isoformat())
     require(iso(result['retrieved_at_jst'],'result retrieved')<=current,'future result request')
     ref={'artifact_path':entry['result_path'],'sha256':hashlib.sha256(raw).hexdigest()}
-    require(not row.get('result_ready_ref') or row['result_ready_ref']==ref,'result request cannot replace fixed result')
     manifest_ref=entry.get('result_reconciliation_ref')
+    from cycle04_result_binding import verify_result_bindings, pair
+    frozen=verify_result_bindings(root,row,race,date,now=current)
+    require(not frozen or frozen['active']==pair(ref,manifest_ref), 'result request cannot replace fixed result/manifest')
+    require(not row.get('result_correction_history'), '訂正後の回顧前固定参照を置換できません')
     validate_formal_result(root,row,race=race,date=date,result_ref=ref,manifest_ref=manifest_ref)
     row['result_ready_ref']=ref
     row['result_ready_reconciliation_ref']=copy.deepcopy(manifest_ref)
@@ -318,9 +321,11 @@ def review(root,date,entry):
     # レース単位で検査してから台帳を変更する。本文や不適格結果は消さない。
     validate_formal_result(root, row, race=race, date=date, result_ref=result_ref,
                            manifest_ref=manifest_ref)
+    from cycle04_result_binding import bind_review_result
+    result_changed=bind_review_result(root,row,race,date,result_ref,manifest_ref,entry.get('result_correction_ref'))
     earlier = row.get('review')
     if earlier is not None:
-        require(row.get('result_ref') == result_ref and row.get('result_reconciliation_ref') == manifest_ref,
+        require(result_changed or (row.get('result_ref') == result_ref and row.get('result_reconciliation_ref') == manifest_ref),
                 'reviewed result is immutable; a different official result needs its own correction process')
         require(row.get('review_history') and
                 row['review_history'][-1]['review'] == earlier,
