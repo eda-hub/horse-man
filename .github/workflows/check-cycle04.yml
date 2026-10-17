@@ -22,6 +22,29 @@ jobs:
         run: |
           python3 scripts/check_cycle04.py
           python3 scripts/run_release_readiness.py
+  manifest-preview:
+    name: 合成受入とrelease候補の再生成検証
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: PDF原資料検査の依存準備
+        run: command -v pdftotext >/dev/null || { sudo apt-get update && sudo apt-get install -y poppler-utils; }
+      - name: skip0の全回帰と正確なsource manifest生成
+        run: |
+          python3 scripts/run_cycle04_acceptance.py --write
+          python3 scripts/build_v170_manifest.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for name, path in (
+              ('CYCLE04_ACCEPTANCE_MANIFEST', 'docs/validation/reviews/cycle_04/acceptance.json'),
+              ('CYCLE04_RELEASE_MANIFEST', 'docs/validation/contracts/v170-release.json'),
+          ):
+              payload = json.loads(Path(path).read_text(encoding='utf-8'))
+              print(name + '=' + json.dumps(payload, ensure_ascii=False, separators=(',', ':')))
+          PY
   migration:
     name: 第2・第3原票と第4移行の保全
     runs-on: ubuntu-latest

@@ -446,7 +446,9 @@ def main(argv=None):
         if result['issues']:
             print('不足対象・理由：' + json.dumps(result['issues'], ensure_ascii=False))
         from cycle04_migration import validate_postrace
-        historical = int((directory / '2026-10-17.json').exists())
+        historical_path = directory / '2026-10-17.json'
+        historical = int(historical_path.exists() and
+                         load(historical_path).get('registration_origin') == 'POSTRACE_RECONCILIATION')
         if historical:
             validate_postrace(root)
         print(f'第4検査契約の準備照合成功。前向き実測{len(days)}/{len(DATES)}日、事後照合{historical}日。状態：{result["state"]}。'

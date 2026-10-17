@@ -56,7 +56,10 @@ def check(root):
     # 当時の『未登録』という固定事実はday-indexに残し、現在の事後台帳は別契約で検証する。
     if (root / FORMAL_LEDGER).exists():
         from cycle04_migration import validate_postrace
-        validate_postrace(root)
+        try:
+            validate_postrace(root)
+        except (ValueError, KeyError, TypeError) as exc:
+            raise FullDayReviewError('formal day ledger unexpectedly invalid: ' + str(exc)) from exc
     coverage = full.get('coverage', {})
     require(coverage.get('declared') == 36 and
             coverage.get('result_top3_retrieved') == 36 and
