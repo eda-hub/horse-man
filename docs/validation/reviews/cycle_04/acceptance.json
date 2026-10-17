@@ -2,7 +2,7 @@
   "schema_version": "cycle04-acceptance-v1",
   "mode": "SYNTHETIC",
   "result": "PASS",
-  "tests_run": 854,
+  "tests_run": 863,
   "failures": 0,
   "skipped": 0,
   "live_race_count": null,
@@ -164,6 +164,10 @@
     {
       "path": "scripts/check_cycle04.py",
       "sha256": "d4d5807c7d5bdf5a3907864e23369b4d02ef0f4376426e81cfc840087a2bff39"
+    },
+    {
+      "path": "scripts/check_cycle04_unfinished.py",
+      "sha256": "53d6b30337f02d6f10e38b3b813d0f091b07ce84b03cc234c0a5e6d32de59369"
     },
     {
       "path": "scripts/check_designated_ancestor_scope.py",
@@ -347,7 +351,7 @@
     },
     {
       "path": "scripts/task_completion.py",
-      "sha256": "5cbd99c2c796843bdd55047c4330adaf7ff6562ad405bc2cd44f3873c51e02b8"
+      "sha256": "c340a572bb9f6d6470242aabedc8825c27153d4f1f9ed780dbaab25a96471740"
     },
     {
       "path": "scripts/test_betting_kpi_split.py",
@@ -474,6 +478,10 @@
       "sha256": "a25e9f3ecdf952554578ee5e67045e5c78a6b460729517299bacc62f5ad25b11"
     },
     {
+      "path": "scripts/test_cycle04_unfinished.py",
+      "sha256": "692f228e8305fe5570a89544408abe224edb0f1c7f54086ab845dbc12a7aa72e"
+    },
+    {
       "path": "scripts/test_cycle04_workflow.py",
       "sha256": "10140a467608e5c0fbe0caaaad40f426c6c86ebf7a23afff56e391d3e0efad01"
     },
@@ -588,6 +596,10 @@
     {
       "path": "scripts/test_task_completion.py",
       "sha256": "99acad3f8eeffec533b6a1f980649cdd6ece1eb5938135f5c1d80cac2e639267"
+    },
+    {
+      "path": "scripts/test_task_completion_receipt.py",
+      "sha256": "de78db84125fd3b9f7226dce5f50f80fb95e6e49d2bf4a623ae9e11c19e85749"
     },
     {
       "path": "scripts/test_training_country_ancestor_reply.py",
