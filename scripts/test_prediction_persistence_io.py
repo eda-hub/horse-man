@@ -1,5 +1,6 @@
 """拒否、原本不変、commit固定読戻し、競合と冪等性の合成試験。"""
 import hashlib
+import json
 import unittest
 from prediction_persistence_io import (
     FixedPayload, PersistenceError, classify_failure, incident_record,
@@ -36,13 +37,158 @@ class MemoryGitHub:
 
 class PersistenceTest(unittest.TestCase):
     def setUp(self):
-        self.payload = FixedPayload("eda-hub/horse-man", "prediction/2026-10-18",
-                                    "docs/validation/snapshots/2026-10-18/R.json", b'{"fixed":true}\n')
-        self.clock = lambda stage: {"status": "PRE_SCHEDULED", "remaining_seconds": 30}
+        self.race_id = "2026-10-18-TOKYO-11"
+        self.date = "2026-10-18"
+        self.post = "2026-10-18T15:15:00+09:00"
+        self.name = "20261018-TOKYO-11-FINAL-S01"
+        self.snapshot_path = "docs/validation/snapshots/2026-10-18/" + self.name + ".json"
+        self.payload = self.fixed(self.snapshot_path, {
+            "schema_version": "prediction-snapshot-v2",
+            "snapshot_id": self.name, "race_id": self.race_id,
+            "race_date_jst": self.date, "working_branch": "prediction/" + self.date,
+            "scheduled_post_time_jst": self.post})
+        self.clock = lambda stage: {
+            "status": "PRE_SCHEDULED", "remaining_seconds": 30,
+            "race_id": self.race_id, "race_date": self.date,
+            "scheduled_post_jst": self.post,
+            "official_source": "cycle04_official_schedule_chain"}
+
+    def fixed(self, path, data):
+        return FixedPayload("eda-hub/horse-man", "prediction/2026-10-18", path,
+                            (json.dumps(data, ensure_ascii=False) + "\n").encode("utf-8"))
+
+    def evidence_chain(self):
+        """正式推奨の各固定原本。全パスを独立した新規保存として検証する。"""
+        p = "docs/validation/"
+        date, race, name = self.date, self.race_id, self.name
+        rec_id = "20261018-TOKYO-11-REC-S01"
+        rec_path = p + "recommendations/" + date + "/" + rec_id + ".json"
+        intent_path = p + "recommendation-intents/" + date + "/tokyo-11-final.json"
+        pred_ref = {"artifact_path": self.snapshot_path, "artifact_id": name,
+                    "sha256": "a" * 64}
+        def row(path, content):
+            return (path, (json.dumps(content, ensure_ascii=False) + "\n").encode())
+        return [
+            row(p + "persistence-intents/" + date + "/tokyo-11-final.json", {
+                "schema_version": "prediction-persistence-intent-v1",
+                "race_date_jst": date, "working_branch": "prediction/" + date,
+                "snapshot_id": name, "required_race_ids": [race],
+                "artifact_path": self.snapshot_path, "deadline_jst": self.post}),
+            (self.snapshot_path, self.payload.body),
+            row(p + "fix-manifests/" + date + "/" + name + ".json", {
+                "schema_version": "prediction-fix-manifest-v1",
+                "snapshot_id": name, "artifact_path": self.snapshot_path,
+                "fixed_content_sha256": self.payload.digest}),
+            row(intent_path, {
+                "schema_version": "recommendation-persistence-intent-v1",
+                "race_date_jst": date, "race_id": race,
+                "recommendation_id": rec_id, "artifact_path": rec_path,
+                "prediction_ref": pred_ref, "deadline_jst": self.post}),
+            row(rec_path, {
+                "schema_version": "recommendation-snapshot-v1",
+                "race_id": race, "race_date_jst": date, "recommendation_id": rec_id,
+                "working_branch": "prediction/" + date,
+                "scheduled_post_time_jst": self.post, "prediction_ref": pred_ref}),
+            row(p + "recommendation-prediction-gates/" + date + "/" + rec_id + ".json", {
+                "schema_version": "prediction-compliance-v2",
+                "race_id": race, "race_date_jst": date,
+                "working_branch": "prediction/" + date,
+                "scheduled_post_time_jst": self.post}),
+            (p + "persistence-receipts/" + date + "-tokyo-11-final.md",
+             ('```persistence-receipt-v1\n' + json.dumps({
+                 "receipt_id": rec_id + "-R01", "artifact_id": rec_id,
+                 "race_id": race, "artifact_path": rec_path,
+                 "scheduled_post_time_jst": self.post}) + '\n```\n').encode()),
+            row(p + "recommendation-gates/" + date + "/" + race + ".json", {
+                "schema_version": "recommendation-compliance-v1",
+                "race_id": race, "race_date_jst": date, "recommendation_id": rec_id,
+                "intent_path": intent_path, "prediction_ref": pred_ref,
+                "evidence_ref": {"artifact_path": rec_path}}),
+        ]
+
+    def test_full_recommendation_chain_persists_and_readbacks(self):
+        stored_paths = []
+        for path, raw in self.evidence_chain():
+            with self.subTest(path=path):
+                transport = MemoryGitHub()
+                payload = FixedPayload(self.payload.repository, self.payload.branch, path, raw)
+                result = persist_fixed(payload, transport, self.clock,
+                                       operation_id=path, race_id=self.race_id)
+                self.assertEqual(result.write_state, "WRITTEN")
+                self.assertEqual(result.readback_state, "MATCH")
+                self.assertEqual(transport.writes, [(raw, None)])
+                stored_paths.append(path)
+        self.assertEqual(len(stored_paths), 8)
+        self.assertTrue(any("recommendation-intents/" in p for p in stored_paths))
+        self.assertTrue(any("recommendation-gates/" in p for p in stored_paths))
+
+    def test_11r_payload_with_12r_clock_is_never_written(self):
+        transport = MemoryGitHub()
+        wrong_clock = lambda stage: dict(self.clock(stage), race_id="2026-10-18-TOKYO-12")
+        result = persist_fixed(self.payload, transport, wrong_clock,
+                               operation_id="wrong-clock", race_id=self.race_id)
+        self.assertEqual(result.timing_state, "UNDETERMINED")
+        self.assertEqual(transport.writes, [])
+
+    def test_11r_payload_with_12r_command_is_rejected_before_remote_access(self):
+        transport = MemoryGitHub()
+        with self.assertRaisesRegex(ValueError, "race"):
+            persist_fixed(self.payload, transport, self.clock,
+                          operation_id="wrong-race", race_id="2026-10-18-TOKYO-12")
+        self.assertEqual(transport.writes, [])
+
+    def test_date_post_path_and_referenced_race_mismatch_are_rejected(self):
+        cases = [
+            (self.snapshot_path.replace("2026-10-18", "2026-10-17"),
+             json.loads(self.payload.body), "date"),
+            (self.snapshot_path.replace("TOKYO-11", "TOKYO-12"),
+             json.loads(self.payload.body), "race"),
+            (self.snapshot_path,
+             dict(json.loads(self.payload.body), race_date_jst="2026-10-17"), "date"),
+            (self.snapshot_path,
+             dict(json.loads(self.payload.body), race_id="2026-10-18-TOKYO-12"), "race"),
+            (self.snapshot_path,
+             dict(json.loads(self.payload.body),
+                  scheduled_post_time_jst="2026-10-18T15:25:00+09:00"), "post"),
+        ]
+        for path, obj, kind in cases:
+            with self.subTest(kind=kind, path=path):
+                transport = MemoryGitHub()
+                payload = self.fixed(path, obj)
+                if kind == "post":
+                    result = persist_fixed(payload, transport, self.clock,
+                                           operation_id="wrong-post", race_id=self.race_id)
+                    self.assertEqual(result.timing_state, "UNDETERMINED")
+                else:
+                    with self.assertRaises(ValueError):
+                        persist_fixed(payload, transport, self.clock,
+                                      operation_id="mismatch", race_id=self.race_id)
+                self.assertEqual(transport.writes, [])
+
+    def test_cli_rejects_mismatched_race_before_initializing_github(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        from prediction_persistence_io import main
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "fixed.json"
+            path.write_bytes(self.payload.body)
+            with patch.dict("os.environ", {"GITHUB_TOKEN": "test-token"}), \
+                 patch("prediction_persistence_io.GitHubContentsTransport") as github, \
+                 redirect_stdout(StringIO()) as out:
+                result = main(["--date", self.date,
+                               "--race-id", "2026-10-18-TOKYO-12",
+                               "--path", self.snapshot_path, "--payload-file", str(path),
+                               "--operation-id", "wrong-race", "--write"])
+            self.assertEqual(result, 1)
+            github.assert_not_called()
+            self.assertIn("race", out.getvalue())
 
     def test_new_file_write_and_exact_commit_readback(self):
         transport = MemoryGitHub()
-        r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R", race_id=self.race_id)
         self.assertEqual((r.write_state, r.readback_state, r.commit_sha),
                          ("WRITTEN", "MATCH", SHA))
         self.assertFalse(r.completion_verified)
@@ -50,20 +196,20 @@ class PersistenceTest(unittest.TestCase):
 
     def test_existing_exact_bytes_idempotent(self):
         transport = MemoryGitHub(initial=self.payload.body)
-        r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R", race_id=self.race_id)
         self.assertEqual(r.write_state, "ALREADY_PRESENT")
         self.assertEqual(r.readback_state, "MATCH")
         self.assertEqual(transport.writes, [])
 
     def test_different_existing_content_refuses_overwrite(self):
         transport = MemoryGitHub(initial=b"different")
-        r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R", race_id=self.race_id)
         self.assertEqual(r.failure_category, "conflict")
         self.assertEqual(transport.writes, [])
 
     def test_allow_update_never_overwrites_fixed_snapshot(self):
         transport = MemoryGitHub(initial=b"different")
-        r = persist_fixed(self.payload, transport, self.clock, operation_id="R",
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R", race_id=self.race_id,
                           allow_update=True)
         self.assertEqual(r.failure_category, "conflict")
         self.assertEqual(r.readback_state, "NOT_ATTEMPTED")
@@ -71,16 +217,13 @@ class PersistenceTest(unittest.TestCase):
         self.assertEqual(transport.writes, [])
 
     def test_all_fixed_evidence_paths_reject_different_bytes(self):
-        paths = ("docs/validation/snapshots/2026-10-18/R.json",
-                 "docs/validation/fix-manifests/2026-10-18/R.json",
-                 "docs/validation/persistence-intents/2026-10-18/R.json",
-                 "docs/validation/recommendations/2026-10-18/R.json",
-                 "docs/validation/persistence-receipts/2026-10-18/R.md")
-        for path in paths:
+        self.assertIsNotNone(self.payload.digest)
+        for path, body in self.evidence_chain():
             with self.subTest(path=path):
-                fixed = FixedPayload(self.payload.repository, self.payload.branch, path, b"new")
+                fixed = FixedPayload(self.payload.repository, self.payload.branch, path, body)
                 transport = MemoryGitHub(initial=b"old")
-                result = persist_fixed(fixed, transport, self.clock, operation_id="fixed",
+                result = persist_fixed(fixed, transport, self.clock,
+                                       operation_id="fixed", race_id=self.race_id,
                                        allow_update=True)
                 self.assertEqual(result.failure_category, "conflict")
                 self.assertEqual(transport.writes, [])
@@ -91,7 +234,7 @@ class PersistenceTest(unittest.TestCase):
                                  kind="safety_refusal", api_reached=False, tool="host")
         primary = MemoryGitHub(failures=[error])
         alternate = MemoryGitHub()
-        r = persist_fixed(self.payload, primary, self.clock, operation_id="R",
+        r = persist_fixed(self.payload, primary, self.clock, operation_id="R", race_id=self.race_id,
                           alternative=alternate, alternative_authorized=True)
         self.assertEqual(r.failure_category, "safety_refusal")
         self.assertEqual(r.write_state, "NOT_ATTEMPTED")
@@ -102,14 +245,14 @@ class PersistenceTest(unittest.TestCase):
 
     def test_transient_retry_preserves_bytes(self):
         primary = MemoryGitHub(failures=[PersistenceError("timeout", kind="timeout", api_reached=None)])
-        r = persist_fixed(self.payload, primary, self.clock, operation_id="R")
+        r = persist_fixed(self.payload, primary, self.clock, operation_id="R", race_id=self.race_id)
         self.assertEqual(r.readback_state, "MATCH")
         self.assertEqual(primary.writes, [(self.payload.body, None)])
 
     def test_independent_route_only_for_allowed_transient(self):
         primary = MemoryGitHub(failures=[PersistenceError("temporary", kind="transport")])
         alternate = MemoryGitHub()
-        r = persist_fixed(self.payload, primary, self.clock, operation_id="R",
+        r = persist_fixed(self.payload, primary, self.clock, operation_id="R", race_id=self.race_id,
                           alternative=alternate, alternative_authorized=True)
         self.assertEqual(r.readback_state, "MATCH")
         self.assertEqual(alternate.content, self.payload.body)
@@ -120,7 +263,7 @@ class PersistenceTest(unittest.TestCase):
                 super().write(branch, path, body, expected_blob_sha)
                 raise PersistenceError("timed out after commit", kind="timeout")
         transport = TimeoutAfterWrite()
-        r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R", race_id=self.race_id)
         self.assertEqual(r.write_state, "ALREADY_PRESENT")
         self.assertEqual(len(transport.writes), 1)
         self.assertIsNone(r.failure_category)
@@ -130,14 +273,14 @@ class PersistenceTest(unittest.TestCase):
         for status in ("SCHEDULE_REACHED", "UNDETERMINED"):
             transport = MemoryGitHub()
             r = persist_fixed(self.payload, transport,
-                              lambda stage: {"status": status},
-                              operation_id="R")
+                              lambda stage: dict(self.clock(stage), status=status),
+                              operation_id="R", race_id=self.race_id)
             self.assertEqual(r.timing_state, status)
             self.assertEqual(transport.writes, [])
 
     def test_wrong_commit_contents_not_completed(self):
         transport = MemoryGitHub(mismatched=True)
-        r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R", race_id=self.race_id)
         self.assertEqual(r.failure_category, "conflict")
         self.assertNotEqual(r.readback_state, "MATCH")
 
@@ -162,7 +305,7 @@ class PersistenceTest(unittest.TestCase):
                     raise FileNotFoundError(path)
                 return super().read(branch, path, ref)
         transport = MissingAtCommit()
-        result = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        result = persist_fixed(self.payload, transport, self.clock, operation_id="R", race_id=self.race_id)
         self.assertEqual(result.write_state, "WRITTEN")
         self.assertNotEqual(result.readback_state, "MATCH")
         self.assertEqual(result.failure_category, "unknown")
@@ -171,7 +314,7 @@ class PersistenceTest(unittest.TestCase):
         transport = MemoryGitHub()
         def clock(stage):
             raise ValueError("clock source unavailable")
-        result = persist_fixed(self.payload, transport, clock, operation_id="R")
+        result = persist_fixed(self.payload, transport, clock, operation_id="R", race_id=self.race_id)
         self.assertEqual(result.timing_state, "UNDETERMINED")
         self.assertEqual(transport.writes, [])
 
@@ -180,8 +323,8 @@ class PersistenceTest(unittest.TestCase):
         def clock(stage):
             if stage == "readback":
                 raise ValueError("clock lost")
-            return {"status": "PRE_SCHEDULED", "remaining_seconds": 20}
-        result = persist_fixed(self.payload, transport, clock, operation_id="R")
+            return dict(self.clock(stage), remaining_seconds=20)
+        result = persist_fixed(self.payload, transport, clock, operation_id="R", race_id=self.race_id)
         self.assertEqual(result.write_state, "WRITTEN")
         self.assertEqual(result.readback_state, "MATCH")
         self.assertEqual(result.timing_state, "UNDETERMINED")
