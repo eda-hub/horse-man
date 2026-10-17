@@ -137,7 +137,19 @@
         "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
         "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED",
         "PREDECLARED_RECOMMENDATION_NOT_PERSISTED"
-      ]
+      ],
+      "postrace_result": {
+        "status": "JRA_RESULT_REVIEWED_RESEARCH_ONLY",
+        "source_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json",
+        "winner_number": 7,
+        "actual_top3": [
+          7,
+          12,
+          5
+        ],
+        "official_source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604060920261017%2F34",
+        "eligible_for_formal_kpi": false
+      }
     },
     {
       "race_id": "2026-10-17-TOKYO-10",
@@ -172,7 +184,19 @@
         "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED",
         "PREDICTION_INTENT_READBACK_ORDER_NOT_PROVEN",
         "PREDICTION_FIX_READBACK_ORDER_NOT_PROVEN"
-      ]
+      ],
+      "postrace_result": {
+        "status": "JRA_RESULT_REVIEWED_RESEARCH_ONLY",
+        "source_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json",
+        "winner_number": 13,
+        "actual_top3": [
+          13,
+          10,
+          14
+        ],
+        "official_source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604061120261017%2FDE",
+        "eligible_for_formal_kpi": false
+      }
     },
     {
       "race_id": "2026-10-17-TOKYO-12",
@@ -305,7 +329,19 @@
         "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED",
         "PREDICTION_INTENT_FIX_READBACK_ONLY_IN_SEPARATE_RECEIPTS",
         "FORMAL_INDEPENDENT_RECOMMENDATION_INCOMPLETE"
-      ]
+      ],
+      "postrace_result": {
+        "status": "JRA_RESULT_REVIEWED_RESEARCH_ONLY",
+        "source_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json",
+        "winner_number": 7,
+        "actual_top3": [
+          7,
+          3,
+          6
+        ],
+        "official_source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604060820261017%2F5D",
+        "eligible_for_formal_kpi": false
+      }
     },
     {
       "race_id": "2026-10-17-KYOTO-09",
@@ -337,7 +373,19 @@
         "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
         "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED",
         "FORMAL_INDEPENDENT_RECOMMENDATION_INCOMPLETE"
-      ]
+      ],
+      "postrace_result": {
+        "status": "JRA_RESULT_REVIEWED_RESEARCH_ONLY",
+        "source_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json",
+        "winner_number": 6,
+        "actual_top3": [
+          6,
+          2,
+          7
+        ],
+        "official_source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604061020261017%2F07",
+        "eligible_for_formal_kpi": false
+      }
     },
     {
       "race_id": "2026-10-17-KYOTO-11",
@@ -358,7 +406,19 @@
         "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED",
         "PREDICTION_INTENT_READBACK_ORDER_NOT_PROVEN",
         "PREDICTION_FIX_READBACK_ORDER_NOT_PROVEN"
-      ]
+      ],
+      "postrace_result": {
+        "status": "JRA_RESULT_REVIEWED_RESEARCH_ONLY",
+        "source_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json",
+        "winner_number": 10,
+        "actual_top3": [
+          10,
+          5,
+          9
+        ],
+        "official_source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604061120261017%2FBC",
+        "eligible_for_formal_kpi": false
+      }
     },
     {
       "race_id": "2026-10-17-KYOTO-12",
@@ -534,7 +594,19 @@
         "PREDICTION_INTENT_READBACK_ORDER_NOT_PROVEN",
         "PREDICTION_FIX_READBACK_ORDER_NOT_PROVEN",
         "FORMAL_INDEPENDENT_RECOMMENDATION_INCOMPLETE"
-      ]
+      ],
+      "postrace_result": {
+        "status": "JRA_RESULT_REVIEWED_RESEARCH_ONLY",
+        "source_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json",
+        "winner_number": 6,
+        "actual_top3": [
+          6,
+          12,
+          15
+        ],
+        "official_source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0104202604011120261017%2F55",
+        "eligible_for_formal_kpi": false
+      }
     },
     {
       "race_id": "2026-10-17-NIIGATA-12",
@@ -551,5 +623,13 @@
       ]
     }
   ],
-  "unsealed_decision_path": "docs/validation/reconciliations/2026-10-17-unsealed-recommendations.json"
+  "unsealed_decision_path": "docs/validation/reconciliations/2026-10-17-unsealed-recommendations.json",
+  "postrace_review_reference": {
+    "result_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json",
+    "review_path": "docs/validation/reviews/cycle_04/2026-10-17-daily-retrospective.md",
+    "coverage": "6_OF_36_REVIEWABLE_FINAL_FORECASTS",
+    "scope": "RETROSPECTIVE_REFERENCE_ONLY",
+    "formal_cycle04_ledger_completed": false,
+    "source_observed_at_jst": "2026-10-17T18:44:36.776+09:00"
+  }
 }
