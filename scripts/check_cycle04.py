@@ -115,8 +115,8 @@ def validate_acceptance(root, contract):
                         'scripts/check_prediction_compliance.py', 'scripts/recommendation.py',
                         'scripts/selection_history.py', 'scripts/verify_prediction_persistence.py',
                         'scripts/seal_prediction.py',
-                        c['carryover_path'], c['migration_manifest_path'],
-                        c['summary_path']}
+                        *( [c['carryover_path'], c['migration_manifest_path'], c['summary_path']]
+                           if c.get('carryover_path') else [c['decisions_path']] )}
     required_sources |= {p.relative_to(root).as_posix() for p in
                          set(root.glob('scripts/*.py')) | set(root.glob('docs/manual/*.md'))}
     require(required_sources.issubset({x.get('path') for x in manifest}), 'acceptance source coverage missing')
