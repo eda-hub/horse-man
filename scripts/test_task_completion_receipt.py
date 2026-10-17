@@ -101,5 +101,24 @@ class RecommendationReceiptHistoryTest(unittest.TestCase):
         self.assertFalse(result['checks']['receipt']['result'])
 
 
+    def test_actual_kyoto_and_tokyo_11_verified_receipts(self):
+        """実ファイルの読戻し証跡はR01が残っていても個別に合格させる。"""
+        root = Path(__file__).resolve().parent.parent
+        for track in ('KYOTO', 'TOKYO'):
+            ident = f'20261017-{track}-11-REC-S01'
+            artifact = f'docs/validation/recommendations/2026-10-17/{ident}.json'
+            gate = f'docs/validation/recommendation-gates/2026-10-17/2026-10-17-{track}-11.json'
+            content = (root / artifact).read_bytes()
+            result = recommendation_completion(root, artifact, gate,
+                                               fixed_content_sha256=hashlib.sha256(content).hexdigest())
+            self.assertTrue(result['checks']['artifact']['result'],
+                            (track, result['checks']['artifact']))
+            self.assertTrue(result['checks']['receipt']['result'],
+                            (track, result['checks']['receipt']))
+            self.assertTrue(result['checks']['content_match']['result'],
+                            (track, result['checks']['content_match']))
+            self.assertFalse(result['eligibility_promoted'])
+
+
 if __name__ == '__main__':
     unittest.main()
