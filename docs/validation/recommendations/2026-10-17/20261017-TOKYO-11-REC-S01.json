@@ -1,0 +1,110 @@
+{
+  "schema_version": "recommendation-snapshot-v1",
+  "recommendation_contract": "odds-free-recommendation-v1",
+  "recommendation_id": "20261017-TOKYO-11-REC-S01",
+  "race_id": "2026-10-17-TOKYO-11",
+  "race_date_jst": "2026-10-17",
+  "manual_release": "v1.7.0",
+  "manual_ref_commit": "fd47babd38deea46439c2a7e500c3937c63cb5d7",
+  "working_branch": "prediction/2026-10-17",
+  "scheduled_post_time_jst": "2026-10-17T15:45:00+09:00",
+  "data_cutoff": "2026-10-17T15:33:43.306+09:00",
+  "fixed_at_jst": "2026-10-17T15:35:42.084+09:00",
+  "prediction_ref": {
+    "artifact_path": "docs/validation/snapshots/2026-10-17/20261017-TOKYO-11-FINAL-S01.json",
+    "artifact_id": "20261017-TOKYO-11-FINAL-S01",
+    "sha256": "2b57c289088e097f46273f9b817dc15c697025e8975ec5c29f3bd1bdd16ba4b7",
+    "baseline_forecast_id": "20261017-TOKYO-11-BASE-01"
+  },
+  "revision": 1,
+  "supersedes": null,
+  "supersedes_sha256": null,
+  "phase": "FINAL",
+  "status": "RECOMMENDED",
+  "reason": "4の東京芝1600m重賞勝利と10の東京芝1600m上がり32.7の直接事実から、両馬が中団で脚を溜め直線に加速する共存シナリオを本線とし、1着固定しないワイド1点を選択。",
+  "cancelled_horses": [],
+  "main_ticket_types": [
+    "WIDE"
+  ],
+  "tickets": [
+    {
+      "type": "WIDE",
+      "horses": [
+        4,
+        10
+      ],
+      "priority": 1,
+      "scenario_id": "TOKYO11-MIDPACK-BOTH-CLOSE-01",
+      "reason": "4の東京芝1600m重賞勝利と10の東京芝1600m上がり32.7の直接事実から、両馬が中団で脚を溜め直線に加速する共存シナリオを本線とし、1着固定しないワイド1点を選択。"
+    }
+  ],
+  "unique_ticket_count": 1,
+  "candidate_decisions": [
+    {
+      "type": "WIDE",
+      "status": "SELECTED",
+      "reason": "同時3着内の主力1点"
+    },
+    {
+      "type": "WIN",
+      "status": "REJECTED",
+      "reason": "◎1着は他実力馬の逆転余地あり"
+    },
+    {
+      "type": "PLACE",
+      "status": "REJECTED",
+      "reason": "採用1券種に比べてシナリオの重複・根拠が薄いため非採用"
+    },
+    {
+      "type": "QUINELLA",
+      "status": "REJECTED",
+      "reason": "同時2着以内には不確実性あり"
+    },
+    {
+      "type": "EXACTA",
+      "status": "REJECTED",
+      "reason": "◎1着固定を避けたい"
+    },
+    {
+      "type": "TRIO",
+      "status": "REJECTED",
+      "reason": "3頭目の着順役割・点数増分を支える根拠不足"
+    },
+    {
+      "type": "TRIFECTA",
+      "status": "REJECTED",
+      "reason": "両馬の1着固定や3頭目の順序が不確実"
+    }
+  ],
+  "horse_roles": [
+    {
+      "horse_no": 4,
+      "finish_role": "TOP3",
+      "reason": "東京マイル重賞優勝・東京エプソムC優勝から3着内の再現性",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+      "scenario_id": "TOKYO11-MIDPACK-BOTH-CLOSE-01",
+      "observed_at_jst": "2026-10-17T15:33:43.306+09:00"
+    },
+    {
+      "horse_no": 10,
+      "finish_role": "TOP3",
+      "reason": "良馬場東京芝1600mの3勝クラス勝利・上がり32.7と不良重賞勝利の双方確認",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+      "scenario_id": "TOKYO11-MIDPACK-BOTH-CLOSE-01",
+      "observed_at_jst": "2026-10-17T15:33:43.306+09:00"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "TOKYO11-MIDPACK-BOTH-CLOSE-01",
+      "description": "12先行・5好位、4と10が中団から33秒前後の差し脚で2頭とも3着内を確保。先行残りと良馬場10の伸び不足が失敗条件。",
+      "probability_status": "NOT_CALCULATED"
+    }
+  ],
+  "dependency_audit": {
+    "anchor_dependency": "ALL",
+    "lower_bound_review": "◎4単独の3着内率61％、○10単独60％をそのまま乗算して同時率としない。同時率は校正されておらず不確実。",
+    "anchor_failure_scenario": "4が前半の位置取りを下げ過ぎ直線に届かない場合・10が良馬場GIIで伸びを欠く場合は不的中。",
+    "scenario_overlap_reason": "両馬の差し脚共存という同一シナリオにワイド1点だけで依存し、追加保険を採用しない。"
+  }
+}
