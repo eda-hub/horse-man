@@ -1,0 +1,2226 @@
+{
+  "schema_version": "cycle04-postrace-all-declared-races-v1",
+  "race_date_jst": "2026-10-17",
+  "prepared_at_jst": "2026-10-17T18:57:55.242+09:00",
+  "purpose": "朝の事前宣言に記載した全36レースの結果上位3頭と保存済み予想への参照を事後固定。正式cycle04-day-v1の代用・認証・遡及生成をしない。",
+  "source_intent_path": "docs/validation/persistence-intents/2026-10-17/morning.json",
+  "source_day_index_path": "docs/validation/reconciliations/2026-10-17-day-index.json",
+  "source_six_race_review_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json",
+  "official_results_primary_status": "JRA_ORIGINAL_CONFIRMED_FOR_6; SECONDARY_JRA_RESULT_REPRODUCTION_FOR_30",
+  "coverage": {
+    "declared": 36,
+    "result_top3_retrieved": 36,
+    "result_top3_primary_jra_confirmed": 6,
+    "result_top3_secondary_source_only": 30,
+    "prior_forecast_reviewable": 6,
+    "no_evaluable_final_forecast": 30,
+    "dead_heat_handled": 1
+  },
+  "formal_kpi_certification": {
+    "status": "NOT_CERTIFIED",
+    "decision": "REJECTED",
+    "reason_codes": [
+      "OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+      "INITIAL_PREDICTION_36_NOT_FIXED",
+      "INDIVIDUAL_INTENT_FIX_RECEIPT_CHAIN_MISSING",
+      "FULL_PRE_RACE_RANKINGS_MISSING_FOR_30",
+      "RECOMMENDATION_INDEPENDENCE_INCOMPLETE",
+      "SHADOW_PRE_RACE_EVIDENCE_MISSING"
+    ],
+    "eligible_counts": {
+      "prediction": 0,
+      "recommendation": 0,
+      "shadow": 0
+    },
+    "formally_certified_rates": {
+      "winner_capture": null,
+      "honmei_win_rate": null,
+      "top3_capture": null,
+      "win_brier": null,
+      "top2_brier": null,
+      "top3_brier": null,
+      "recommendation_hit_rate": null,
+      "roi": null
+    }
+  },
+  "races": [
+    {
+      "race_id": "2026-10-17-TOKYO-01",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T10:05:00+09:00",
+      "race_name": "2歳未勝利",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 4,
+            "horse_name": "ピウモッソ"
+          },
+          {
+            "position": 2,
+            "horse_no": 2,
+            "horse_name": "ワレモコウ"
+          },
+          {
+            "position": 3,
+            "horse_no": 6,
+            "horse_name": "ロイヤルグルーヴ"
+          }
+        ],
+        "top3_horse_numbers": [
+          4,
+          2,
+          6
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-02",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T10:35:00+09:00",
+      "race_name": "2歳未勝利",
+      "surface": "芝",
+      "distance_m": 2000,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 4,
+            "horse_name": "ガヤーズアモーレ"
+          },
+          {
+            "position": 2,
+            "horse_no": 9,
+            "horse_name": "スワーヴバシレウス"
+          },
+          {
+            "position": 3,
+            "horse_no": 8,
+            "horse_name": "アイアムイガイニモ"
+          }
+        ],
+        "top3_horse_numbers": [
+          4,
+          9,
+          8
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-03",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T11:05:00+09:00",
+      "race_name": "2歳未勝利",
+      "surface": "ダート",
+      "distance_m": 1600,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 11,
+            "horse_name": "ニューロファイター"
+          },
+          {
+            "position": 2,
+            "horse_no": 8,
+            "horse_name": "レッドマウロア"
+          },
+          {
+            "position": 3,
+            "horse_no": 6,
+            "horse_name": "センチュリースカイ"
+          }
+        ],
+        "top3_horse_numbers": [
+          11,
+          8,
+          6
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-04",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T11:35:00+09:00",
+      "race_name": "2歳新馬",
+      "surface": "芝",
+      "distance_m": 1400,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 5,
+            "horse_name": "ジルファノーガ"
+          },
+          {
+            "position": 2,
+            "horse_no": 17,
+            "horse_name": "トーセンマライカ"
+          },
+          {
+            "position": 3,
+            "horse_no": 15,
+            "horse_name": "ロジリッパー"
+          }
+        ],
+        "top3_horse_numbers": [
+          5,
+          17,
+          15
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-05",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T12:25:00+09:00",
+      "race_name": "2歳新馬",
+      "surface": "芝",
+      "distance_m": 1800,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 9,
+            "horse_name": "ソーロブスト"
+          },
+          {
+            "position": 2,
+            "horse_no": 7,
+            "horse_name": "トナリティ"
+          },
+          {
+            "position": 3,
+            "horse_no": 3,
+            "horse_name": "サトノエスパーダ"
+          }
+        ],
+        "top3_horse_numbers": [
+          9,
+          7,
+          3
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-06",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T12:55:00+09:00",
+      "race_name": "3歳以上1勝クラス",
+      "surface": "芝",
+      "distance_m": 1400,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 13,
+            "horse_name": "ナハトナナレオン"
+          },
+          {
+            "position": 2,
+            "horse_no": 17,
+            "horse_name": "アイアンパイク"
+          },
+          {
+            "position": 3,
+            "horse_no": 7,
+            "horse_name": "タイセイフレッサ"
+          }
+        ],
+        "top3_horse_numbers": [
+          13,
+          17,
+          7
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-07",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T13:25:00+09:00",
+      "race_name": "3歳以上1勝クラス",
+      "surface": "ダート",
+      "distance_m": 1600,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 5,
+            "horse_name": "タイセイリアル"
+          },
+          {
+            "position": 2,
+            "horse_no": 11,
+            "horse_name": "モノポリオ"
+          },
+          {
+            "position": 3,
+            "horse_no": 4,
+            "horse_name": "アデルフィー"
+          }
+        ],
+        "top3_horse_numbers": [
+          5,
+          11,
+          4
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-08",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T13:55:00+09:00",
+      "race_name": "3歳以上2勝クラス",
+      "surface": "芝",
+      "distance_m": 2000,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 6,
+            "horse_name": "スピンザブラッド"
+          },
+          {
+            "position": 2,
+            "horse_no": 4,
+            "horse_name": "リポサンテ"
+          },
+          {
+            "position": 3,
+            "horse_no": 3,
+            "horse_name": "モートンアイランド"
+          }
+        ],
+        "top3_horse_numbers": [
+          6,
+          4,
+          3
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-09",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T14:25:00+09:00",
+      "race_name": "アイビーステークス",
+      "surface": "芝",
+      "distance_m": 1800,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 7,
+            "horse_name": "キャピタルストーン"
+          },
+          {
+            "position": 2,
+            "horse_no": 12,
+            "horse_name": "コラリオン"
+          },
+          {
+            "position": 3,
+            "horse_no": 5,
+            "horse_name": "コスモイェーガー"
+          }
+        ],
+        "top3_horse_numbers": [
+          7,
+          12,
+          5
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false,
+        "full_finish_detail_ref": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+      },
+      "source": {
+        "kind": "JRA_ORIGINAL_AND_SPORTS_NAVIGATION_CROSSCHECK",
+        "official_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604060920261017%2F34",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+      },
+      "pre_off_forecast": {
+        "status": "AFTER_POST_CHAT_PRESERVATION_ONLY",
+        "path": "docs/validation/preservation/2026-10-17-tokyo-09-final-late.md"
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "正式日次scope・初回全頭予想・独立intent/FIX順序証跡が欠落"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      },
+      "previous_six_race_review_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-10",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T15:01:00+09:00",
+      "race_name": "伊勢佐木ステークス",
+      "surface": "ダート",
+      "distance_m": 2100,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 4,
+            "horse_name": "ライノ"
+          },
+          {
+            "position": 2,
+            "horse_no": 10,
+            "horse_name": "ロングウェイホーム"
+          },
+          {
+            "position": 3,
+            "horse_no": 14,
+            "horse_name": "メイショウフジ"
+          }
+        ],
+        "top3_horse_numbers": [
+          4,
+          10,
+          14
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-11",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T15:45:00+09:00",
+      "race_name": "富士ステークス GII",
+      "surface": "芝",
+      "distance_m": 1600,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 13,
+            "horse_name": "シュガークン"
+          },
+          {
+            "position": 2,
+            "horse_no": 10,
+            "horse_name": "アンパドゥ"
+          },
+          {
+            "position": 3,
+            "horse_no": 14,
+            "horse_name": "エコロアルバ"
+          }
+        ],
+        "top3_horse_numbers": [
+          13,
+          10,
+          14
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false,
+        "full_finish_detail_ref": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+      },
+      "source": {
+        "kind": "JRA_ORIGINAL_AND_SPORTS_NAVIGATION_CROSSCHECK",
+        "official_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604061120261017%2FDE",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+      },
+      "pre_off_forecast": {
+        "status": "PRE_RACE_BODY_ARCHIVED_NOT_CYCLE04_ACCEPTED",
+        "path": "docs/validation/snapshots/2026-10-17/20261017-TOKYO-11-FINAL-S01.json"
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "正式日次scope・初回全頭予想・独立intent/FIX順序証跡が欠落"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      },
+      "previous_six_race_review_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-12",
+      "venue": "TOKYO",
+      "meeting": "4回東京6日",
+      "scheduled_post_time_jst": "2026-10-17T16:30:00+09:00",
+      "race_name": "3歳以上2勝クラス",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 2,
+            "horse_name": "ショーリバース"
+          },
+          {
+            "position": 2,
+            "horse_no": 7,
+            "horse_name": "バルダンツァ"
+          },
+          {
+            "position": 3,
+            "horse_no": 5,
+            "horse_name": "ダノンキラウェア"
+          }
+        ],
+        "top3_horse_numbers": [
+          2,
+          7,
+          5
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26050406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-01",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T09:55:00+09:00",
+      "race_name": "2歳未勝利",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 2,
+            "horse_name": "ヴェルヴィエ"
+          },
+          {
+            "position": 2,
+            "horse_no": 9,
+            "horse_name": "ユイリノベーション"
+          },
+          {
+            "position": 3,
+            "horse_no": 3,
+            "horse_name": "バルチックアンバー"
+          }
+        ],
+        "top3_horse_numbers": [
+          2,
+          9,
+          3
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-02",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T10:25:00+09:00",
+      "race_name": "2歳未勝利",
+      "surface": "芝",
+      "distance_m": 1200,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 7,
+            "horse_name": "ウォータージェード"
+          },
+          {
+            "position": 2,
+            "horse_no": 6,
+            "horse_name": "コルベータ"
+          },
+          {
+            "position": 3,
+            "horse_no": 1,
+            "horse_name": "バクソウシャチョウ"
+          }
+        ],
+        "top3_horse_numbers": [
+          7,
+          6,
+          1
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-03",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T10:55:00+09:00",
+      "race_name": "2歳未勝利",
+      "surface": "芝",
+      "distance_m": 2000,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 4,
+            "horse_name": "カエンフォース"
+          },
+          {
+            "position": 2,
+            "horse_no": 5,
+            "horse_name": "ハナナ"
+          },
+          {
+            "position": 3,
+            "horse_no": 8,
+            "horse_name": "ペプチドデバイス"
+          }
+        ],
+        "top3_horse_numbers": [
+          4,
+          5,
+          8
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-04",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T11:25:00+09:00",
+      "race_name": "障害3歳以上未勝利",
+      "surface": "障害芝→ダート",
+      "distance_m": 2910,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 5,
+            "horse_name": "アドアプローズ"
+          },
+          {
+            "position": 2,
+            "horse_no": 2,
+            "horse_name": "ハッピーダンチャン"
+          },
+          {
+            "position": 3,
+            "horse_no": 1,
+            "horse_name": "ソルトチューダ"
+          }
+        ],
+        "top3_horse_numbers": [
+          5,
+          2,
+          1
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-05",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T12:15:00+09:00",
+      "race_name": "2歳新馬",
+      "surface": "芝",
+      "distance_m": 1800,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 1,
+            "horse_name": "マルキア"
+          },
+          {
+            "position": 2,
+            "horse_no": 2,
+            "horse_name": "オールドリーキー"
+          },
+          {
+            "position": 3,
+            "horse_no": 4,
+            "horse_name": "エフティヒア"
+          }
+        ],
+        "top3_horse_numbers": [
+          1,
+          2,
+          4
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-06",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T12:45:00+09:00",
+      "race_name": "2歳新馬",
+      "surface": "ダート",
+      "distance_m": 1800,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 4,
+            "horse_name": "チュウワアーチ"
+          },
+          {
+            "position": 2,
+            "horse_no": 10,
+            "horse_name": "オリオンベリル"
+          },
+          {
+            "position": 3,
+            "horse_no": 8,
+            "horse_name": "アポカリプト"
+          }
+        ],
+        "top3_horse_numbers": [
+          4,
+          10,
+          8
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-07",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T13:15:00+09:00",
+      "race_name": "3歳以上1勝クラス",
+      "surface": "ダート",
+      "distance_m": 1800,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 7,
+            "horse_name": "ゼンカイナダル"
+          },
+          {
+            "position": 2,
+            "horse_no": 4,
+            "horse_name": "ココロヅヨサ"
+          },
+          {
+            "position": 3,
+            "horse_no": 8,
+            "horse_name": "ビービーバザーク"
+          }
+        ],
+        "top3_horse_numbers": [
+          7,
+          4,
+          8
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-08",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T13:45:00+09:00",
+      "race_name": "もみじステークス",
+      "surface": "芝",
+      "distance_m": 1400,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 7,
+            "horse_name": "ロンドンガーズ"
+          },
+          {
+            "position": 2,
+            "horse_no": 3,
+            "horse_name": "アンムート"
+          },
+          {
+            "position": 3,
+            "horse_no": 6,
+            "horse_name": "カレンハウ"
+          }
+        ],
+        "top3_horse_numbers": [
+          7,
+          3,
+          6
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false,
+        "full_finish_detail_ref": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+      },
+      "source": {
+        "kind": "JRA_ORIGINAL_AND_SPORTS_NAVIGATION_CROSSCHECK",
+        "official_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604060820261017%2F5D",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+      },
+      "pre_off_forecast": {
+        "status": "PRE_RACE_BODY_ARCHIVED_NOT_CYCLE04_ACCEPTED",
+        "path": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-08-FINAL-S01.json"
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "正式日次scope・初回全頭予想・独立intent/FIX順序証跡が欠落"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      },
+      "previous_six_race_review_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-09",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T14:15:00+09:00",
+      "race_name": "3歳以上2勝クラス",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 7,
+            "horse_name": "ジャンヌドゥレーヴ"
+          },
+          {
+            "position": 2,
+            "horse_no": 11,
+            "horse_name": "ルビドゥソレイユ"
+          },
+          {
+            "position": 3,
+            "horse_no": 14,
+            "horse_name": "ホウショウマリス"
+          }
+        ],
+        "top3_horse_numbers": [
+          7,
+          11,
+          14
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-10",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T14:50:00+09:00",
+      "race_name": "清滝特別",
+      "surface": "芝",
+      "distance_m": 2200,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 6,
+            "horse_name": "チェルヴァーラ"
+          },
+          {
+            "position": 2,
+            "horse_no": 2,
+            "horse_name": "エイシンビーコン"
+          },
+          {
+            "position": 3,
+            "horse_no": 7,
+            "horse_name": "トリニティ"
+          }
+        ],
+        "top3_horse_numbers": [
+          6,
+          2,
+          7
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false,
+        "full_finish_detail_ref": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+      },
+      "source": {
+        "kind": "JRA_ORIGINAL_AND_SPORTS_NAVIGATION_CROSSCHECK",
+        "official_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604061020261017%2F07",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+      },
+      "pre_off_forecast": {
+        "status": "AFTER_POST_CHAT_PRESERVATION_ONLY",
+        "path": "docs/validation/preservation/2026-10-17-kyoto-10-final-late.md"
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "正式日次scope・初回全頭予想・独立intent/FIX順序証跡が欠落"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      },
+      "previous_six_race_review_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-11",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T15:30:00+09:00",
+      "race_name": "トルマリンステークス",
+      "surface": "ダート",
+      "distance_m": 1800,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 10,
+            "horse_name": "マジックローズ"
+          },
+          {
+            "position": 2,
+            "horse_no": 5,
+            "horse_name": "ジューンエオス"
+          },
+          {
+            "position": 3,
+            "horse_no": 9,
+            "horse_name": "エアトベーレ"
+          }
+        ],
+        "top3_horse_numbers": [
+          10,
+          5,
+          9
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false,
+        "full_finish_detail_ref": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+      },
+      "source": {
+        "kind": "JRA_ORIGINAL_AND_SPORTS_NAVIGATION_CROSSCHECK",
+        "official_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604061120261017%2FBC",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+      },
+      "pre_off_forecast": {
+        "status": "PRE_RACE_BODY_ARCHIVED_NOT_CYCLE04_ACCEPTED",
+        "path": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-11-FINAL-S01.json"
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "正式日次scope・初回全頭予想・独立intent/FIX順序証跡が欠落"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      },
+      "previous_six_race_review_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-12",
+      "venue": "KYOTO",
+      "meeting": "4回京都6日",
+      "scheduled_post_time_jst": "2026-10-17T16:15:00+09:00",
+      "race_name": "3歳以上1勝クラス",
+      "surface": "芝",
+      "distance_m": 1400,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 5,
+            "horse_name": "タナブイハチターボ"
+          },
+          {
+            "position": 2,
+            "horse_no": 7,
+            "horse_name": "キシャール"
+          },
+          {
+            "position": 2,
+            "horse_no": 10,
+            "horse_name": "ムーンライトダイヤ"
+          }
+        ],
+        "top3_horse_numbers": [
+          5,
+          7,
+          10
+        ],
+        "dead_heat": {
+          "position": 2,
+          "horse_numbers": [
+            7,
+            10
+          ]
+        },
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26080406",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-01",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T09:45:00+09:00",
+      "race_name": "2歳未勝利",
+      "surface": "芝",
+      "distance_m": 1600,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 9,
+            "horse_name": "クシェドゥソレイユ"
+          },
+          {
+            "position": 2,
+            "horse_no": 2,
+            "horse_name": "ドラゴンドール"
+          },
+          {
+            "position": 3,
+            "horse_no": 7,
+            "horse_name": "サノノファイター"
+          }
+        ],
+        "top3_horse_numbers": [
+          9,
+          2,
+          7
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-02",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T10:15:00+09:00",
+      "race_name": "2歳未勝利",
+      "surface": "ダート",
+      "distance_m": 1800,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 7,
+            "horse_name": "コパノキラキラ"
+          },
+          {
+            "position": 2,
+            "horse_no": 11,
+            "horse_name": "ツイストマインド"
+          },
+          {
+            "position": 3,
+            "horse_no": 1,
+            "horse_name": "エボニーウイング"
+          }
+        ],
+        "top3_horse_numbers": [
+          7,
+          11,
+          1
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-03",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T10:45:00+09:00",
+      "race_name": "3歳以上1勝クラス",
+      "surface": "ダート",
+      "distance_m": 1200,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 2,
+            "horse_name": "ラベンダーヘイズ"
+          },
+          {
+            "position": 2,
+            "horse_no": 5,
+            "horse_name": "アンバサダネージュ"
+          },
+          {
+            "position": 3,
+            "horse_no": 1,
+            "horse_name": "ミライハーモニー"
+          }
+        ],
+        "top3_horse_numbers": [
+          2,
+          5,
+          1
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-04",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T11:15:00+09:00",
+      "race_name": "3歳以上1勝クラス",
+      "surface": "芝",
+      "distance_m": 1800,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 7,
+            "horse_name": "ジーティーメティオ"
+          },
+          {
+            "position": 2,
+            "horse_no": 11,
+            "horse_name": "キアラメンテ"
+          },
+          {
+            "position": 3,
+            "horse_no": 10,
+            "horse_name": "エイズルブルーム"
+          }
+        ],
+        "top3_horse_numbers": [
+          7,
+          11,
+          10
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-05",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T12:05:00+09:00",
+      "race_name": "2歳新馬",
+      "surface": "ダート",
+      "distance_m": 1200,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 11,
+            "horse_name": "セイラルレモン"
+          },
+          {
+            "position": 2,
+            "horse_no": 3,
+            "horse_name": "クリスタルシャイン"
+          },
+          {
+            "position": 3,
+            "horse_no": 15,
+            "horse_name": "クアヒネ"
+          }
+        ],
+        "top3_horse_numbers": [
+          11,
+          3,
+          15
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-06",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T12:35:00+09:00",
+      "race_name": "3歳以上1勝クラス",
+      "surface": "芝",
+      "distance_m": 1800,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 11,
+            "horse_name": "メイショウキンタイ"
+          },
+          {
+            "position": 2,
+            "horse_no": 15,
+            "horse_name": "トラカイキャッスル"
+          },
+          {
+            "position": 3,
+            "horse_no": 2,
+            "horse_name": "カリドーラ"
+          }
+        ],
+        "top3_horse_numbers": [
+          11,
+          15,
+          2
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-07",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T13:05:00+09:00",
+      "race_name": "3歳以上1勝クラス",
+      "surface": "ダート",
+      "distance_m": 1800,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 6,
+            "horse_name": "ウルフ"
+          },
+          {
+            "position": 2,
+            "horse_no": 4,
+            "horse_name": "ヴェーヌドール"
+          },
+          {
+            "position": 3,
+            "horse_no": 7,
+            "horse_name": "ヤマメイッカ"
+          }
+        ],
+        "top3_horse_numbers": [
+          6,
+          4,
+          7
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-08",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T13:35:00+09:00",
+      "race_name": "3歳以上1勝クラス",
+      "surface": "芝",
+      "distance_m": 1600,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 2,
+            "horse_name": "ランドプリメーロ"
+          },
+          {
+            "position": 2,
+            "horse_no": 4,
+            "horse_name": "モティスフォント"
+          },
+          {
+            "position": 3,
+            "horse_no": 13,
+            "horse_name": "ブルースカイブルー"
+          }
+        ],
+        "top3_horse_numbers": [
+          2,
+          4,
+          13
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-09",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T14:05:00+09:00",
+      "race_name": "岩船特別",
+      "surface": "芝",
+      "distance_m": 2200,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 3,
+            "horse_name": "サイモンシャリオ"
+          },
+          {
+            "position": 2,
+            "horse_no": 9,
+            "horse_name": "エルナト"
+          },
+          {
+            "position": 3,
+            "horse_no": 1,
+            "horse_name": "ディアアズール"
+          }
+        ],
+        "top3_horse_numbers": [
+          3,
+          9,
+          1
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-10",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T14:40:00+09:00",
+      "race_name": "妙高特別",
+      "surface": "ダート",
+      "distance_m": 1200,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 10,
+            "horse_name": "キャリーグレイス"
+          },
+          {
+            "position": 2,
+            "horse_no": 6,
+            "horse_name": "エスカレイト"
+          },
+          {
+            "position": 3,
+            "horse_no": 3,
+            "horse_name": "ダノンモンテローザ"
+          }
+        ],
+        "top3_horse_numbers": [
+          10,
+          6,
+          3
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-11",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T15:15:00+09:00",
+      "race_name": "北陸ステークス",
+      "surface": "芝",
+      "distance_m": 1200,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 6,
+            "horse_name": "ベイビーキッス"
+          },
+          {
+            "position": 2,
+            "horse_no": 12,
+            "horse_name": "シカゴスティング"
+          },
+          {
+            "position": 3,
+            "horse_no": 15,
+            "horse_name": "サトノワーグナー"
+          }
+        ],
+        "top3_horse_numbers": [
+          6,
+          12,
+          15
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false,
+        "full_finish_detail_ref": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+      },
+      "source": {
+        "kind": "JRA_ORIGINAL_AND_SPORTS_NAVIGATION_CROSSCHECK",
+        "official_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0104202604011120261017%2F55",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+      },
+      "pre_off_forecast": {
+        "status": "PRE_RACE_BODY_ARCHIVED_NOT_CYCLE04_ACCEPTED",
+        "path": "docs/validation/snapshots/2026-10-17/20261017-NIIGATA-11-FINAL-S01.json"
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "正式日次scope・初回全頭予想・独立intent/FIX順序証跡が欠落"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      },
+      "previous_six_race_review_path": "docs/validation/reviews/cycle_04/2026-10-17-jra-postrace-reference.json"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-12",
+      "venue": "NIIGATA",
+      "meeting": "4回新潟1日",
+      "scheduled_post_time_jst": "2026-10-17T16:01:00+09:00",
+      "race_name": "3歳以上1勝クラス",
+      "surface": "芝直線",
+      "distance_m": 1000,
+      "result": {
+        "status": "RESULT_PUBLISHED",
+        "top_finishers": [
+          {
+            "position": 1,
+            "horse_no": 16,
+            "horse_name": "ラインピクシー"
+          },
+          {
+            "position": 2,
+            "horse_no": 14,
+            "horse_name": "ラブカムーン"
+          },
+          {
+            "position": 3,
+            "horse_no": 8,
+            "horse_name": "ミエノブラボー"
+          }
+        ],
+        "top3_horse_numbers": [
+          16,
+          14,
+          8
+        ],
+        "dead_heat": null,
+        "full_finishing_order_available_in_this_file": false
+      },
+      "source": {
+        "kind": "SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION",
+        "overview_url": "https://sports.yahoo.co.jp/keiba/race/list/26040401",
+        "official_individual_page_verified": false
+      },
+      "pre_off_forecast": {
+        "status": "NOT_PERSISTED",
+        "path": null
+      },
+      "formal_prediction_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "発走前に固定された全頭予想の参照可能な正本がない。結果だけから事後算定できない"
+      },
+      "formal_recommendation_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "当日の公式日次工程が不成立。別保存・未封印の参考判断は正式推奨の成績へ転用しない"
+      },
+      "formal_shadow_kpi": {
+        "status": "INELIGIBLE",
+        "value": null,
+        "reason": "同cutoff Shadow原本と独立検証がない"
+      }
+    }
+  ]
+}
