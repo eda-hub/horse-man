@@ -212,12 +212,42 @@ def recommendation_completion(root, artifact_path, gate_path, *, fixed_content_s
         if not rec:
             raise ComplianceError('recommendation body unavailable')
         receipts = root / 'docs/validation/persistence-receipts' / (rec['race_date_jst'] + '.md')
-        matches = [x for x in receipt_records(receipts) if
-                   x.get('artifact_id') == rec['recommendation_id'] and
-                   x.get('artifact_path') == artifact_path]
+        # R01 (initial write) and R02 (verified readback) are distinct immutable
+        # receipts for the same recommendation, not duplicate completions.
+        # Resolve the exact receipt pinned by this gate, as verify() does.
+        gate = read_json(path)
+        ref = gate.get('evidence_ref')
+        if not isinstance(ref, dict):
+            raise ComplianceError('recommendation gate evidence_ref required')
+        if (ref.get('artifact_id') != rec['recommendation_id'] or
+                ref.get('artifact_path') != artifact_path):
+            raise ComplianceError('recommendation gate receipt identity mismatch')
+        records = receipt_records(receipts)
+        matches = [x for x in records if x.get('receipt_id') == ref.get('receipt_id')]
         if len(matches) != 1:
-            raise ComplianceError('same recommendation receipt must be unique')
+            raise ComplianceError('pinned recommendation receipt must be unique')
         item = matches[0]
+        if (item.get('artifact_id') != rec['recommendation_id'] or
+                item.get('artifact_path') != artifact_path or
+                item.get('receipt_id') != ref.get('receipt_id') or
+                item.get('persist_verified_at_jst') != ref.get('persist_verified_at_jst')):
+            raise ComplianceError('pinned recommendation receipt identity mismatch')
+        previous_id = item.get('previous_receipt_ref')
+        if previous_id:
+            previous = [x for x in records if x.get('receipt_id') == previous_id]
+            if len(previous) != 1:
+                raise ComplianceError('recommendation receipt predecessor missing/duplicated')
+            prior = previous[0]
+            if (previous_id == item['receipt_id'] or
+                    prior.get('artifact_id') != item['artifact_id'] or
+                    prior.get('artifact_path') != item['artifact_path'] or
+                    prior.get('content_sha256') != item.get('content_sha256') or
+                    prior.get('scheduled_post_time_jst') != item.get('scheduled_post_time_jst') or
+                    prior.get('persist_verified_at_jst') != item.get('persist_verified_at_jst') or
+                    prior.get('artifact_persist_status') != 'PERSIST_VERIFIED' or
+                    prior.get('receipt_persist_status') not in
+                    {'RECEIPT_READBACK_PENDING', 'RECEIPT_VERIFIED'}):
+                raise ComplianceError('recommendation receipt predecessor conflicts')
         if (item.get('artifact_persist_status') != 'PERSIST_VERIFIED' or
                 item.get('receipt_persist_status') != 'RECEIPT_VERIFIED' or
                 item.get('timing_eligibility') != 'PRE_RACE_ELIGIBLE' or
