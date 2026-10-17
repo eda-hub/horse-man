@@ -177,6 +177,27 @@ def verify_payload_binding(payload, race_id):
             raise ValueError("evidence schema/path category mismatch")
         if category == "persistence-receipts" and not item.get("receipt_id"):
             raise ValueError("receipt ID required")
+        if category in {"snapshots", "recommendations", "recommendation-intents",
+                        "recommendation-gates", "recommendation-prediction-gates",
+                        "persistence-intents"} and item.get("race_date_jst") != date:
+            raise ValueError("evidence race date is missing or mismatched")
+        basename = Path(payload.path).stem
+        if category in {"snapshots", "fix-manifests"}:
+            if item.get("snapshot_id") != basename:
+                raise ValueError("snapshot ID differs from target filename")
+        if category == "recommendations" and item.get("recommendation_id") != basename:
+            raise ValueError("recommendation ID differs from target filename")
+        if category == "recommendation-gates" and not payload.path.startswith(
+                "docs/validation/recommendation-gates/history/"):
+            if basename != race_id:
+                raise ValueError("recommendation gate target race mismatch")
+        if category == "recommendation-intents":
+            ref = item.get("artifact_path")
+            if not isinstance(ref, str) or Path(ref).stem != item.get("recommendation_id"):
+                raise ValueError("recommendation intent ID/artifact path mismatch")
+        if category == "persistence-intents" and isinstance(item.get("artifact_path"), str) and item["artifact_path"].endswith(".json"):
+            if Path(item["artifact_path"]).stem != item.get("snapshot_id"):
+                raise ValueError("prediction intent snapshot ID/artifact path mismatch")
         for key, value in _identity_values(item):
             if key == "race_id":
                 if value != race_id:
