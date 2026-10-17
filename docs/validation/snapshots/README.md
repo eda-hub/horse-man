@@ -224,4 +224,4 @@ preservationを後から通常snapshotへ名前変更・移動して発走前証
 
 ## 第3サイクルの候補台帳・取得引継ぎ
 
-`00_core` 0.0.12をOwnerとし、正式なWHOLE_DAY/個別snapshotに `cycle_id`、初回scope、検証/購入フラグ、選定理由・時刻・履歴、未取得項目の取得予定段階・出所・範囲を含める。[記録テンプレート](../templates/cycle03_execution.md) を使用する。候補台帳だけを結果後に新設して事前選定を装わない。買い目にはticket_purposeを持たせ、検証用だけの案を正式ROIへ混ぜない。
+`00_core` 0.0.12をOwnerとし、正式なWHOLE_DAY/個別snapshotに `cycle_id`、初回scope、検証/購入フラグ、選定理由・時刻・履歴、未取得項目の取得予定段階・出所・範囲を含める。[記録テンプレート](https://github.com/eda-hub/horse-man/blob/885d7d490245ba4d948bb4594017371d17eadc04/docs/validation/templates/cycle03_execution.md) を使用する。候補台帳だけを結果後に新設して事前選定を装わない。買い目にはticket_purposeを持たせ、検証用だけの案を正式ROIへ混ぜない。

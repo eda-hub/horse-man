@@ -43,8 +43,9 @@ def canon(race):
 
 def validate_carryover(root):
     data=read(root,CARRYOVER)
-    old=read(root,DECISIONS)
-    collection=read(root,COLLECTION)
+    from cycle04_history import read_json
+    old=read_json(root,DECISIONS)
+    collection=read_json(root,COLLECTION)
     require(data.get("schema_version")=="cycle04-carryover-v1","繰越schema")
     require(data.get("source_commit")==SOURCE_COMMIT,"繰越元commitの不一致")
     records=data.get("items")
@@ -84,30 +85,94 @@ def validate_carryover(root):
     require(data.get("performance_promotion")=="NOT_APPROVED","性能認証の無断昇格")
     return data
 
+HISTORY_PATHS = {
+    'docs/proposals/2026-09-22_cycle02_summary_cycle03_handoff.md',
+    'docs/proposals/2026-10-12_cycle03_summary_application_plan.md',
+    'docs/validation/contracts/cycle04-launch.json',
+    'docs/validation/cycle_02.md',
+    'docs/validation/cycle_03.md',
+    'docs/validation/operation_acceptance_cycle03.md',
+    'docs/validation/persistence-intents/2026-10-17/morning.json',
+    'docs/validation/reconciliations/2026-10-17-day-index.json',
+    'docs/validation/reviews/cycle_03/collection.json',
+    'docs/validation/reviews/cycle_03/decisions.json',
+    'docs/validation/reviews/cycle_03/historical_eligibility_inventory.md',
+    'docs/validation/reviews/cycle_03/main_import_2026-10-13.json',
+    'docs/validation/reviews/cycle_03/pr69_preparation_import.json',
+    'docs/validation/reviews/cycle_04/2026-10-17-all-36-daily-review.md',
+    'docs/validation/reviews/cycle_04/2026-10-17-all-36-official-results-reference.json',
+    'docs/validation/reviews/cycle_04/2026-10-17-daily-retrospective.md',
+    'docs/validation/reviews/cycle_04/2026-10-17-formal-kpi-certification-decision.json',
+    'docs/validation/templates/cycle03_execution.md',
+}
+ARCHIVABLE_PATHS = {
+    'docs/proposals/2026-09-22_cycle02_summary_cycle03_handoff.md',
+    'docs/proposals/2026-10-12_cycle03_summary_application_plan.md',
+    'docs/validation/contracts/cycle04-launch.json',
+    'docs/validation/operation_acceptance_cycle03.md',
+    'docs/validation/reviews/cycle_03/collection.json',
+    'docs/validation/reviews/cycle_03/decisions.json',
+    'docs/validation/templates/cycle03_execution.md',
+}
+LIVE_READERS = ('scripts/check_cycle04.py', 'scripts/run_cycle04_acceptance.py',
+                'scripts/build_v170_manifest.py', '.github/workflows/check-cycle04.yml',
+                '.github/workflows/check-integration-acceptance.yml',
+                'docs/validation/README.md', 'docs/validation/contracts/cycle_04.json',
+                'docs/validation/contracts/cycle04_operations.md')
+
 def validate_manifest(root):
+    from cycle04_history import fixed_bytes, recompute
     manifest=read(root,MANIFEST)
-    require(manifest.get("schema_version")=="cycle04-migration-manifest-v1" and
-            manifest.get("source_commit")==SOURCE_COMMIT,"移行manifest原点")
-    files=manifest.get("files")
-    require(isinstance(files,list) and len({r.get("path") for r in files})==len(files),
-            "削除候補・保持原票が重複")
+    require(manifest.get('schema_version')=='cycle04-migration-manifest-v1' and
+            manifest.get('source_commit')==SOURCE_COMMIT,'移行manifest原点')
+    files=manifest.get('files')
+    require(isinstance(files,list) and len(files)==len(HISTORY_PATHS) and
+            {r.get('path') for r in files}==HISTORY_PATHS,'履歴参照集合の欠落・重複・追加')
+    deleted=[]
     for item in files:
-        require(item.get("role") and item.get("decision") in {"RETAIN","DELETE_VERIFIED","PENDING"} and
-                item.get("reason") and re.fullmatch(r"[0-9a-f]{40}",item.get("git_blob_sha1","")) and
-                re.fullmatch(r"[0-9a-f]{64}",item.get("sha256","")),"manifest参照/判断不備")
-        if item["decision"]=="RETAIN":
-            require((root/item["path"]).is_file() and digest(root,item["path"])==item["sha256"],
-                    "保持する原本が失われたか改変: "+item["path"])
-        if item["decision"]=="DELETE_VERIFIED":
-            require(not (root/item["path"]).exists() and
-                    item.get("fixed_history_verified") is True and
-                    item.get("references_retargeted") is True and
-                    item.get("recomputed_results_verified") is True,
-                    "削除の必須3ゲート不一致: "+item["path"])
-        if item["decision"]=="PENDING":
-            require((root/item["path"]).exists(),"削除前審査なしの原票喪失: "+item["path"])
-    require(manifest.get("carryover_path")==CARRYOVER,"課題台帳の正本参照")
+        path=item['path']
+        require(item.get('role') and item.get('reason') and
+                item.get('decision') in {'RETAIN','DELETE_VERIFIED','PENDING'},'manifest判断不備')
+        # フラグを信用せず、実commit/path/blob/本文hashを毎回照合する。
+        frozen=fixed_bytes(root,path,item.get('git_blob_sha1'),item.get('sha256'),manifest['source_commit'])
+        require(re.fullmatch(r'[0-9a-f]{40}',item.get('git_blob_sha1','')) and
+                re.fullmatch(r'[0-9a-f]{64}',item.get('sha256','')),'固定hashが必要')
+        current=root/path
+        if item['decision']=='DELETE_VERIFIED':
+            require(path in ARCHIVABLE_PATHS and not current.exists(),'削除許可範囲・存在が不正: '+path)
+            replacements=item.get('replacement_paths')
+            require(replacements==[CARRYOVER,'docs/validation/contracts/cycle04_operations.md'],
+                    '統合先の正本が不一致: '+path)
+            require(all((root/p).is_file() for p in replacements),'統合先がありません')
+            for reader in LIVE_READERS:
+                require(path not in (root/reader).read_text(),'現行入口に削除元の直接参照: '+reader)
+            deleted.append(path)
+        else:
+            if path == 'docs/validation/cycle_03.md':
+                from cycle04_archive_links import retarget
+                deleted_paths={x['path'] for x in files if x['decision']=='DELETE_VERIFIED'}
+                expected=retarget(root,current,frozen,deleted_paths)
+                require(current.is_file() and current.read_bytes()==expected and
+                        digest(root,path)==item.get('working_sha256'), '旧台帳は固定原本からのリンク先変更だけ許可: '+path)
+            else:
+                require(current.is_file() and digest(root,path)==item['sha256'],
+                        '保持する原本が失われたか改変: '+path)
+    from cycle04_archive_links import verify_links
+    verify_links(root,set(deleted))
+    # 原票を作業ツリーへ戻さず、固定64入力を再取得して集合・金額を再計算。
+    recompute(root)
+    require(manifest.get('carryover_path')==CARRYOVER,'課題台帳の正本参照')
+    validate_carryover(root)
     return manifest
+
+
+def normalize_race(race, date):
+    compact=date.replace('-','')
+    if re.fullmatch(compact+r'-(TOK|KYO|NII)-(0[1-9]|1[0-2])',race):
+        return race
+    m=re.fullmatch(re.escape(date)+r'-(TOKYO|KYOTO|NIIGATA)-(0[1-9]|1[0-2])',race)
+    require(m is not None,'宣言race_idが対象開催日と不一致')
+    return compact+'-'+VENUES[m[1]]+'-'+m[2]
 
 def validate_postrace(root,day=None):
     d=day if day is not None else read(root,DAY)

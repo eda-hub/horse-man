@@ -249,3 +249,23 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 10/17は `records/cycle_04/2026-10-17.json` の `registration_origin=POSTRACE_RECONCILIATION` として登録した。36Rは事後の結果照合対象で、`initial_scope/selected_scope/final_scope/reviewed_scope` は前向き認証として空のまま。元IDと正規化IDの両方を保持し、6Rのみ公式個別結果照合、残り30Rは二次情報と区分する。旧認証拒否、未保存の初回予想、推奨4診断、発走前scope未登録は変更しない。将来の前向き依頼にこの日の事後台帳を転用しない。
 
 通常監査は `python3 scripts/check_cycle04.py`、事後原票照合は `python3 scripts/check_cycle04_full_day_reconciliation.py`、移管正本/集計/欠測判別は `python3 scripts/cycle04_migration.py --audit` を使用する。推奨の厳格CLI `python3 scripts/recommendation.py --audit` は従来の過去不足4件で非0。CIの `cycle04_recommendation_diagnostics.py --audit` は厳格CLIの実出力と固定原票SHA-256を照合し、4件が増減・改変したら非0にする。基準一致時も厳格CLIは非0であり、正常な推薦が完了したと表現しない。正常な実レース一巡・全6日終了・性能採用はそれぞれ別の検査/審査が必要。
+
+
+## 段階別監査と固定履歴への移管
+
+`python3 scripts/check_cycle04.py` は第4の準備整合に加え、実際に依頼・登録された日別scopeの段階別監査を実行する。初回は初回scope、FINALは選定scopeだけを対象にする。発走前に不足があればWAITINGとして表示し、公式変更履歴を適用した発走予定時刻以上で不足があれば終了1。未選定レースのFINALと未依頼の未来日は要求しない。準備だけを確認する場合は `--preparation-only` を明示し、日次成功の証明には使わない。全期間終了は引き続き `--require-complete --completion-manifest ...` で独立審査する。
+
+回顧開始時は、先に保存した公式結果と照合manifestを指定したJSON（`race_id / result_path / result_reconciliation_ref`）を、`cycle04_workflow.py --date YYYY-MM-DD --request-review <JSON>` に渡す。既存の日次branch・writer・排他制御を使い、公式結果の実本文/hash/取得時刻/照合manifestを検査して `result_ready_ref` を記録する。公式結果未確認はWAITING_RESULT。結果確認済みで回顧未完了は終了1となる。結果の確認前後をタスク開始時刻や発走からの推測時間で代用しない。CI/checkerが失敗しても予想の固定・保存・提示を継続し、該当工程の未完了を残す。
+
+第2/第3の終了資料・採否・旧操作説明は第4の繰越正本と本書へ統合した。削除対象7資料は移行manifestに固定commit/path/blob/SHA-256と統合先を記録し、`cycle04_history.py --audit` が64原入力をGitから実取得して集合・KPI・精算を再計算する。第4の通常検査は第3作業ツリーの採否/集計ファイルを読まない。固定履歴が取得不能・誤blob・本文hash不一致・再計算差分なら失敗し、確認フラグで代用しない。未解決の第2件数や第3保留57件を第4の前向き母数へ移していない。
+
+
+### 回顧前固定結果の保全と公式訂正
+
+`result_ready_ref` と `result_ready_reconciliation_ref` は、回顧後も原本として毎回照合する。同じ結果を採用するときは、回顧の `result_ref` / `result_reconciliation_ref` が両方とも一致しなければならない。通常の日別検査、日次監査、回顧writer、再度の回顧依頼で共通の固定参照検査を実行し、元結果・元manifest・内部のcapture/conversionを上書きしてはならない。回顧前固定を持たない既存回顧は既存の結果参照を維持し、新規回顧は `result_origin_ref` / `result_origin_reconciliation_ref` も保存する。
+
+公式訂正がある場合は、訂正結果と照合manifestおよび内部原票を新規pathへ保存する。さらに `docs/validation/result-corrections/YYYY-MM-DD/<race_id>/RNN.json` へ次のJSONを独立保存し、pathと実本文SHA-256を回顧入力の `result_correction_ref` として渡す。訂正原本は `schema_version: cycle04-result-correction-v1`、`race_id`、`race_date_jst`、連続した `revision`、前訂正の `previous_sha256`（初回null）、`from` / `to`（それぞれ `result_ref` と `reconciliation_ref`）、空でない `reason`、実際の `recorded_at_jst` を持つ。既存原票と訂正原票、対象・連鎖・時刻・全hashを検査し、訂正後も元の固定結果を保持する。既に回顧済みなら、従来の `revision_ref` による回顧改訂履歴も必須。結果訂正履歴と回顧文の改訂履歴を混同しない。
+
+日次対象0件は `target_count: 0` / `state: NOT_REQUESTED` と表示し、CI終了0でも工程完了とはしない。過去台帳の表示用リンクは固定commitの原文から削除先リンクだけを置換したものと照合する。移行監査は全Markdown・HTMLの相対リンク、参照形式、HTML属性も走査し、削除資料へのリンク切れを拒否する。旧集計の再計算には引き続き固定履歴の原文bytesを使う。
+
+固定履歴の64原入力は、現在保持する原票も固定commitのblob・SHA-256・bytesと毎回照合する。日別回顧の結果表、snapshot、receiptなど、集計値に影響しない本文変更や削除も不合格とする。例外は第3台帳の削除済み7資料へのリンク先変更だけであり、固定原文から機械的に再現したbytesとの完全一致を要求する。manifestのhashを書き換えても本文変更を許可しない。正式訂正は元原票を上書きせず、理由・対象原票・元hashを示す別の訂正履歴として保存する。訂正履歴を追加しても元原票の照合は省略せず、過去の固定集計を訂正後の内容で再計算しない。

@@ -5,7 +5,7 @@
 - 対象日（利用者指定・JST）: **9/26・27（中山/阪神）、10/3・4・10・11・12（東京/京都）**
 - 基準候補: 現行mainのmanual_release **v1.6.1**。開始時にREADMEと必須Ownerの版・commitを固定する。
 - 主目的: **追加の督促なしで検証工程が起動し、発走前比較・保存・読戻し・引継ぎ・結果後集計まで成立するかを実証する。**
-- 前サイクル総括: [第2サイクル総括](../proposals/2026-09-22_cycle02_summary_cycle03_handoff.md)
+- 前サイクル総括: [第2サイクル総括](https://github.com/eda-hub/horse-man/blob/885d7d490245ba4d948bb4594017371d17eadc04/docs/proposals/2026-09-22_cycle02_summary_cycle03_handoff.md)
 - 正式予想のOwner: [manual/README](../manual/README.md)。本書から予想判断・購入閾値・Shadow昇格を行わない。
 
 ## 1. 範囲と分母
@@ -73,13 +73,13 @@
 | 本番導線の予行 | C3-01/03/06/07を模擬1レースで通す。記録書式・必須Shadow・購入監査・保存先・引継ぎを確認 |
 | 証跡管理 | 本体/receipt/preservation/日別recordの責務と、日次branchからの集計手順を確認 |
 
-PR #39は総括と計画の登録。実装はmanual README / 00_core 0.0.12 / 50_review 0.12.3・0.14.3 / 40_shadow / validation READMEへ接続した。適用開始はmain統合後。模擬・実I/O・LIVEの実績は [受入記録](operation_acceptance_cycle03.md) を参照し、未マージ計画をProductionの根拠にしない。
+PR #39は総括と計画の登録。実装はmanual README / 00_core 0.0.12 / 50_review 0.12.3・0.14.3 / 40_shadow / validation READMEへ接続した。適用開始はmain統合後。模擬・実I/O・LIVEの実績は [受入記録](https://github.com/eda-hub/horse-man/blob/885d7d490245ba4d948bb4594017371d17eadc04/docs/validation/operation_acceptance_cycle03.md) を参照し、未マージ計画をProductionの根拠にしない。
 
 `docs/validation/` の終了時削除は、サイクル固有データを対象単位で確認して行う。snapshot/receipt/daily-branches等の現行manualが参照する運用READMEや第3サイクル計画を一括削除しない。第2サイクル終了処理は本PRでは実施しない。履歴固定後の整理と第3入口切替は、参照整合を確認する切替作業として行う。
 
 ## 4. 優先試験一覧
 
-すべての試験の初期状態は `NOT_RUN`。実施後の状態と証跡は [受入記録](operation_acceptance_cycle03.md) を正とし、LIVEと模擬を分ける。下記の合格条件は第3サイクルの運用受入目標であり、予想ロジックの新しい判断閾値ではない。
+すべての試験の初期状態は `NOT_RUN`。実施後の状態と証跡は [受入記録](https://github.com/eda-hub/horse-man/blob/885d7d490245ba4d948bb4594017371d17eadc04/docs/validation/operation_acceptance_cycle03.md) を正とし、LIVEと模擬を分ける。下記の合格条件は第3サイクルの運用受入目標であり、予想ロジックの新しい判断閾値ではない。
 
 | ID / 優先度 | 実際に行う試験 | 残す証拠・合格条件 |
 |---|---|---|
@@ -232,7 +232,7 @@ G1未達でも日程を消したり通常予想を一律停止したりしない
 
 この追加回顧はBetting層の改善材料であり、京都9RのProduction順位や過去の固定買い目を事後変更しない。
 
-第2の未確定値は [総括残件](../proposals/2026-09-22_cycle02_summary_cycle03_handoff.md) と受入記録の引継ぎ台帳で管理し、第3へ混ぜない。
+第2の未確定値は [総括残件](https://github.com/eda-hub/horse-man/blob/885d7d490245ba4d948bb4594017371d17eadc04/docs/proposals/2026-09-22_cycle02_summary_cycle03_handoff.md) と受入記録の引継ぎ台帳で管理し、第3へ混ぜない。
 
 ### 2026-10-11 回顧R01の課題と現行ルール非改変
 

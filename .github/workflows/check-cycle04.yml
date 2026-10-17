@@ -1,4 +1,12 @@
 name: 予想実行・第4サイクル移行と日次監査
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 on:
   pull_request:
     branches: [main]
@@ -16,34 +24,24 @@ jobs:
           fetch-depth: 0
       - name: PDF原資料検査の依存準備
         run: command -v pdftotext >/dev/null || { sudo apt-get update && sudo apt-get install -y poppler-utils; }
-      - name: 全回帰（skipは別途受入で拒否）
-        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: 全回帰と合成受入（1回実行・skipも拒否・保存済み証跡は上書きしない）
+        run: python3 scripts/run_cycle04_acceptance.py
       - name: 第4正本・版と合成受入
         run: |
           python3 scripts/check_cycle04.py
           python3 scripts/run_release_readiness.py
-  manifest-preview:
-    name: 合成受入とrelease候補の再生成検証
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: PDF原資料検査の依存準備
-        run: command -v pdftotext >/dev/null || { sudo apt-get update && sudo apt-get install -y poppler-utils; }
-      - name: skip0の全回帰と正確なsource manifest生成
+      - name: release固定対象に生成漏れがないことを読取専用で確認
         run: |
-          python3 scripts/run_cycle04_acceptance.py --write
-          python3 scripts/build_v170_manifest.py
           python3 - <<'PY'
           import json
+          import sys
           from pathlib import Path
-          for name, path in (
-              ('CYCLE04_ACCEPTANCE_MANIFEST', 'docs/validation/reviews/cycle_04/acceptance.json'),
-              ('CYCLE04_RELEASE_MANIFEST', 'docs/validation/contracts/v170-release.json'),
-          ):
-              payload = json.loads(Path(path).read_text(encoding='utf-8'))
-              print(name + '=' + json.dumps(payload, ensure_ascii=False, separators=(',', ':')))
+          sys.path.insert(0, 'scripts')
+          from build_v170_manifest import build, OUTPUT
+          root = Path.cwd()
+          if build(root) != json.loads((root / OUTPUT).read_text(encoding='utf-8')):
+              raise SystemExit('release manifestの固定対象・hashが現在の生成結果と一致しません')
+          print('release固定対象・hashの生成結果一致。証跡の自動書換えなし。')
           PY
   migration:
     name: 第2・第3原票と第4移行の保全
@@ -54,8 +52,7 @@ jobs:
           fetch-depth: 0
       - name: 第3歴史台帳・訂正前後の固定照合
         run: |
-          python3 scripts/check_cycle03.py --require-data --require-complete
-          python3 scripts/build_cycle03_review.py --check --require-complete
+          python3 scripts/cycle04_history.py --audit
       - name: 第4繰越68項目・保全原本・36R事後台帳
         run: |
           python3 scripts/cycle04_migration.py --audit
@@ -72,21 +69,26 @@ jobs:
           python3 scripts/check_prediction_compliance.py --audit
           python3 scripts/verify_prediction_persistence.py --audit
   recommendation:
-    name: 推奨の厳格監査（既知の不足も非0）
+    name: 推奨の新規不備検出と既知不足の保全
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: 推奨厳格CLIの非0を保持して過去4件と新規異常を分離
         run: |
           python3 scripts/cycle04_recommendation_diagnostics.py --audit | tee /tmp/recommendation-status.txt
+      - name: 監査が失敗した場合も状態を表示
+        if: always()
+        run: |
           {
             echo '### 推奨の独立監査（過去不足は未解消）'
             echo '~~~text'
-            cat /tmp/recommendation-status.txt
+            if [ -f /tmp/recommendation-status.txt ]; then
+              cat /tmp/recommendation-status.txt
+            fi
             echo '~~~'
           } >> "$GITHUB_STEP_SUMMARY"
   cycle-ledger:
-    name: cycle-ledger（旧required check互換）
+    name: cycle-ledger
     if: always()
     needs: [regression, migration, persistence, recommendation]
     runs-on: ubuntu-latest

@@ -1,4 +1,7 @@
-name: 新旧契約の統合受入と取得済みmain開始確認
+name: 取得済みmainと候補契約の開始整合確認
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 on:
   pull_request:
     branches: [main]
@@ -14,7 +17,5 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # origin/mainの実commitと原票履歴を取得
-      - name: PDF原資料検査の依存準備
-        run: command -v pdftotext >/dev/null || { sudo apt-get update && sudo apt-get install -y poppler-utils; }
-      - name: 全入口合成受入・第3再計算・実mainとbranchの開始確認
-        run: python3 scripts/check_integration_acceptance.py --full
+      - name: 実mainとbranchの開始確認（全回帰は第4監査で1回実行）
+        run: python3 scripts/check_integration_acceptance.py

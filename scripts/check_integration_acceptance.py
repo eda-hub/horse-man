@@ -86,7 +86,7 @@ def main(argv=None):
     try:
         report = check_main_reference(args.root, args.expected_main_sha)
         if args.full:
-            subprocess.run(['python3', 'scripts/build_cycle03_review.py', '--check', '--require-complete'],
+            subprocess.run(['python3', 'scripts/cycle04_history.py', '--audit'],
                            cwd=args.root, check=True)
             from run_cycle04_acceptance import run
             acceptance = run(args.root.resolve())

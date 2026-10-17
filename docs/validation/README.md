@@ -16,13 +16,14 @@
 
 2026-10-17の36Rは結果照合済みで、JRA公式個別結果確認6R・二次情報のみ30R。事前公式scope未登録、前向き正式KPI適格0、推奨厳格監査の既存不足4診断を保持する。将来の依頼対象・対象日に推測で台帳を作らず、原票・FIX時刻・保存証拠を結果から再生成しない。合成受入成功、main反映、実開催正常一巡、性能認証は異なる状態である。
 
-第2と第3の原記録は監査証拠として保存する。`cycle_02.md`、`cycle_03.md`、`reviews/cycle_03/`、`../proposals/2026-09-22_cycle02_summary_cycle03_handoff.md`、`../proposals/2026-10-12_cycle03_summary_application_plan.md` は**履歴資料**であり、現行作業の主指示・新しいKPIの母数ではない。重複した旧README説明の固定版は[移行基準commit](https://github.com/eda-hub/horse-man/blob/885d7d490245ba4d948bb4594017371d17eadc04/docs/validation/README.md)に保存されている。
+第2と第3の原記録は監査証拠として保存する。`cycle_02.md`、`cycle_03.md`、`reviews/cycle_03/`、`../proposals/2026-09-22_cycle02_summary_cycle03_handoff.md`、`../proposals/2026-10-12_cycle03_summary_application_plan.md` は**履歴資料**であり、現行作業の主指示・新しいKPIの母数ではない。採否・集計と重複した旧操作説明は固定履歴へ移管済み。`cycle04_history.py --audit` は固定64入力を実取得・再計算する。重複した旧README説明の固定版は[移行基準commit](https://github.com/eda-hub/horse-man/blob/885d7d490245ba4d948bb4594017371d17eadc04/docs/validation/README.md)に保存されている。
 
 ## 検査入口
 
 ```bash
 python3 scripts/run_release_readiness.py --require-main
 python3 scripts/check_cycle04.py --require-active
+python3 scripts/cycle04_history.py --audit
 python3 scripts/cycle04_migration.py --audit
 python3 scripts/check_cycle04_full_day_reconciliation.py
 python3 scripts/cycle04_recommendation_diagnostics.py --audit

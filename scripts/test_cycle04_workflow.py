@@ -79,6 +79,20 @@ class OperationalWorkflow(unittest.TestCase):
         self.assertEqual(after['kpis']['market']['eligible_ids'],0)
         self.assertEqual(len(workflow.read_day(self.root,DATE)[0]['races'][RACE]['prediction_history']),2)
 
+    def test_official_result_request_exposes_missing_review_then_clears_it(self):
+        from cycle04_daily_audit import audit_days
+        self.register();workflow.record_prediction(self.root,DATE,self.entry);self.select()
+        self.entry['phase']='FINAL';workflow.record_prediction(self.root,DATE,self.entry)
+        entry=self.result_entry();now=datetime.fromisoformat(DATE+'T12:00:00+09:00')
+        workflow.request_review(self.root,DATE,entry,now=now)
+        before=audit_days(self.root,[workflow.read_day(self.root,DATE)[0]],now=now)
+        self.assertEqual([(r['stage'],r['state']) for r in before['rows']],
+                         [('INITIAL','COMPLETE'),('FINAL','COMPLETE'),('REVIEW','OVERDUE')])
+        workflow.review(self.root,DATE,entry)
+        after=audit_days(self.root,[workflow.read_day(self.root,DATE)[0]],now=now)
+        self.assertEqual(after['overdue_count'],0)
+        self.assertEqual(after['state'],'COMPLETE')
+
     def shadow_gate(self, name='first-shadow', path=None):
         from test_next_prediction_compliance import write
         original=self.root/self.entry['prediction_gate_path']
@@ -409,7 +423,7 @@ class OperationalWorkflow(unittest.TestCase):
                 'source_url':'https://www.jra.go.jp/test/result','retrieved_at_jst':DATE+'T11:00:00+09:00',
                 'finish_groups':[[5],[2],[6]],'place_places':3}
         write(self.root,'result.json',json.dumps(result))
-        with self.assertRaisesRegex(ComplianceError,'full-field result'):
+        with self.assertRaisesRegex(ComplianceError,'full-field result|固定結果原票hash不一致'):
             workflow.review(self.root,DATE,{'race_id':RACE,'result_path':'result.json',
                             'review':__import__('test_cycle04_result_eligibility').sample_review()})
         self.assertEqual(path.read_bytes(),original)
@@ -516,7 +530,7 @@ class OperationalWorkflow(unittest.TestCase):
         result['finish_groups']=result['finish_groups'][:3];result_path.write_text(json.dumps(result))
         day['races'][RACE]['result_ref']['sha256']=hashlib.sha256(result_path.read_bytes()).hexdigest()
         path.write_text(json.dumps(day))
-        with self.assertRaisesRegex(ComplianceError,'full-field result'):
+        with self.assertRaisesRegex(ComplianceError,'full-field result|固定結果原票hash不一致'):
             workflow.summary(self.root)
 
     def test_empty_review_is_not_a_completed_review(self):

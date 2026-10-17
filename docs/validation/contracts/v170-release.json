@@ -11,7 +11,11 @@
     },
     {
       "path": ".github/workflows/check-cycle04.yml",
-      "sha256": "d8910fca6aea6ab0ec749d2a0e4e9f790be06e9ecc66319aeb6da8f2496e91e8"
+      "sha256": "5ca4932b430cf7934be4782677eb0622d6625fad0806fd1097dfadbfa922f465"
+    },
+    {
+      "path": ".github/workflows/check-integration-acceptance.yml",
+      "sha256": "a546892b60034c8afd3aec612fe81274cd6a351404f5119ac81d81a5dbc8bb6c"
     },
     {
       "path": "AGENTS.md",
@@ -95,7 +99,7 @@
     },
     {
       "path": "docs/validation/README.md",
-      "sha256": "366b1fced1222c81df31304f31ed64b7f3a5e302c0a965231799b9c9cfe4e0e5"
+      "sha256": "485a1bf1c9bea0649573766c99e6eea98eb29a232e7df4a4a0eb2f1b26365418"
     },
     {
       "path": "docs/validation/class-transition/fixed-cases.json",
@@ -111,11 +115,11 @@
     },
     {
       "path": "docs/validation/contracts/cycle04_operations.md",
-      "sha256": "0a780b711cd41e23afed9162607abe9bfe68671ad49c3b49f2d46f8abde59671"
+      "sha256": "59aacbaa8cfe458afbfd19cd25cb913305b11df1b390439f9b232afd996c2e40"
     },
     {
       "path": "docs/validation/contracts/cycle_04.json",
-      "sha256": "dc91070345992334c74ff5f6b8bd9960b78445ac355c9afc526fdbc264db7d6b"
+      "sha256": "5c44ac9fb8ec914215403a4ef2ea3a49133a5406310ff879177cdadfa5304cac"
     },
     {
       "path": "docs/validation/cycle_04.md",
@@ -146,12 +150,8 @@
       "sha256": "a901c4d3193b744d87da9d4a36868e25630ba3035b3bfd5157a9f79ea5eb04f8"
     },
     {
-      "path": "docs/validation/reviews/cycle_03/decisions.json",
-      "sha256": "dba19e695bd00d8a0a15e03807b95cc155713f1841ca6a4253503a2ec9c3d020"
-    },
-    {
       "path": "docs/validation/reviews/cycle_04/acceptance.json",
-      "sha256": "84fbed05477640f0d4aa63b25d1f152c8d5c60036133f133571e785858514519"
+      "sha256": "9979bc69f2e8fbc13784cb1a80181ca2449294ad7732b892d7e7d42daaacbc74"
     },
     {
       "path": "docs/validation/reviews/cycle_04/carryover.json",
@@ -159,7 +159,7 @@
     },
     {
       "path": "docs/validation/reviews/cycle_04/migration-manifest.json",
-      "sha256": "bf5a68cd5b2f6763f293c856857c52fa7d4db832f4beb8d40a8583b075cfb1fb"
+      "sha256": "fc478b535cbb632c2e5a254d470e6939d83965ed88fcea4946fc4867ff71c05d"
     },
     {
       "path": "docs/validation/reviews/cycle_04/summary.json",
@@ -167,7 +167,7 @@
     },
     {
       "path": "docs/validation/templates/chatgpt_prediction_task.md",
-      "sha256": "d6fda86c8124c92d5c2a0a2ec99478f340257315e00fc6ed08fa16a0c6c20929"
+      "sha256": "1de3aef3b501341119999d53c721aea7ef93cea43accdf8638a3a6a683811112"
     },
     {
       "path": "scripts/audit_20261012_pr78.py",
@@ -179,7 +179,7 @@
     },
     {
       "path": "scripts/build_v170_manifest.py",
-      "sha256": "c3e89539020e4faa856980d45edc771f801421e4e1a4c164988da04b0518723d"
+      "sha256": "7fc1b3e49414a9348eccd16a1caf09bfbaefa2707ab63e27d73bbaacbcb3c015"
     },
     {
       "path": "scripts/chat_calibration_review.py",
@@ -255,7 +255,7 @@
     },
     {
       "path": "scripts/check_cycle04.py",
-      "sha256": "f4c83bd195a0be84a8e79aafe6764e3b1f4a271a0ecff96b4ae6a8da4a86ef86"
+      "sha256": "794b37cf9769e52e1ee590041938d32f5619fb8e604ece6a6b08f94d70296690"
     },
     {
       "path": "scripts/check_cycle04_full_day_reconciliation.py",
@@ -283,7 +283,7 @@
     },
     {
       "path": "scripts/check_integration_acceptance.py",
-      "sha256": "21fbfad76d4d9d2dd0e09920f9cdb2631aeba3c7c53de72935b28ceb4d5753f7"
+      "sha256": "6d30f67ac26ebbda32956509e793cfb6c54498c02bceedb2569ecb68122ec4e8"
     },
     {
       "path": "scripts/check_legacy_fact_followup.py",
@@ -362,12 +362,24 @@
       "sha256": "283a39662180c592e28f282a2c2a611fb3d27a0606022bfa9435a4ce7ed5575a"
     },
     {
+      "path": "scripts/cycle04_archive_links.py",
+      "sha256": "83ca3e8deaeafb9d4718e0709cc22e6784ca0a2db871612bf4dfac5c0078d6d0"
+    },
+    {
       "path": "scripts/cycle04_completion.py",
       "sha256": "27b2c597cb8caefbca5683acc97ad78f194986c0ec91b493be7fc100f075b3fb"
     },
     {
+      "path": "scripts/cycle04_daily_audit.py",
+      "sha256": "2387bdb915651e8e2de2f9d8fc5fb0e7056a188025cf14e4ca4c3ff42bb1e536"
+    },
+    {
+      "path": "scripts/cycle04_history.py",
+      "sha256": "9090bf4100a1d1fedb782f09b52f3c3a9fa89f04e03bc28951fbc074c70588e9"
+    },
+    {
       "path": "scripts/cycle04_migration.py",
-      "sha256": "51f839f0ce5ddb23a57b44cdcbc5bbe0cd0c68be1f1744c20330400555521fb3"
+      "sha256": "06fafe3dc7e9c67f7d507cd09240f696ee1b57f22d1b12af72ac6522229f185a"
     },
     {
       "path": "scripts/cycle04_operations.py",
@@ -376,6 +388,10 @@
     {
       "path": "scripts/cycle04_recommendation_diagnostics.py",
       "sha256": "8abc66a835f4dd58174bc3d015a3fcffbab952269a82c241103af87ab030d187"
+    },
+    {
+      "path": "scripts/cycle04_result_binding.py",
+      "sha256": "eb262182286cd070f2cc75f926a6ceba2ceb44775730b7198cc7d06d80aacbcf"
     },
     {
       "path": "scripts/cycle04_review_metrics.py",
@@ -391,7 +407,7 @@
     },
     {
       "path": "scripts/cycle04_workflow.py",
-      "sha256": "5ae094a07eb1d8859c24a709a62e0b702b29ac3a2973cbe29d7764869c4e350f"
+      "sha256": "07c18e962519cbaa4a4fc8c3a5973be7c689ab58c72d4273e28d46f6dd045247"
     },
     {
       "path": "scripts/dependency_risk.py",
@@ -443,7 +459,7 @@
     },
     {
       "path": "scripts/run_cycle04_acceptance.py",
-      "sha256": "d145aca57bc8f75b7c96c263f4d07e9f4f5c1596b2b1aef4209fc7b1ae83612c"
+      "sha256": "a33f91046ea317f72a940c5d96e1759c7b80f58fb3957c5486be31b751fcfdb3"
     },
     {
       "path": "scripts/run_release_readiness.py",
@@ -467,7 +483,7 @@
     },
     {
       "path": "scripts/test_build_cycle03_review.py",
-      "sha256": "9556243255b6036540c2d651cbb8de7e8af5e32ab4a4a4b43a5a774a73faf9df"
+      "sha256": "ca62b39865403cadc205e1c71322afa5d347aaef563558d53e22b28ffebb998e"
     },
     {
       "path": "scripts/test_chat_calibration_review.py",
@@ -563,27 +579,43 @@
     },
     {
       "path": "scripts/test_cycle04_acceptance.py",
-      "sha256": "9ab7e046ecf896c5f6fa00c0727bc5144fe1f02b0425a1467db50ee99a6eab14"
+      "sha256": "0cf00935726fa4b08b7e795b1406e363ee3a7b21614b5688a5abd26dc9ebc2b0"
+    },
+    {
+      "path": "scripts/test_cycle04_archive_links.py",
+      "sha256": "7f47db8d366d4d55cd8473d2c0c906a790a71d02f4f9d9e94bd678d3dcaeef34"
     },
     {
       "path": "scripts/test_cycle04_completion.py",
       "sha256": "4614abd925bc7f962342d4fb39cf3bad87f9c99b20453ab479268cbf4305a898"
     },
     {
+      "path": "scripts/test_cycle04_daily_audit.py",
+      "sha256": "b9a583ea3629097f7cae0c58654a0dedbbeb51230c8e6231b968d387a601c4cc"
+    },
+    {
       "path": "scripts/test_cycle04_full_day_reconciliation.py",
       "sha256": "bdf0ed8e95ebaf997cda2f5119ad2cd0cc7f13910c4fceafef05e196e43be380"
     },
     {
+      "path": "scripts/test_cycle04_history.py",
+      "sha256": "f421909c60c90dbc0f355e6893311bf491950dc8a753298e8129c2c61d3621d2"
+    },
+    {
       "path": "scripts/test_cycle04_migration.py",
-      "sha256": "a82f035d92c2a1dbde429e61472188d90f902c6521e3c1c5a7177f25416a99f5"
+      "sha256": "28fe439c1c74851cd1da98b8121e94523953dea1e6c840269dc656db4eb36d1b"
     },
     {
       "path": "scripts/test_cycle04_period.py",
-      "sha256": "46c712d0949a61a4ab5c37e52e7be45fc06dcf42d6f91b561bc8fc6c31d8977e"
+      "sha256": "1db839697fadb4a1817d4fdc7739c001ed6c31519633b7c103cfccb4321163ee"
     },
     {
       "path": "scripts/test_cycle04_recommendation_diagnostics.py",
       "sha256": "ce75ead3411ebe92b61b53647f91a83d9c08db1d4ed984f23e8ada38c2e26abf"
+    },
+    {
+      "path": "scripts/test_cycle04_result_binding.py",
+      "sha256": "c06a2f02ccb33ba79e52336fe02ab10f0c4a2a804ae9247fa4242340ae805390"
     },
     {
       "path": "scripts/test_cycle04_result_eligibility.py",
@@ -603,7 +635,7 @@
     },
     {
       "path": "scripts/test_cycle04_workflow.py",
-      "sha256": "10140a467608e5c0fbe0caaaad40f426c6c86ebf7a23afff56e391d3e0efad01"
+      "sha256": "381229705ec90d2abe94b0002d05773aa970c7ba1255b6f634892c7224d31c25"
     },
     {
       "path": "scripts/test_dependency_risk.py",

@@ -2,7 +2,7 @@
 
 収集期間2026-09-26〜10-12は終了した。更新main `d164153c27431e0be901e042e359fecbc568994a`（PR80マージ）から9/27正式回顧R01を取得し、日別台帳7/7日、初回・回顧158R、選定66R、最終45R、選定中の未最終21Rを再集計した。初稿で不足していた9/27台帳は解消したが、過去の発走前欠測や認証保留は解消済み扱いにしていない。
 
-[採否・繰越・次期適用の実装計画](../../../proposals/2026-10-12_cycle03_summary_application_plan.md)と[再現可能な入力・集合・精算のJSON](collection.json)を参照する。本資料は結果後の集計であり、発走前証跡や正式ルールを作るものではない。
+[採否・繰越・次期適用の実装計画](https://github.com/eda-hub/horse-man/blob/885d7d490245ba4d948bb4594017371d17eadc04/docs/proposals/2026-10-12_cycle03_summary_application_plan.md)と[再現可能な入力・集合・精算のJSON](https://github.com/eda-hub/horse-man/blob/885d7d490245ba4d948bb4594017371d17eadc04/docs/validation/reviews/cycle_03/collection.json)を参照する。本資料は結果後の集計であり、発走前証跡や正式ルールを作るものではない。
 
 
 ## 旧適格性の原宣言と監査overlay（PR90）
@@ -25,7 +25,7 @@
 
 固定仮想精算は9/27の購入候補7R・70,000円→90,700円を含み、旧契約9/26、9/27検証用2R・20,000円→29,800円、10/10の別研究、海外、実購入を含まない。未測定はnullのまま残し、見送りや未FIXを0%ROIの性能標本にしない。9/26の旧Production適格宣言3件は歴史的原本に保持し、訂正後の正式分母では不適格とする。9/27/10月の分離契約は契約別に保持する。保留57はKPI判定数であり独立レース数ではない。
 
-候補和と最終完了の集合差21Rは、[個別採否と集合差分類](decisions.json)で明示除外1R・未実施20R（うち利用者許容3R）に分けた。10/3京都11Rは利用者による明示選別で、最終欠測ではない。9/26の3Rは未実施の事実を確認し、個々の原因未記録を残す。処理は集合差を出し、理由を障害・失敗へ自動分類しない。入力ファイルの存在やhash一致だけでreceipt・個別完了・市場独立性が合格になることもない。9/27の購入確認2R・3,900円→3,330円は元回顧の別帳簿で保持し、仮想成績へ加えない。
+候補和と最終完了の集合差21Rは、[個別採否と集合差分類](https://github.com/eda-hub/horse-man/blob/885d7d490245ba4d948bb4594017371d17eadc04/docs/validation/reviews/cycle_03/decisions.json)で明示除外1R・未実施20R（うち利用者許容3R）に分けた。10/3京都11Rは利用者による明示選別で、最終欠測ではない。9/26の3Rは未実施の事実を確認し、個々の原因未記録を残す。処理は集合差を出し、理由を障害・失敗へ自動分類しない。入力ファイルの存在やhash一致だけでreceipt・個別完了・市場独立性が合格になることもない。9/27の購入確認2R・3,900円→3,330円は元回顧の別帳簿で保持し、仮想成績へ加えない。
 
 2026-10-13追記：全16変更案と継続検証13項目を個別に審査し、Owner・根拠・保護対象・不足・再試験を記録した。保存/用途/価格状態/入力の運用是正は採用、性能案は継続/観察、既合意仕様は準備、禁止案は棄却とする。終了資料と個別採否の記録を、個別性能の必須集計完了・正式昇格・正常一巡の認証へ置換しない。第4の合成受入と版/有効日未定の正式開始拒否は[検査契約](../../contracts/cycle04_operations.md)へ接続した。
 
@@ -34,7 +34,7 @@
 リポジトリのルートで保存済み資料を検査する。
 
 ```bash
-python3 scripts/build_cycle03_review.py --check
+python3 scripts/cycle04_history.py --audit
 ```
 
 新たに原記録を照合して資料を更新するときは、確認日と参照commitを明示する。確認日やcommitを自動で現在へ書き換えない。
@@ -51,7 +51,7 @@ python3 scripts/build_cycle03_review.py --write \
 
 ```bash
 python3 scripts/check_cycle03.py --require-data --require-complete
-python3 scripts/build_cycle03_review.py --check --require-complete
+python3 scripts/cycle04_history.py --audit
 ```
 
 JSON生成は`--write`を指定した場合だけ行い、保存先は`docs/validation/reviews/`内のJSONへ限定する。原record/snapshot/receiptの出力指定と、原記録へ向くsymlinkを拒否する。入力は読み取り専用。

@@ -276,6 +276,31 @@ def record_market(root,date,entry):
     return save(root,day,before)
 
 
+def request_review(root, date, entry, now=None):
+    """公式結果を先に照合・登録し、回顧をまだ保存していない不足を監査へ渡す。"""
+    day,before=read_day(root,date)
+    race=entry.get('race_id');require(race in day['initial_scope'],'review request outside scope')
+    current=now or datetime.now(timezone.utc)
+    row=day['races'][race]
+    path=safe_path(root,entry.get('result_path'));raw=path.read_bytes();result=json.loads(raw)
+    post=effective_post(root,row,race,date,at=current.isoformat(),now=current)
+    validate_official_result(result,race=race,date=date,post=post.isoformat())
+    require(iso(result['retrieved_at_jst'],'result retrieved')<=current,'future result request')
+    ref={'artifact_path':entry['result_path'],'sha256':hashlib.sha256(raw).hexdigest()}
+    manifest_ref=entry.get('result_reconciliation_ref')
+    from cycle04_result_binding import verify_result_bindings, pair
+    frozen=verify_result_bindings(root,row,race,date,now=current)
+    require(not frozen or frozen['active']==pair(ref,manifest_ref), 'result request cannot replace fixed result/manifest')
+    if row.get('result_correction_history'):
+        # 同じ採用済み訂正への再依頼は読取のみ。元の回顧前固定参照は置換しない。
+        return root/DIRECTORY/(date+'.json')
+    validate_formal_result(root,row,race=race,date=date,result_ref=ref,manifest_ref=manifest_ref)
+    row['result_ready_ref']=ref
+    row['result_ready_reconciliation_ref']=copy.deepcopy(manifest_ref)
+    row.setdefault('review_requested_at_jst',current.isoformat())
+    return save(root,day,before)
+
+
 def review(root,date,entry):
     day,before = read_day(root,date);race = entry.get('race_id')
     require(race in day['initial_scope'], 'review outside initial scope')
@@ -298,9 +323,11 @@ def review(root,date,entry):
     # レース単位で検査してから台帳を変更する。本文や不適格結果は消さない。
     validate_formal_result(root, row, race=race, date=date, result_ref=result_ref,
                            manifest_ref=manifest_ref)
+    from cycle04_result_binding import bind_review_result
+    result_changed=bind_review_result(root,row,race,date,result_ref,manifest_ref,entry.get('result_correction_ref'))
     earlier = row.get('review')
     if earlier is not None:
-        require(row.get('result_ref') == result_ref and row.get('result_reconciliation_ref') == manifest_ref,
+        require(result_changed or (row.get('result_ref') == result_ref and row.get('result_reconciliation_ref') == manifest_ref),
                 'reviewed result is immutable; a different official result needs its own correction process')
         require(row.get('review_history') and
                 row['review_history'][-1]['review'] == earlier,
@@ -480,6 +507,7 @@ def main(argv=None):
     mode.add_argument('--select',type=Path)
     mode.add_argument('--record-prediction',type=Path)
     mode.add_argument('--review',type=Path)
+    mode.add_argument('--request-review',type=Path,help='確認済み公式結果を回顧前に登録')
     mode.add_argument('--record-market',type=Path)
     mode.add_argument('--summary',action='store_true')
     parser.add_argument('--date')
@@ -502,6 +530,7 @@ def main(argv=None):
             elif args.select:out=select(root,args.date,load(args.select))
             elif args.record_prediction:out=record_prediction(root,args.date,load(args.record_prediction))
             elif args.record_market:out=record_market(root,args.date,load(args.record_market))
+            elif args.request_review:out=request_review(root,args.date,load(args.request_review))
             else:out=review(root,args.date,load(args.review))
         if args.preview:
             print('公式発走変更の検証成功（プレビューのみ・台帳未保存）。')

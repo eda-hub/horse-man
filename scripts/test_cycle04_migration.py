@@ -18,7 +18,8 @@ class Cycle04MigrationTest(unittest.TestCase):
     def test_history_manifest_is_retained_without_premature_deletion(self):
         manifest=validate_manifest(ROOT)
         self.assertGreaterEqual(len(manifest["files"]),12)
-        self.assertTrue(all(x["decision"]=="RETAIN" for x in manifest["files"]))
+        self.assertEqual(sum(x["decision"]=="DELETE_VERIFIED" for x in manifest["files"]),7)
+        self.assertTrue(all(not (ROOT/x["path"]).exists() for x in manifest["files"] if x["decision"]=="DELETE_VERIFIED"))
 
     def test_all_36_are_reconciled_without_forward_certification(self):
         d=validate_postrace(ROOT)
