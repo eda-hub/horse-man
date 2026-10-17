@@ -1,0 +1,434 @@
+{
+  "schema_version": "prediction-snapshot-v2",
+  "snapshot_id": "20261017-KYOTO-11-FINAL-S01",
+  "race_id": "2026-10-17-KYOTO-11",
+  "race_date_jst": "2026-10-17",
+  "working_branch": "prediction/2026-10-17",
+  "phase": "FINAL",
+  "mode": "FORWARD",
+  "scheduled_post_time_jst": "2026-10-17T15:30:00+09:00",
+  "manual_release": "v1.7.0",
+  "manual_ref_commit": "fd47babd38deea46439c2a7e500c3937c63cb5d7",
+  "baseline_forecast_id": "20261017-KYOTO-11-BASE-01",
+  "data_cutoff": "2026-10-17T15:20:33.933+09:00",
+  "fixed_at_jst": "2026-10-17T15:20:33.933+09:00",
+  "ranking": [
+    6,
+    5,
+    14,
+    9,
+    10,
+    12,
+    7,
+    11,
+    1,
+    8,
+    13,
+    2,
+    15,
+    3,
+    4
+  ],
+  "marks": {
+    "honmei": 6,
+    "taikou": 5,
+    "tanana": 14,
+    "renka": [
+      9,
+      10
+    ]
+  },
+  "prediction_confidence": "C",
+  "probabilities": [
+    {
+      "horse_no": 6,
+      "win_probability": 0.2,
+      "top2_probability": 0.4,
+      "top3_probability": 0.51
+    },
+    {
+      "horse_no": 5,
+      "win_probability": 0.18,
+      "top2_probability": 0.37,
+      "top3_probability": 0.48
+    },
+    {
+      "horse_no": 14,
+      "win_probability": 0.17,
+      "top2_probability": 0.34,
+      "top3_probability": 0.47
+    },
+    {
+      "horse_no": 9,
+      "win_probability": 0.12,
+      "top2_probability": 0.24,
+      "top3_probability": 0.35
+    },
+    {
+      "horse_no": 10,
+      "win_probability": 0.1,
+      "top2_probability": 0.21,
+      "top3_probability": 0.31
+    },
+    {
+      "horse_no": 12,
+      "win_probability": 0.07,
+      "top2_probability": 0.15,
+      "top3_probability": 0.25
+    },
+    {
+      "horse_no": 7,
+      "win_probability": 0.06,
+      "top2_probability": 0.12,
+      "top3_probability": 0.21
+    },
+    {
+      "horse_no": 11,
+      "win_probability": 0.04,
+      "top2_probability": 0.07,
+      "top3_probability": 0.13
+    },
+    {
+      "horse_no": 1,
+      "win_probability": 0.02,
+      "top2_probability": 0.04,
+      "top3_probability": 0.1
+    },
+    {
+      "horse_no": 8,
+      "win_probability": 0.015,
+      "top2_probability": 0.025,
+      "top3_probability": 0.07
+    },
+    {
+      "horse_no": 13,
+      "win_probability": 0.01,
+      "top2_probability": 0.015,
+      "top3_probability": 0.05
+    },
+    {
+      "horse_no": 2,
+      "win_probability": 0.005,
+      "top2_probability": 0.008,
+      "top3_probability": 0.03
+    },
+    {
+      "horse_no": 15,
+      "win_probability": 0.005,
+      "top2_probability": 0.006999999999999999,
+      "top3_probability": 0.02
+    },
+    {
+      "horse_no": 3,
+      "win_probability": 0.004,
+      "top2_probability": 0.004,
+      "top3_probability": 0.015
+    },
+    {
+      "horse_no": 4,
+      "win_probability": 0.001,
+      "top2_probability": 0.001,
+      "top3_probability": 0.005
+    }
+  ],
+  "evidence_items": [
+    {
+      "horse_no": 6,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "門別ブリーダーズゴールドC(JpnIII)3着で勝馬から0.1秒差。三条S同級ダ1800m2着。好位から持続可能だが馬体重-8kg。 当日馬体重496kg(-8kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "plus",
+      "strength": "strong"
+    },
+    {
+      "horse_no": 5,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "宮崎Sダ1700m2着で0.1秒差、薩摩S同級ダ1700m3着0.5秒差。先行力あり、今回は約3か月ぶり。3走前ダ1800m11着。 当日馬体重498kg(+2kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "plus",
+      "strength": "strong"
+    },
+    {
+      "horse_no": 14,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "京都ダ1800mの1勝クラスを1:51.6・0.7秒差勝ち、阪神2勝クラスを0.5秒差勝ち。JpnII7着4.1秒差は相手強化。前走地方497kg比-19kgだが前々走中央476kg。 当日馬体重478kg(-19kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "uncertain",
+      "strength": "strong"
+    },
+    {
+      "horse_no": 9,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "中山2勝クラスダ1800m1:52.3・0.2秒差勝ち、2連勝。今回は3勝クラス初戦。 当日馬体重418kg(+8kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "uncertain",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 10,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "小倉2勝クラスダ1700mを先行して0.9秒差勝ち。前走芝1500m12着。ダート戻りで前に同型多数。 当日馬体重446kg(-6kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "uncertain",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 12,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "同級竹田城Sダ1800m6着1.4秒差、前々走牝馬2勝クラスダ1700m勝ち。 当日馬体重526kg(+0kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "uncertain",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 7,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "2025年下総S同級2着0.1秒差、近走同級は5着1.5秒差と8着0.6秒差。 当日馬体重512kg(-4kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "uncertain",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 11,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "2勝クラス麒麟山特別ダ1800m勝ち、昇級の古町S13着2.1秒差。 当日馬体重478kg(+8kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "uncertain",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 1,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "牝馬同級の三条Sダ1800m3着1.0秒差、直近姫路S12着2.5秒差。 当日馬体重490kg(+0kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "plus",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 8,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "3勝クラス京都桃山Sダ1800m16着3.2秒差、札幌ポプラS6着1.3秒差。前で競合。 当日馬体重520kg(+8kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "uncertain",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 13,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "牝馬2勝クラス大倉山特別ダ1700m勝ち、直近同級大雪H13着7.8秒差。 当日馬体重430kg(+6kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "uncertain",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 2,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "直近は芝1800m3勝クラスで5着0.3秒差。今回の3勝クラスダ1800mでの再現性は不明。 当日馬体重502kg(+8kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "plus",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 15,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "同級古町Sダ1800m12着1.3秒差、夏至Sダ1600m12着1.6秒差。 当日馬体重460kg(-8kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "uncertain",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 3,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "同級宮崎Sダ1700m15着2.7秒差、京都桃山Sダ1800m12着1.7秒差。 当日馬体重530kg(+8kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "plus",
+      "strength": "medium"
+    },
+    {
+      "horse_no": 4,
+      "factor": "同級実績・京都ダ1800m条件・近走と当日馬体重",
+      "fact": "同級三条Sダ1800m13着4.4秒差、京都舞鶴Sダ1800m12着7.3秒差。 当日馬体重512kg(+8kg)。",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00",
+      "direction": "plus",
+      "strength": "medium"
+    }
+  ],
+  "race_conditions": {
+    "name": "トルマリンステークス",
+    "course": "京都ダート1800m（右）",
+    "going": "良",
+    "weather": "晴",
+    "starters": 15,
+    "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+    "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+  },
+  "body_weights": [
+    {
+      "horse_no": 6,
+      "name": "エルフストラック",
+      "body_weight_kg": 496,
+      "change_kg": -8,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 5,
+      "name": "ジューンエオス",
+      "body_weight_kg": 498,
+      "change_kg": 2,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 14,
+      "name": "メイショウコマチ",
+      "body_weight_kg": 478,
+      "change_kg": -19,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 9,
+      "name": "エアトベーレ",
+      "body_weight_kg": 418,
+      "change_kg": 8,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 10,
+      "name": "マジックローズ",
+      "body_weight_kg": 446,
+      "change_kg": -6,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 12,
+      "name": "プリンセッサ",
+      "body_weight_kg": 526,
+      "change_kg": 0,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 7,
+      "name": "エリカサファイア",
+      "body_weight_kg": 512,
+      "change_kg": -4,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 11,
+      "name": "モモンウールー",
+      "body_weight_kg": 478,
+      "change_kg": 8,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 1,
+      "name": "ウィンターダフネ",
+      "body_weight_kg": 490,
+      "change_kg": 0,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 8,
+      "name": "スマートケープ",
+      "body_weight_kg": 520,
+      "change_kg": 8,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 13,
+      "name": "キャットテイル",
+      "body_weight_kg": 430,
+      "change_kg": 6,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 2,
+      "name": "コンドゥイア",
+      "body_weight_kg": 502,
+      "change_kg": 8,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 15,
+      "name": "エンセリオ",
+      "body_weight_kg": 460,
+      "change_kg": -8,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 3,
+      "name": "メイショウオーロラ",
+      "body_weight_kg": 530,
+      "change_kg": 8,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 4,
+      "name": "サイモンブーケ",
+      "body_weight_kg": 512,
+      "change_kg": 8,
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    }
+  ],
+  "race_scenarios": {
+    "pace": "5、8、10、13に先行経験。6は好位から。先行争いの激化なら14の差しにも注意。",
+    "primary": "6が好位を確保し5が前で粘る展開",
+    "alternate": "5が先行争いに巻き込まれ、14・9が台頭",
+    "risks": [
+      "5の休養明け・距離延長",
+      "6の馬体-8kg",
+      "14の地方からの-19kg表記の解釈",
+      "9の3勝クラス初戦"
+    ]
+  },
+  "recommendation_preview": {
+    "status": "UNSEALED_CANDIDATE",
+    "ticket_type": "WIDE",
+    "horse_numbers": [
+      5,
+      6
+    ],
+    "unique_points": 1,
+    "reason": "6の好位と5の先行が両立する場合の同時3着内を狙う",
+    "failure_conditions": [
+      "前が競り合って5が失速",
+      "6が伸びず14など差し馬が上位"
+    ]
+  },
+  "inputs_status": "PARTIAL_REVIEWED_JRA_OFFICIAL_15",
+  "limitations": [
+    "全頭の最大4走はJRA出馬表で確認したが5走以前や全馬の相手レベルは未取得",
+    "当日複数レースのラップ・馬場内外を数量的に検証していない",
+    "正式checkerと日別scope、Shadowは別確認"
+  ],
+  "kpi_note": "発走前原本保存読戻しと正式Production認証は別。"
+}
