@@ -38,7 +38,7 @@ class Cycle04FullDayRetrospectiveTest(unittest.TestCase):
         self.assertEqual(report['linked_six_predictions'], 6)
         self.assertEqual(report['without_fixed_final_prediction'], 30)
         self.assertEqual(report['tie_2nd_place'], 1)
-        self.assertEqual(report['official_result_pages_identified'], 36)
+        self.assertEqual(report['official_result_pages_verified'], 6)
         self.assertEqual(report['formal_eligible_denominators'],
                          {'prediction': 0, 'recommendation': 0, 'shadow': 0})
         self.assertEqual(report['formal_certification'], 'REJECTED_UNDER_V1_7_0')
@@ -76,9 +76,18 @@ class Cycle04FullDayRetrospectiveTest(unittest.TestCase):
 
     def test_missing_official_page_rejected(self):
         data = self.read(RESULTS)
-        data['races'][0]['source']['official_url'] = 'https://example.invalid'
+        row = next(x for x in data['races']
+                   if x['race_id'] == '2026-10-17-TOKYO-11')
+        row['source']['official_url'] = 'https://example.invalid'
         self.write(RESULTS, data)
-        with self.assertRaisesRegex(FullDayReviewError, 'JRA result source'):
+        with self.assertRaisesRegex(FullDayReviewError, 'verified JRA source mismatch'):
+            check(self.root)
+
+    def test_secondary_result_cannot_claim_jra_verification(self):
+        data = self.read(RESULTS)
+        data['races'][0]['source']['official_individual_page_verified'] = True
+        self.write(RESULTS, data)
+        with self.assertRaisesRegex(FullDayReviewError, 'secondary results must not claim'):
             check(self.root)
 
     def test_result_invented_prediction_for_unforecast_race_rejected(self):
