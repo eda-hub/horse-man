@@ -95,8 +95,9 @@ class RecommendationReceiptHistoryTest(unittest.TestCase):
         result = self.run_case([prior, final])
         self.assertFalse(result['checks']['receipt']['result'])
 
-    def test_gate_pointing_to_missing_receipt_is_rejected(self):
-        result = self.run_case([self.receipt('TEST-TOKYO-11-REC-R01')])
+    def test_pending_receipt_without_verified_readback_is_rejected(self):
+        result = self.run_case([self.receipt('TEST-TOKYO-11-REC-R01',
+                                            status='RECEIPT_READBACK_PENDING')])
         self.assertFalse(result['checks']['receipt']['result'])
 
 
