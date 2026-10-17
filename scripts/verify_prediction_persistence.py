@@ -225,9 +225,10 @@ def main():
     if args.clock_status:
         if not args.date or not args.clock_race_id or args.audit or args.prepare or args.snapshot_id:
             parser.error('--clock-status requires --date and --clock-race-id without other modes')
-        from prediction_clock import observed_assessment, safe_for_write
+        from prediction_clock import safe_for_write
+        from task_completion import pre_write_clock
         try:
-            clock = observed_assessment(args.root,args.date,args.clock_race_id)
+            clock = pre_write_clock(args.root,args.date,args.clock_race_id)
         except (ValueError,OSError,KeyError,TypeError) as exc:
             clock = {'status':'UNDETERMINED','remaining_seconds':None,'reason':str(exc)}
         print(json.dumps(clock,ensure_ascii=False,indent=2))
