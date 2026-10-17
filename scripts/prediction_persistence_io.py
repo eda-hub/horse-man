@@ -380,6 +380,11 @@ class GitHubContentsTransport:
         if branch != self.branch:
             raise ValueError("write branch mismatch")
         allowed_target(self.repository, branch, path)
+        # 呼出側がpersist_fixedを経由しなくても、固定原本のPUT更新を許さない。
+        if expected_blob_sha is not None:
+            raise PersistenceError("immutable fixed content update refused; new revision required",
+                                   kind="conflict", api_reached=False,
+                                   tool="github_contents_rest")
         data = {"message": "固定原本を保存し読戻し照合する",
                 "branch": branch, "content": base64.b64encode(content).decode("ascii")}
         if expected_blob_sha is not None:
