@@ -141,9 +141,9 @@ def verify_historical_recommendation_debts(root, date, day_index):
             '歴史的推奨の欠落台帳に接続されていない')
     record = load(evidence_file(root, location))
     require(record.get('schema_version') ==
-            'recommendation-historical-debt-exclusions-v1' and
+            'recommendation-historical-debt-inventory-v1' and
             record.get('race_date_jst') == date and
-            record.get('mode') == 'CI_ONLY_HISTORICAL_DEBT_ACCEPTANCE' and
+            record.get('mode') == 'RETROSPECTIVE_EVIDENCE_ONLY' and
             record.get('count_expected') == 4 and
             record.get('formal_kpi_eligibility') == 'INELIGIBLE' and
             record.get('official_day_scope') == 'UNREGISTERED',
