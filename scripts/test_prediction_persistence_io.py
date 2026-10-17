@@ -105,6 +105,8 @@ class PersistenceTest(unittest.TestCase):
         r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
         self.assertEqual(r.write_state, "ALREADY_PRESENT")
         self.assertEqual(len(transport.writes), 1)
+        self.assertIsNone(r.failure_category)
+        self.assertFalse(r.retry_allowed)
 
     def test_no_write_at_or_after_or_unknown_deadline(self):
         for status in ("SCHEDULE_REACHED", "UNDETERMINED"):
@@ -133,6 +135,39 @@ class PersistenceTest(unittest.TestCase):
         self.assertEqual(classify_failure(http_status=409, api_reached=True), "conflict")
         self.assertEqual(classify_failure(http_status=500, api_reached=True), "server_unavailable")
         self.assertEqual(classify_failure(http_status=403, api_reached=False), "unknown")
+        self.assertEqual(classify_failure(kind="branch_policy",http_status=403,api_reached=True), "branch_policy")
+
+    def test_readback_missing_at_fixed_commit_is_reported(self):
+        class MissingAtCommit(MemoryGitHub):
+            def read(self, branch, path, ref=None):
+                if ref is not None:
+                    raise FileNotFoundError(path)
+                return super().read(branch, path, ref)
+        transport = MissingAtCommit()
+        result = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        self.assertEqual(result.write_state, "WRITTEN")
+        self.assertNotEqual(result.readback_state, "MATCH")
+        self.assertEqual(result.failure_category, "unknown")
+
+    def test_clock_error_before_write_is_undetermined(self):
+        transport = MemoryGitHub()
+        def clock(stage):
+            raise ValueError("clock source unavailable")
+        result = persist_fixed(self.payload, transport, clock, operation_id="R")
+        self.assertEqual(result.timing_state, "UNDETERMINED")
+        self.assertEqual(transport.writes, [])
+
+    def test_clock_error_after_readback_preserves_bytes_without_eligibility(self):
+        transport = MemoryGitHub()
+        def clock(stage):
+            if stage == "readback":
+                raise ValueError("clock lost")
+            return {"status": "PRE_SCHEDULED", "remaining_seconds": 20}
+        result = persist_fixed(self.payload, transport, clock, operation_id="R")
+        self.assertEqual(result.write_state, "WRITTEN")
+        self.assertEqual(result.readback_state, "MATCH")
+        self.assertEqual(result.timing_state, "UNDETERMINED")
+        self.assertFalse(result.completion_verified)
 
     def test_transport_requires_existing_date_branch(self):
         from unittest.mock import patch
