@@ -94,7 +94,7 @@ def _same_race(candidate, expected, date):
 def _matching_race_hints(value, venue, number):
     for match in RACE_HINT_RE.finditer(value):
         if VENUE_CODE[match[1].upper()] != venue or match[2] != number:
-            raise ValueError("payload/path race reference mismatch")
+            raise ValueError("payload reference race mismatch")
     for match in LOCAL_RACE_RE.finditer(value):
         if VENUE_CODE[match[1].upper()] != venue or match[2] != number:
             raise ValueError("payload/path race reference mismatch")
@@ -183,6 +183,13 @@ def verify_payload_binding(payload, race_id):
     category, date = _target_parts(payload, race_id)
     venue, number = _race_parts(race_id, date)
     objects = _json_or_receipt(payload, category)
+    # 共有日次receiptは他レースの過去レコードを含めてよい。
+    # 対象レースのレコードだけを新規書込みの本人確認に使う。
+    if category == "persistence-receipts":
+        objects = [item for item in objects if isinstance(item, dict) and
+                   _same_race(item.get("race_id"), race_id, date)]
+        if not objects:
+            raise ValueError("receipt has no record for requested race")
     schema = {"snapshots": "prediction-snapshot-v2",
               "fix-manifests": "prediction-fix-manifest-v1",
               "persistence-intents": "prediction-persistence-intent-v1",
@@ -201,6 +208,16 @@ def verify_payload_binding(payload, race_id):
             raise ValueError("evidence schema/path category mismatch")
         if category == "persistence-receipts" and not item.get("receipt_id"):
             raise ValueError("receipt ID required")
+        if category == "persistence-incidents":
+            target = item.get("target")
+            if not isinstance(target, dict) or target.get("branch") != payload.branch or (
+                    target.get("race_id") is not None and not _same_race(
+                        target.get("race_id"), race_id, date)):
+                raise ValueError("incident original target/race mismatch")
+            if item.get("race_date_jst") != date or item.get("working_branch") != payload.branch:
+                raise ValueError("incident date/branch mismatch")
+            if item.get("remote_persistence_certified") is not False:
+                raise ValueError("incident must not claim certified remote persistence")
         if category in {"snapshots", "recommendations", "recommendation-intents",
                         "recommendation-gates", "recommendation-prediction-gates",
                         "persistence-intents"} and item.get("race_date_jst") != date:
@@ -276,10 +293,60 @@ def verify_payload_binding(payload, race_id):
         raise ValueError("recommendation intent deadline required")
     if category == "persistence-receipts" and not post_values:
         raise ValueError("receipt scheduled post required")
-    return dict(race_id=race_id, race_date=date,
+    return dict(race_id=race_id, race_date=date, category=category,
                 scheduled_posts=post_values, deadlines=deadline_values,
                 multi_race_intent=category == "persistence-intents" and
                 any(len(item.get("required_race_ids", [])) > 1 for item in objects))
+
+
+def validate_receipt_append(previous, candidate, *, race_id, date):
+    """共有日次receiptの原本bytesを完全保持し、今回の新規レコードだけを追記する。"""
+    if not candidate.startswith(previous) or len(candidate) <= len(previous):
+        raise PersistenceError("receipt append must preserve every existing byte",
+                               kind="conflict", api_reached=False)
+    if previous and not previous.endswith(b"\n"):
+        raise PersistenceError("existing receipt must end with a newline",
+                               kind="conflict", api_reached=False)
+    fragment = candidate[len(previous):]
+    temporary = FixedPayload("eda-hub/horse-man", "prediction/" + date,
+                             "docs/validation/persistence-receipts/" + date + ".md", fragment)
+    added = _json_or_receipt(temporary, "persistence-receipts")
+    if not added:
+        raise PersistenceError("new receipt record required", kind="conflict")
+    seen = set()
+    for record in added:
+        if not isinstance(record, dict) or not _same_race(record.get("race_id"), race_id, date):
+            raise PersistenceError("appended receipt race differs", kind="conflict")
+        if record.get("scheduled_post_time_jst") is None:
+            raise PersistenceError("appended receipt post time missing", kind="conflict")
+        rec_id = record.get("receipt_id")
+        if not isinstance(rec_id, str) or not rec_id or rec_id in seen:
+            raise PersistenceError("duplicate or missing new receipt ID", kind="conflict")
+        seen.add(rec_id)
+    existing_records = _json_or_receipt(
+        FixedPayload("eda-hub/horse-man", "prediction/" + date,
+                     "docs/validation/persistence-receipts/" + date + ".md", previous),
+        "persistence-receipts") if previous.strip() else []
+    old_ids = {o.get("receipt_id") for o in existing_records if isinstance(o, dict)}
+    if old_ids & seen:
+        raise PersistenceError("receipt ID already persisted", kind="conflict")
+    available = {o.get("receipt_id"): o for o in existing_records if isinstance(o, dict)}
+    for record in added:
+        prior_id = record.get("previous_receipt_ref")
+        if prior_id is not None:
+            prior = available.get(prior_id)
+            if not prior or prior.get("artifact_id") != record.get("artifact_id") or (
+                    not _same_race(prior.get("race_id"), race_id, date)):
+                raise PersistenceError("receipt previous reference missing or different artifact",
+                                       kind="conflict")
+            if prior.get("scheduled_post_time_jst") != record.get("scheduled_post_time_jst") or (
+                    prior.get("artifact_path") != record.get("artifact_path")) or (
+                    prior.get("content_sha256") != record.get("content_sha256")):
+                raise PersistenceError("receipt changes prior fixed evidence", kind="conflict")
+        elif record.get("receipt_id", "").endswith("-R02"):
+            raise PersistenceError("R02 readback requires prior R01 reference", kind="conflict")
+        available[record["receipt_id"]] = record
+    return added
 
 
 def verify_clock_binding(gate, identity):
@@ -408,7 +475,7 @@ def _read(transport, payload, ref=None):
 
 
 def persist_fixed(payload, transport, clock_check, *, operation_id, race_id,
-                  max_resaves=2, allow_update=False, alternative=None,
+                  max_resaves=2, allow_update=False, append_receipt=False, alternative=None,
                   alternative_authorized=False):
     """応答欠落時もまずremoteを読取り、同一原本だけ最大2回再保存。
 
@@ -423,11 +490,15 @@ def persist_fixed(payload, transport, clock_check, *, operation_id, race_id,
     if not 0 <= max_resaves <= 2:
         raise ValueError("max_resaves must be between 0 and 2")
     identity = verify_payload_binding(payload, race_id)
+    if append_receipt and identity["category"] != "persistence-receipts":
+        raise ValueError("append_receipt only permitted on shared receipt path")
     result = PersistenceResult(target=dict(repository=payload.repository,
                                             branch=payload.branch, path=payload.path,
-                                            sha256=payload.digest, operation_id=operation_id))
+                                            sha256=payload.digest, operation_id=operation_id,
+                                            race_id=race_id))
     route = transport
     expected = None
+    old_receipt_bytes = b""
     for attempt in range(max_resaves + 1):
         # 不明応答・timeout後にも先にremoteを確認し、上書きや重複を回避する。
         try:
@@ -450,15 +521,34 @@ def persist_fixed(payload, transport, clock_check, *, operation_id, race_id,
                     gate = {"status": "UNDETERMINED", "reason": sanitized(exc)}
                 result.timing_state = gate.get("status", "UNDETERMINED")
                 return result
-            # 固定原本は一切上書きしない。旧allow_update指定も許可の根拠にしない。
-            # 別内容は新revision/pathで保存し、既存bytesは保全する。
-            result.failure_category = "conflict"
-            result.operations.append(dict(operation="read", attempt=attempt,
-                                          at_utc=_instant(),
-                                          reason="immutable fixed content differs; create a new revision"))
-            return result
+            if append_receipt:
+                try:
+                    validate_receipt_append(existing["content"], payload.body,
+                                            race_id=race_id, date=identity["race_date"])
+                except PersistenceError as exc:
+                    _failure(result, exc, operation="receipt_append", attempt=attempt,
+                             path=payload.path)
+                    return result
+                expected = existing.get("blob_sha")
+                if not isinstance(expected, str) or not re.fullmatch(r"[0-9a-f]{40}", expected):
+                    _failure(result, PersistenceError("existing receipt blob SHA required",
+                            kind="unknown"), operation="receipt_append",
+                            attempt=attempt, path=payload.path)
+                    return result
+                old_receipt_bytes = existing["content"]
+            else:
+                # 固定JSON/推奨原本は旧allow_update指定でも異内容を上書きしない。
+                result.failure_category = "conflict"
+                result.operations.append(dict(operation="read", attempt=attempt,
+                                              at_utc=_instant(),
+                                              reason="immutable fixed content differs; create a new revision"))
+                return result
         except FileNotFoundError:
             expected = None
+            old_receipt_bytes = b""
+            if append_receipt:
+                validate_receipt_append(b"", payload.body, race_id=race_id,
+                                        date=identity["race_date"])
         except PersistenceError as exc:
             category = _failure(result, exc, operation="read", attempt=attempt, path=payload.path)
             if category not in TRANSIENT:
@@ -477,10 +567,15 @@ def persist_fixed(payload, transport, clock_check, *, operation_id, race_id,
         result.operations.append(dict(operation="clock", attempt=attempt,
                                       at_utc=_instant(), status=result.timing_state,
                                       remaining_seconds=gate.get("remaining_seconds")))
-        if not safe_for_write(gate):
+        if not safe_for_write(gate) and identity["category"] != "persistence-incidents":
             return result
+        # 障害報告のみ発走後も追記保全可。正式FIX/receiptの時刻認証にはならない。
         try:
-            response = route.write(payload.branch, payload.path, payload.body, expected)
+            if append_receipt and expected is not None:
+                response = route.write(payload.branch, payload.path, payload.body, expected,
+                                       append_receipt=True, previous_body=old_receipt_bytes)
+            else:
+                response = route.write(payload.branch, payload.path, payload.body, expected)
             if response.get("branch") != payload.branch or response.get("path") != payload.path:
                 raise PersistenceError("write target mismatch", kind="conflict", api_reached=True)
             commit_sha = response.get("commit_sha")
@@ -520,7 +615,12 @@ def persist_fixed(payload, transport, clock_check, *, operation_id, race_id,
 
 def incident_record(payload, result, *, observed_at=None, unavailable_fields=()):
     """公開可能なメタデータのみ。固定原本bytesとエラー原文の秘密は出力しない。"""
+    date = payload.branch.removeprefix("prediction/")
+    race_id = result.target.get("race_id")
+    if not _race_is_valid(race_id, date):
+        raise ValueError("incident must record the original requested race")
     return dict(schema_version="prediction-persistence-incident-v1",
+                race_id=race_id, race_date_jst=date, working_branch=payload.branch,
                 incident_at_utc=observed_at or _instant(),
                 target=result.target, write_state=result.write_state,
                 readback_state=result.readback_state, timing_state=result.timing_state,
@@ -532,11 +632,12 @@ def incident_record(payload, result, *, observed_at=None, unavailable_fields=())
                 remote_persistence_certified=False)
 
 
-def initialization_failure(payload, operation_id, error):
+def initialization_failure(payload, operation_id, error, *, race_id):
     """branch存在確認・接続初期化の失敗も保存要求と同じ構造で保全する。"""
     result = PersistenceResult(target=dict(repository=payload.repository,
                                            branch=payload.branch, path=payload.path,
-                                           sha256=payload.digest, operation_id=operation_id))
+                                           sha256=payload.digest, operation_id=operation_id,
+                                           race_id=race_id))
     if not isinstance(error, PersistenceError):
         error = PersistenceError(sanitized(error), kind="unknown", api_reached=None,
                                  tool="github_contents_initialize")
@@ -630,17 +731,40 @@ class GitHubContentsTransport:
         b = self._call("GET", "/branches/" + urllib.parse.quote(self.branch, safe=""))
         return b["commit"]["sha"]
 
-    def write(self, branch, path, content, expected_blob_sha):
+    def write(self, branch, path, content, expected_blob_sha, *,
+              append_receipt=False, previous_body=None):
         import base64
         import urllib.parse
         if branch != self.branch:
             raise ValueError("write branch mismatch")
         allowed_target(self.repository, branch, path)
-        # 呼出側がpersist_fixedを経由しなくても、固定原本のPUT更新を許さない。
+        # 固定JSONは更新禁止。共有receiptだけは直前の原本bytesを検証してCAS追記。
         if expected_blob_sha is not None:
-            raise PersistenceError("immutable fixed content update refused; new revision required",
-                                   kind="conflict", api_reached=False,
-                                   tool="github_contents_rest")
+            if not append_receipt or not path.startswith(
+                    "docs/validation/persistence-receipts/") or not isinstance(previous_body, bytes):
+                raise PersistenceError("immutable fixed content update refused; new revision required",
+                                       kind="conflict", api_reached=False,
+                                       tool="github_contents_rest")
+            prior = self.read(branch, path)
+            if prior["blob_sha"] != expected_blob_sha or prior["content"] != previous_body:
+                raise PersistenceError("receipt changed before CAS append", kind="conflict",
+                                       api_reached=True, tool="github_contents_rest")
+            date = branch.removeprefix("prediction/")
+            prior_records = _json_or_receipt(
+                FixedPayload(self.repository, branch, path, previous_body),
+                "persistence-receipts") if previous_body.strip() else []
+            later_records = _json_or_receipt(
+                FixedPayload(self.repository, branch, path, content),
+                "persistence-receipts")
+            appended = later_records[len(prior_records):]
+            if not appended or not all(isinstance(r, dict) and
+                                       _race_is_valid(r.get("race_id"), date) for r in appended):
+                raise PersistenceError("invalid receipt append identity", kind="conflict")
+            for record in appended:
+                validate_receipt_append(previous_body, content,
+                                        race_id=record["race_id"], date=date)
+        elif append_receipt:
+            raise PersistenceError("append requires current receipt SHA", kind="conflict")
         data = {"message": "固定原本を保存し読戻し照合する",
                 "branch": branch, "content": base64.b64encode(content).decode("ascii")}
         if expected_blob_sha is not None:
@@ -663,6 +787,8 @@ def main(argv=None):
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--token-env", default="GITHUB_TOKEN")
     parser.add_argument("--allow-update", action="store_true", help="deprecated: fixed content updates are refused")
+    parser.add_argument("--append-receipt", action="store_true",
+                        help="append new records to existing shared daily receipt with CAS")
     parser.add_argument("--write", action="store_true", help="required for GitHub persistence")
     parser.add_argument("--local-incident", type=Path, help="write only sanitized incident metadata")
     args = parser.parse_args(argv)
@@ -677,6 +803,8 @@ def main(argv=None):
         if args.allow_update:
             raise ValueError("fixed contents are immutable; create a new revision/path instead")
         verify_payload_binding(payload, args.race_id)  # GitHub branch確認前に拒否
+        if args.append_receipt and not args.path.startswith("docs/validation/persistence-receipts/"):
+            raise ValueError("--append-receipt only for daily receipts")
         token = os.environ.get(args.token_env)
         if not token:
             raise ValueError("GitHub token unavailable; no remote write attempted")
@@ -684,9 +812,12 @@ def main(argv=None):
         transport = GitHubContentsTransport(payload.repository, payload.branch, token)
         result = persist_fixed(payload, transport,
                                lambda stage: observed_assessment(args.root,args.date,args.race_id),
-                               operation_id=args.operation_id, race_id=args.race_id)
+                               operation_id=args.operation_id, race_id=args.race_id,
+                               append_receipt=args.append_receipt)
         print(json.dumps(result.as_dict(), ensure_ascii=False, indent=2))
-        if result.readback_state != "MATCH" or result.timing_state != "PRE_SCHEDULED":
+        is_incident = args.path.startswith("docs/validation/persistence-incidents/")
+        if result.readback_state != "MATCH" or (
+                not is_incident and result.timing_state != "PRE_SCHEDULED"):
             if args.local_incident:
                 save_incident_local(args.local_incident, incident_record(payload, result))
             return 1
@@ -695,7 +826,7 @@ def main(argv=None):
     except (ValueError, OSError, PersistenceError, KeyError, TypeError) as exc:
         print("保存未完了：" + sanitized(exc))
         if args.local_incident and payload is not None and result is None:
-            record = incident_record(payload, initialization_failure(payload, args.operation_id, exc))
+            record = incident_record(payload, initialization_failure(payload, args.operation_id, exc, race_id=args.race_id))
             try:
                 save_incident_local(args.local_incident, record)
             except (OSError, ValueError) as log_error:
