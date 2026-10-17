@@ -1,0 +1,50 @@
+{
+  "schema_version": "recommendation-historical-debt-inventory-v1",
+  "race_date_jst": "2026-10-17",
+  "mode": "RETROSPECTIVE_EVIDENCE_ONLY",
+  "count_expected": 4,
+  "formal_kpi_eligibility": "INELIGIBLE",
+  "official_day_scope": "UNREGISTERED",
+  "audit_policy": "通常のrecommendation.py --auditは4件の正式未完了を検出し失敗のまま。未完了台帳は個別の実体・原本SHA・非適格状態を確認する回顧参照資料であり、CI監査や正式KPIへの例外許可・免責・除外指示にはならない。",
+  "day_index_path": "docs/validation/reconciliations/2026-10-17-day-index.json",
+  "unsealed_reference_path": "docs/validation/reconciliations/2026-10-17-unsealed-recommendations.json",
+  "certification_path": "docs/validation/reviews/cycle_04/2026-10-17-formal-kpi-certification-decision.json",
+  "items": [
+    {
+      "code": "NONCANONICAL_NIIGATA_11",
+      "race_id": "2026-10-17-NIIGATA-11",
+      "expected_error": "unregistered recommendation snapshot: docs/validation/recommendations/2026-10-17/20261017-NIIGATA-11-REC-S01.json",
+      "source_path": "docs/validation/recommendations/2026-10-17/20261017-NIIGATA-11-REC-S01.json",
+      "recommendation_state": "UNSEALED_NO_RECOMMENDATION",
+      "note": "見送りは旧形式の保存参照。発走前の正式推奨原本やgateとして遡及認証しない。",
+      "source_sha256": "c28e1749d05b17f69f3c60fbb1a456b6d1ce95916bb9a2aa1a6069ca56afb813"
+    },
+    {
+      "code": "DECLARED_TOKYO_09_NOT_SAVED",
+      "race_id": "2026-10-17-TOKYO-09",
+      "expected_error": "docs/validation/persistence-intents/2026-10-17/tokyo-09-final.json: declared recommendation intent missing or duplicated",
+      "source_path": "docs/validation/persistence-intents/2026-10-17/tokyo-09-final.json",
+      "recommendation_state": "NOT_PERSISTED",
+      "note": "事前宣言のscopeに対応する独立推薦は未作成。事後に完成として扱わない。",
+      "source_sha256": "46e23e5b362f1a45cb4d353c91c2e47510a7243c408a1d10d7e6c83452075f14"
+    },
+    {
+      "code": "NIIGATA_11_RECOMMENDATION_GATE_MISSING",
+      "race_id": "2026-10-17-NIIGATA-11",
+      "expected_error": "missing recommendation gate for docs/validation/execution-gates/2026-10-17/2026-10-17-NIIGATA-11.json",
+      "source_path": "docs/validation/execution-gates/2026-10-17/2026-10-17-NIIGATA-11.json",
+      "recommendation_state": "UNSEALED_NO_RECOMMENDATION",
+      "note": "新潟11R見送りの正式ゲートなし。第一項目と同レースだが別監査エラー。",
+      "source_sha256": "47b24050fee0b75d40d5fa0575b45625b59705b2a9c2cdea4434f2f4699354ae"
+    },
+    {
+      "code": "KYOTO_08_RECOMMENDATION_GATE_MISSING",
+      "race_id": "2026-10-17-KYOTO-08",
+      "expected_error": "missing recommendation gate for docs/validation/execution-gates/2026-10-17/2026-10-17-KYOTO-08.json",
+      "source_path": "docs/validation/execution-gates/2026-10-17/2026-10-17-KYOTO-08.json",
+      "recommendation_state": "UNSEALED_PRE_RACE_CANDIDATE",
+      "note": "ワイド3－6は参考推奨で、発走前独立gateなし。",
+      "source_sha256": "08f00061134e8b3ce12438b37dbe220601a57f32dafe8e8f7b63b3b0096cda16"
+    }
+  ]
+}

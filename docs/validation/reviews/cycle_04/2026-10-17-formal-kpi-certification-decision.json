@@ -1,0 +1,1026 @@
+{
+  "schema_version": "cycle04-postrace-certification-rejection-v1",
+  "race_date_jst": "2026-10-17",
+  "checked_at_jst": "2026-10-17T19:02:07.102+09:00",
+  "mode": "ACTUAL_POSTRACE_CONTRACT_ASSESSMENT",
+  "original_intent_path": "docs/validation/persistence-intents/2026-10-17/morning.json",
+  "result_reference_path": "docs/validation/reviews/cycle_04/2026-10-17-all-36-official-results-reference.json",
+  "reconciliation_day_index_path": "docs/validation/reconciliations/2026-10-17-day-index.json",
+  "official_day_ledger_path": "docs/validation/records/cycle_04/2026-10-17.json",
+  "official_day_ledger_exists_at_check": false,
+  "scope_decision": "UNREGISTERED_PRE_RACE",
+  "initial_all36_forecast_decision": "MISSING",
+  "prediction_intent_fix_receipt_chain_decision": "INCOMPLETE",
+  "day_ledger_validation_decision": "NOT_PASSABLE",
+  "certification": {
+    "status": "REJECTED_UNDER_V1_7_0",
+    "prediction": "NOT_CERTIFIED",
+    "recommendation": "NOT_CERTIFIED",
+    "shadow": "NOT_CERTIFIED",
+    "formal_eligible_denominators": {
+      "prediction": 0,
+      "recommendation": 0,
+      "shadow": 0
+    },
+    "rates": {
+      "prediction_honmei_win": null,
+      "prediction_win_brier": null,
+      "prediction_place2_brier": null,
+      "prediction_place3_brier": null,
+      "recommendation_hit_rate": null,
+      "shadow_non_degradation": null
+    },
+    "null_policy": "denominator=0 implies NOT_APPLICABLE not 0%. No retroactive pre-race artifacts."
+  },
+  "coverage": {
+    "races": 36,
+    "results_top3": 36,
+    "top3_official_page_urls": 6,
+    "prior_forecasts_research_only": 6,
+    "unscorable_final_forecasts": 30,
+    "official_results_pages_verified": 6,
+    "result_only_secondary_30": 30
+  },
+  "decisions": [
+    {
+      "race_id": "2026-10-17-TOKYO-01",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-02",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-03",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-04",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-05",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-06",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-07",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-08",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-09",
+      "finishers_available": true,
+      "official_result_page": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604060920261017%2F34",
+      "pre_off_prediction_artifact": "docs/validation/preservation/2026-10-17-tokyo-09-final-late.md",
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "FINAL_SAVED_AFTER_POST"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-10",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-11",
+      "finishers_available": true,
+      "official_result_page": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604061120261017%2FDE",
+      "pre_off_prediction_artifact": "docs/validation/snapshots/2026-10-17/20261017-TOKYO-11-FINAL-S01.json",
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "OFFICIAL_DAY_SCOPE_AND_ORDERED_READBACK_MISSING"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "RECOMMENDATION_GATE_PRESENT_BUT_FORMAL_DAY_CYCLE_UNVERIFIED",
+        "recorded_mode": "PRE_RACE_RECOMMENDATION_NOT_CERTIFIED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-12",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26050406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-01",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-02",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-03",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-04",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-05",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-06",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-07",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-08",
+      "finishers_available": true,
+      "official_result_page": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604060820261017%2F5D",
+      "pre_off_prediction_artifact": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-08-FINAL-S01.json",
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "OFFICIAL_DAY_SCOPE_AND_ORDERED_READBACK_MISSING"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "RECOMMENDATION_NOT_INDEPENDENTLY_SEALED",
+        "recorded_mode": "UNSEALED_PRE_RACE_CANDIDATE"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-09",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-10",
+      "finishers_available": true,
+      "official_result_page": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604061020261017%2F07",
+      "pre_off_prediction_artifact": "docs/validation/preservation/2026-10-17-kyoto-10-final-late.md",
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "FINAL_SAVED_AFTER_POST"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "RECOMMENDATION_NOT_INDEPENDENTLY_SEALED",
+        "recorded_mode": "UNSEALED_LATE_PRESERVATION_CANDIDATE"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-11",
+      "finishers_available": true,
+      "official_result_page": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604061120261017%2FBC",
+      "pre_off_prediction_artifact": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-11-FINAL-S01.json",
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "OFFICIAL_DAY_SCOPE_AND_ORDERED_READBACK_MISSING"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "RECOMMENDATION_GATE_PRESENT_BUT_FORMAL_DAY_CYCLE_UNVERIFIED",
+        "recorded_mode": "PRE_RACE_RECOMMENDATION_NOT_CERTIFIED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-12",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26080406"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-01",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-02",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-03",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-04",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-05",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-06",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-07",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-08",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-09",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-10",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-11",
+      "finishers_available": true,
+      "official_result_page": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0104202604011120261017%2F55",
+      "pre_off_prediction_artifact": "docs/validation/snapshots/2026-10-17/20261017-NIIGATA-11-FINAL-S01.json",
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "OFFICIAL_DAY_SCOPE_AND_ORDERED_READBACK_MISSING"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "RECOMMENDATION_NOT_INDEPENDENTLY_SEALED",
+        "recorded_mode": "UNSEALED_NO_RECOMMENDATION"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-12",
+      "finishers_available": true,
+      "official_result_page": null,
+      "pre_off_prediction_artifact": null,
+      "prediction": {
+        "status": "INELIGIBLE",
+        "score": null,
+        "reason_code": "NO_FIXED_FINAL_PREDICTION"
+      },
+      "recommendation": {
+        "status": "INELIGIBLE",
+        "hit": null,
+        "reason_code": "FORMAL_RECOMMENDATION_NOT_PERSISTED",
+        "recorded_mode": "NOT_PERSISTED"
+      },
+      "shadow": {
+        "status": "INELIGIBLE",
+        "non_degradation": null,
+        "reason_code": "INDEPENDENT_PRE_RACE_SHADOW_NOT_PERSISTED"
+      },
+      "initial_forecast": {
+        "status": "MISSING",
+        "rank_change_metric": null
+      },
+      "result_listing_page": "https://sports.yahoo.co.jp/keiba/race/list/26040401"
+    }
+  ],
+  "missing_evidence": [
+    "No registered official cycle04-day-v1 before first post",
+    "No fixed baseline initial whole-field forecasts for 36 declared races",
+    "Some final prediction intent and independent FIX readback receipts missing",
+    "Independent recommendation receipt/gate unavailable or formally unsealed",
+    "No same-cutoff certified Shadow for listed races"
+  ],
+  "replacement_policy": "Do not synthesize missing forecast, initial, official day scope, timestamps, FIX, receipt, recommendation gate or Shadow from postrace data; no odds or market-based reranking; the documented outcome is ineligible, not a passing KPI certification."
+}

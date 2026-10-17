@@ -1,0 +1,110 @@
+{
+  "schema_version": "recommendation-snapshot-v1",
+  "recommendation_contract": "odds-free-recommendation-v1",
+  "recommendation_id": "20261017-KYOTO-11-REC-S01",
+  "race_id": "2026-10-17-KYOTO-11",
+  "race_date_jst": "2026-10-17",
+  "manual_release": "v1.7.0",
+  "manual_ref_commit": "fd47babd38deea46439c2a7e500c3937c63cb5d7",
+  "working_branch": "prediction/2026-10-17",
+  "scheduled_post_time_jst": "2026-10-17T15:30:00+09:00",
+  "data_cutoff": "2026-10-17T15:20:33.933+09:00",
+  "fixed_at_jst": "2026-10-17T15:23:26.203+09:00",
+  "prediction_ref": {
+    "artifact_path": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-11-FINAL-S01.json",
+    "artifact_id": "20261017-KYOTO-11-FINAL-S01",
+    "sha256": "bfe1b7a52e0388adf2c824554eb65f1ba3bb81e4bea51fcf4312d6af4f839d29",
+    "baseline_forecast_id": "20261017-KYOTO-11-BASE-01"
+  },
+  "revision": 1,
+  "supersedes": null,
+  "supersedes_sha256": null,
+  "phase": "FINAL",
+  "status": "RECOMMENDED",
+  "reason": "5番の先行持続と6番の好位からの持続脚が両立する中庸ペースを想定したワイド1点。前半競り合いで5番が崩れる展開は失敗条件。",
+  "cancelled_horses": [],
+  "main_ticket_types": [
+    "WIDE"
+  ],
+  "tickets": [
+    {
+      "type": "WIDE",
+      "horses": [
+        6,
+        5
+      ],
+      "priority": 1,
+      "scenario_id": "KYO11-FRONT-AND-STALK-01",
+      "reason": "5番の先行持続と6番の好位からの持続脚が両立する中庸ペースを想定したワイド1点。前半競り合いで5番が崩れる展開は失敗条件。"
+    }
+  ],
+  "unique_ticket_count": 1,
+  "candidate_decisions": [
+    {
+      "type": "WIDE",
+      "status": "SELECTED",
+      "reason": "6・5の同時3着内を中心とした本線"
+    },
+    {
+      "type": "WIN",
+      "status": "REJECTED",
+      "reason": "1着固定は混戦・先行負荷により避ける"
+    },
+    {
+      "type": "PLACE",
+      "status": "REJECTED",
+      "reason": "主力シナリオより根拠が薄いか点数増大につながるため非採用"
+    },
+    {
+      "type": "QUINELLA",
+      "status": "REJECTED",
+      "reason": "双方2着以内を固定するほどの確信不足"
+    },
+    {
+      "type": "EXACTA",
+      "status": "REJECTED",
+      "reason": "主力シナリオより根拠が薄いか点数増大につながるため非採用"
+    },
+    {
+      "type": "TRIO",
+      "status": "REJECTED",
+      "reason": "主力シナリオより根拠が薄いか点数増大につながるため非採用"
+    },
+    {
+      "type": "TRIFECTA",
+      "status": "REJECTED",
+      "reason": "主力シナリオより根拠が薄いか点数増大につながるため非採用"
+    }
+  ],
+  "horse_roles": [
+    {
+      "horse_no": 6,
+      "finish_role": "TOP3",
+      "reason": "同級1800m2着と交流重賞好走で好位を維持できる",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "scenario_id": "KYO11-FRONT-AND-STALK-01",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    },
+    {
+      "horse_no": 5,
+      "finish_role": "TOP3",
+      "reason": "直近ダ1700m同級2着・3着で先行持続が確認できる",
+      "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604061120261017%2F00",
+      "scenario_id": "KYO11-FRONT-AND-STALK-01",
+      "observed_at_jst": "2026-10-17T15:20:33.933+09:00"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "KYO11-FRONT-AND-STALK-01",
+      "description": "5先行・6好位、速すぎない流れで双方が3着内に入る。逃げ争い激化は失敗条件。",
+      "probability_status": "NOT_CALCULATED"
+    }
+  ],
+  "dependency_audit": {
+    "anchor_dependency": "ALL",
+    "lower_bound_review": "6単独の主観3着内率51%、5単独48%から独立同時確率を計算しない。調整後同時率の検証材料不足を認め、1点のみ。",
+    "anchor_failure_scenario": "6が好位を確保できず中団で包まれた場合は的中不能。5の競り負けでも失敗。",
+    "scenario_overlap_reason": "採用は同一展開に依存するワイド1点のみで保険券なし"
+  }
+}

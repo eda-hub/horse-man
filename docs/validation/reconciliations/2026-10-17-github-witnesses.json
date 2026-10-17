@@ -1,0 +1,207 @@
+{
+  "schema_version": "github-presence-witness-v1",
+  "purpose": "GitHub APIから事後取得したサーバ時刻による発走前存在の補強。原本読戻し・所定順序・正式KPIの認証を代替しない。",
+  "readback_proven": false,
+  "formal_kpi_promoted": false,
+  "items": [
+    {
+      "race_id": "2026-10-17-NIIGATA-11",
+      "kind": "INTENT",
+      "artifact_path": "docs/validation/persistence-intents/2026-10-17/niigata-11-final.json",
+      "commit": "573c89fe38dc915b7cfb64802a87986ce1333783",
+      "api_url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39008766826",
+      "run": {
+        "id": 39008766826,
+        "html_url": "https://github.com/eda-hub/horse-man/actions/runs/39008766826",
+        "url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39008766826",
+        "head_sha": "573c89fe38dc915b7cfb64802a87986ce1333783",
+        "head_branch": "prediction/2026-10-17",
+        "event": "push",
+        "created_at": "2026-10-17T06:07:51Z",
+        "run_started_at": "2026-10-17T06:07:51Z",
+        "repository": "eda-hub/horse-man",
+        "head_repository": "eda-hub/horse-man",
+        "conclusion": "failure"
+      },
+      "sha256": "c896f8c74841e15a87ef9c66de25d06db7f1582dc258a51eff04305225234875",
+      "scheduled_post_time_jst": "2026-10-17T15:15:00+09:00"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-11",
+      "kind": "FIX",
+      "artifact_path": "docs/validation/fix-manifests/2026-10-17/20261017-NIIGATA-11-FINAL-S01.json",
+      "commit": "66ccbf8861e1ff09ff80e6ee9c329df924719a35",
+      "api_url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39008808012",
+      "run": {
+        "id": 39008808012,
+        "html_url": "https://github.com/eda-hub/horse-man/actions/runs/39008808012",
+        "url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39008808012",
+        "head_sha": "66ccbf8861e1ff09ff80e6ee9c329df924719a35",
+        "head_branch": "prediction/2026-10-17",
+        "event": "push",
+        "created_at": "2026-10-17T06:08:28Z",
+        "run_started_at": "2026-10-17T06:08:28Z",
+        "repository": "eda-hub/horse-man",
+        "head_repository": "eda-hub/horse-man",
+        "conclusion": "failure"
+      },
+      "sha256": "af91dd6c017183eb2ed8da474e4db775965ca5277cc69d9750c2e9e93edb9859",
+      "scheduled_post_time_jst": "2026-10-17T15:15:00+09:00"
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-11",
+      "kind": "PREDICTION",
+      "artifact_path": "docs/validation/snapshots/2026-10-17/20261017-NIIGATA-11-FINAL-S01.json",
+      "commit": "c0721b9f41e7b7e175608e8cca7e6e157eae1521",
+      "api_url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39009034245",
+      "run": {
+        "id": 39009034245,
+        "html_url": "https://github.com/eda-hub/horse-man/actions/runs/39009034245",
+        "url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39009034245",
+        "head_sha": "c0721b9f41e7b7e175608e8cca7e6e157eae1521",
+        "head_branch": "prediction/2026-10-17",
+        "event": "push",
+        "created_at": "2026-10-17T06:12:13Z",
+        "run_started_at": "2026-10-17T06:12:13Z",
+        "repository": "eda-hub/horse-man",
+        "head_repository": "eda-hub/horse-man",
+        "conclusion": "failure"
+      },
+      "sha256": "4fa3f1806f36c1d92e0d7f4daec3a4616c91d1483fe977e66ae161b300010e04",
+      "scheduled_post_time_jst": "2026-10-17T15:15:00+09:00"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-11",
+      "kind": "INTENT",
+      "artifact_path": "docs/validation/persistence-intents/2026-10-17/kyoto-11-final.json",
+      "commit": "865c442dc4512134a442b77be245f7968907f1ed",
+      "api_url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39009311136",
+      "run": {
+        "id": 39009311136,
+        "html_url": "https://github.com/eda-hub/horse-man/actions/runs/39009311136",
+        "url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39009311136",
+        "head_sha": "865c442dc4512134a442b77be245f7968907f1ed",
+        "head_branch": "prediction/2026-10-17",
+        "event": "push",
+        "created_at": "2026-10-17T06:16:42Z",
+        "run_started_at": "2026-10-17T06:16:42Z",
+        "repository": "eda-hub/horse-man",
+        "head_repository": "eda-hub/horse-man",
+        "conclusion": "failure"
+      },
+      "sha256": "ef0e6ddfe3f9d8c1187fa3dd388b91505aaa6d48ec2598ae80469f5832595522",
+      "scheduled_post_time_jst": "2026-10-17T15:30:00+09:00"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-11",
+      "kind": "FIX",
+      "artifact_path": "docs/validation/fix-manifests/2026-10-17/20261017-KYOTO-11-FINAL-S01.json",
+      "commit": "36a854b07b1daa4481b83ce48450327f106f7017",
+      "api_url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39009555820",
+      "run": {
+        "id": 39009555820,
+        "html_url": "https://github.com/eda-hub/horse-man/actions/runs/39009555820",
+        "url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39009555820",
+        "head_sha": "36a854b07b1daa4481b83ce48450327f106f7017",
+        "head_branch": "prediction/2026-10-17",
+        "event": "push",
+        "created_at": "2026-10-17T06:20:38Z",
+        "run_started_at": "2026-10-17T06:20:38Z",
+        "repository": "eda-hub/horse-man",
+        "head_repository": "eda-hub/horse-man",
+        "conclusion": "failure"
+      },
+      "sha256": "5c48c5e7c0f66f1671583581cae90b6e3d16300217698e7a7fecb2381a7d4a88",
+      "scheduled_post_time_jst": "2026-10-17T15:30:00+09:00"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-11",
+      "kind": "PREDICTION",
+      "artifact_path": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-11-FINAL-S01.json",
+      "commit": "9e86bc0911946c0e7482540051e9120420e6a516",
+      "api_url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39009559299",
+      "run": {
+        "id": 39009559299,
+        "html_url": "https://github.com/eda-hub/horse-man/actions/runs/39009559299",
+        "url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39009559299",
+        "head_sha": "9e86bc0911946c0e7482540051e9120420e6a516",
+        "head_branch": "prediction/2026-10-17",
+        "event": "push",
+        "created_at": "2026-10-17T06:20:41Z",
+        "run_started_at": "2026-10-17T06:20:41Z",
+        "repository": "eda-hub/horse-man",
+        "head_repository": "eda-hub/horse-man",
+        "conclusion": "failure"
+      },
+      "sha256": "bfe1b7a52e0388adf2c824554eb65f1ba3bb81e4bea51fcf4312d6af4f839d29",
+      "scheduled_post_time_jst": "2026-10-17T15:30:00+09:00"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-11",
+      "kind": "INTENT",
+      "artifact_path": "docs/validation/persistence-intents/2026-10-17/tokyo-11-final.json",
+      "commit": "6af1778ebb1149f37ff32d3d3c18eac3796c9b74",
+      "api_url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39010223829",
+      "run": {
+        "id": 39010223829,
+        "html_url": "https://github.com/eda-hub/horse-man/actions/runs/39010223829",
+        "url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39010223829",
+        "head_sha": "6af1778ebb1149f37ff32d3d3c18eac3796c9b74",
+        "head_branch": "prediction/2026-10-17",
+        "event": "push",
+        "created_at": "2026-10-17T06:31:26Z",
+        "run_started_at": "2026-10-17T06:31:26Z",
+        "repository": "eda-hub/horse-man",
+        "head_repository": "eda-hub/horse-man",
+        "conclusion": "failure"
+      },
+      "sha256": "e71a284ec2dac59fcae47316ff61f4da95231bb898c290e76d43ee87646c01a3",
+      "scheduled_post_time_jst": "2026-10-17T15:45:00+09:00"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-11",
+      "kind": "FIX",
+      "artifact_path": "docs/validation/fix-manifests/2026-10-17/20261017-TOKYO-11-FINAL-S01.json",
+      "commit": "7dea2ca8479dc7990e8c90f6073c1c6a27a11b10",
+      "api_url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39010369447",
+      "run": {
+        "id": 39010369447,
+        "html_url": "https://github.com/eda-hub/horse-man/actions/runs/39010369447",
+        "url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39010369447",
+        "head_sha": "7dea2ca8479dc7990e8c90f6073c1c6a27a11b10",
+        "head_branch": "prediction/2026-10-17",
+        "event": "push",
+        "created_at": "2026-10-17T06:33:47Z",
+        "run_started_at": "2026-10-17T06:33:47Z",
+        "repository": "eda-hub/horse-man",
+        "head_repository": "eda-hub/horse-man",
+        "conclusion": "failure"
+      },
+      "sha256": "6b84829b0719325fc9a18f5d4f54623ea39851c1d0d679136965e873b95e448b",
+      "scheduled_post_time_jst": "2026-10-17T15:45:00+09:00"
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-11",
+      "kind": "PREDICTION",
+      "artifact_path": "docs/validation/snapshots/2026-10-17/20261017-TOKYO-11-FINAL-S01.json",
+      "commit": "80b004852cecc33735f1a418c26525b6f1a31550",
+      "api_url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39010372521",
+      "run": {
+        "id": 39010372521,
+        "html_url": "https://github.com/eda-hub/horse-man/actions/runs/39010372521",
+        "url": "https://api.github.com/repos/eda-hub/horse-man/actions/runs/39010372521",
+        "head_sha": "80b004852cecc33735f1a418c26525b6f1a31550",
+        "head_branch": "prediction/2026-10-17",
+        "event": "push",
+        "created_at": "2026-10-17T06:33:50Z",
+        "run_started_at": "2026-10-17T06:33:50Z",
+        "repository": "eda-hub/horse-man",
+        "head_repository": "eda-hub/horse-man",
+        "conclusion": "failure"
+      },
+      "sha256": "2b57c289088e097f46273f9b817dc15c697025e8975ec5c29f3bd1bdd16ba4b7",
+      "scheduled_post_time_jst": "2026-10-17T15:45:00+09:00"
+    }
+  ],
+  "retrieved_at_jst": "2026-10-17T19:57:23.883406+09:00"
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "recommendation-compliance-v1",
+  "race_id": "2026-10-17-KYOTO-11",
+  "race_date_jst": "2026-10-17",
+  "recommendation_id": "20261017-KYOTO-11-REC-S01",
+  "status": "RECOMMENDED",
+  "prediction_ref": {
+    "artifact_path": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-11-FINAL-S01.json",
+    "artifact_id": "20261017-KYOTO-11-FINAL-S01",
+    "sha256": "bfe1b7a52e0388adf2c824554eb65f1ba3bb81e4bea51fcf4312d6af4f839d29",
+    "baseline_forecast_id": "20261017-KYOTO-11-BASE-01"
+  },
+  "content_sha256": "cb55cac410b929665aacd8f80da727337401b24f900f6e98206fac39acfc9cef",
+  "intent_path": "docs/validation/recommendation-intents/2026-10-17/kyoto-11-final.json",
+  "mode": "FORWARD",
+  "prediction_gate_ref": {
+    "artifact_path": "docs/validation/recommendation-prediction-gates/2026-10-17/20261017-KYOTO-11-REC-S01.json",
+    "sha256": "6f6c3bd75b546e8604f386e1e69d18c0c49454eb60a8944bc5b2097aff7ad602"
+  },
+  "kpi_eligibility": "INELIGIBLE",
+  "evidence_ref": {
+    "artifact_id": "20261017-KYOTO-11-REC-S01",
+    "artifact_path": "docs/validation/recommendations/2026-10-17/20261017-KYOTO-11-REC-S01.json",
+    "receipt_path": "docs/validation/persistence-receipts/2026-10-17.md",
+    "receipt_id": "20261017-KYOTO-11-REC-S01-R02",
+    "timing_eligibility": "PRE_RACE_ELIGIBLE",
+    "persist_verified_at_jst": "2026-10-17T15:25:02.901+09:00"
+  }
+}

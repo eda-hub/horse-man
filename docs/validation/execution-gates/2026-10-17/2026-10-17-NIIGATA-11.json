@@ -1,0 +1,341 @@
+{
+  "schema_version": "prediction-compliance-v2",
+  "race_date_jst": "2026-10-17",
+  "race_id": "2026-10-17-NIIGATA-11",
+  "mode": "FORWARD",
+  "working_branch": "prediction/2026-10-17",
+  "manual_release": "v1.7.0",
+  "manual_ref_commit": "fd47babd38deea46439c2a7e500c3937c63cb5d7",
+  "scheduled_post_time_jst": "2026-10-17T15:15:00+09:00",
+  "data_cutoff": "2026-10-17T15:04:45+09:00",
+  "timing_route": "SNAPSHOT_CANDIDATE",
+  "production": {
+    "baseline_forecast_id": "20261017-NIIGATA-11-BASE-01",
+    "ranking": [
+      6,
+      17,
+      8,
+      5,
+      15,
+      13,
+      18,
+      12,
+      3,
+      2,
+      10,
+      14,
+      16,
+      1,
+      9,
+      7,
+      4,
+      11
+    ],
+    "marks": {
+      "honmei": 6,
+      "taikou": 17,
+      "tanana": 8,
+      "renka": [
+        5,
+        15
+      ]
+    },
+    "probabilities": [
+      {
+        "horse_no": 6,
+        "win_probability": 0.16,
+        "top2_probability": 0.31,
+        "top3_probability": 0.43
+      },
+      {
+        "horse_no": 17,
+        "win_probability": 0.14,
+        "top2_probability": 0.28,
+        "top3_probability": 0.4
+      },
+      {
+        "horse_no": 8,
+        "win_probability": 0.13,
+        "top2_probability": 0.25,
+        "top3_probability": 0.36
+      },
+      {
+        "horse_no": 5,
+        "win_probability": 0.11,
+        "top2_probability": 0.23,
+        "top3_probability": 0.34
+      },
+      {
+        "horse_no": 15,
+        "win_probability": 0.11,
+        "top2_probability": 0.22,
+        "top3_probability": 0.33
+      },
+      {
+        "horse_no": 13,
+        "win_probability": 0.09,
+        "top2_probability": 0.17,
+        "top3_probability": 0.27
+      },
+      {
+        "horse_no": 18,
+        "win_probability": 0.07,
+        "top2_probability": 0.12,
+        "top3_probability": 0.2
+      },
+      {
+        "horse_no": 12,
+        "win_probability": 0.05,
+        "top2_probability": 0.09,
+        "top3_probability": 0.15
+      },
+      {
+        "horse_no": 3,
+        "win_probability": 0.04,
+        "top2_probability": 0.08,
+        "top3_probability": 0.12
+      },
+      {
+        "horse_no": 2,
+        "win_probability": 0.03,
+        "top2_probability": 0.06,
+        "top3_probability": 0.1
+      },
+      {
+        "horse_no": 10,
+        "win_probability": 0.02,
+        "top2_probability": 0.05,
+        "top3_probability": 0.08
+      },
+      {
+        "horse_no": 14,
+        "win_probability": 0.02,
+        "top2_probability": 0.04,
+        "top3_probability": 0.06
+      },
+      {
+        "horse_no": 16,
+        "win_probability": 0.01,
+        "top2_probability": 0.03,
+        "top3_probability": 0.05
+      },
+      {
+        "horse_no": 1,
+        "win_probability": 0.01,
+        "top2_probability": 0.03,
+        "top3_probability": 0.04
+      },
+      {
+        "horse_no": 9,
+        "win_probability": 0.005,
+        "top2_probability": 0.02,
+        "top3_probability": 0.03
+      },
+      {
+        "horse_no": 7,
+        "win_probability": 0.005,
+        "top2_probability": 0.01,
+        "top3_probability": 0.02
+      },
+      {
+        "horse_no": 4,
+        "win_probability": 0,
+        "top2_probability": 0.01,
+        "top3_probability": 0.015
+      },
+      {
+        "horse_no": 11,
+        "win_probability": 0,
+        "top2_probability": 0,
+        "top3_probability": 0.005
+      }
+    ],
+    "prediction_confidence": "D",
+    "evidence_items": [
+      {
+        "horse_no": 6,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "同級芝1200mで紫川S2着、テレQ杯3着。54kgで先行持続。 当日458kg、前走比+2kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "plus",
+        "strength": "strong"
+      },
+      {
+        "horse_no": 17,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "同級新潟1400m新潟日報賞2着、続く長篠S5着0.3秒差、セプテンバーS4着0.4秒差。56kg。 当日508kg、前走比+0kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "plus",
+        "strength": "strong"
+      },
+      {
+        "horse_no": 8,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "福島1200mの2勝クラスを0.3秒差勝ち、3歳で昇級初戦。古馬3勝級への直接比較は不足。 当日444kg、前走比+8kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 5,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "前走同級中山1200mセプテンバーS3着0.2秒差。54kg、前走重馬場から良馬場替わり。 当日480kg、前走比-6kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 15,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "ダ1150m未勝利→札幌1200m1勝→HBC賞2勝を3連勝。前走2勝クラス勝ち差0.0秒、今回56kgで同級未知。 当日484kg、前走比-2kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 13,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "巌流島S同級芝1200m2着0.2秒差、当時55kg。直近2走は失速で状態不確実。 当日484kg、前走比+8kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 18,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "テレQ杯同級1200m2着0.3秒差。前走中京1600m9着から距離短縮。 当日486kg、前走比+4kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 12,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "函館芝1200m同級TVh杯4着0.2秒差、今回は53kg。 当日454kg、前走比+2kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 3,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "下関S同級1200m3着、巌流島S5着。前走1400m11着から短縮、4月以来。 当日490kg、前走比-4kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 2,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "会津S同級1200m4着0.4秒差。54kgで先行・好位候補。 当日510kg、前走比+0kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 10,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "船橋S同級1200m4着0.3秒差。新潟1400m前走13着。 当日482kg、前走比+2kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 14,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "2勝クラス1200m大濠特別勝ち、昇級初戦1400m15着。1200m戻り。 当日426kg、前走比+4kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 16,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "船橋S同級1200m5着0.3秒差。前走1400m9着で距離短縮。 当日468kg、前走比-4kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 1,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "芝1200m2勝クラス勝利実績、会津S同級5着。直千重賞16着から復帰。 当日492kg、前走比+2kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 9,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "新潟直千の韋駄天S4着、1200m下関S16着で距離変更が課題。 当日492kg、前走比+8kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 7,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "同級会津S8着、近走は着差が大きい。53kg。 当日474kg、前走比-2kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 4,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "同級1200mで直近10、7、13着。52kgは軽いが近走能力に不安。 当日442kg、前走比+10kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 11,
+        "factor": "近走同級実績・昇級未知・当日馬体重・距離適性",
+        "fact": "同級1200mテレQ杯6着、前走長篠S13着。54kg。 当日482kg、前走比+0kg。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0104202604011120261017%2F99",
+        "observed_at_jst": "2026-10-17T15:04:45+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      }
+    ],
+    "fixed_at_jst": "2026-10-17T15:04:45+09:00",
+    "evidence_ref": {
+      "artifact_id": "20261017-NIIGATA-11-FINAL-S01",
+      "artifact_path": "docs/validation/snapshots/2026-10-17/20261017-NIIGATA-11-FINAL-S01.json",
+      "receipt_path": "docs/validation/persistence-receipts/2026-10-17.md",
+      "receipt_id": "20261017-NIIGATA-11-FINAL-S01-R02",
+      "timing_eligibility": "PRE_RACE_ELIGIBLE",
+      "persist_verified_at_jst": "2026-10-17T15:12:58.459+09:00"
+    }
+  },
+  "kpi_eligibility": {
+    "production": "PENDING",
+    "shadow": "PENDING"
+  },
+  "shadow_items": [],
+  "review": {
+    "status": "NOT_STARTED"
+  },
+  "incomplete_reasons": [
+    "標準Python checker・main readinessの実行未了",
+    "第4サイクルの公式scopeおよび日次台帳未接続",
+    "該当Shadowおよび正式な独立Recommendationの検証未了"
+  ]
+}

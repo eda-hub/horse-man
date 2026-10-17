@@ -1,0 +1,276 @@
+{
+  "schema_version": "prediction-compliance-v2",
+  "race_date_jst": "2026-10-17",
+  "race_id": "2026-10-17-TOKYO-11",
+  "mode": "FORWARD",
+  "working_branch": "prediction/2026-10-17",
+  "manual_release": "v1.7.0",
+  "manual_ref_commit": "fd47babd38deea46439c2a7e500c3937c63cb5d7",
+  "scheduled_post_time_jst": "2026-10-17T15:45:00+09:00",
+  "data_cutoff": "2026-10-17T15:33:43.306+09:00",
+  "timing_route": "SNAPSHOT_CANDIDATE",
+  "production": {
+    "baseline_forecast_id": "20261017-TOKYO-11-BASE-01",
+    "ranking": [
+      4,
+      10,
+      5,
+      14,
+      1,
+      7,
+      8,
+      9,
+      11,
+      6,
+      12,
+      2,
+      13,
+      3
+    ],
+    "marks": {
+      "honmei": 4,
+      "taikou": 10,
+      "tanana": 5,
+      "renka": [
+        14,
+        1
+      ]
+    },
+    "probabilities": [
+      {
+        "horse_no": 4,
+        "win_probability": 0.24,
+        "top2_probability": 0.46,
+        "top3_probability": 0.61
+      },
+      {
+        "horse_no": 10,
+        "win_probability": 0.23,
+        "top2_probability": 0.44,
+        "top3_probability": 0.6
+      },
+      {
+        "horse_no": 5,
+        "win_probability": 0.16,
+        "top2_probability": 0.31,
+        "top3_probability": 0.46
+      },
+      {
+        "horse_no": 14,
+        "win_probability": 0.11,
+        "top2_probability": 0.25,
+        "top3_probability": 0.38
+      },
+      {
+        "horse_no": 1,
+        "win_probability": 0.07,
+        "top2_probability": 0.15,
+        "top3_probability": 0.26
+      },
+      {
+        "horse_no": 7,
+        "win_probability": 0.05,
+        "top2_probability": 0.12,
+        "top3_probability": 0.21
+      },
+      {
+        "horse_no": 8,
+        "win_probability": 0.04,
+        "top2_probability": 0.09,
+        "top3_probability": 0.16
+      },
+      {
+        "horse_no": 9,
+        "win_probability": 0.03,
+        "top2_probability": 0.06,
+        "top3_probability": 0.1
+      },
+      {
+        "horse_no": 11,
+        "win_probability": 0.02,
+        "top2_probability": 0.04,
+        "top3_probability": 0.07
+      },
+      {
+        "horse_no": 6,
+        "win_probability": 0.015,
+        "top2_probability": 0.03,
+        "top3_probability": 0.06
+      },
+      {
+        "horse_no": 12,
+        "win_probability": 0.015,
+        "top2_probability": 0.03,
+        "top3_probability": 0.05
+      },
+      {
+        "horse_no": 2,
+        "win_probability": 0.01,
+        "top2_probability": 0.01,
+        "top3_probability": 0.02
+      },
+      {
+        "horse_no": 13,
+        "win_probability": 0.005,
+        "top2_probability": 0.005,
+        "top3_probability": 0.01
+      },
+      {
+        "horse_no": 3,
+        "win_probability": 0.005,
+        "top2_probability": 0.005,
+        "top3_probability": 0.01
+      }
+    ],
+    "prediction_confidence": "B",
+    "evidence_items": [
+      {
+        "horse_no": 4,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "2026年東京新聞杯1600m1:32.2優勝、東京エプソムC1800m優勝、安田記念GⅠ9着0.7秒差・上がり33.1。東京末脚の再現性。 当日馬体重514kg(+6kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "plus",
+        "strength": "strong"
+      },
+      {
+        "horse_no": 10,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "東京1600m分倍河原Sを良馬場で勝ち、上がり32.7。関屋記念GIII不良馬場は0.9秒差勝ち。良馬場GIIでの上限は未検証。 当日馬体重494kg(-4kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "plus",
+        "strength": "strong"
+      },
+      {
+        "horse_no": 5,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "マイラーズC GII京都1600m1:31.7、好位2番手から上がり33.3で勝利。今回は58kg・半年ぶり・当日+10kg。 当日馬体重492kg(+10kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "plus",
+        "strength": "strong"
+      },
+      {
+        "horse_no": 14,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "昨年サウジRC東京1600m優勝上がり33.2、直近しらさぎS GIII3着0.1秒差。55kgだが前走53kgから+2kg、当日馬体+10kg。 当日馬体重486kg(+10kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 1,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "京成杯AH GIII4着0.2秒差・上がり33.5、しらさぎS GIII4着0.1秒差。GIIの上位争いで末脚通用可能。 当日馬体重476kg(+2kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "plus",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 7,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "2025年マイルCS GⅠ3着0.3秒差、2026年東京新聞杯3着0.1秒差。一方直近の安田記念とマイラーズCはともに13着。 当日馬体重466kg(-6kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 8,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "東京エプソムCで4着0.2秒差、前走札幌記念6着0.8秒差。1600mへの短縮は適応力に不確実性。 当日馬体重516kg(-2kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 9,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "しらさぎS GIII2着0.1秒差・末脚33.8、京王杯SC6着。中京記念は9着0.7秒差。 当日馬体重492kg(-8kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 11,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "関屋記念GIII3着だが勝った10に0.9秒差。マイラーズC GII6着0.3秒差、ダービーCT3着タイム差なし。 当日馬体重510kg(-2kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 6,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "2025年鳴尾記念GIII芝1800m優勝、2026年大阪杯GⅠ8着0.7秒差。2025年しらさぎS芝1600m5着0.5秒差で距離は過去適性に幅。 当日馬体重506kg(-2kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 12,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "東京1600m3勝級を逃げて1:31.9勝ち。GIIIダービーCT8着、東京新聞杯11着。前への同型と直近休養が課題。 当日馬体重500kg(+10kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 2,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "芝1400m3勝級心斎橋S勝ち。芝1600mGIIは初で現級水準・距離延長の評価に不確実性。 当日馬体重508kg(+4kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 13,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "青葉賞GII芝2400m勝ち。2026年芝2000m GIII15着・芝2200m GⅠ17着で、今回のマイル適性の直接裏付け欠如。 当日馬体重532kg(+10kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 3,
+        "factor": "東京マイル・重賞直接実績・近走ラップ・当日馬体重",
+        "fact": "しらさぎS GIII芝1600m17着1.8秒差、安土城S芝1400m14着。直近成績に改善根拠不足。 当日馬体重518kg(+10kg)。",
+        "source_ref": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604061120261017%2F22",
+        "observed_at_jst": "2026-10-17T15:33:43.306+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      }
+    ],
+    "fixed_at_jst": "2026-10-17T15:33:43.306+09:00",
+    "evidence_ref": {
+      "artifact_id": "20261017-TOKYO-11-FINAL-S01",
+      "artifact_path": "docs/validation/snapshots/2026-10-17/20261017-TOKYO-11-FINAL-S01.json",
+      "receipt_path": "docs/validation/persistence-receipts/2026-10-17.md",
+      "receipt_id": "20261017-TOKYO-11-FINAL-S01-R02",
+      "timing_eligibility": "PRE_RACE_ELIGIBLE",
+      "persist_verified_at_jst": "2026-10-17T15:34:23.433+09:00"
+    }
+  },
+  "kpi_eligibility": {
+    "production": "PENDING",
+    "shadow": "PENDING"
+  },
+  "shadow_items": [],
+  "review": {
+    "status": "NOT_STARTED"
+  },
+  "incomplete_reasons": [
+    "正式Python checker、日次scopeと第4サイクル台帳は未実施",
+    "該当Shadowの事前原本が未作成で比較不適格"
+  ]
+}

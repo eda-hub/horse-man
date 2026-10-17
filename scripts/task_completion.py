@@ -212,12 +212,34 @@ def recommendation_completion(root, artifact_path, gate_path, *, fixed_content_s
         if not rec:
             raise ComplianceError('recommendation body unavailable')
         receipts = root / 'docs/validation/persistence-receipts' / (rec['race_date_jst'] + '.md')
-        matches = [x for x in receipt_records(receipts) if
+        # The initial R01 is still preserved. Only the single verified
+        # readback receipt (R02) is eligible as an individual completion.
+        # This check is independent of the recommendation gate: an absent gate
+        # must not hide a successfully preserved body and receipt.
+        records = receipt_records(receipts)
+        matches = [x for x in records if
                    x.get('artifact_id') == rec['recommendation_id'] and
-                   x.get('artifact_path') == artifact_path]
+                   x.get('artifact_path') == artifact_path and
+                   x.get('receipt_persist_status') == 'RECEIPT_VERIFIED']
         if len(matches) != 1:
-            raise ComplianceError('same recommendation receipt must be unique')
+            raise ComplianceError('verified recommendation receipt must be unique')
         item = matches[0]
+        previous_id = item.get('previous_receipt_ref')
+        if previous_id:
+            previous = [x for x in records if x.get('receipt_id') == previous_id]
+            if len(previous) != 1:
+                raise ComplianceError('recommendation receipt predecessor missing/duplicated')
+            prior = previous[0]
+            if (previous_id == item['receipt_id'] or
+                    prior.get('artifact_id') != item['artifact_id'] or
+                    prior.get('artifact_path') != item['artifact_path'] or
+                    prior.get('content_sha256') != item.get('content_sha256') or
+                    prior.get('scheduled_post_time_jst') != item.get('scheduled_post_time_jst') or
+                    prior.get('persist_verified_at_jst') != item.get('persist_verified_at_jst') or
+                    prior.get('artifact_persist_status') != 'PERSIST_VERIFIED' or
+                    prior.get('receipt_persist_status') not in
+                    {'RECEIPT_READBACK_PENDING', 'RECEIPT_VERIFIED'}):
+                raise ComplianceError('recommendation receipt predecessor conflicts')
         if (item.get('artifact_persist_status') != 'PERSIST_VERIFIED' or
                 item.get('receipt_persist_status') != 'RECEIPT_VERIFIED' or
                 item.get('timing_eligibility') != 'PRE_RACE_ELIGIBLE' or
