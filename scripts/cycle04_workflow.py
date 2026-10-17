@@ -477,11 +477,20 @@ def main(argv=None):
     mode.add_argument('--review',type=Path)
     mode.add_argument('--record-market',type=Path)
     mode.add_argument('--summary',action='store_true')
+    mode.add_argument('--clock-status',action='store_true',help='公式発走根拠と最新UTC時計を読取専用検査')
     parser.add_argument('--date')
+    parser.add_argument('--clock-race-id',help='--clock-status の対象レースID')
     parser.add_argument('--preview',action='store_true',help='公式発走変更の台帳保存前検査のみ')
     args=parser.parse_args(argv)
     try:
-        root=args.root.resolve();check_release(root,require_main=True)
+        root=args.root.resolve()
+        if args.clock_status:
+            require(args.date and args.clock_race_id, '--clock-status requires date/race ID')
+            from prediction_clock import observed_assessment, safe_for_write
+            clock=observed_assessment(root,args.date,args.clock_race_id)
+            print(json.dumps(clock,ensure_ascii=False,indent=2))
+            return 0 if safe_for_write(clock) else 1
+        check_release(root,require_main=True)
         require(not args.preview or bool(args.register_post_change),
                 '--preview is supported only for --register-post-change')
         if args.summary:
