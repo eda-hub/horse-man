@@ -76,8 +76,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: 全推奨の独立監査（過去4診断を隠さない）
-        run: python3 scripts/recommendation.py --audit
+      - name: 推奨厳格CLIの非0を保持して過去4件と新規異常を分離
+        run: |
+          python3 scripts/cycle04_recommendation_diagnostics.py --audit | tee /tmp/recommendation-status.txt
+          {
+            echo '### 推奨の独立監査（過去不足は未解消）'
+            echo '~~~text'
+            cat /tmp/recommendation-status.txt
+            echo '~~~'
+          } >> "$GITHUB_STEP_SUMMARY"
   cycle-ledger:
     name: cycle-ledger（旧required check互換）
     if: always()

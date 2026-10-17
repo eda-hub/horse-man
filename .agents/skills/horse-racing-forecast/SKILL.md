@@ -54,3 +54,9 @@ description: horse-manのJRA-VAN競馬予想システムを、現行のモジュ
 - Phase受入条件を確認する。
 - 設計変更があれば `DECISIONS.md` または対象docsを更新する。
 - 次Phaseの機能を混ぜずにPRを完結させる。
+
+## 第4サイクルの共有実装契約
+
+本Skillをチャット上のレース予想エンジンに転用しない。第4の運用検査・実装に関係する場合、`docs/validation/contracts/cycle04_operations.md` と `docs/validation/reviews/cycle_04/carryover.json` を唯一の運用手順/課題正本として参照する。予想依頼の入口は `docs/validation/templates/chatgpt_prediction_task.md` を用い、独自手順を増設しない。
+
+旧サイクルの未決項目を第4の前向き成績へ混入せず、`scripts/cycle04_migration.py --audit`、`scripts/check_cycle04.py`、`scripts/run_release_readiness.py` の結果と日別証跡を分ける。10/17は事後照合であり正式前向き適格ではない。

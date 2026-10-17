@@ -2,14 +2,14 @@
 
 - 正式版：v1.7.0、PR79のmainマージ後に有効。
 - 次回：10/17・18・24・25（東京/京都/新潟）と10/31・11/1（東京/京都）のJRA。予定192Rと実測は別。
-- 現在：開始準備完了、実レース未依頼・未実施。ダミー台帳や事前証跡を作らない。
+- 現在：10/17の36Rを **事後照合専用** として日別台帳へ登録。事前公式scope/正式KPIの適格性は復元せず、公式個別結果6R・二次情報30Rと既知推奨不足4診断を保持。残りの開催は未来の未登録であり、事前予想やダミー台帳を作らない。実測は [第4集計正本](reviews/cycle_04/summary.json) を確認する。
 - 入口：mainのmanual README→共通Production→価格不要推奨→独立保存→結果/回顧。
-- [第4計画](cycle_04.md)、[正式運用契約](contracts/cycle04_operations.md)、[標準テンプレート](templates/chatgpt_prediction_task.md)。
+- [第4計画](cycle_04.md)、[正式運用契約](contracts/cycle04_operations.md)、[標準テンプレート](templates/chatgpt_prediction_task.md)。旧サイクルの個別採否と未決事項は [第4繰越正本](reviews/cycle_04/carryover.json)、保全元は [移行manifest](reviews/cycle_04/migration-manifest.json) が唯一の管理入口。
 - `run_release_readiness.py --require-main` で有効化を確認し、`cycle04_workflow.py` で公式scope登録・選定・初回/最終記録・回顧・独立集計を実行する。
 - 公式発走時刻が変更された場合は `docs/validation/contracts/cycle04_post_changes.md` の追記原本・観測時点・旧FIX保全手順を使用する。事後の遅延確認によって不適格記録を適格化しない。
 - `check_cycle04.py --require-active` は正式契約を確認。終了時の `--require-complete` は6日分の実測・初回全scope回顧を要求する。
 - 第3の原記録・保留・正式ROI未算定は維持し、旧記録をv1.7.0の母数へ移さない。保存手順の旧記載は以下の歴史的契約として参照する。
-- 旧第3サイクルの原宣言と保存証跡の不一致は[履歴監査契約](contracts/historical_eligibility.md)・[原本棚卸し](reviews/cycle_03/historical_eligibility_inventory.md)で独立管理する。旧KPIと訂正後KPI、正式Bettingと参考仮想精算は別表示し、第4へ逆流させない。未確認の訂正は保存しない。
+- 第3以前の記載は記録時点の歴史的説明であり、**現在の作業指示・課題管理正本ではない**。旧第3サイクルの原宣言と保存証跡の不一致は[履歴監査契約](contracts/historical_eligibility.md)・[原本棚卸し](reviews/cycle_03/historical_eligibility_inventory.md)で独立管理する。旧KPIと訂正後KPI、正式Bettingと参考仮想精算は別表示し、第4へ逆流させない。未確認の訂正は保存しない。
 
 
 ---

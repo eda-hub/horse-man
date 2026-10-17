@@ -177,10 +177,14 @@ def compute_summary(root):
                 "selected":len(verified["selected_scope"]),"final":len(verified["final_scope"]),
                 "reviewed":len(verified["reviewed_scope"]),
                 "unfinished_selected":len(verified["unfinished_reasons"])})
+    from cycle04_completion import evaluate_days
+    completion=evaluate_days(root, [validate_day(root,root/"docs/validation/records/cycle_04"/
+                                                 (item["date"]+".json"),contract)
+                                   for item in forward])
     return {"schema_version":"cycle04-cycle-summary-v1","cycle_id":"cycle_04",
         "performance_promotion":"NOT_APPROVED","expected_dates":dates,
         "postrace_reconciliation":postrace,"forward_days":forward,
-        "not_registered_dates":missing,"normal_full_cycle_complete":False,
+        "not_registered_dates":missing,"normal_full_cycle_complete":bool(completion["normal_cycle_complete"]),
         "note":"事後照合は前向き日別実績・独立KPI適格に含まない。期間終了判定はcompletion契約が別途必要。"}
 
 def audit(root):

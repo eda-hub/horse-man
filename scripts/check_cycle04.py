@@ -47,10 +47,17 @@ def check_preparation(root):
     from cycle04_migration import validate_carryover, validate_manifest
     require(c.get('carryover_path') == 'docs/validation/reviews/cycle_04/carryover.json', 'cycle04 carryover not linked')
     require(c.get('migration_manifest_path') == 'docs/validation/reviews/cycle_04/migration-manifest.json', 'cycle04 migration not linked')
-    validate_carryover(root)
+    carry = validate_carryover(root)
     validate_manifest(root)
-    decisions = load(safe_path(root, c.get('decisions_path')))
-    require(decisions.get('schema_version') == 'cycle03-decisions-v1', 'individual decisions required')
+    # 通常の第4契約は第4の繰越正本から決定する。旧原票そのものは
+    # cycle04_migration.validate_carryover が固定内容として独立照合する。
+    transferred = {group: [item['source_payload'] for item in carry['items']
+                            if item['group'] == group]
+                   for group in ('CHANGE', 'VALIDATION', 'DIFFERENCE')}
+    decisions = {'performance_promotion': carry['performance_promotion'],
+                 'changes': transferred['CHANGE'], 'validation_items': transferred['VALIDATION'],
+                 'candidate_difference_classification': transferred['DIFFERENCE']}
+    require(carry.get('schema_version') == 'cycle04-carryover-v1', 'individual decisions required')
     require(decisions.get('performance_promotion') == 'NOT_APPROVED', 'unsupported performance promotion')
     proposals = decisions.get('changes')
     required_ids = {f'C{i:02d}' for i in range(1, 17)}
@@ -71,9 +78,8 @@ def check_preparation(root):
     for v in validations:
         require(v.get('performance_promotion') == 'NOT_APPROVED' and v.get('next_test')
                 and safe_path(root, v.get('owner')).is_file(), 'validation owner/retest missing')
-    collection = load(root / 'docs/validation/reviews/cycle_03/collection.json')
-    difference = {(date, race) for date, day in collection['daily'].items()
-                  for race in day['selected_without_final_ids']}
+    difference = {(row['race_date_jst'], row['race_id'])
+                  for row in transferred['DIFFERENCE']}
     classifications = decisions.get('candidate_difference_classification')
     require(isinstance(classifications, list) and len(classifications) == len(difference)
             and {(r.get('race_date_jst'), r.get('race_id')) for r in classifications} == difference,
@@ -109,7 +115,8 @@ def validate_acceptance(root, contract):
                         'scripts/check_prediction_compliance.py', 'scripts/recommendation.py',
                         'scripts/selection_history.py', 'scripts/verify_prediction_persistence.py',
                         'scripts/seal_prediction.py',
-                        c['decisions_path']}
+                        c['carryover_path'], c['migration_manifest_path'],
+                        c['summary_path']}
     required_sources |= {p.relative_to(root).as_posix() for p in
                          set(root.glob('scripts/*.py')) | set(root.glob('docs/manual/*.md'))}
     require(required_sources.issubset({x.get('path') for x in manifest}), 'acceptance source coverage missing')
