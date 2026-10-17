@@ -98,6 +98,47 @@ class PredictionClockTest(unittest.TestCase):
                          decision_monotonic=101)
         self.assertEqual(r["status"], "UNDETERMINED")
 
+    def test_slow_schedule_lookup_uses_new_clock_after_read(self):
+        """予定読取りが10秒かかり15:15を超えたとき発走前と返さない。"""
+        from pathlib import Path
+        from unittest.mock import patch
+        from prediction_clock import observed_assessment
+        state = {"lookup_finished": False}
+
+        def slow_lookup(*args, **kwargs):
+            state["lookup_finished"] = True  # 読取10秒後の状態を模擬する
+            return "2026-10-17T15:15:00+09:00"
+
+        def fresh_sample():
+            self.assertTrue(state["lookup_finished"],
+                            "時計が公式時刻取得より前に読まれた")
+            return ClockSample("2026-10-17T15:15:09+09:00", 110.0, .000001)
+
+        with patch("cycle04_schedule_change.registered_row",
+                   return_value={"scheduled_post_time_jst": "2026-10-17T15:15:00+09:00"}), \
+             patch("cycle04_schedule_change.effective_post", side_effect=slow_lookup), \
+             patch.object(ClockSample, "capture", side_effect=fresh_sample):
+            r = observed_assessment(Path("."), "2026-10-17",
+                                    "2026-10-17-NIIGATA-11",
+                                    wall=aware("2026-10-17T15:15:09+09:00"), mono=110.0)
+        self.assertEqual(r["status"], "SCHEDULE_REACHED")
+        self.assertEqual(r["remaining_seconds"], -9)
+        self.assertEqual(r["clock_age_seconds"], 0)
+
+    def test_stale_injected_clock_after_slow_lookup_never_returns_pre(self):
+        from pathlib import Path
+        from unittest.mock import patch
+        from prediction_clock import observed_assessment
+        stale = ClockSample("2026-10-17T15:14:59+09:00", 100)
+        with patch("cycle04_schedule_change.registered_row", return_value={}), \
+             patch("cycle04_schedule_change.effective_post",
+                   return_value="2026-10-17T15:15:00+09:00"):
+            r = observed_assessment(Path("."), "2026-10-17", "2026-10-17-NIIGATA-11",
+                                    sample=stale,
+                                    wall=aware("2026-10-17T15:15:09+09:00"), mono=110)
+        self.assertEqual(r["status"], "UNDETERMINED")
+        self.assertIsNone(r["remaining_seconds"])
+
     def test_millisecond_boundary_with_coarse_clock_is_unknown(self):
         result = self.check("2026-10-17T15:14:59.999+09:00", resolution=.01)
         self.assertEqual(result["status"], "UNDETERMINED")
