@@ -165,6 +165,66 @@ class PersistenceTest(unittest.TestCase):
                                       operation_id="mismatch", race_id=self.race_id)
                 self.assertEqual(transport.writes, [])
 
+    def test_multi_race_intent_cannot_use_later_race_deadline(self):
+        path = "docs/validation/persistence-intents/2026-10-18/morning.json"
+        obj = {"schema_version": "prediction-persistence-intent-v1",
+               "race_date_jst": self.date, "working_branch": "prediction/" + self.date,
+               "snapshot_id": "20261018-TOKYO-11-FINAL-S01",
+               "artifact_path": self.snapshot_path,
+               "required_race_ids": [self.race_id, "2026-10-18-TOKYO-12"],
+               "deadline_jst": self.post}
+        payload = self.fixed(path, obj)
+        transport = MemoryGitHub()
+        result = persist_fixed(payload, transport, self.clock, operation_id="morning",
+                               race_id=self.race_id)
+        self.assertEqual(result.readback_state, "MATCH")
+        self.assertEqual(len(transport.writes), 1)
+        wrong_clock = lambda stage: dict(self.clock(stage),
+                                         race_id="2026-10-18-TOKYO-12",
+                                         scheduled_post_jst="2026-10-18T15:30:00+09:00")
+        other_transport = MemoryGitHub()
+        late = persist_fixed(payload, other_transport, wrong_clock,
+                             operation_id="morning-later", race_id="2026-10-18-TOKYO-12")
+        self.assertEqual(late.timing_state, "UNDETERMINED")
+        self.assertEqual(other_transport.writes, [])
+
+    def test_prediction_and_recommendation_id_must_match_target_basename(self):
+        for path, raw in self.evidence_chain():
+            if "/snapshots/" in path or "/recommendations/" in path or "/fix-manifests/" in path:
+                with self.subTest(path=path):
+                    changed = path.replace(".json", "-new.json")
+                    transport = MemoryGitHub()
+                    with self.assertRaisesRegex(ValueError, "ID differs"):
+                        persist_fixed(FixedPayload(self.payload.repository,
+                                                  self.payload.branch, changed, raw),
+                                      transport, self.clock,
+                                      operation_id="different-file", race_id=self.race_id)
+                    self.assertEqual(transport.writes, [])
+
+    def test_reference_to_another_race_is_rejected_before_write(self):
+        intent_path, raw = self.evidence_chain()[3]
+        obj = json.loads(raw)
+        obj["prediction_ref"]["artifact_path"] = obj["prediction_ref"]["artifact_path"].replace(
+            "TOKYO-11", "TOKYO-12")
+        transport = MemoryGitHub()
+        with self.assertRaisesRegex(ValueError, "reference race"):
+            persist_fixed(self.fixed(intent_path, obj), transport, self.clock,
+                          operation_id="wrong-prediction-ref", race_id=self.race_id)
+        self.assertEqual(transport.writes, [])
+
+    def test_recommendation_gate_other_date_or_venue_is_not_approved(self):
+        gate_path, raw = self.evidence_chain()[-1]
+        for path in (gate_path.replace("2026-10-18", "2026-10-17"),
+                     gate_path.replace("TOKYO-11", "KYOTO-11"),
+                     "docs/validation/recommendation-gates/not-date/" + self.race_id + ".json",
+                     "docs/validation/recommendation-gates/2026-10-18/../../x.json"):
+            with self.subTest(path=path):
+                with self.assertRaises(ValueError):
+                    persist_fixed(FixedPayload(self.payload.repository,
+                                               self.payload.branch, path, raw),
+                                  MemoryGitHub(), self.clock,
+                                  operation_id="unsafe-gate", race_id=self.race_id)
+
     def test_cli_rejects_mismatched_race_before_initializing_github(self):
         from contextlib import redirect_stdout
         from io import StringIO
