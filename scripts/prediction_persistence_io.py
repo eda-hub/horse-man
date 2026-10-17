@@ -56,8 +56,8 @@ def allowed_target(repository, branch, path):
         raise ValueError("path outside approved prediction evidence scope")
 
 
-RACE_ID_RE = re.compile(r"^(?:(\\d{4}-\\d{2}-\\d{2})-(TOKYO|KYOTO|NIIGATA)|(\\d{8})-(TOK|KYO|NII))-(0[1-9]|1[0-2])$")
-RACE_HINT_RE = re.compile(r"(?<![A-Za-z0-9])(?:\\d{8}|\\d{4}-\\d{2}-\\d{2})[-_](TOKYO|KYOTO|NIIGATA|TOK|KYO|NII)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
+RACE_ID_RE = re.compile(r"^(?:(\d{4}-\d{2}-\d{2})-(TOKYO|KYOTO|NIIGATA)|(\d{8})-(TOK|KYO|NII))-(0[1-9]|1[0-2])$")
+RACE_HINT_RE = re.compile(r"(?<![A-Za-z0-9])(?:\d{8}|\d{4}-\d{2}-\d{2})[-_](TOKYO|KYOTO|NIIGATA|TOK|KYO|NII)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
 LOCAL_RACE_RE = re.compile(r"(?<![a-z0-9])(tokyo|kyoto|niigata|tok|kyo|nii)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
 VENUE_CODE = {"TOKYO": "TOKYO", "TOK": "TOKYO", "KYOTO": "KYOTO",
               "KYO": "KYOTO", "NIIGATA": "NIIGATA", "NII": "NIIGATA"}
