@@ -79,6 +79,8 @@ def validate_carryover(root):
     require(classified==actual,"第3の21件分類と原集合が不一致")
     require(data.get("historical_pending_kpi_decisions")==collection["pending_kpi_decision_count"],
             "第3KPI保留件数不一致")
+    require(data.get("candidate_difference_counts")==old.get("candidate_difference_counts"),
+            "第3候補差分類の数値が移管されていない")
     require(data.get("performance_promotion")=="NOT_APPROVED","性能認証の無断昇格")
     return data
 

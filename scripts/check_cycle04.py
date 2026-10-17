@@ -89,7 +89,7 @@ def check_preparation(root):
                 'FINAL_STAGE_NOT_EXECUTED', 'OPERATIONAL_SELECTION_NOT_CLOSED', 'OMISSION_ACCEPTED_BY_USER'}
                 and safe_path(root, r.get('evidence_path')).is_file(), 'candidate difference evidence missing')
     excluded = sum(r['status'] == 'DESELECTED_BY_USER' for r in classifications)
-    require(decisions.get('candidate_difference_counts') == {'raw_difference': len(difference),
+    require(carry.get('candidate_difference_counts') == {'raw_difference': len(difference),
             'deselected_by_user': excluded, 'not_executed': len(difference) - excluded,
             'user_accepted_omissions_within_not_executed': sum(r['status'] == 'OMISSION_ACCEPTED_BY_USER' for r in classifications)},
             'candidate difference count mismatch')
