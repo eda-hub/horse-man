@@ -47,3 +47,16 @@
 - 新潟11Rの`NO_RECOMMENDATION`も原本JSONの`candidates_for_study`、`reason`、`status`、`official_recommendation: false`を照合して、**研究候補を正式買い目として取り扱わない**。
 - テスト`scripts/test_cycle04_unfinished.py`に京都8R 3－6→1－2改変、京都10R 6－7→1－2改変、京都10R券種・点数改変、保全本文改変、未封印リンク欠落、新潟11R候補改変、京都10R正常参照を追加。
 - 以上は**事後の回顧用索引と読取専用監査の修正**。正式日次台帳や過去の前向きKPI認証への昇格は行わない。
+
+
+## 推奨監査4件の正体と現時点の処理境界
+
+- 新潟11R①：旧形式`odds-free-recommendation-v1`の見送り原本があるが、正規の`recommendation-snapshot-v1`/推奨ゲートと対応しない。`unregistered recommendation snapshot`が発生。
+- 東京9R：`docs/validation/persistence-intents/2026-10-17/tokyo-09-final.json`は推奨scopeを事前宣言済みだが、その内容に対応した独立Recommendation intentがなく`declared recommendation intent missing or duplicated`となる。
+- 新潟11R②：Production gateはあるが、推奨gateがなく`missing recommendation gate`。①と**同一レースの別検査項目**。
+- 京都8R：参考ワイド3－6を元の発走前予想とは別に固定しておらず、推奨gateがなく`missing recommendation gate`。
+- 京都11R・東京11Rは、推奨原本・receipt・gateの照合が`RECOMMENDATION_VERIFIED`であり、この4項目に含まれない。
+
+既存4項目は発走前独立記録が欠け、2026年10月17日の発走後に正式推奨として埋めることはできない。**厳格な`python3 scripts/recommendation.py --audit`の失敗は維持**し、CIの成功を偽装しない。欠損の原票は修正・削除しない。
+
+`docs/validation/reconciliations/2026-10-17-recommendation-historical-debts.json`は、4件の元ファイルSHA-256・正規化されたエラーメッセージ・正式非適格状態を記録する事後資料である。全36レースの未完了索引から接続し、`scripts/check_cycle04_unfinished.py`で件数/内容/原票/非適格の整合性を独立検査する。これは推奨gateの代替、CI例外、KPI資格付与、当日の正式工程完了ではない。
