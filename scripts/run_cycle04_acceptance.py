@@ -23,6 +23,7 @@ def run(root):
         root / 'docs/validation/records/cycle_04/2026-10-17.json',
         root / '.agents/skills/horse-racing-forecast/SKILL.md',
         root / '.github/workflows/check-cycle04.yml',
+        root / '.github/workflows/check-integration-acceptance.yml',
         root / 'docs/validation/contracts/cycle_04.json',
         root / 'docs/validation/contracts/cycle04_operations.md',
         root / 'docs/validation/execution-gates/contract-state.json',
