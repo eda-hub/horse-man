@@ -78,7 +78,7 @@ def check(root):
         require(row.get('scheduled_post_time_jst', '').startswith(DATE + 'T'),
                 rid + ': date missing')
         require(row.get('source', {}).get('official_individual_page_identified') is True and
-                re.match(r'^https://(?:www\\.jra\\.go\\.jp|jra\\.jp)/JRADB/accessS\\.html\\?CNAME=', 
+                re.match(r'^https://(?:www\.jra\.go\.jp|jra\.jp)/JRADB/accessS\.html\?CNAME=', 
                          row.get('source', {}).get('official_url', '')),
                 rid + ': JRA result source link missing')
         require(row.get('source', {}).get('overview_url', '').startswith(
