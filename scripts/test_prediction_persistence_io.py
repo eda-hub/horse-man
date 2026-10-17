@@ -169,8 +169,8 @@ class PersistenceTest(unittest.TestCase):
         path = "docs/validation/persistence-intents/2026-10-18/morning.json"
         obj = {"schema_version": "prediction-persistence-intent-v1",
                "race_date_jst": self.date, "working_branch": "prediction/" + self.date,
-               "snapshot_id": "20261018-TOKYO-11-FINAL-S01",
-               "artifact_path": self.snapshot_path,
+               "snapshot_id": "20261018-MORNING-S01",
+               "artifact_path": "docs/validation/snapshots/2026-10-18.md",
                "required_race_ids": [self.race_id, "2026-10-18-TOKYO-12"],
                "deadline_jst": self.post}
         payload = self.fixed(path, obj)
