@@ -1,0 +1,55 @@
+{
+  "schema_version": "cycle04-unsealed-recommendation-reference-v1",
+  "race_date_jst": "2026-10-17",
+  "compiled_at_jst": "2026-10-17T17:53:42.217+09:00",
+  "origin_purpose": "回顧用の参照・照合を可能にするため、既存の参考判断を非価格仕様に読み替えた事後索引。正式Recommendation正本ではない。",
+  "formal_forward_eligibility": "INELIGIBLE",
+  "decisions": [
+    {
+      "race_id": "2026-10-17-KYOTO-08",
+      "source_path": "docs/validation/preservation/2026-10-17-kyoto-08-final-recommendation.md",
+      "source_kind": "EARLIER_CHAT_CANDIDATE_PRESERVATION",
+      "status": "UNSEALED_RECOMMENDATION_CANDIDATE",
+      "selected_for_valuation": false,
+      "reason": "予想事前intentに独立推奨scopeがない。正式Recommendation原本・保存receipt・gateがない。",
+      "recorded_candidate": {
+        "type": "WIDE",
+        "horse_numbers": [
+          3,
+          6
+        ],
+        "points": 1
+      },
+      "unmet": [
+        "PRE_RACE_RECOMMENDATION_SCOPE",
+        "INDEPENDENT_RECOMMENDATION_FIX",
+        "RECOMMENDATION_RECEIPT",
+        "RECOMMENDATION_GATE"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-11",
+      "source_path": "docs/validation/recommendations/2026-10-17/20261017-NIIGATA-11-REC-S01.json",
+      "source_kind": "NON_CANONICAL_NO_RECOMMENDATION_SNAPSHOT",
+      "status": "UNSEALED_NO_RECOMMENDATION",
+      "selected_for_valuation": false,
+      "reason": "18頭の多頭数・先行負荷と昇級馬による展開分岐が大きく、◎6/○17の同時3着内について十分に強い根拠がない。",
+      "recorded_candidate": {
+        "type": "WIDE",
+        "horse_numbers": [
+          6,
+          17
+        ],
+        "points": 1,
+        "official_recommendation": false
+      },
+      "unmet": [
+        "CANONICAL_SCHEMA",
+        "PRE_RACE_RECOMMENDATION_INTENT",
+        "INDEPENDENT_RECOMMENDATION_FIX",
+        "RECOMMENDATION_RECEIPT",
+        "RECOMMENDATION_GATE"
+      ]
+    }
+  ]
+}
