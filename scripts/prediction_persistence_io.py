@@ -103,8 +103,7 @@ def _target_parts(payload, race_id):
             raise ValueError("target filename race differs from requested race")
     if category in {"snapshots", "fix-manifests", "recommendations",
                     "recommendation-gates", "recommendation-prediction-gates"}:
-        marker = venue + "-" + number
-        if marker not in filename.upper():
+        if not RACE_HINT_RE.search(filename):
             raise ValueError("race-specific evidence filename required")
     if category == "recommendation-intents" and not LOCAL_RACE_RE.search(filename):
         raise ValueError("recommendation intent filename must identify the race")
@@ -251,10 +250,9 @@ def verify_clock_binding(gate, identity):
         if any(aware(post) != official for post in identity["scheduled_posts"]):
             raise ValueError("payload scheduled post differs from official clock")
         for deadline in identity["deadlines"]:
-            if identity["multi_race_intent"]:
-                if aware(deadline) > official:
-                    raise ValueError("intent deadline exceeds requested race post")
-            elif aware(deadline) != official:
+            # 複数レースの宣言は最も早い発走予定を期限とする。
+            # 遅いレースの時計へ付け替えて期限を延長しない。
+            if aware(deadline) != official:
                 raise ValueError("intent deadline differs from official clock post")
     except (ValueError, TypeError) as exc:
         return {"status": "UNDETERMINED", "reason": str(exc)}
