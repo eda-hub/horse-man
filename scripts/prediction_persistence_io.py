@@ -56,8 +56,8 @@ def allowed_target(repository, branch, path):
         raise ValueError("path outside approved prediction evidence scope")
 
 
-RACE_ID_RE = re.compile(r"^(\\d{4}-\\d{2}-\\d{2})-(TOKYO|KYOTO|NIIGATA)-(0[1-9]|1[0-2])$")
-RACE_HINT_RE = re.compile(r"(?<![A-Za-z0-9])(?:\\d{8}|\\d{4}-\\d{2}-\\d{2})[-_](TOKYO|KYOTO|NIIGATA)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
+RACE_ID_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-(TOKYO|KYOTO|NIIGATA)-(0[1-9]|1[0-2])$")
+RACE_HINT_RE = re.compile(r"(?<![A-Za-z0-9])(?:\d{8}|\d{4}-\d{2}-\d{2})[-_](TOKYO|KYOTO|NIIGATA)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
 LOCAL_RACE_RE = re.compile(r"(?<![a-z0-9])(tokyo|kyoto|niigata)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
 DATE_DIRS = {"snapshots", "fix-manifests", "persistence-intents",
              "recommendations", "recommendation-intents", "recommendation-gates",
@@ -117,7 +117,7 @@ def _json_or_receipt(payload, category):
     except UnicodeDecodeError as exc:
         raise ValueError("evidence must be UTF-8") from exc
     if category == "persistence-receipts":
-        records = re.findall(r"```persistence-receipt-v1\\s*(\\{.*?\\})\\s*```",
+        records = re.findall(r"```persistence-receipt-v1\s*(\{.*?\})\s*```",
                              decoded, flags=re.S)
         if not records:
             raise ValueError("receipt structured records required")
@@ -210,7 +210,7 @@ def verify_payload_binding(payload, race_id):
                 if key.endswith("_path") and value.startswith("docs/validation/"):
                     # 別レースの日時が参照先に混入していないことも確認する。
                     for token in value.split("/"):
-                        if re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", token) and token != date:
+                        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", token) and token != date:
                             raise ValueError("referenced evidence date mismatch")
                 for match in RACE_HINT_RE.finditer(value):
                     if match.group(1).upper() != venue or match.group(2) != number:
