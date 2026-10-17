@@ -114,7 +114,7 @@ def check(root):
             require(row['source'].get('official_individual_page_verified') is True and
                     row['source'].get('official_individual_page_identified') is True and
                     row['source'].get('official_url') == prev['source']['url'] and
-                    re.match(r'^https://(?:www\\.jra\\.go\\.jp|jra\\.jp)/JRADB/accessS\\.html\\?CNAME=',
+                    re.match(r'^https://(?:www\.jra\.go\.jp|jra\.jp)/JRADB/accessS\.html\?CNAME=',
                              row['source']['official_url']),
                     rid + ': verified JRA source mismatch')
         else:
