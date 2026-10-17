@@ -100,20 +100,22 @@ def assess_clock(*, scheduled_post, race_date, race_id, official_race_date,
 def observed_assessment(root, date, race, *, sample=None, wall=None, mono=None):
     """登録済み第4公式scope/公式変更chainから当時認識可能な発走予定を取得。"""
     from cycle04_schedule_change import registered_row, effective_post
-    sample = sample or ClockSample.capture()
-    wall = wall or datetime.now(timezone.utc)
-    mono = mono if mono is not None else time.monotonic()
+    # 公式scope/変更chainの読取りは遅延し得る。取得前の時計を保存判断に使わない。
     row = registered_row(Path(root), race, date)
-    if row is None:
-        return assess_clock(scheduled_post=None, race_date=date, race_id=race,
-                            official_race_date=None, official_race_id=None,
-                            official_source=None, sample=sample,
-                            decision_wall=wall, decision_monotonic=mono)
-    post = effective_post(Path(root), row, race, date, at=sample.observed_at,
-                          now=wall)
+    post = None
+    if row is not None:
+        chain_lookup_at = datetime.now(timezone.utc)
+        post = effective_post(Path(root), row, race, date,
+                              at=chain_lookup_at.isoformat(), now=chain_lookup_at)
+    # 公式予定の読取り完了後に壁時計とmonotonicを新規取得する。
+    # 呼出側が注入したsampleも鮮度/時計乖離検査を必ず通す。
+    sample = sample if sample is not None else ClockSample.capture()
+    wall = wall if wall is not None else datetime.now(timezone.utc)
+    mono = mono if mono is not None else time.monotonic()
     return assess_clock(scheduled_post=post, race_date=date, race_id=race,
-                        official_race_date=date, official_race_id=race,
-                        official_source="cycle04_official_schedule_chain",
+                        official_race_date=date if row is not None else None,
+                        official_race_id=race if row is not None else None,
+                        official_source="cycle04_official_schedule_chain" if row is not None else None,
                         sample=sample, decision_wall=wall, decision_monotonic=mono)
 
 
