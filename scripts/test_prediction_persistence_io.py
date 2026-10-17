@@ -446,7 +446,7 @@ class PersistenceTest(unittest.TestCase):
             self.assertEqual(code, 0)
             self.assertIn("障害記録のみ", output.getvalue())
             self.assertEqual(transport.content, filepath.read_bytes())
-            self.assertNotIn("正式receiptの認証", "success")
+            self.assertIn("正式receiptの認証ではありません", output.getvalue())
 
     def test_direct_adapter_append_requires_verified_cas(self):
         from prediction_persistence_io import GitHubContentsTransport
