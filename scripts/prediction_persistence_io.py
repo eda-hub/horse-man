@@ -59,6 +59,8 @@ def classify_failure(*, kind=None, http_status=None, text=None, api_reached=None
         return "safety_refusal"
     if kind == "ci_or_checker":
         return "ci_or_checker"
+    if kind == "branch_policy":
+        return "branch_policy"
     if kind in {"timeout", "transport"}:
         return kind
     if http_status in (401, 403):
@@ -133,7 +135,13 @@ def _failure(result, exc, *, operation, attempt, path):
 
 def _read(transport, payload, ref=None):
     """read(branch,path,commit_sha)はref指定時必ずそのcommitから返す契約。"""
-    response = transport.read(payload.branch, payload.path, ref)
+    try:
+        response = transport.read(payload.branch, payload.path, ref)
+    except FileNotFoundError as exc:
+        if ref is None:
+            raise
+        raise PersistenceError("fixed commit readback missing", kind="unknown",
+                               api_reached=True) from exc
     if response.get("branch") != payload.branch or response.get("path") != payload.path:
         raise PersistenceError("readback branch/path mismatch", kind="conflict", api_reached=True)
     if ref is not None and response.get("commit_sha") != ref:
@@ -174,10 +182,15 @@ def persist_fixed(payload, transport, clock_check, *, operation_id,
                 if sha256(exact["content"]) != payload.digest:
                     raise PersistenceError("commit readback digest mismatch", kind="conflict", api_reached=True)
                 result.readback_state = "MATCH"
+                result.failure_category = None
+                result.retry_allowed = False
                 result.operations.append(dict(operation="readback", attempt=attempt,
                                               at_utc=_instant(), commit_sha=result.commit_sha))
                 # 既存原本の存在と、今この時点での発走前適格は別の概念。
-                gate = clock_check("readback")
+                try:
+                    gate = clock_check("readback")
+                except (ValueError, OSError, KeyError, TypeError) as exc:
+                    gate = {"status": "UNDETERMINED", "reason": sanitized(exc)}
                 result.timing_state = gate.get("status", "UNDETERMINED")
                 return result
             expected = existing.get("blob_sha")
@@ -200,7 +213,10 @@ def persist_fixed(payload, transport, clock_check, *, operation_id,
                 return result
             continue
 
-        gate = clock_check("before_write")  # 必ず今取り直した時計の結果を渡す
+        try:
+            gate = clock_check("before_write")  # 必ず今取り直した時計の結果を渡す
+        except (ValueError, OSError, KeyError, TypeError) as exc:
+            gate = {"status": "UNDETERMINED", "reason": sanitized(exc)}
         result.timing_state = gate.get("status", "UNDETERMINED")
         result.operations.append(dict(operation="clock", attempt=attempt,
                                       at_utc=_instant(), status=result.timing_state,
@@ -223,9 +239,14 @@ def persist_fixed(payload, transport, clock_check, *, operation_id,
             if sha256(readback["content"]) != payload.digest:
                 raise PersistenceError("commit readback content mismatch", kind="conflict", api_reached=True)
             result.readback_state = "MATCH"
+            result.failure_category = None
+            result.retry_allowed = False
             result.operations.append(dict(operation="readback", attempt=attempt,
                                           at_utc=_instant(), commit_sha=commit_sha))
-            post_gate = clock_check("readback")
+            try:
+                post_gate = clock_check("readback")
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                post_gate = {"status": "UNDETERMINED", "reason": sanitized(exc)}
             result.timing_state = post_gate.get("status", "UNDETERMINED")
             # 個別完了にはreceipt等の独立確認が必要。このモジュールでは昇格しない。
             return result
