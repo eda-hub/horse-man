@@ -19,6 +19,9 @@ ALLOWED_PATHS = (
     "docs/validation/fix-manifests/",
     "docs/validation/snapshots/",
     "docs/validation/recommendations/",
+    "docs/validation/recommendation-intents/",
+    "docs/validation/recommendation-gates/",
+    "docs/validation/recommendation-prediction-gates/",
     "docs/validation/persistence-receipts/",
     "docs/validation/persistence-incidents/",
     "docs/validation/reviews/",
@@ -51,6 +54,211 @@ def allowed_target(repository, branch, path):
         raise ValueError("unsafe path")
     if not any(path.startswith(prefix) for prefix in ALLOWED_PATHS):
         raise ValueError("path outside approved prediction evidence scope")
+
+
+RACE_ID_RE = re.compile(r"^(\\d{4}-\\d{2}-\\d{2})-(TOKYO|KYOTO|NIIGATA)-(0[1-9]|1[0-2])$")
+RACE_HINT_RE = re.compile(r"(?<![A-Za-z0-9])(?:\\d{8}|\\d{4}-\\d{2}-\\d{2})[-_](TOKYO|KYOTO|NIIGATA)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
+LOCAL_RACE_RE = re.compile(r"(?<![a-z0-9])(tokyo|kyoto|niigata)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
+DATE_DIRS = {"snapshots", "fix-manifests", "persistence-intents",
+             "recommendations", "recommendation-intents", "recommendation-gates",
+             "recommendation-prediction-gates", "persistence-incidents", "reviews"}
+
+
+def _race_parts(race_id, date):
+    match = RACE_ID_RE.fullmatch(race_id or "")
+    if match is None or match.group(1) != date:
+        raise ValueError("race ID/date mismatch or unsupported race identity")
+    return match.group(2), match.group(3)
+
+
+def _target_parts(payload, race_id):
+    """新規原本の承認済み単一用途pathを確認。日付/場/レースの取り違えを防ぐ。"""
+    date = payload.branch.removeprefix("prediction/")
+    venue, number = _race_parts(race_id, date)
+    parts = payload.path.split("/")
+    if len(parts) < 4 or parts[:2] != ["docs", "validation"]:
+        raise ValueError("unrecognized persistence target")
+    category = parts[2]
+    suffix = parts[3:]
+    if category not in DATE_DIRS | {"persistence-receipts"}:
+        raise ValueError("persistence target category not approved")
+    if category == "recommendation-gates" and suffix[:1] == ["history"]:
+        suffix = suffix[1:]
+    if category in DATE_DIRS:
+        if len(suffix) != 2 or suffix[0] != date or not suffix[1].endswith(".json"):
+            raise ValueError("evidence path date or extension mismatch")
+        filename = suffix[1]
+    else:
+        if len(suffix) != 1 or not suffix[0].startswith(date) or not suffix[0].endswith(".md"):
+            raise ValueError("receipt path date or extension mismatch")
+        filename = suffix[0]
+        if filename != date + ".md" and not filename.startswith(date + "-"):
+            raise ValueError("receipt basename outside race date")
+    for text in (payload.path, filename):
+        for found in RACE_HINT_RE.finditer(text):
+            if found.group(1).upper() != venue or found.group(2) != number:
+                raise ValueError("target path race differs from requested race")
+    for found in LOCAL_RACE_RE.finditer(filename):
+        if found.group(1).upper() != venue or found.group(2) != number:
+            raise ValueError("target filename race differs from requested race")
+    if category in {"snapshots", "fix-manifests", "recommendations",
+                    "recommendation-gates", "recommendation-prediction-gates"}:
+        marker = venue + "-" + number
+        if marker not in filename.upper():
+            raise ValueError("race-specific evidence filename required")
+    if category == "recommendation-intents" and not LOCAL_RACE_RE.search(filename):
+        raise ValueError("recommendation intent filename must identify the race")
+    return category, date
+
+
+def _json_or_receipt(payload, category):
+    try:
+        decoded = payload.body.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise ValueError("evidence must be UTF-8") from exc
+    if category == "persistence-receipts":
+        records = re.findall(r"```persistence-receipt-v1\\s*(\\{.*?\\})\\s*```",
+                             decoded, flags=re.S)
+        if not records:
+            raise ValueError("receipt structured records required")
+        try:
+            return [json.loads(part) for part in records]
+        except json.JSONDecodeError as exc:
+            raise ValueError("invalid structured receipt") from exc
+    try:
+        obj = json.loads(decoded)
+    except json.JSONDecodeError as exc:
+        raise ValueError("fixed JSON evidence required") from exc
+    if not isinstance(obj, dict):
+        raise ValueError("fixed evidence must be a JSON object")
+    return [obj]
+
+
+def _identity_values(obj):
+    """ID/pathと日時のメタデータを収集。自由記述やURL内の数字は判定材料にしない。"""
+    if isinstance(obj, list):
+        for value in obj:
+            yield from _identity_values(value)
+    elif isinstance(obj, dict):
+        for key, value in obj.items():
+            if key in {"race_id", "race_date_jst", "working_branch",
+                       "scheduled_post_time_jst", "deadline_jst",
+                       "snapshot_id", "recommendation_id", "artifact_id",
+                       "artifact_path", "prediction_intent_path", "intent_path",
+                       "receipt_path", "receipt_id", "previous_receipt_ref",
+                       "baseline_forecast_id", "required_race_ids"}:
+                yield key, value
+            if isinstance(value, (dict, list)):
+                yield from _identity_values(value)
+
+
+def verify_payload_binding(payload, race_id):
+    """原本/保存先/CLIレースの一致をGitHub初期化・遠隔read/write前に確定する。
+
+    公式時刻は返値のclock検査で突合する。時刻のないgate/FIXもrace/pathは必須。
+    """
+    category, date = _target_parts(payload, race_id)
+    venue, number = _race_parts(race_id, date)
+    objects = _json_or_receipt(payload, category)
+    schema = {"snapshots": "prediction-snapshot-v2",
+              "fix-manifests": "prediction-fix-manifest-v1",
+              "persistence-intents": "prediction-persistence-intent-v1",
+              "recommendations": "recommendation-snapshot-v1",
+              "recommendation-intents": "recommendation-persistence-intent-v1",
+              "recommendation-gates": "recommendation-compliance-v1",
+              "recommendation-prediction-gates": "prediction-compliance-v2",
+              "persistence-incidents": "prediction-persistence-incident-v1"}
+    post_values = []
+    deadline_values = []
+    has_race = False
+    for item in objects:
+        if not isinstance(item, dict):
+            raise ValueError("structured evidence must be an object")
+        if category in schema and item.get("schema_version") != schema[category]:
+            raise ValueError("evidence schema/path category mismatch")
+        if category == "persistence-receipts" and not item.get("receipt_id"):
+            raise ValueError("receipt ID required")
+        for key, value in _identity_values(item):
+            if key == "race_id":
+                if value != race_id:
+                    raise ValueError("payload race ID differs from requested race")
+                has_race = True
+            elif key == "required_race_ids":
+                if not isinstance(value, list) or race_id not in value or not all(
+                        RACE_ID_RE.fullmatch(v) and v[:10] == date
+                        for v in value if isinstance(v, str)) or any(
+                        not isinstance(v, str) for v in value):
+                    raise ValueError("prediction intent race scope mismatch")
+                has_race = True
+            elif key == "race_date_jst" and value != date:
+                raise ValueError("payload race date differs from target branch")
+            elif key == "working_branch" and value != payload.branch:
+                raise ValueError("payload working branch mismatch")
+            elif key in {"scheduled_post_time_jst", "deadline_jst"}:
+                from prediction_clock import aware, JST
+                try:
+                    parsed = aware(value, key).astimezone(JST)
+                except (ValueError, TypeError) as exc:
+                    raise ValueError("invalid payload scheduled/deadline time") from exc
+                if parsed.date().isoformat() != date:
+                    raise ValueError("payload post time date differs from target branch")
+                (post_values if key == "scheduled_post_time_jst" else deadline_values).append(parsed)
+            elif key in {"snapshot_id", "recommendation_id", "artifact_id",
+                         "artifact_path", "prediction_intent_path", "intent_path",
+                         "receipt_path", "receipt_id", "previous_receipt_ref",
+                         "baseline_forecast_id"} and isinstance(value, str):
+                if key.endswith("_path") and value.startswith("docs/validation/"):
+                    # 別レースの日時が参照先に混入していないことも確認する。
+                    for token in value.split("/"):
+                        if re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", token) and token != date:
+                            raise ValueError("referenced evidence date mismatch")
+                for match in RACE_HINT_RE.finditer(value):
+                    if match.group(1).upper() != venue or match.group(2) != number:
+                        raise ValueError("payload reference race mismatch")
+                for match in LOCAL_RACE_RE.finditer(value):
+                    if match.group(1).upper() != venue or match.group(2) != number:
+                        raise ValueError("payload reference race mismatch")
+    if not has_race and category not in {"fix-manifests"}:
+        raise ValueError("payload race identity required")
+    # FIXではsnapshot_idとartifact_pathでレースを証明する。
+    if category == "fix-manifests":
+        if not any(RACE_HINT_RE.search(str(item.get("snapshot_id", ""))) and
+                   RACE_HINT_RE.search(str(item.get("artifact_path", "")))
+                   for item in objects):
+            raise ValueError("FIX snapshot and artifact race identity required")
+    if category in {"snapshots", "recommendations", "recommendation-prediction-gates"} and not post_values:
+        raise ValueError("payload official scheduled post time required")
+    if category == "persistence-intents" and not deadline_values:
+        raise ValueError("prediction intent deadline required")
+    if category == "recommendation-intents" and not deadline_values:
+        raise ValueError("recommendation intent deadline required")
+    if category == "persistence-receipts" and not post_values:
+        raise ValueError("receipt scheduled post required")
+    return dict(race_id=race_id, race_date=date,
+                scheduled_posts=post_values, deadlines=deadline_values,
+                multi_race_intent=category == "persistence-intents" and
+                any(len(item.get("required_race_ids", [])) > 1 for item in objects))
+
+
+def verify_clock_binding(gate, identity):
+    """公式chainの判定を要求race/date/postと原本に照合。外れた時計は常に未判定。"""
+    from prediction_clock import aware
+    if not isinstance(gate, dict) or gate.get("race_id") != identity["race_id"] or (
+            gate.get("race_date") != identity["race_date"]) or not gate.get("official_source"):
+        return {"status": "UNDETERMINED", "reason": "clock race/date/source mismatch"}
+    try:
+        official = aware(gate.get("scheduled_post_jst"), "clock scheduled post")
+        if any(aware(post) != official for post in identity["scheduled_posts"]):
+            raise ValueError("payload scheduled post differs from official clock")
+        for deadline in identity["deadlines"]:
+            if identity["multi_race_intent"]:
+                if aware(deadline) > official:
+                    raise ValueError("intent deadline exceeds requested race post")
+            elif aware(deadline) != official:
+                raise ValueError("intent deadline differs from official clock post")
+    except (ValueError, TypeError) as exc:
+        return {"status": "UNDETERMINED", "reason": str(exc)}
+    return gate
 
 
 def classify_failure(*, kind=None, http_status=None, text=None, api_reached=None):
@@ -152,7 +360,7 @@ def _read(transport, payload, ref=None):
     return response
 
 
-def persist_fixed(payload, transport, clock_check, *, operation_id,
+def persist_fixed(payload, transport, clock_check, *, operation_id, race_id,
                   max_resaves=2, allow_update=False, alternative=None,
                   alternative_authorized=False):
     """応答欠落時もまずremoteを読取り、同一原本だけ最大2回再保存。
@@ -167,6 +375,7 @@ def persist_fixed(payload, transport, clock_check, *, operation_id,
         raise ValueError("immutable payload and operation ID required")
     if not 0 <= max_resaves <= 2:
         raise ValueError("max_resaves must be between 0 and 2")
+    identity = verify_payload_binding(payload, race_id)
     result = PersistenceResult(target=dict(repository=payload.repository,
                                             branch=payload.branch, path=payload.path,
                                             sha256=payload.digest, operation_id=operation_id))
@@ -189,7 +398,7 @@ def persist_fixed(payload, transport, clock_check, *, operation_id,
                                               at_utc=_instant(), commit_sha=result.commit_sha))
                 # 既存原本の存在と、今この時点での発走前適格は別の概念。
                 try:
-                    gate = clock_check("readback")
+                    gate = verify_clock_binding(clock_check("readback"), identity)
                 except (ValueError, OSError, KeyError, TypeError) as exc:
                     gate = {"status": "UNDETERMINED", "reason": sanitized(exc)}
                 result.timing_state = gate.get("status", "UNDETERMINED")
@@ -214,7 +423,7 @@ def persist_fixed(payload, transport, clock_check, *, operation_id,
             continue
 
         try:
-            gate = clock_check("before_write")  # 必ず今取り直した時計の結果を渡す
+            gate = verify_clock_binding(clock_check("before_write"), identity)  # 当該レースの新鮮な公式時計
         except (ValueError, OSError, KeyError, TypeError) as exc:
             gate = {"status": "UNDETERMINED", "reason": sanitized(exc)}
         result.timing_state = gate.get("status", "UNDETERMINED")
@@ -244,7 +453,7 @@ def persist_fixed(payload, transport, clock_check, *, operation_id,
             result.operations.append(dict(operation="readback", attempt=attempt,
                                           at_utc=_instant(), commit_sha=commit_sha))
             try:
-                post_gate = clock_check("readback")
+                post_gate = verify_clock_binding(clock_check("readback"), identity)
             except (ValueError, OSError, KeyError, TypeError) as exc:
                 post_gate = {"status": "UNDETERMINED", "reason": sanitized(exc)}
             result.timing_state = post_gate.get("status", "UNDETERMINED")
@@ -420,6 +629,7 @@ def main(argv=None):
             raise ValueError("remote write requires explicit --write")
         if args.allow_update:
             raise ValueError("fixed contents are immutable; create a new revision/path instead")
+        verify_payload_binding(payload, args.race_id)  # GitHub branch確認前に拒否
         token = os.environ.get(args.token_env)
         if not token:
             raise ValueError("GitHub token unavailable; no remote write attempted")
@@ -427,7 +637,7 @@ def main(argv=None):
         transport = GitHubContentsTransport(payload.repository, payload.branch, token)
         result = persist_fixed(payload, transport,
                                lambda stage: observed_assessment(args.root,args.date,args.race_id),
-                               operation_id=args.operation_id)
+                               operation_id=args.operation_id, race_id=args.race_id)
         print(json.dumps(result.as_dict(), ensure_ascii=False, indent=2))
         if result.readback_state != "MATCH" or result.timing_state != "PRE_SCHEDULED":
             if args.local_incident:
