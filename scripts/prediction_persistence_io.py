@@ -185,6 +185,10 @@ def verify_payload_binding(payload, race_id):
         if category in {"snapshots", "fix-manifests"}:
             if item.get("snapshot_id") != basename:
                 raise ValueError("snapshot ID differs from target filename")
+        if category == "fix-manifests":
+            artifact = item.get("artifact_path")
+            if not isinstance(artifact, str) or Path(artifact).stem != basename:
+                raise ValueError("FIX snapshot ID/artifact path mismatch")
         if category == "recommendations" and item.get("recommendation_id") != basename:
             raise ValueError("recommendation ID differs from target filename")
         if category == "recommendation-gates" and not payload.path.startswith(
@@ -264,10 +268,15 @@ def verify_clock_binding(gate, identity):
     """公式chainの判定を要求race/date/postと原本に照合。外れた時計は常に未判定。"""
     from prediction_clock import aware
     if not isinstance(gate, dict) or gate.get("race_id") != identity["race_id"] or (
-            gate.get("race_date") != identity["race_date"]) or not gate.get("official_source"):
+            gate.get("race_date") != identity["race_date"]) or (
+            gate.get("official_source") != "cycle04_official_schedule_chain"):
         return {"status": "UNDETERMINED", "reason": "clock race/date/source mismatch"}
     try:
         official = aware(gate.get("scheduled_post_jst"), "clock scheduled post")
+        if gate.get("status") == "PRE_SCHEDULED" and (
+                type(gate.get("remaining_seconds")) not in (float, int) or
+                gate["remaining_seconds"] <= 0):
+            raise ValueError("clock remaining time contradicts pre-scheduled status")
         if any(aware(post) != official for post in identity["scheduled_posts"]):
             raise ValueError("payload scheduled post differs from official clock")
         for deadline in identity["deadlines"]:
