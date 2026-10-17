@@ -161,6 +161,7 @@ def persist_fixed(payload, transport, clock_check, *, operation_id,
     transport.write(branch,path,body,expected_blob_sha) -> {commit_sha,branch,path}
     alternativeは通信系障害かつ事前許可された場合のみ利用する。
     安全性拒否・理由不明の場合に経路を切替えない。
+    allow_updateは旧呼出互換のみ（固定原本の異内容上書きは常に禁止）。
     """
     if not isinstance(payload, FixedPayload) or not operation_id:
         raise ValueError("immutable payload and operation ID required")
@@ -193,14 +194,13 @@ def persist_fixed(payload, transport, clock_check, *, operation_id,
                     gate = {"status": "UNDETERMINED", "reason": sanitized(exc)}
                 result.timing_state = gate.get("status", "UNDETERMINED")
                 return result
-            expected = existing.get("blob_sha")
-            if not allow_update:
-                result.failure_category = "conflict"
-                result.operations.append(dict(operation="read", attempt=attempt,
-                                              reason="different existing bytes; update not approved"))
-                return result
-            if not expected:
-                raise PersistenceError("existing blob SHA missing", kind="unknown", api_reached=True)
+            # 固定原本は一切上書きしない。旧allow_update指定も許可の根拠にしない。
+            # 別内容は新revision/pathで保存し、既存bytesは保全する。
+            result.failure_category = "conflict"
+            result.operations.append(dict(operation="read", attempt=attempt,
+                                          at_utc=_instant(),
+                                          reason="immutable fixed content differs; create a new revision"))
+            return result
         except FileNotFoundError:
             expected = None
         except PersistenceError as exc:
@@ -274,6 +274,21 @@ def incident_record(payload, result, *, observed_at=None, unavailable_fields=())
                 operations=result.operations,
                 origin_hash_sha256=payload.digest,
                 remote_persistence_certified=False)
+
+
+def initialization_failure(payload, operation_id, error):
+    """branch存在確認・接続初期化の失敗も保存要求と同じ構造で保全する。"""
+    result = PersistenceResult(target=dict(repository=payload.repository,
+                                           branch=payload.branch, path=payload.path,
+                                           sha256=payload.digest, operation_id=operation_id))
+    if not isinstance(error, PersistenceError):
+        error = PersistenceError(sanitized(error), kind="unknown", api_reached=None,
+                                 tool="github_contents_initialize")
+    _failure(result, error, operation="transport_initialize", attempt=0,
+             path=payload.path)
+    # 初期化が一度も完了していない場合、再試行許可は自動判断しない。
+    result.retry_allowed = False
+    return result
 
 
 def save_incident_local(path, record):
@@ -386,23 +401,28 @@ def main(argv=None):
     parser.add_argument("--operation-id", required=True)
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--token-env", default="GITHUB_TOKEN")
-    parser.add_argument("--allow-update", action="store_true", help="explicit exact-SHA update approval")
+    parser.add_argument("--allow-update", action="store_true", help="deprecated: fixed content updates are refused")
     parser.add_argument("--write", action="store_true", help="required for GitHub persistence")
     parser.add_argument("--local-incident", type=Path, help="write only sanitized incident metadata")
     args = parser.parse_args(argv)
     branch = "prediction/" + args.date
+    payload = None
+    result = None
     try:
         payload = FixedPayload("eda-hub/horse-man", branch, args.path,
                                args.payload_file.read_bytes())
         if not args.write:
             raise ValueError("remote write requires explicit --write")
+        if args.allow_update:
+            raise ValueError("fixed contents are immutable; create a new revision/path instead")
         token = os.environ.get(args.token_env)
         if not token:
             raise ValueError("GitHub token unavailable; no remote write attempted")
+        # 初期化時のbranch確認403/通信障害も後段の例外処理で構造化保全。
         transport = GitHubContentsTransport(payload.repository, payload.branch, token)
         result = persist_fixed(payload, transport,
                                lambda stage: observed_assessment(args.root,args.date,args.race_id),
-                               operation_id=args.operation_id, allow_update=args.allow_update)
+                               operation_id=args.operation_id)
         print(json.dumps(result.as_dict(), ensure_ascii=False, indent=2))
         if result.readback_state != "MATCH" or result.timing_state != "PRE_SCHEDULED":
             if args.local_incident:
@@ -412,6 +432,12 @@ def main(argv=None):
         return 0
     except (ValueError, OSError, PersistenceError, KeyError, TypeError) as exc:
         print("保存未完了：" + sanitized(exc))
+        if args.local_incident and payload is not None and result is None:
+            record = incident_record(payload, initialization_failure(payload, args.operation_id, exc))
+            try:
+                save_incident_local(args.local_incident, record)
+            except (OSError, ValueError) as log_error:
+                print("障害記録のローカル保存も失敗：" + sanitized(log_error))
         return 1
 
 
