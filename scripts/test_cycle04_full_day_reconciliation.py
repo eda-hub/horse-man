@@ -43,6 +43,34 @@ class Cycle04FullDayRetrospectiveTest(unittest.TestCase):
                          {'prediction': 0, 'recommendation': 0, 'shadow': 0})
         self.assertEqual(report['formal_certification'], 'REJECTED_UNDER_V1_7_0')
 
+    def test_certification_rejects_inflated_official_url_count(self):
+        data = self.read(DECISION)
+        data['coverage']['top3_official_page_urls'] = 36
+        self.write(DECISION, data)
+        with self.assertRaisesRegex(FullDayReviewError, 'official result URL count mismatch'):
+            check(self.root)
+
+    def test_certification_rejects_understated_official_url_count(self):
+        data = self.read(DECISION)
+        data['coverage']['top3_official_page_urls'] = 5
+        self.write(DECISION, data)
+        with self.assertRaisesRegex(FullDayReviewError, 'official result URL count mismatch'):
+            check(self.root)
+
+    def test_result_summary_disagreement_with_actual_urls_rejected(self):
+        data = self.read(RESULTS)
+        data['coverage']['result_top3_primary_jra_confirmed'] = 36
+        self.write(RESULTS, data)
+        with self.assertRaisesRegex(FullDayReviewError, 'official result URL count mismatch'):
+            check(self.root)
+
+    def test_certification_verified_page_count_disagreement_rejected(self):
+        data = self.read(DECISION)
+        data['coverage']['official_results_pages_verified'] = 36
+        self.write(DECISION, data)
+        with self.assertRaisesRegex(FullDayReviewError, 'official result URL count mismatch'):
+            check(self.root)
+
     def test_removed_result_rejected(self):
         data = self.read(RESULTS)
         data['races'].pop()
