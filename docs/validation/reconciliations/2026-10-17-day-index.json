@@ -1,0 +1,550 @@
+{
+  "schema_version": "cycle04-unfinished-day-index-v1",
+  "race_date_jst": "2026-10-17",
+  "prepared_at_jst": "2026-10-17T17:43:25.106+09:00",
+  "source_intent_path": "docs/validation/persistence-intents/2026-10-17/morning.json",
+  "screening_path": "docs/validation/screenings/2026-10-17-initial.md",
+  "official_scope_status": "NOT_REGISTERED_BEFORE_RACE",
+  "daily_ledger_status": "NOT_CREATED",
+  "initial_predictions_status": "NOT_INDEPENDENTLY_FIXED",
+  "mode": "RETROSPECTIVE_REFERENCE_ONLY",
+  "formal_kpi_eligibility": "NEVER_INFER_FROM_THIS_INDEX",
+  "review_policy": "各証拠の競走結果前の記録を保持して回顧準備に供する。現在時刻で事前宣言、FIX読戻し、公式scope登録を遡及生成しない。Production/Recommendation/Shadowの正式適格性は個別checkerでのみ判断する。",
+  "races": [
+    {
+      "race_id": "2026-10-17-TOKYO-01",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-02",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-03",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-04",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-05",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-06",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-07",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-08",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-09",
+      "prediction": {
+        "status": "AFTER_POST_CHAT_PRESERVATION_ONLY",
+        "path": "docs/validation/preservation/2026-10-17-tokyo-09-final-late.md"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-10",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-11",
+      "prediction": {
+        "status": "PRE_RACE_BODY_ARCHIVED_NOT_CYCLE04_ACCEPTED",
+        "path": "docs/validation/snapshots/2026-10-17/20261017-TOKYO-11-FINAL-S01.json",
+        "fix_path": "docs/validation/fix-manifests/2026-10-17/20261017-TOKYO-11-FINAL-S01.json",
+        "gate_path": "docs/validation/execution-gates/2026-10-17/2026-10-17-TOKYO-11.json"
+      },
+      "recommendation": {
+        "status": "PRE_RACE_RECOMMENDATION_NOT_CERTIFIED",
+        "path": "docs/validation/recommendations/2026-10-17/20261017-TOKYO-11-REC-S01.json",
+        "reason": "独立推奨本体・推奨receipt/gateは存在、予想事前工程と公式日次scope未完了"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED",
+        "PREDICTION_INTENT_READBACK_ORDER_NOT_PROVEN",
+        "PREDICTION_FIX_READBACK_ORDER_NOT_PROVEN"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-12",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-01",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-02",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-03",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-04",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-05",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-06",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-07",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-08",
+      "prediction": {
+        "status": "PRE_RACE_BODY_ARCHIVED_NOT_CYCLE04_ACCEPTED",
+        "path": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-08-FINAL-S01.json",
+        "fix_path": "docs/validation/fix-manifests/2026-10-17/20261017-KYOTO-08-FINAL-S01.json",
+        "gate_path": "docs/validation/execution-gates/2026-10-17/2026-10-17-KYOTO-08.json"
+      },
+      "recommendation": {
+        "status": "UNSEALED_PRE_RACE_CANDIDATE",
+        "path": "docs/validation/preservation/2026-10-17-kyoto-08-final-recommendation.md",
+        "reason": "事前prediction intentに独立Recommendation scopeなし、推奨原本/証跡/gateなし"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED",
+        "PREDICTION_INTENT_FIX_READBACK_ONLY_IN_SEPARATE_RECEIPTS",
+        "FORMAL_INDEPENDENT_RECOMMENDATION_INCOMPLETE"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-09",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-10",
+      "prediction": {
+        "status": "AFTER_POST_CHAT_PRESERVATION_ONLY",
+        "path": "docs/validation/preservation/2026-10-17-kyoto-10-final-late.md"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-11",
+      "prediction": {
+        "status": "PRE_RACE_BODY_ARCHIVED_NOT_CYCLE04_ACCEPTED",
+        "path": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-11-FINAL-S01.json",
+        "fix_path": "docs/validation/fix-manifests/2026-10-17/20261017-KYOTO-11-FINAL-S01.json",
+        "gate_path": "docs/validation/execution-gates/2026-10-17/2026-10-17-KYOTO-11.json"
+      },
+      "recommendation": {
+        "status": "PRE_RACE_RECOMMENDATION_NOT_CERTIFIED",
+        "path": "docs/validation/recommendations/2026-10-17/20261017-KYOTO-11-REC-S01.json",
+        "reason": "独立推奨本体・推奨receipt/gateは存在、予想事前工程と公式日次scope未完了"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED",
+        "PREDICTION_INTENT_READBACK_ORDER_NOT_PROVEN",
+        "PREDICTION_FIX_READBACK_ORDER_NOT_PROVEN"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-12",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-01",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-02",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-03",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-04",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-05",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-06",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-07",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-08",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-09",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-10",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-11",
+      "prediction": {
+        "status": "PRE_RACE_BODY_ARCHIVED_NOT_CYCLE04_ACCEPTED",
+        "path": "docs/validation/snapshots/2026-10-17/20261017-NIIGATA-11-FINAL-S01.json",
+        "fix_path": "docs/validation/fix-manifests/2026-10-17/20261017-NIIGATA-11-FINAL-S01.json",
+        "gate_path": "docs/validation/execution-gates/2026-10-17/2026-10-17-NIIGATA-11.json"
+      },
+      "recommendation": {
+        "status": "UNSEALED_NO_RECOMMENDATION",
+        "path": "docs/validation/recommendations/2026-10-17/20261017-NIIGATA-11-REC-S01.json",
+        "reason": "見送り本文は記録されたが、正式recommendation-snapshot-v1ではなく、独立intent・receipt・gateなし"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED",
+        "PREDICTION_INTENT_READBACK_ORDER_NOT_PROVEN",
+        "PREDICTION_FIX_READBACK_ORDER_NOT_PROVEN",
+        "FORMAL_INDEPENDENT_RECOMMENDATION_INCOMPLETE"
+      ]
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-12",
+      "prediction": {
+        "status": "NOT_PERSISTED"
+      },
+      "recommendation": {
+        "status": "NOT_PERSISTED"
+      },
+      "gaps": [
+        "FORMAL_OFFICIAL_SCOPE_NOT_REGISTERED_BEFORE_POST",
+        "CYCLE04_DAY_LEDGER_NOT_REGISTERED",
+        "INITIAL_PREDICTION_NOT_INDEPENDENTLY_FIXED"
+      ]
+    }
+  ]
+}
