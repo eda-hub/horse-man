@@ -26,7 +26,7 @@ ALLOWED_PATHS = (
 TRANSIENT = {"transport", "timeout", "rate_limit", "server_unavailable"}
 BLOCKED = {"safety_refusal", "authorization", "branch_policy", "unknown"}
 REDACT = re.compile(
-    r"(?i)(bearer\s+\S+|gh[pousr]_[a-zA-Z0-9_]+|github_pat_[a-zA-Z0-9_]+|"
+    r"(?i)(authorization\s*[:=]\s*bearer\s+\S+|bearer\s+\S+|gh[pousr]_[a-zA-Z0-9_]+|github_pat_[a-zA-Z0-9_]+|"
     r"(?:token|secret|password|authorization|api[_-]?key)\s*[:=]\s*[^\s,;]+)"
 )
 
