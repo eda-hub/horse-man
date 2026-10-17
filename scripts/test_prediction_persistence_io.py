@@ -61,12 +61,30 @@ class PersistenceTest(unittest.TestCase):
         self.assertEqual(r.failure_category, "conflict")
         self.assertEqual(transport.writes, [])
 
-    def test_approved_update_with_sha(self):
+    def test_allow_update_never_overwrites_fixed_snapshot(self):
         transport = MemoryGitHub(initial=b"different")
         r = persist_fixed(self.payload, transport, self.clock, operation_id="R",
                           allow_update=True)
-        self.assertEqual(r.readback_state, "MATCH")
-        self.assertEqual(transport.writes[0][1], "b" * 40)
+        self.assertEqual(r.failure_category, "conflict")
+        self.assertEqual(r.readback_state, "NOT_ATTEMPTED")
+        self.assertEqual(transport.content, b"different")
+        self.assertEqual(transport.writes, [])
+
+    def test_all_fixed_evidence_paths_reject_different_bytes(self):
+        paths = ("docs/validation/snapshots/2026-10-18/R.json",
+                 "docs/validation/fix-manifests/2026-10-18/R.json",
+                 "docs/validation/persistence-intents/2026-10-18/R.json",
+                 "docs/validation/recommendations/2026-10-18/R.json",
+                 "docs/validation/persistence-receipts/2026-10-18/R.md")
+        for path in paths:
+            with self.subTest(path=path):
+                fixed = FixedPayload(self.payload.repository, self.payload.branch, path, b"new")
+                transport = MemoryGitHub(initial=b"old")
+                result = persist_fixed(fixed, transport, self.clock, operation_id="fixed",
+                                       allow_update=True)
+                self.assertEqual(result.failure_category, "conflict")
+                self.assertEqual(transport.writes, [])
+                self.assertEqual(transport.content, b"old")
 
     def test_safety_refusal_stops_without_other_route(self):
         error = PersistenceError("tool blocked: Bearer secretvalue",
@@ -194,6 +212,87 @@ class PersistenceTest(unittest.TestCase):
             self.assertEqual(r['content'],self.payload.body)
             self.assertEqual(r['commit_sha'],SHA)
             self.assertIn('ref='+SHA,call.call_args.args[1])
+
+    def test_initialization_403_generates_local_incident(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        import json
+        from prediction_persistence_io import main
+        with TemporaryDirectory() as tmp:
+            original = Path(tmp) / "fixed.json"
+            record = Path(tmp) / "incident.json"
+            original.write_bytes(self.payload.body)
+            error = PersistenceError("branch denied Authorization: Bearer not-a-token",
+                                     http_status=403, api_reached=True,
+                                     request_id="req-branch-403", tool="github_contents_rest")
+            with patch.dict("os.environ", {"GITHUB_TOKEN": "private-token"}), \
+                 patch("prediction_persistence_io.GitHubContentsTransport", side_effect=error), \
+                 redirect_stdout(StringIO()):
+                code = main(["--date", "2026-10-18", "--race-id", "20261018-TOK-11",
+                             "--path", self.payload.path, "--payload-file", str(original),
+                             "--operation-id", "fixture", "--local-incident", str(record), "--write"])
+            self.assertEqual(code, 1)
+            incident = json.loads(record.read_text(encoding="utf-8"))
+            self.assertEqual(incident["failure_category"], "authorization")
+            self.assertFalse(incident["remote_persistence_certified"])
+            self.assertEqual(incident["target"]["sha256"], self.payload.digest)
+            event = incident["operations"][0]
+            self.assertEqual(event["operation"], "transport_initialize")
+            self.assertEqual(event["http_status"], 403)
+            self.assertEqual(event["request_id"], "req-branch-403")
+            self.assertEqual(event["api_reached"], True)
+            self.assertNotIn("private-token", record.read_text(encoding="utf-8"))
+            self.assertNotIn("not-a-token", record.read_text(encoding="utf-8"))
+
+    def test_initialization_refusal_without_http_is_preserved(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        import json
+        from prediction_persistence_io import main
+        with TemporaryDirectory() as tmp:
+            original = Path(tmp) / "fixed.json"
+            incident_path = Path(tmp) / "incident.json"
+            original.write_bytes(self.payload.body)
+            blocked = PersistenceError("tool safety refusal", kind="safety_refusal",
+                                       api_reached=False, request_id="policy-ref",
+                                       tool="host-check")
+            with patch.dict("os.environ", {"GITHUB_TOKEN": "test-token"}), \
+                 patch("prediction_persistence_io.GitHubContentsTransport", side_effect=blocked), \
+                 redirect_stdout(StringIO()):
+                code = main(["--date", "2026-10-18", "--race-id", "20261018-TOK-11",
+                             "--path", self.payload.path, "--payload-file", str(original),
+                             "--operation-id", "blocked", "--local-incident", str(incident_path),
+                             "--write"])
+            self.assertEqual(code, 1)
+            event = json.loads(incident_path.read_text(encoding="utf-8"))
+            self.assertEqual(event["failure_category"], "safety_refusal")
+            self.assertEqual(event["operations"][0]["request_id"], "policy-ref")
+            self.assertFalse(event["retry_allowed"])
+
+    def test_cli_allow_update_rejected_without_network_call(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        from prediction_persistence_io import main
+        with TemporaryDirectory() as tmp:
+            original = Path(tmp) / "fixed.json"
+            original.write_bytes(self.payload.body)
+            with patch.dict("os.environ", {"GITHUB_TOKEN": "test-token"}), \
+                 patch("prediction_persistence_io.GitHubContentsTransport") as transport, \
+                 redirect_stdout(StringIO()):
+                status = main(["--date", "2026-10-18", "--race-id", "20261018-TOK-11",
+                               "--path", self.payload.path, "--payload-file", str(original),
+                               "--operation-id", "no-rewrite", "--allow-update", "--write"])
+            self.assertEqual(status, 1)
+            transport.assert_not_called()
 
     def test_redaction(self):
         self.assertNotIn("topsecret", sanitized("Authorization: Bearer topsecret"))
