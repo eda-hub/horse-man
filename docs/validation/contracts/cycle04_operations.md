@@ -267,3 +267,5 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 公式訂正がある場合は、訂正結果と照合manifestおよび内部原票を新規pathへ保存する。さらに `docs/validation/result-corrections/YYYY-MM-DD/<race_id>/RNN.json` へ次のJSONを独立保存し、pathと実本文SHA-256を回顧入力の `result_correction_ref` として渡す。訂正原本は `schema_version: cycle04-result-correction-v1`、`race_id`、`race_date_jst`、連続した `revision`、前訂正の `previous_sha256`（初回null）、`from` / `to`（それぞれ `result_ref` と `reconciliation_ref`）、空でない `reason`、実際の `recorded_at_jst` を持つ。既存原票と訂正原票、対象・連鎖・時刻・全hashを検査し、訂正後も元の固定結果を保持する。既に回顧済みなら、従来の `revision_ref` による回顧改訂履歴も必須。結果訂正履歴と回顧文の改訂履歴を混同しない。
 
 日次対象0件は `target_count: 0` / `state: NOT_REQUESTED` と表示し、CI終了0でも工程完了とはしない。過去台帳の表示用リンクは固定commitの原文から削除先リンクだけを置換したものと照合する。移行監査は全Markdown・HTMLの相対リンク、参照形式、HTML属性も走査し、削除資料へのリンク切れを拒否する。旧集計の再計算には引き続き固定履歴の原文bytesを使う。
+
+固定履歴の64原入力は、現在保持する原票も固定commitのblob・SHA-256・bytesと毎回照合する。日別回顧の結果表、snapshot、receiptなど、集計値に影響しない本文変更や削除も不合格とする。例外は第3台帳の削除済み7資料へのリンク先変更だけであり、固定原文から機械的に再現したbytesとの完全一致を要求する。manifestのhashを書き換えても本文変更を許可しない。正式訂正は元原票を上書きせず、理由・対象原票・元hashを示す別の訂正履歴として保存する。訂正履歴を追加しても元原票の照合は省略せず、過去の固定集計を訂正後の内容で再計算しない。

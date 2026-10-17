@@ -57,9 +57,35 @@ def read_json(root, path):
     return json.loads(read(root, path))
 
 
+def verify_retained_inputs(root, saved=None):
+    """固定集計の全原入力と、現在参照する保持原票のbytesを照合する。"""
+    root = Path(root).resolve()
+    saved = read_json(root, COLLECTION) if saved is None else saved
+    inputs = saved['source_manifest']
+    if not inputs or len({x['path'] for x in inputs}) != len(inputs):
+        raise ValueError('履歴入力集合が不正')
+    for ref in inputs:
+        path = ref['path']
+        frozen = fixed_bytes(root, path, ref['git_blob_sha'], ref['sha256'])
+        if len(frozen) != ref['bytes']:
+            raise ValueError('履歴入力bytes不一致: ' + path)
+        expected = frozen
+        if path == 'docs/validation/cycle_03.md':
+            from cycle04_archive_links import retarget
+            from cycle04_migration import ARCHIVABLE_PATHS
+            expected = retarget(root, root / path, frozen, ARCHIVABLE_PATHS)
+        current = root / path
+        if (not current.is_file() or current.resolve() != current.absolute() or
+                current.read_bytes() != expected):
+            raise ValueError('保持する履歴原入力が失われたか改変: ' + path)
+    return len(inputs)
+
+
 def recomputed_report(root):
     """64原入力を固定Gitから実取得し、既存アルゴリズムで集合・KPI・精算を比較する。"""
     saved = read_json(root, COLLECTION)
+    # 固定履歴の再計算が正しくても、現在公開する原票の改変を許さない。
+    verify_retained_inputs(root, saved)
     inputs = saved['source_manifest']
     if len({x['path'] for x in inputs}) != len(inputs) or not inputs:
         raise ValueError('履歴入力集合が不正')
