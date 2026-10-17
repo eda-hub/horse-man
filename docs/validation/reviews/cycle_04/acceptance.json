@@ -2,7 +2,7 @@
   "schema_version": "cycle04-acceptance-v1",
   "mode": "SYNTHETIC",
   "result": "PASS",
-  "tests_run": 892,
+  "tests_run": 898,
   "failures": 0,
   "skipped": 0,
   "live_race_count": null,
@@ -50,12 +50,12 @@
       "sha256": "df2595dac6442e2e83e45710bd01974cbe13cf04dcffa25bc36556078a6f06fa"
     },
     {
-      "path": "docs/validation/contracts/cycle_04.json",
-      "sha256": "587d1f8a97c4e3cd0c708975c00f36f3b3a77ba2cb6279f299b18469e7e0a082"
-    },
-    {
       "path": "docs/validation/contracts/cycle04_operations.md",
       "sha256": "180add8340852561997e0564612e24b046f104ca2f18e7c127c95a680a05a2f3"
+    },
+    {
+      "path": "docs/validation/contracts/cycle_04.json",
+      "sha256": "587d1f8a97c4e3cd0c708975c00f36f3b3a77ba2cb6279f299b18469e7e0a082"
     },
     {
       "path": "docs/validation/execution-gates/contract-state.json",
@@ -154,12 +154,16 @@
       "sha256": "cac018f4953e96ca978fbd7ce918400e39c75092654b15378776257348bf214b"
     },
     {
+      "path": "scripts/check_cycle03.py",
+      "sha256": "c963503e6184ac886d13af349db1a21cac0e15e6c30a328c8ef689898b5357cc"
+    },
+    {
       "path": "scripts/check_cycle03_advisory.py",
       "sha256": "43e98ff04420ef1003d1065ef00a5c73e9ae71d8e1e541f9be114d877d3e027d"
     },
     {
-      "path": "scripts/check_cycle03.py",
-      "sha256": "c963503e6184ac886d13af349db1a21cac0e15e6c30a328c8ef689898b5357cc"
+      "path": "scripts/check_cycle04.py",
+      "sha256": "d4d5807c7d5bdf5a3907864e23369b4d02ef0f4376426e81cfc840087a2bff39"
     },
     {
       "path": "scripts/check_cycle04_full_day_reconciliation.py",
@@ -170,16 +174,16 @@
       "sha256": "5f8bdb0c0e204f7fda6e2a4f709a976bc252e24e115b33bf93e20277d4335026"
     },
     {
-      "path": "scripts/check_cycle04.py",
-      "sha256": "d4d5807c7d5bdf5a3907864e23369b4d02ef0f4376426e81cfc840087a2bff39"
-    },
-    {
       "path": "scripts/check_designated_ancestor_scope.py",
       "sha256": "e340233d3372faf3a247b7215260fa2b7ad2391437837765529eccf2d815e2d1"
     },
     {
       "path": "scripts/check_foreign_pedigree_review.py",
       "sha256": "1189b3a30c2f592c401b58528bd83615baf7f2c169bd485871ede187a55ad0a1"
+    },
+    {
+      "path": "scripts/check_github_presence_witness.py",
+      "sha256": "9f97b6fe9493d85168b3d19931bce894cfb0b3c223816df29b72eb965ef305d7"
     },
     {
       "path": "scripts/check_historical_pr_refs.py",
@@ -258,12 +262,12 @@
       "sha256": "b0c76f97aa1da8a75a1c28b90fc191e450eb15a4e7add1a79b3a20a6143c1e94"
     },
     {
-      "path": "scripts/class_transition_shadow.py",
-      "sha256": "283a39662180c592e28f282a2c2a611fb3d27a0606022bfa9435a4ce7ed5575a"
-    },
-    {
       "path": "scripts/class_transition.py",
       "sha256": "8c0bc81b82e8d0fa1b7ff02f1af295b071206d77b3c019f454093ef4ef50a5fe"
+    },
+    {
+      "path": "scripts/class_transition_shadow.py",
+      "sha256": "283a39662180c592e28f282a2c2a611fb3d27a0606022bfa9435a4ce7ed5575a"
     },
     {
       "path": "scripts/cycle04_completion.py",
@@ -434,12 +438,12 @@
       "sha256": "c253c27268422328dd51d5ff340de537a12a166f4927cf363c54e0eb8411512f"
     },
     {
-      "path": "scripts/test_check_cycle03_advisory.py",
-      "sha256": "237d43fc98ff934dd3332466e210ebed1dfe2eb0d9c7d79ad8c3362d51a2139b"
-    },
-    {
       "path": "scripts/test_check_cycle03.py",
       "sha256": "d94ae1e1100ebabb892383289de2d0aba1362a5d7c433078871a0963a4686d76"
+    },
+    {
+      "path": "scripts/test_check_cycle03_advisory.py",
+      "sha256": "237d43fc98ff934dd3332466e210ebed1dfe2eb0d9c7d79ad8c3362d51a2139b"
     },
     {
       "path": "scripts/test_check_prediction_compliance.py",
@@ -450,12 +454,12 @@
       "sha256": "ba75a4079a9d7f487ae8a680f84731fd35306076a27ab67bf4bfb662b1e71354"
     },
     {
-      "path": "scripts/test_class_transition_shadow.py",
-      "sha256": "21ce0a315027f669554de6ede7e49e52a0a627d9f2ff2e6caa3f2c44ee9ebdaa"
-    },
-    {
       "path": "scripts/test_class_transition.py",
       "sha256": "57279f8343c161dc6d97a4f6ae63729abc67d251604f37d6cab4a62d9ef33235"
+    },
+    {
+      "path": "scripts/test_class_transition_shadow.py",
+      "sha256": "21ce0a315027f669554de6ede7e49e52a0a627d9f2ff2e6caa3f2c44ee9ebdaa"
     },
     {
       "path": "scripts/test_cycle04_acceptance.py",
@@ -508,6 +512,10 @@
     {
       "path": "scripts/test_foreign_pedigree_review.py",
       "sha256": "b87aebe94d3e970b9b41c274cf9b8f3ff92929bc477d5147445c334d9c113bb6"
+    },
+    {
+      "path": "scripts/test_github_presence_witness.py",
+      "sha256": "5eb2e23ae1f74ea970822cffca3dc888b088959eb23948ec920caa3d80288f36"
     },
     {
       "path": "scripts/test_historical_eligibility.py",
@@ -602,12 +610,12 @@
       "sha256": "71880bc8245878eeb7b92ebd2b92fcf05e131d94f856f6343e0c7428233fe5d0"
     },
     {
-      "path": "scripts/test_task_completion_receipt.py",
-      "sha256": "de78db84125fd3b9f7226dce5f50f80fb95e6e49d2bf4a623ae9e11c19e85749"
-    },
-    {
       "path": "scripts/test_task_completion.py",
       "sha256": "99acad3f8eeffec533b6a1f980649cdd6ece1eb5938135f5c1d80cac2e639267"
+    },
+    {
+      "path": "scripts/test_task_completion_receipt.py",
+      "sha256": "de78db84125fd3b9f7226dce5f50f80fb95e6e49d2bf4a623ae9e11c19e85749"
     },
     {
       "path": "scripts/test_training_country_ancestor_reply.py",

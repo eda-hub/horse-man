@@ -1143,5 +1143,16 @@
     "certification_status": "FORMAL_KPI_NOT_CERTIFIED",
     "formal_ledger_created": false
   },
-  "recommendation_historical_debt_path": "docs/validation/reconciliations/2026-10-17-recommendation-historical-debts.json"
+  "recommendation_historical_debt_path": "docs/validation/reconciliations/2026-10-17-recommendation-historical-debts.json",
+  "github_presence_witness": {
+    "path": "docs/validation/reconciliations/2026-10-17-github-witnesses.json",
+    "checker": "scripts/check_github_presence_witness.py",
+    "scope": [
+      "2026-10-17-NIIGATA-11",
+      "2026-10-17-KYOTO-11",
+      "2026-10-17-TOKYO-11"
+    ],
+    "meaning": "当時のGitHubサーバ記録で発走前存在を補強。読戻し・正式日次工程の不足は維持。",
+    "formal_kpi_promoted": false
+  }
 }
