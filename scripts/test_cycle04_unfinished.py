@@ -19,7 +19,8 @@ class UnfinishedDayTest(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         payload = json.loads((self.SOURCE / self.MANIFEST).read_text(encoding='utf-8'))
-        paths = {self.MANIFEST, payload['source_intent_path'], payload['screening_path']}
+        paths = {self.MANIFEST, payload['source_intent_path'], payload['screening_path'],
+                 payload['unsealed_decision_path']}
         for row in payload['races']:
             paths.update(x for x in (
                 row['prediction'].get('path'), row['prediction'].get('fix_path'),
