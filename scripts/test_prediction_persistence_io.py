@@ -367,6 +367,87 @@ class PersistenceTest(unittest.TestCase):
         self.assertFalse(saved.completion_verified)
         self.assertFalse(data["remote_persistence_certified"])
 
+    def test_receipt_r02_modified_hash_or_time_is_rejected(self):
+        path, old, candidate, _ = self.shared_receipts()
+        target = FixedPayload(self.payload.repository, self.payload.branch, path, candidate)
+        from prediction_persistence_io import _json_or_receipt
+        original = _json_or_receipt(target, "persistence-receipts")[-1]
+        for field_name, change in (("content_sha256", "d" * 64),
+                                   ("receipt_verified_at_jst", "2026-10-18T15:30:00+09:00"),
+                                   ("persist_verified_at_jst", "2026-10-18T15:10:00+09:00"),
+                                   ("receipt_persist_status", "RECEIPT_READBACK_PENDING")):
+            with self.subTest(field=field_name):
+                changed = dict(original, **{field_name: change})
+                prefix = candidate[:candidate.rfind(b"\n\n```persistence-receipt-v1")]
+                raw = prefix + ("\n\n```persistence-receipt-v1\n" +
+                                json.dumps(changed) + "\n```\n").encode()
+                transport = MemoryGitHub(initial=old)
+                result = persist_fixed(FixedPayload(self.payload.repository,
+                                                    self.payload.branch, path, raw),
+                                       transport, self.clock, operation_id=field_name,
+                                       race_id=self.race_id, append_receipt=True)
+                self.assertEqual(result.failure_category, "conflict")
+                self.assertEqual(transport.writes, [])
+
+    def test_cli_shared_receipt_append_uses_existing_sha(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        from prediction_persistence_io import main
+        path, old, candidate, _ = self.shared_receipts()
+        with TemporaryDirectory() as temporary:
+            filepath = Path(temporary) / "whole-receipt.md"
+            filepath.write_bytes(candidate)
+            transport = MemoryGitHub(initial=old)
+            with patch.dict("os.environ", {"GITHUB_TOKEN": "synthetic-token"}), \
+                 patch("prediction_persistence_io.GitHubContentsTransport",
+                       return_value=transport) as github, \
+                 patch("prediction_clock.observed_assessment",
+                       side_effect=lambda *a: self.clock("before_write")), \
+                 redirect_stdout(StringIO()):
+                code = main(["--date", self.date, "--race-id", "20261018-TOK-11",
+                             "--path", path, "--payload-file", str(filepath),
+                             "--operation-id", "append-r02", "--append-receipt",
+                             "--write"])
+            self.assertEqual(code, 0)
+            github.assert_called_once()
+            self.assertEqual(transport.content, candidate)
+            self.assertEqual(transport.writes[-1][1], "b" * 40)
+
+    def test_cli_restored_incident_after_deadline_is_only_log_saved(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        from prediction_persistence_io import main
+        failed = persist_fixed(self.payload, MemoryGitHub(failures=[
+            PersistenceError("refused", kind="safety_refusal")]), self.clock,
+            operation_id="failed-for-cli", race_id=self.race_id)
+        record = incident_record(self.payload, failed)
+        with TemporaryDirectory() as temporary:
+            filepath = Path(temporary) / "incident.json"
+            filepath.write_text(json.dumps(record) + "\n", encoding="utf-8")
+            transport = MemoryGitHub()
+            late = dict(self.clock("before_write"), status="SCHEDULE_REACHED",
+                        remaining_seconds=-600)
+            with patch.dict("os.environ", {"GITHUB_TOKEN": "synthetic-token"}), \
+                 patch("prediction_persistence_io.GitHubContentsTransport",
+                       return_value=transport), \
+                 patch("prediction_clock.observed_assessment", return_value=late), \
+                 redirect_stdout(StringIO()) as output:
+                code = main(["--date", self.date, "--race-id", "20261018-TOK-11",
+                             "--path", "docs/validation/persistence-incidents/" +
+                             self.date + "/tokyo-11-refusal.json",
+                             "--payload-file", str(filepath),
+                             "--operation-id", "incident-after-race", "--write"])
+            self.assertEqual(code, 0)
+            self.assertIn("障害記録のみ", output.getvalue())
+            self.assertEqual(transport.content, filepath.read_bytes())
+            self.assertNotIn("正式receiptの認証", "success")
+
     def test_direct_adapter_append_requires_verified_cas(self):
         from prediction_persistence_io import GitHubContentsTransport
         from unittest.mock import patch
