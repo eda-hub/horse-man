@@ -197,6 +197,18 @@ class PersistenceTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             GitHubContentsTransport('eda-hub/horse-man', 'main', 'token')
 
+    def test_transport_direct_write_rejects_existing_blob_sha(self):
+        from unittest.mock import patch
+        from prediction_persistence_io import GitHubContentsTransport
+        transport = GitHubContentsTransport.__new__(GitHubContentsTransport)
+        transport.repository = self.payload.repository
+        transport.branch = self.payload.branch
+        with patch.object(transport, "_call") as github_api:
+            with self.assertRaises(PersistenceError) as failure:
+                transport.write(self.payload.branch, self.payload.path, b"new", "b" * 40)
+            self.assertEqual(failure.exception.kind, "conflict")
+            github_api.assert_not_called()
+
     def test_transport_exact_commit_ref(self):
         import base64
         from unittest.mock import patch
