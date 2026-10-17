@@ -424,6 +424,7 @@ class PersistenceTest(unittest.TestCase):
                        return_value=transport) as github, \
                  patch("prediction_clock.observed_assessment",
                        side_effect=lambda *a: self.clock("before_write")), \
+                 patch("cycle04_schedule_change.registered_row", return_value=None), \
                  redirect_stdout(StringIO()):
                 code = main(["--date", self.date, "--race-id", "20261018-TOK-11",
                              "--path", path, "--payload-file", str(filepath),
@@ -455,6 +456,7 @@ class PersistenceTest(unittest.TestCase):
                  patch("prediction_persistence_io.GitHubContentsTransport",
                        return_value=transport), \
                  patch("prediction_clock.observed_assessment", return_value=late), \
+                 patch("cycle04_schedule_change.registered_row", return_value=None), \
                  redirect_stdout(StringIO()) as output:
                 code = main(["--date", self.date, "--race-id", "20261018-TOK-11",
                              "--path", "docs/validation/persistence-incidents/" +
