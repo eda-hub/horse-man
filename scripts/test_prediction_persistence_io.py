@@ -264,6 +264,24 @@ class PersistenceTest(unittest.TestCase):
                 self.assertEqual(_race_parts("20261018-" + venue + "-11", self.date)[0],
                                  expected)
 
+    def test_legacy_id_resolves_the_registered_official_scope_key(self):
+        from pathlib import Path
+        from unittest.mock import patch
+        from prediction_persistence_io import resolve_official_race_key
+        official = "2026-10-18-TOKYO-11"
+        with patch("cycle04_schedule_change.registered_row",
+                   side_effect=lambda root, race, date: {} if race == official else None):
+            self.assertEqual(resolve_official_race_key(Path("."), self.date,
+                             "20261018-TOK-11"), official)
+        with patch("cycle04_schedule_change.registered_row",
+                   side_effect=lambda root, race, date: {} if race in
+                   {"20261018-TOK-11", official} else None):
+            with self.assertRaisesRegex(ValueError, "multiple official scope"):
+                resolve_official_race_key(Path("."), self.date, "20261018-TOK-11")
+        with patch("cycle04_schedule_change.registered_row", return_value=None):
+            self.assertEqual(resolve_official_race_key(Path("."), self.date,
+                             "20261018-TOK-11"), "20261018-TOK-11")
+
     def test_short_id_rejects_other_race_and_date(self):
         from prediction_persistence_io import verify_payload_binding
         for short in ("20261018-TOK-12", "20261017-TOK-11",
