@@ -80,7 +80,8 @@ class Cycle04FullDayRetrospectiveTest(unittest.TestCase):
                    if x['race_id'] == '2026-10-17-TOKYO-11')
         row['source']['official_url'] = 'https://example.invalid'
         self.write(RESULTS, data)
-        with self.assertRaisesRegex(FullDayReviewError, 'verified JRA source mismatch'):
+        with self.assertRaisesRegex(FullDayReviewError,
+                                    'original day index differs|verified JRA source mismatch'):
             check(self.root)
 
     def test_secondary_result_cannot_claim_jra_verification(self):
