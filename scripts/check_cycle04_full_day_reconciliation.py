@@ -53,7 +53,10 @@ def check(root):
             day.get('full_day_postrace_reference', {}).get('path') == RESULTS and
             day.get('full_day_postrace_reference', {}).get('formal_ledger_created') is False,
             'day reference is not a formal ledger')
-    require(not (root / FORMAL_LEDGER).exists(), 'formal day ledger unexpectedly exists; rerun formal contract')
+    # 当時の『未登録』という固定事実はday-indexに残し、現在の事後台帳は別契約で検証する。
+    if (root / FORMAL_LEDGER).exists():
+        from cycle04_migration import validate_postrace
+        validate_postrace(root)
     coverage = full.get('coverage', {})
     require(coverage.get('declared') == 36 and
             coverage.get('result_top3_retrieved') == 36 and

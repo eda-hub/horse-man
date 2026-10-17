@@ -1,0 +1,76 @@
+name: 予想実行・第4サイクル移行と日次監査
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches:
+      - main
+      - 'prediction/**'
+jobs:
+  regression:
+    name: 契約と回帰
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: PDF原資料検査の依存準備
+        run: command -v pdftotext >/dev/null || { sudo apt-get update && sudo apt-get install -y poppler-utils; }
+      - name: 全回帰（skipは別途受入で拒否）
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: 第4正本・版と合成受入
+        run: |
+          python3 scripts/check_cycle04.py
+          python3 scripts/run_release_readiness.py
+  migration:
+    name: 第2・第3原票と第4移行の保全
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 第3歴史台帳・訂正前後の固定照合
+        run: |
+          python3 scripts/check_cycle03.py --require-data --require-complete
+          python3 scripts/build_cycle03_review.py --check --require-complete
+      - name: 第4繰越68項目・保全原本・36R事後台帳
+        run: |
+          python3 scripts/cycle04_migration.py --audit
+          python3 scripts/check_cycle04_full_day_reconciliation.py
+  persistence:
+    name: 予想本体・事前宣言とreceipt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 厳格な予想/保存監査
+        run: |
+          python3 scripts/check_prediction_compliance.py --audit
+          python3 scripts/verify_prediction_persistence.py --audit
+  recommendation:
+    name: 推奨の厳格監査（既知の不足も非0）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 全推奨の独立監査（過去4診断を隠さない）
+        run: python3 scripts/recommendation.py --audit
+  cycle-ledger:
+    name: cycle-ledger（旧required check互換）
+    if: always()
+    needs: [regression, migration, persistence, recommendation]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 結果と未解消項目を表示
+        run: |
+          {
+            echo '### 第4サイクルの監査'
+            echo '契約と回帰: ${{ needs.regression.result }}'
+            echo '履歴保全: ${{ needs.migration.result }}'
+            echo '予想/保存: ${{ needs.persistence.result }}'
+            echo '推奨厳格監査: ${{ needs.recommendation.result }}'
+            echo '10/17は事後登録であり、発走前scope・正式KPI・正常一巡とは異なる。'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: 失敗結果を互換チェックにも伝播
+        if: ${{ needs.regression.result != 'success' || needs.migration.result != 'success' || needs.persistence.result != 'success' || needs.recommendation.result != 'success' }}
+        run: exit 1

@@ -22,6 +22,12 @@
   "decisions_path": "docs/validation/reviews/cycle_03/decisions.json",
   "acceptance_path": "docs/validation/reviews/cycle_04/acceptance.json",
   "live_status": "READY_NOT_STARTED",
-  "note": "利用者指定v1.7.0。正式運用はPR79のmainマージ後。予定6日（10/17〜11/1）と実測を分け、開始前は実レースを作らない。",
-  "activation_policy": "MAIN_MERGE"
+  "note": "適用版v1.7.0。current_releaseは旧版照合専用の互換項目であり、現行版はactive_release。10/17の事後照合は前向き正常一巡・正式KPI認証ではない。",
+  "activation_policy": "MAIN_MERGE",
+  "active_release": "v1.7.0",
+  "historical_baseline_release": "v1.6.1",
+  "postrace_day_schema": "cycle04-day-postrace-reconciliation-v1",
+  "carryover_path": "docs/validation/reviews/cycle_04/carryover.json",
+  "migration_manifest_path": "docs/validation/reviews/cycle_04/migration-manifest.json",
+  "summary_path": "docs/validation/reviews/cycle_04/summary.json"
 }

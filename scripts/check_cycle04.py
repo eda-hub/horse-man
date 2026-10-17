@@ -44,6 +44,11 @@ def check_preparation(root):
                 'prepared contract cannot imply active cutover')
     else:
         require_active(root, c)
+    from cycle04_migration import validate_carryover, validate_manifest
+    require(c.get('carryover_path') == 'docs/validation/reviews/cycle_04/carryover.json', 'cycle04 carryover not linked')
+    require(c.get('migration_manifest_path') == 'docs/validation/reviews/cycle_04/migration-manifest.json', 'cycle04 migration not linked')
+    validate_carryover(root)
+    validate_manifest(root)
     decisions = load(safe_path(root, c.get('decisions_path')))
     require(decisions.get('schema_version') == 'cycle03-decisions-v1', 'individual decisions required')
     require(decisions.get('performance_promotion') == 'NOT_APPROVED', 'unsupported performance promotion')
@@ -133,6 +138,11 @@ def string_set(value, label):
 
 def validate_day(root, path, contract):
     d = load(path)
+    if d.get('schema_version') == 'cycle04-day-postrace-reconciliation-v1':
+        from cycle04_migration import DAY, validate_postrace
+        require(path.resolve() == (root / DAY).resolve(), '事後台帳は10/17固定pathのみ')
+        validate_postrace(root, d)
+        return d
     require(d.get('schema_version') == SCHEMA and d.get('cycle_id') == 'cycle_04',
             '第3台帳・旧契約を第4へ流用できません')
     date = d.get('race_date_jst')
@@ -420,7 +430,9 @@ def main(argv=None):
         days = []
         directory = root / 'docs/validation/records/cycle_04'
         for path in sorted(directory.glob('*.json')):
-            days.append(validate_day(root, path, c))
+            day = validate_day(root, path, c)
+            if day.get('registration_origin') != 'POSTRACE_RECONCILIATION':
+                days.append(day)
         from cycle04_completion import evaluate_days
         require(not (args.require_complete and args.closure_review),
                 '正常一巡と理由付き終了を同時申告できません')
@@ -433,7 +445,11 @@ def main(argv=None):
                     ('。集計のGit読戻し固定参照が未指定です' if frozen is None else ''))
         if result['issues']:
             print('不足対象・理由：' + json.dumps(result['issues'], ensure_ascii=False))
-        print(f'第4検査契約の準備照合成功。実測{len(days)}/{len(DATES)}日。状態：{result["state"]}。'
+        from cycle04_migration import validate_postrace
+        historical = int((directory / '2026-10-17.json').exists())
+        if historical:
+            validate_postrace(root)
+        print(f'第4検査契約の準備照合成功。前向き実測{len(days)}/{len(DATES)}日、事後照合{historical}日。状態：{result["state"]}。'
               f'集計Git読戻し：{result["summary_git_readback_verified"]}。性能昇格：未採用。'
               f'正式切替状態：{c["status"]}。')
         return 0
