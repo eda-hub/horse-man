@@ -57,7 +57,7 @@ def check(root):
     coverage = full.get('coverage', {})
     require(coverage.get('declared') == 36 and
             coverage.get('result_top3_retrieved') == 36 and
-            coverage.get('result_official_page_identified_count') == 36 and
+            coverage.get('result_official_page_identified_count') == 6 and
             coverage.get('prior_forecast_reviewable') == 6 and
             coverage.get('no_evaluable_final_forecast') == 30,
             'result coverage misrepresented')
@@ -77,10 +77,6 @@ def check(root):
         rid = expected[ix]
         require(row.get('scheduled_post_time_jst', '').startswith(DATE + 'T'),
                 rid + ': date missing')
-        require(row.get('source', {}).get('official_individual_page_identified') is True and
-                re.match(r'^https://(?:www\.jra\.go\.jp|jra\.jp)/JRADB/accessS\.html\?CNAME=', 
-                         row.get('source', {}).get('official_url', '')),
-                rid + ': JRA result source link missing')
         require(row.get('source', {}).get('overview_url', '').startswith(
                     'https://sports.yahoo.co.jp/keiba/race/list/'),
                 rid + ': race list source missing')
@@ -115,11 +111,23 @@ def check(root):
                     row['pre_off_forecast']['path'] == prev['prediction_evidence']['path'] and
                     original['prediction']['path'] == row['pre_off_forecast']['path'],
                     rid + ': six-result or fixed prediction changed')
+            require(row['source'].get('official_individual_page_verified') is True and
+                    row['source'].get('official_individual_page_identified') is True and
+                    row['source'].get('official_url') == prev['source']['url'] and
+                    re.match(r'^https://(?:www\\.jra\\.go\\.jp|jra\\.jp)/JRADB/accessS\\.html\\?CNAME=',
+                             row['source']['official_url']),
+                    rid + ': verified JRA source mismatch')
         else:
             require(not row.get('previous_six_race_review_path') and
                     original['prediction']['status'] == 'NOT_PERSISTED' and
                     row['pre_off_forecast']['path'] is None,
                     rid + ': invented result-time forecast')
+            require(row['source'].get('official_url') is None and
+                    row['source'].get('official_individual_page_verified') is False and
+                    row['source'].get('official_individual_page_identified') is False and
+                    row['source'].get('top3_transcription_source') ==
+                    'SPORTS_NAVIGATION_JRA_RESULTS_REPRODUCTION',
+                    rid + ': secondary results must not claim primary JRA verification')
         require(decision.get('official_result_page') == row['source']['official_url'] and
                 decision.get('finishers_available') is True and
                 decision.get('pre_off_prediction_artifact') == original['prediction'].get('path') and
@@ -148,7 +156,7 @@ def check(root):
     return {
         'day': DATE, 'verified_result_races': 36, 'linked_six_predictions': have_forecasts,
         'without_fixed_final_prediction': 30, 'tie_2nd_place': 1,
-        'official_result_pages_identified': 36,
+        'official_result_pages_verified': 6,
         'formal_eligible_denominators': c['formal_eligible_denominators'],
         'formal_certification': 'REJECTED_UNDER_V1_7_0',
         'note': '結果照合は成立。発走前の公式scopeがないため正式KPI認証は不合格。',
