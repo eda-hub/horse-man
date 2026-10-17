@@ -11,6 +11,10 @@
 - WIN5、非◎の別軸馬連/ワイド/馬単、価格連動の旧例外、印内全頭BOXは対象外。
 - 券種ごとの役割: 単勝=◎の勝ち切り、複勝=◎以外を含めた各馬の安定3着内（該当馬のProduction根拠必須）、馬連=◎からの連対、ワイド=◎○同時3着内、馬単=◎1着と根拠ある2着、三連複=◎中心の同時3着内、三連単=◎1着中心に、○または▲1着・◎2着の根拠ある逆転構成も許可する順序付きシナリオ。複数の高難度券種を機械的に追加しない。計画内の未確定数値閾値は勝手に実装しない。
 
+## 新規固定保存のレース・時刻照合（PR #94）
+
+固定原本の保存前には `--race-id`、`--date`、日次branch、対象path、JSON本文のrace ID／開催日／発走予定を照合し、公式scope／発走変更chainから**当該レース**について取得した時刻判定のID・日付・予定時刻とも一致させる。11Rの原本に12Rの時計を使うこと、異なる日付・snapshot IDのパスへ固定することは不可。複数レースの一括intentは最早発走時刻と等しい公式時計を指定する。推奨の独立宣言は `docs/validation/recommendation-intents/YYYY-MM-DD/`、推奨認証は `docs/validation/recommendation-gates/YYYY-MM-DD/`、Prediction固定gateは `docs/validation/recommendation-prediction-gates/YYYY-MM-DD/` に限って新規原本保存を許可する。古い原本や同名gateを異内容上書きせず、新revision・historyによる別pathを使用する。
+
 ## 構造・保存経路
 
 | 用途 | パスと契約 |
