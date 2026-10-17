@@ -140,6 +140,28 @@ def check(root):
                     value.get(valkey, 'MISSING') is None,
                     rid + ': invalid formal KPI promotion: ' + kind)
     require(have_forecasts == 6, 'expected six research-only predictions')
+    # Count actual URLs in the result rows, rather than trusting either
+    # summary. All three reported totals must describe the same evidence.
+    actual_official_urls = sum(
+        isinstance(row.get('source', {}).get('official_url'), str) and
+        bool(row['source']['official_url'].strip())
+        for row in races
+    )
+    actual_verified_pages = sum(
+        row.get('source', {}).get('official_individual_page_verified') is True
+        for row in races
+    )
+    certified_coverage = cert.get('coverage', {})
+    require(
+        actual_official_urls == actual_verified_pages ==
+        coverage.get('result_official_page_identified_count') ==
+        coverage.get('result_top3_primary_jra_confirmed') ==
+        certified_coverage.get('top3_official_page_urls') ==
+        certified_coverage.get('official_results_pages_verified') and
+        coverage.get('result_top3_secondary_source_only') == 36 - actual_official_urls and
+        certified_coverage.get('result_only_secondary_30') == 36 - actual_official_urls,
+        'official result URL count mismatch with actual non-null race URLs',
+    )
     c = cert.get('certification', {})
     require(cert.get('schema_version') == 'cycle04-postrace-certification-rejection-v1' and
             cert.get('race_date_jst') == DATE and
@@ -156,7 +178,7 @@ def check(root):
     return {
         'day': DATE, 'verified_result_races': 36, 'linked_six_predictions': have_forecasts,
         'without_fixed_final_prediction': 30, 'tie_2nd_place': 1,
-        'official_result_pages_verified': 6,
+        'official_result_pages_verified': actual_official_urls,
         'formal_eligible_denominators': c['formal_eligible_denominators'],
         'formal_certification': 'REJECTED_UNDER_V1_7_0',
         'note': '結果照合は成立。発走前の公式scopeがないため正式KPI認証は不合格。',
