@@ -15,8 +15,6 @@ OUTPUT = Path('docs/validation/reviews/cycle_04/acceptance.json')
 
 def run(root):
     paths = sorted(set(root.glob('scripts/*.py')) | set(root.glob('docs/manual/*.md')) | {
-        root / 'docs/validation/reviews/cycle_03/decisions.json',
-        root / 'docs/validation/reviews/cycle_03/collection.json',
         root / 'docs/validation/reviews/cycle_04/carryover.json',
         root / 'docs/validation/reviews/cycle_04/migration-manifest.json',
         root / 'docs/validation/reviews/cycle_04/summary.json',

@@ -52,8 +52,7 @@ jobs:
           fetch-depth: 0
       - name: 第3歴史台帳・訂正前後の固定照合
         run: |
-          python3 scripts/check_cycle03.py --require-data --require-complete
-          python3 scripts/build_cycle03_review.py --check --require-complete
+          python3 scripts/cycle04_history.py --audit
       - name: 第4繰越68項目・保全原本・36R事後台帳
         run: |
           python3 scripts/cycle04_migration.py --audit

@@ -14,7 +14,7 @@ def build(root):
         'docs/jravan/04_prediction_engine.md','docs/jravan/07_review_ai.md','docs/jravan/10_operations.md',
         'docs/validation/README.md','docs/validation/cycle_04.md','docs/validation/contracts/cycle_04.json','docs/validation/contracts/cycle04_operations.md',
         'docs/validation/reviews/cycle_04/carryover.json','docs/validation/reviews/cycle_04/migration-manifest.json','docs/validation/reviews/cycle_04/summary.json','docs/validation/records/cycle_04/2026-10-17.json','.agents/skills/horse-racing-forecast/SKILL.md','docs/validation/reviews/cycle_04/acceptance.json','docs/validation/execution-gates/contract-state.json',
-        'docs/validation/reviews/cycle_03/decisions.json','docs/validation/templates/chatgpt_prediction_task.md',
+        'docs/validation/templates/chatgpt_prediction_task.md',
         'docs/validation/market-chat-acquisition.md','docs/validation/contracts/chat-market-acquisition.json',
         'docs/validation/market-chat-research/2026-10-13/replay-pages.json',
         'docs/validation/probability-presentation.md','docs/validation/dependency-risk.md',

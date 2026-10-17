@@ -2,7 +2,7 @@
   "schema_version": "cycle04-acceptance-v1",
   "mode": "SYNTHETIC",
   "result": "PASS",
-  "tests_run": 908,
+  "tests_run": 920,
   "failures": 0,
   "skipped": 0,
   "live_race_count": null,
@@ -15,7 +15,7 @@
     },
     {
       "path": ".github/workflows/check-cycle04.yml",
-      "sha256": "749bdfe330f04694dfac93375c14b9f3ad93184d9765e5285f022f87e45e74b7"
+      "sha256": "5ca4932b430cf7934be4782677eb0622d6625fad0806fd1097dfadbfa922f465"
     },
     {
       "path": ".github/workflows/check-integration-acceptance.yml",
@@ -63,11 +63,11 @@
     },
     {
       "path": "docs/validation/contracts/cycle04_operations.md",
-      "sha256": "0a780b711cd41e23afed9162607abe9bfe68671ad49c3b49f2d46f8abde59671"
+      "sha256": "a743994a28eabccc3e77c3372fc4f98d6a49e0ab91149e8c73d5aaf204f2721b"
     },
     {
       "path": "docs/validation/contracts/cycle_04.json",
-      "sha256": "dc91070345992334c74ff5f6b8bd9960b78445ac355c9afc526fdbc264db7d6b"
+      "sha256": "5c44ac9fb8ec914215403a4ef2ea3a49133a5406310ff879177cdadfa5304cac"
     },
     {
       "path": "docs/validation/execution-gates/contract-state.json",
@@ -82,20 +82,12 @@
       "sha256": "a901c4d3193b744d87da9d4a36868e25630ba3035b3bfd5157a9f79ea5eb04f8"
     },
     {
-      "path": "docs/validation/reviews/cycle_03/collection.json",
-      "sha256": "d409f29ff376b0b20f432e473a0ec5b6ad4351514ca9dfe3ccfb85e5338fd9c4"
-    },
-    {
-      "path": "docs/validation/reviews/cycle_03/decisions.json",
-      "sha256": "dba19e695bd00d8a0a15e03807b95cc155713f1841ca6a4253503a2ec9c3d020"
-    },
-    {
       "path": "docs/validation/reviews/cycle_04/carryover.json",
       "sha256": "9fa0522be3d8daefff9daac35093ad37956fe6a48ea05591778f90a901e32006"
     },
     {
       "path": "docs/validation/reviews/cycle_04/migration-manifest.json",
-      "sha256": "bf5a68cd5b2f6763f293c856857c52fa7d4db832f4beb8d40a8583b075cfb1fb"
+      "sha256": "15d2ce2fd5545021b8182bc9f18cfce4afc58a101dede12b1c79b312491a6d7c"
     },
     {
       "path": "docs/validation/reviews/cycle_04/summary.json",
@@ -103,7 +95,7 @@
     },
     {
       "path": "docs/validation/templates/chatgpt_prediction_task.md",
-      "sha256": "d6fda86c8124c92d5c2a0a2ec99478f340257315e00fc6ed08fa16a0c6c20929"
+      "sha256": "1de3aef3b501341119999d53c721aea7ef93cea43accdf8638a3a6a683811112"
     },
     {
       "path": "scripts/audit_20261012_pr78.py",
@@ -115,7 +107,7 @@
     },
     {
       "path": "scripts/build_v170_manifest.py",
-      "sha256": "cca781d042ad63f39304fde4bc45e2e55b47b7ba1f7f007a7c97eeedabe6fd41"
+      "sha256": "7fc1b3e49414a9348eccd16a1caf09bfbaefa2707ab63e27d73bbaacbcb3c015"
     },
     {
       "path": "scripts/chat_calibration_review.py",
@@ -191,7 +183,7 @@
     },
     {
       "path": "scripts/check_cycle04.py",
-      "sha256": "f4c83bd195a0be84a8e79aafe6764e3b1f4a271a0ecff96b4ae6a8da4a86ef86"
+      "sha256": "5cee10a4316b690eefbb79f3592e6fbcbad4b497d2bce63da27b233b407a6720"
     },
     {
       "path": "scripts/check_cycle04_full_day_reconciliation.py",
@@ -219,7 +211,7 @@
     },
     {
       "path": "scripts/check_integration_acceptance.py",
-      "sha256": "21fbfad76d4d9d2dd0e09920f9cdb2631aeba3c7c53de72935b28ceb4d5753f7"
+      "sha256": "6d30f67ac26ebbda32956509e793cfb6c54498c02bceedb2569ecb68122ec4e8"
     },
     {
       "path": "scripts/check_legacy_fact_followup.py",
@@ -302,8 +294,16 @@
       "sha256": "27b2c597cb8caefbca5683acc97ad78f194986c0ec91b493be7fc100f075b3fb"
     },
     {
+      "path": "scripts/cycle04_daily_audit.py",
+      "sha256": "74b43ac8eca43c555518ca598a21c3260ee1c1ccaa50ba965fee37343cc836fa"
+    },
+    {
+      "path": "scripts/cycle04_history.py",
+      "sha256": "1d12c96172c5a0565cf4b717b49561f4b40f954e4cb0e1ad008dee6fe7907720"
+    },
+    {
       "path": "scripts/cycle04_migration.py",
-      "sha256": "51f839f0ce5ddb23a57b44cdcbc5bbe0cd0c68be1f1744c20330400555521fb3"
+      "sha256": "fa0448e8e2de58a203fa07f35098aa5e804ef42d3b22e6977321d48618df1a55"
     },
     {
       "path": "scripts/cycle04_operations.py",
@@ -327,7 +327,7 @@
     },
     {
       "path": "scripts/cycle04_workflow.py",
-      "sha256": "5ae094a07eb1d8859c24a709a62e0b702b29ac3a2973cbe29d7764869c4e350f"
+      "sha256": "d91f55cc9026763ff09acb6a17417535cda8362f6393a3aaca9482b01d612630"
     },
     {
       "path": "scripts/dependency_risk.py",
@@ -379,7 +379,7 @@
     },
     {
       "path": "scripts/run_cycle04_acceptance.py",
-      "sha256": "3ac2a59550ee4eb7113999e340e8edd9b704283aa0548c38b143eb7a83289739"
+      "sha256": "a33f91046ea317f72a940c5d96e1759c7b80f58fb3957c5486be31b751fcfdb3"
     },
     {
       "path": "scripts/run_release_readiness.py",
@@ -403,7 +403,7 @@
     },
     {
       "path": "scripts/test_build_cycle03_review.py",
-      "sha256": "9556243255b6036540c2d651cbb8de7e8af5e32ab4a4a4b43a5a774a73faf9df"
+      "sha256": "2713c0f260ca815efdbdb013a626eadbfadb8364d96b5870fd4c7c9f11da1d0f"
     },
     {
       "path": "scripts/test_chat_calibration_review.py",
@@ -499,23 +499,31 @@
     },
     {
       "path": "scripts/test_cycle04_acceptance.py",
-      "sha256": "9ab7e046ecf896c5f6fa00c0727bc5144fe1f02b0425a1467db50ee99a6eab14"
+      "sha256": "0cf00935726fa4b08b7e795b1406e363ee3a7b21614b5688a5abd26dc9ebc2b0"
     },
     {
       "path": "scripts/test_cycle04_completion.py",
       "sha256": "4614abd925bc7f962342d4fb39cf3bad87f9c99b20453ab479268cbf4305a898"
     },
     {
+      "path": "scripts/test_cycle04_daily_audit.py",
+      "sha256": "a00978590cecea50ea41d690599b73890a93bba4cabdba937ca94d0541ab2466"
+    },
+    {
       "path": "scripts/test_cycle04_full_day_reconciliation.py",
       "sha256": "bdf0ed8e95ebaf997cda2f5119ad2cd0cc7f13910c4fceafef05e196e43be380"
     },
     {
+      "path": "scripts/test_cycle04_history.py",
+      "sha256": "692473e906abb0ebf76606c82d7470b43677af54d751a76743537c32132deed1"
+    },
+    {
       "path": "scripts/test_cycle04_migration.py",
-      "sha256": "a82f035d92c2a1dbde429e61472188d90f902c6521e3c1c5a7177f25416a99f5"
+      "sha256": "28fe439c1c74851cd1da98b8121e94523953dea1e6c840269dc656db4eb36d1b"
     },
     {
       "path": "scripts/test_cycle04_period.py",
-      "sha256": "46c712d0949a61a4ab5c37e52e7be45fc06dcf42d6f91b561bc8fc6c31d8977e"
+      "sha256": "1db839697fadb4a1817d4fdc7739c001ed6c31519633b7c103cfccb4321163ee"
     },
     {
       "path": "scripts/test_cycle04_recommendation_diagnostics.py",
@@ -539,7 +547,7 @@
     },
     {
       "path": "scripts/test_cycle04_workflow.py",
-      "sha256": "10140a467608e5c0fbe0caaaad40f426c6c86ebf7a23afff56e391d3e0efad01"
+      "sha256": "5bc5b37d3830b45db293d6f8c64a6e41779c20b76e2443709b934e739f87d29a"
     },
     {
       "path": "scripts/test_dependency_risk.py",

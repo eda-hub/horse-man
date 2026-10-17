@@ -276,6 +276,26 @@ def record_market(root,date,entry):
     return save(root,day,before)
 
 
+def request_review(root, date, entry, now=None):
+    """公式結果を先に照合・登録し、回顧をまだ保存していない不足を監査へ渡す。"""
+    day,before=read_day(root,date)
+    race=entry.get('race_id');require(race in day['initial_scope'],'review request outside scope')
+    current=now or datetime.now(timezone.utc)
+    row=day['races'][race]
+    path=safe_path(root,entry.get('result_path'));raw=path.read_bytes();result=json.loads(raw)
+    post=effective_post(root,row,race,date,at=current.isoformat(),now=current)
+    validate_official_result(result,race=race,date=date,post=post.isoformat())
+    require(iso(result['retrieved_at_jst'],'result retrieved')<=current,'future result request')
+    ref={'artifact_path':entry['result_path'],'sha256':hashlib.sha256(raw).hexdigest()}
+    require(not row.get('result_ready_ref') or row['result_ready_ref']==ref,'result request cannot replace fixed result')
+    manifest_ref=entry.get('result_reconciliation_ref')
+    validate_formal_result(root,row,race=race,date=date,result_ref=ref,manifest_ref=manifest_ref)
+    row['result_ready_ref']=ref
+    row['result_ready_reconciliation_ref']=copy.deepcopy(manifest_ref)
+    row.setdefault('review_requested_at_jst',current.isoformat())
+    return save(root,day,before)
+
+
 def review(root,date,entry):
     day,before = read_day(root,date);race = entry.get('race_id')
     require(race in day['initial_scope'], 'review outside initial scope')
@@ -480,6 +500,7 @@ def main(argv=None):
     mode.add_argument('--select',type=Path)
     mode.add_argument('--record-prediction',type=Path)
     mode.add_argument('--review',type=Path)
+    mode.add_argument('--request-review',type=Path,help='確認済み公式結果を回顧前に登録')
     mode.add_argument('--record-market',type=Path)
     mode.add_argument('--summary',action='store_true')
     parser.add_argument('--date')
@@ -502,6 +523,7 @@ def main(argv=None):
             elif args.select:out=select(root,args.date,load(args.select))
             elif args.record_prediction:out=record_prediction(root,args.date,load(args.record_prediction))
             elif args.record_market:out=record_market(root,args.date,load(args.record_market))
+            elif args.request_review:out=request_review(root,args.date,load(args.request_review))
             else:out=review(root,args.date,load(args.review))
         if args.preview:
             print('公式発走変更の検証成功（プレビューのみ・台帳未保存）。')

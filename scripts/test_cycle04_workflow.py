@@ -79,6 +79,20 @@ class OperationalWorkflow(unittest.TestCase):
         self.assertEqual(after['kpis']['market']['eligible_ids'],0)
         self.assertEqual(len(workflow.read_day(self.root,DATE)[0]['races'][RACE]['prediction_history']),2)
 
+    def test_official_result_request_exposes_missing_review_then_clears_it(self):
+        from cycle04_daily_audit import audit_days
+        self.register();workflow.record_prediction(self.root,DATE,self.entry);self.select()
+        self.entry['phase']='FINAL';workflow.record_prediction(self.root,DATE,self.entry)
+        entry=self.result_entry();now=datetime.fromisoformat(DATE+'T12:00:00+09:00')
+        workflow.request_review(self.root,DATE,entry,now=now)
+        before=audit_days(self.root,[workflow.read_day(self.root,DATE)[0]],now=now)
+        self.assertEqual([(r['stage'],r['state']) for r in before['rows']],
+                         [('INITIAL','COMPLETE'),('FINAL','COMPLETE'),('REVIEW','OVERDUE')])
+        workflow.review(self.root,DATE,entry)
+        after=audit_days(self.root,[workflow.read_day(self.root,DATE)[0]],now=now)
+        self.assertEqual(after['overdue_count'],0)
+        self.assertEqual(after['state'],'COMPLETE')
+
     def shadow_gate(self, name='first-shadow', path=None):
         from test_next_prediction_compliance import write
         original=self.root/self.entry['prediction_gate_path']

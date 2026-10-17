@@ -69,7 +69,9 @@ def check_preparation(root):
         require(all(item.get(k) for k in ('title', 'owner', 'reason', 'evidence', 'next_test', 'protected')),
                 'decision owner/evidence/retest/protection missing')
         for p in item['evidence']:
-            require(safe_path(root, p).is_file(), 'decision evidence missing')
+            if not safe_path(root, p).is_file():
+                from cycle04_history import read
+                read(root, p)
     expected_validation = {f'E-{i:02d}' for i in (3, 4, 7, 8, 9, 10, 11, 12, 13)} | {'51B', 'U-01', 'U-01Q', 'U-02'}
     validations = decisions.get('validation_items')
     require(isinstance(validations, list) and len(validations) == len(expected_validation)
@@ -419,6 +421,7 @@ def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     p.add_argument('--require-active', action='store_true')
+    p.add_argument('--preparation-only', action='store_true', help='版の準備照合のみ。日次監査成功とは扱わない')
     p.add_argument('--require-complete', action='store_true',
                    help='正常一巡のみを要求。6日全scopeの工程と集計のGit読戻しが必要')
     p.add_argument('--completion-manifest', type=Path,
@@ -452,6 +455,11 @@ def main(argv=None):
                     ('。集計のGit読戻し固定参照が未指定です' if frozen is None else ''))
         if result['issues']:
             print('不足対象・理由：' + json.dumps(result['issues'], ensure_ascii=False))
+        if not args.preparation_only and not args.require_complete and not args.closure_review:
+            from cycle04_daily_audit import audit_days
+            daily = audit_days(root, days)
+            print('第4段階別監査：' + json.dumps(daily, ensure_ascii=False))
+            require(daily['overdue_count'] == 0, '期限超過・結果確認後の未完了があります')
         from cycle04_migration import validate_postrace
         historical_path = directory / '2026-10-17.json'
         historical = int(historical_path.exists() and

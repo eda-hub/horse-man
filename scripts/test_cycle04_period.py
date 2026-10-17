@@ -84,13 +84,10 @@ class ExtendedPeriod(unittest.TestCase):
     def test_all_schedule_contracts_match_and_launch_has_no_measured_data(self):
         self.assertEqual(checker.DATES, EXPECTED)
         self.assertEqual(shadow.DATES, EXPECTED)
-        for path in ('contracts/cycle_04.json', 'contracts/cycle04-launch.json', 'class-transition/forward-plan.json'):
+        for path in ('contracts/cycle_04.json', 'class-transition/forward-plan.json'):
             data = json.loads((ROOT / 'docs/validation' / path).read_text())
             self.assertEqual(data['race_dates'], EXPECTED)
-        launch = json.loads((ROOT / 'docs/validation/contracts/cycle04-launch.json').read_text())
-        self.assertEqual(set(launch['days']), set(EXPECTED))
-        self.assertTrue(all(day['initial_scope'] is None and day['measured_races'] is None
-                            for day in launch['days'].values()))
+        self.assertFalse((ROOT / 'docs/validation/contracts/cycle04-launch.json').exists())
 
     def test_period_ends_after_november_first_in_japan(self):
         plan = json.loads((ROOT / 'docs/validation/class-transition/forward-plan.json').read_text())

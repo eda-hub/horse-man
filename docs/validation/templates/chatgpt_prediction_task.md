@@ -52,3 +52,6 @@ eda-hub/horse-manのmainからmanual READMEを取得し、同一参照commitで�
 各日で初回scope・初回FIX/個別完了・選定revision・最終予想/独立推奨・公式結果・回顧を対象ごとに照合する。未選定の初回と選定済み未最終を分け、推奨なし/明示的印のみは個別保存検査が完了していれば正常として扱う。推奨PENDINGの無言置換、取得不足の0埋め、後日の宣言・receipt再生成をしない。
 
 `cycle04_workflow.py --summary`で工程不足と独立KPIを表示する。6日全件の正常一巡は、Git保存/読戻し済みの各日・集計固定参照を与えた`check_cycle04.py --require-complete --completion-manifest ...`が成功した場合だけとする。未実施を残して終えるなら、Owner/審査者・全不足・保護対象・次試験の実際の審査記録をGit保存し、`--closure-review`で別途検査する。自己承認・性能昇格はしない。
+
+
+回顧時は公式結果・照合manifestを保存した直後に `cycle04_workflow.py --date YYYY-MM-DD --request-review <race_id/result_path/result_reconciliation_refを持つJSON>` で結果確認を日次branchへ記録し、回顧保存後に通常の `check_cycle04.py` を実行する。公式結果未確認は待機、結果確認後の回顧不足・発走期限超過の初回/選定FINAL不足は失敗として表示する。失敗を予想本体保存の中止理由にしない。

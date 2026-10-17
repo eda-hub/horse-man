@@ -249,3 +249,12 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 10/17は `records/cycle_04/2026-10-17.json` の `registration_origin=POSTRACE_RECONCILIATION` として登録した。36Rは事後の結果照合対象で、`initial_scope/selected_scope/final_scope/reviewed_scope` は前向き認証として空のまま。元IDと正規化IDの両方を保持し、6Rのみ公式個別結果照合、残り30Rは二次情報と区分する。旧認証拒否、未保存の初回予想、推奨4診断、発走前scope未登録は変更しない。将来の前向き依頼にこの日の事後台帳を転用しない。
 
 通常監査は `python3 scripts/check_cycle04.py`、事後原票照合は `python3 scripts/check_cycle04_full_day_reconciliation.py`、移管正本/集計/欠測判別は `python3 scripts/cycle04_migration.py --audit` を使用する。推奨の厳格CLI `python3 scripts/recommendation.py --audit` は従来の過去不足4件で非0。CIの `cycle04_recommendation_diagnostics.py --audit` は厳格CLIの実出力と固定原票SHA-256を照合し、4件が増減・改変したら非0にする。基準一致時も厳格CLIは非0であり、正常な推薦が完了したと表現しない。正常な実レース一巡・全6日終了・性能採用はそれぞれ別の検査/審査が必要。
+
+
+## 段階別監査と固定履歴への移管
+
+`python3 scripts/check_cycle04.py` は第4の準備整合に加え、実際に依頼・登録された日別scopeの段階別監査を実行する。初回は初回scope、FINALは選定scopeだけを対象にする。発走前に不足があればWAITINGとして表示し、公式変更履歴を適用した発走予定時刻以上で不足があれば終了1。未選定レースのFINALと未依頼の未来日は要求しない。準備だけを確認する場合は `--preparation-only` を明示し、日次成功の証明には使わない。全期間終了は引き続き `--require-complete --completion-manifest ...` で独立審査する。
+
+回顧開始時は、先に保存した公式結果と照合manifestを指定したJSON（`race_id / result_path / result_reconciliation_ref`）を、`cycle04_workflow.py --date YYYY-MM-DD --request-review <JSON>` に渡す。既存の日次branch・writer・排他制御を使い、公式結果の実本文/hash/取得時刻/照合manifestを検査して `result_ready_ref` を記録する。公式結果未確認はWAITING_RESULT。結果確認済みで回顧未完了は終了1となる。結果の確認前後をタスク開始時刻や発走からの推測時間で代用しない。CI/checkerが失敗しても予想の固定・保存・提示を継続し、該当工程の未完了を残す。
+
+第2/第3の終了資料・採否・旧操作説明は第4の繰越正本と本書へ統合した。削除対象7資料は移行manifestに固定commit/path/blob/SHA-256と統合先を記録し、`cycle04_history.py --audit` が64原入力をGitから実取得して集合・KPI・精算を再計算する。第4の通常検査は第3作業ツリーの採否/集計ファイルを読まない。固定履歴が取得不能・誤blob・本文hash不一致・再計算差分なら失敗し、確認フラグで代用しない。未解決の第2件数や第3保留57件を第4の前向き母数へ移していない。

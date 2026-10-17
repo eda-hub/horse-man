@@ -183,7 +183,9 @@ class CycleReviewTests(unittest.TestCase):
 
     def test_registered_real_report_reproduces_known_collection(self):
         root = Path(__file__).resolve().parents[1]
-        saved = json.loads((root / DEFAULT_REPORT).read_text(encoding="utf-8"))
+        from cycle04_history import read_json, recompute, COLLECTION
+        saved = read_json(root, COLLECTION)
+        recompute(root)
         r = build(root, saved["as_of_date_jst"], saved["basis_commit"])
         self.assertEqual(r, saved)
         self.assertEqual(r["collection"]["missing_dates"], [])
