@@ -5,7 +5,7 @@ import unittest
 from contextlib import redirect_stdout, redirect_stderr
 from pathlib import Path
 
-from persistence_status import describe_persistence, render_persistence, main
+from persistence_status import describe_persistence, describe_operation, render_persistence, main
 
 
 class PersistenceStatusTests(unittest.TestCase):
@@ -87,6 +87,30 @@ class PersistenceStatusTests(unittest.TestCase):
     def test_audit_result_cannot_stand_in_for_individual_completion(self):
         with self.assertRaises(TypeError):
             describe_persistence('予想', audit_succeeded=True)
+
+    def test_existing_remote_bytes_are_verified_not_write_failed(self):
+        for timing in ("PRE_SCHEDULED", "SCHEDULE_REACHED", "UNDETERMINED"):
+            with self.subTest(timing=timing):
+                operation = {
+                    "write_state": "ALREADY_PRESENT", "readback_state": "MATCH",
+                    "timing_state": timing, "failure_category": None}
+                report = describe_operation("新潟11Rの固定原本", operation)
+                self.assertEqual(report["status_code"], "EXISTING_BODY_VERIFIED")
+                self.assertTrue(report["remote_body_verified"])
+                self.assertFalse(report["forward_eligible"])
+                self.assertFalse(report["complete"])
+                self.assertEqual(report["checks"]["読戻し一致"], "成功")
+                self.assertNotEqual(report["checks"]["書込"], "失敗")
+                self.assertIn("GitHub上の同一原本", render_persistence(report))
+                self.assertIn("未認証", render_persistence(report))
+
+    def test_recovered_timeout_keeps_existing_remote_state(self):
+        report = describe_operation("既存原本", {
+            "write_state": "ALREADY_PRESENT", "readback_state": "MATCH",
+            "timing_state": "PRE_SCHEDULED", "failure_category": None,
+            "operations": [{"operation": "write_or_readback", "category": "timeout"}]})
+        self.assertEqual(report["status_code"], "EXISTING_BODY_VERIFIED")
+        self.assertFalse(report["complete"])
 
     def test_cli_default_is_japanese_and_json_is_explicit(self):
         with tempfile.TemporaryDirectory() as directory:
