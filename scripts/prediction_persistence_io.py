@@ -276,7 +276,7 @@ class GitHubContentsTransport:
         import urllib.parse
         if not token or repository != "eda-hub/horse-man":
             raise ValueError("explicit token and approved repository required")
-        if not re.fullmatch(r"prediction/\\d{4}-\\d{2}-\\d{2}", branch):
+        if not re.fullmatch(r"prediction/\d{4}-\d{2}-\d{2}", branch):
             raise ValueError("only prediction date branch may be written")
         self.repository = repository
         self.branch = branch
