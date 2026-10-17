@@ -17,6 +17,19 @@ LABELS = {'artifact': '本体', 'receipt': '保存証跡', 'content_match': 'FIX
           'shadow': '適用Shadow', 'audit': '全体監査（個別完了の代用不可）'}
 
 
+def pre_write_clock(root, date, race):
+    """実行入口から呼ぶ最新時計判定。保存証拠・既存個別完了と混同しない。"""
+    from prediction_clock import observed_assessment
+    return observed_assessment(root, date, race)
+
+
+def describe_live_write_status(target, operation_result, *, individual_verified=None):
+    """実GitHubアダプターの結果を独立表示。receipt未検査は未完了。"""
+    from persistence_status import describe_operation
+    return describe_operation(target, operation_result,
+                              individual_verified=individual_verified)
+
+
 def target_name(kind, date, races):
     if not isinstance(races, list):
         races = []

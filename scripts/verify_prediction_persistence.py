@@ -219,7 +219,20 @@ def main():
     parser.add_argument('--completion-status',action='store_true',help='read-only independent completion checks with Japanese output')
     parser.add_argument('--status-json',action='store_true',help='machine-readable completion result including internal diagnostics')
     parser.add_argument('--machine-log',action='store_true',help='legacy internal state log for explicit automated callers')
+    parser.add_argument('--clock-status',action='store_true',help='read-only current official race clock decision; no GitHub write')
+    parser.add_argument('--clock-race-id',help='official race ID for --clock-status')
     args=parser.parse_args()
+    if args.clock_status:
+        if not args.date or not args.clock_race_id or args.audit or args.prepare or args.snapshot_id:
+            parser.error('--clock-status requires --date and --clock-race-id without other modes')
+        from prediction_clock import safe_for_write
+        from task_completion import pre_write_clock
+        try:
+            clock = pre_write_clock(args.root,args.date,args.clock_race_id)
+        except (ValueError,OSError,KeyError,TypeError) as exc:
+            clock = {'status':'UNDETERMINED','remaining_seconds':None,'reason':str(exc)}
+        print(json.dumps(clock,ensure_ascii=False,indent=2))
+        return 0 if safe_for_write(clock) else 1
     if args.completion_status and (not args.snapshot_id or args.prepare or args.audit):
         parser.error('--completion-status requires direct --snapshot-id verification')
     if args.status_json and not args.completion_status:

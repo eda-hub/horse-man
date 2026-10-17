@@ -1,0 +1,315 @@
+"""拒否、原本不変、commit固定読戻し、競合と冪等性の合成試験。"""
+import hashlib
+import unittest
+from prediction_persistence_io import (
+    FixedPayload, PersistenceError, classify_failure, incident_record,
+    persist_fixed, sanitized,
+)
+
+
+SHA = "a" * 40
+
+
+class MemoryGitHub:
+    def __init__(self, *, initial=None, failures=None, mismatched=False):
+        self.content = initial
+        self.failures = list(failures or [])
+        self.mismatched = mismatched
+        self.writes = []
+        self.path = "docs/validation/snapshots/2026-10-18/R.json"
+
+    def read(self, branch, path, ref=None):
+        if self.content is None:
+            raise FileNotFoundError(path)
+        return dict(branch=branch, path=path, content=(b"changed" if self.mismatched and ref else self.content),
+                    blob_sha="b" * 40, commit_sha=SHA)
+
+    def write(self, branch, path, body, expected_blob_sha):
+        if self.failures:
+            error = self.failures.pop(0)
+            if error:
+                raise error
+        self.writes.append((body, expected_blob_sha))
+        self.content = body
+        return dict(branch=branch, path=path, commit_sha=SHA)
+
+
+class PersistenceTest(unittest.TestCase):
+    def setUp(self):
+        self.payload = FixedPayload("eda-hub/horse-man", "prediction/2026-10-18",
+                                    "docs/validation/snapshots/2026-10-18/R.json", b'{"fixed":true}\n')
+        self.clock = lambda stage: {"status": "PRE_SCHEDULED", "remaining_seconds": 30}
+
+    def test_new_file_write_and_exact_commit_readback(self):
+        transport = MemoryGitHub()
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        self.assertEqual((r.write_state, r.readback_state, r.commit_sha),
+                         ("WRITTEN", "MATCH", SHA))
+        self.assertFalse(r.completion_verified)
+        self.assertEqual(transport.writes[0][0], self.payload.body)
+
+    def test_existing_exact_bytes_idempotent(self):
+        transport = MemoryGitHub(initial=self.payload.body)
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        self.assertEqual(r.write_state, "ALREADY_PRESENT")
+        self.assertEqual(r.readback_state, "MATCH")
+        self.assertEqual(transport.writes, [])
+
+    def test_different_existing_content_refuses_overwrite(self):
+        transport = MemoryGitHub(initial=b"different")
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        self.assertEqual(r.failure_category, "conflict")
+        self.assertEqual(transport.writes, [])
+
+    def test_allow_update_never_overwrites_fixed_snapshot(self):
+        transport = MemoryGitHub(initial=b"different")
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R",
+                          allow_update=True)
+        self.assertEqual(r.failure_category, "conflict")
+        self.assertEqual(r.readback_state, "NOT_ATTEMPTED")
+        self.assertEqual(transport.content, b"different")
+        self.assertEqual(transport.writes, [])
+
+    def test_all_fixed_evidence_paths_reject_different_bytes(self):
+        paths = ("docs/validation/snapshots/2026-10-18/R.json",
+                 "docs/validation/fix-manifests/2026-10-18/R.json",
+                 "docs/validation/persistence-intents/2026-10-18/R.json",
+                 "docs/validation/recommendations/2026-10-18/R.json",
+                 "docs/validation/persistence-receipts/2026-10-18/R.md")
+        for path in paths:
+            with self.subTest(path=path):
+                fixed = FixedPayload(self.payload.repository, self.payload.branch, path, b"new")
+                transport = MemoryGitHub(initial=b"old")
+                result = persist_fixed(fixed, transport, self.clock, operation_id="fixed",
+                                       allow_update=True)
+                self.assertEqual(result.failure_category, "conflict")
+                self.assertEqual(transport.writes, [])
+                self.assertEqual(transport.content, b"old")
+
+    def test_safety_refusal_stops_without_other_route(self):
+        error = PersistenceError("tool blocked: Bearer secretvalue",
+                                 kind="safety_refusal", api_reached=False, tool="host")
+        primary = MemoryGitHub(failures=[error])
+        alternate = MemoryGitHub()
+        r = persist_fixed(self.payload, primary, self.clock, operation_id="R",
+                          alternative=alternate, alternative_authorized=True)
+        self.assertEqual(r.failure_category, "safety_refusal")
+        self.assertEqual(r.write_state, "NOT_ATTEMPTED")
+        self.assertEqual(primary.writes, [])
+        self.assertEqual(alternate.writes, [])
+        self.assertFalse(r.retry_allowed)
+        self.assertNotIn("secretvalue", str(incident_record(self.payload, r)))
+
+    def test_transient_retry_preserves_bytes(self):
+        primary = MemoryGitHub(failures=[PersistenceError("timeout", kind="timeout", api_reached=None)])
+        r = persist_fixed(self.payload, primary, self.clock, operation_id="R")
+        self.assertEqual(r.readback_state, "MATCH")
+        self.assertEqual(primary.writes, [(self.payload.body, None)])
+
+    def test_independent_route_only_for_allowed_transient(self):
+        primary = MemoryGitHub(failures=[PersistenceError("temporary", kind="transport")])
+        alternate = MemoryGitHub()
+        r = persist_fixed(self.payload, primary, self.clock, operation_id="R",
+                          alternative=alternate, alternative_authorized=True)
+        self.assertEqual(r.readback_state, "MATCH")
+        self.assertEqual(alternate.content, self.payload.body)
+
+    def test_timeout_after_write_reconciled_without_duplicate(self):
+        class TimeoutAfterWrite(MemoryGitHub):
+            def write(self, branch, path, body, expected_blob_sha):
+                super().write(branch, path, body, expected_blob_sha)
+                raise PersistenceError("timed out after commit", kind="timeout")
+        transport = TimeoutAfterWrite()
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        self.assertEqual(r.write_state, "ALREADY_PRESENT")
+        self.assertEqual(len(transport.writes), 1)
+        self.assertIsNone(r.failure_category)
+        self.assertFalse(r.retry_allowed)
+
+    def test_no_write_at_or_after_or_unknown_deadline(self):
+        for status in ("SCHEDULE_REACHED", "UNDETERMINED"):
+            transport = MemoryGitHub()
+            r = persist_fixed(self.payload, transport,
+                              lambda stage: {"status": status},
+                              operation_id="R")
+            self.assertEqual(r.timing_state, status)
+            self.assertEqual(transport.writes, [])
+
+    def test_wrong_commit_contents_not_completed(self):
+        transport = MemoryGitHub(mismatched=True)
+        r = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        self.assertEqual(r.failure_category, "conflict")
+        self.assertNotEqual(r.readback_state, "MATCH")
+
+    def test_wrong_scope_and_security(self):
+        for branch, path in [
+            ("main", self.payload.path), ("prediction/2026-10-18", "../x"),
+            ("prediction/2026-10-18", "scripts/check_cycle04.py")]:
+            with self.assertRaises(ValueError):
+                FixedPayload("eda-hub/horse-man", branch, path, b"x")
+
+    def test_http_error_not_misclassified_as_safety(self):
+        self.assertEqual(classify_failure(http_status=403, api_reached=True), "authorization")
+        self.assertEqual(classify_failure(http_status=409, api_reached=True), "conflict")
+        self.assertEqual(classify_failure(http_status=500, api_reached=True), "server_unavailable")
+        self.assertEqual(classify_failure(http_status=403, api_reached=False), "unknown")
+        self.assertEqual(classify_failure(kind="branch_policy",http_status=403,api_reached=True), "branch_policy")
+
+    def test_readback_missing_at_fixed_commit_is_reported(self):
+        class MissingAtCommit(MemoryGitHub):
+            def read(self, branch, path, ref=None):
+                if ref is not None:
+                    raise FileNotFoundError(path)
+                return super().read(branch, path, ref)
+        transport = MissingAtCommit()
+        result = persist_fixed(self.payload, transport, self.clock, operation_id="R")
+        self.assertEqual(result.write_state, "WRITTEN")
+        self.assertNotEqual(result.readback_state, "MATCH")
+        self.assertEqual(result.failure_category, "unknown")
+
+    def test_clock_error_before_write_is_undetermined(self):
+        transport = MemoryGitHub()
+        def clock(stage):
+            raise ValueError("clock source unavailable")
+        result = persist_fixed(self.payload, transport, clock, operation_id="R")
+        self.assertEqual(result.timing_state, "UNDETERMINED")
+        self.assertEqual(transport.writes, [])
+
+    def test_clock_error_after_readback_preserves_bytes_without_eligibility(self):
+        transport = MemoryGitHub()
+        def clock(stage):
+            if stage == "readback":
+                raise ValueError("clock lost")
+            return {"status": "PRE_SCHEDULED", "remaining_seconds": 20}
+        result = persist_fixed(self.payload, transport, clock, operation_id="R")
+        self.assertEqual(result.write_state, "WRITTEN")
+        self.assertEqual(result.readback_state, "MATCH")
+        self.assertEqual(result.timing_state, "UNDETERMINED")
+        self.assertFalse(result.completion_verified)
+
+    def test_transport_requires_existing_date_branch(self):
+        from unittest.mock import patch
+        from prediction_persistence_io import GitHubContentsTransport
+        with patch.object(GitHubContentsTransport, '_call', return_value={'commit': {'sha': SHA}}) as call:
+            obj = GitHubContentsTransport('eda-hub/horse-man', 'prediction/2026-10-18', 'synthetic-not-a-secret')
+            self.assertEqual(obj.branch, 'prediction/2026-10-18')
+            self.assertIn('/branches/prediction%2F2026-10-18', call.call_args.args[1])
+        with self.assertRaises(ValueError):
+            GitHubContentsTransport('eda-hub/horse-man', 'main', 'token')
+
+    def test_transport_direct_write_rejects_existing_blob_sha(self):
+        from unittest.mock import patch
+        from prediction_persistence_io import GitHubContentsTransport
+        transport = GitHubContentsTransport.__new__(GitHubContentsTransport)
+        transport.repository = self.payload.repository
+        transport.branch = self.payload.branch
+        with patch.object(transport, "_call") as github_api:
+            with self.assertRaises(PersistenceError) as failure:
+                transport.write(self.payload.branch, self.payload.path, b"new", "b" * 40)
+            self.assertEqual(failure.exception.kind, "conflict")
+            github_api.assert_not_called()
+
+    def test_transport_exact_commit_ref(self):
+        import base64
+        from unittest.mock import patch
+        from prediction_persistence_io import GitHubContentsTransport
+        obj = GitHubContentsTransport.__new__(GitHubContentsTransport)
+        obj.repository = 'eda-hub/horse-man'
+        obj.branch = 'prediction/2026-10-18'
+        obj._base = 'https://api.github.com/repos/eda-hub/horse-man'
+        with patch.object(obj, '_call', return_value={'type':'file','encoding':'base64',
+                          'content':base64.b64encode(self.payload.body).decode(),
+                          'sha':'b'*40}) as call:
+            r = obj.read(obj.branch,self.payload.path,SHA)
+            self.assertEqual(r['content'],self.payload.body)
+            self.assertEqual(r['commit_sha'],SHA)
+            self.assertIn('ref='+SHA,call.call_args.args[1])
+
+    def test_initialization_403_generates_local_incident(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        import json
+        from prediction_persistence_io import main
+        with TemporaryDirectory() as tmp:
+            original = Path(tmp) / "fixed.json"
+            record = Path(tmp) / "incident.json"
+            original.write_bytes(self.payload.body)
+            error = PersistenceError("branch denied Authorization: Bearer not-a-token",
+                                     http_status=403, api_reached=True,
+                                     request_id="req-branch-403", tool="github_contents_rest")
+            with patch.dict("os.environ", {"GITHUB_TOKEN": "private-token"}), \
+                 patch("prediction_persistence_io.GitHubContentsTransport", side_effect=error), \
+                 redirect_stdout(StringIO()):
+                code = main(["--date", "2026-10-18", "--race-id", "20261018-TOK-11",
+                             "--path", self.payload.path, "--payload-file", str(original),
+                             "--operation-id", "fixture", "--local-incident", str(record), "--write"])
+            self.assertEqual(code, 1)
+            incident = json.loads(record.read_text(encoding="utf-8"))
+            self.assertEqual(incident["failure_category"], "authorization")
+            self.assertFalse(incident["remote_persistence_certified"])
+            self.assertEqual(incident["target"]["sha256"], self.payload.digest)
+            event = incident["operations"][0]
+            self.assertEqual(event["operation"], "transport_initialize")
+            self.assertEqual(event["http_status"], 403)
+            self.assertEqual(event["request_id"], "req-branch-403")
+            self.assertEqual(event["api_reached"], True)
+            self.assertNotIn("private-token", record.read_text(encoding="utf-8"))
+            self.assertNotIn("not-a-token", record.read_text(encoding="utf-8"))
+
+    def test_initialization_refusal_without_http_is_preserved(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        import json
+        from prediction_persistence_io import main
+        with TemporaryDirectory() as tmp:
+            original = Path(tmp) / "fixed.json"
+            incident_path = Path(tmp) / "incident.json"
+            original.write_bytes(self.payload.body)
+            blocked = PersistenceError("tool safety refusal", kind="safety_refusal",
+                                       api_reached=False, request_id="policy-ref",
+                                       tool="host-check")
+            with patch.dict("os.environ", {"GITHUB_TOKEN": "test-token"}), \
+                 patch("prediction_persistence_io.GitHubContentsTransport", side_effect=blocked), \
+                 redirect_stdout(StringIO()):
+                code = main(["--date", "2026-10-18", "--race-id", "20261018-TOK-11",
+                             "--path", self.payload.path, "--payload-file", str(original),
+                             "--operation-id", "blocked", "--local-incident", str(incident_path),
+                             "--write"])
+            self.assertEqual(code, 1)
+            event = json.loads(incident_path.read_text(encoding="utf-8"))
+            self.assertEqual(event["failure_category"], "safety_refusal")
+            self.assertEqual(event["operations"][0]["request_id"], "policy-ref")
+            self.assertFalse(event["retry_allowed"])
+
+    def test_cli_allow_update_rejected_without_network_call(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        from prediction_persistence_io import main
+        with TemporaryDirectory() as tmp:
+            original = Path(tmp) / "fixed.json"
+            original.write_bytes(self.payload.body)
+            with patch.dict("os.environ", {"GITHUB_TOKEN": "test-token"}), \
+                 patch("prediction_persistence_io.GitHubContentsTransport") as transport, \
+                 redirect_stdout(StringIO()):
+                status = main(["--date", "2026-10-18", "--race-id", "20261018-TOK-11",
+                               "--path", self.payload.path, "--payload-file", str(original),
+                               "--operation-id", "no-rewrite", "--allow-update", "--write"])
+            self.assertEqual(status, 1)
+            transport.assert_not_called()
+
+    def test_redaction(self):
+        self.assertNotIn("topsecret", sanitized("Authorization: Bearer topsecret"))
+        self.assertNotIn("abcd123", sanitized("token=abcd123"))
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -6,6 +6,10 @@
   "performance_promotion": "NOT_APPROVED",
   "source_manifest": [
     {
+      "path": ".agents/skills/horse-racing-forecast/SKILL.md",
+      "sha256": "23c42de96e098747a0f28e563c0d3f74952790c4cbab0ce3f0bcc700ec8c084a"
+    },
+    {
       "path": ".github/workflows/check-cycle03.yml",
       "sha256": "1c0fb93c0f16181132dfd0eca14dac0c38c034434c064718848a95c5c9219288"
     },
@@ -59,7 +63,7 @@
     },
     {
       "path": "docs/manual/00_core.md",
-      "sha256": "c5c7f5ee7742e38ad81bfd38f68bbb13505cf69dae3a2ae25760079907789174"
+      "sha256": "e16b5a7638b7c38b47a84aea7db2e28a3ba12d95d00da086d34b9ae715d89f33"
     },
     {
       "path": "docs/manual/10_prediction.md",
@@ -111,7 +115,7 @@
     },
     {
       "path": "docs/validation/contracts/cycle04_operations.md",
-      "sha256": "180add8340852561997e0564612e24b046f104ca2f18e7c127c95a680a05a2f3"
+      "sha256": "09320cb0c5feacd7c9f788708cafb0352edb04a8ebc85aea650ed794a27f055e"
     },
     {
       "path": "docs/validation/contracts/cycle_04.json",
@@ -120,6 +124,10 @@
     {
       "path": "docs/validation/cycle_04.md",
       "sha256": "2c9a3e238dc818446d9fa686c9fde60ff259b797245154ae38c828356d3ba4dd"
+    },
+    {
+      "path": "docs/validation/daily-branches/README.md",
+      "sha256": "fe17fb57ffd0f23d91263c65e9ee279a77ab569d571342ca54ab59c1c249bda9"
     },
     {
       "path": "docs/validation/dependency-risk.md",
@@ -138,6 +146,10 @@
       "sha256": "748653e00d1dbd1c4ed111fbe67531bac0e9ce869f1e880e189eda618f1b99ec"
     },
     {
+      "path": "docs/validation/persistence-intents/README.md",
+      "sha256": "354aeafa7fb4dc96973e88564c1b907e74926d6b2bfc3b35316aa8a158194f7e"
+    },
+    {
       "path": "docs/validation/probability-presentation.md",
       "sha256": "7edee10c9279ad33ee13c1c907ff5841d65d92dd95f584f7d9b1fb35c85cd5f8"
     },
@@ -147,11 +159,19 @@
     },
     {
       "path": "docs/validation/reviews/cycle_04/acceptance.json",
-      "sha256": "b6276514aa9e086192bae215431a3e75b122f7eaac842aaa2a92bae83ddd9665"
+      "sha256": "af21f4c6e6560b4d5b001009f694204cdfccbdddb05af5095cfeaefcd4671579"
     },
     {
       "path": "docs/validation/templates/chatgpt_prediction_task.md",
-      "sha256": "a74be8a599704e02178c98e75eafc4ff250a16876cd3f0c5629a211c96d1c258"
+      "sha256": "df55cdf212c554604bbc2d019075278080961c823e9b2349b9e340dd69f5fcf4"
+    },
+    {
+      "path": "docs/validation/templates/chatgpt_prediction_task_v17.md",
+      "sha256": "b7b64bd5f469e8132cbc168680cf3f80634d8e2ef3ba27921bede362a08b52c4"
+    },
+    {
+      "path": "docs/validation/templates/next_cycle_execution_v17.md",
+      "sha256": "10ab5e2880a1d576c61b1e3693ba24d2c59eb6f9ab0f524eceb0cfea84daffb2"
     },
     {
       "path": "scripts/audit_20261012_pr78.py",
@@ -163,7 +183,7 @@
     },
     {
       "path": "scripts/build_v170_manifest.py",
-      "sha256": "9b495a9ed4850b85f4f4010155470aabdb73dcefdf3d80eb8bbc6e5beb951e6f"
+      "sha256": "211387020ffa3f2e8e05b1380b6cda72dd010b7989500f6f187482a10cb59aa7"
     },
     {
       "path": "scripts/chat_calibration_review.py",
@@ -355,7 +375,7 @@
     },
     {
       "path": "scripts/cycle04_workflow.py",
-      "sha256": "9379022eb9ac06e1bdcf5bc8452b83eb5b80c6104b2ef93f336fcc4ea421178e"
+      "sha256": "de78c810954edd8818a3c746a09550afa9cf7b4c8147c225eeb6e3b093413517"
     },
     {
       "path": "scripts/dependency_risk.py",
@@ -395,7 +415,15 @@
     },
     {
       "path": "scripts/persistence_status.py",
-      "sha256": "ddd973ae03b04f755be75df4cbffbdf69e88f6bdf7c58facef656d31e0eb2854"
+      "sha256": "128757de4d9abb30f8a82830e1272139636f34db84505e573367451169c44d4e"
+    },
+    {
+      "path": "scripts/prediction_clock.py",
+      "sha256": "196f01497ef18e6740b4c051196783db0b2f3fed50017b13acfb51a0418aca9c"
+    },
+    {
+      "path": "scripts/prediction_persistence_io.py",
+      "sha256": "74e81ebb45b2ed4a732bede3a5c0064dec82585df1950e9bedf64789bb64749c"
     },
     {
       "path": "scripts/probability_presentation.py",
@@ -407,11 +435,11 @@
     },
     {
       "path": "scripts/run_cycle04_acceptance.py",
-      "sha256": "e1bc46e68cb38586bce59907eb1dc4f871e7a0a0757761cb626970f018c89617"
+      "sha256": "a264281620cd2b3020e2435e9f7c114ffb6a14eab63db7659ee94d3d020ced6f"
     },
     {
       "path": "scripts/run_release_readiness.py",
-      "sha256": "d5662a9424ef120ccc161071c67718451874d4694e2cfbea9e82457aab53b09f"
+      "sha256": "efc85d359ff6e67d62d1f051a6571056f9060070c0f45cb2e72aa978be4bbed9"
     },
     {
       "path": "scripts/seal_prediction.py",
@@ -423,7 +451,7 @@
     },
     {
       "path": "scripts/task_completion.py",
-      "sha256": "c340a572bb9f6d6470242aabedc8825c27153d4f1f9ed780dbaab25a96471740"
+      "sha256": "4adc8e2242fd797498157b8c1458841f245753654472581e7da6bc6f5958fd1f"
     },
     {
       "path": "scripts/test_betting_kpi_split.py",
@@ -631,11 +659,19 @@
     },
     {
       "path": "scripts/test_persistence_status.py",
-      "sha256": "0df3b830bbee7198513708ca6d9f725a1d069c1b698228f77c0bb2a38557b2d2"
+      "sha256": "0bf16f52a41e37f12d4201fdc6f8a588d5ee821599e1d930bb0e156843e56a71"
     },
     {
       "path": "scripts/test_pr78_historical_audit.py",
       "sha256": "5f8c489119dd2fdbaa100f470a14f2c71e2831f53acc64bb197dd1d0b76cdad6"
+    },
+    {
+      "path": "scripts/test_prediction_clock.py",
+      "sha256": "a2828508b425f763f9a6cccf3b9ce092005dc60800ce7b0a27564eda40644511"
+    },
+    {
+      "path": "scripts/test_prediction_persistence_io.py",
+      "sha256": "71e79daecb2815ada9d92118d7c7a69f1e1d72d40b2dee982e4ed8ab45207d94"
     },
     {
       "path": "scripts/test_probability_presentation.py",
@@ -695,7 +731,7 @@
     },
     {
       "path": "scripts/verify_prediction_persistence.py",
-      "sha256": "2948f146b4ae3587b578ed7a5b4aeafbc08a0e6fb55f3fff2fb0960a16189592"
+      "sha256": "f8be876c71dcf7444ca83f2d092fbbaca7afa77a0efd621ae32bdca0f852a64b"
     }
   ]
 }
