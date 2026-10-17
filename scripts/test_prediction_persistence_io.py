@@ -25,7 +25,11 @@ class MemoryGitHub:
         return dict(branch=branch, path=path, content=(b"changed" if self.mismatched and ref else self.content),
                     blob_sha="b" * 40, commit_sha=SHA)
 
-    def write(self, branch, path, body, expected_blob_sha):
+    def write(self, branch, path, body, expected_blob_sha, *,
+              append_receipt=False, previous_body=None):
+        if append_receipt:
+            if self.content != previous_body or expected_blob_sha != "b" * 40:
+                raise PersistenceError("CAS preimage changed", kind="conflict")
         if self.failures:
             error = self.failures.pop(0)
             if error:
@@ -245,6 +249,148 @@ class PersistenceTest(unittest.TestCase):
             self.assertEqual(result, 1)
             github.assert_not_called()
             self.assertIn("race", out.getvalue())
+
+    def test_existing_short_race_id_is_accepted(self):
+        from prediction_persistence_io import verify_payload_binding
+        legacy = "20261018-TOK-11"
+        info = verify_payload_binding(self.payload, legacy)
+        self.assertEqual(info["race_date"], self.date)
+        result = persist_fixed(self.payload, MemoryGitHub(), self.clock,
+                               operation_id="existing-id", race_id=legacy)
+        self.assertEqual(result.readback_state, "MATCH")
+        for venue, expected in (("KYO", "KYOTO"), ("NII", "NIIGATA")):
+            with self.subTest(venue=venue):
+                from prediction_persistence_io import _race_parts
+                self.assertEqual(_race_parts("20261018-" + venue + "-11", self.date)[0],
+                                 expected)
+
+    def test_short_id_rejects_other_race_and_date(self):
+        from prediction_persistence_io import verify_payload_binding
+        for short in ("20261018-TOK-12", "20261017-TOK-11",
+                      "20261018-KYO-11", "20261018-NII-11"):
+            with self.subTest(short=short), self.assertRaises(ValueError):
+                verify_payload_binding(self.payload, short)
+
+    def shared_receipts(self):
+        path = "docs/validation/persistence-receipts/" + self.date + ".md"
+        recid = "20261018-TOKYO-11-REC-S01"
+        recpath = "docs/validation/recommendations/" + self.date + "/" + recid + ".json"
+        def record(id, *, race=None, artifact=None, previous=None, verified=False):
+            result = {"receipt_id": id, "artifact_id": artifact or recid,
+                      "race_id": race or self.race_id,
+                      "artifact_path": recpath,
+                      "scheduled_post_time_jst": self.post,
+                      "content_sha256": "e" * 64,
+                      "artifact_persist_status": "PERSIST_VERIFIED",
+                      "receipt_persist_status": ("RECEIPT_VERIFIED" if verified
+                                                 else "RECEIPT_READBACK_PENDING"),
+                      "timing_eligibility": "PRE_RACE_ELIGIBLE",
+                      "persist_verified_at_jst": "2026-10-18T15:11:00+09:00"}
+            if previous:
+                result["previous_receipt_ref"] = previous
+                result["receipt_verified_at_jst"] = "2026-10-18T15:12:00+09:00"
+            return result
+        def block(r):
+            return ("\n\n```persistence-receipt-v1\n" +
+                    json.dumps(r, ensure_ascii=False, indent=2) + "\n```\n").encode()
+        other = record("20261018-TOKYO-10-S01-R01",
+                       race="2026-10-18-TOKYO-10", artifact="20261018-TOKYO-10-S01")
+        old = record(recid + "-R01")
+        new = record(recid + "-R02", previous=recid + "-R01", verified=True)
+        prefix = b"# shared daily receipt\n" + block(other) + block(old)
+        return path, prefix, prefix + block(new), recid
+
+    def test_shared_receipt_r02_append_preserves_original_bytes(self):
+        path, old, candidate, recid = self.shared_receipts()
+        payload = FixedPayload(self.payload.repository, self.payload.branch, path, candidate)
+        transport = MemoryGitHub(initial=old)
+        result = persist_fixed(payload, transport, self.clock,
+                               operation_id="r02", race_id="20261018-TOK-11",
+                               append_receipt=True)
+        self.assertEqual(result.readback_state, "MATCH")
+        self.assertEqual(result.write_state, "WRITTEN")
+        self.assertEqual(transport.content, candidate)
+        self.assertTrue(transport.content.startswith(old))
+        self.assertEqual(transport.writes, [(candidate, "b" * 40)])
+        # recommendation.py --sealが参照するのと同じ日次共有receipt形式。
+        from prediction_persistence_io import _json_or_receipt
+        records = _json_or_receipt(payload, "persistence-receipts")
+        self.assertEqual(sum(r["receipt_id"] == recid + "-R02" for r in records), 1)
+        self.assertEqual(records[-1]["receipt_persist_status"], "RECEIPT_VERIFIED")
+        again = persist_fixed(payload, transport, self.clock,
+                              operation_id="r02-again", race_id=self.race_id,
+                              append_receipt=True)
+        self.assertEqual(again.write_state, "ALREADY_PRESENT")
+        self.assertEqual(len(transport.writes), 1)
+
+    def test_receipt_append_rejects_rewrite_duplicate_and_wrong_previous(self):
+        path, old, candidate, recid = self.shared_receipts()
+        original = self.payload
+        cases = [candidate.replace(b"# shared daily receipt", b"# modified history"),
+                 old + candidate[len(old):] + candidate[len(old):],
+                 candidate.replace((recid + "-R01").encode(),
+                                   b"NO-EXISTING-RECEIPT")]
+        for data in cases:
+            with self.subTest(length=len(data)):
+                transport = MemoryGitHub(initial=old)
+                result = persist_fixed(FixedPayload(original.repository, original.branch,
+                                                  path, data),
+                                       transport, self.clock, race_id=self.race_id,
+                                       operation_id="append-invalid", append_receipt=True)
+                self.assertEqual(result.failure_category, "conflict")
+                self.assertEqual(transport.content, old)
+                self.assertEqual(transport.writes, [])
+        no_flag = persist_fixed(FixedPayload(original.repository, original.branch,
+                                            path, candidate), MemoryGitHub(initial=old),
+                                self.clock, race_id=self.race_id, operation_id="no-append")
+        self.assertEqual(no_flag.failure_category, "conflict")
+
+    def test_restored_incident_from_generator_is_storable_after_post(self):
+        from prediction_persistence_io import verify_payload_binding
+        import datetime
+        failure = PersistenceError("refused", kind="safety_refusal", api_reached=False)
+        transport = MemoryGitHub(failures=[failure])
+        prior = persist_fixed(self.payload, transport, self.clock, operation_id="failed",
+                              race_id="20261018-TOK-11")
+        self.assertEqual(prior.failure_category, "safety_refusal")
+        data = incident_record(self.payload, prior, observed_at="2026-10-18T16:00:00+09:00")
+        path = "docs/validation/persistence-incidents/" + self.date + "/tokyo-11-failed.json"
+        payload = self.fixed(path, data)
+        verify_payload_binding(payload, "20261018-TOK-11")
+        late_clock = lambda stage: dict(self.clock(stage), status="SCHEDULE_REACHED",
+                                        remaining_seconds=-1800)
+        saved = persist_fixed(payload, MemoryGitHub(), late_clock,
+                              operation_id="incident-recovery",
+                              race_id="20261018-TOK-11")
+        self.assertEqual(saved.readback_state, "MATCH")
+        self.assertEqual(saved.timing_state, "SCHEDULE_REACHED")
+        self.assertFalse(saved.completion_verified)
+        self.assertFalse(data["remote_persistence_certified"])
+
+    def test_direct_adapter_append_requires_verified_cas(self):
+        from prediction_persistence_io import GitHubContentsTransport
+        from unittest.mock import patch
+        path, old, candidate, _ = self.shared_receipts()
+        transport = GitHubContentsTransport.__new__(GitHubContentsTransport)
+        transport.repository = self.payload.repository
+        transport.branch = self.payload.branch
+        transport._base = "https://api.github.com/repos/eda-hub/horse-man"
+        with patch.object(transport, "read", return_value={
+            "content": old, "blob_sha": "b" * 40, "commit_sha": SHA,
+            "branch": transport.branch, "path": path}), patch.object(
+                transport, "_call", return_value={"commit": {"sha": SHA}}) as call:
+            result = transport.write(transport.branch, path, candidate, "b" * 40,
+                                     append_receipt=True, previous_body=old)
+            self.assertEqual(result["commit_sha"], SHA)
+            self.assertEqual(call.call_args.args[0], "PUT")
+            self.assertEqual(call.call_args.args[2]["sha"], "b" * 40)
+        with patch.object(transport, "read", return_value={
+            "content": old + b"x", "blob_sha": "c" * 40}), patch.object(
+                transport, "_call") as call:
+            with self.assertRaises(PersistenceError):
+                transport.write(transport.branch, path, candidate, "b" * 40,
+                                append_receipt=True, previous_body=old)
+            call.assert_not_called()
 
     def test_new_file_write_and_exact_commit_readback(self):
         transport = MemoryGitHub()
