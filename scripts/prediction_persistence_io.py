@@ -310,7 +310,10 @@ def validate_receipt_append(previous, candidate, *, race_id, date):
     fragment = candidate[len(previous):]
     temporary = FixedPayload("eda-hub/horse-man", "prediction/" + date,
                              "docs/validation/persistence-receipts/" + date + ".md", fragment)
-    added = _json_or_receipt(temporary, "persistence-receipts")
+    try:
+        added = _json_or_receipt(temporary, "persistence-receipts")
+    except ValueError as exc:
+        raise PersistenceError("invalid appended receipt records", kind="conflict") from exc
     if not added:
         raise PersistenceError("new receipt record required", kind="conflict")
     seen = set()
@@ -323,10 +326,14 @@ def validate_receipt_append(previous, candidate, *, race_id, date):
         if not isinstance(rec_id, str) or not rec_id or rec_id in seen:
             raise PersistenceError("duplicate or missing new receipt ID", kind="conflict")
         seen.add(rec_id)
-    existing_records = _json_or_receipt(
-        FixedPayload("eda-hub/horse-man", "prediction/" + date,
-                     "docs/validation/persistence-receipts/" + date + ".md", previous),
-        "persistence-receipts") if previous.strip() else []
+    try:
+        existing_records = _json_or_receipt(
+            FixedPayload("eda-hub/horse-man", "prediction/" + date,
+                         "docs/validation/persistence-receipts/" + date + ".md", previous),
+            "persistence-receipts") if previous.strip() else []
+    except ValueError as exc:
+        raise PersistenceError("existing receipt source cannot be parsed safely",
+                               kind="conflict") from exc
     old_ids = {o.get("receipt_id") for o in existing_records if isinstance(o, dict)}
     if old_ids & seen:
         raise PersistenceError("receipt ID already persisted", kind="conflict")
@@ -339,10 +346,23 @@ def validate_receipt_append(previous, candidate, *, race_id, date):
                     not _same_race(prior.get("race_id"), race_id, date)):
                 raise PersistenceError("receipt previous reference missing or different artifact",
                                        kind="conflict")
-            if prior.get("scheduled_post_time_jst") != record.get("scheduled_post_time_jst") or (
-                    prior.get("artifact_path") != record.get("artifact_path")) or (
-                    prior.get("content_sha256") != record.get("content_sha256")):
-                raise PersistenceError("receipt changes prior fixed evidence", kind="conflict")
+            for field_name in ("scheduled_post_time_jst", "artifact_path",
+                               "content_sha256", "artifact_commit_sha",
+                               "persist_verified_at_jst"):
+                if prior.get(field_name) != record.get(field_name):
+                    raise PersistenceError("receipt changes prior fixed evidence: " + field_name,
+                                           kind="conflict")
+            if record.get("receipt_persist_status") != "RECEIPT_VERIFIED":
+                raise PersistenceError("readback receipt must be verified", kind="conflict")
+            try:
+                from prediction_clock import aware
+                saved_at = aware(record.get("persist_verified_at_jst"))
+                confirmed_at = aware(record.get("receipt_verified_at_jst"))
+                official_at = aware(record.get("scheduled_post_time_jst"))
+                if not saved_at <= confirmed_at < official_at:
+                    raise ValueError("readback timestamp must be before official post")
+            except (ValueError, TypeError) as exc:
+                raise PersistenceError("invalid receipt readback sequence", kind="conflict") from exc
         elif record.get("receipt_id", "").endswith("-R02"):
             raise PersistenceError("R02 readback requires prior R01 reference", kind="conflict")
         available[record["receipt_id"]] = record
@@ -821,7 +841,10 @@ def main(argv=None):
             if args.local_incident:
                 save_incident_local(args.local_incident, incident_record(payload, result))
             return 1
-        print("固定原本のGitHub commit読戻し一致。receiptと独立個別完了は別途必要。")
+        if is_incident:
+            print("障害記録のみGitHub固定commit読戻し一致。発走前保存や正式receiptの認証ではありません。")
+        else:
+            print("固定原本のGitHub commit読戻し一致。receiptと独立個別完了は別途必要。")
         return 0
     except (ValueError, OSError, PersistenceError, KeyError, TypeError) as exc:
         print("保存未完了：" + sanitized(exc))
