@@ -40,7 +40,9 @@ class ClockSample:
 
     @classmethod
     def capture(cls, *, wall=None, monotonic=None, resolution_seconds=0.001, origin="runtime"):
-        return cls((wall if wall is not None else datetime.now(timezone.utc)).astimezone(timezone.utc).isoformat(),
+        stamp = wall if wall is not None else datetime.now(timezone.utc)
+        stamp = aware(stamp, "clock capture")
+        return cls(stamp.isoformat(),
                    float(monotonic if monotonic is not None else time.monotonic()),
                    resolution_seconds, origin)
 
