@@ -148,6 +148,15 @@ class Cycle04FullDayRetrospectiveTest(unittest.TestCase):
         with self.assertRaisesRegex(FullDayReviewError, 'formal day ledger unexpectedly'):
             check(self.root)
 
+    def test_valid_postrace_reconciliation_does_not_certify_pre_off_scope(self):
+        # 移行後の正直な事後台帳を許可するが、事前登録の証拠にしない。
+        from cycle04_migration import DAY as LEDGER
+        path = self.root / LEDGER
+        path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(self.SOURCE_ROOT / LEDGER, path)
+        report = check(self.root)
+        self.assertEqual(report['formal_certification'], 'REJECTED_UNDER_V1_7_0')
+
     def test_scope_change_rejected(self):
         data = self.read(MORNING)
         data['required_race_ids'][0] = '2026-10-17-TOKYO-99'

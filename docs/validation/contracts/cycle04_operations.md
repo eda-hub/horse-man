@@ -236,3 +236,16 @@ FIX manifestには固定本体と一致する `fixed_at_jst` と、実際に先�
 - 順序付き馬単・三連単の失敗 `ORDER_MISMATCH` は、同着を含む `finish_groups` と矛盾しない上位N着の全順序（境界同着は必要着数だけ）から判定する。候補中に同じ馬の組合せが存在し、並びだけ不一致の場合に分類する。的中/無効の判定は従来の `recommendation.settle` のまま。順序不要券に着順不一致を誤付与しない。
 
 - 推奨失敗分類の `recommendation_failure_classification` も無印・phase比較と同様に、`reviewed_scope` に入ったCOMPLETE回顧だけを分母（`eligible_ids`/`included_ids`、`unique_races`/`unique_tickets`、`miss_tickets`）へ算入する。正式なFINAL推奨・公式結果・SETTLED精算が先に固定されていても、回顧がDRAFTなら `coverage.target_ids` を維持し、`missing[date:race]={reason:REVIEW_NOT_COMPLETE,required_inputs:[completed_review]}` に記録して未算入とする。回顧を独立revision原本でCOMPLETEへ改訂した場合にのみ、元の推奨・公式結果・精算をそのまま再利用し算入する。
+ 
+
+## 第4サイクルの移行後入口・日別状態・過去不足の判別
+
+この章を第4の運用開始から終了までの唯一の統合手順とする。第2/第3の採否・残件は `reviews/cycle_04/carryover.json`、原本保持/削除は `reviews/cycle_04/migration-manifest.json` へ移した。正式予想判断は引き続き `docs/manual/` を唯一のOwnerとする。
+
+前向きの依頼を受けたら、当日について `run_release_readiness.py --require-main` で取得済みmainを確認し、予想作成前に宣言を独立保存・読戻しする。公式scopeの `cycle04_workflow.py --register-scope` または同日追加の `--extend-scope` が成功し、対象日の台帳をGit保存・同一bytesで読戻すまでは初回Predictionの作成・正式完了判定へ進まない。登録日と対象開催日を混同しない。宣言があり台帳がない場合は `cycle04_migration.py --audit` が不足として非0で終わる。CIはチャット外の未取得依頼を自動発見できない。
+
+初回/選定FINAL/結果確定後の各工程では上記の既存writerを用い、実際のFIX bytes/receipt/gateを一件ずつ確認する。各段階が完了したら `cycle04_workflow.py --summary` と `cycle04_migration.py --write-summary --audit` の集計結果を照合し、日別台帳とsummaryを同じ日次branchへコミットしてGit読戻しする。合成受入の成功や準備成功は正常一巡を意味しない。新規保存・時計の復旧はPR94の統合済み版を確認してから既存の安全な手順で行う。ツール安全性拒否を迂回せず、未保存原本を改変しない。
+
+10/17は `records/cycle_04/2026-10-17.json` の `registration_origin=POSTRACE_RECONCILIATION` として登録した。36Rは事後の結果照合対象で、`initial_scope/selected_scope/final_scope/reviewed_scope` は前向き認証として空のまま。元IDと正規化IDの両方を保持し、6Rのみ公式個別結果照合、残り30Rは二次情報と区分する。旧認証拒否、未保存の初回予想、推奨4診断、発走前scope未登録は変更しない。将来の前向き依頼にこの日の事後台帳を転用しない。
+
+通常監査は `python3 scripts/check_cycle04.py`、事後原票照合は `python3 scripts/check_cycle04_full_day_reconciliation.py`、移管正本/集計/欠測判別は `python3 scripts/cycle04_migration.py --audit` を使用する。推奨の厳格CLI `python3 scripts/recommendation.py --audit` は従来の過去不足4件で非0。CIの `cycle04_recommendation_diagnostics.py --audit` は厳格CLIの実出力と固定原票SHA-256を照合し、4件が増減・改変したら非0にする。基準一致時も厳格CLIは非0であり、正常な推薦が完了したと表現しない。正常な実レース一巡・全6日終了・性能採用はそれぞれ別の検査/審査が必要。

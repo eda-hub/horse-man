@@ -21,7 +21,10 @@ from test_recommendation import DATE, RACE, POST
 def synthetic_acceptance(root):
     """一時fixture専用。実リポジトリの受入状態・件数をコピーしない。"""
     paths = sorted(set(root.glob('scripts/*.py')) | set(root.glob('docs/manual/*.md')) |
-                   {root/'docs/validation/reviews/cycle_03/decisions.json'})
+                   {root/'docs/validation/reviews/cycle_03/decisions.json',
+                    root/'docs/validation/reviews/cycle_04/carryover.json',
+                    root/'docs/validation/reviews/cycle_04/migration-manifest.json',
+                    root/'docs/validation/reviews/cycle_04/summary.json'})
     return {'schema_version': 'cycle04-acceptance-v1', 'mode': 'SYNTHETIC',
             'result': 'PASS', 'tests_run': 1, 'failures': 0, 'skipped': 0,
             'live_race_count': None, 'source_manifest': [
@@ -460,9 +463,11 @@ class Cycle04Acceptance(unittest.TestCase):
     def test_preparation_requires_all_individual_dispositions(self):
         import check_cycle04
         root=Path(__file__).resolve().parents[1];original_load=check_cycle04.load
-        decisions=original_load(root/'docs/validation/reviews/cycle_03/decisions.json')
-        decisions['changes'].pop()
-        with patch('check_cycle04.load',side_effect=lambda p: decisions if p.name=='decisions.json' else original_load(p)):
+        import cycle04_migration
+        transfers=cycle04_migration.validate_carryover(root)
+        transfers['items']=[i for i in transfers['items']
+                            if not (i['group']=='CHANGE' and i['source_item_id']=='C01')]
+        with patch('cycle04_migration.validate_carryover',return_value=transfers):
             with self.assertRaises(ComplianceError):check_preparation(root)
 
 

@@ -342,7 +342,10 @@ def review(root,date,entry):
 
 def summary(root):
     contract = load(root/CONTRACT_PATH);days=[]
-    for p in sorted((root/DIRECTORY).glob('*.json')):days.append(validate_day(root,p,contract))
+    for p in sorted((root/DIRECTORY).glob('*.json')):
+        day = validate_day(root,p,contract)
+        if day.get('registration_origin') != 'POSTRACE_RECONCILIATION':
+            days.append(day)
     result = {'schema_version':'cycle04-operational-summary-v1','manual_release':'v1.7.0',
               'recorded_dates':[d['race_date_jst'] for d in days], 'expected_dates':DATES,
               'initial_races':sum(len(d['initial_scope']) for d in days),
@@ -452,6 +455,8 @@ def summary(root):
             group['honmei_win_rate']=group['honmei_win_count']/group['count']
             group['honmei_top3_rate']=group['honmei_top3_count']/group['count']
     from cycle04_completion import evaluate_days
+    from cycle04_migration import compute_summary
+    result['migration_status'] = compute_summary(root)
     result['completion'] = evaluate_days(root, days)
     result['cycle_state'] = result['completion']['state']
     # 集計の表示だけではGit保存済みとは判定しない。

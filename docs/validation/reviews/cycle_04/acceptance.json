@@ -2,13 +2,21 @@
   "schema_version": "cycle04-acceptance-v1",
   "mode": "SYNTHETIC",
   "result": "PASS",
-  "tests_run": 898,
+  "tests_run": 908,
   "failures": 0,
   "skipped": 0,
   "live_race_count": null,
   "performance_promotion": "NOT_PERFORMED",
   "formal_cutover": "NOT_PERFORMED",
   "source_manifest": [
+    {
+      "path": ".agents/skills/horse-racing-forecast/SKILL.md",
+      "sha256": "22e9c61f1faf2c7e8aa86d28779db891e2d30062d14991a526cca5f863729976"
+    },
+    {
+      "path": ".github/workflows/check-cycle04.yml",
+      "sha256": "d8910fca6aea6ab0ec749d2a0e4e9f790be06e9ecc66319aeb6da8f2496e91e8"
+    },
     {
       "path": "docs/manual/00_core.md",
       "sha256": "c5c7f5ee7742e38ad81bfd38f68bbb13505cf69dae3a2ae25760079907789174"
@@ -51,11 +59,11 @@
     },
     {
       "path": "docs/validation/contracts/cycle04_operations.md",
-      "sha256": "180add8340852561997e0564612e24b046f104ca2f18e7c127c95a680a05a2f3"
+      "sha256": "0a780b711cd41e23afed9162607abe9bfe68671ad49c3b49f2d46f8abde59671"
     },
     {
       "path": "docs/validation/contracts/cycle_04.json",
-      "sha256": "587d1f8a97c4e3cd0c708975c00f36f3b3a77ba2cb6279f299b18469e7e0a082"
+      "sha256": "dc91070345992334c74ff5f6b8bd9960b78445ac355c9afc526fdbc264db7d6b"
     },
     {
       "path": "docs/validation/execution-gates/contract-state.json",
@@ -66,6 +74,10 @@
       "sha256": "748653e00d1dbd1c4ed111fbe67531bac0e9ce869f1e880e189eda618f1b99ec"
     },
     {
+      "path": "docs/validation/records/cycle_04/2026-10-17.json",
+      "sha256": "a901c4d3193b744d87da9d4a36868e25630ba3035b3bfd5157a9f79ea5eb04f8"
+    },
+    {
       "path": "docs/validation/reviews/cycle_03/collection.json",
       "sha256": "d409f29ff376b0b20f432e473a0ec5b6ad4351514ca9dfe3ccfb85e5338fd9c4"
     },
@@ -74,8 +86,20 @@
       "sha256": "dba19e695bd00d8a0a15e03807b95cc155713f1841ca6a4253503a2ec9c3d020"
     },
     {
+      "path": "docs/validation/reviews/cycle_04/carryover.json",
+      "sha256": "9fa0522be3d8daefff9daac35093ad37956fe6a48ea05591778f90a901e32006"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_04/migration-manifest.json",
+      "sha256": "bf5a68cd5b2f6763f293c856857c52fa7d4db832f4beb8d40a8583b075cfb1fb"
+    },
+    {
+      "path": "docs/validation/reviews/cycle_04/summary.json",
+      "sha256": "bd07faeab254429955cc0a0965374053033347162740f674a35fa1f43b764ac0"
+    },
+    {
       "path": "docs/validation/templates/chatgpt_prediction_task.md",
-      "sha256": "a74be8a599704e02178c98e75eafc4ff250a16876cd3f0c5629a211c96d1c258"
+      "sha256": "d6fda86c8124c92d5c2a0a2ec99478f340257315e00fc6ed08fa16a0c6c20929"
     },
     {
       "path": "scripts/audit_20261012_pr78.py",
@@ -87,7 +111,7 @@
     },
     {
       "path": "scripts/build_v170_manifest.py",
-      "sha256": "9b495a9ed4850b85f4f4010155470aabdb73dcefdf3d80eb8bbc6e5beb951e6f"
+      "sha256": "c3e89539020e4faa856980d45edc771f801421e4e1a4c164988da04b0518723d"
     },
     {
       "path": "scripts/chat_calibration_review.py",
@@ -163,11 +187,11 @@
     },
     {
       "path": "scripts/check_cycle04.py",
-      "sha256": "d4d5807c7d5bdf5a3907864e23369b4d02ef0f4376426e81cfc840087a2bff39"
+      "sha256": "f4c83bd195a0be84a8e79aafe6764e3b1f4a271a0ecff96b4ae6a8da4a86ef86"
     },
     {
       "path": "scripts/check_cycle04_full_day_reconciliation.py",
-      "sha256": "686a8440a37135dc5c13abe0800fbcc390a29c7cabb541465ecf60df9054f979"
+      "sha256": "7c230ef1daf6fbfffb808c9824af751db7f6a88f95de6c3b7d9940b7d6e059f4"
     },
     {
       "path": "scripts/check_cycle04_unfinished.py",
@@ -274,8 +298,16 @@
       "sha256": "27b2c597cb8caefbca5683acc97ad78f194986c0ec91b493be7fc100f075b3fb"
     },
     {
+      "path": "scripts/cycle04_migration.py",
+      "sha256": "51f839f0ce5ddb23a57b44cdcbc5bbe0cd0c68be1f1744c20330400555521fb3"
+    },
+    {
       "path": "scripts/cycle04_operations.py",
       "sha256": "b14c04cc93ea07f2d6104233ee390942d1840041c4cdd49e8ce83bb2e231fd70"
+    },
+    {
+      "path": "scripts/cycle04_recommendation_diagnostics.py",
+      "sha256": "8abc66a835f4dd58174bc3d015a3fcffbab952269a82c241103af87ab030d187"
     },
     {
       "path": "scripts/cycle04_review_metrics.py",
@@ -291,7 +323,7 @@
     },
     {
       "path": "scripts/cycle04_workflow.py",
-      "sha256": "9379022eb9ac06e1bdcf5bc8452b83eb5b80c6104b2ef93f336fcc4ea421178e"
+      "sha256": "5ae094a07eb1d8859c24a709a62e0b702b29ac3a2973cbe29d7764869c4e350f"
     },
     {
       "path": "scripts/dependency_risk.py",
@@ -343,7 +375,7 @@
     },
     {
       "path": "scripts/run_cycle04_acceptance.py",
-      "sha256": "e1bc46e68cb38586bce59907eb1dc4f871e7a0a0757761cb626970f018c89617"
+      "sha256": "d145aca57bc8f75b7c96c263f4d07e9f4f5c1596b2b1aef4209fc7b1ae83612c"
     },
     {
       "path": "scripts/run_release_readiness.py",
@@ -463,7 +495,7 @@
     },
     {
       "path": "scripts/test_cycle04_acceptance.py",
-      "sha256": "ce1735cc91e473363eef68a77495128454081a82fd55f00c083f6b7255acc33d"
+      "sha256": "9ab7e046ecf896c5f6fa00c0727bc5144fe1f02b0425a1467db50ee99a6eab14"
     },
     {
       "path": "scripts/test_cycle04_completion.py",
@@ -471,11 +503,19 @@
     },
     {
       "path": "scripts/test_cycle04_full_day_reconciliation.py",
-      "sha256": "23f8b280a850c1449ba3d3526a36012b69a7e9983d8261c8f3c654adab83162c"
+      "sha256": "bdf0ed8e95ebaf997cda2f5119ad2cd0cc7f13910c4fceafef05e196e43be380"
+    },
+    {
+      "path": "scripts/test_cycle04_migration.py",
+      "sha256": "a82f035d92c2a1dbde429e61472188d90f902c6521e3c1c5a7177f25416a99f5"
     },
     {
       "path": "scripts/test_cycle04_period.py",
       "sha256": "46c712d0949a61a4ab5c37e52e7be45fc06dcf42d6f91b561bc8fc6c31d8977e"
+    },
+    {
+      "path": "scripts/test_cycle04_recommendation_diagnostics.py",
+      "sha256": "ce75ead3411ebe92b61b53647f91a83d9c08db1d4ed984f23e8ada38c2e26abf"
     },
     {
       "path": "scripts/test_cycle04_result_eligibility.py",

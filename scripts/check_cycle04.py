@@ -44,8 +44,20 @@ def check_preparation(root):
                 'prepared contract cannot imply active cutover')
     else:
         require_active(root, c)
-    decisions = load(safe_path(root, c.get('decisions_path')))
-    require(decisions.get('schema_version') == 'cycle03-decisions-v1', 'individual decisions required')
+    from cycle04_migration import validate_carryover, validate_manifest
+    require(c.get('carryover_path') == 'docs/validation/reviews/cycle_04/carryover.json', 'cycle04 carryover not linked')
+    require(c.get('migration_manifest_path') == 'docs/validation/reviews/cycle_04/migration-manifest.json', 'cycle04 migration not linked')
+    carry = validate_carryover(root)
+    validate_manifest(root)
+    # 通常の第4契約は第4の繰越正本から決定する。旧原票そのものは
+    # cycle04_migration.validate_carryover が固定内容として独立照合する。
+    transferred = {group: [item['source_payload'] for item in carry['items']
+                            if item['group'] == group]
+                   for group in ('CHANGE', 'VALIDATION', 'DIFFERENCE')}
+    decisions = {'performance_promotion': carry['performance_promotion'],
+                 'changes': transferred['CHANGE'], 'validation_items': transferred['VALIDATION'],
+                 'candidate_difference_classification': transferred['DIFFERENCE']}
+    require(carry.get('schema_version') == 'cycle04-carryover-v1', 'individual decisions required')
     require(decisions.get('performance_promotion') == 'NOT_APPROVED', 'unsupported performance promotion')
     proposals = decisions.get('changes')
     required_ids = {f'C{i:02d}' for i in range(1, 17)}
@@ -66,9 +78,8 @@ def check_preparation(root):
     for v in validations:
         require(v.get('performance_promotion') == 'NOT_APPROVED' and v.get('next_test')
                 and safe_path(root, v.get('owner')).is_file(), 'validation owner/retest missing')
-    collection = load(root / 'docs/validation/reviews/cycle_03/collection.json')
-    difference = {(date, race) for date, day in collection['daily'].items()
-                  for race in day['selected_without_final_ids']}
+    difference = {(row['race_date_jst'], row['race_id'])
+                  for row in transferred['DIFFERENCE']}
     classifications = decisions.get('candidate_difference_classification')
     require(isinstance(classifications, list) and len(classifications) == len(difference)
             and {(r.get('race_date_jst'), r.get('race_id')) for r in classifications} == difference,
@@ -78,7 +89,7 @@ def check_preparation(root):
                 'FINAL_STAGE_NOT_EXECUTED', 'OPERATIONAL_SELECTION_NOT_CLOSED', 'OMISSION_ACCEPTED_BY_USER'}
                 and safe_path(root, r.get('evidence_path')).is_file(), 'candidate difference evidence missing')
     excluded = sum(r['status'] == 'DESELECTED_BY_USER' for r in classifications)
-    require(decisions.get('candidate_difference_counts') == {'raw_difference': len(difference),
+    require(carry.get('candidate_difference_counts') == {'raw_difference': len(difference),
             'deselected_by_user': excluded, 'not_executed': len(difference) - excluded,
             'user_accepted_omissions_within_not_executed': sum(r['status'] == 'OMISSION_ACCEPTED_BY_USER' for r in classifications)},
             'candidate difference count mismatch')
@@ -104,7 +115,8 @@ def validate_acceptance(root, contract):
                         'scripts/check_prediction_compliance.py', 'scripts/recommendation.py',
                         'scripts/selection_history.py', 'scripts/verify_prediction_persistence.py',
                         'scripts/seal_prediction.py',
-                        c['decisions_path']}
+                        *( [c['carryover_path'], c['migration_manifest_path'], c['summary_path']]
+                           if c.get('carryover_path') else [c['decisions_path']] )}
     required_sources |= {p.relative_to(root).as_posix() for p in
                          set(root.glob('scripts/*.py')) | set(root.glob('docs/manual/*.md'))}
     require(required_sources.issubset({x.get('path') for x in manifest}), 'acceptance source coverage missing')
@@ -133,6 +145,11 @@ def string_set(value, label):
 
 def validate_day(root, path, contract):
     d = load(path)
+    if d.get('schema_version') == 'cycle04-day-postrace-reconciliation-v1':
+        from cycle04_migration import DAY, validate_postrace
+        require(path.resolve() == (root / DAY).resolve(), '事後台帳は10/17固定pathのみ')
+        validate_postrace(root, d)
+        return d
     require(d.get('schema_version') == SCHEMA and d.get('cycle_id') == 'cycle_04',
             '第3台帳・旧契約を第4へ流用できません')
     date = d.get('race_date_jst')
@@ -420,7 +437,9 @@ def main(argv=None):
         days = []
         directory = root / 'docs/validation/records/cycle_04'
         for path in sorted(directory.glob('*.json')):
-            days.append(validate_day(root, path, c))
+            day = validate_day(root, path, c)
+            if day.get('registration_origin') != 'POSTRACE_RECONCILIATION':
+                days.append(day)
         from cycle04_completion import evaluate_days
         require(not (args.require_complete and args.closure_review),
                 '正常一巡と理由付き終了を同時申告できません')
@@ -433,7 +452,13 @@ def main(argv=None):
                     ('。集計のGit読戻し固定参照が未指定です' if frozen is None else ''))
         if result['issues']:
             print('不足対象・理由：' + json.dumps(result['issues'], ensure_ascii=False))
-        print(f'第4検査契約の準備照合成功。実測{len(days)}/{len(DATES)}日。状態：{result["state"]}。'
+        from cycle04_migration import validate_postrace
+        historical_path = directory / '2026-10-17.json'
+        historical = int(historical_path.exists() and
+                         load(historical_path).get('registration_origin') == 'POSTRACE_RECONCILIATION')
+        if historical:
+            validate_postrace(root)
+        print(f'第4検査契約の準備照合成功。前向き実測{len(days)}/{len(DATES)}日、事後照合{historical}日。状態：{result["state"]}。'
               f'集計Git読戻し：{result["summary_git_readback_verified"]}。性能昇格：未採用。'
               f'正式切替状態：{c["status"]}。')
         return 0

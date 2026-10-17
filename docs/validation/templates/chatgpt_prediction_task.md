@@ -2,7 +2,7 @@
 
 ## 開始
 
-eda-hub/horse-manのmainからmanual READMEを取得し、同一参照commitで必要Owner・v1.7.0を確認する。`run_release_readiness.py --require-main`でmain有効化を確認する。対象開催日と実発走予定・依頼scope・既存基準を確認し、prediction/YYYY-MM-DDを再利用する。
+eda-hub/horse-manのmainからmanual READMEを取得し、同一参照commitで必要Owner・v1.7.0を確認する。`run_release_readiness.py --require-main`でmain有効化を確認する。対象開催日と実発走予定・依頼scope・既存基準を確認し、prediction/YYYY-MM-DDを再利用する。**宣言と第4日別台帳のGit保存/読戻しを予想作成より先に完了**させる。宣言のみ存在する場合は台帳未登録を解消し、登録結果なしで初回へ進めない。既知の第2/第3課題は第4のcarryover正本を参照する。
 
 ## 初回
 
