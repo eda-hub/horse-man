@@ -134,6 +134,32 @@ class PersistenceTest(unittest.TestCase):
         self.assertEqual(classify_failure(http_status=500, api_reached=True), "server_unavailable")
         self.assertEqual(classify_failure(http_status=403, api_reached=False), "unknown")
 
+    def test_transport_requires_existing_date_branch(self):
+        from unittest.mock import patch
+        from prediction_persistence_io import GitHubContentsTransport
+        with patch.object(GitHubContentsTransport, '_call', return_value={'commit': {'sha': SHA}}) as call:
+            obj = GitHubContentsTransport('eda-hub/horse-man', 'prediction/2026-10-18', 'synthetic-not-a-secret')
+            self.assertEqual(obj.branch, 'prediction/2026-10-18')
+            self.assertIn('/branches/prediction%2F2026-10-18', call.call_args.args[1])
+        with self.assertRaises(ValueError):
+            GitHubContentsTransport('eda-hub/horse-man', 'main', 'token')
+
+    def test_transport_exact_commit_ref(self):
+        import base64
+        from unittest.mock import patch
+        from prediction_persistence_io import GitHubContentsTransport
+        obj = GitHubContentsTransport.__new__(GitHubContentsTransport)
+        obj.repository = 'eda-hub/horse-man'
+        obj.branch = 'prediction/2026-10-18'
+        obj._base = 'https://api.github.com/repos/eda-hub/horse-man'
+        with patch.object(obj, '_call', return_value={'type':'file','encoding':'base64',
+                          'content':base64.b64encode(self.payload.body).decode(),
+                          'sha':'b'*40}) as call:
+            r = obj.read(obj.branch,self.payload.path,SHA)
+            self.assertEqual(r['content'],self.payload.body)
+            self.assertEqual(r['commit_sha'],SHA)
+            self.assertIn('ref='+SHA,call.call_args.args[1])
+
     def test_redaction(self):
         self.assertNotIn("topsecret", sanitized("Authorization: Bearer topsecret"))
         self.assertNotIn("abcd123", sanitized("token=abcd123"))
