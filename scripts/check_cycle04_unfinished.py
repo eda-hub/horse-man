@@ -33,6 +33,76 @@ def load(path):
     return json.loads(path.read_text(encoding='utf-8'))
 
 
+def preserved_candidate(source, kind):
+    """原文の候補をそのまま抽出。曖昧な自由文や推定で補正しない。"""
+    if kind == 'EARLIER_CHAT_CANDIDATE_PRESERVATION':
+        # 京都8R: - **ワイド 3 アンムート－6 カレンハウ、1点**。
+        pattern = (r'^-\s*\*\*ワイド\s+([1-9]\d*)\s+[^\n－]+'
+                   r'－([1-9]\d*)\s+[^\n、]+、([1-9]\d*)点\*\*。')
+    elif kind == 'AFTER_POST_CHAT_CANDIDATE_PRESERVATION':
+        # 京都10R: - チャットでの参考購入候補: ワイド 6－7、1点。
+        pattern = (r'^-\s*チャットでの参考購入候補:\s*ワイド\s+'
+                   r'([1-9]\d*)－([1-9]\d*)、([1-9]\d*)点。')
+    else:
+        raise UnfinishedIndexError('未対応の参考候補出所形式: ' + str(kind))
+    matches = re.findall(pattern, source, re.M)
+    require(len(matches) == 1, '原文に参考買い目の一意な記載がない')
+    a, b, points = (int(x) for x in matches[0])
+    require(a != b and points == 1, '原文の参考買い目の重複・点数不正')
+    return {'type': 'WIDE', 'horse_numbers': [a, b], 'points': points}
+
+
+def verify_unsealed_decision(root, item, row):
+    race = row['race_id']
+    source_path = item.get('source_path')
+    require(item.get('status', '').startswith('UNSEALED_') and
+            item.get('selected_for_valuation') is False and
+            isinstance(item.get('unmet'), list) and item['unmet'],
+            race + ': 未封印判断を正式推奨へ昇格してはならない')
+    source = evidence_file(root, source_path)
+    require(re.fullmatch(r'[0-9a-f]{64}', item.get('source_sha256', '')) and
+            hashlib.sha256(source.read_bytes()).hexdigest() == item['source_sha256'],
+            race + ': 原文SHA-256が不一致')
+    kind = item.get('source_kind')
+    candidates = {
+        'EARLIER_CHAT_CANDIDATE_PRESERVATION':
+            ('UNSEALED_RECOMMENDATION_CANDIDATE', 'UNSEALED_PRE_RACE_CANDIDATE'),
+        'AFTER_POST_CHAT_CANDIDATE_PRESERVATION':
+            ('UNSEALED_LATE_PRESERVATION_CANDIDATE', 'UNSEALED_LATE_PRESERVATION_CANDIDATE'),
+        'NON_CANONICAL_NO_RECOMMENDATION_SNAPSHOT':
+            ('UNSEALED_NO_RECOMMENDATION', 'UNSEALED_NO_RECOMMENDATION'),
+    }
+    require(kind in candidates and
+            item['status'] == candidates[kind][0] and
+            row['recommendation']['status'] == candidates[kind][1],
+            race + ': 出所と未封印種別が不一致')
+    claimed = item.get('recorded_candidate')
+    require(isinstance(claimed, dict) and
+            claimed.get('official_recommendation') is False,
+            race + ': 未封印参考買い目を正式推奨として扱っている')
+    if kind == 'NON_CANONICAL_NO_RECOMMENDATION_SNAPSHOT':
+        payload = load(source)
+        require(payload.get('race_id') == race and
+                payload.get('status') == 'NO_RECOMMENDATION' and
+                payload.get('formal_recommendation_status') == 'UNSEALED_LOCAL_FALLBACK_ONLY' and
+                item.get('reason') == payload.get('reason') and
+                payload.get('purchase_executed') is False,
+                race + ': 見送り判断と原文が不一致')
+        studies = payload.get('candidates_for_study')
+        require(isinstance(studies, list) and len(studies) == 1 and
+                studies[0].get('official_recommendation') is False,
+                race + ': 見送り時の参考候補が不正')
+        expected = {'type': studies[0].get('type'),
+                    'horse_numbers': studies[0].get('horse_numbers'),
+                    'points': studies[0].get('unique_points'),
+                    'official_recommendation': False}
+    else:
+        expected = preserved_candidate(source.read_text(encoding='utf-8'), kind)
+        expected['official_recommendation'] = False
+    require(claimed == expected,
+            race + ': 転記した券種・馬番・点数が原文と不一致')
+
+
 def check(root, manifest):
     root = Path(root).resolve()
     doc = load(evidence_file(root, manifest))
@@ -99,6 +169,7 @@ def check(root, manifest):
             require('path' not in pred, race + ': 未保存の原本参照は禁止')
         state = rec.get('status')
         require(state in {'NOT_PERSISTED', 'UNSEALED_PRE_RACE_CANDIDATE',
+                          'UNSEALED_LATE_PRESERVATION_CANDIDATE',
                           'UNSEALED_NO_RECOMMENDATION',
                           'PRE_RACE_RECOMMENDATION_NOT_CERTIFIED'},
                 race + ': 不明な推奨状態')
@@ -117,7 +188,8 @@ def check(root, manifest):
                             record.get('status') == 'NO_RECOMMENDATION',
                             race + ': 未封印見送りの参照不一致')
             else:
-                require(state == 'UNSEALED_PRE_RACE_CANDIDATE',
+                require(state in {'UNSEALED_PRE_RACE_CANDIDATE',
+                                  'UNSEALED_LATE_PRESERVATION_CANDIDATE'},
                         race + ': 非JSON推奨を正式原本へ接続しない')
         else:
             require('path' not in rec, race + ': 未作成推奨の参照は禁止')
@@ -138,12 +210,11 @@ def check(root, manifest):
             isinstance(decisions, list) and len(decisions) == len(expected_unsealed) and
             {item.get('race_id'): item.get('source_path') for item in decisions} == expected_unsealed,
             '未封印判断と全日索引の参照対応が不一致')
+    indexed = {row['race_id']: row for row in races}
+    require(len({item.get('race_id') for item in decisions}) == len(decisions),
+            '未封印判断のレースが重複')
     for item in decisions:
-        require(item.get('selected_for_valuation') is False and
-                item.get('status', '').startswith('UNSEALED_') and
-                isinstance(item.get('unmet'), list) and item['unmet'],
-                '未封印判断を正式推奨へ昇格してはならない')
-        evidence_file(root, item.get('source_path'))
+        verify_unsealed_decision(root, item, indexed[item['race_id']])
     return {
         'schema_version': 'cycle04-unfinished-day-audit-v1',
         'race_date_jst': date,
