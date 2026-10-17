@@ -1,0 +1,166 @@
+{
+  "schema_version": "prediction-compliance-v2",
+  "race_date_jst": "2026-10-17",
+  "race_id": "2026-10-17-KYOTO-08",
+  "mode": "FORWARD",
+  "working_branch": "prediction/2026-10-17",
+  "manual_release": "v1.7.0",
+  "manual_ref_commit": "fd47babd38deea46439c2a7e500c3937c63cb5d7",
+  "scheduled_post_time_jst": "2026-10-17T13:45:00+09:00",
+  "data_cutoff": "2026-10-17T13:34:19.240+09:00",
+  "timing_route": "SNAPSHOT_CANDIDATE",
+  "production": {
+    "baseline_forecast_id": "20261017-KYOTO-08-BASE-01",
+    "ranking": [
+      3,
+      6,
+      7,
+      1,
+      2,
+      5,
+      4
+    ],
+    "marks": {
+      "honmei": 3,
+      "taikou": 6,
+      "tanana": 7,
+      "renka": [
+        1,
+        2
+      ]
+    },
+    "probabilities": [
+      {
+        "horse_no": 3,
+        "win_probability": 0.3,
+        "top2_probability": 0.57,
+        "top3_probability": 0.75
+      },
+      {
+        "horse_no": 6,
+        "win_probability": 0.21,
+        "top2_probability": 0.44,
+        "top3_probability": 0.67
+      },
+      {
+        "horse_no": 7,
+        "win_probability": 0.23,
+        "top2_probability": 0.49,
+        "top3_probability": 0.69
+      },
+      {
+        "horse_no": 1,
+        "win_probability": 0.14,
+        "top2_probability": 0.27,
+        "top3_probability": 0.46
+      },
+      {
+        "horse_no": 2,
+        "win_probability": 0.07,
+        "top2_probability": 0.12,
+        "top3_probability": 0.21
+      },
+      {
+        "horse_no": 5,
+        "win_probability": 0.04,
+        "top2_probability": 0.08,
+        "top3_probability": 0.16
+      },
+      {
+        "horse_no": 4,
+        "win_probability": 0.01,
+        "top2_probability": 0.03,
+        "top3_probability": 0.06
+      }
+    ],
+    "prediction_confidence": "C",
+    "evidence_items": [
+      {
+        "horse_no": 3,
+        "factor": "近走実績・今回の距離・斤量・当日状態",
+        "fact": "芝1400mオープンのダリア賞2着、2番手から上がり34.3。先行力と同条件実績を評価。当日馬体重430kg(-4)。",
+        "source_ref": "https://app.jra.jp/JRADB/accessD.html?CNAME=sw01dde0108202604060820261017%2F2E",
+        "observed_at_jst": "2026-10-17T13:34:19.240+09:00",
+        "direction": "plus",
+        "strength": "strong"
+      },
+      {
+        "horse_no": 6,
+        "factor": "近走実績・今回の距離・斤量・当日状態",
+        "fact": "ダリア賞3着でアンムートに0.1秒差。1400mの直接実績、今回は56kgで1kg不利。当日馬体重454kg(+2)。",
+        "source_ref": "https://app.jra.jp/JRADB/accessD.html?CNAME=sw01dde0108202604060820261017%2F2E",
+        "observed_at_jst": "2026-10-17T13:34:19.240+09:00",
+        "direction": "plus",
+        "strength": "strong"
+      },
+      {
+        "horse_no": 7,
+        "factor": "近走実績・今回の距離・斤量・当日状態",
+        "fact": "阪神芝1200m新馬戦を逃げて0.5秒差勝ち。重馬場の函館2歳S12着後、良馬場で反発可能も1400m未知。当日馬体重450kg(+6)。",
+        "source_ref": "https://app.jra.jp/JRADB/accessD.html?CNAME=sw01dde0108202604060820261017%2F2E",
+        "observed_at_jst": "2026-10-17T13:34:19.240+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 1,
+        "factor": "近走実績・今回の距離・斤量・当日状態",
+        "fact": "阪神芝1200m未勝利で0.9秒差勝ち。芝1400m新馬は6着で距離の適性を継続確認。当日馬体重470kg(-2)。",
+        "source_ref": "https://app.jra.jp/JRADB/accessD.html?CNAME=sw01dde0108202604060820261017%2F2E",
+        "observed_at_jst": "2026-10-17T13:34:19.240+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 2,
+        "factor": "近走実績・今回の距離・斤量・当日状態",
+        "fact": "稍重芝1400mの新馬勝ち。今回は56kgに対して前走斤量53kg、+16kgの馬体変化を留保。当日馬体重472kg(+16)。",
+        "source_ref": "https://app.jra.jp/JRADB/accessD.html?CNAME=sw01dde0108202604060820261017%2F2E",
+        "observed_at_jst": "2026-10-17T13:34:19.240+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 5,
+        "factor": "近走実績・今回の距離・斤量・当日状態",
+        "fact": "芝1400m新馬を中団から差し切り。勝ち差0.1秒で比較サンプルは1走。当日馬体重496kg(-8)。",
+        "source_ref": "https://app.jra.jp/JRADB/accessD.html?CNAME=sw01dde0108202604060820261017%2F2E",
+        "observed_at_jst": "2026-10-17T13:34:19.240+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      },
+      {
+        "horse_no": 4,
+        "factor": "近走実績・今回の距離・斤量・当日状態",
+        "fact": "小倉芝1200mひまわり賞6着。良馬場1400mへの延長・+14kgで判断材料が不足。当日馬体重478kg(+14)。",
+        "source_ref": "https://app.jra.jp/JRADB/accessD.html?CNAME=sw01dde0108202604060820261017%2F2E",
+        "observed_at_jst": "2026-10-17T13:34:19.240+09:00",
+        "direction": "uncertain",
+        "strength": "medium"
+      }
+    ],
+    "fixed_at_jst": "2026-10-17T13:34:19.240+09:00",
+    "evidence_ref": {
+      "artifact_id": "20261017-KYOTO-08-FINAL-S01",
+      "artifact_path": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-08-FINAL-S01.json",
+      "receipt_path": "docs/validation/persistence-receipts/2026-10-17.md",
+      "receipt_id": "20261017-KYOTO-08-FINAL-S01-R02",
+      "timing_eligibility": "PRE_RACE_ELIGIBLE",
+      "persist_verified_at_jst": "2026-10-17T13:35:30.000+09:00"
+    }
+  },
+  "kpi_eligibility": {
+    "production": "PENDING",
+    "shadow": "PENDING"
+  },
+  "shadow_items": [],
+  "review": {
+    "status": "NOT_STARTED"
+  },
+  "incomplete_reasons": [
+    "正式scopeのCLI登録・日次台帳接続は未実施",
+    "scripts/check_prediction_compliance.py と task_completion.py の現物実行をしていない",
+    "推奨の別事前宣言・独立FIXが未完了",
+    "対象Shadowの該当性調査未完了"
+  ]
+}
