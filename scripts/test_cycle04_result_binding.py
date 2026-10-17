@@ -102,6 +102,9 @@ class ResultBindingTest(unittest.TestCase):
         row=self.day()['races'][RACE]
         self.assertNotEqual(row['result_ref'],row['result_ready_ref'])
         self.assertEqual(len(row['result_correction_history']),1)
+        before=self.day_path.read_bytes()
+        workflow.request_review(self.root,DATE,entry,now=self.now)
+        self.assertEqual(self.day_path.read_bytes(),before)
         p=self.root/row['result_ready_reconciliation_ref']['artifact_path'];p.write_bytes(p.read_bytes()+b' ')
         with self.assertRaises(ValueError):verify_result_bindings(self.root,row,RACE,DATE,now=self.now)
     def test_postreview_result_correction_also_requires_review_revision(self):

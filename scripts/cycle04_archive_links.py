@@ -30,7 +30,7 @@ def retarget(root, source, raw, deleted):
         path = local_target(root, source, value)
         if path not in deleted:
             return match.group(0)
-        parsed = urlsplit(value.strip('<>'))
+        parsed = urlsplit(unescape(value.strip('<>')))
         url = 'https://github.com/eda-hub/horse-man/blob/' + SOURCE_COMMIT + '/' + path
         if parsed.query: url += '?' + parsed.query
         if parsed.fragment: url += '#' + parsed.fragment

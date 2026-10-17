@@ -20,6 +20,7 @@ class ArchiveLinkTest(unittest.TestCase):
                     p.write_bytes(retarget(root,p,p.read_bytes(),{'docs/gone.md'}))
                     verify_links(root,{'docs/gone.md'})
                     self.assertIn(SOURCE_COMMIT,p.read_text())
+                    self.assertNotIn('#46;md',p.read_text())
     def test_unrelated_live_and_external_links_are_not_rewritten(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);p=root/'example.md'

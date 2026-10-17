@@ -291,7 +291,9 @@ def request_review(root, date, entry, now=None):
     from cycle04_result_binding import verify_result_bindings, pair
     frozen=verify_result_bindings(root,row,race,date,now=current)
     require(not frozen or frozen['active']==pair(ref,manifest_ref), 'result request cannot replace fixed result/manifest')
-    require(not row.get('result_correction_history'), '訂正後の回顧前固定参照を置換できません')
+    if row.get('result_correction_history'):
+        # 同じ採用済み訂正への再依頼は読取のみ。元の回顧前固定参照は置換しない。
+        return root/DIRECTORY/(date+'.json')
     validate_formal_result(root,row,race=race,date=date,result_ref=ref,manifest_ref=manifest_ref)
     row['result_ready_ref']=ref
     row['result_ready_reconciliation_ref']=copy.deepcopy(manifest_ref)
