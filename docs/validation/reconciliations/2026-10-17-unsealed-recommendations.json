@@ -25,6 +25,32 @@
         "INDEPENDENT_RECOMMENDATION_FIX",
         "RECOMMENDATION_RECEIPT",
         "RECOMMENDATION_GATE"
+      ],
+      "source_sha256": "77250f8419871dfe6e0675f9b5c8468ae15573697a053f66321b427bc7630832"
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-10",
+      "source_path": "docs/validation/preservation/2026-10-17-kyoto-10-final-late.md",
+      "source_sha256": "16d9c3aee922b91ca708c3a44cad8cbda979c8a48b4fd7e6987848a139b3ffb5",
+      "source_kind": "AFTER_POST_CHAT_CANDIDATE_PRESERVATION",
+      "status": "UNSEALED_LATE_PRESERVATION_CANDIDATE",
+      "selected_for_valuation": false,
+      "reason": "14:50発走前のチャットでワイド6－7を参考提示したが、予想・推奨は発走前のGitHub原本や独立receipt/gateを欠き、参考本文を発走後に保全した。",
+      "recorded_candidate": {
+        "type": "WIDE",
+        "horse_numbers": [
+          6,
+          7
+        ],
+        "points": 1,
+        "official_recommendation": false
+      },
+      "unmet": [
+        "PRE_RACE_PREDICTION_BODY",
+        "PRE_RACE_RECOMMENDATION_SCOPE",
+        "INDEPENDENT_RECOMMENDATION_FIX",
+        "RECOMMENDATION_RECEIPT",
+        "RECOMMENDATION_GATE"
       ]
     },
     {
@@ -49,7 +75,8 @@
         "INDEPENDENT_RECOMMENDATION_FIX",
         "RECOMMENDATION_RECEIPT",
         "RECOMMENDATION_GATE"
-      ]
+      ],
+      "source_sha256": "c28e1749d05b17f69f3c60fbb1a456b6d1ce95916bb9a2aa1a6069ca56afb813"
     }
   ]
 }
