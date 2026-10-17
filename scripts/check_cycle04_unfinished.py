@@ -103,6 +103,85 @@ def verify_unsealed_decision(root, item, row):
             race + ': 転記した券種・馬番・点数が原文と不一致')
 
 
+
+# Immutable reference pins for the four *existing* October 17 errors. These
+# do not certify any missing recommendation or silence recommendation.py --audit.
+HISTORICAL_RECOMMENDATION_DEBTS = {
+    "NONCANONICAL_NIIGATA_11": (
+        "2026-10-17-NIIGATA-11", "UNSEALED_NO_RECOMMENDATION",
+        "docs/validation/recommendations/2026-10-17/20261017-NIIGATA-11-REC-S01.json",
+        "c28e1749d05b17f69f3c60fbb1a456b6d1ce95916bb9a2aa1a6069ca56afb813",
+        "unregistered recommendation snapshot: docs/validation/recommendations/2026-10-17/20261017-NIIGATA-11-REC-S01.json",
+    ),
+    "DECLARED_TOKYO_09_NOT_SAVED": (
+        "2026-10-17-TOKYO-09", "NOT_PERSISTED",
+        "docs/validation/persistence-intents/2026-10-17/tokyo-09-final.json",
+        "46e23e5b362f1a45cb4d353c91c2e47510a7243c408a1d10d7e6c83452075f14",
+        "docs/validation/persistence-intents/2026-10-17/tokyo-09-final.json: declared recommendation intent missing or duplicated",
+    ),
+    "NIIGATA_11_RECOMMENDATION_GATE_MISSING": (
+        "2026-10-17-NIIGATA-11", "UNSEALED_NO_RECOMMENDATION",
+        "docs/validation/execution-gates/2026-10-17/2026-10-17-NIIGATA-11.json",
+        "47b24050fee0b75d40d5fa0575b45625b59705b2a9c2cdea4434f2f4699354ae",
+        "missing recommendation gate for docs/validation/execution-gates/2026-10-17/2026-10-17-NIIGATA-11.json",
+    ),
+    "KYOTO_08_RECOMMENDATION_GATE_MISSING": (
+        "2026-10-17-KYOTO-08", "UNSEALED_PRE_RACE_CANDIDATE",
+        "docs/validation/execution-gates/2026-10-17/2026-10-17-KYOTO-08.json",
+        "08f00061134e8b3ce12438b37dbe220601a57f32dafe8e8f7b63b3b0096cda16",
+        "missing recommendation gate for docs/validation/execution-gates/2026-10-17/2026-10-17-KYOTO-08.json",
+    ),
+}
+
+
+def verify_historical_recommendation_debts(root, date, day_index):
+    """Only verifies archived deficits and their provenance; does not waive them."""
+    location = f'docs/validation/reconciliations/{date}-recommendation-historical-debts.json'
+    require(day_index.get('recommendation_historical_debt_path') == location,
+            '歴史的推奨の欠落台帳に接続されていない')
+    record = load(evidence_file(root, location))
+    require(record.get('schema_version') ==
+            'recommendation-historical-debt-exclusions-v1' and
+            record.get('race_date_jst') == date and
+            record.get('mode') == 'CI_ONLY_HISTORICAL_DEBT_ACCEPTANCE' and
+            record.get('count_expected') == 4 and
+            record.get('formal_kpi_eligibility') == 'INELIGIBLE' and
+            record.get('official_day_scope') == 'UNREGISTERED',
+            '既存の正式推奨不足を認証済みとして扱うことは禁止')
+    items = record.get('items')
+    require(isinstance(items, list) and len(items) == 4 and
+            {item.get('code') for item in items} ==
+            set(HISTORICAL_RECOMMENDATION_DEBTS),
+            '既知の推奨不足は4項目のみ')
+    known_races = {row['race_id']: row for row in day_index['races']}
+    for entry in items:
+        code = entry['code']
+        rid, state, source_path, source_hash, error = HISTORICAL_RECOMMENDATION_DEBTS[code]
+        require(entry.get('race_id') == rid and
+                entry.get('recommendation_state') == state and
+                entry.get('source_path') == source_path and
+                entry.get('source_sha256') == source_hash and
+                entry.get('expected_error') == error and
+                isinstance(entry.get('note'), str) and bool(entry['note']),
+                '推奨不足の出所または指摘内容を変更してはいけない: ' + code)
+        require(known_races[rid]['recommendation']['status'] == state,
+                '推奨の未完了状態を正式認証へ昇格できない: ' + code)
+        actual = hashlib.sha256(evidence_file(root, source_path).read_bytes()).hexdigest()
+        require(actual == source_hash, '推奨不足の原本SHA-256不一致: ' + code)
+    require(all(known_races[r]['recommendation']['status'] !=
+                'PRE_RACE_RECOMMENDATION_NOT_CERTIFIED'
+                for r in ('2026-10-17-KYOTO-08',
+                          '2026-10-17-TOKYO-09',
+                          '2026-10-17-NIIGATA-11')),
+            '未封印推奨を事後に正式ゲートへ接続してはならない')
+    require(not (root / 'docs/validation/recommendation-gates/2026-10-17/'
+                 '2026-10-17-KYOTO-08.json').exists() and
+            not (root / 'docs/validation/recommendation-gates/2026-10-17/'
+                 '2026-10-17-NIIGATA-11.json').exists(),
+            '存在しなかった過去の独立推奨ゲートを後付けしてはならない')
+    return len(items)
+
+
 def check(root, manifest):
     root = Path(root).resolve()
     doc = load(evidence_file(root, manifest))
@@ -215,6 +294,7 @@ def check(root, manifest):
             '未封印判断のレースが重複')
     for item in decisions:
         verify_unsealed_decision(root, item, indexed[item['race_id']])
+    historical_debt_count = verify_historical_recommendation_debts(root, date, doc)
     return {
         'schema_version': 'cycle04-unfinished-day-audit-v1',
         'race_date_jst': date,
@@ -223,6 +303,7 @@ def check(root, manifest):
         'recommendation_states': recommendation_counts,
         'official_ledger_created': False,
         'formal_kpi_certified': False,
+        'historical_recommendation_debts_unresolved': historical_debt_count,
         'suitable_for': '参照資料として回顧準備と不足管理のみ。正式集計の代替不可',
     }
 
