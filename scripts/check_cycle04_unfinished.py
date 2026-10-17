@@ -121,6 +121,29 @@ def check(root, manifest):
                         race + ': 非JSON推奨を正式原本へ接続しない')
         else:
             require('path' not in rec, race + ': 未作成推奨の参照は禁止')
+    # The two unsealed decisions are review references, never formal v1
+    # recommendations. Verify their original sources and classifications.
+    unsealed_path = f'docs/validation/reconciliations/{date}-unsealed-recommendations.json'
+    require(doc.get('unsealed_decision_path') == unsealed_path,
+            '未封印判断ファイルの参照先が未登録')
+    unsealed = load(evidence_file(root, unsealed_path))
+    decisions = unsealed.get('decisions')
+    expected_unsealed = {
+        row['race_id']: row['recommendation']['path'] for row in races
+        if row['recommendation']['status'].startswith('UNSEALED_')
+    }
+    require(unsealed.get('schema_version') == 'cycle04-unsealed-recommendation-reference-v1' and
+            unsealed.get('race_date_jst') == date and
+            unsealed.get('formal_forward_eligibility') == 'INELIGIBLE' and
+            isinstance(decisions, list) and len(decisions) == len(expected_unsealed) and
+            {item.get('race_id'): item.get('source_path') for item in decisions} == expected_unsealed,
+            '未封印判断と全日索引の参照対応が不一致')
+    for item in decisions:
+        require(item.get('selected_for_valuation') is False and
+                item.get('status', '').startswith('UNSEALED_') and
+                isinstance(item.get('unmet'), list) and item['unmet'],
+                '未封印判断を正式推奨へ昇格してはならない')
+        evidence_file(root, item.get('source_path'))
     return {
         'schema_version': 'cycle04-unfinished-day-audit-v1',
         'race_date_jst': date,
