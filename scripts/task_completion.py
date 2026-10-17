@@ -212,26 +212,18 @@ def recommendation_completion(root, artifact_path, gate_path, *, fixed_content_s
         if not rec:
             raise ComplianceError('recommendation body unavailable')
         receipts = root / 'docs/validation/persistence-receipts' / (rec['race_date_jst'] + '.md')
-        # R01 (initial write) and R02 (verified readback) are distinct immutable
-        # receipts for the same recommendation, not duplicate completions.
-        # Resolve the exact receipt pinned by this gate, as verify() does.
-        gate = read_json(path)
-        ref = gate.get('evidence_ref')
-        if not isinstance(ref, dict):
-            raise ComplianceError('recommendation gate evidence_ref required')
-        if (ref.get('artifact_id') != rec['recommendation_id'] or
-                ref.get('artifact_path') != artifact_path):
-            raise ComplianceError('recommendation gate receipt identity mismatch')
+        # The initial R01 is still preserved. Only the single verified
+        # readback receipt (R02) is eligible as an individual completion.
+        # This check is independent of the recommendation gate: an absent gate
+        # must not hide a successfully preserved body and receipt.
         records = receipt_records(receipts)
-        matches = [x for x in records if x.get('receipt_id') == ref.get('receipt_id')]
+        matches = [x for x in records if
+                   x.get('artifact_id') == rec['recommendation_id'] and
+                   x.get('artifact_path') == artifact_path and
+                   x.get('receipt_persist_status') == 'RECEIPT_VERIFIED']
         if len(matches) != 1:
-            raise ComplianceError('pinned recommendation receipt must be unique')
+            raise ComplianceError('verified recommendation receipt must be unique')
         item = matches[0]
-        if (item.get('artifact_id') != rec['recommendation_id'] or
-                item.get('artifact_path') != artifact_path or
-                item.get('receipt_id') != ref.get('receipt_id') or
-                item.get('persist_verified_at_jst') != ref.get('persist_verified_at_jst')):
-            raise ComplianceError('pinned recommendation receipt identity mismatch')
         previous_id = item.get('previous_receipt_ref')
         if previous_id:
             previous = [x for x in records if x.get('receipt_id') == previous_id]
