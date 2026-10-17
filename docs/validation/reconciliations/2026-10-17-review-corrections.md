@@ -38,3 +38,12 @@
 3. 次開催日は、`cycle04_workflow.py --register-scope`で発走前に公式scopeを登録し、初回全頭予想と選定/推奨の独立intent・FIX・receiptを共通日次証跡に残してから最終化する。実際に揃った日のみ通常の結果・回顧へ接続する。
 
 このPRを**Draftのまま**維持し、未実施のCLI検査やCIを「通過」と表示しない。
+
+## 追加レビュー：京都10Rの参考候補と転記照合（P2×2）
+
+- 京都10R「清滝特別」の発走前チャット参考購入候補は、既存の発走後保全文`docs/validation/preservation/2026-10-17-kyoto-10-final-late.md`に記された **ワイド6－7・1点**。全36R日次索引の推奨状態を`NOT_PERSISTED`から`UNSEALED_LATE_PRESERVATION_CANDIDATE`へ変更し、未封印判断索引にも登録した。**発走前の正式推奨原本・FIX・receipt・gateは新規生成しない**。
+- 未封印判断の京都8R・京都10R・新潟11Rの各レコードには、出所ファイルの元の全バイトのSHA-256を保持し、監査`scripts/check_cycle04_unfinished.py`で本文の一致を確認する。
+- 京都8Rは保全本文の`ワイド 3 アンムート－6 カレンハウ、1点`、京都10Rは`チャットでの参考購入候補: ワイド 6－7、1点`を、各々指定の原文行から一意に抽出する。JSONへの転記値（券種・馬番の順序・点数）と完全一致しない場合は監査を不合格にする。
+- 新潟11Rの`NO_RECOMMENDATION`も原本JSONの`candidates_for_study`、`reason`、`status`、`official_recommendation: false`を照合して、**研究候補を正式買い目として取り扱わない**。
+- テスト`scripts/test_cycle04_unfinished.py`に京都8R 3－6→1－2改変、京都10R 6－7→1－2改変、京都10R券種・点数改変、保全本文改変、未封印リンク欠落、新潟11R候補改変、京都10R正常参照を追加。
+- 以上は**事後の回顧用索引と読取専用監査の修正**。正式日次台帳や過去の前向きKPI認証への昇格は行わない。
