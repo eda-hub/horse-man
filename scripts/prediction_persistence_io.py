@@ -91,6 +91,20 @@ def _same_race(candidate, expected, date):
         return False
 
 
+def resolve_official_race_key(root, date, race_id):
+    """同一レースの登録済み公式scopeキーを選ぶ。未登録なら創作しない。"""
+    from cycle04_schedule_change import registered_row
+    venue, number = _race_parts(race_id, date)
+    compact = {"TOKYO": "TOK", "KYOTO": "KYO", "NIIGATA": "NII"}[venue]
+    options = dict.fromkeys((race_id, f"{date}-{venue}-{number}",
+                             f"{date.replace('-', '')}-{compact}-{number}"))
+    registered = [candidate for candidate in options
+                  if registered_row(Path(root), candidate, date) is not None]
+    if len(registered) > 1:
+        raise ValueError("multiple official scope IDs describe the same race")
+    return registered[0] if registered else race_id
+
+
 def _matching_race_hints(value, venue, number):
     for match in RACE_HINT_RE.finditer(value):
         if VENUE_CODE[match[1].upper()] != venue or match[2] != number:
@@ -831,7 +845,9 @@ def main(argv=None):
         # 初期化時のbranch確認403/通信障害も後段の例外処理で構造化保全。
         transport = GitHubContentsTransport(payload.repository, payload.branch, token)
         result = persist_fixed(payload, transport,
-                               lambda stage: observed_assessment(args.root,args.date,args.race_id),
+                               lambda stage: observed_assessment(
+                                   args.root, args.date,
+                                   resolve_official_race_key(args.root, args.date, args.race_id)),
                                operation_id=args.operation_id, race_id=args.race_id,
                                append_receipt=args.append_receipt)
         print(json.dumps(result.as_dict(), ensure_ascii=False, indent=2))
