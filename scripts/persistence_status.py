@@ -103,16 +103,34 @@ def describe_operation(target, operation, *, individual_verified=None):
     write_state = data['write_state']
     readback = data['readback_state']
     failure = data.get('failure_category')
-    # 既存bytesを読んだだけでは今回の発走前保存証明とはならない。
+    # 同一bytesの確認はremote上の実在証拠。今回のPUT成功と混同せず保持する。
+    # 証拠の読戻し時刻が現在発走前でも、過去のFIX時刻・receipt順序は未認証。
+    if write_state == 'ALREADY_PRESENT' and readback == 'MATCH':
+        state = data.get('timing_state')
+        return {
+            'status_code': 'EXISTING_BODY_VERIFIED', 'complete': False,
+            'target': target,
+            'message': 'GitHub上の同一原本をcommit固定で読戻し確認済みです。今回の書込みは不要です。',
+            'cause': '指定した固定bytesが既に保存されています。書込み失敗ではありません。',
+            'impact': '原本の存在・同一性は確認済みですが、当時の発走前保存と正式完了は未認証です。',
+            'next_check': '既存commitの保存時刻、正式宣言・FIX・receiptの読戻しと個別完了を独立照合してください。',
+            'failure_category': None, 'timing_status': state,
+            'remote_body_verified': True, 'forward_eligible': False,
+            'checks': {'書込': '不要（既存原本確認）', '読戻し一致': '成功',
+                       '個別完了確認': '成功（別途提示）' if individual_verified is True
+                       else '失敗' if individual_verified is False else '未実施'}}
     confirmed = write_state == 'WRITTEN' and readback == 'MATCH'
     attempted = write_state != 'NOT_ATTEMPTED' or failure is not None
-    return describe_persistence(
+    report = describe_persistence(
         target, write_attempted=attempted,
-        write_succeeded=confirmed if attempted else None,
-        readback_matches=readback == 'MATCH' if confirmed else None,
-        verification_succeeded=individual_verified if confirmed and readback == 'MATCH' else None,
-        failure_category=failure if not confirmed else None,
+        write_succeeded=write_state == 'WRITTEN' if attempted else None,
+        readback_matches=readback == 'MATCH' if write_state == 'WRITTEN' else None,
+        verification_succeeded=individual_verified if confirmed else None,
+        failure_category=failure if write_state != 'WRITTEN' else None,
         timing_status=data.get('timing_state'))
+    report['remote_body_verified'] = confirmed
+    report['forward_eligible'] = False  # 発走前のreceipt/順序をこのI/Oだけで認証しない
+    return report
 
 
 def render_persistence(report):
