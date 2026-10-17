@@ -56,9 +56,11 @@ def allowed_target(repository, branch, path):
         raise ValueError("path outside approved prediction evidence scope")
 
 
-RACE_ID_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-(TOKYO|KYOTO|NIIGATA)-(0[1-9]|1[0-2])$")
-RACE_HINT_RE = re.compile(r"(?<![A-Za-z0-9])(?:\d{8}|\d{4}-\d{2}-\d{2})[-_](TOKYO|KYOTO|NIIGATA)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
-LOCAL_RACE_RE = re.compile(r"(?<![a-z0-9])(tokyo|kyoto|niigata)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
+RACE_ID_RE = re.compile(r"^(?:(\\d{4}-\\d{2}-\\d{2})-(TOKYO|KYOTO|NIIGATA)|(\\d{8})-(TOK|KYO|NII))-(0[1-9]|1[0-2])$")
+RACE_HINT_RE = re.compile(r"(?<![A-Za-z0-9])(?:\\d{8}|\\d{4}-\\d{2}-\\d{2})[-_](TOKYO|KYOTO|NIIGATA|TOK|KYO|NII)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
+LOCAL_RACE_RE = re.compile(r"(?<![a-z0-9])(tokyo|kyoto|niigata|tok|kyo|nii)[-_](0[1-9]|1[0-2])(?=[-_.]|$)", re.I)
+VENUE_CODE = {"TOKYO": "TOKYO", "TOK": "TOKYO", "KYOTO": "KYOTO",
+              "KYO": "KYOTO", "NIIGATA": "NIIGATA", "NII": "NIIGATA"}
 DATE_DIRS = {"snapshots", "fix-manifests", "persistence-intents",
              "recommendations", "recommendation-intents", "recommendation-gates",
              "recommendation-prediction-gates", "persistence-incidents", "reviews"}
@@ -66,9 +68,36 @@ DATE_DIRS = {"snapshots", "fix-manifests", "persistence-intents",
 
 def _race_parts(race_id, date):
     match = RACE_ID_RE.fullmatch(race_id or "")
-    if match is None or match.group(1) != date:
+    if match is None:
         raise ValueError("race ID/date mismatch or unsupported race identity")
-    return match.group(2), match.group(3)
+    found_date = match[1] or (match[3][:4] + "-" + match[3][4:6] + "-" + match[3][6:])
+    if found_date != date:
+        raise ValueError("race ID/date mismatch or unsupported race identity")
+    return VENUE_CODE[match[2] or match[4]], match[5]
+
+
+def _race_is_valid(value, date):
+    try:
+        _race_parts(value, date)
+        return True
+    except (ValueError, TypeError):
+        return False
+
+
+def _same_race(candidate, expected, date):
+    try:
+        return _race_parts(candidate, date) == _race_parts(expected, date)
+    except (ValueError, TypeError):
+        return False
+
+
+def _matching_race_hints(value, venue, number):
+    for match in RACE_HINT_RE.finditer(value):
+        if VENUE_CODE[match[1].upper()] != venue or match[2] != number:
+            raise ValueError("payload/path race reference mismatch")
+    for match in LOCAL_RACE_RE.finditer(value):
+        if VENUE_CODE[match[1].upper()] != venue or match[2] != number:
+            raise ValueError("payload/path race reference mismatch")
 
 
 def _target_parts(payload, race_id):
@@ -95,12 +124,7 @@ def _target_parts(payload, race_id):
         if filename != date + ".md" and not filename.startswith(date + "-"):
             raise ValueError("receipt basename outside race date")
     for text in (payload.path, filename):
-        for found in RACE_HINT_RE.finditer(text):
-            if found.group(1).upper() != venue or found.group(2) != number:
-                raise ValueError("target path race differs from requested race")
-    for found in LOCAL_RACE_RE.finditer(filename):
-        if found.group(1).upper() != venue or found.group(2) != number:
-            raise ValueError("target filename race differs from requested race")
+        _matching_race_hints(text, venue, number)
     if category in {"snapshots", "fix-manifests", "recommendations",
                     "recommendation-gates", "recommendation-prediction-gates"}:
         if not RACE_HINT_RE.search(filename):
@@ -193,7 +217,7 @@ def verify_payload_binding(payload, race_id):
             raise ValueError("recommendation ID differs from target filename")
         if category == "recommendation-gates" and not payload.path.startswith(
                 "docs/validation/recommendation-gates/history/"):
-            if basename != race_id:
+            if not _same_race(basename, race_id, date):
                 raise ValueError("recommendation gate target race mismatch")
         if category == "recommendation-intents":
             ref = item.get("artifact_path")
@@ -204,14 +228,13 @@ def verify_payload_binding(payload, race_id):
                 raise ValueError("prediction intent snapshot ID/artifact path mismatch")
         for key, value in _identity_values(item):
             if key == "race_id":
-                if value != race_id:
+                if not _same_race(value, race_id, date):
                     raise ValueError("payload race ID differs from requested race")
                 has_race = True
             elif key == "required_race_ids":
-                if not isinstance(value, list) or race_id not in value or not all(
-                        RACE_ID_RE.fullmatch(v) and v[:10] == date
-                        for v in value if isinstance(v, str)) or any(
-                        not isinstance(v, str) for v in value):
+                if not isinstance(value, list) or not any(
+                        _same_race(v, race_id, date) for v in value) or not all(
+                        _race_is_valid(v, date) for v in value):
                     raise ValueError("prediction intent race scope mismatch")
                 has_race = True
             elif key == "race_date_jst" and value != date:
@@ -236,12 +259,7 @@ def verify_payload_binding(payload, race_id):
                     for token in value.split("/"):
                         if re.fullmatch(r"\d{4}-\d{2}-\d{2}", token) and token != date:
                             raise ValueError("referenced evidence date mismatch")
-                for match in RACE_HINT_RE.finditer(value):
-                    if match.group(1).upper() != venue or match.group(2) != number:
-                        raise ValueError("payload reference race mismatch")
-                for match in LOCAL_RACE_RE.finditer(value):
-                    if match.group(1).upper() != venue or match.group(2) != number:
-                        raise ValueError("payload reference race mismatch")
+                _matching_race_hints(value, venue, number)
     if not has_race and category not in {"fix-manifests"}:
         raise ValueError("payload race identity required")
     # FIXではsnapshot_idとartifact_pathでレースを証明する。
@@ -267,7 +285,8 @@ def verify_payload_binding(payload, race_id):
 def verify_clock_binding(gate, identity):
     """公式chainの判定を要求race/date/postと原本に照合。外れた時計は常に未判定。"""
     from prediction_clock import aware
-    if not isinstance(gate, dict) or gate.get("race_id") != identity["race_id"] or (
+    if not isinstance(gate, dict) or not _same_race(
+            gate.get("race_id"), identity["race_id"], identity["race_date"]) or (
             gate.get("race_date") != identity["race_date"]) or (
             gate.get("official_source") != "cycle04_official_schedule_chain"):
         return {"status": "UNDETERMINED", "reason": "clock race/date/source mismatch"}
