@@ -264,3 +264,135 @@ def save_incident_local(path, record):
     destination.write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n",
                            encoding="utf-8")
     return destination
+
+
+class GitHubContentsTransport:
+    """許可された既存日次branchでのみGitHub Contents APIを使用する。
+
+    接続済みChatGPT GitHubツールとは別の実行アダプター。トークンは環境変数から
+    利用側が明示的に受け渡す。資格情報・権限・branchを作成しない。
+    """
+    def __init__(self, repository, branch, token):
+        import urllib.parse
+        if not token or repository != "eda-hub/horse-man":
+            raise ValueError("explicit token and approved repository required")
+        if not re.fullmatch(r"prediction/\\d{4}-\\d{2}-\\d{2}", branch):
+            raise ValueError("only prediction date branch may be written")
+        self.repository = repository
+        self.branch = branch
+        self._token = token
+        self._base = "https://api.github.com/repos/" + urllib.parse.quote(repository, safe="/")
+        # 存在しないbranchをmainから自動生成しない。
+        self._call("GET", "/branches/" + urllib.parse.quote(branch, safe=""))
+
+    def _call(self, method, suffix, body=None):
+        import urllib.error
+        import urllib.request
+        url = self._base + suffix
+        payload = json.dumps(body, ensure_ascii=False).encode("utf-8") if body is not None else None
+        req = urllib.request.Request(url, data=payload, method=method, headers={
+            "Accept": "application/vnd.github+json",
+            "Authorization": "Bearer " + self._token,
+            "X-GitHub-Api-Version": "2022-11-28",
+            "User-Agent": "horse-man-persistence-v1",
+            "Content-Type": "application/json",
+        })
+        try:
+            with urllib.request.urlopen(req, timeout=15) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            request_id = exc.headers.get("x-github-request-id") if exc.headers else None
+            body = exc.read(3000).decode("utf-8", errors="replace")
+            message = sanitized(body)
+            if exc.code == 404 and method == "GET" and "/contents/" in suffix:
+                raise FileNotFoundError("GitHub path not found") from exc
+            raise PersistenceError(message, kind="branch_policy" if "protected branch" in body.lower() else None,
+                                   http_status=exc.code, api_reached=True,
+                                   request_id=request_id, tool="github_contents_rest") from exc
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            raise PersistenceError("network failure: " + sanitized(exc),
+                                   kind="transport", api_reached=None,
+                                   tool="github_contents_rest") from exc
+
+    def read(self, branch, path, ref=None):
+        import base64
+        import urllib.parse
+        if branch != self.branch:
+            raise ValueError("read branch mismatch")
+        allowed_target(self.repository, branch, path)
+        target_ref = ref or branch
+        endpoint = ("/contents/" + urllib.parse.quote(path, safe="/") +
+                    "?ref=" + urllib.parse.quote(target_ref, safe=""))
+        result = self._call("GET", endpoint)
+        if result.get("type") != "file" or result.get("encoding") != "base64":
+            raise PersistenceError("GitHub content is not base64 file", kind="unknown", api_reached=True)
+        raw = base64.b64decode(result["content"], validate=False)
+        # commit固定refの読み戻しはGitHubが解決した同一refのファイル。
+        # branch HEADの現存確認はref固定とは独立している。
+        return {"branch": branch, "path": path, "content": raw,
+                "blob_sha": result.get("sha"),
+                "commit_sha": ref or self._branch_head()}
+
+    def _branch_head(self):
+        import urllib.parse
+        b = self._call("GET", "/branches/" + urllib.parse.quote(self.branch, safe=""))
+        return b["commit"]["sha"]
+
+    def write(self, branch, path, content, expected_blob_sha):
+        import base64
+        import urllib.parse
+        if branch != self.branch:
+            raise ValueError("write branch mismatch")
+        allowed_target(self.repository, branch, path)
+        data = {"message": "固定原本を保存し読戻し照合する",
+                "branch": branch, "content": base64.b64encode(content).decode("ascii")}
+        if expected_blob_sha is not None:
+            data["sha"] = expected_blob_sha
+        response = self._call("PUT", "/contents/" + urllib.parse.quote(path, safe="/"), data)
+        return {"branch": branch, "path": path,
+                "commit_sha": response.get("commit", {}).get("sha")}
+
+
+def main(argv=None):
+    import argparse
+    import os
+    from prediction_clock import observed_assessment
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--date", required=True)
+    parser.add_argument("--race-id", required=True)
+    parser.add_argument("--path", required=True, help="repository relative path")
+    parser.add_argument("--payload-file", type=Path, required=True, help="fixed local bytes")
+    parser.add_argument("--operation-id", required=True)
+    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument("--token-env", default="GITHUB_TOKEN")
+    parser.add_argument("--allow-update", action="store_true", help="explicit exact-SHA update approval")
+    parser.add_argument("--write", action="store_true", help="required for GitHub persistence")
+    parser.add_argument("--local-incident", type=Path, help="write only sanitized incident metadata")
+    args = parser.parse_args(argv)
+    branch = "prediction/" + args.date
+    try:
+        payload = FixedPayload("eda-hub/horse-man", branch, args.path,
+                               args.payload_file.read_bytes())
+        if not args.write:
+            raise ValueError("remote write requires explicit --write")
+        token = os.environ.get(args.token_env)
+        if not token:
+            raise ValueError("GitHub token unavailable; no remote write attempted")
+        transport = GitHubContentsTransport(payload.repository, payload.branch, token)
+        result = persist_fixed(payload, transport,
+                               lambda stage: observed_assessment(args.root,args.date,args.race_id),
+                               operation_id=args.operation_id, allow_update=args.allow_update)
+        print(json.dumps(result.as_dict(), ensure_ascii=False, indent=2))
+        if result.readback_state != "MATCH" or result.timing_state != "PRE_SCHEDULED":
+            if args.local_incident:
+                save_incident_local(args.local_incident, incident_record(payload, result))
+            return 1
+        print("固定原本のGitHub commit読戻し一致。receiptと独立個別完了は別途必要。")
+        return 0
+    except (ValueError, OSError, PersistenceError, KeyError, TypeError) as exc:
+        print("保存未完了：" + sanitized(exc))
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
