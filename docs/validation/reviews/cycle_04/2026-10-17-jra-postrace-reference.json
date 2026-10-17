@@ -1,0 +1,547 @@
+{
+  "schema_version": "cycle04-postrace-sourced-results-v1",
+  "race_date_jst": "2026-10-17",
+  "created_at_jst": "2026-10-17T18:44:36.776+09:00",
+  "purpose": "発走前・遅延保全の既存PredictionとJRA公式結果を照合するための事後参照原本。正式日別台帳・独立推奨KPI・市場ROIではない。",
+  "scope": {
+    "morning_declared_race_count": 36,
+    "reviewed_predicted_race_count": 6,
+    "no_reviewable_final_prediction_race_count": 30,
+    "official_cycle04_day_ledger_status": "NOT_REGISTERED",
+    "formal_forward_prediction_kpi": "INELIGIBLE",
+    "formal_forward_recommendation_kpi": "INELIGIBLE"
+  },
+  "metric_definitions": {
+    "brier_per_horse": "当該レース全出走馬について、着内該当y∈{0,1}と当時予想確率pの二乗差を頭数で平均",
+    "uniform_baseline": "対象K着内の一律確率K/頭数による同尺度比較",
+    "evaluation": "あくまで参考・研究用。発走前保存認証欠落を上書きしない。"
+  },
+  "races": [
+    {
+      "race_id": "2026-10-17-KYOTO-08",
+      "race_name": "もみじステークス",
+      "scheduled_post_time_jst": "2026-10-17T13:45:00+09:00",
+      "conditions": {
+        "venue": "京都",
+        "surface": "芝",
+        "distance_m": 1400,
+        "going": "良",
+        "weather": "晴"
+      },
+      "source": {
+        "provider": "JRA",
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604060820261017%2F5D",
+        "source_status": "OFFICIAL_RESULT_OBSERVED"
+      },
+      "result": {
+        "winner_time": "1:20.5",
+        "finishing_order_horse_numbers": [
+          7,
+          3,
+          6,
+          1,
+          2,
+          5,
+          4
+        ],
+        "top3_horses": [
+          "ロンドンガーズ",
+          "アンムート",
+          "カレンハウ"
+        ],
+        "starters": 7
+      },
+      "prediction_evidence": {
+        "path": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-08-FINAL-S01.json",
+        "github_blob_sha": "2a913b5aa5c200329ee8a958b68e8c8c377af288",
+        "status": "PRE_RACE_PREDICTION_BODY_READBACK_BUT_NOT_CYCLE04_ELIGIBLE",
+        "confidence": "C",
+        "ranking": [
+          3,
+          6,
+          7,
+          1,
+          2,
+          5,
+          4
+        ],
+        "honmei_number": 3,
+        "top3_probability_for_winner": 0.69,
+        "win_probability_for_winner": 0.23,
+        "winner_predicted_rank": 3,
+        "honmei_actual_rank": 2,
+        "predicted_top3_actual_top3_count": 3
+      },
+      "recommendation_reference": {
+        "type": "WIDE",
+        "numbers": [
+          3,
+          6
+        ],
+        "status": "UNSEALED_PRE_RACE_CANDIDATE",
+        "payout_per_100_yen": 210,
+        "hit": true
+      },
+      "research_scores": {
+        "brier_per_horse": {
+          "win_probability": 0.1076,
+          "top2_probability": 0.10474286,
+          "top3_probability": 0.07891429
+        },
+        "calibration_status": "UNVALIDATED",
+        "formal_kpi_eligible": false
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-09",
+      "race_name": "アイビーステークス",
+      "scheduled_post_time_jst": "2026-10-17T14:25:00+09:00",
+      "conditions": {
+        "venue": "東京",
+        "surface": "芝",
+        "distance_m": 1800,
+        "going": "良",
+        "weather": "晴"
+      },
+      "source": {
+        "provider": "JRA",
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604060920261017%2F34",
+        "source_status": "OFFICIAL_RESULT_OBSERVED"
+      },
+      "result": {
+        "winner_time": "1:47.7",
+        "finishing_order_horse_numbers": [
+          7,
+          12,
+          5,
+          6,
+          4,
+          11,
+          2,
+          1,
+          3,
+          10,
+          8,
+          9
+        ],
+        "top3_horses": [
+          "キャピタルストーン",
+          "コラリオン",
+          "コスモイェーガー"
+        ],
+        "starters": 12
+      },
+      "prediction_evidence": {
+        "path": "docs/validation/preservation/2026-10-17-tokyo-09-final-late.md",
+        "github_blob_sha": "124997f769df0e4574fd22f5e4fa27194e8db480",
+        "status": "AFTER_POST_CHAT_PRESERVATION_ONLY",
+        "confidence": "C",
+        "ranking": [
+          1,
+          12,
+          11,
+          3,
+          4,
+          2,
+          5,
+          7,
+          9,
+          10,
+          8,
+          6
+        ],
+        "honmei_number": 1,
+        "top3_probability_for_winner": 0.12,
+        "win_probability_for_winner": 0.04,
+        "winner_predicted_rank": 8,
+        "honmei_actual_rank": 8,
+        "predicted_top3_actual_top3_count": 1
+      },
+      "recommendation_reference": {
+        "status": "NO_FORMAL_RECOMMENDATION"
+      },
+      "research_scores": {
+        "brier_per_horse": {
+          "win_probability": 0.08866667,
+          "top2_probability": 0.14308333,
+          "top3_probability": 0.21996667
+        },
+        "calibration_status": "UNVALIDATED",
+        "formal_kpi_eligible": false
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-10",
+      "race_name": "清滝特別",
+      "scheduled_post_time_jst": "2026-10-17T14:50:00+09:00",
+      "conditions": {
+        "venue": "京都",
+        "surface": "芝",
+        "distance_m": 2200,
+        "going": "良",
+        "weather": "晴"
+      },
+      "source": {
+        "provider": "JRA",
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604061020261017%2F07",
+        "source_status": "OFFICIAL_RESULT_OBSERVED"
+      },
+      "result": {
+        "winner_time": "2:10.6",
+        "finishing_order_horse_numbers": [
+          6,
+          2,
+          7,
+          5,
+          1,
+          9,
+          8,
+          3,
+          4
+        ],
+        "top3_horses": [
+          "チェルヴァーラ",
+          "エイシンビーコン",
+          "トリニティ"
+        ],
+        "starters": 9
+      },
+      "prediction_evidence": {
+        "path": "docs/validation/preservation/2026-10-17-kyoto-10-final-late.md",
+        "github_blob_sha": "986abb9753cfcbdbed81d4eeff3f615b459b9726",
+        "status": "AFTER_POST_CHAT_PRESERVATION_ONLY",
+        "confidence": "C",
+        "ranking": [
+          7,
+          6,
+          3,
+          2,
+          9,
+          8,
+          5,
+          1,
+          4
+        ],
+        "honmei_number": 7,
+        "top3_probability_for_winner": 0.75,
+        "win_probability_for_winner": 0.27,
+        "winner_predicted_rank": 2,
+        "honmei_actual_rank": 3,
+        "predicted_top3_actual_top3_count": 2
+      },
+      "recommendation_reference": {
+        "type": "WIDE",
+        "numbers": [
+          6,
+          7
+        ],
+        "status": "UNSEALED_LATE_PRESERVATION_CANDIDATE",
+        "payout_per_100_yen": 140,
+        "hit": true
+      },
+      "research_scores": {
+        "brier_per_horse": {
+          "win_probability": 0.0746,
+          "top2_probability": 0.15633333,
+          "top3_probability": 0.1246
+        },
+        "calibration_status": "UNVALIDATED",
+        "formal_kpi_eligible": false
+      }
+    },
+    {
+      "race_id": "2026-10-17-NIIGATA-11",
+      "race_name": "北陸ステークス",
+      "scheduled_post_time_jst": "2026-10-17T15:15:00+09:00",
+      "conditions": {
+        "venue": "新潟",
+        "surface": "芝",
+        "distance_m": 1200,
+        "going": "良",
+        "weather": "晴"
+      },
+      "source": {
+        "provider": "JRA",
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0104202604011120261017%2F55",
+        "source_status": "OFFICIAL_RESULT_OBSERVED"
+      },
+      "result": {
+        "winner_time": "1:08.2",
+        "finishing_order_horse_numbers": [
+          6,
+          12,
+          15,
+          17,
+          3,
+          10,
+          2,
+          18,
+          1,
+          13,
+          11,
+          16,
+          14,
+          8,
+          4,
+          5,
+          7,
+          9
+        ],
+        "top3_horses": [
+          "ベイビーキッス",
+          "シカゴスティング",
+          "サトノワーグナー"
+        ],
+        "starters": 18
+      },
+      "prediction_evidence": {
+        "path": "docs/validation/snapshots/2026-10-17/20261017-NIIGATA-11-FINAL-S01.json",
+        "github_blob_sha": "22aac36c12a80dff4969179ebaf408bea071ee9d",
+        "status": "PRE_RACE_PREDICTION_BODY_READBACK_BUT_NOT_CYCLE04_ELIGIBLE",
+        "confidence": "D",
+        "ranking": [
+          6,
+          17,
+          8,
+          5,
+          15,
+          13,
+          18,
+          12,
+          3,
+          2,
+          10,
+          14,
+          16,
+          1,
+          9,
+          7,
+          4,
+          11
+        ],
+        "honmei_number": 6,
+        "top3_probability_for_winner": 0.43,
+        "win_probability_for_winner": 0.16,
+        "winner_predicted_rank": 1,
+        "honmei_actual_rank": 1,
+        "predicted_top3_actual_top3_count": 1
+      },
+      "recommendation_reference": {
+        "status": "UNSEALED_NO_RECOMMENDATION",
+        "study_only": {
+          "type": "WIDE",
+          "numbers": [
+            6,
+            17
+          ],
+          "hit": false
+        }
+      },
+      "research_scores": {
+        "brier_per_horse": {
+          "win_probability": 0.04363056,
+          "top2_probability": 0.08923333,
+          "top3_probability": 0.11413611
+        },
+        "calibration_status": "UNVALIDATED",
+        "formal_kpi_eligible": false
+      }
+    },
+    {
+      "race_id": "2026-10-17-KYOTO-11",
+      "race_name": "トルマリンステークス",
+      "scheduled_post_time_jst": "2026-10-17T15:30:00+09:00",
+      "conditions": {
+        "venue": "京都",
+        "surface": "ダート",
+        "distance_m": 1800,
+        "going": "良",
+        "weather": "晴"
+      },
+      "source": {
+        "provider": "JRA",
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604061120261017%2FBC",
+        "source_status": "OFFICIAL_RESULT_OBSERVED"
+      },
+      "result": {
+        "winner_time": "1:49.9",
+        "finishing_order_horse_numbers": [
+          10,
+          5,
+          9,
+          6,
+          15,
+          3,
+          12,
+          1,
+          8,
+          14,
+          11,
+          7,
+          4,
+          13,
+          2
+        ],
+        "top3_horses": [
+          "マジックローズ",
+          "ジューンエオス",
+          "エアトベーレ"
+        ],
+        "starters": 15
+      },
+      "prediction_evidence": {
+        "path": "docs/validation/snapshots/2026-10-17/20261017-KYOTO-11-FINAL-S01.json",
+        "github_blob_sha": "74bf08776b85ca14373318f04837db5ab82c0691",
+        "status": "PRE_RACE_PREDICTION_BODY_READBACK_BUT_NOT_CYCLE04_ELIGIBLE",
+        "confidence": "C",
+        "ranking": [
+          6,
+          5,
+          14,
+          9,
+          10,
+          12,
+          7,
+          11,
+          1,
+          8,
+          13,
+          2,
+          15,
+          3,
+          4
+        ],
+        "honmei_number": 6,
+        "top3_probability_for_winner": 0.31,
+        "win_probability_for_winner": 0.1,
+        "winner_predicted_rank": 5,
+        "honmei_actual_rank": 4,
+        "predicted_top3_actual_top3_count": 1
+      },
+      "recommendation_reference": {
+        "type": "WIDE",
+        "numbers": [
+          5,
+          6
+        ],
+        "status": "PRE_RACE_PERSISTED_NOT_FORMALLY_CERTIFIED",
+        "hit": false
+      },
+      "research_scores": {
+        "brier_per_horse": {
+          "win_probability": 0.06243947,
+          "top2_probability": 0.09323867,
+          "top3_probability": 0.11949667
+        },
+        "calibration_status": "UNVALIDATED",
+        "formal_kpi_eligible": false
+      }
+    },
+    {
+      "race_id": "2026-10-17-TOKYO-11",
+      "race_name": "富士ステークス",
+      "scheduled_post_time_jst": "2026-10-17T15:45:00+09:00",
+      "conditions": {
+        "venue": "東京",
+        "surface": "芝",
+        "distance_m": 1600,
+        "going": "良",
+        "weather": "晴"
+      },
+      "source": {
+        "provider": "JRA",
+        "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0105202604061120261017%2FDE",
+        "source_status": "OFFICIAL_RESULT_OBSERVED"
+      },
+      "result": {
+        "winner_time": "1:32.2",
+        "finishing_order_horse_numbers": [
+          13,
+          10,
+          14,
+          8,
+          6,
+          5,
+          7,
+          11,
+          9,
+          1,
+          2,
+          4,
+          3,
+          12
+        ],
+        "top3_horses": [
+          "シュガークン",
+          "アンパドゥ",
+          "エコロアルバ"
+        ],
+        "starters": 14
+      },
+      "prediction_evidence": {
+        "path": "docs/validation/snapshots/2026-10-17/20261017-TOKYO-11-FINAL-S01.json",
+        "github_blob_sha": "7362e8b5f6e96a2aedad348119ce6e9e7f0c09f0",
+        "status": "PRE_RACE_PREDICTION_BODY_READBACK_BUT_NOT_CYCLE04_ELIGIBLE",
+        "confidence": "B",
+        "ranking": [
+          4,
+          10,
+          5,
+          14,
+          1,
+          7,
+          8,
+          9,
+          11,
+          6,
+          12,
+          2,
+          13,
+          3
+        ],
+        "honmei_number": 4,
+        "top3_probability_for_winner": 0.01,
+        "win_probability_for_winner": 0.005,
+        "winner_predicted_rank": 13,
+        "honmei_actual_rank": 12,
+        "predicted_top3_actual_top3_count": 1
+      },
+      "recommendation_reference": {
+        "type": "WIDE",
+        "numbers": [
+          4,
+          10
+        ],
+        "status": "PRE_RACE_PERSISTED_NOT_FORMALLY_CERTIFIED",
+        "hit": false
+      },
+      "research_scores": {
+        "brier_per_horse": {
+          "win_probability": 0.08207857,
+          "top2_probability": 0.12328214,
+          "top3_probability": 0.16192857
+        },
+        "calibration_status": "UNVALIDATED",
+        "formal_kpi_eligible": false
+      }
+    }
+  ],
+  "research_summary": {
+    "races": 6,
+    "starters": 75,
+    "win_outcomes": 1,
+    "top2_honmei": 2,
+    "top3_honmei": 3,
+    "winner_top3_capture": 3,
+    "top3_capture": 9,
+    "considered_reference_tickets": 4,
+    "reference_ticket_hits": 2,
+    "formally_eligible_tickets": 0,
+    "brier_win_probability": 0.071462,
+    "uniform_brier_win_probability": 0.072921,
+    "brier_top2_probability": 0.114506,
+    "uniform_brier_top2_probability": 0.131683,
+    "brier_top3_probability": 0.139031,
+    "uniform_brier_top3_probability": 0.176286
+  }
+}
