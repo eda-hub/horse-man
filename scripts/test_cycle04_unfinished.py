@@ -19,8 +19,11 @@ class UnfinishedDayTest(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         payload = json.loads((self.SOURCE / self.MANIFEST).read_text(encoding='utf-8'))
+        debt_path = payload['recommendation_historical_debt_path']
+        debt = json.loads((self.SOURCE / debt_path).read_text(encoding='utf-8'))
         paths = {self.MANIFEST, payload['source_intent_path'], payload['screening_path'],
-                 payload['unsealed_decision_path']}
+                 payload['unsealed_decision_path'], debt_path}
+        paths.update(item['source_path'] for item in debt['items'])
         for row in payload['races']:
             paths.update(x for x in (
                 row['prediction'].get('path'), row['prediction'].get('fix_path'),
@@ -32,6 +35,7 @@ class UnfinishedDayTest(unittest.TestCase):
             shutil.copy2(self.SOURCE / name, to)
         self.manifest_path = self.root / self.MANIFEST
         self.unsealed_path = self.root / payload['unsealed_decision_path']
+        self.historical_debt_path = self.root / debt_path
 
     def data(self):
         return json.loads(self.manifest_path.read_text(encoding='utf-8'))
@@ -47,6 +51,7 @@ class UnfinishedDayTest(unittest.TestCase):
         self.assertEqual(output['prediction_states']['AFTER_POST_CHAT_PRESERVATION_ONLY'], 2)
         self.assertEqual(output['prediction_states']['NOT_PERSISTED'], 30)
         self.assertFalse(output['formal_kpi_certified'])
+        self.assertEqual(output['historical_recommendation_debts_unresolved'], 4)
 
     def unsealed(self):
         return json.loads(self.unsealed_path.read_text(encoding='utf-8'))
@@ -54,6 +59,62 @@ class UnfinishedDayTest(unittest.TestCase):
     def rewrite_unsealed(self, data):
         self.unsealed_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n',
                                       encoding='utf-8')
+
+    def historical(self):
+        return json.loads(self.historical_debt_path.read_text(encoding='utf-8'))
+
+    def rewrite_historical(self, data):
+        self.historical_debt_path.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+    def test_historical_four_debts_are_still_unresolved(self):
+        data = self.historical()
+        self.assertEqual({x['code'] for x in data['items']}, {
+            'NONCANONICAL_NIIGATA_11',
+            'DECLARED_TOKYO_09_NOT_SAVED',
+            'NIIGATA_11_RECOMMENDATION_GATE_MISSING',
+            'KYOTO_08_RECOMMENDATION_GATE_MISSING',
+        })
+        self.assertEqual(check(self.root, self.MANIFEST)
+                         ['historical_recommendation_debts_unresolved'], 4)
+
+    def test_historical_debt_removed_rejected(self):
+        data = self.historical()
+        data['items'].pop()
+        self.rewrite_historical(data)
+        with self.assertRaisesRegex(UnfinishedIndexError, '既知の推奨不足'):
+            check(self.root, self.MANIFEST)
+
+    def test_historical_debt_source_changed_rejected(self):
+        data = self.historical()
+        item = next(x for x in data['items']
+                    if x['code'] == 'DECLARED_TOKYO_09_NOT_SAVED')
+        source = self.root / item['source_path']
+        source.write_text(source.read_text(encoding='utf-8') + '\n', encoding='utf-8')
+        with self.assertRaisesRegex(UnfinishedIndexError, '原本SHA-256不一致'):
+            check(self.root, self.MANIFEST)
+
+    def test_historical_debt_wrong_hash_rejected(self):
+        data = self.historical()
+        data['items'][0]['source_sha256'] = '0' * 64
+        self.rewrite_historical(data)
+        with self.assertRaisesRegex(UnfinishedIndexError, '出所または指摘内容'):
+            check(self.root, self.MANIFEST)
+
+    def test_historical_debt_cannot_promote_to_certified(self):
+        data = self.historical()
+        data['formal_kpi_eligibility'] = 'ELIGIBLE'
+        self.rewrite_historical(data)
+        with self.assertRaisesRegex(UnfinishedIndexError, '認証済み'):
+            check(self.root, self.MANIFEST)
+
+    def test_historical_missing_gate_cannot_be_fabricated(self):
+        path = self.root / ('docs/validation/recommendation-gates/2026-10-17/'
+                            '2026-10-17-KYOTO-08.json')
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text('{}\n', encoding='utf-8')
+        with self.assertRaisesRegex(UnfinishedIndexError, '後付け'):
+            check(self.root, self.MANIFEST)
 
     def test_kyoto10_carries_late_reference_without_formal_promotion(self):
         index = self.data()
